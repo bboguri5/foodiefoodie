@@ -1,4 +1,4 @@
-package com.project.foodiefoodie.controller;
+package com.project.foodiefoodie.proBoard.controller;
 
 
 import lombok.RequiredArgsConstructor;
@@ -17,6 +17,6 @@ public class PromotionBoardController {
     @GetMapping("/detail")
     public String detail() {
         log.info(" foodie/detail Get - ! ");
-        return "store/store-detail";
+        return "promotion/pro-detail";
     }
 }

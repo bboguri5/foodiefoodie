@@ -10,13 +10,13 @@
     <title>Foogra - Discover & Book the best restaurants at the best price</title>
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="../img/store-detail/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="../img/store-detail/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="../img/store-detail/apple-touch-icon-72x72-precomposed.png">
+    <link rel="shortcut icon" href="../img/pro-detail/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="../img/pro-detail/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="../img/pro-detail/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-        href="../img/store-detail/apple-touch-icon-114x114-precomposed.png">
+        href="../img/pro-detail/apple-touch-icon-114x114-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-        href="../img/store-detail/apple-touch-icon-144x144-precomposed.png">
+        href="../img/pro-detail/apple-touch-icon-144x144-precomposed.png">
 
     <!-- GOOGLE WEB FONT -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -41,7 +41,7 @@
         <div class="container">
             <div id="logo">
                 <a href="index.html">
-                    <img src="../img/store-detail/logo_sticky.svg" width="140" height="35" alt="">
+                    <img src="../img/pro-detail/logo_sticky.svg" width="140" height="35" alt="">
                 </a>
             </div>
             <ul id="top_menu">
@@ -57,7 +57,7 @@
                     <a href="#0" class="open_close">
                         <i class="icon_close"></i><span>Menu</span>
                     </a>
-                    <a href="index.html"><img src="../img/store-detail/logo.svg" width="140" height="35" alt=""></a>
+                    <a href="index.html"><img src="../img/pro-detail/logo.svg" width="140" height="35" alt=""></a>
                 </div>
                 <ul>
                     <li class="submenu">
@@ -174,10 +174,10 @@
                             <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
                                 <div class="buttons clearfix">
                                     <span class="magnific-gallery">
-                                        <a href="../img/store-detail/detail_1.jpg" class="btn_hero" title="Photo title"
+                                        <a href="../img/pro-detail/detail_1.jpg" class="btn_hero" title="Photo title"
                                             data-effect="mfp-zoom-in"><i class="icon_image"></i>View photos</a>
-                                        <a href="../img/store-detail/detail_2.jpg" title="Photo title" data-effect="mfp-zoom-in"></a>
-                                        <a href="../img/store-detail/detail_3.jpg" title="Photo title" data-effect="mfp-zoom-in"></a>
+                                        <a href="../img/pro-detail/detail_2.jpg" title="Photo title" data-effect="mfp-zoom-in"></a>
+                                        <a href="../img/pro-detail/detail_3.jpg" title="Photo title" data-effect="mfp-zoom-in"></a>
                                     </span>
                                     <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
                                 </div>
@@ -231,31 +231,31 @@
                                         <div class="add_bottom_25"></div>
                                         <h2>Pictures from our users</h2>
                                         <div class="pictures magnific-gallery clearfix">
-                                            <figure><a href="../img/store-detail/detail_gallery/detail_1.jpg" title="Photo title"
+                                            <figure><a href="../img/pro-detail/detail_gallery/detail_1.jpg" title="Photo title"
                                                     data-effect="mfp-zoom-in"><img
-                                                        src="../img/store-detail/thumb_detail_placeholder.jpg"
+                                                        src="../img/pro-detail/thumb_detail_placeholder.jpg"
                                                         data-src="img/thumb_detail_1.jpg" class="lazy" alt=""></a>
                                             </figure>
-                                            <figure><a href="../img/store-detail/detail_gallery/detail_2.jpg" title="Photo title"
+                                            <figure><a href="../img/pro-detail/detail_gallery/detail_2.jpg" title="Photo title"
                                                     data-effect="mfp-zoom-in"><img
-                                                        src="../img/store-detail/thumb_detail_placeholder.jpg"
+                                                        src="../img/pro-detail/thumb_detail_placeholder.jpg"
                                                         data-src="img/thumb_detail_2.jpg" class="lazy" alt=""></a>
                                             </figure>
-                                            <figure><a href="../img/store-detail/detail_gallery/detail_3.jpg" title="Photo title"
+                                            <figure><a href="../img/pro-detail/detail_gallery/detail_3.jpg" title="Photo title"
                                                     data-effect="mfp-zoom-in"><img
-                                                        src="../img/store-detail/thumb_detail_placeholder.jpg"
+                                                        src="../img/pro-detail/thumb_detail_placeholder.jpg"
                                                         data-src="img/thumb_detail_3.jpg" class="lazy" alt=""></a>
                                             </figure>
-                                            <figure><a href="../img/store-detail/detail_gallery/detail_4.jpg" title="Photo title"
+                                            <figure><a href="../img/pro-detail/detail_gallery/detail_4.jpg" title="Photo title"
                                                     data-effect="mfp-zoom-in"><img
-                                                        src="../img/store-detail/thumb_detail_placeholder.jpg"
+                                                        src="../img/pro-detail/thumb_detail_placeholder.jpg"
                                                         data-src="img/thumb_detail_4.jpg" class="lazy" alt=""></a>
                                             </figure>
-                                            <figure><a href="../img/store-detail/detail_gallery/detail_5.jpg" title="Photo title"
+                                            <figure><a href="../img/pro-detail/detail_gallery/detail_5.jpg" title="Photo title"
                                                     data-effect="mfp-zoom-in"><span
                                                         class="d-flex align-items-center justify-content-center">+10</span><img
-                                                        src="../img/store-detail/thumb_detail_placeholder.jpg"
-                                                        data-src="../img/store-detail/thumb_detail_5.jpg" class="lazy" alt=""></a>
+                                                        src="../img/pro-detail/thumb_detail_placeholder.jpg"
+                                                        data-src="../img/pro-detail/thumb_detail_5.jpg" class="lazy" alt=""></a>
                                             </figure>
                                         </div>
                                         <!-- /pictures -->
@@ -264,10 +264,10 @@
                                         <div class="menu-gallery">
                                             <div class="menu_item thumbs">
                                                 <figure>
-                                                    <a href="../img/store-detail/menu_item_large_1.jpg" title="Photo title"
+                                                    <a href="../img/pro-detail/menu_item_large_1.jpg" title="Photo title"
                                                         data-effect="mfp-zoom-in">
-                                                        <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                            data-src="../img/store-detail/menu-thumb-1.jpg" alt="" class="lazy">
+                                                        <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                            data-src="../img/pro-detail/menu-thumb-1.jpg" alt="" class="lazy">
                                                     </a>
                                                 </figure>
                                                 <div>
@@ -279,10 +279,10 @@
                                             </div>
                                             <div class="menu_item thumbs">
                                                 <figure>
-                                                    <a href="../img/store-detail/menu_item_large_2.jpg" title="Photo title"
+                                                    <a href="../img/pro-detail/menu_item_large_2.jpg" title="Photo title"
                                                         data-effect="mfp-zoom-in">
-                                                        <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                            data-src="../img/store-detail/menu-thumb-2.jpg" alt="" class="lazy">
+                                                        <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                            data-src="../img/pro-detail/menu-thumb-2.jpg" alt="" class="lazy">
                                                     </a>
                                                 </figure>
                                                 <div>
@@ -293,10 +293,10 @@
                                             </div>
                                             <div class="menu_item thumbs">
                                                 <figure>
-                                                    <a href="../img/store-detail/menu_item_large_3.jpg" title="Photo title"
+                                                    <a href="../img/pro-detail/menu_item_large_3.jpg" title="Photo title"
                                                         data-effect="mfp-zoom-in">
-                                                        <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                            data-src="../img/store-detail/menu-thumb-3.jpg" alt="" class="lazy">
+                                                        <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                            data-src="../img/pro-detail/menu-thumb-3.jpg" alt="" class="lazy">
                                                     </a>
                                                 </figure>
                                                 <div>
@@ -313,10 +313,10 @@
                                         <div class="menu-gallery">
                                             <div class="menu_item thumbs">
                                                 <figure>
-                                                    <a href="../img/store-detail/menu_item_large_1.jpg" title="Photo title"
+                                                    <a href="../img/pro-detail/menu_item_large_1.jpg" title="Photo title"
                                                         data-effect="mfp-zoom-in">
-                                                        <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                            data-src="../img/store-detail/menu-thumb-4.jpg" alt="" class="lazy">
+                                                        <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                            data-src="../img/pro-detail/menu-thumb-4.jpg" alt="" class="lazy">
                                                     </a>
                                                 </figure>
                                                 <div>
@@ -327,10 +327,10 @@
                                             </div>
                                             <div class="menu_item thumbs">
                                                 <figure>
-                                                    <a href="../img/store-detail/menu_item_large_2.jpg" title="Photo title"
+                                                    <a href="../img/pro-detail/menu_item_large_2.jpg" title="Photo title"
                                                         data-effect="mfp-zoom-in">
-                                                        <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                            data-src="../img/store-detail/menu-thumb-5.jpg" alt="" class="lazy">
+                                                        <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                            data-src="../img/pro-detail/menu-thumb-5.jpg" alt="" class="lazy">
                                                     </a>
                                                 </figure>
                                                 <div>
@@ -342,10 +342,10 @@
                                             </div>
                                             <div class="menu_item thumbs">
                                                 <figure>
-                                                    <a href="../img/store-detail/menu_item_large_3.jpg" title="Photo title"
+                                                    <a href="../img/pro-detail/menu_item_large_3.jpg" title="Photo title"
                                                         data-effect="mfp-zoom-in">
-                                                        <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                            data-src="../img/store-detail/menu-thumb-6.jpg" alt="" class="lazy">
+                                                        <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                            data-src="../img/pro-detail/menu-thumb-6.jpg" alt="" class="lazy">
                                                     </a>
                                                 </figure>
                                                 <div>
@@ -358,10 +358,10 @@
                                             <div class="content_more">
                                                 <div class="menu_item thumbs">
                                                     <figure>
-                                                        <a href="../img/store-detail/menu_item_large_4.jpg" title="Photo title"
+                                                        <a href="../img/pro-detail/menu_item_large_4.jpg" title="Photo title"
                                                             data-effect="mfp-zoom-in">
-                                                            <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                                data-src="../img/store-detail/menu-thumb-7.jpg" alt="" class="lazy">
+                                                            <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                                data-src="../img/pro-detail/menu-thumb-7.jpg" alt="" class="lazy">
                                                         </a>
                                                     </figure>
                                                     <div>
@@ -372,10 +372,10 @@
                                                 </div>
                                                 <div class="menu_item thumbs">
                                                     <figure>
-                                                        <a href="../img/store-detail/menu_item_large_1.jpg" title="Photo title"
+                                                        <a href="../img/pro-detail/menu_item_large_1.jpg" title="Photo title"
                                                             data-effect="mfp-zoom-in">
-                                                            <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                                data-src="../img/store-detail/menu-thumb-8.jpg" alt="" class="lazy">
+                                                            <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                                data-src="../img/pro-detail/menu-thumb-8.jpg" alt="" class="lazy">
                                                         </a>
                                                     </figure>
                                                     <div>
@@ -387,10 +387,10 @@
                                                 </div>
                                                 <div class="menu_item thumbs">
                                                     <figure>
-                                                        <a href="../img/store-detail/menu_item_large_2.jpg" title="Photo title"
+                                                        <a href="../img/pro-detail/menu_item_large_2.jpg" title="Photo title"
                                                             data-effect="mfp-zoom-in">
-                                                            <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                                data-src="../img/store-detail/menu-thumb-9.jpg" alt="" class="lazy">
+                                                            <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                                data-src="../img/pro-detail/menu-thumb-9.jpg" alt="" class="lazy">
                                                         </a>
                                                     </figure>
                                                     <div>
@@ -410,10 +410,10 @@
                                         <div class="menu-gallery">
                                             <div class="menu_item thumbs">
                                                 <figure>
-                                                    <a href="../img/store-detail/menu_item_large_1.jpg" title="Photo title"
+                                                    <a href="../img/pro-detail/menu_item_large_1.jpg" title="Photo title"
                                                         data-effect="mfp-zoom-in">
-                                                        <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                            data-src="../img/store-detail/menu-thumb-10.jpg" alt="" class="lazy">
+                                                        <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                            data-src="../img/pro-detail/menu-thumb-10.jpg" alt="" class="lazy">
                                                     </a>
                                                 </figure>
                                                 <div>
@@ -424,10 +424,10 @@
                                             </div>
                                             <div class="menu_item thumbs">
                                                 <figure>
-                                                    <a href="../img/store-detail/menu_item_large_2.jpg" title="Photo title"
+                                                    <a href="../img/pro-detail/menu_item_large_2.jpg" title="Photo title"
                                                         data-effect="mfp-zoom-in">
-                                                        <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                            data-src="../img/store-detail/menu-thumb-11.jpg" alt="" class="lazy">
+                                                        <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                            data-src="../img/pro-detail/menu-thumb-11.jpg" alt="" class="lazy">
                                                     </a>
                                                 </figure>
                                                 <div>
@@ -439,10 +439,10 @@
                                             </div>
                                             <div class="menu_item thumbs">
                                                 <figure>
-                                                    <a href="../img/store-detail/menu_item_large_3.jpg" title="Photo title"
+                                                    <a href="../img/pro-detail/menu_item_large_3.jpg" title="Photo title"
                                                         data-effect="mfp-zoom-in">
-                                                        <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                            data-src="../img/store-detail/menu-thumb-12.jpg" alt="" class="lazy">
+                                                        <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                            data-src="../img/pro-detail/menu-thumb-12.jpg" alt="" class="lazy">
                                                     </a>
                                                 </figure>
                                                 <div>
@@ -455,10 +455,10 @@
                                             <div class="content_more">
                                                 <div class="menu_item thumbs">
                                                     <figure>
-                                                        <a href="../img/store-detail/menu_item_large_4.jpg" title="Photo title"
+                                                        <a href="../img/pro-detail/menu_item_large_4.jpg" title="Photo title"
                                                             data-effect="mfp-zoom-in">
-                                                            <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                                data-src="../img/store-detail/menu-thumb-13.jpg" alt="" class="lazy">
+                                                            <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                                data-src="../img/pro-detail/menu-thumb-13.jpg" alt="" class="lazy">
                                                         </a>
                                                     </figure>
                                                     <div>
@@ -469,10 +469,10 @@
                                                 </div>
                                                 <div class="menu_item thumbs">
                                                     <figure>
-                                                        <a href="../img/store-detail/menu_item_large_1.jpg" title="Photo title"
+                                                        <a href="../img/pro-detail/menu_item_large_1.jpg" title="Photo title"
                                                             data-effect="mfp-zoom-in">
-                                                            <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                                data-src="../img/store-detail/menu-thumb-14.jpg" alt="" class="lazy">
+                                                            <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                                data-src="../img/pro-detail/menu-thumb-14.jpg" alt="" class="lazy">
                                                         </a>
                                                     </figure>
                                                     <div>
@@ -484,10 +484,10 @@
                                                 </div>
                                                 <div class="menu_item thumbs">
                                                     <figure>
-                                                        <a href="../img/store-detail/menu_item_large_2.jpg" title="Photo title"
+                                                        <a href="../img/pro-detail/menu_item_large_2.jpg" title="Photo title"
                                                             data-effect="mfp-zoom-in">
-                                                            <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                                data-src="../img/store-detail/menu-thumb-15.jpg" alt="" class="lazy">
+                                                            <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                                data-src="../img/pro-detail/menu-thumb-15.jpg" alt="" class="lazy">
                                                         </a>
                                                     </figure>
                                                     <div>
@@ -508,10 +508,10 @@
                                             <div class="menu-gallery">
                                                 <div class="menu_item thumbs">
                                                     <figure>
-                                                        <a href="../img/store-detail/menu_item_large_4.jpg" title="Photo title"
+                                                        <a href="../img/pro-detail/menu_item_large_4.jpg" title="Photo title"
                                                             data-effect="mfp-zoom-in">
-                                                            <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                                data-src="../img/store-detail/menu-thumb-16.jpg" alt="" class="lazy">
+                                                            <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                                data-src="../img/pro-detail/menu-thumb-16.jpg" alt="" class="lazy">
                                                         </a>
                                                     </figure>
                                                     <div>
@@ -523,10 +523,10 @@
                                                 </div>
                                                 <div class="menu_item thumbs">
                                                     <figure>
-                                                        <a href="../img/store-detail/menu_item_large_1.jpg" title="Photo title"
+                                                        <a href="../img/pro-detail/menu_item_large_1.jpg" title="Photo title"
                                                             data-effect="mfp-zoom-in">
-                                                            <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                                data-src="../img/store-detail/menu-thumb-17.jpg" alt="" class="lazy">
+                                                            <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                                data-src="../img/pro-detail/menu-thumb-17.jpg" alt="" class="lazy">
                                                         </a>
                                                     </figure>
                                                     <div>
@@ -537,10 +537,10 @@
                                                 </div>
                                                 <div class="menu_item thumbs">
                                                     <figure>
-                                                        <a href="../img/store-detail/menu_item_large_2.jpg" title="Photo title"
+                                                        <a href="../img/pro-detail/menu_item_large_2.jpg" title="Photo title"
                                                             data-effect="mfp-zoom-in">
-                                                            <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                                data-src="../img/store-detail/menu-thumb-18.jpg" alt="" class="lazy">
+                                                            <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                                data-src="../img/pro-detail/menu-thumb-18.jpg" alt="" class="lazy">
                                                         </a>
                                                     </figure>
                                                     <div>
@@ -552,10 +552,10 @@
                                                 </div>
                                                 <div class="menu_item thumbs">
                                                     <figure>
-                                                        <a href="../img/store-detail/menu_item_large_3.jpg" title="Photo title"
+                                                        <a href="../img/pro-detail/menu_item_large_3.jpg" title="Photo title"
                                                             data-effect="mfp-zoom-in">
-                                                            <img src="../img/store-detail/menu-thumb-placeholder.jpg"
-                                                                data-src="../img/store-detail/menu-thumb-18.jpg" alt="" class="lazy">
+                                                            <img src="../img/pro-detail/menu-thumb-placeholder.jpg"
+                                                                data-src="../img/pro-detail/menu-thumb-18.jpg" alt="" class="lazy">
                                                         </a>
                                                     </figure>
                                                     <div>
@@ -691,7 +691,7 @@
                                             <div class="review_card">
                                                 <div class="row">
                                                     <div class="col-md-2 user_info">
-                                                        <figure><img src="../img/store-detail/avatar4.jpg" alt=""></figure>
+                                                        <figure><img src="../img/pro-detail/avatar4.jpg" alt=""></figure>
                                                         <h5>Lukas</h5>
                                                     </div>
                                                     <div class="col-md-10 review_content">
@@ -723,7 +723,7 @@
                                             <div class="review_card">
                                                 <div class="row">
                                                     <div class="col-md-2 user_info">
-                                                        <figure><img src="../img/store-detail/avatar6.jpg" alt=""></figure>
+                                                        <figure><img src="../img/pro-detail/avatar6.jpg" alt=""></figure>
                                                         <h5>Lukas</h5>
                                                     </div>
                                                     <div class="col-md-10 review_content">
@@ -755,7 +755,7 @@
                                             <div class="review_card">
                                                 <div class="row">
                                                     <div class="col-md-2 user_info">
-                                                        <figure><img src="../img/store-detail/avatar1.jpg" alt=""></figure>
+                                                        <figure><img src="../img/pro-detail/avatar1.jpg" alt=""></figure>
                                                         <h5>Marika</h5>
                                                     </div>
                                                     <div class="col-md-10 review_content">
@@ -784,7 +784,7 @@
                                                 <!-- /row -->
                                                 <div class="row reply">
                                                     <div class="col-md-2 user_info">
-                                                        <figure><img src="../img/store-detail/avatar.jpg" alt=""></figure>
+                                                        <figure><img src="../img/pro-detail/avatar.jpg" alt=""></figure>
                                                     </div>
                                                     <div class="col-md-10">
                                                         <div class="review_content">
@@ -927,16 +927,16 @@
                             <ul>
                                 <li><a href="#0"><img
                                             src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                            data-src="../img/store-detail/twitter_icon.svg" alt="" class="lazy"></a></li>
+                                            data-src="../img/pro-detail/twitter_icon.svg" alt="" class="lazy"></a></li>
                                 <li><a href="#0"><img
                                             src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                            data-src="../img/store-detail/facebook_icon.svg" alt="" class="lazy"></a></li>
+                                            data-src="../img/pro-detail/facebook_icon.svg" alt="" class="lazy"></a></li>
                                 <li><a href="#0"><img
                                             src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                            data-src="../img/store-detail/instagram_icon.svg" alt="" class="lazy"></a></li>
+                                            data-src="../img/pro-detail/instagram_icon.svg" alt="" class="lazy"></a></li>
                                 <li><a href="#0"><img
                                             src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                            data-src="../img/store-detail/youtube_icon.svg" alt="" class="lazy"></a></li>
+                                            data-src="../img/pro-detail/youtube_icon.svg" alt="" class="lazy"></a></li>
                             </ul>
                         </div>
                     </div>
@@ -966,7 +966,7 @@
                             </div>
                         </li>
                         <li><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                data-src="../img/store-detail/cards_all.svg" alt="" width="198" height="30" class="lazy"></li>
+                                data-src="../img/pro-detail/cards_all.svg" alt="" width="198" height="30" class="lazy"></li>
                     </ul>
                 </div>
                 <div class="col-lg-6">
@@ -1035,13 +1035,13 @@
     <!-- /Sign In Modal -->
 
     <!-- COMMON SCRIPTS -->
-    <script src="js/common_scripts.min.js"></script>
-    <script src="js/common_func.js"></script>
-    <script src="assets/validate.js"></script>
+    <script src="../js/common_scripts.min.js"></script>
+    <script src="../js/common_func.js"></script>
+    <script src="../js/validate.js"></script>
 
     <!-- SPECIFIC SCRIPTS -->
-    <script src="js/sticky_sidebar.min.js"></script>
-    <script src="js/specific_detail.js"></script>
+    <script src="../js/sticky_sidebar.min.js"></script>
+    <script src="../js/specific_detail.js"></script>
 
 </body>
 

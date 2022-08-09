@@ -203,7 +203,8 @@ CREATE TABLE reply_faq (
 -- 홍보글 파일 업로드
 CREATE TABLE promotion_upload (
     promotion_bno NUMBER(10) NOT NULL
-    , file_path VARCHAR2(150) NOT NULL
+--    , file_path VARCHAR2(150) NOT NULL
+    , file_path clob not null
     , file_name VARCHAR2(100) NOT NULL
     , CONSTRAINT fk_pro_upload FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
@@ -227,11 +228,27 @@ CREATE TABLE profile_upload(
     REFERENCES member (email) ON DELETE CASCADE
 );
 
+-- 음식 메뉴 파일 업로드
+CREATE TABLE promotion_food_menu_upload(
+         promotion_bno NUMBER(10) NOT NULL
+        ,menu_no NUMBER(10) NOT NULL
+        , file_path clob
+        , file_name VARCHAR2(100) NOT NULL
+        , CONSTRAINT fk_pro_food_menu_upload FOREIGN KEY (menu_no)
+    REFERENCES promotion_food_menu (menu_no) ON DELETE CASCADE
+);
+
+-- member 주소 크기 변경
 ALTER TABLE member
 MODIFY address VARCHAR2(150);
+
+-- member 기본 일반회원
 ALTER TABLE member
 MODIFY auth VARCHAR2(20) DEFAULT 'COMMON';
 
+-- master 주소 크기 변경
+alter table master
+modify store_address VARCHAR2(150);
 -- 영수증 관련 테이블은 아직~~
 -- API를 활용해서 다이렉트로 유효 영수증인지 검증이 끝난 후 결과만을 알려준다면
 -- 굳이 테이블을 만들어서 관리할 필요가 없어보여요.

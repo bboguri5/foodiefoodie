@@ -33,15 +33,17 @@ public class MainController {
         // 현재 위치 맛집 TOP 7 --> 내 위치
 
         // 핫딜 리스트 TOP 6 --> 아무거나 TOP 6
-
         List<HotDeal> hotDeals = hotDealService.findAllService();
         List<HotDeal> sixList = new ArrayList<>();
+
+        // 핫딜 6개 랜덤 GET
         getRandomDeals(hotDeals, sixList);
 
         model.addAttribute("sixList", sixList);
         return "html/index";
     }
 
+    // 메인페이지에 디스플레이 할 핫딜 6개 랜덤 SELECT
     private void getRandomDeals(List<HotDeal> hotDeals, List<HotDeal> sixList) {
         List<Integer> randShuffle = new ArrayList<>();
         for (int i = 0; i < hotDeals.size(); i++) {

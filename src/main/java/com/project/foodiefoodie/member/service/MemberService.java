@@ -1,13 +1,21 @@
 package com.project.foodiefoodie.member.service;
 
 import com.project.foodiefoodie.member.domain.Member;
+import com.project.foodiefoodie.member.dto.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DeleteMemberDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
+import com.project.foodiefoodie.member.dto.LoginDTO;
 import com.project.foodiefoodie.member.repository.MemberMapper;
+import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -78,7 +86,71 @@ public class MemberService {
 
 
 
-//    public LoginFlag loginService() {
-//
-//    }
+    public LoginFlag loginService(LoginDTO inputData, HttpSession session, HttpServletResponse response) {
+
+        String email = inputData.getEmail();
+
+        Member foundMember = memberMapper.findMember(email);
+
+        // 존재하는 회원이라면
+        if (foundMember != null) {
+
+            // 비밀 번호 일치 여부 확인
+            if (encoder.matches(inputData.getPassword(), foundMember.getPassword())) {
+                // 로그인 성공한 경우,
+                session.setAttribute(LoginUtils.LOGIN_FLAG, foundMember);
+                session.setMaxInactiveInterval(60 * 60);
+
+
+                // 자동로그인을 체크한 경우라면,
+                if (inputData.isAutoLogin()) {
+                    rememberMe(foundMember.getEmail(), session, response);
+                }
+
+
+                return LoginFlag.SUCCESS;
+
+            } else {
+                return LoginFlag.NO_PW;
+            }
+
+        } else {
+            return LoginFlag.NO_EMAIL;
+        }
+    }
+
+    private void rememberMe(String email, HttpSession session, HttpServletResponse response) {
+        // 1. 자동로그인 쿠키 생성 - 쿠키의 값으로 현재 세션의 아이디를 저장한다.
+        String sessionId = session.getId();
+        Cookie cookie = new Cookie(LoginUtils.LOGIN_COOKIE, sessionId);
+
+
+        // 2. 쿠키 설정 (수명, 사용 경로)
+        int limitTime = 60 * 60 * 24 * 90; // 90일에 대한 초단위 표현
+        cookie.setMaxAge(limitTime);
+        cookie.setPath("/"); // 전체 경로에서 사용할 수 있어야 한다.
+        // 사용자가 어떤 경로에서 접근을 하더라도 자동로그인이 되어야 하기 때문!!
+
+
+        // 3. 자동로그인을 체크하고 로그인에 성공한 해당 유저의 로컬에 쿠키 전송
+        response.addCookie(cookie);
+
+
+        // 4. DB에 쿠키값과 수명 저장
+        AutoLoginDTO dto = new AutoLoginDTO();
+        dto.setSessionId(sessionId);
+
+
+        // 4-1. 수명은 좀 생각해봐야 한다. 왜?? DB에는 DATE라서 날짜형식으로 넣어야 하는데 위에 limitTime은 초단위이기 때문!!
+        // 자동로그인 유지시간(초)을 날짜로 변환
+        long nowTime = System.currentTimeMillis();
+        Date limitDate = new Date(nowTime + ((long) limitTime * 1000)); // 밀리초는 1000분의 1초구나
+        dto.setLimitTime(limitDate);
+
+
+        dto.setEmail(email);
+
+
+        memberMapper.saveAutoLoginValue(dto); // 최종적 DB 저장.
+    }
 }

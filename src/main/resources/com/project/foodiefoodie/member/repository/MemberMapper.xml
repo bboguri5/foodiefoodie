@@ -58,6 +58,14 @@
         SET auth = #{auth}
         WHERE email = #{email}
     </update>
+    
+    
+    <insert id="saveAutoLoginValue">
+        INSERT INTO auto_login
+            ()
+        VALUES
+            ()
+    </insert>
 </mapper>
 
 

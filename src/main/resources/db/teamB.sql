@@ -1,8 +1,3 @@
-
--- ���� �߰� �� ���� �ο�
-create user teamB IDENTIFIED BY 1234;
-GRANT DBA, connect, RESOURCE TO teamB;
-
 -- DROP TABLE
 DROP TABLE profile_upload;
 DROP TABLE review_upload;
@@ -33,7 +28,7 @@ DROP SEQUENCE seq_review_faq;
 DROP SEQUENCE seq_reply_faq;
 
 
--- SEQUENCE ����
+-- SEQUENCE ????
 CREATE SEQUENCE seq_promotion_board;
 CREATE SEQUENCE seq_promotion_food_menu;
 CREATE SEQUENCE seq_review_board;
@@ -43,8 +38,8 @@ CREATE SEQUENCE seq_review_faq;
 CREATE SEQUENCE seq_reply_faq;
 
 
--- TABLE ����
--- ����
+-- TABLE ????
+-- ????
 CREATE TABLE member (
     email VARCHAR2(50) PRIMARY KEY
     , password VARCHAR2(50) NOT NULL
@@ -60,8 +55,13 @@ CREATE TABLE member (
 );
 ALTER TABLE member
 MODIFY auth VARCHAR2(20) DEFAULT 'COMMON';
+ALTER TABLE member
+MODIFY address VARCHAR2(150);
+ALTER TABLE member
+MODIFY password VARCHAR2(150);
+SELECT * FROM member;
 
--- �ڵ��α���
+-- ????α???
 CREATE TABLE auto_login (
     email VARCHAR2(50) NOT NULL
     , cookie VARCHAR2(50) NOT NULL
@@ -71,7 +71,12 @@ CREATE TABLE auto_login (
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- �����
+ALTER TABLE auto_login
+MODIFY ip_address VARCHAR2(30) NULL;
+
+COMMIT;
+
+-- ?????
 CREATE TABLE MASTER (
     business_no VARCHAR2(50) PRIMARY KEY
     , email VARCHAR2(50) NOT NULL
@@ -83,10 +88,13 @@ CREATE TABLE MASTER (
     , hot_deal VARCHAR2(2) DEFAULT 'N'
     , store_call_number VARCHAR2(20) NOT NULL
     , CONSTRAINT fk_master_email
-    FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE    
+    FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE
 );
 
--- ȫ����
+alter table master modify store_address VARCHAR2(150);
+
+
+-- ?????
 CREATE TABLE promotion_board (
     business_no VARCHAR2(50) NOT NULL
     , promotion_bno NUMBER(10) PRIMARY KEY
@@ -97,7 +105,7 @@ CREATE TABLE promotion_board (
     REFERENCES master (business_no) ON DELETE CASCADE
 );
 
--- ���� �޴�
+-- ???? ???
 CREATE TABLE promotion_food_menu(
     menu_no NUMBER(5) PRIMARY KEY
     , promotion_bno NUMBER(10) NOT NULL
@@ -107,7 +115,7 @@ CREATE TABLE promotion_food_menu(
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
--- ������ ����
+-- ?????? ????
 CREATE TABLE premiume_promotion_board (
     promotion_bno NUMBER(10) NOT NULL
     , start_date DATE
@@ -116,7 +124,11 @@ CREATE TABLE premiume_promotion_board (
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
--- ����
+--ALTER TABLE premiume_promotion_board
+--ADD premiume_no NUMBER(10) PRIMARY KEY;
+
+
+-- ????
 CREATE TABLE review_board (
     email VARCHAR2(50) NOT NULL
     , title VARCHAR2(70) NOT NULL
@@ -131,7 +143,7 @@ CREATE TABLE review_board (
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- �ֵ�
+-- ???
 CREATE TABLE hot_deal (
     business_no VARCHAR2(50) NOT NULL
     , discount_price NUMBER(5) NOT NULL
@@ -141,7 +153,7 @@ CREATE TABLE hot_deal (
     REFERENCES master (business_no) ON DELETE CASCADE
 );
 
--- ���ã�� 
+-- ??????
 CREATE TABLE favorite_store (
     email VARCHAR2(50) NOT NULL
     , promotion_bno NUMBER(10) NOT NULL
@@ -151,7 +163,7 @@ CREATE TABLE favorite_store (
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
--- ����ۿ� ���� ���
+-- ?????? ???? ???
 CREATE TABLE reply (
     review_bno NUMBER(10) NOT NULL
     , reply_no NUMBER(10) PRIMARY KEY
@@ -165,7 +177,7 @@ CREATE TABLE reply (
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- ���� ���ƿ�(��õ)
+-- ???? ?????(???)
 CREATE TABLE review_like (
     review_bno NUMBER(10) NOT NULL
     , email VARCHAR2(50) NOT NULL
@@ -175,7 +187,7 @@ CREATE TABLE review_like (
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- ȫ���� �Ű�
+-- ????? ???
 CREATE TABLE promotion_faq (
     pr_faq_no NUMBER(10) PRIMARY KEY
     , promotion_bno NUMBER(10) NOT NULL
@@ -184,7 +196,7 @@ CREATE TABLE promotion_faq (
     , faq_complete VARCHAR2(2) DEFAULT 'F'
 );
 
--- ����� �Ű�
+-- ????? ???
 CREATE TABLE review_faq (
     re_faq_no NUMBER(10) PRIMARY KEY
     , review_bno NUMBER(10) NOT NULL
@@ -193,7 +205,7 @@ CREATE TABLE review_faq (
     , faq_complete VARCHAR2(2) DEFAULT 'F'
 );
 
--- ��� �Ű�
+-- ??? ???
 CREATE TABLE reply_faq (
     reply_faq_no NUMBER(10) PRIMARY KEY
     , reply_no NUMBER(10) NOT NULL
@@ -202,16 +214,16 @@ CREATE TABLE reply_faq (
     , faq_complete VARCHAR2(2) DEFAULT 'F'
 );
 
--- ȫ���� ���� ���ε�
+-- ????? ???? ???ε?
 CREATE TABLE promotion_upload (
     promotion_bno NUMBER(10) NOT NULL
     , file_path CLOB NOT NULL
-    , file_name VARCHAR2(100) NOT NULL
+    , file_name VARCHAR2(100)
     , CONSTRAINT fk_pro_upload FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
--- ���� ���� ���ε�
+-- ???? ???? ???ε?
 CREATE TABLE review_upload(
     review_bno NUMBER(10) NOT NULL
     , file_path VARCHAR2(150) NOT NULL
@@ -220,7 +232,7 @@ CREATE TABLE review_upload(
     REFERENCES review_board (review_bno) ON DELETE CASCADE
 );
 
--- �������̹��� ���� ���ε�
+-- ??????????? ???? ???ε?
 CREATE TABLE profile_upload(
     email VARCHAR2(50) PRIMARY KEY
     , file_path VARCHAR2(150) NOT NULL
@@ -229,9 +241,9 @@ CREATE TABLE profile_upload(
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- ������ ���� ���̺��� ����~~
--- API�� Ȱ���ؼ� ���̷�Ʈ�� ��ȿ ���������� ������ ���� �� ������� �˷��شٸ�
--- ���� ���̺��� ���� ������ �ʿ䰡 �������.
+-- ?????? ???? ??????? ????~~
+-- API?? ?????? ???????? ??? ?????????? ?????? ???? ?? ??????? ???????
+-- ???? ??????? ????? ?????? ??? ????????.
 CREATE TABLE receipt_upload();
 
 
@@ -244,3 +256,71 @@ CREATE TABLE promotion_food_menu_upload(
         , CONSTRAINT fk_pro_food_menu_upload FOREIGN KEY (menu_no)
     REFERENCES promotion_food_menu (menu_no) ON DELETE CASCADE
 );
+
+commit;
+
+
+-- 성렬씨
+insert into member (email, password, nick_name, phone_number, birth, address, name, gender)
+VALUES('abc1234@naver.com', 'aaaa', '길동이', '01012341234', '20000101', '서울', '홍길동', 'M');
+insert into member (email, password, nick_name, phone_number, birth, address, name, gender)
+VALUES('bbbb2222@naver.com', '1234', '철수', '01022225555', '20001212', '대구', '김철수', 'M');
+
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1111', 'abc1234@naver.com', '홍길동', '길동이네분식집', '서울 강서구 가양동', '분식', '010-2222-3333');
+
+update member set auth = 'MASTER' WHERE email = 'abc1234@naver.com';
+
+
+alter table premiume_promotion_board
+MODIFY start_date NUMBER(10);
+
+alter table premiume_promotion_board
+MODIFY end_date NUMBER(10);
+
+alter table hot_deal
+MODIFY start_date NUMBER(10);
+
+alter table hot_deal
+MODIFY end_date NUMBER(10);
+
+commit;
+
+SELECT
+a.email, a.nick_name, a.phone_number, a.birth, a.address
+, a.name, a.gender, a.auth, a.regist_date, a.login_time
+, b.business_no, b.store_name, b.store_address, b.food_categories
+, b.store_reg_date, b.hot_deal, b.store_call_number
+FROM member a
+LEFT OUTER JOIN master b
+ON a.email = b.email;
+
+
+CREATE TABLE report_member (
+    email VARCHAR2(50) NOT NULL
+    , report_cnt NUMBER (2) DEFAULT 1
+    , CONSTRAINT fk_report_email FOREIGN KEY (email)
+    REFERENCES member (email) ON DELETE CASCADE
+);
+
+CREATE TABLE black_list (
+    email VARCHAR2(50) NOT NULL
+);
+
+
+-- 정아씨
+insert into promotion_board VALUES (101010
+,seq_promotion_board.nextval
+,'주소   : 경기도 군포시 산본로323번길 7-1
+지번 : 경기도 군포시 산본동 1128-1
+전화번호 : 0507-1350-4556
+음식 종류 :   딤섬 / 만두
+가격대 : 만원 미만
+주차   : 주차공간없음
+영업시간 : 11:00 - 21:00
+쉬는시간 : 15:00 - 16:00
+마지막 주문 : 20:30
+휴일   : 일'
+,sysdate
+,'황고기')
+;

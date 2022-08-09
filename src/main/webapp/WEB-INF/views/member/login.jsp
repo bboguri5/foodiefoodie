@@ -18,14 +18,14 @@
             </div>
             <div class="form-group">
                 <label>password</label>
-                <input type="password" class="form-control" name="password" id="password" value="">
+                <input type="password" class="form-control" name="password" id="password">
                 <i class="icon_lock_alt"></i>
             </div>
             <div class="clearfix add_bottom_15">
                 <div class="checkboxes float-start">
                     <label class="container_check">Remember me
-                      <input type="checkbox" name="autoLogin">
-                      <span class="checkmark"></span>
+                        <input type="checkbox" name="autoLogin">
+                        <span class="checkmark"></span>
                     </label>
                 </div>
                 <div class="float-end"><a id="forgot" href="javascript:void(0);">Forgot Password?</a></div>
@@ -40,7 +40,8 @@
                     <input type="email" class="form-control" name="email_forgot" id="email_forgot">
                     <i class="icon_mail_alt"></i>
                 </div>
-                <p>You will receive an email containing a link allowing you to reset your password to a new preferred one.</p>
+                <p>You will receive an email containing a link allowing you to reset your password to a new preferred
+                    one.</p>
                 <div class="text-center"><input type="submit" value="Reset Password" class="btn_1"></div>
             </div>
         </div>
@@ -52,7 +53,7 @@
 
 
 <script>
-
+    
 
 
 </script>

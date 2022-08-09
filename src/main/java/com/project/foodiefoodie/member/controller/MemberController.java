@@ -4,6 +4,7 @@ import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.DeleteMemberDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
 import com.project.foodiefoodie.member.dto.LoginDTO;
+import com.project.foodiefoodie.member.service.LoginFlag;
 import com.project.foodiefoodie.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,7 +36,6 @@ public class MemberController {
     }
 
 
-
     // 아이디, 이메일 중복확인 비동기 요청 처리
     @GetMapping("/member/check")
     @ResponseBody
@@ -44,7 +46,6 @@ public class MemberController {
 
         return new ResponseEntity<>(flag, HttpStatus.OK);
     }
-
 
 
     // 실질적 회원 가입 요청 처리
@@ -58,20 +59,19 @@ public class MemberController {
     }
 
 
-
 //    // 모달 창에서 로그인 비동기 요청 처리
 //    @PostMapping("/login")
 //    @ResponseBody
 //    public ResponseEntity<String> login(LoginDTO inputData,
-////                                HttpServletRequest request,
-//                                Model model) {
+//                                HttpServletResponse response,
+//                                        HttpSession session,
+//                                        Model model) {
 //        log.info("/login ASYNC POST!! - {} ", inputData);
 //
 ////        String referer = request.getHeader("Referer");
 ////        log.info("referer - {}", referer);
 //
-//
-//
+//        LoginFlag loginFlag = memberService.loginService(inputData, session, response);
 //
 //
 //    }

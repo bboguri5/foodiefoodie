@@ -246,6 +246,10 @@ MODIFY address VARCHAR2(150);
 ALTER TABLE member
 MODIFY auth VARCHAR2(20) DEFAULT 'COMMON';
 
+-- member password 인코딩으로 크기 변경
+ALTER TABLE member
+MODIFY password VARCHAR2(150);
+
 -- master 주소 크기 변경
 alter table master
 modify store_address VARCHAR2(150);

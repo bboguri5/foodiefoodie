@@ -646,7 +646,7 @@
 						<span><em></em></span>
 						<h2>핫딜</h2>
 						<p>오늘의 핫딜 놓치지 마세요!</p>
-						<a href="#0">더보기</a>
+						<a href="/hotdeals">더보기</a>
 					</div>
 				</div>
 

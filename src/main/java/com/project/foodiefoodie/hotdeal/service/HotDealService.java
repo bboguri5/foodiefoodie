@@ -15,6 +15,7 @@ public class HotDealService {
 
     private final HotDealMapper hotDealMapper;
 
+    // Hot Deal 목록 요청 중간 처리
     public boolean saveService(HotDeal deal) {
         return hotDealMapper.save(deal);
     }

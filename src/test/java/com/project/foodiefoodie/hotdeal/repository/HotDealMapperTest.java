@@ -22,7 +22,7 @@ class HotDealMapperTest {
     @DisplayName("핫딜 테이블에 핫딜 정보를 저장해야 한다.")
     void saveTest() throws ParseException {
 
-        HotDeal deal = new HotDeal("1234-2222-3333-1112", 9000, 20220801L, 20220819L);
+        HotDeal deal = new HotDeal("1234-2222-3333-1117", 9000, 20220801L, 20220819L);
 
         boolean flag = mapper.save(deal);
         assertTrue(flag);

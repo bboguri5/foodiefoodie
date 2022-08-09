@@ -17,6 +17,7 @@ public class HotDealController {
 
     private final HotDealService hotDealService;
 
+    // Hot Deal 목록 요청
     @GetMapping("/hotdeals")
     public String hotDeals(Model model) {
         log.info("Hot Deals Get ! - {}");

@@ -1,9 +1,14 @@
 package com.project.foodiefoodie.premiume.domain;
 
+import lombok.*;
+
 import java.util.Date;
 
+@Getter @Setter @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Premiume {
     long promotionBno;
-    Date startDate;
-    Date endDate;
+    int startDate;
+    int endDate;
 }

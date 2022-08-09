@@ -9,5 +9,9 @@ public interface ProBoardMapper {
 
 
     boolean save (ProBoard proBoard);
+    boolean modify(ProBoard proBoard);
+    boolean delete(int promotionBno);
+    ProBoard selectOne (int promotionBno);
+
 
 }

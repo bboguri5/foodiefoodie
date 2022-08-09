@@ -13,10 +13,24 @@
         ,#{title})
     </insert>
 
+    <update id="modify">
+        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}
+    </update>
 
+    <delete id="delete">
+        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}
+    </delete>
 
-    <select id="">
+    <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">
+        <result property="businessNo" column="business_no" />
+        <result property="promotionBno" column="promotion_bno" />
+        <result property="lastUpdated" column="last_updated" />
+    </resultMap>
 
+    <select id="selectOne" resultMap="proBoardMap">
+        SELECT *
+        FROM promotion_board
+        where promotion_bno = #{promotionBno}
     </select>
 
 </mapper>

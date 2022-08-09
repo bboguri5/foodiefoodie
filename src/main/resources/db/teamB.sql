@@ -205,7 +205,7 @@ CREATE TABLE reply_faq (
 -- ȫ���� ���� ���ε�
 CREATE TABLE promotion_upload (
     promotion_bno NUMBER(10) NOT NULL
-    , file_path VARCHAR2(150) NOT NULL
+    , file_path CLOB NOT NULL
     , file_name VARCHAR2(100) NOT NULL
     , CONSTRAINT fk_pro_upload FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
@@ -233,3 +233,14 @@ CREATE TABLE profile_upload(
 -- API�� Ȱ���ؼ� ���̷�Ʈ�� ��ȿ ���������� ������ ���� �� ������� �˷��شٸ�
 -- ���� ���̺��� ���� ������ �ʿ䰡 �������.
 CREATE TABLE receipt_upload();
+
+
+-- 음식 메뉴 파일 업로드
+CREATE TABLE promotion_food_menu_upload(
+         promotion_bno NUMBER(10) NOT NULL
+        ,menu_no NUMBER(10) NOT NULL
+        , file_path clob
+        , file_name VARCHAR2(100) NOT NULL
+        , CONSTRAINT fk_pro_food_menu_upload FOREIGN KEY (menu_no)
+    REFERENCES promotion_food_menu (menu_no) ON DELETE CASCADE
+);

@@ -35,7 +35,7 @@ public class MemberController {
 
 
     // 아이디, 이메일 중복확인 비동기 요청 처리
-    @GetMapping("/check")
+    @GetMapping("/member/check")
     @ResponseBody
     public ResponseEntity<Boolean> check(DuplicateDTO dto) {
         log.info("/member/check?type={}&value={} GET!! ASYNC", dto.getType(), dto.getValue());

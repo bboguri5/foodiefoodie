@@ -56,7 +56,7 @@
             </div>
             <ul id="top_menu">
                 <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+                <li><a href="wishlist.text" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
             </ul>
             <!-- /top_menu -->
             <a href="#0" class="open_close">
@@ -73,27 +73,27 @@
                     <li class="submenu">
                         <a href="#0" class="show-submenu">Home</a>
                         <ul>
-                            <li><a href="index.html">Default</a></li>
+                            <li><a href="index.text">Default</a></li>
                             <li class="third-level"><a href="#0">Sliders - Parallax <strong>New!</strong></a>
                                 <ul>
-                                    <li><a href="index-8.html">Revolution Slider 1</a></li>
-                                    <li><a href="index-9.html">Revolution Slider 2</a></li>
-                                    <li><a href="index-3.html">Owl Carousel</a></li>
-                                    <li><a href="index-10.html">Parallax Youtube</a></li>
-                                    <li><a href="index-11.html">Parallax Vimeo</a></li>
-                                    <li><a href="index-12.html">Parallax Mp4 Video</a></li>
-                                    <li><a href="index-13.html">Parallax Video Fullscreen</a></li>
-                                    <li><a href="index-14.html">Parallax Image</a></li>
+                                    <li><a href="index-8.text">Revolution Slider 1</a></li>
+                                    <li><a href="index-9.text">Revolution Slider 2</a></li>
+                                    <li><a href="index-3.text">Owl Carousel</a></li>
+                                    <li><a href="index-10.text">Parallax Youtube</a></li>
+                                    <li><a href="index-11.text">Parallax Vimeo</a></li>
+                                    <li><a href="index-12.text">Parallax Mp4 Video</a></li>
+                                    <li><a href="index-13.text">Parallax Video Fullscreen</a></li>
+                                    <li><a href="index-14.text">Parallax Image</a></li>
                                 </ul>
                             </li>
-                            <li><a href="index-15.html">Text Rotator</a></li>
-                            <li><a href="index-5.html">Address Autocomplete</a></li>
-                            <li><a href="index-6.html">Search Version 2</a></li>
-                            <li><a href="index-7.html">Delivery/Takeaway version</a></li>
-                            <li><a href="modal-advertise.html">Modal Advertise</a></li>
-                            <li><a href="modal-newsletter.html">Modal Newsletter</a></li>
-                            <li><a href="index-2.html">Video Bg Fallback Mobile</a></li>
-                            <li><a href="index-4.html">GDPR Cookie Bar EU Law</a></li>
+                            <li><a href="index-15.text">Text Rotator</a></li>
+                            <li><a href="index-5.text">Address Autocomplete</a></li>
+                            <li><a href="index-6.text">Search Version 2</a></li>
+                            <li><a href="index-7.text">Delivery/Takeaway version</a></li>
+                            <li><a href="modal-advertise.text">Modal Advertise</a></li>
+                            <li><a href="modal-newsletter.text">Modal Newsletter</a></li>
+                            <li><a href="index-2.text">Video Bg Fallback Mobile</a></li>
+                            <li><a href="index-4.text">GDPR Cookie Bar EU Law</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -101,62 +101,62 @@
                         <ul>
                             <li class="third-level"><a href="#0">List pages</a>
                                 <ul>
-                                    <li><a href="grid-listing-filterscol.html">List default</a></li>
-                                    <li><a href="grid-listing-filterscol-map.html">List with map</a></li>
-                                    <li><a href="listing-map.html">List side map</a></li>
-                                    <li><a href="grid-listing-filterscol-full-width.html">List full width</a></li>
-                                    <li><a href="grid-listing-filterscol-full-masonry.html">List Masonry Filter</a></li>
-                                    <li><a href="grid-listing-filterscol-delivery.html">List Delivery/Takeaway</a></li>
+                                    <li><a href="grid-listing-filterscol.text">List default</a></li>
+                                    <li><a href="grid-listing-filterscol-map.text">List with map</a></li>
+                                    <li><a href="listing-map.text">List side map</a></li>
+                                    <li><a href="grid-listing-filterscol-full-width.text">List full width</a></li>
+                                    <li><a href="grid-listing-filterscol-full-masonry.text">List Masonry Filter</a></li>
+                                    <li><a href="grid-listing-filterscol-delivery.text">List Delivery/Takeaway</a></li>
                                 </ul>
                             </li>
                             <li class="third-level"><a href="#0">Detail pages</a>
                                 <ul>
-                                    <li><a href="detail-restaurant.html">Detail page 1</a></li>
-                                    <li><a href="detail-restaurant-2.html">Detail page 2</a></li>
-                                    <li><a href="detail-restaurant-3.html">Mobile Fixed Booking</a></li>
-                                    <li><a href="detail-restaurant-delivery.html">Delivery/Takeaway</a></li>
-                                    <li><a href="detail-restaurant-4.html">Detail Menu Thumbs</a></li>
-                                    <li><a href="detail-restaurant-5.html">Detail Contact Form</a></li>
+                                    <li><a href="detail-restaurant.text">Detail page 1</a></li>
+                                    <li><a href="detail-restaurant-2.text">Detail page 2</a></li>
+                                    <li><a href="detail-restaurant-3.text">Mobile Fixed Booking</a></li>
+                                    <li><a href="detail-restaurant-delivery.text">Delivery/Takeaway</a></li>
+                                    <li><a href="detail-restaurant-4.text">Detail Menu Thumbs</a></li>
+                                    <li><a href="detail-restaurant-5.text">Detail Contact Form</a></li>
                                 </ul>
                             </li>
                             <li class="third-level"><a href="#0">OpenStreetMap</a>
                                 <ul>
-                                    <li><a href="grid-listing-filterscol-map-openstreetmap.html">List with map</a></li>
-                                    <li><a href="listing-map-openstreetmap.html">List side map</a></li>
-                                    <li><a href="grid-listing-filterscol-full-width-openstreetmap.html">List full
+                                    <li><a href="grid-listing-filterscol-map-openstreetmap.text">List with map</a></li>
+                                    <li><a href="listing-map-openstreetmap.text">List side map</a></li>
+                                    <li><a href="grid-listing-filterscol-full-width-openstreetmap.text">List full
                                             width</a></li>
-                                    <li><a href="grid-listing-filterscol-full-masonry-openstreetmap.html">List Masonry
+                                    <li><a href="grid-listing-filterscol-full-masonry-openstreetmap.text">List Masonry
                                             Filter</a></li>
                                 </ul>
                             </li>
-                            <li><a href="submit-restaurant.html">Submit Restaurant</a></li>
-                            <li><a href="submit-rider.html">Submit Rider</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="booking.html">Booking</a></li>
-                            <li><a href="confirm.html">Confirm Booking</a></li>
-                            <li><a href="confirm-delivery.html">Confirm Order</a></li>
-                            <li><a href="booking-delivery-2.html">Order Delivery/Takeaway</a></li>
-                            <li><a href="booking-delivery.html">Order Delivery/Takeaway 2</a></li>
-                            <li><a href="admin_section/index.html" target="_blank">Admin Section</a></li>
+                            <li><a href="submit-restaurant.text">Submit Restaurant</a></li>
+                            <li><a href="submit-rider.text">Submit Rider</a></li>
+                            <li><a href="wishlist.text">Wishlist</a></li>
+                            <li><a href="booking.text">Booking</a></li>
+                            <li><a href="confirm.text">Confirm Booking</a></li>
+                            <li><a href="confirm-delivery.text">Confirm Order</a></li>
+                            <li><a href="booking-delivery-2.text">Order Delivery/Takeaway</a></li>
+                            <li><a href="booking-delivery.text">Order Delivery/Takeaway 2</a></li>
+                            <li><a href="admin_section/index.text" target="_blank">Admin Section</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
                         <a href="#0" class="show-submenu">Other Pages</a>
                         <ul>
-                            <li><a href="404.html">404 Error</a></li>
-                            <li><a href="help.html">Help and Faq</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="leave-review.html">Leave a review</a></li>
-                            <li><a href="user-logged-1.html">User Logged 1</a></li>
-                            <li><a href="user-logged-2.html">User Logged 2</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="coming_soon/index.html">Coming Soon</a></li>
-                            <li><a href="account.html">Sign Up</a></li>
-                            <li><a href="icon-pack-1.html">Icon Pack 1</a></li>
-                            <li><a href="icon-pack-2.html">Icon Pack 2</a></li>
+                            <li><a href="404.text">404 Error</a></li>
+                            <li><a href="help.text">Help and Faq</a></li>
+                            <li><a href="blog.text">Blog</a></li>
+                            <li><a href="leave-review.text">Leave a review</a></li>
+                            <li><a href="user-logged-1.text">User Logged 1</a></li>
+                            <li><a href="user-logged-2.text">User Logged 2</a></li>
+                            <li><a href="contacts.text">Contacts</a></li>
+                            <li><a href="coming_soon/index.text">Coming Soon</a></li>
+                            <li><a href="account.text">Sign Up</a></li>
+                            <li><a href="icon-pack-1.text">Icon Pack 1</a></li>
+                            <li><a href="icon-pack-2.text">Icon Pack 2</a></li>
                         </ul>
                     </li>
-                    <li><a href="submit-restaurant.html">Submit</a></li>
+                    <li><a href="submit-restaurant.text">Submit</a></li>
                     <li><a href="#0">Buy this template</a></li>
                 </ul>
             </nav>
@@ -181,76 +181,77 @@
 							<a href="#0" class="social_bt google">Sign up with Google</a>
 							<div class="divider"><span>Or</span></div> -->
                             <h6>Personal details</h6>
-                            <form id="reg-form" action="/register" method="post"></form>
-                            <div class="form-group">
-                                <input class="form-control" type="email" id="email"
-                                    placeholder="Email [실제 존재하는 Email 계정명을 입력하세요 계정명, 비밀번호 찾기에 활용됩니다.]">
-                                <i class="icon_mail"></i>
-                            </div>
-                            <div>
-                                <span id="emailChk"></span>
-                            </div>
+                            <form id="reg-form" action="/register" method="post">
+                                <div>
+                                    <span id="emailChk"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="email" id="email-input" name="email"
+                                        placeholder="Email [실제 존재하는 Email 계정명을 입력하세요 계정명, 비밀번호 찾기에 활용됩니다.]">
+                                    <i class="icon_mail"></i>
+                                </div>
 
-                            <!-- 중복 확인 결과에 대해 알려줄 부분 삽입 -->
+                                <!-- 중복 확인 결과에 대해 알려줄 부분 삽입 -->
 
-                            <div class="form-group">
-                                <input class="form-control" id="password_sign"
-                                    placeholder="비밀번호 [8~10자리의 특수문자를 포함하여 입력하세요]" name="password">
-                                <i class="icon_lock"></i>
-                            </div>
-                            <div>
-                                <span id="pwChk"></span>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" id="name" placeholder="이름" name="name">
-                                <i class="icon_pencil"></i>
-                            </div>
-                            <div>
-                                <span id="nameChk"></span>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" id="nick-name"
-                                    placeholder="닉네임 [사용하고자 하는 닉네임을 입력하세요.]" name="nickName">
-                                <i class="icon_pencil"></i>
-                            </div>
-                            <div>
-                                <span id="nickNameChk"></span>
-                            </div>
+                                <div>
+                                    <span id="pwChk"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" id="password_sign"
+                                        placeholder="비밀번호 [8~10자리의 특수문자를 포함하여 입력하세요]" name="password">
+                                    <i class="icon_lock"></i>
+                                </div>
+                                <div>
+                                    <span id="nameChk"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="name" placeholder="이름" name="name">
+                                    <i class="icon_pencil"></i>
+                                </div>
+                                <div>
+                                    <span id="nickNameChk"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="nick-name"
+                                        placeholder="닉네임 [사용하고자 하는 닉네임을 입력하세요.]" name="nickName">
+                                    <i class="icon_pencil"></i>
+                                </div>
 
 
-                            <div class="form-group">
-                                <input class="form-control" type="text" id="birth" placeholder="생년월일 [예시: 19991231]"
-                                    name="birth" minlength="8">
-                                <i class="icon_pencil"></i>
-                            </div>
-                            <div>
-                                <span id="birthChk"></span>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control" type="text" id="phone-num"
-                                    placeholder="연락처 [예시: 010-1234-5678]" name="phoneNumber">
-                                <i class="icon_pencil"></i>
-                            </div>
-                            <div>
-                                <span id="phoneChk"></span>
-                            </div>
-                            <h6>Gender</h6>
-                            <div class="form-group">
-                                <select name="gender" id="gender">
-                                    <option value="M">남성</option>
-                                    <option value="F">여성</option>
-                                </select>
-                            </div>
-                            <div class="form-group add_bottom_15">
-                                <input class="form-control" id="address" placeholder="주소 [예시: 서울특별시 금천구 한국로 130]"
-                                    name="address" minlength="10">
-                                <i class="icon_pencil"></i>
-                            </div>
-                            <div>
-                                <span id="addrChk"></span>
-                            </div>
+                                <div>
+                                    <span id="birthChk"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="birth" placeholder="생년월일 [예시: 19991231]"
+                                        name="birth" minlength="8" maxlength="8">
+                                    <i class="icon_pencil"></i>
+                                </div>
+                                <div>
+                                    <span id="phoneChk"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="phone-num" maxlength="11"
+                                        placeholder="연락처 [예시: 010-1234-5678 -> 01012345678]" name="phoneNumber">
+                                    <i class="icon_pencil"></i>
+                                </div>
+                                <h6>Gender</h6>
+                                <div class="form-group">
+                                    <select name="gender" id="gender">
+                                        <option value="M">남성</option>
+                                        <option value="F">여성</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <span id="addrChk"></span>
+                                </div>
+                                <div class="form-group add_bottom_15">
+                                    <input class="form-control" id="address" placeholder="주소 [예시: 서울특별시 금천구 한국로 130]"
+                                        name="address" minlength="10">
+                                    <i class="icon_pencil"></i>
+                                </div>
 
-                            <a type="button" id="reg-btn" href="#" class="btn_1 full-width mb_5">Sign Up Now</a>
+                                <button type="button" id="reg-btn" class="btn_1 full-width mb_5">Sign Up Now</button>
+                            </form>
                         </div>
                     </div>
                     <!-- /box_booking -->
@@ -272,12 +273,12 @@
                     <h3 data-bs-target="#collapse_1">Quick Links</h3>
                     <div class="collapse dont-collapse-sm links" id="collapse_1">
                         <ul>
-                            <li><a href="submit-rider.html">Become a Rider</a></li>
-                            <li><a href="submit-restaurant.html">Add your restaurant</a></li>
-                            <li><a href="help.html">Help</a></li>
-                            <li><a href="account.html">My account</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
+                            <li><a href="submit-rider.text">Become a Rider</a></li>
+                            <li><a href="submit-restaurant.text">Add your restaurant</a></li>
+                            <li><a href="help.text">Help</a></li>
+                            <li><a href="account.text">My account</a></li>
+                            <li><a href="blog.text">Blog</a></li>
+                            <li><a href="contacts.text">Contacts</a></li>
                         </ul>
                     </div>
                 </div>
@@ -285,10 +286,10 @@
                     <h3 data-bs-target="#collapse_2">Categories</h3>
                     <div class="collapse dont-collapse-sm links" id="collapse_2">
                         <ul>
-                            <li><a href="grid-listing-filterscol.html">Top Categories</a></li>
-                            <li><a href="grid-listing-filterscol-full-masonry.html">Best Rated</a></li>
-                            <li><a href="grid-listing-filterscol-full-width.html">Best Price</a></li>
-                            <li><a href="grid-listing-filterscol-full-masonry.html">Latest Submissions</a></li>
+                            <li><a href="grid-listing-filterscol.text">Top Categories</a></li>
+                            <li><a href="grid-listing-filterscol-full-masonry.text">Best Rated</a></li>
+                            <li><a href="grid-listing-filterscol-full-width.text">Best Price</a></li>
+                            <li><a href="grid-listing-filterscol-full-masonry.text">Latest Submissions</a></li>
                         </ul>
                     </div>
                 </div>
@@ -389,6 +390,7 @@
 
 
 
+    <!-- 회원가입 입력 항목별 검증 및 비동기 요청 중복 확인 -->
     <script>
         $(document).ready(function () {
 
@@ -397,11 +399,11 @@
             // end 정규표현식
 
             const getPwCheck = RegExp(
-                /([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~]){8,10}|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9]){8,10}/);
+                /([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
             // 영문, 숫자가 들어가야 하고 특수기호를 하나라도 포함해야한다 
             // 또는!! 시작을 특수문자로 해도 되고, 영문이나 숫자를 하나라도 포함해야 한다.
 
-            const getName = RegExp(/^[가-힣]+$/);
+            const getName = RegExp(/^[가-힣]{2,4}/);
             // 한글로 써야 한다는 정규표현식. 유니코드상 한글의 시작이 '가', 끝이 '힣'이라서
 
 
@@ -415,12 +417,12 @@
 
 
             // 입력값 검증 배열
-            // 1: 이메일 / 2: 비번, 3: 이름, 4: 닉네임, 5: 생년월일, 6. 전화번호, 7. 성별, 8. 주소
-            const checkArr = [false, false, false, false, false, false, false, false];
+            // 1: 이메일 / 2: 비번, 3: 이름, 4: 닉네임, 5: 생년월일, 6: 전화번호, 7: 주소
+            const checkArr = [false, false, false, false, false, false, false];
 
 
             // 1. 이메일 검증
-            const $emailInput = $('#email');
+            const $emailInput = $('#email-input');
             const $emailChk = $('#emailChk');
 
 
@@ -429,7 +431,7 @@
                 // 아무 입력도 하지 않은 경우
                 if ($emailInput.val().trim() === '') {
                     $emailInput.css('border-color', 'red');
-                    $emailChk.html('[필수 입력사항입니다.]');
+                    $emailChk.text('필수 입력사항입니다.');
                     $emailChk.css('color', 'red');
                     checkArr[0] = false;
                 }
@@ -437,7 +439,7 @@
                 // 이메일 표현식에 어긋나는 경우
                 else if (!getMailCheck.test($emailInput.val())) {
                     $emailInput.css('border-color', 'red');
-                    $emailChk.html('[잘못된 이메일 형식입니다.]');
+                    $emailChk.text('잘못된 이메일 형식입니다.');
                     $emailChk.css('color', 'red');
                     checkArr[0] = false;
                 } else {
@@ -450,41 +452,43 @@
                             if (flag === 'true') {
                                 // 중복 이메일인 경우
                                 $emailInput.css('border-color', 'red');
-                                $emailChk.html('중복된 아이디입니다.');
+                                $emailChk.text('중복된 아이디입니다.');
                                 $emailChk.css('color', 'red');
                                 checkArr[0] = false;
 
                             } else {
                                 // 정상적으로 입력한 경우
                                 $emailInput.css('border-color', 'greenyellow');
-                                $emailChk.html('사용 가능한 이메일입니다');
-                                $emailChk.css('color', 'greenyellow');
+                                $emailChk.text('사용 가능한 이메일입니다');
+                                $emailChk.css('color', 'green');
                                 checkArr[0] = true;
                             }
-                        })
-
+                        });
                 }
             }); // end 이메일 검증 로직
 
 
             // 2. 비밀번호 검증
-            const $pwInput = $('#password-sign');
+            const $pwInput = $('#password_sign');
             const $pwChk = $('#pwChk');
 
             $pwInput.on('keyup', e => {
 
+                // console.log('pw input:', $pwInput.val());
+
                 // 아무 입력도 하지 않은 경우
                 if ($pwInput.val().trim() === '') {
                     $pwInput.css('border-color', 'red');
-                    $pwChk.html('필수 입력사항입니다.');
+                    $pwChk.text('필수입력 사항입니다.');
                     $pwChk.css('color', 'red');
                     checkArr[1] = false;
                 }
 
                 // 비밀번호 정규표현식 검증
-                else if (!getPwCheck.test($pwInput.val()) || $pwInput.val().length < 8) {
+                else if (!getPwCheck.test($pwInput.val()) || $pwInput.val().length < 8 || $pwInput.val()
+                    .length > 10) {
                     $pwInput.css('border-color', 'red');
-                    $pwChk.html('비밀번호는 특수문자 포함 8자 이상 10자 이하여야 합니다.');
+                    $pwChk.text('비밀번호는 특수문자 포함 8자 이상 10자 이하여야 합니다.');
                     $pwChk.css('color', 'red');
                     checkArr[1] = false;
                 }
@@ -492,8 +496,8 @@
                 // 정상적으로 입력한 경우
                 else {
                     $pwInput.css('border-color', 'greenyellow');
-                    $pwChk.html('사용 가능한 비밀번호입니다.');
-                    $pwChk.css('color', 'greenyellow');
+                    $pwChk.text('사용 가능한 비밀번호입니다.');
+                    $pwChk.css('color', 'green');
                     checkArr[1] = true;
                 }
             }); // end 비밀번호 검증 로직
@@ -507,9 +511,189 @@
 
                 // 아무 입력도 하지 않은 경우
                 if ($nameInput.val().trim() === '') {
-                    
+                    $nameInput.css('border-color', 'red');
+                    $nameChk.text('필수 입력사항입니다.');
+                    $nameChk.css('color', 'red');
+                    checkArr[2] = false;
                 }
-            });
+
+                // 입력값이 한글이 아니거나 2~4글자가 아닌 경우
+                else if (!getName.test($nameInput.val())) {
+                    $nameInput.css('border-color', 'red');
+                    $nameChk.text('2~4글자 사이로 한글로만 입력하세요.');
+                    $nameChk.css('color', 'red');
+                    checkArr[2] = false;
+                }
+
+                // 정상 입력인 경우
+                else {
+                    $nameInput.css('border-color', 'greenyellow');
+                    $nameChk.text('');
+                    checkArr[2] = true;
+                }
+            }); // end 이름 검증 로직
+
+
+            // 4. 닉네임 검증
+            const $nickInput = $('#nick-name');
+            const $nickChk = $('nickNameChk');
+
+            $nickInput.on('keyup', e => {
+
+                // 아무 입력도 하지 않은 경우
+                if ($nickInput.val().trim() === '') {
+                    $nickInput.css('border-color', 'red');
+                    $nickChk.text('필수 입력사항입니다.');
+                    $nickChk.css('color', 'red');
+                    checkArr[3] = false;
+                }
+
+                // 이메일 표현식에 어긋나는 경우
+                else if ($nickInput.val().length < 2) {
+                    $nickInput.css('border-color', 'red');
+                    $nickChk.text('닉네임은 최소 2자 이상입니다.');
+                    $nickChk.css('color', 'red');
+                    checkArr[3] = false;
+                } else {
+
+                    // 이메일 중복확인이 여기서 들어가야 한다. 비동기 요청!!
+                    fetch('/member/check?type=nickName&value=' + $nickInput.val())
+                        .then(res => res.text())
+                        .then(flag => {
+
+                            if (flag === 'true') {
+                                // 중복 이메일인 경우
+                                $nickInput.css('border-color', 'red');
+                                $nickChk.text('중복된 닉네임입니다.');
+                                $nickChk.css('color', 'red');
+                                checkArr[3] = false;
+
+                            } else {
+                                // 정상적으로 입력한 경우
+                                $nickInput.css('border-color', 'greenyellow');
+                                $nickChk.text('사용 가능한 닉네임입니다');
+                                $nickChk.css('color', 'green');
+                                checkArr[3] = true;
+                            }
+                        });
+                }
+
+            }); // end 닉네임 검증 로직
+
+
+            // 5. 생년월일 검증
+            const $birthInput = $('#birth');
+            const $birthChk = $('#birthChk');
+
+            $birthInput.on('keyup', e => {
+
+                // 아무 입력도 하지 않은 경우
+                if ($birthInput.val().trim() === '') {
+                    $birthInput.css('border-color', 'red');
+                    $birthChk.text('필수 입력사항입니다.');
+                    $birthChk.css('color', 'red');
+                    checkArr[4] = false;
+                }
+
+                // 입력값이 
+                else if (!getBitrth.test($birthInput.val()) || $birthInput.val().length < 8) {
+                    $birthInput.css('border-color', 'red');
+                    $birthChk.text('숫자로만 8자로 입력해주세요. 예시: 1999년 12월 31일 -> 19991231 ');
+                    $birthChk.css('color', 'red');
+                    checkArr[4] = false;
+                }
+
+                // 정상 입력인 경우
+                else {
+                    $birthInput.css('border-color', 'greenyellow');
+                    $birthChk.text('');
+                    checkArr[4] = true;
+                }
+
+            }); // end 생년월일 검증 로직
+
+
+            // 6. 전화번호 검증
+            const $phoneNumInput = $('#phone-num');
+            const $phoneChk = $('#phoneChk');
+
+            $phoneNumInput.on('keyup', e => {
+
+                // 아무 입력도 하지 않은 경우
+                if ($phoneNumInput.val().trim() === '') {
+                    $phoneNumInput.css('border-color', 'red');
+                    $phoneChk.text('필수 입력사항입니다.');
+                    $phoneChk.css('color', 'red');
+                    checkArr[5] = false;
+                }
+
+                // 입력값이 전화번호 정규표현식에 위배될 경우
+                else if (!getPhoneNum.test($phoneNumInput.val())) {
+                    $phoneNumInput.css('border-color', 'red');
+                    $phoneChk.text('올바른 전화번호 양식이 아닙니다. 입력을 확인해주세요. 예시: 010-1234-5678');
+                    $phoneChk.css('color', 'red');
+                    checkArr[5] = false;
+                }
+
+                // 정상 입력인 경우
+                else {
+                    $phoneNumInput.css('border-color', 'greenyellow');
+                    $phoneChk.text('');
+                    checkArr[5] = true;
+                }
+
+            }); // end 전화번호 검증 로직
+
+
+            // 7. 주소 검증 이건 일단 임시로..
+            const $addrInput = $('#address');
+            const $addrChk = $('#addrChk');
+
+            $addrInput.on('keyup', e => {
+
+                // 아무 입력도 하지 않은 경우
+                if ($addrInput.val().trim() === '') {
+                    $addrInput.css('border-color', 'red');
+                    $addrChk.text('필수 입력사항입니다.');
+                    $addrChk.css('color', 'red');
+                    checkArr[6] = false;
+                }
+
+                // 입력값이 너무 작은 경우..
+                else if ($addrInput.val().length < 14) {
+                    $addrInput.css('border-color', 'red');
+                    $addrChk.text('주소 길이가 너무 짧습니다. 입력을 확인해주세요. 실제 주소를 입력하셔야 온전한 서비스 이용이 가능합니다.');
+                    $addrChk.css('color', 'red');
+                    checkArr[6] = false;
+                }
+
+                // 정상 입력인 경우
+                else {
+                    $addrInput.css('border-color', 'greenyellow');
+                    $addrChk.text('주소가 정확한지 다시 한번 확인하세요. 온전한 서비스 이용을 위해 정확한 주소가 필요합니다.');
+                    $addrChk.css('color', 'green');
+                    checkArr[6] = true;
+                }
+            }); // end 주소 검증 로직
+
+
+            const $regForm = $('#reg-form');
+            const $regBtn = $('#reg-btn');
+
+            // sign-up 버튼 클릭 이벤트
+            $regBtn.on('click', e => {
+                e.preventDefault();
+
+                for (let c of checkArr) {
+                    if (c === false) {
+                        return;
+                    }
+                }
+
+                $regForm.submit();
+            }); // end sign-up 클릭 이벤트
+
+
 
 
         });

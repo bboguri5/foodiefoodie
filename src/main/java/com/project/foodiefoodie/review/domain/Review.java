@@ -9,13 +9,13 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
-    String email;
-    String title;
-    String content;
-    long reviewBno;
-    String businessNo;
-    Date lastUpdated;
-    long likeCnt;
-    int starRate;
-    String isPrivate;
+    private String email;
+    private String title;
+    private String content;
+    private long reviewBno;
+    private String businessNo;
+    private Date lastUpdated;
+    private long likeCnt;
+    private int starRate;
+    private String isPrivate;
 }

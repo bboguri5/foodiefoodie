@@ -8,7 +8,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Premiume {
-    long promotionBno;
-    int startDate;
-    int endDate;
+    private long promotionBno;
+    private int startDate;
+    private int endDate;
 }

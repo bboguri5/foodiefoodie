@@ -8,12 +8,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Master extends Member{
-    String businessNo;
-    String masterName;
-    String storeName;
-    String storeAddress;
-    String foodCategories;
-    Date storeRegDate;
-    String hotDeal;
-    String storeCallNumber;
+    private String businessNo;
+    private String masterName;
+    private String storeName;
+    private String storeAddress;
+    private String foodCategories;
+    private Date storeRegDate;
+    private String hotDeal;
+    private String storeCallNumber;
 }

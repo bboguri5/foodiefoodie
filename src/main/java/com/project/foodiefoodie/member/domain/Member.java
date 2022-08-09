@@ -7,15 +7,15 @@ import java.util.Date;
 @Getter @Setter @ToString
 @NoArgsConstructor @AllArgsConstructor
 public class Member {
-    String email;
-    String password;
-    String nickName;
-    String phoneNumber;
-    long birth;
-    String address;
-    String name;
-    String gender;
-    String auth;
-    Date registDate;
-    Date loginTime;
+    private String email;
+    private String password;
+    private String nickName;
+    private String phoneNumber;
+    private long birth;
+    private String address;
+    private String name;
+    private String gender;
+    private String auth;
+    private Date registDate;
+    private Date loginTime;
 }

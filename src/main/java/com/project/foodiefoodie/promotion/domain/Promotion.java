@@ -8,8 +8,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Promotion {
-    String businessNo;
-    long promotionBno;
-    Date lastUpdated;
-    String title;
+    private String businessNo;
+    private long promotionBno;
+    private Date lastUpdated;
+    private String title;
 }

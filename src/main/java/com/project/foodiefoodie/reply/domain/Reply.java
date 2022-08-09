@@ -8,10 +8,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reply {
-    long reviewBno;
-    long replyNo;
-    String email;
-    String content;
-    String nickName;
-    Date lastUpdate;
+    private long reviewBno;
+    private long replyNo;
+    private String email;
+    private String content;
+    private String nickName;
+    private Date lastUpdate;
 }

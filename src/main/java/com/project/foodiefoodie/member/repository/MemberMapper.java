@@ -39,6 +39,6 @@ public interface MemberMapper {
     void saveAutoLoginValue(AutoLoginDTO dto);
 
 
-    // 쿠키값(세션아이디)을 가지고 있는 회원정보 조회
-    //Member findMemberBySessionId(String sessionId);
+    // 쿠키값(세션아이디)을 가지고 있는 회원 이메일 조회
+    AutoLoginDTO findIsAutoLoginBySessionId(String sessionId);
 }

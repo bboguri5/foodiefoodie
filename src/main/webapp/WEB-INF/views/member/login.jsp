@@ -13,12 +13,12 @@
             <div class="divider"><span>Or</span></div> -->
             <div class="form-group">
                 <label>email</label>
-                <input type="email" class="form-control" name="email" id="email">
+                <input type="email" class="form-control" name="email" id="login-email">
                 <i class="icon_mail_alt"></i>
             </div>
             <div class="form-group">
                 <label>password</label>
-                <input type="password" class="form-control" name="password" id="password">
+                <input type="password" class="form-control" name="password" id="login-pw">
                 <i class="icon_lock_alt"></i>
             </div>
             <div class="clearfix add_bottom_15">
@@ -31,8 +31,8 @@
                 <div class="float-end"><a id="forgot" href="javascript:void(0);">Forgot Password?</a></div>
             </div>
             <div class="text-center">
-                <input type="submit" value="Log In" class="btn_1 full-width mb_5">
-                Don’t have an account? <a href="/register">Sign up</a>
+                <input type="button" value="Log In" class="btn_1 full-width mb_5" id="login-btn">
+                Don’t have an email? <a href="/register">Sign up</a>
             </div>
             <div id="forgot_pw">
                 <div class="form-group">
@@ -54,6 +54,49 @@
 
 <script>
     
+    // 로그인시 로직 처리
+    function login() {
+        
+        const loginBtn = document.getElementById('login-btn');
+        loginBtn.onclick = e => {
 
+            e.preventDefault();
+
+            const inputData = {
+                email: document.getElementById('login-email'),
+                password: document.getElementById('login-pw')
+            };
+    
+            const reqObj = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(inputData)
+            };
+    
+            fetch('/login', reqObj)
+                .then(res => res.json())
+                .then(flag => {
+                    if(flag === 'SUCCESS') {
+                        
+                        location.href = "/";
+    
+                    } else if (flag === 'NO_PW') {
+                        alert('일치하지 않는 비밀번호입니다.');
+                    } else {
+                        alert('존재하지 않는 이메일입니다.');
+                    }
+                });
+        };
+    }
+
+    
+    // 메인 실행부
+    (function () {
+
+        login();
+
+    }) ();
 
 </script>

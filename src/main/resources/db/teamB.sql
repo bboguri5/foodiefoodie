@@ -73,6 +73,8 @@ CREATE TABLE auto_login (
 
 ALTER TABLE auto_login
 MODIFY ip_address VARCHAR2(30) NULL;
+ALTER TABLE auto_login
+RENAME COLUMN cookie TO session_id;
 
 COMMIT;
 
@@ -324,3 +326,4 @@ insert into promotion_board VALUES (101010
 ,sysdate
 ,'황고기')
 ;
+commit;

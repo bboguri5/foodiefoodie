@@ -144,7 +144,7 @@ public class MemberService {
         // 4-1. 수명은 좀 생각해봐야 한다. 왜?? DB에는 DATE라서 날짜형식으로 넣어야 하는데 위에 limitTime은 초단위이기 때문!!
         // 자동로그인 유지시간(초)을 날짜로 변환
         long nowTime = System.currentTimeMillis();
-        Date limitDate = new Date(nowTime + ((long) limitTime * 1000)); // 밀리초는 1000분의 1초구나
+        Date limitDate = new Date(nowTime + ((long) limitTime * 1000)); // 밀리초는 1000분의 1초
         dto.setLimitTime(limitDate);
 
 

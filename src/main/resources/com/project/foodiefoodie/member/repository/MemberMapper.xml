@@ -62,10 +62,21 @@
     
     <insert id="saveAutoLoginValue">
         INSERT INTO auto_login
-            ()
+            (email, session_id, logout_time)
         VALUES
-            ()
+            (#{email}, #{sessionId}, #{limitTime})
     </insert>
+
+    <resultMap id="autoLogin" type="com.project.foodiefoodie.member.dto.AutoLoginDTO">
+        <result column="session_id" property="sessionId"/>
+        <result column="logout_time" property="limitTime"/>
+    </resultMap>
+
+    <select id="findIsAutoLoginBySessionId" resultMap="autoLogin">
+        SELECT email, session_id, logout_time
+        FROM member
+        WHERE session_id = #{sessionId}
+    </select>
 </mapper>
 
 

@@ -257,3 +257,19 @@ modify store_address VARCHAR2(150);
 -- API를 활용해서 다이렉트로 유효 영수증인지 검증이 끝난 후 결과만을 알려준다면
 -- 굳이 테이블을 만들어서 관리할 필요가 없어보여요.
 CREATE TABLE receipt_upload();
+
+-----------------------------------------------------  08 / 09 add
+-- 신고했을 때 기록 남기는 테이블
+CREATE TABLE report_member (
+    email VARCHAR2(50) NOT NULL
+    , report_cnt NUMBER (2) DEFAULT 1
+    , CONSTRAINT fk_report_email FOREIGN KEY (email)
+    REFERENCES member (email) ON DELETE CASCADE
+);
+
+-- 5번 이상 일 경우 블랙리스트 등록 테이블
+CREATE TABLE black_list (
+    email VARCHAR2(50) NOT NULL
+);
+
+----------------------------------------------------------

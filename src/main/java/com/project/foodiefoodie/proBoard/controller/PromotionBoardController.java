@@ -19,4 +19,7 @@ public class PromotionBoardController {
         log.info(" foodie/detail Get - ! ");
         return "promotion/pro-detail";
     }
+
+
+
 }

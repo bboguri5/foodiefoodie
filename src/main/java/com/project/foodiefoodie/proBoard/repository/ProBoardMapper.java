@@ -12,6 +12,4 @@ public interface ProBoardMapper {
     boolean modify(ProBoard proBoard);
     boolean delete(int promotionBno);
     ProBoard selectOne (int promotionBno);
-
-
 }

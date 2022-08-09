@@ -2329,7 +2329,7 @@ ul#top_menu li a.login:before {
 }
 .hero_single.version_2 {
   height: 580px;
-  background: #ededed url(/img/home_section_1.jpg) center center no-repeat;
+  background: #ededed url(../img/home_section_1.jpg) center center no-repeat;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -2377,11 +2377,6 @@ ul#top_menu li a.login:before {
     box-shadow: none;
   }
 }
-
-.custom-search-input .col-lg-6 {
-  width: 83%;
-}
-
 .custom-search-input input {
   border: 0;
   height: 50px;

@@ -84,42 +84,9 @@
 				<div class="owl-carousel owl-theme categories_carousel">
 					<div class="item">
 						<a href="#0">
-							<span>98</span>
-							<i class="icon-food_icon_pizza"></i>
-							<h3>양식</h3>
-							<small>Avg price $40</small>
-						</a>
-					</div>
-					<div class="item">
-						<a href="#0">
-							<span>87</span>
-							<i class="icon-food_icon_sushi"></i>
-							<h3>일식</h3>
-							<small>Avg price $50</small>
-						</a>
-					</div>
-					<div class="item">
-						<a href="#0">
 							<span>96</span>
-							<i class="icon-food_icon_burgher"></i>
+							<i class="icon-food_icon_dish"></i>
 							<h3>한식</h3>
-							<small>Avg price $55</small>
-						</a>
-					</div>
-					<div class="item">
-						<a href="#0">
-							<span>78</span>
-							<i class="icon-food_icon_vegetarian"></i>
-							<h3>더 없나?</h3>
-							<small>Avg price $40</small>
-						</a>
-					</div>
-					<div class="item">
-						<a href="#0">
-							<span>65</span>
-							<i class="icon-food_icon_cake_2"></i>
-							<h3>카페/디저트</h3>
-							<small>Avg price $60</small>
 						</a>
 					</div>
 					<div class="item">
@@ -127,7 +94,34 @@
 							<span>65</span>
 							<i class="icon-food_icon_chinese"></i>
 							<h3>중식</h3>
-							<small>Avg price $40</small>
+						</a>
+					</div>
+					<div class="item">
+						<a href="#0">
+							<span>87</span>
+							<i class="icon-food_icon_sushi"></i>
+							<h3>일식</h3>
+						</a>
+					</div>
+					<div class="item">
+						<a href="#0">
+							<span>98</span>
+							<i class="icon-food_icon_pizza"></i>
+							<h3>양식</h3>
+						</a>
+					</div>
+					<div class="item">
+						<a href="#0">
+							<span>78</span>
+							<i class="icon-food_icon_beer"></i>
+							<h3>술집</h3>
+						</a>
+					</div>
+					<div class="item">
+						<a href="#0">
+							<span>65</span>
+							<i class="icon-food_icon_cake_2"></i>
+							<h3>카페/디저트</h3>
 						</a>
 					</div>
 				</div>

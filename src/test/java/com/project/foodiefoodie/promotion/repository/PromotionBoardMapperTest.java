@@ -37,4 +37,20 @@ class PromotionBoardMapperTest {
         List<PromotionReviewDTO> list = mapper.topAvgRateCount();
         System.out.println(list);
     }
+
+    @Test
+    @DisplayName("가게 게시물 하나를 조회해야 한다.")
+    void findOneTest() {
+
+        PromotionReviewDTO list = mapper.findOne("1234-2222-3333-1116");
+        System.out.println(list);
+    }
+
+    @Test
+    @DisplayName("가게 게시물 모두를 조회해야 한다.")
+    void findAllTest() {
+
+        List<PromotionBoard> list = mapper.findAll();
+        System.out.println(list);
+    }
 }

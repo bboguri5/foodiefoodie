@@ -29,7 +29,7 @@
                     <a href="/" class="show-submenu">메인페이지</a>
                 </li>
                 <li class="submenu">
-                    <a href="#0" class="show-submenu">맛집 리스트</a>
+                    <a href="/foodlist" class="show-submenu">맛집 리스트</a>
                 </li>
                 <li class="submenu">
                     <a href="#0" class="show-submenu">리뷰 리스트</a>

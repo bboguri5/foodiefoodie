@@ -5,7 +5,7 @@
 
 <mapper namespace="com.project.foodiefoodie.promotion.repository.PromotionBoardMapper">
 
-    <resultMap id="rbMap" type="com.project.foodiefoodie.promotion.domain.PromotionBoard">
+    <resultMap id="pbMap" type="com.project.foodiefoodie.promotion.domain.PromotionBoard">
         <result property="businessNo" column="business_no"/>
         <result property="promotionBno" column="promotion_bno"/>
         <result property="lastUpdated" column="last_updated"/>
@@ -17,6 +17,17 @@
         INSERT INTO promotion_board (business_no, promotion_bno, content, title)
         VALUES (#{businessNo}, seq_promotion_board.nextval, #{content}, #{title})
     </insert>
+
+    <select id="findOne" resultType="com.project.foodiefoodie.promotion.dto.PromotionReviewDTO">
+        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt
+        FROM promotion_board
+        WHERE business_no=#{businessNo}
+    </select>
+
+    <select id="findAll" resultMap="pbMap">
+        SELECT business_no, avg_star_rate, review_cnt
+        FROM promotion_board
+    </select>
 
     <select id="topAvgRateCount" resultType="com.project.foodiefoodie.promotion.dto.PromotionReviewDTO">
 

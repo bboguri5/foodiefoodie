@@ -6,6 +6,7 @@ import com.project.foodiefoodie.master.dto.MasterDTO;
 import com.project.foodiefoodie.master.service.MasterService;
 import com.project.foodiefoodie.promotion.dto.PromotionReviewDTO;
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
+import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ public class HotDealController {
 
     private final HotDealService hotDealService;
     private final MasterService masterService;
+    private final PromotionBoardService promotionBoardService;
 
     // Hot Deal 랜덤 6개 목록 요청
     @GetMapping("/hotdeals")
@@ -32,17 +34,20 @@ public class HotDealController {
         log.info("hotDeals - {}", hotDeals);
 
         List<MasterDTO> hotDealMasters = new ArrayList<>();
-        getHotDealMasters(hotDeals, hotDealMasters);
+        List<PromotionReviewDTO> pmdList = new ArrayList<>();
+        getHotDealMasters(hotDeals, hotDealMasters, pmdList);
 
         model.addAttribute("hotDeals", hotDeals);
         model.addAttribute("hotDealMasters", hotDealMasters);
+        model.addAttribute("pmdList", pmdList);
         return "html/hot-deals";
     }
 
     // 핫딜 리스트의 마스터 정보 추출
-    private void getHotDealMasters(List<HotDeal> hotDeals, List<MasterDTO> hotDealMasters) {
+    private void getHotDealMasters(List<HotDeal> hotDeals, List<MasterDTO> hotDealMasters, List<PromotionReviewDTO> pmdList) {
         for (int i = 0; i < hotDeals.size(); i++) {
             hotDealMasters.add(masterService.getMasterInfo(hotDeals.get(i).getBusinessNo()));
+            pmdList.add(promotionBoardService.findOneService(hotDeals.get(i).getBusinessNo()));
         }
     }
 

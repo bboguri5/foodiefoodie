@@ -107,7 +107,7 @@
 				<span><em></em></span>
 				<h2>오늘의 맛집</h2>
 				<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
-				<a href="/toplists">View All</a>
+				<a href="/foodlist">View All</a>
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
@@ -501,7 +501,7 @@
 												<img src="/img/location_list_placeholder.png"
 													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
-											<div class="score"><strong>평점</strong></div>
+											<div class="score"><strong>${pmdList[status.index].avgStarRate}</strong></div>
 											<h3>${hotDealMasters[status.index].storeName}</h3>
 											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>
@@ -524,7 +524,7 @@
 												<img src="/img/location_list_placeholder.png"
 													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
-											<div class="score"><strong>평점</strong></div>
+											<div class="score"><strong>${pmdList[status.index].avgStarRate}</strong></div>
 											<h3>${hotDealMasters[status.index].storeName}</h3>
 											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>

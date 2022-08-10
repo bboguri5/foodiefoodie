@@ -77,25 +77,27 @@
         </div>
         <!-- /page_header -->
 
+
+
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="hd" items="${hotDeals}" varStatus="status">
+                <c:forEach var="pb" items="${pb}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <span class="ribbon off">${hd.discountPrice}</span>
                                 <img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
-                                        <h3>${hotDealMasters[status.index].storeName}</h3>
+                                        <h3>${masterList[status.index].storeName}</h3>
+                                        <small>${masterList[status.index].storeAddress}</small>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${hotDealMasters[status.index].storeAddress}</span></li>
+                                <li><span>something about business</span></li>
                                 <li>
-                                    <div class="score"><span>핫딜!!<em>${pmdList[status.index].reviewCnt}개 리뷰</em></span><strong>${pmdList[status.index].avgStarRate}</strong></div>
+                                    <div class="score"><span>맛집이에요~<em>${pb.reviewCnt}개 리뷰</em></span><strong>${pb.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>

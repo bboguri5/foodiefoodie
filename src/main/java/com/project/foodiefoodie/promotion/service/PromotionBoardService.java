@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.promotion.service;
 
+import com.project.foodiefoodie.promotion.domain.PromotionBoard;
 import com.project.foodiefoodie.promotion.dto.PromotionReviewDTO;
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
 import lombok.RequiredArgsConstructor;
@@ -17,5 +18,17 @@ public class PromotionBoardService {
 
     public List<PromotionReviewDTO> topAvgRateCountService() {
         return mapper.topAvgRateCount();
+    }
+
+    // 해당 소개글 정보 요청 중간 처리
+    public PromotionReviewDTO findOneService(String businessNo) {
+        PromotionReviewDTO one = mapper.findOne(businessNo);
+        log.info("one promotion review dto returned in service - {}", one);
+        return one;
+    }
+
+    // 모든 소개글 정보 요청 중간 처리
+    public List<PromotionBoard> findAllService() {
+        return mapper.findAll();
     }
 }

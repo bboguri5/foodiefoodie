@@ -272,4 +272,11 @@ CREATE TABLE black_list (
     email VARCHAR2(50) NOT NULL
 );
 
-----------------------------------------------------------
+---------------------------------------------------------- 08 / 10 add
+-- ip 주소 당장 활용할 생각이 없는데 만들 때 무지성으로 not null을 걸어놔서 null로 바꾸는 alter 문이에여
+ALTER TABLE auto_login
+MODIFY ip_address VARCHAR2(30) NULL;
+
+-- 자동로그인이 되면 세션 아이디를 컬럼에 기록할건데 기존 컬럼명이 cookie인게 직관성이 떨어지는거 같아서 session_id로 변경했어요!
+ALTER TABLE auto_login
+RENAME COLUMN cookie TO session_id;

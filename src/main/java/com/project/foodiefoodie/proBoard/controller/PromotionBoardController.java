@@ -20,6 +20,11 @@ public class PromotionBoardController {
         return "promotion/pro-detail";
     }
 
+    @GetMapping("/write")
+    public String write(){
+        log.info("foodie/write Get - !");
+        return "promotion/pro-write";
+    }
 
 
 }

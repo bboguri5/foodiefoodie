@@ -38,6 +38,8 @@ public interface MemberMapper {
     // 자동로그인 쿠키값(세션 아이디값) DB에 저장
     void saveAutoLoginValue(AutoLoginDTO dto);
 
+    void deleteAutoLoginValue(String email);
+
 
     // 쿠키값(세션아이디)을 가지고 있는 회원 이메일 조회
     AutoLoginDTO findIsAutoLoginBySessionId(String sessionId);

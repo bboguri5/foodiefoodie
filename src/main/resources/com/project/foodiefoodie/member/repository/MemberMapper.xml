@@ -74,9 +74,14 @@
 
     <select id="findIsAutoLoginBySessionId" resultMap="autoLogin">
         SELECT email, session_id, logout_time
-        FROM member
+        FROM auto_login
         WHERE session_id = #{sessionId}
     </select>
+
+    <delete id="deleteAutoLoginValue">
+        DELETE FROM auto_login
+        WHERE email = #{email}
+    </delete>
 </mapper>
 
 

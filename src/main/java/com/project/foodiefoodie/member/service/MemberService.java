@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -152,5 +153,22 @@ public class MemberService {
 
 
         memberMapper.saveAutoLoginValue(dto); // 최종적 DB 저장.
+    }
+
+
+    // 자동로그인 해제 중간처리
+    public void autoLogout(String email, HttpServletRequest request, HttpServletResponse response) {
+
+        Cookie cookie = LoginUtils.getAutoLoginCookie(request);
+
+        if (cookie != null) {
+            // 1. 해당 로그아웃 요청 보낸 로컬 환경에 쿠키 수명 0으로 보내기
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+
+
+            // 2. DB에서도 기록 지우기
+            memberMapper.deleteAutoLoginValue(email);
+        }
     }
 }

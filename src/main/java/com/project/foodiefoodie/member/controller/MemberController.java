@@ -7,6 +7,7 @@ import com.project.foodiefoodie.member.dto.DuplicateDTO;
 import com.project.foodiefoodie.member.dto.LoginDTO;
 import com.project.foodiefoodie.member.service.LoginFlag;
 import com.project.foodiefoodie.member.service.MemberService;
+import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -66,7 +67,7 @@ public class MemberController {
     // 모달 창에서 로그인 비동기 요청 처리
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<LoginFlag> login(LoginDTO inputData,
+    public ResponseEntity<String> login(@RequestBody LoginDTO inputData,
                                 HttpServletResponse response,
                                         HttpSession session,
                                         Model model) {
@@ -84,22 +85,39 @@ public class MemberController {
         if (flag == SUCCESS) {
             log.info("login success");
 
-            return new ResponseEntity<>(flag, HttpStatus.OK);
+            return new ResponseEntity<>(flag.toString(), HttpStatus.OK);
 
         } else if (flag == NO_PW) {
             log.info("login no-pw");
-            return new ResponseEntity<>(flag, HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(flag.toString(), HttpStatus.FORBIDDEN);
 
         } else {
             log.info("login no-email");
-            return new ResponseEntity<>(flag, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(flag.toString(), HttpStatus.NOT_FOUND);
         }
     }
     
     
     // 로그아웃 요청 처리
     @GetMapping("/logout")
-    public String logout() {
-        return "";
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+
+        HttpSession session = request.getSession();
+
+        if (LoginUtils.isLogin(session)) { // 로그인 중인 상태라면~~
+
+            // 자동로그인까지 해놓고 있던 상태라면 해제!!
+            if (LoginUtils.hasAutoLoginCookie(request)) {
+                memberService.autoLogout(LoginUtils.getCurrentMemberEmail(session), request, response);
+            }
+
+            // 세션에서 정보 삭제 및 세션 무효화
+            session.removeAttribute(LoginUtils.LOGIN_FLAG);
+            session.invalidate();
+            return "redirect:/";
+        }
+
+        // 로그인 상태가 아니라면~
+        return "redirect:/";
     }
 }

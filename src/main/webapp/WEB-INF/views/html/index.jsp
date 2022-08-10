@@ -505,7 +505,7 @@
 											<h3>${hotDealMasters[status.index].storeName}</h3>
 											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}</span></li>
+												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
 												<li>할인 가격</li>
 											</ul>
 										</a>
@@ -528,7 +528,7 @@
 											<h3>${hotDealMasters[status.index].storeName}</h3>
 											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}</span></li>
+												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
 												<li>할인 가격</li>
 											</ul>
 										</a>

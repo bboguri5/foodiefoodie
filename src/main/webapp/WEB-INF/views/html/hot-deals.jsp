@@ -83,7 +83,7 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <span class="ribbon off">${hd.discountPrice}</span>
+                                <span class="ribbon off">${hd.discountPrice}원</span>
                                 <img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">

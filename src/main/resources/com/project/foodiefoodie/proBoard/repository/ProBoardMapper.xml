@@ -22,9 +22,9 @@
     </delete>
 
     <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">
-        <result property="businessNo" column="business_no" />
-        <result property="promotionBno" column="promotion_bno" />
-        <result property="lastUpdated" column="last_updated" />
+        <result property="businessNo" column="business_no"/>
+        <result property="promotionBno" column="promotion_bno"/>
+        <result property="lastUpdated" column="last_updated"/>
     </resultMap>
 
     <select id="selectOne" resultMap="proBoardMap">
@@ -33,4 +33,16 @@
         where promotion_bno = #{promotionBno}
     </select>
 
+<!--  마스터 가져오기 임시 -->
+    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
+        <result property="businessNo" column="BUSINESS_NO"/>
+        <result property="masterName" column="MASTER_NAME"/>
+        <result property="storeName" column="STORE_NAME"/>
+        <result property="storeAddress" column="STORE_ADDRESS"/>
+        <result property="hotDeal" column="HOT_DEAL"/>
+        <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
+    </resultMap>
+    <select id="selectMaster" resultMap="masterMap">
+        select * from master where BUSINESS_NO = #{businessNo}
+    </select>
 </mapper>

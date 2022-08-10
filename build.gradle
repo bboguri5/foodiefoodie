@@ -37,7 +37,7 @@ dependencies {
 	implementation fileTree(dir: '/src/main/webapp/WEB-INF/lib', include: ['*.jar'])
 
 	//마이바티스 라이브러리
-	implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0"
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0'
 
 	//파일업로드 라이브러리
 	implementation 'commons-io:commons-io:2.8.0'

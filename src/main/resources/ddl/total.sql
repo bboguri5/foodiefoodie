@@ -280,3 +280,52 @@ MODIFY ip_address VARCHAR2(30) NULL;
 -- 자동로그인이 되면 세션 아이디를 컬럼에 기록할건데 기존 컬럼명이 cookie인게 직관성이 떨어지는거 같아서 session_id로 변경했어요!
 ALTER TABLE auto_login
 RENAME COLUMN cookie TO session_id;
+
+-- master 테이블 오픈일자 타입 변경
+alter table master modify STORE_REG_DATE number(10);
+
+-- 홍보글 평점
+ALTER TABLE promotion_board
+ADD avg_star_rate DECIMAL(1, 2);
+
+-- 이미지 대중소 분류
+DROP TABLE promotion_upload;
+
+create table promotion_upload_detail_img(
+      promotion_bno NUMBER(10) NOT NULL
+    , file_path clob not null
+    , file_name VARCHAR2(100) NULL
+    , CONSTRAINT fk_pro_upload_detail_img FOREIGN KEY (promotion_bno)
+    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+);
+
+create table promotion_upload_title_img(
+   promotion_bno NUMBER(10) NOT NULL
+    , file_path clob not null
+    , file_name VARCHAR2(100) NULL
+    , CONSTRAINT fk_pro_upload_title_img FOREIGN KEY (promotion_bno)
+    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+);
+
+alter table promotion_food_menu_upload rename to promotion_upload_menu_img;
+-- /end
+
+-- 프로모션 보드 테이블에 리뷰개수도 추가하고 디폴트 0으로 세팅했어요 호호
+SELECT * FROM promotion_board;
+
+ALTER TABLE promotion_board DROP COLUMN avg_star_rate;
+ALTER TABLE promotion_board DROP COLUMN review_cnt;
+
+ALTER TABLE promotion_board
+ADD avg_star_rate DECIMAL(1, 2) DEFAULT 0;
+
+ALTER TABLE promotion_board
+ADD review_cnt NUMBER(10) DEFAULT 0;
+
+COMMIT;
+-- /end
+
+-- 카테고리분류 말고 해시태그로 분류
+ALTER TABLE master
+DROP COLUMN food_categories;
+commit;

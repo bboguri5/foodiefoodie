@@ -501,7 +501,8 @@
 												<img src="/img/location_list_placeholder.png"
 													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
-											<div class="score"><strong>${pmdList[status.index].avgStarRate}</strong></div>
+											<div class="score"><strong>${pmdList[status.index].avgStarRate}</strong>
+											</div>
 											<h3>${hotDealMasters[status.index].storeName}</h3>
 											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>
@@ -524,7 +525,8 @@
 												<img src="/img/location_list_placeholder.png"
 													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
-											<div class="score"><strong>${pmdList[status.index].avgStarRate}</strong></div>
+											<div class="score">
+												<strong>${pmdList[status.index].avgStarRate}</strong></div>
 											<h3>${hotDealMasters[status.index].storeName}</h3>
 											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>

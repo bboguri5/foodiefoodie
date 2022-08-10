@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper태그는 sql을 매핑할때 사용하는 태그
+     namespace속성에는 사용할 인터페이스의 풀 패키지경로 + 인터페이스이름
+  -->
+<mapper namespace="com.project.foodiefoodie.reportMember.repository.ReportMemberMapper">
+
+
+    <resultMap id="reportMemberMap" type="com.project.foodiefoodie.reportMember.domain.ReportMember">
+        <result property="reportCnt" column="report_cnt"/>
+    </resultMap>
+
+<!--    List<ReportMember> findAll();-->
+<!--    ReportMember findOne(String email);-->
+<!--    boolean save(String email);-->
+<!--    boolean remove(String email);-->
+<!--    boolean modify(ReportMember reportMember);-->
+
+    <select id="findAll" resultMap="reportMemberMap">
+        SELECT * FROM report_member
+    </select>
+
+    <select id="findOne" resultMap="reportMemberMap">
+        SELECT * FROM report_member
+        WHERE email = #{email}
+    </select>
+
+    <insert id="save">
+        INSERT INTO report_member (email) VALUES (#{email})
+    </insert>
+
+    <delete id="remove">
+        DELETE FROM report_member
+        WHERE email = #{email}
+    </delete>
+
+    <update id="modify">
+        UPDATE report_member SET report_cnt = #{reportCnt}
+        WHERE email = #{email}
+    </update>
+
+</mapper>

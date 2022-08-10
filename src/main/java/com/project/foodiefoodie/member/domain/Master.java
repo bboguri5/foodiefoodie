@@ -12,7 +12,6 @@ public class Master extends Member{
     private String masterName;
     private String storeName;
     private String storeAddress;
-    private String foodCategories;
     private Date storeRegDate;
     private String hotDeal;
     private String storeCallNumber;

@@ -27,19 +27,10 @@ public class MemberService {
         return memberList;
     }
 
-    public List<Master> findMasterService() {
-        List<Master> masterList = mapper.findMaster();
-        return masterList;
-    }
 
     public Member findOneCommonService(String email) {
         Member member = mapper.findOneCommon(email);
         return member;
-    }
-
-    public Master findOneMasterService(String email) {
-        Master master = mapper.findOneMaster(email);
-        return master;
     }
 
     public boolean removeService(String email) {

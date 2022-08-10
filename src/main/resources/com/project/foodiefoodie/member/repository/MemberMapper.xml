@@ -14,23 +14,7 @@
         <result property="registDate" column="regist_date"/>
         <result property="loginTime" column="login_time"/>
     </resultMap>
-    
-    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
-        <result property="nickName" column="nick_name"/>
-        <result property="phoneNumber" column="phone_number"/>
-        <result property="registDate" column="regist_date"/>
-        <result property="loginTime" column="login_time"/>
-        <result property="businessNo" column="business_no"/>
-        <result property="masterName" column="master_name"/>
-        <result property="storeName" column="store_name"/>
-        <result property="storeAddress" column="store_address"/>
-        <result property="foodCategories" column="food_categories"/>
-        <result property="storeRegDate" column="store_reg_date"/>
-        <result property="hotDeal" column="hot_deal"/>
-        <result property="storeCallNumber" column="store_call_number"/>
-    </resultMap>
 
-    
     <select id="findAll" resultMap="memberMap">
         SELECT * FROM member
     </select>
@@ -40,34 +24,9 @@
         WHERE auth = 'COMMON'
     </select>
 
-    <select id="findMaster" resultMap="masterMap">
-        SELECT
-        a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date, a.login_time
-        , b.business_no, b.store_name, b.store_address, b.food_categories
-        , b.store_reg_date, b.hot_deal, b.store_call_number
-        FROM member a
-        LEFT OUTER JOIN master b
-        ON a.email = b.email
-        WHERE auth = 'MASTER'
-    </select>
-
-
     <select id="findOneCommon" resultMap="memberMap">
         SELECT * FROM member
         WHERE email = #{email}
-    </select>
-
-    <select id="findOneMaster" resultMap="masterMap">
-        SELECT
-        a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date, a.login_time
-        , b.business_no, b.store_name, b.store_address, b.food_categories
-        , b.store_reg_date, b.hot_deal, b.store_call_number
-        FROM member a
-        LEFT OUTER JOIN master b
-        ON a.email = b.email
-        WHERE a.email = #{email}
     </select>
 
     <delete id="remove">
@@ -75,22 +34,5 @@
         WHERE email = #{email}
     </delete>
 
-    <delete id="removeMaster">
-        DELETE FROM master
-        WHERE email = #{email}
-    </delete>
 
-    <select id="approveMaster" resultMap="masterMap">
-        SELECT
-        a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date, a.login_time
-        , b.business_no, b.store_name, b.store_address, b.food_categories
-        , b.store_reg_date, b.hot_deal, b.store_call_number
-        FROM member a
-        LEFT OUTER JOIN master b
-        ON a.email = b.email
-        WHERE auth = 'COMMON' AND b.email is not null
-    </select>
-
-    
 </mapper>

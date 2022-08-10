@@ -5,36 +5,7 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Foogra - Discover & Book the best restaurants at the best price">
-	<meta name="author" content="Ansonika">
-	<title>FoodieFoodie</title>
-	a
-	<!-- Favicons-->
-	<link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
-	<link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
-	<link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-		href="/img/apple-touch-icon-114x114-precomposed.png">
-	<link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-		href="/img/apple-touch-icon-144x144-precomposed.png">
-
-	<!-- GOOGLE WEB FONT -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-		rel="stylesheet">
-
-	<!-- BASE CSS -->
-	<link href="/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/css/style.css" rel="stylesheet">
-
-	<!-- SPECIFIC CSS -->
-	<link href="/css/home.css" rel="stylesheet">
-
-	<!-- YOUR CUSTOM CSS -->
-	<link href="/css/custom.css" rel="stylesheet">
-
+	<%@ include file="../include/static-head.jsp" %>
 </head>
 
 <body>
@@ -136,18 +107,17 @@
 				<span><em></em></span>
 				<h2>오늘의 맛집</h2>
 				<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
-				<a href="#0">View All</a>
+				<a href="/foodlist">View All</a>
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
-				<c:forEach var="as" items="${avgStars}" varStatus="status">
+				<c:forEach var="prd" items="${prd}" varStatus="status">
 					<div class="item">
 						<div class="strip">
 							<figure>
 								<img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="owl-lazy"
 									alt="">
 								<a href="detail-restaurant.html" class="strip_info">
-									<small>Pizza</small>
 									<div class="item_title">
 										<h3>${masterList[status.index].storeName}</h3>
 										<small>${masterList[status.index].storeAddress}</small>
@@ -157,7 +127,8 @@
 							<ul>
 								<li><span class="loc_open">Now Open</span></li>
 								<li>
-									<div class="score"><span>최고맛집<em>${as.reviewCount}개 리뷰</em></span><strong>${as.sr}</strong></div>
+									<div class="score"><span>최고맛집<em>${prd.reviewCnt}개
+												리뷰</em></span><strong>${prd.avgStarRate}</strong></div>
 								</li>
 							</ul>
 						</div>
@@ -519,8 +490,8 @@
 					</div>
 				</div>
 
-				<c:forEach var="sl" items="${sixList}">
-					<c:if test="${sixList.indexOf(sl) gt 2}">
+				<c:forEach var="hd" items="${hotDeals}" varStatus="status">
+					<c:if test="${hotDeals.indexOf(hd) gt 2}">
 						<div class="col-md-6">
 							<div class="list_home">
 								<ul>
@@ -530,13 +501,12 @@
 												<img src="/img/location_list_placeholder.png"
 													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
-											<div class="score"><strong>9.5</strong></div>
-											<em>Italian</em>
-											<h3>${sl.businessNo}</h3>
-											<small>8 Patriot Square E2 9NF</small>
+											<div class="score"><strong>${pmdList[status.index].avgStarRate}</strong></div>
+											<h3>${hotDealMasters[status.index].storeName}</h3>
+											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>
-												<li><span class="ribbon off">-30%</span></li>
-												<li>Average price $35</li>
+												<li><span class="ribbon off">${hd.discountPrice}</span></li>
+												<li>할인 가격</li>
 											</ul>
 										</a>
 									</li>
@@ -544,7 +514,7 @@
 							</div>
 						</div>
 					</c:if>
-					<c:if test="${sixList.indexOf(sl) le 2}">
+					<c:if test="${hotDeals.indexOf(hd) le 2}">
 						<div class="col-md-6">
 							<div class="list_home">
 								<ul>
@@ -552,15 +522,14 @@
 										<a href="detail-restaurant.html">
 											<figure>
 												<img src="/img/location_list_placeholder.png"
-													data-src="/img/location_list_4.jpg" alt="" class="lazy">
+													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
-											<div class="score"><strong>9.5</strong></div>
-											<em>Vegetarian</em>
-											<h3>${sl.businessNo}</h3>
-											<small>27 Old Gloucester St, 4563</small>
+											<div class="score"><strong>${pmdList[status.index].avgStarRate}</strong></div>
+											<h3>${hotDealMasters[status.index].storeName}</h3>
+											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>
-												<li><span class="ribbon off">-30%</span></li>
-												<li>Average price $20</li>
+												<li><span class="ribbon off">${hd.discountPrice}</span></li>
+												<li>할인 가격</li>
 											</ul>
 										</a>
 									</li>

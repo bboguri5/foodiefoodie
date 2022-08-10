@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.foodiefoodie.review.repository.ReviewBoardMapper">
+
+    <resultMap id="rbMap" type="com.project.foodiefoodie.review.domain.ReviewBoard">
+        <result property="businessNo" column="business_no"/>
+        <result property="reviewBno" column="review_bno"/>
+        <result property="lastUpdate" column="last_update"/>
+        <result property="likeCnt" column="like_cnt"/>
+        <result property="starRate" column="star_rate"/>
+        <result property="isPrivate" column="private"/>
+    </resultMap>
+
+
+    <select id="avgStarRate" resultType="com.project.foodiefoodie.review.dto.AvgStarDTO">
+        SELECT business_no AS businessNo, ROUND(AVG(star_rate), 2) AS sr, COUNT(star_rate) AS reviewCount
+        FROM review_board
+        GROUP BY business_no
+        ORDER BY sr DESC
+    </select>
+
+
+</mapper>

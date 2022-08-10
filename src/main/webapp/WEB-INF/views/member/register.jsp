@@ -212,6 +212,8 @@
             // 한글로 써야 한다는 정규표현식. 유니코드상 한글의 시작이 '가', 끝이 '힣'이라서
 
 
+            const getNickName = RegExp(/^[a-zA-Zㄱ-힣0-9]{2,12}$/);
+
             const getBitrth = RegExp(/^[0-9]+$/);
             // 생년월일은 숫자로만 입력해야 한다.
 
@@ -341,7 +343,7 @@
 
             // 4. 닉네임 검증
             const $nickInput = $('#nick-name');
-            const $nickChk = $('nickNameChk');
+            const $nickChk = $('#nickNameChk');
 
             $nickInput.on('keyup', e => {
 
@@ -353,10 +355,10 @@
                     checkArr[3] = false;
                 }
 
-                // 이메일 표현식에 어긋나는 경우
-                else if ($nickInput.val().length < 2) {
+                // 닉네임 제한에
+                else if (!getNickName.test($nickInput.val()) || $nickInput.val().length < 2 || $nickInput.val().length > 12) {
                     $nickInput.css('border-color', 'red');
-                    $nickChk.text('닉네임은 최소 2자 이상입니다.');
+                    $nickChk.text('닉네임은 최소 2자 이상 12자 이하로 영문, 한글, 숫자만 가능합니다.');
                     $nickChk.css('color', 'red');
                     checkArr[3] = false;
                 } else {

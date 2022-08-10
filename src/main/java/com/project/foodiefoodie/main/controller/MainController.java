@@ -23,7 +23,6 @@ import java.util.List;
 public class MainController {
 
     private final HotDealService hotDealService;
-    private final ReviewBoardService reviewBoardService;
     private final PromotionBoardService promotionBoardService;
     private final MasterService masterService;
 

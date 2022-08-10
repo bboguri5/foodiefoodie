@@ -470,9 +470,9 @@
 				<div class="wrapper d-flex align-items-center opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.2)"
 					style="background: url('img/food_review.jpg') no-repeat 100% / 100%">
 					<div>
-						<small>foogra</small>
-						<h3>먹어본 사람들의 솔직한 리뷰 보러 고고 하슈</h3>
-						<p>많이 많이 있다구, 맛집 찾아 보라구</p>
+						<small>Foodie Foodie</small>
+						<h3>직접 먹어본 사람들만의 솔직한 리뷰</h3>
+						<p>많은 후기를 보고 맛집을 찾아보세요!</p>
 						<a href="grid-listing-filterscol.html" class="btn_1">맛집 리뷰 보러가기</a>
 					</div>
 				</div>
@@ -501,11 +501,12 @@
 												<img src="/img/location_list_placeholder.png"
 													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
-											<div class="score"><strong>${pmdList[status.index].avgStarRate}</strong></div>
+											<div class="score"><strong>${pmdList[status.index].avgStarRate}</strong>
+											</div>
 											<h3>${hotDealMasters[status.index].storeName}</h3>
 											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}</span></li>
+												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
 												<li>할인 가격</li>
 											</ul>
 										</a>
@@ -524,11 +525,12 @@
 												<img src="/img/location_list_placeholder.png"
 													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
-											<div class="score"><strong>${pmdList[status.index].avgStarRate}</strong></div>
+											<div class="score">
+												<strong>${pmdList[status.index].avgStarRate}</strong></div>
 											<h3>${hotDealMasters[status.index].storeName}</h3>
 											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}</span></li>
+												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
 												<li>할인 가격</li>
 											</ul>
 										</a>

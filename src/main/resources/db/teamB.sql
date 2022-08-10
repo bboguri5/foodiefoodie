@@ -94,7 +94,11 @@ CREATE TABLE MASTER (
 );
 
 alter table master modify store_address VARCHAR2(150);
+alter table master modify STORE_REG_DATE number(10); -- 08.10 정아씨 수정사항
 
+ALTER TABLE master
+DROP COLUMN food_categories; -- 08.10 동진 수정사항
+commit;
 
 -- ?????
 CREATE TABLE promotion_board (
@@ -311,19 +315,51 @@ CREATE TABLE black_list (
 
 
 -- 정아씨
-insert into promotion_board VALUES (101010
-,seq_promotion_board.nextval
-,'주소   : 경기도 군포시 산본로323번길 7-1
-지번 : 경기도 군포시 산본동 1128-1
-전화번호 : 0507-1350-4556
-음식 종류 :   딤섬 / 만두
-가격대 : 만원 미만
-주차   : 주차공간없음
-영업시간 : 11:00 - 21:00
-쉬는시간 : 15:00 - 16:00
-마지막 주문 : 20:30
-휴일   : 일'
-,sysdate
-,'황고기')
-;
-commit;
+--insert into promotion_board VALUES (101010
+--,seq_promotion_board.nextval
+--,'주소   : 경기도 군포시 산본로323번길 7-1
+--지번 : 경기도 군포시 산본동 1128-1
+--전화번호 : 0507-1350-4556
+--음식 종류 :   딤섬 / 만두
+--가격대 : 만원 미만
+--주차   : 주차공간없음
+--영업시간 : 11:00 - 21:00
+--쉬는시간 : 15:00 - 16:00
+--마지막 주문 : 20:30
+--휴일   : 일'
+--,sysdate
+--,'황고기')
+--;
+
+create table promotion_upload_detail_img(
+      promotion_bno NUMBER(10) NOT NULL
+    , file_path clob not null
+    , file_name VARCHAR2(100) NULL
+    , CONSTRAINT fk_pro_upload_detail_img FOREIGN KEY (promotion_bno)
+    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+);
+
+create table promotion_upload_title_img(
+   promotion_bno NUMBER(10) NOT NULL
+    , file_path clob not null
+    , file_name VARCHAR2(100) NULL
+    , CONSTRAINT fk_pro_upload_title_img FOREIGN KEY (promotion_bno)
+    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+);
+alter table promotion_food_menu_upload rename to promotion_upload_menu_img;
+
+DROP TABLE promotion_upload;
+
+-- 해원씨
+SELECT * FROM promotion_board;
+
+ALTER TABLE promotion_board DROP COLUMN avg_star_rate;
+ALTER TABLE promotion_board DROP COLUMN review_cnt;
+
+ALTER TABLE promotion_board
+ADD avg_star_rate DECIMAL(1, 2) DEFAULT 0;
+
+ALTER TABLE promotion_board
+ADD review_cnt NUMBER(10) DEFAULT 0;
+
+COMMIT;

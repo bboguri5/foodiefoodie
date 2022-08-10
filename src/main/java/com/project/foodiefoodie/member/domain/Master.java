@@ -1,4 +1,4 @@
-package com.project.foodiefoodie.master.domain;
+package com.project.foodiefoodie.member.domain;
 
 import lombok.*;
 
@@ -16,7 +16,6 @@ public class Master {
     private String masterName;
     private String storeName;
     private String storeAddress;
-    private String foodCategories;
     private Date storeRegDate;
     private char hotDeal;
     private String storeCallNumber;

@@ -23,7 +23,13 @@
 <link href="/css/style.css" rel="stylesheet">
 
 <!-- SPECIFIC CSS -->
-<link href="/css/home.css" rel="stylesheet">
+<link href="/css/listing.css" rel="stylesheet">
 
 <!-- YOUR CUSTOM CSS -->
 <link href="/css/custom.css" rel="stylesheet">
+
+<!-- jquery -->
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+<link href="/css/home.css" rel="stylesheet">
+

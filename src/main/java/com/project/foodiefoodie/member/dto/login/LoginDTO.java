@@ -1,4 +1,4 @@
-package com.project.foodiefoodie.member.dto;
+package com.project.foodiefoodie.member.dto.login;
 
 import lombok.*;
 

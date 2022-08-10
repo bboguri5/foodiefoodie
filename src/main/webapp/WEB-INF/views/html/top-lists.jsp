@@ -90,12 +90,11 @@
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
                                         <h3>${masterList[status.index].storeName}</h3>
-                                        <small>${masterList[status.index].storeAddress}</small>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>something about business</span></li>
+                                <li><span>${masterList[status.index].storeAddress}</span></li>
                                 <li>
                                     <div class="score"><span>맛집이에요~<em>${pb.reviewCnt}개 리뷰</em></span><strong>${pb.avgStarRate}</strong></div>
                                 </li>

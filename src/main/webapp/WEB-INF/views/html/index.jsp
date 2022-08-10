@@ -470,9 +470,9 @@
 				<div class="wrapper d-flex align-items-center opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.2)"
 					style="background: url('img/food_review.jpg') no-repeat 100% / 100%">
 					<div>
-						<small>foogra</small>
-						<h3>먹어본 사람들의 솔직한 리뷰 보러 고고 하슈</h3>
-						<p>많이 많이 있다구, 맛집 찾아 보라구</p>
+						<small>Foodie Foodie</small>
+						<h3>직접 먹어본 사람들만의 솔직한 리뷰</h3>
+						<p>많은 후기를 보고 맛집을 찾아보세요!</p>
 						<a href="grid-listing-filterscol.html" class="btn_1">맛집 리뷰 보러가기</a>
 					</div>
 				</div>

@@ -36,9 +36,6 @@
 
             navigator.geolocation.getCurrentPosition(success, error, options);
 
-
-            // const regionData = {};
-
             function onGeoOk(position) {
                 const lat = position.coords.latitude;
                 const lon = position.coords.longitude;
@@ -54,11 +51,17 @@
                         }
                     )
                     .then(res => {
-                        console.log('data: ', res.data.documents)
-                        dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
-                        dispatch(changeCity(res.data.documents[0].address.region_2depth_name))
+                        // printAddress(res.data.documents[0].address.address_name);
+
+                        const address = res.data.documents[0].address.address_name;
+                        // fetch('/foodieList?addr='+address).then
                     }).catch(e => console.log('e: ', e))
             }
+
+            // function printAddress(address) {
+            //     console.log(address);
+
+            // }
 
             function onGeoError() {
                 alert("위치권한을 확인해주세요");

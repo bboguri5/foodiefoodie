@@ -38,17 +38,15 @@ insert into member (email, password, nick_name, phone_number, birth, address, na
 VALUES('jungah@naver.com', '1234', '홍길동', '01012341234', '20000101', '서울', '홍길동', 'M','MASTER');
 
 -- master insert
-insert into master(business_no,email,master_name,store_name,store_address,food_categories,store_reg_date,store_call_number)VALUES
+insert into master(business_no,email,master_name,store_name,store_address,store_reg_date,store_call_number)VALUES
 (
 '101010'
 ,'jungah@naver.com'
 ,'황정아'
 ,'황고기'
 ,'서울특별시 금천구 가산동 345-30 남성프라자 10층 1007호'
-,'양식'
-,'20200101','01096221143'
+,20200101,'01096221143'
 );
-
 
 rollback;
 commit;

@@ -3,6 +3,7 @@ package com.project.foodiefoodie.proBoard.domain;
 import lombok.*;
 
 import java.util.Date;
+import java.util.Map;
 
 
 @Getter
@@ -18,4 +19,7 @@ public class ProBoard {
     private Date lastUpdated;
     private String title;
 
+    private String hashTag;
+    private Map<String,Integer> menu;
+    private Map<String,String> menuImgs;
 }

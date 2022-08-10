@@ -228,16 +228,6 @@ CREATE TABLE profile_upload(
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- 음식 메뉴 파일 업로드
-CREATE TABLE promotion_food_menu_upload(
-         promotion_bno NUMBER(10) NOT NULL
-        ,menu_no NUMBER(10) NOT NULL
-        , file_path clob
-        , file_name VARCHAR2(100) NOT NULL
-        , CONSTRAINT fk_pro_food_menu_upload FOREIGN KEY (menu_no)
-    REFERENCES promotion_food_menu (menu_no) ON DELETE CASCADE
-);
-
 -- member 주소 크기 변경
 ALTER TABLE member
 MODIFY address VARCHAR2(150);
@@ -270,6 +260,16 @@ CREATE TABLE report_member (
 -- 5번 이상 일 경우 블랙리스트 등록 테이블
 CREATE TABLE black_list (
     email VARCHAR2(50) NOT NULL
+);
+
+-- 음식 메뉴 파일 업로드
+CREATE TABLE promotion_food_menu_upload(
+         promotion_bno NUMBER(10) NOT NULL
+        ,menu_no NUMBER(10) NOT NULL
+        , file_path clob
+        , file_name VARCHAR2(100) NOT NULL
+        , CONSTRAINT fk_pro_food_menu_upload FOREIGN KEY (menu_no)
+    REFERENCES promotion_food_menu (menu_no) ON DELETE CASCADE
 );
 
 ---------------------------------------------------------- 08 / 10 add
@@ -313,8 +313,8 @@ alter table promotion_food_menu_upload rename to promotion_upload_menu_img;
 -- 프로모션 보드 테이블에 리뷰개수도 추가하고 디폴트 0으로 세팅했어요 호호
 SELECT * FROM promotion_board;
 
-ALTER TABLE promotion_board DROP COLUMN avg_star_rate;
-ALTER TABLE promotion_board DROP COLUMN review_cnt;
+--ALTER TABLE promotion_board DROP COLUMN avg_star_rate;
+--ALTER TABLE promotion_board DROP COLUMN review_cnt;
 
 ALTER TABLE promotion_board
 ADD avg_star_rate DECIMAL(1, 2) DEFAULT 0;
@@ -322,10 +322,15 @@ ADD avg_star_rate DECIMAL(1, 2) DEFAULT 0;
 ALTER TABLE promotion_board
 ADD review_cnt NUMBER(10) DEFAULT 0;
 
-COMMIT;
 -- /end
 
 -- 카테고리분류 말고 해시태그로 분류
 ALTER TABLE master
 DROP COLUMN food_categories;
+
+--
+ALTER TABLE promotion_board
+ADD avg_star_rate DECIMAL(3, 2) DEFAULT 0;
+
+
 commit;

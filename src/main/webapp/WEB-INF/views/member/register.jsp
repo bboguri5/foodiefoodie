@@ -381,8 +381,6 @@
 
     <div class="layer"></div><!-- Opacity Mask Menu Mobile -->
 
-    <%@ include file="/WEB-INF/views/member/login.jsp" %>
-
     <!-- COMMON SCRIPTS -->
     <script src="/js/common_scripts.min.js"></script>
     <script src="/js/common_func.js"></script>

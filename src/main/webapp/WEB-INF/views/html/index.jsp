@@ -107,18 +107,17 @@
 				<span><em></em></span>
 				<h2>오늘의 맛집</h2>
 				<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
-				<a href="#0">View All</a>
+				<a href="/toplists">View All</a>
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
-				<c:forEach var="as" items="${avgStars}" varStatus="status">
+				<c:forEach var="prd" items="${prd}" varStatus="status">
 					<div class="item">
 						<div class="strip">
 							<figure>
 								<img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="owl-lazy"
 									alt="">
 								<a href="detail-restaurant.html" class="strip_info">
-									<small>Pizza</small>
 									<div class="item_title">
 										<h3>${masterList[status.index].storeName}</h3>
 										<small>${masterList[status.index].storeAddress}</small>
@@ -128,7 +127,8 @@
 							<ul>
 								<li><span class="loc_open">Now Open</span></li>
 								<li>
-									<div class="score"><span>최고맛집<em>${as.reviewCount}개 리뷰</em></span><strong>${as.sr}</strong></div>
+									<div class="score"><span>최고맛집<em>${prd.reviewCnt}개
+												리뷰</em></span><strong>${prd.avgStarRate}</strong></div>
 								</li>
 							</ul>
 						</div>
@@ -490,8 +490,8 @@
 					</div>
 				</div>
 
-				<c:forEach var="sl" items="${sixList}">
-					<c:if test="${sixList.indexOf(sl) gt 2}">
+				<c:forEach var="hd" items="${hotDeals}" varStatus="status">
+					<c:if test="${hotDeals.indexOf(hd) gt 2}">
 						<div class="col-md-6">
 							<div class="list_home">
 								<ul>
@@ -501,13 +501,12 @@
 												<img src="/img/location_list_placeholder.png"
 													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
-											<div class="score"><strong>9.5</strong></div>
-											<em>Italian</em>
-											<h3>${sl.businessNo}</h3>
-											<small>8 Patriot Square E2 9NF</small>
+											<div class="score"><strong>평점</strong></div>
+											<h3>${hotDealMasters[status.index].storeName}</h3>
+											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>
-												<li><span class="ribbon off">-30%</span></li>
-												<li>Average price $35</li>
+												<li><span class="ribbon off">${hd.discountPrice}</span></li>
+												<li>할인 가격</li>
 											</ul>
 										</a>
 									</li>
@@ -515,7 +514,7 @@
 							</div>
 						</div>
 					</c:if>
-					<c:if test="${sixList.indexOf(sl) le 2}">
+					<c:if test="${hotDeals.indexOf(hd) le 2}">
 						<div class="col-md-6">
 							<div class="list_home">
 								<ul>
@@ -523,15 +522,14 @@
 										<a href="detail-restaurant.html">
 											<figure>
 												<img src="/img/location_list_placeholder.png"
-													data-src="/img/location_list_4.jpg" alt="" class="lazy">
+													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
-											<div class="score"><strong>9.5</strong></div>
-											<em>Vegetarian</em>
-											<h3>${sl.businessNo}</h3>
-											<small>27 Old Gloucester St, 4563</small>
+											<div class="score"><strong>평점</strong></div>
+											<h3>${hotDealMasters[status.index].storeName}</h3>
+											<small>${hotDealMasters[status.index].storeAddress}</small>
 											<ul>
-												<li><span class="ribbon off">-30%</span></li>
-												<li>Average price $20</li>
+												<li><span class="ribbon off">${hd.discountPrice}</span></li>
+												<li>할인 가격</li>
 											</ul>
 										</a>
 									</li>

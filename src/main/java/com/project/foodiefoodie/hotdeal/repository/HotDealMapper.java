@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.hotdeal.repository;
 
 import com.project.foodiefoodie.hotdeal.domain.HotDeal;
+import com.project.foodiefoodie.master.dto.MasterDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,8 +12,8 @@ public interface HotDealMapper {
     // 핫딜 추가 기능
     boolean save(HotDeal deal);
 
-    // 핫딜 전체 조회 기능 with Search
-    List<HotDeal> findAll();
+    // 핫딜 랜덤 6개 조회 기능
+    List<HotDeal> findRandHot();
 
     // 핫딜 상세 조회 기능
     HotDeal findOne(String businessNo);
@@ -22,4 +23,6 @@ public interface HotDealMapper {
 
     // 핫딜 수정 기능
     boolean modify(HotDeal deal);
+
+    List<HotDeal> findAll();
 }

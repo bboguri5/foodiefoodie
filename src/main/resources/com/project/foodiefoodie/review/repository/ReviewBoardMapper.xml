@@ -14,13 +14,22 @@
         <result property="isPrivate" column="private"/>
     </resultMap>
 
+    <insert id="save">
+        INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate)
+        VALUES (#{email}, #{title}, #{content}, seq_review_board.nextval, #{businessNo},#{starRate})
+    </insert>
 
-    <select id="avgStarRate" resultType="com.project.foodiefoodie.review.dto.AvgStarDTO">
-        SELECT business_no AS businessNo, ROUND(AVG(star_rate), 2) AS sr, COUNT(star_rate) AS reviewCount
+    <!--  해당 가게 평균 평점 구하기  -->
+    <select id="getStarRate" resultType="double">
+        SELECT ROUND(AVG(star_rate), 2)
         FROM review_board
-        GROUP BY business_no
-        ORDER BY sr DESC
+        WHERE business_no=#{businessNo}
     </select>
 
-
+    <!--  해당 가게 리뷰 개수 구하기  -->
+    <select id="getReviewCnt" resultType="Long">
+        SELECT COUNT(star_rate)
+        FROM review_board
+        WHERE business_no=#{businessNo}
+    </select>
 </mapper>

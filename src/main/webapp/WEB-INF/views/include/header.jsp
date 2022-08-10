@@ -4,7 +4,7 @@
 <header class="header clearfix element_to_stick">
     <div class="container">
         <div id="logo">
-            <a href="index.html">
+            <a href="/">
                 <img src="img/logo.svg" width="140" height="35" alt="" class="logo_normal">
                 <img src="img/logo_sticky.svg" width="140" height="35" alt="" class="logo_sticky">
             </a>

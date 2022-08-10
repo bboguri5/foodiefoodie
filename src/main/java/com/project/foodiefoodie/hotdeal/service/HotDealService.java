@@ -2,6 +2,7 @@ package com.project.foodiefoodie.hotdeal.service;
 
 import com.project.foodiefoodie.hotdeal.domain.HotDeal;
 import com.project.foodiefoodie.hotdeal.repository.HotDealMapper;
+import com.project.foodiefoodie.master.dto.MasterDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,9 @@ public class HotDealService {
         return hotDealMapper.save(deal);
     }
 
-    public List<HotDeal> findAllService() {
-        return hotDealMapper.findAll();
+    // hot deal 랜덤 6개 목록 요청 중간 처리
+    public List<HotDeal> findRandHotService() {
+        return hotDealMapper.findRandHot();
     }
 
     public HotDeal findOneService(String businessNo) {
@@ -34,5 +36,9 @@ public class HotDealService {
 
     public boolean modifyService(HotDeal deal) {
         return hotDealMapper.modify(deal);
+    }
+
+    public List<HotDeal> findAllService() {
+        return hotDealMapper.findAll();
     }
 }

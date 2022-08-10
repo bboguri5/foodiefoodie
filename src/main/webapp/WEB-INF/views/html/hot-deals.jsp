@@ -180,26 +180,19 @@
         </div>
         <!-- /filters -->
 
-
-
-
-
-
-
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="hd" items="${hotDeals}">
+                <c:forEach var="hd" items="${hotDeals}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <span class="ribbon off">-30%</span>
+                                <span class="ribbon off">${hd.discountPrice}</span>
                                 <img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
-                                    <small>${hd.businessNo}</small>
                                     <div class="item_title">
-                                        <h3>${hd.businessNo}</h3>
-                                        <small>Business Address</small>
+                                        <h3>${hotDealMasters[status.index].storeName}</h3>
+                                        <small>${hotDealMasters[status.index].storeAddress}</small>
                                     </div>
                                 </a>
                             </figure>

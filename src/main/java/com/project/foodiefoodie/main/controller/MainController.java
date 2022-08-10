@@ -2,8 +2,8 @@ package com.project.foodiefoodie.main.controller;
 
 import com.project.foodiefoodie.hotdeal.domain.HotDeal;
 import com.project.foodiefoodie.hotdeal.service.HotDealService;
-import com.project.foodiefoodie.master.dto.MasterDTO;
-import com.project.foodiefoodie.master.service.MasterService;
+import com.project.foodiefoodie.member.dto.master.MasterDTO;
+import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.promotion.domain.PromotionBoard;
 import com.project.foodiefoodie.promotion.dto.PromotionReviewDTO;
 import com.project.foodiefoodie.promotion.service.PromotionBoardService;

@@ -1,7 +1,6 @@
 package com.project.foodiefoodie.hotdeal.repository;
 
 import com.project.foodiefoodie.hotdeal.domain.HotDeal;
-import com.project.foodiefoodie.master.dto.MasterDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

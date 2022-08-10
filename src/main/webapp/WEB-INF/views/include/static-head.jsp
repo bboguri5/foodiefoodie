@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Foogra - Discover & Book the best restaurants at the best price">
 <meta name="author" content="Ansonika">
-<title>Foogra - Discover & Book the best restaurants at the best price</title>
+<title>FoodieFoodie</title>
 
 <!-- Favicons-->
 <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
@@ -30,3 +30,6 @@
 
 <!-- jquery -->
 <script src="/js/jquery-3.3.1.min.js"></script>
+
+<link href="/css/home.css" rel="stylesheet">
+

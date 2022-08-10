@@ -2,7 +2,6 @@ package com.project.foodiefoodie.hotdeal.service;
 
 import com.project.foodiefoodie.hotdeal.domain.HotDeal;
 import com.project.foodiefoodie.hotdeal.repository.HotDealMapper;
-import com.project.foodiefoodie.master.dto.MasterDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.project.foodiefoodie.member.interceptor;
 
 import com.project.foodiefoodie.member.domain.Member;
-import com.project.foodiefoodie.member.dto.AutoLoginDTO;
+import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.repository.MemberMapper;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;

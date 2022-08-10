@@ -1,10 +1,10 @@
 package com.project.foodiefoodie.member.service;
 
 import com.project.foodiefoodie.member.domain.Member;
-import com.project.foodiefoodie.member.dto.AutoLoginDTO;
+import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DeleteMemberDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
-import com.project.foodiefoodie.member.dto.LoginDTO;
+import com.project.foodiefoodie.member.dto.login.LoginDTO;
 import com.project.foodiefoodie.member.repository.MemberMapper;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;

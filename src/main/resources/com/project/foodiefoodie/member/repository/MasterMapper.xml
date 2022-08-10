@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.foodiefoodie.member.repository.MasterMapper">
+
+    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
+        <result property="businessNo" column="business_no"/>
+        <result property="masterName" column="master_name"/>
+        <result property="storeName" column="store_name"/>
+        <result property="storeAddress" column="store_address"/>
+        <result property="storeRegDate" column="store_reg_date"/>
+        <result property="hotDeal" column="hot_deal"/>
+        <result property="storeCallNumber" column="store_call_number"/>
+    </resultMap>
+
+
+    <select id="getMasterInfo" resultType="com.project.foodiefoodie.member.dto.master.MasterDTO">
+        SELECT store_name AS storeName, store_address AS storeAddress, hot_deal AS hotDeal
+        FROM master
+        WHERE business_no = #{businessNo}
+    </select>
+
+
+    <insert id="requestAuthMaster">
+        INSERT INTO master
+            (business_no, email, master_name, store_name, store_address, store_call_number)
+        VALUES
+            (#{businessNo}, #{email}, #{masterName}, #{storeName}, #{storeAddress}, #{storeCallNumber})
+    </insert>
+
+    <select id="findBusinessNo" resultType="int">
+        SELECT COUNT(*)
+        FROM master
+        WHERE business_no = #{businessNo}
+    </select>
+
+</mapper>

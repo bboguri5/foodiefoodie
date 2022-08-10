@@ -53,11 +53,6 @@
     </update>
 
 
-    <update id="authChange">
-        UPDATE member
-        SET auth = #{auth}
-        WHERE email = #{email}
-    </update>
     
     
     <insert id="saveAutoLoginValue">
@@ -67,7 +62,7 @@
             (#{email}, #{sessionId}, #{limitTime})
     </insert>
 
-    <resultMap id="autoLogin" type="com.project.foodiefoodie.member.dto.AutoLoginDTO">
+    <resultMap id="autoLogin" type="com.project.foodiefoodie.member.dto.login.AutoLoginDTO">
         <result column="session_id" property="sessionId"/>
         <result column="logout_time" property="limitTime"/>
     </resultMap>

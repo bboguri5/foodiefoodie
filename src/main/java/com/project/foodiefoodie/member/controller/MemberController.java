@@ -1,10 +1,8 @@
 package com.project.foodiefoodie.member.controller;
 
 import com.project.foodiefoodie.member.domain.Member;
-import com.project.foodiefoodie.member.dto.AutoLoginDTO;
-import com.project.foodiefoodie.member.dto.DeleteMemberDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
-import com.project.foodiefoodie.member.dto.LoginDTO;
+import com.project.foodiefoodie.member.dto.login.LoginDTO;
 import com.project.foodiefoodie.member.service.LoginFlag;
 import com.project.foodiefoodie.member.service.MemberService;
 import com.project.foodiefoodie.util.LoginUtils;

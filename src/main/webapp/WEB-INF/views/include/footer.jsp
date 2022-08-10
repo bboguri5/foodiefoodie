@@ -161,6 +161,14 @@
 </div>
 <!-- /Sign In Modal -->
 
+
+<!-- COMMON SCRIPTS -->
+<script src="/js/common_scripts.min.js"></script>
+<script src="/js/common_func.js"></script>
+<script src="assets/validate.js"></script>
+
+
+
 <script>
     // 로그인시 로직 처리
     function login() {

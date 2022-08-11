@@ -18,12 +18,11 @@
 
 	<main>
 		<div class="hero_single version_2">
-			<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)"
-				style="background: url('img/main_background.jpg') no-repeat fixed 90% / 120%">
+			<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)" 
+				style="background: url('img/main_background.jpg') no-repeat fixed 90% / cover">
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-xl-9 col-lg-10 col-md-8">
-							<h1>푸디푸디</h1>
 							<p>Foodies Welcome Here</p>
 							<form method="post" action="grid-listing-filterscol.html">
 								<div class="row g-0 custom-search-input">

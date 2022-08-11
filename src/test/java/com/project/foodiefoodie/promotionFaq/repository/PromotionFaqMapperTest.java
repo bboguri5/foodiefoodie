@@ -19,7 +19,7 @@ class PromotionFaqMapperTest {
     @Test
     @DisplayName("홍보글 신고 리스트를 불러와야 한다.")
     void findAllTest() {
-        List<PromotionFaq> promotionFaqList = mapper.findAll();
+        List<PromotionFaq> promotionFaqList = mapper.findAll("F");
         for (PromotionFaq p : promotionFaqList) {
             System.out.println(p);
         }
@@ -30,6 +30,13 @@ class PromotionFaqMapperTest {
     void findOneTest() {
         PromotionFaq one = mapper.findOne(1);
         System.out.println(one);
+    }
+
+    @Test
+    @DisplayName("해당 신고글의 내역이 T로 변경되어야 한다.")
+    void updateTest() {
+        boolean flag = mapper.update(22, "T");
+        assertTrue(flag);
     }
 
 }

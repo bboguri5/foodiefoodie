@@ -12,10 +12,12 @@
         <result property="promotionBno" column="promotion_bno"/>
         <result property="writerEmail" column="writer_email"/>
         <result property="faqComplete" column="faq_complete"/>
+        <result property="promotionWriterEmail" column="promotion_writer_email" />
     </resultMap>
 
     <select id="findAll" resultMap="proFaq">
         SELECT * FROM promotion_faq
+        WHERE faq_complete = #{complete}
     </select>
 
     <select id="findOne" resultMap="proFaq">
@@ -23,5 +25,9 @@
         WHERE pr_faq_no = #{prFaqNo}
     </select>
 
+    <update id="update">
+        UPDATE promotion_faq SET faq_complete = #{complete}
+        WHERE pr_faq_no = #{prFaqNo}
+    </update>
 
 </mapper>

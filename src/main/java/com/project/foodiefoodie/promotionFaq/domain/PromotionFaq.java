@@ -10,4 +10,5 @@ public class PromotionFaq {
     private String writerEmail;
     private String content;
     private String faqComplete;
+    private String promotionWriterEmail;
 }

@@ -16,7 +16,7 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">관리자</a>
+                    <a href="#">회원관리</a>
                 </li>
                 <li class="breadcrumb-item active">사업자 관리</li>
             </ol>
@@ -53,7 +53,8 @@
                                                 data-registDate="${ml.registDate}" data-loginTime="${ml.loginTime}"
                                                 data-auth="${ml.auth}" data-businessNo="${ml.businessNo}" data-storeName="${ml.storeName}"
                                                 data-storeAddress="${ml.storeAddress}" data-storeRegDate="${ml.storeRegDate}"
-                                                data-hotDeal="${ml.hotDeal}" data-storeCallNumber="${ml.storeCallNumber}">${ml.email}</a>
+                                                data-hotDeal="${ml.hotDeal}" data-storeCallNumber="${ml.storeCallNumber}"
+                                                data-detailaddress="${ml.detailAddress}" data-storedetailaddress="${ml.storeDetailAddress}">${ml.email}</a>
                                         </th>
                                         <th>${ml.name}</th>
                                         <th>${ml.nickName}</th>
@@ -141,6 +142,10 @@
                             <input type="text" class="form-control modal-address" disabled>
                         </div>
                         <div class="form-group">
+                            <label>상세주소</label>
+                            <input type="text" class="form-control modal-detailAddress" disabled>
+                        </div>
+                        <div class="form-group">
                             <label>성별</label>
                             <input type="text" class="form-control modal-gender" disabled>
                         </div>
@@ -167,6 +172,10 @@
                         <div class="form-group">
                             <label>가게주소</label>
                             <input type="text" class="form-control modal-storeAddress" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>상세주소</label>
+                            <input type="text" class="form-control modal-storedetailAddress" disabled>
                         </div>
                         <div class="form-group">
                             <label>가게 오픈일</label>
@@ -203,6 +212,7 @@
                 document.querySelector('.modal-phoneNumber').value = e.target.dataset.phonenumber;
                 document.querySelector('.modal-birth').value = e.target.dataset.birth;
                 document.querySelector('.modal-address').value = e.target.dataset.address;
+                document.querySelector('.modal-detailAddress').value = e.target.dataset.detailaddress;
                 document.querySelector('.modal-gender').value = e.target.dataset.gender;
                 document.querySelector('.modal-auth').value = e.target.dataset.auth;
                 document.querySelector('.modal-registDate').value = e.target.dataset.registDate;
@@ -210,6 +220,7 @@
                 document.querySelector('.modal-businessNo').value = e.target.dataset.businessno;
                 document.querySelector('.modal-storeName').value = e.target.dataset.storename;
                 document.querySelector('.modal-storeAddress').value = e.target.dataset.storeaddress;
+                document.querySelector('.modal-storedetailAddress').value = e.target.dataset.storedetailaddress;
                 document.querySelector('.modal-storeRegDate').value = e.target.dataset.storeregdate;
                 document.querySelector('.modal-hotdeal').value = e.target.dataset.hotdeal;
                 document.querySelector('.modal-storeCallNumber').value = e.target.dataset.storecallnumber;

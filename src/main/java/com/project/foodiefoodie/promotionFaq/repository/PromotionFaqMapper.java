@@ -7,7 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface PromotionFaqMapper {
-    List<PromotionFaq> findAll();
+    List<PromotionFaq> findAll(String complete);
     PromotionFaq findOne(long prFaqNo);
+    boolean update(long prFaqNo, String complete);
 
 }

@@ -18,7 +18,7 @@
                 <li class="breadcrumb-item">
                     <a href="#">회원관리</a>
                 </li>
-                <li class="breadcrumb-item active">일반 불량이용자</li>
+                <li class="breadcrumb-item active">사업자 불량이용자</li>
             </ol>
             <!-- Example DataTables Card-->
             <div class="card mb-3">
@@ -29,21 +29,21 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>이메일</th>
+                                    <th>사업자 번호</th>
                                     <th>횟수</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>이메일</th>
+                                    <th>사업자 번호</th>
                                     <th>횟수</th>
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <c:forEach var="rl" items="${reportMemberList}">
+                                <c:forEach var="rml" items="${reportMasterList}">
                                     <tr>
-                                        <th>${rl.email}</th>
-                                        <th>${rl.reportCnt}</th>
+                                        <th>${rml.businessNo}</th>
+                                        <th>${rml.reportCnt}</th>
                                     </tr>
                                 </c:forEach>
                             </tbody>

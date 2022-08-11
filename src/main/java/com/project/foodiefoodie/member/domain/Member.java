@@ -18,4 +18,6 @@ public class Member {
     private String auth;
     private Date registDate;
     private Date loginTime;
+    private String detailAddress;
+    private String extraAddress;
 }

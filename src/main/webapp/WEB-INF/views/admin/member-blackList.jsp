@@ -16,9 +16,9 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">관리자</a>
+                    <a href="#">회원관리</a>
                 </li>
-                <li class="breadcrumb-item active">블랙 리스트</li>
+                <li class="breadcrumb-item active">일반</li>
             </ol>
             <!-- Example DataTables Card-->
             <div class="card mb-3">

@@ -15,4 +15,8 @@ public class Master extends Member{
     private Date storeRegDate;
     private String hotDeal;
     private String storeCallNumber;
+    private String detailAddress;
+    private String extraAddress;
+    private String storeDetailAddress;
+    private String storeExtraAddress;
 }

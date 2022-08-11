@@ -18,32 +18,29 @@
                 <li class="breadcrumb-item">
                     <a href="#">회원관리</a>
                 </li>
-                <li class="breadcrumb-item active">일반 불량이용자</li>
+                <li class="breadcrumb-item active">블랙 리스트</li>
             </ol>
             <!-- Example DataTables Card-->
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-table"></i>불량이용자 목록</div>
+                    <i class="fa fa-table"></i>사업자</div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>이메일</th>
-                                    <th>횟수</th>
+                                    <th>사업자 번호</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>이메일</th>
-                                    <th>횟수</th>
+                                    <th>사업자 번호</th>
                                 </tr>
                             </tfoot>
                             <tbody>
-                                <c:forEach var="rl" items="${reportMemberList}">
+                                <c:forEach var="blm" items="${blackListMaster}">
                                     <tr>
-                                        <th>${rl.email}</th>
-                                        <th>${rl.reportCnt}</th>
+                                        <th>${blm.businessNo}</th>
                                     </tr>
                                 </c:forEach>
                             </tbody>

@@ -16,7 +16,7 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">관리자</a>
+                    <a href="#">회원관리</a>
                 </li>
                 <li class="breadcrumb-item active">일반회원 관리</li>
             </ol>
@@ -49,7 +49,7 @@
                                                 data-phonenumber="${cm.phoneNumber}" data-birth="${cm.birth}"
                                                 data-address="${cm.address}" data-gender="${cm.gender}"
                                                 data-registDate="${cm.registDate}" data-loginTime="${cm.loginTime}"
-                                                data-auth="${cm.auth}">${cm.email}</a>
+                                                data-auth="${cm.auth}" data-detailaddress="${cm.detailAddress}">${cm.email}</a>
                                         </th>
                                         <th>${cm.name}</th>
                                         <th>${cm.nickName}</th>
@@ -136,6 +136,10 @@
                             <input type="text" class="form-control modal-address" disabled>
                         </div>
                         <div class="form-group">
+                            <label>상세주소</label>
+                            <input type="text" class="form-control modal-detailAddress" disabled>
+                        </div>
+                        <div class="form-group">
                             <label>성별</label>
                             <input type="text" class="form-control modal-gender" disabled>
                         </div>
@@ -178,6 +182,7 @@
                 document.querySelector('.modal-phoneNumber').value = e.target.dataset.phonenumber;
                 document.querySelector('.modal-birth').value = e.target.dataset.birth;
                 document.querySelector('.modal-address').value = e.target.dataset.address;
+                document.querySelector('.modal-detailAddress').value = e.target.dataset.detailaddress;
                 document.querySelector('.modal-gender').value = e.target.dataset.gender;
                 document.querySelector('.modal-auth').value = e.target.dataset.auth;
                 document.querySelector('.modal-registDate').value = e.target.dataset.registDate;

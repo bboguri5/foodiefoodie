@@ -13,6 +13,8 @@
         <result property="phoneNumber" column="phone_number"/>
         <result property="registDate" column="regist_date"/>
         <result property="loginTime" column="login_time"/>
+        <result property="detailAddress" column="detail_address"/>
+        <result property="extraAddress" column="extra_address"/>
     </resultMap>
 
     <select id="findAll" resultMap="memberMap">

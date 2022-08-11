@@ -15,8 +15,8 @@ public class PromotionFaqService {
 
     private final PromotionFaqMapper mapper;
 
-    public List<PromotionFaq> findAllService() {
-        List<PromotionFaq> promotionFaqList = mapper.findAll();
+    public List<PromotionFaq> findAllService(String complete) {
+        List<PromotionFaq> promotionFaqList = mapper.findAll(complete);
         return promotionFaqList;
     }
 

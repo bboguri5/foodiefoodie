@@ -24,10 +24,16 @@
                         <a href="/admin/member-master">사업자</a>
                     </li>
                     <li>
-                        <a href="/admin/member-reportmember">불량 이용자</a>
+                        <a href="/admin/member-reportmember">불량 이용자(일반)</a>
                     </li>
                     <li>
-                        <a href="/admin/member-blacklist">블랙 리스트</a>
+                        <a href="/admin/member-reportmaster">불량 이용자(사업자)</a>
+                    </li>
+                    <li>
+                        <a href="/admin/member-blackList">블랙 리스트(일반)</a>
+                    </li>
+                    <li>
+                        <a href="/admin/member-blackList-master">블랙 리스트(사업자)</a>
                     </li>
                 </ul>
             </li>

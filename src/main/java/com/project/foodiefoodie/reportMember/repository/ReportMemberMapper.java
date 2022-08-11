@@ -15,4 +15,5 @@ public interface ReportMemberMapper {
     boolean remove(String email);
     boolean modify(ReportMember reportMember);
 
+
 }

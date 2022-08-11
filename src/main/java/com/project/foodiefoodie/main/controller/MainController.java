@@ -1,5 +1,7 @@
 package com.project.foodiefoodie.main.controller;
 
+import com.project.foodiefoodie.common.paging.Page;
+import com.project.foodiefoodie.common.paging.PageMaker;
 import com.project.foodiefoodie.hotdeal.domain.HotDeal;
 import com.project.foodiefoodie.hotdeal.service.HotDealService;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
@@ -12,10 +14,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Log4j2
@@ -48,6 +54,7 @@ public class MainController {
 
         // 현재 위치 맛집 TOP 7 --> 내 위치
         // location 이름과 매칭되는 ADDRESS 불러와서 겟
+//        List<MasterDTO> locationMasters =
 
         // 핫딜 리스트 TOP 6 --> 아무거나 TOP 6
         List<HotDeal> hotDeals = hotDealService.findRandHotService();
@@ -91,12 +98,63 @@ public class MainController {
         return "html/top-lists";
     }
 
+
+
     private void getAllMasters(List<PromotionBoard> prd, List<MasterDTO> masterList) {
         for (int i = 0; i < prd.size(); i++) {
             masterList.add(masterService.getMasterInfo(prd.get(i).getBusinessNo()));
         }
     }
 
+//    @GetMapping("/mylocation")
+//    public Map<String, Object> myLocation(String storeAddress) {
+//        log.info("mylocation GET - address : {}", storeAddress);
+//
+//        Map<String, Object> replyMap = new HashMap<>();
+//
+//        // master, promotion board -> map
+//        List<MasterDTO> masterList = masterService.findLocationRandService(storeAddress);
+//        log.info("masterList : - {}", masterList);
+//        List<PromotionReviewDTO> prdList = new ArrayList<>();
+//        getLocationMasters(masterList, prdList);
+//
+//        replyMap.put("masterList", masterList);
+//        replyMap.put("prdList", prdList);
+//
+//        return replyMap;
+//    }
+
+
+//    private void getLocationMasters(List<MasterDTO> masterList, List<PromotionReviewDTO> pmdList) {
+//        for (int i = 0; i < masterList.size(); i++) {
+//            pmdList.add(promotionBoardService.findOneService(masterList.get(i).getBusinessNo()));
+//        }
+//    }
+
+    @GetMapping("/locationlist")
+    public String locationList(Model model, String storeAddress, Page page) {
+
+        Map<String, Object> findAllMap = masterService.findAllInLocationService(storeAddress, page);
+
+        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Long) findAllMap.get("tc"));
+
+        List<PromotionReviewDTO> prdList = new ArrayList<>();
+        getAllPromotions(prdList, (List<MasterDTO>) findAllMap.get("dbList"));
+
+        model.addAttribute("dList", findAllMap.get("dbList"));
+        model.addAttribute("pm", pm);
+
+        model.addAttribute("prdList", prdList);
+        model.addAttribute("masterList", (List<MasterDTO>) findAllMap.get("dbList"));
+        model.addAttribute("address", storeAddress);
+        return "html/location-list";
+    }
+
+    private void getAllPromotions(List<PromotionReviewDTO> prdList, List<MasterDTO> masterList) {
+        for (int i = 0; i < masterList.size(); i++) {
+            prdList.add(promotionBoardService.findOneService(masterList.get(i).getBusinessNo()));
+        }
+    }
 
     @GetMapping("/test")
     public String test() {

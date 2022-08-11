@@ -1,9 +1,13 @@
 package com.project.foodiefoodie.member.repository;
 
+import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.dto.AuthDTO;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface MasterMapper {
@@ -18,4 +22,12 @@ public interface MasterMapper {
 
     // 사업자 번호 중복 확인용
     int findBusinessNo(String businessNo);
+
+    // 메인 페이지에 현재 위치 주소와 맞는 TOP 7 랜덤 식당 불러오기 
+    List<MasterDTO> findLocationRand(String storeAddress);
+
+    List<MasterDTO> findAllInLocation(@Param("storeAddress") String storeAddress, @Param("page")Page page);
+
+    Long getMyTotalCnt(String storeAddress);
+
 }

@@ -36,4 +36,31 @@
         WHERE business_no = #{businessNo}
     </select>
 
+    <select id="findLocationRand" resultType="com.project.foodiefoodie.member.dto.master.MasterDTO">
+        SELECT business_no AS businessNo, store_name AS storeName, store_address AS storeAddress FROM (
+        SELECT business_no, store_name, store_address
+        FROM master
+        WHERE store_address LIKE '%' || #{storeAddress}|| '%'
+        ORDER BY DBMS_RANDOM.RANDOM
+        ) sub
+        WHERE ROWNUM BETWEEN 1 AND 6
+    </select>
+
+    <select id="findAllInLocation" resultType="com.project.foodiefoodie.member.dto.master.MasterDTO">
+        SELECT business_no AS businessNo, store_name AS storeName, store_address AS storeAddress
+        FROM (SELECT ROWNUM rn, t_master.*
+        FROM (
+        SELECT *
+        FROM master
+        WHERE store_address LIKE '%' || #{storeAddress}|| '%'
+        ORDER BY business_no DESC
+        ) t_master)
+        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
+    </select>
+
+    <select id="getMyTotalCnt" resultType="long">
+        SELECT COUNT(*)
+        FROM master
+        WHERE store_address LIKE '%' || #{storeAddress}|| '%'
+    </select>
 </mapper>

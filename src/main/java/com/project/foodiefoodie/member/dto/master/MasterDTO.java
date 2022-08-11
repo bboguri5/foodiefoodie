@@ -9,8 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 public class MasterDTO {
 
+    String businessNo;
     String storeName;
     String storeAddress;
-    String foodCategories;
     char hotDeal;
 }

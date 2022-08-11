@@ -6,6 +6,22 @@
 <!-- mapper태그는 sql을 매핑할때 사용하는 태그
      namespace속성에는 사용할 인터페이스의 풀 패키지경로 + 인터페이스이름
   -->
-<mapper namespace="com.project.foodiefoodie.promotion.repository.PromtionMapper">
+<mapper namespace="com.project.foodiefoodie.promotion.repository.PromotionMapper">
+    <resultMap id="promotionMap" type="com.project.foodiefoodie.promotion.domain.Promotion">
+        <result property="businessNo" column="business_no"/>
+        <result property="promotionBno" column="promotion_bno"/>
+        <result property="lastUpdated" column="last_updated"/>
+        <result property="reportCnt" column="report_cnt"/>
+    </resultMap>
+
+    <select id="checkReportCnt" resultType="int">
+        SELECT report_cnt FROM promotion_board
+        WHERE business_no = #{businessNo}
+    </select>
+
+    <update id="reportCntModify">
+        UPDATE promotion_board SET report_cnt = #{reportCnt}
+        WHERE business_no = #{businessNo}
+    </update>
 
 </mapper>

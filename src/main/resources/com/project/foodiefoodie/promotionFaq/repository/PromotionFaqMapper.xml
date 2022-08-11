@@ -12,7 +12,8 @@
         <result property="promotionBno" column="promotion_bno"/>
         <result property="writerEmail" column="writer_email"/>
         <result property="faqComplete" column="faq_complete"/>
-        <result property="promotionWriterEmail" column="promotion_writer_email" />
+        <result property="promotionWriterEmail" column="promotion_writer_email"/>
+        <result property="businessNo" column="business_no"/>
     </resultMap>
 
     <select id="findAll" resultMap="proFaq">

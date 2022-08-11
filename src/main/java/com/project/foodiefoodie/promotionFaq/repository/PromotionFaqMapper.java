@@ -11,4 +11,5 @@ public interface PromotionFaqMapper {
     PromotionFaq findOne(long prFaqNo);
     boolean update(long prFaqNo, String complete);
 
+
 }

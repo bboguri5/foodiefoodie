@@ -12,4 +12,5 @@ public class Promotion {
     private long promotionBno;
     private Date lastUpdated;
     private String title;
+    private int reportCnt;
 }

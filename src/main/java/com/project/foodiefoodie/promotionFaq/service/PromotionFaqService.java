@@ -24,4 +24,9 @@ public class PromotionFaqService {
         PromotionFaq promotionFaq = mapper.findOne(prFaqNo);
         return promotionFaq;
     }
+
+    public boolean updateService(long prFaqNo, String complete) {
+        return mapper.update(prFaqNo, complete);
+    }
+
 }

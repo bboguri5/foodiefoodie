@@ -50,7 +50,7 @@
                                                 data-prfaqno="${pf.prFaqNo}" data-promotionbno="${pf.promotionBno}"
                                                 data-writeremail="${pf.writerEmail}"
                                                 data-promotionwriteremail="${pf.promotionWriterEmail}"
-                                                data-content="${pf.content}">
+                                                data-content="${pf.content}" data-businessno="${pf.businessNo}">
                                                 ${pf.prFaqNo}</a>
                                         </th>
                                         <th><a href="#">${pf.promotionBno}</a></th>
@@ -102,7 +102,7 @@
 
 
     <!-- Edit Booking Modal -->
-    <form action="#" method="post">
+    <form action="/admin/faq-completeFaq" method="post" class="modal-form">
         <div class="modal fade edit_booking" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -132,17 +132,19 @@
                                 name="promotionWriterEmail" readonly>
                         </div>
                         <div class="form-group">
-                            <label>사유</label>
-                            <input type="text" class="form-control modal-content" name="content" readonly>
+                            <label>홍보 작성자 사업자번호</label>
+                            <input type="text" class="form-control modal-businessno" name="businessNo" readonly>
                         </div>
+                        <div class="form-group">
+                            <label>사유</label>
+                            <input type="text" class="form-control modal-contents" name="content" readonly>
+                        </div>
+                        <input type="hidden" class="form-control complete-type" name="completeType">
                         <!-- /Row -->
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary del-btn" type="submit">확인</button>
-                        <form action="#" method="post">
-                            <input type="hidden" class="form-control modal-report-no-del" name="prFaqNo" readonly>
-                            <button class="btn btn-primary del-btn" type="submit">취소</button>
-                        </form>
+                    <div class="modal-footer btn-wrap">
+                        <button class="btn btn-primary del-btn complete-t" type="button">승인</button>
+                        <button class="btn btn-primary del-btn complete-n" type="button">거절</button>
                     </div>
                 </div>
             </div>
@@ -152,15 +154,37 @@
     <script>
         (function () {
             const $targetNo = document.querySelector('.target-no');
-
-            $targetNo.onclick = e => {
+            console.log($targetNo);
+            $targetNo.addEventListener('click', e => {
+                console.log(e.target);
+                console.log(e.target.dataset.content);
+                console.log(document.querySelector('.modal-content'));
                 document.querySelector('.modal-report-no').value = e.target.dataset.prfaqno;
                 document.querySelector('.modal-promotion-bno').value = e.target.dataset.promotionbno;
                 document.querySelector('.modal-writer-email').value = e.target.dataset.writeremail;
-                document.querySelector('.modal-promotion-writer-email').value = e.target.dataset.promotionwriteremail;
-                document.querySelector('.modal-content').value = e.target.dataset.content;
-                document.querySelector('.modal-report-no-del').value = e.target.dataset.prfaqno;
-            }
+                document.querySelector('.modal-promotion-writer-email').value = e.target.dataset
+                    .promotionwriteremail;
+                document.querySelector('.modal-businessno').value = e.target.dataset.businessno;
+                document.querySelector('.modal-contents').value = e.target.dataset.content;
+            })
+
+            const $btnWrap = document.querySelector('.btn-wrap');
+            console.log($btnWrap);
+            const $modalForm = document.querySelector('.modal-form');
+            console.log($modalForm);
+            $btnWrap.addEventListener('click', e => {
+                console.log(e.target);
+                
+                if(e.target === document.querySelector('.complete-t')) {
+                    document.querySelector('.complete-type').value = 'T';
+                    $modalForm.submit();
+                } else if(e.target === document.querySelector('.complete-n')) {
+                    document.querySelector('.complete-type').value = 'N';
+                    $modalForm.submit();
+                }
+            })
+
+
 
         }())
     </script>

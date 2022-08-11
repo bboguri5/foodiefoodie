@@ -28,16 +28,18 @@
     </select>
 
     <select id="findAll" resultMap="dealMap">
-        SELECT * FROM hot_deal
+        SELECT *
+        FROM (SELECT ROWNUM rn, t_hotDeal.*
+        FROM (
+        SELECT *
+        FROM hot_deal
+        ) t_hotDeal)
+        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
+    </select>
 
-        <!--        SELECT *-->
-        <!--        FROM (SELECT ROWNUM rn, v_board.*-->
-        <!--        FROM (-->
-        <!--        SELECT *-->
-        <!--        FROM tbl_board-->
-        <!--        ORDER BY board_no DESC-->
-        <!--        ) v_board)-->
-        <!--        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})-->
+    <select id="getMyTotalCnt" resultType="long">
+        SELECT COUNT(*)
+        FROM hot_deal
     </select>
 
     <select id="findOne" resultMap="dealMap">

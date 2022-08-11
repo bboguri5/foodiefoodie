@@ -24,8 +24,24 @@
         WHERE business_no=#{businessNo}
     </select>
 
+<!--    <select id="findAll" resultMap="pbMap">-->
+<!--        SELECT business_no, avg_star_rate, review_cnt-->
+<!--        FROM promotion_board-->
+<!--    </select>-->
+
     <select id="findAll" resultMap="pbMap">
         SELECT business_no, avg_star_rate, review_cnt
+        FROM (SELECT ROWNUM rn, t_pb.*
+        FROM (
+        SELECT *
+        FROM promotion_board
+        ORDER BY avg_star_rate DESC
+        ) t_pb)
+        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
+    </select>
+
+    <select id="getMyTotalCnt" resultType="long">
+        SELECT COUNT(*)
         FROM promotion_board
     </select>
 

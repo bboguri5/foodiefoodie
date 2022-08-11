@@ -85,15 +85,17 @@ public class MainController {
     }
 
     @GetMapping("/foodlist")
-    public String foodList(Model model) {
+    public String foodList(Model model, Page page) {
 
-        List<PromotionBoard> promotionBoards = promotionBoardService.findAllService();
+        Map<String, Object> findAllMap = promotionBoardService.findAllService(page);
+        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Long) findAllMap.get("tc"));
         List<MasterDTO> masterList = new ArrayList<>();
-        getAllMasters(promotionBoards, masterList);
+        getAllMasters((List<PromotionBoard>) findAllMap.get("dbList"), masterList);
 
-        log.info("masterList findAll - {}", masterList);
+//        log.info("masterList findAll - {}", masterList);
 
-        model.addAttribute("pb", promotionBoards);
+        model.addAttribute("pm", pm);
+        model.addAttribute("pb", findAllMap.get("dbList"));
         model.addAttribute("masterList", masterList);
         return "html/top-lists";
     }
@@ -106,31 +108,6 @@ public class MainController {
         }
     }
 
-//    @GetMapping("/mylocation")
-//    public Map<String, Object> myLocation(String storeAddress) {
-//        log.info("mylocation GET - address : {}", storeAddress);
-//
-//        Map<String, Object> replyMap = new HashMap<>();
-//
-//        // master, promotion board -> map
-//        List<MasterDTO> masterList = masterService.findLocationRandService(storeAddress);
-//        log.info("masterList : - {}", masterList);
-//        List<PromotionReviewDTO> prdList = new ArrayList<>();
-//        getLocationMasters(masterList, prdList);
-//
-//        replyMap.put("masterList", masterList);
-//        replyMap.put("prdList", prdList);
-//
-//        return replyMap;
-//    }
-
-
-//    private void getLocationMasters(List<MasterDTO> masterList, List<PromotionReviewDTO> pmdList) {
-//        for (int i = 0; i < masterList.size(); i++) {
-//            pmdList.add(promotionBoardService.findOneService(masterList.get(i).getBusinessNo()));
-//        }
-//    }
-
     @GetMapping("/locationlist")
     public String locationList(Model model, String storeAddress, Page page) {
 
@@ -141,11 +118,9 @@ public class MainController {
         List<PromotionReviewDTO> prdList = new ArrayList<>();
         getAllPromotions(prdList, (List<MasterDTO>) findAllMap.get("dbList"));
 
-        model.addAttribute("dList", findAllMap.get("dbList"));
         model.addAttribute("pm", pm);
-
         model.addAttribute("prdList", prdList);
-        model.addAttribute("masterList", (List<MasterDTO>) findAllMap.get("dbList"));
+        model.addAttribute("masterList", findAllMap.get("dbList"));
         model.addAttribute("address", storeAddress);
         return "html/location-list";
     }

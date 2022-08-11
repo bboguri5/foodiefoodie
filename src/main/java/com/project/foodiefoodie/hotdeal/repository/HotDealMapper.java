@@ -1,6 +1,8 @@
 package com.project.foodiefoodie.hotdeal.repository;
 
+import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.hotdeal.domain.HotDeal;
+import com.project.foodiefoodie.promotion.domain.PromotionBoard;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -24,4 +26,8 @@ public interface HotDealMapper {
     boolean modify(HotDeal deal);
 
     List<HotDeal> findAll();
+
+    List<HotDeal> findAll(Page page);
+
+    Long getMyTotalCnt();
 }

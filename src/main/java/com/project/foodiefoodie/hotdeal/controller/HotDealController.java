@@ -1,5 +1,7 @@
 package com.project.foodiefoodie.hotdeal.controller;
 
+import com.project.foodiefoodie.common.paging.Page;
+import com.project.foodiefoodie.common.paging.PageMaker;
 import com.project.foodiefoodie.hotdeal.domain.HotDeal;
 import com.project.foodiefoodie.hotdeal.service.HotDealService;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Log4j2
@@ -26,21 +29,24 @@ public class HotDealController {
 
     // Hot Deal 랜덤 6개 목록 요청
     @GetMapping("/hotdeals")
-    public String hotDeals(Model model) {
-        log.info("Hot Deals Get ! - {}");
+    public String hotDeals(Model model, Page page) {
+        Map<String, Object> findAllMap = hotDealService.findAllService(page);
+        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Long) findAllMap.get("tc"));
 
-        List<HotDeal> hotDeals = hotDealService.findAllService();
-        log.info("hotDeals - {}", hotDeals);
+//        log.info("Hot Deals Get ! - {}", findAllMap.get("dbList"));
+
 
         List<MasterDTO> hotDealMasters = new ArrayList<>();
         List<PromotionReviewDTO> pmdList = new ArrayList<>();
-        getHotDealMasters(hotDeals, hotDealMasters, pmdList);
+        getHotDealMasters((List<HotDeal>) findAllMap.get("dbList"), hotDealMasters, pmdList);
 
-        model.addAttribute("hotDeals", hotDeals);
+        model.addAttribute("pm", pm);
+        model.addAttribute("hotDeals", findAllMap.get("dbList"));
         model.addAttribute("hotDealMasters", hotDealMasters);
         model.addAttribute("pmdList", pmdList);
         return "html/hot-deals";
     }
+
 
     // 핫딜 리스트의 마스터 정보 추출
     private void getHotDealMasters(List<HotDeal> hotDeals, List<MasterDTO> hotDealMasters, List<PromotionReviewDTO> pmdList) {

@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.promotion.repository;
 
+import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.promotion.domain.PromotionBoard;
 import com.project.foodiefoodie.promotion.dto.PromotionReviewDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -21,6 +22,8 @@ public interface PromotionBoardMapper {
     // 해당 가게 리뷰 별점, 리뷰 개수 가져오기
     PromotionReviewDTO findOne(String businessNo);
 
-    List<PromotionBoard> findAll();
+    List<PromotionBoard> findAll(Page page);
+
+    Long getMyTotalCnt();
 }
 

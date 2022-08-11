@@ -73,16 +73,16 @@ class MemberMapperTest {
     }
 
 
-    @Test
-    @DisplayName("이메일을 주면 해당 회원의 권한이 변경되어야 한다.")
-    void authChangeTest() {
-        AuthDTO dto = new AuthDTO();
-        dto.setAuth("ADMIN");
-        dto.setEmail("admin123@naver.com");
-        boolean flag = mapper.authChange(dto);
-
-        assertTrue(flag);
-    }
+//    @Test
+//    @DisplayName("이메일을 주면 해당 회원의 권한이 변경되어야 한다.")
+//    void authChangeTest() {
+//        AuthDTO dto = new AuthDTO();
+//        dto.setAuth("ADMIN");
+//        dto.setEmail("admin123@naver.com");
+//        boolean flag = mapper.authChange(dto);
+//
+//        assertTrue(flag);
+//    }
 
 
     @Test

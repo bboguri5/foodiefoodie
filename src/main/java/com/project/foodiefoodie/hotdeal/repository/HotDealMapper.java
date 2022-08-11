@@ -1,6 +1,9 @@
 package com.project.foodiefoodie.hotdeal.repository;
 
+import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.hotdeal.domain.HotDeal;
+import com.project.foodiefoodie.hotdeal.dto.DealPromotionMasterDTO;
+import com.project.foodiefoodie.promotion.domain.PromotionBoard;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,7 +15,7 @@ public interface HotDealMapper {
     boolean save(HotDeal deal);
 
     // 핫딜 랜덤 6개 조회 기능
-    List<HotDeal> findRandHot();
+    List<DealPromotionMasterDTO> findRandHot();
 
     // 핫딜 상세 조회 기능
     HotDeal findOne(String businessNo);
@@ -24,4 +27,8 @@ public interface HotDealMapper {
     boolean modify(HotDeal deal);
 
     List<HotDeal> findAll();
+
+    List<DealPromotionMasterDTO> findAll(Page page);
+
+    int getMyTotalCnt();
 }

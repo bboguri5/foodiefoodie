@@ -6,7 +6,7 @@
 
 <head>
 
-	<%@ include file="../include/static-head.jsp" %>
+    <%@ include file="../include/static-head.jsp" %>
 
 </head>
 
@@ -44,7 +44,7 @@
                     <li class="submenu">
                         <a href="#0" class="show-submenu">리뷰 리스트</a>
                     </li>
-    
+
                 </ul>
             </nav>
         </div>
@@ -77,25 +77,27 @@
         </div>
         <!-- /page_header -->
 
+
+
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="hd" items="${hotDeals}" varStatus="status">
+                <c:forEach var="ml" items="${masterList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <span class="ribbon off">${hd.discountPrice}원</span>
                                 <img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
-                                        <h3>${hd.storeName}</h3>
+                                        <h3>${ml.storeName}</h3>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${hd.storeAddress}</span></li>
+                                <li><span>${ml.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>핫딜!!<em>${hd.reviewCnt}개 리뷰</em></span><strong>${hd.avgStarRate}</strong></div>
+                                    <div class="score"><span>근처 맛집<em>${ml.reviewCnt}개
+                                                리뷰</em></span><strong>${ml.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>
@@ -103,6 +105,7 @@
                 </c:forEach>
             </div>
             <!-- /row -->
+
             <div class="list-bottom">
                 <!-- 페이지 버튼 -->
                 <div class="paging">
@@ -111,34 +114,45 @@
 
                             <c:if test="${pm.prev}">
                                 <li class="page-item"><a class="page-link"
-                                        href="/hotdeals?pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
+                                        href="/locationlist?storeAddress=${address}&pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
                                 </li>
                             </c:if>
 
                             <!-- step=1인 경우,, 생략 가능!! -->
                             <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
                                 <li data-page-num="${n}" class="page-item"><a class="page-link"
-                                        href="/hotdeals?pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
+                                        href="/locationlist?storeAddress=${address}&pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
                                 </li>
                             </c:forEach>
 
 
                             <c:if test="${pm.next}">
                                 <li class="page-item"><a class="page-link"
-                                        href="/hotdeals?pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
+                                        href="/locationlist?storeAddress=${address}&pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
                                 </li>
                             </c:if>
                         </ul>
                     </nav>
                 </div>
             </div>
-        </div>
+
+
+        <!-- <div class="pagination_fg">
+                <a href="#">&laquo;</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">&raquo;</a>
+            </div> -->
+        <!-- </div> -->
         <!-- /container -->
 
     </main>
     <!-- /main -->
 
-	<%@ include file="../include/footer.jsp" %>
+    <%@ include file="../include/footer.jsp" %>
 
 </body>
 

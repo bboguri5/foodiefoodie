@@ -34,10 +34,6 @@
                 console.warn('ERROR(' + err.code + '): ' + err.message);
             };
 
-            navigator.geolocation.getCurrentPosition(success, error, options);
-
-
-            // const regionData = {};
 
             function onGeoOk(position) {
                 const lat = position.coords.latitude;
@@ -54,11 +50,63 @@
                         }
                     )
                     .then(res => {
-                        console.log('data: ', res.data.documents)
-                        dispatch(changeRegion(res.data.documents[0].address.region_1depth_name))
-                        dispatch(changeCity(res.data.documents[0].address.region_2depth_name))
+                        const si = res.data.documents[0].address.region_1depth_name;
+                        const gu = res.data.documents[0].address.region_2depth_name;
+                        const address = si + ' ' + gu;
+                        console.log('this is the address : ', address);
+
+                        fetch('/mylocation?storeAddress=' + address)
+                            .then(res => res.json())
+                            .then(replyMap => {
+                                makeLocationDom(replyMap);
+                            });
                     }).catch(e => console.log('e: ', e))
             }
+
+            function makeLocationDom({
+                masterList,
+                prdList
+            }) {
+                console.log(masterList);
+
+                // 각 리스트 하나의 태그
+                let tag = '';
+
+
+                if (masterList === null || masterList.length === 0) {
+                    tag += "<div id='locationList'>주변에 식당이 없습니다! ㅠㅠ</div>";
+                } else {
+                    for (let i = 0; i < masterList.length; i++) {
+                        tag +=
+                            `<div class="item">` +
+                            `   <div class="strip">` +
+                            `       <figure>` +
+                            `           <img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="owl-lazy" alt="">` +
+                            `           <a href="detail-restaurant.html" class="strip_info">` +
+                            `               <div class="item_title">` +
+                            `                   <h3>` + masterList[i].storeName + `</h3>` +
+                            `                   <small>` + masterList[i].storeAddress + `</small>` +
+                            `               </div>` +
+                            `           </a>` +
+                            `       </figure>` +
+                            `       <ul>` +
+                            `           <li><span class="loc_open">Now Open</span></li>` +
+                            `           <li>` +
+                            `               <div class="score"><span>근처 맛집<em>` + prdList[i].reviewCnt +
+                            `개 리뷰</em></span><strong>` + prdList[i].avgStarRate + `</strong></div>` +
+                            `           </li>` +
+                            `       </ul>` +
+                            `   </div>` +
+                            `</div>`;
+                    }
+                }
+            }
+
+            // function printAddress(address) {
+            //     console.log(address);
+
+            // }
+
 
             function onGeoError() {
                 alert("위치권한을 확인해주세요");

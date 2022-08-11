@@ -24,36 +24,31 @@
         WHERE business_no=#{businessNo}
     </select>
 
-<!--    <select id="findAll" resultMap="pbMap">-->
-<!--        SELECT business_no, avg_star_rate, review_cnt-->
-<!--        FROM promotion_board-->
-<!--    </select>-->
-
-    <select id="findAll" resultMap="pbMap">
-        SELECT business_no, avg_star_rate, review_cnt
+    <select id="findAll" resultType="com.project.foodiefoodie.promotion.dto.PromotionMasterDTO">
+        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS storeName, store_address AS storeAddress
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
-        SELECT *
-        FROM promotion_board
+        SELECT  P.business_no, avg_star_rate, review_cnt, store_name, store_address
+        FROM promotion_board P JOIN master M
+        ON P.business_no = M.business_no
         ORDER BY avg_star_rate DESC
         ) t_pb)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
     </select>
 
-    <select id="getMyTotalCnt" resultType="long">
+    <select id="getMyTotalCnt" resultType="int">
         SELECT COUNT(*)
         FROM promotion_board
     </select>
 
-    <select id="topAvgRateCount" resultType="com.project.foodiefoodie.promotion.dto.PromotionReviewDTO">
-
+    <select id="topAvgRateCount" resultType="com.project.foodiefoodie.promotion.dto.PromotionMasterDTO">
         SELECT * FROM (
-        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt
-        FROM promotion_board
+        SELECT P.business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_address AS storeAddress, store_name AS storeName
+        FROM promotion_board P JOIN master M
+        ON P.business_no = M.business_no
         ORDER BY avgStarRate DESC
         ) sub
         WHERE ROWNUM BETWEEN 1 AND 7
-
     </select>
 
     <select id="avgRateAndCount" resultType="com.project.foodiefoodie.promotion.dto.PromotionReviewDTO">
@@ -61,7 +56,6 @@
         FROM promotion_board
         ORDER BY avgStarRate DESC
     </select>
-
 
     <update id="updateRateAndCount">
         UPDATE promotion_board

@@ -88,14 +88,14 @@
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
-                                        <h3>${hotDealMasters[status.index].storeName}</h3>
+                                        <h3>${hd.storeName}</h3>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${hotDealMasters[status.index].storeAddress}</span></li>
+                                <li><span>${hd.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>핫딜!!<em>${pmdList[status.index].reviewCnt}개 리뷰</em></span><strong>${pmdList[status.index].avgStarRate}</strong></div>
+                                    <div class="score"><span>핫딜!!<em>${hd.reviewCnt}개 리뷰</em></span><strong>${hd.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>

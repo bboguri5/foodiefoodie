@@ -4,34 +4,33 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-@ToString @Getter
+@Getter @ToString
 @AllArgsConstructor
+// 페이지 정보를 담고 있는 클래스
 public class Page {
 
-    private Long pageNum; // 현재 페이지 정보
+    private int pageNum; // 페이지 번호
+    private int amount; // 한 페이지 당 배치할 게시물 수
 
-    private int amount; // 한 페이지에서 출력할 게시물 수
 
-
-    // 커맨드 객체에 스프링 컨테이너가 기본생성자를 통해 넣어줄텐데
-    // 아무것도 입력하지 않았을 시에 기본값으로 가질 값 세팅.
+    // 기본 생성자
     public Page() {
-        this.pageNum = 1L;
-        this.amount = 9;
+        this.pageNum = 1;
+        this.amount = 10;
     }
 
-    public void setPageNum(Long pageNum) {
-        // url을 통한 이상한 get 요청 걸러내기
-        if (pageNum < 1) {
-            this.pageNum = 1L;
+
+    // setter
+    public void setPageNum(int pageNum) {
+        if (pageNum <= 0 || pageNum > Integer.MAX_VALUE) { // int가 허용하는 범위 내에서만 작동하도록 막는 기능까지!!
+            this.pageNum = 1;
             return;
         }
         this.pageNum = pageNum;
     }
 
     public void setAmount(int amount) {
-        // url을 통한 이상한 get 요청 걸러내기
-        if (amount < 9 || amount > 100) {
+        if (amount < 10 || amount > 100 || amount > Integer.MAX_VALUE) { // 얘는 왜 안될까
             this.amount = 10;
             return;
         }

@@ -4,26 +4,31 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @ToString @Setter
+@Setter @Getter @ToString
+// 페이지 렌더링 정보 생성
 public class PageMaker {
 
+    // 한번에 그려낼 페이지 수
     private static final int PAGE_COUNT = 10;
 
-    private int beginPage, endPage;
+    // 렌더링시 페이지 시작값, 페이지 끝값, 찐 마지막 페이지값
+    private int beginPage, endPage, finalPage;
 
     // 이전, 다음 버튼 활성화 여부
     private boolean prev, next;
 
     private Page page; // 현재 위치한 페이지 정보
+    private int totalCount; // 총 게시물 수
 
-    private Long totalCount; // 총 게시물 수
 
 
-    public PageMaker(Page page, Long totalCount) {
+    // 생성자
+    public PageMaker(Page page, int totalCount) {
         this.page = page;
         this.totalCount = totalCount;
         makePageInfo();
     }
+
 
 
     // 페이지 정보 생성 알고리즘
@@ -39,6 +44,7 @@ public class PageMaker {
 
 
         /*
+
          - 총 게시물 수가 237개고, 한 화면당 10개의 게시물을 리스트로 깔고 있다면
            페이지 구간은
 
@@ -50,8 +56,12 @@ public class PageMaker {
 
           - 마지막 페이지 보정 공식
             : 올림처리 ( 총 게시물 수 / 한 페이지당 리스트로 깔고있는 게시물 수 )
+
         */
         int realEnd = (int) Math.ceil(totalCount / (double) page.getAmount());
+
+
+        this.finalPage = realEnd;
 
 
         // 그러면 끝 페이지 보정은 언제 일어나야 하는가..

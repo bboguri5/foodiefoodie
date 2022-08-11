@@ -4,6 +4,7 @@ import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import com.project.foodiefoodie.member.repository.MasterMapper;
+import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -47,13 +48,13 @@ public class MasterService {
 
 
     // 현재 위치 주소 비교하여 일치하는 TOP 7 식당 가져오는 중간 처리
-    public List<MasterDTO> findLocationRandService(String storeAddress) {
+    public List<PromotionMasterDTO> findLocationRandService(String storeAddress) {
         return mapper.findLocationRand(storeAddress);
     }
 
     public Map<String, Object> findAllInLocationService(String storeAddress, Page page) {
-        List<MasterDTO> DBList = mapper.findAllInLocation(storeAddress, page);
-        Long totalCnt = mapper.getMyTotalCnt(storeAddress);
+        List<PromotionMasterDTO> DBList = mapper.findAllInLocation(storeAddress, page);
+        int totalCnt = mapper.getMyTotalCnt(storeAddress);
         Map<String, Object> map = new HashMap<>();
         map.put("dbList", DBList);
         map.put("tc", totalCnt);

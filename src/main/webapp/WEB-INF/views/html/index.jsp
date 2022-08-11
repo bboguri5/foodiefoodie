@@ -114,7 +114,7 @@
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
-				<c:forEach var="prd" items="${prd}" varStatus="status">
+				<c:forEach var="pmd" items="${pmd}" varStatus="status">
 					<div class="item">
 						<div class="strip">
 							<figure>
@@ -122,16 +122,16 @@
 									alt="">
 								<a href="detail-restaurant.html" class="strip_info">
 									<div class="item_title">
-										<h3>${masterList[status.index].storeName}</h3>
-										<small>${masterList[status.index].storeAddress}</small>
+										<h3>${pmd.storeName}</h3>
+										<small>${pmd.storeAddress}</small>
 									</div>
 								</a>
 							</figure>
 							<ul>
 								<li><span class="loc_open">Now Open</span></li>
 								<li>
-									<div class="score"><span>최고맛집<em>${prd.reviewCnt}개
-												리뷰</em></span><strong>${prd.avgStarRate}</strong></div>
+									<div class="score"><span>최고맛집<em>${pmd.reviewCnt}개
+												리뷰</em></span><strong>${pmd.avgStarRate}</strong></div>
 								</li>
 							</ul>
 						</div>
@@ -372,10 +372,10 @@
 													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
 											<div class="score">
-												<strong>${pmdList[status.index].avgStarRate}</strong>
+												<strong>${hd.avgStarRate}</strong>
 											</div>
-											<h3>${hotDealMasters[status.index].storeName}</h3>
-											<small>${hotDealMasters[status.index].storeAddress}</small>
+											<h3>${hd.storeName}</h3>
+											<small>${hd.storeAddress}</small>
 											<ul>
 												<li><span class="ribbon off">${hd.discountPrice}원</span>
 												</li>
@@ -398,9 +398,9 @@
 													data-src="/img/location_list_1.jpg" alt="" class="lazy">
 											</figure>
 											<div class="score">
-												<strong>${pmdList[status.index].avgStarRate}</strong></div>
-											<h3>${hotDealMasters[status.index].storeName}</h3>
-											<small>${hotDealMasters[status.index].storeAddress}</small>
+												<strong>${hd.avgStarRate}</strong></div>
+											<h3>${hd.storeName}</h3>
+											<small>${hd.storeAddress}</small>
 											<ul>
 												<li><span class="ribbon off">${hd.discountPrice}원</span>
 												</li>
@@ -500,8 +500,7 @@
 
 
 			function makeLocationDom({
-				masterList,
-				prdList
+				masterList
 			}) {
 				console.log(masterList);
 
@@ -529,8 +528,8 @@
 							`       <ul>` +
 							`           <li><span class="loc_open">Now Open</span></li>` +
 							`           <li>` +
-							`               <div class="score"><span>근처 맛집<em>` + prdList[i].reviewCnt +
-							`개 리뷰</em></span><strong>` + prdList[i].avgStarRate + `</strong></div>` +
+							`               <div class="score"><span>근처 맛집<em>` + masterList[i].reviewCnt +
+							`개 리뷰</em></span><strong>` + masterList[i].avgStarRate + `</strong></div>` +
 							`           </li>` +
 							`       </ul>` +
 							`   </div>` +

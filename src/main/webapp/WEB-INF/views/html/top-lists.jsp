@@ -81,7 +81,7 @@
 
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="pb" items="${pb}" varStatus="status">
+                <c:forEach var="dbList" items="${dbList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
@@ -89,14 +89,14 @@
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
-                                        <h3>${masterList[status.index].storeName}</h3>
+                                        <h3>${dbList.storeName}</h3>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${masterList[status.index].storeAddress}</span></li>
+                                <li><span>${dbList.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>맛집이에요~<em>${pb.reviewCnt}개 리뷰</em></span><strong>${pb.avgStarRate}</strong></div>
+                                    <div class="score"><span>맛집이에요~<em>${dbList.reviewCnt}개 리뷰</em></span><strong>${dbList.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>

@@ -100,11 +100,15 @@
             display: flex;
             justify-content: center;
         }
+
+        .preview {
+            display: none;
+        }
     </style>
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    <form action="">
+    <form action="" enctype="multipart/form-data">
         <div class="content-wrapper">
             <div class="container-fluid">
                 <!-- Breadcrumbs-->
@@ -184,8 +188,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Photos</label>
-                                        <button type="text">파일선택(1개)</button>
-                                        <div class="dropzone dz-clickable"><span>Drop files here to upload</span>
+                                        <div>
+                                            <input type="file" name="titleImg" id="title-img"
+                                                accept="image/gif, image/jpeg, image/png"
+                                                onchange="titleFileTypeCheck(this)"></input>
+                                        </div>
+                                        <div class="preview"><span>미리보기</span>
+                                            <div id="title-preview"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -197,8 +206,13 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Photos</label>
-                                        <button type="text">파일선택(여러개)</button>
-                                        <div class="dropzone dz-clickable"><span>Drop files here to upload</span>
+                                        <div>
+                                            <input type="file" name="detailImgList" id="detail-img" multiple
+                                                accept="image/gif, image/jpeg, image/png"
+                                                onchange="detailFileTypeCheck(this)"></input>
+                                        </div>
+                                        <div class="preview multiple"><span>미리보기</span>
+                                            <div id="detail-preview"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -507,6 +521,128 @@
     </script>
 
 
+
+    <!-- 이미지 파일만 올리도록 처리할 스크립트 영역 -->
+    <!-- 여기서 이미지 태그에 정상적인 이미지를 올렸는지 체크하는 배열을 사용하기 때문에 
+        필수 작성 요소(제목 등)를 여기서 체크해야 할거 같아요! -->
+    <script>
+
+        function makeTitlePreviewDOM(fileNames) {
+
+            for (let fileName of fileNames) {
+                
+                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
+
+                const $img = document.createElement('img');
+                $img.classList.add('preview-title-img');
+
+                $img.setAttribute('src', '/loadFile?fileName=' + fileName); 
+                $img.setAttribute('alt', originFileName);
+
+                document.getElementById('title-preview').appendChild($img);
+            }
+
+        }
+
+
+        // 0번 인덱스 : 타이틀 이미지 확장자 체크, 1번 인덱스 : 디테일 이미지들 확장자 체크
+        const inputImgCheckArr = [false, false];
+
+
+        function titleFileTypeCheck(obj) {
+
+            pathpoint = obj.value.lastIndexOf('.');
+
+            filepoint = obj.value.substring(pathpoint + 1, obj.length);
+
+            filetype = filepoint.toLowerCase();
+
+            const $titleInput = document.getElementById('title-img');
+
+            if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png' || filetype == 'jpeg') {
+
+                // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
+
+                const formData = new FormData();
+
+                for (let file of $titleInput.files) {
+                    formData.append('files', file);
+                }
+
+
+                const reqObj = {
+                    method: 'POST',
+                    body: formData
+                };
+
+
+                fetch('/ajax-upload', reqObj)
+                    .then(res => res.json())
+                    .then(fileNames => {
+                        makeTitlePreviewDOM(fileNames);
+                    })
+
+
+                checkArr[0] = true;
+
+            } else {
+
+                alert('이미지 파일만 첨부하실 수 있습니다! (사용 가능 확장자 : JPG, JPEG, GIF, PNG)');
+
+                parentObj = obj.parentNode
+
+                node = parentObj.replaceChild(obj.cloneNode(true), obj);
+
+                
+
+                const files = $titleInput.files;
+                // console.log(files);
+
+
+                return false;
+
+            }
+        }
+
+
+        function detailFileTypeCheck(obj) {
+
+            pathpoint = obj.value.lastIndexOf('.');
+
+            filepoint = obj.value.substring(pathpoint + 1, obj.length);
+
+            filetype = filepoint.toLowerCase();
+
+            if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png' || filetype == 'jpeg') {
+
+                // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
+
+                
+
+                fetch('/ajax/upload', reqObj)
+
+
+
+                checkArr[1] = true;
+
+            } else {
+
+                alert('이미지 파일만 첨부하실 수 있습니다! (사용 가능 확장자 : JPG, JPEG, GIF, PNG)');
+
+                parentObj = obj.parentNode
+
+                node = parentObj.replaceChild(obj.cloneNode(true), obj);
+
+                const $detailInput = document.getElementById('detail-img');
+
+                const files = $detailInput.files;
+                console.log(files);
+                
+                return false;
+
+            }
+        }
+    </script>
 
 </body>
 

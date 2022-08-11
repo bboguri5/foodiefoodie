@@ -102,7 +102,19 @@
         }
 
         .preview {
+            width: 100%;
             display: none;
+        }
+
+        .preview-title-img {
+            width: 100%;
+            height: 150px;
+        }
+
+        .preview-detail-img {
+            width: 20%;
+            height: 150px;
+            margin-right: 10px;
         }
     </style>
 </head>
@@ -539,14 +551,21 @@
                 $img.setAttribute('src', '/loadFile?fileName=' + fileName); 
                 $img.setAttribute('alt', originFileName);
 
-                document.getElementById('title-preview').appendChild($img);
+                const $titlePreviewHidden = document.getElementById('title-preview');
+
+                if ($titlePreviewHidden.children.length > 0) {
+                    $titlePreviewHidden.removeChild($titlePreviewHidden.firstElementChild);
+                }
+
+                $titlePreviewHidden.parentElement.style.display = 'block';
+                $titlePreviewHidden.appendChild($img);
             }
 
         }
 
 
         // 0번 인덱스 : 타이틀 이미지 확장자 체크, 1번 인덱스 : 디테일 이미지들 확장자 체크
-        const inputImgCheckArr = [false, false];
+        // const inputImgCheckArr = [false, false];
 
 
         function titleFileTypeCheck(obj) {
@@ -580,10 +599,10 @@
                     .then(res => res.json())
                     .then(fileNames => {
                         makeTitlePreviewDOM(fileNames);
-                    })
+                    });
 
 
-                checkArr[0] = true;
+                // checkArr[0] = true;
 
             } else {
 
@@ -593,7 +612,8 @@
 
                 node = parentObj.replaceChild(obj.cloneNode(true), obj);
 
-                
+                const $titlePreviewHidden = document.getElementById('title-preview');
+                $titlePreviewHidden.parentElement.style.display = 'none';
 
                 const files = $titleInput.files;
                 // console.log(files);
@@ -605,6 +625,37 @@
         }
 
 
+        function isExistDetailPreviewDOM() {
+            const $detailPreviewHidden = document.getElementById('detail-preview');
+            if($detailPreviewHidden.children.length > 0) {
+                for (let $img of $detailPreviewHidden.children) {
+                    $detailPreviewHidden.removeChild($img);
+                }
+            }
+        }
+
+
+        function makeDetailPreviewDOM(fileNames) {
+
+            for (let fileName of fileNames) {
+                
+                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
+
+                const $img = document.createElement('img');
+                $img.classList.add('preview-detail-img');
+
+                $img.setAttribute('src', '/loadFile?fileName=' + fileName); 
+                $img.setAttribute('alt', originFileName);
+
+                const $detailPreviewHidden = document.getElementById('detail-preview');
+
+                $detailPreviewHidden.parentElement.style.display = 'block';
+                $detailPreviewHidden.appendChild($img);
+            }
+        }
+
+
+
         function detailFileTypeCheck(obj) {
 
             pathpoint = obj.value.lastIndexOf('.');
@@ -613,17 +664,34 @@
 
             filetype = filepoint.toLowerCase();
 
+            const $detailInput = document.getElementById('detail-img');
+
             if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png' || filetype == 'jpeg') {
 
                 // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
 
-                
+                const formData = new FormData();
 
-                fetch('/ajax/upload', reqObj)
+                for (let file of $detailInput.files) {
+                    formData.append('files', file);
+                }
+
+
+                const reqObj = {
+                    method: 'POST',
+                    body: formData
+                };
+
+                fetch('/ajax-upload', reqObj)
+                    .then(res => res.json())
+                    .then(fileNames => {
+                        isExistDetailPreviewDOM();
+                        makeDetailPreviewDOM(fileNames);
+                    });
 
 
 
-                checkArr[1] = true;
+                // checkArr[1] = true;
 
             } else {
 
@@ -632,6 +700,10 @@
                 parentObj = obj.parentNode
 
                 node = parentObj.replaceChild(obj.cloneNode(true), obj);
+                
+                const $detailPreviewHidden = document.getElementById('detail-preview');
+                $detailPreviewHidden.parentElement.style.display = 'none';
+
 
                 const $detailInput = document.getElementById('detail-img');
 

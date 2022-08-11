@@ -9,6 +9,8 @@
         <result column="phone_number" property="phoneNumber"/>
         <result column="regist_date" property="regDate"/>
         <result column="login_time" property="recentLoginTime"/>
+        <result column="detail_address" property="detailAddress"/>
+        <result column="extra_address" property="extraAddress"/>
     </resultMap>
 
 
@@ -33,9 +35,17 @@
 
     <insert id="register">
         INSERT INTO member
-        (email, password, nick_name, phone_number, birth, address, name, gender)
+            (email, password, nick_name, phone_number, birth, address, detail_address,
+            <if test="extraAddress != null">
+                extra_address,
+            </if>
+            name, gender)
         VALUES
-        (#{email}, #{password}, #{nickName}, #{phoneNumber}, #{birth}, #{address}, #{name}, #{gender})
+            (#{email}, #{password}, #{nickName}, #{phoneNumber}, #{birth}, #{address}, #{detailAddress},
+            <if test="extraAddress != null">
+                #{extraAddress},
+            </if>
+            #{name}, #{gender})
     </insert>
 
 
@@ -53,11 +63,30 @@
     </update>
 
 
-    <update id="authChange">
-        UPDATE member
-        SET auth = #{auth}
+    
+    
+    <insert id="saveAutoLoginValue">
+        INSERT INTO auto_login
+            (email, session_id, logout_time)
+        VALUES
+            (#{email}, #{sessionId}, #{limitTime})
+    </insert>
+
+    <resultMap id="autoLogin" type="com.project.foodiefoodie.member.dto.login.AutoLoginDTO">
+        <result column="session_id" property="sessionId"/>
+        <result column="logout_time" property="limitTime"/>
+    </resultMap>
+
+    <select id="findIsAutoLoginBySessionId" resultMap="autoLogin">
+        SELECT email, session_id, logout_time
+        FROM auto_login
+        WHERE session_id = #{sessionId}
+    </select>
+
+    <delete id="deleteAutoLoginValue">
+        DELETE FROM auto_login
         WHERE email = #{email}
-    </update>
+    </delete>
 </mapper>
 
 

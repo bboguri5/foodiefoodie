@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.foodiefoodie.hotdeal.repository.HotDealMapper">
+
+    <resultMap id="dealMap" type="com.project.foodiefoodie.hotdeal.domain.HotDeal">
+        <result property="businessNo" column="business_no"/>
+        <result property="discountPrice" column="discount_price"/>
+        <result property="endDate" column="end_date"/>
+        <result property="startDate" column="start_date"/>
+    </resultMap>
+
+    <insert id="save">
+        INSERT INTO hot_deal
+        (business_no, discount_price, end_date, start_date)
+        VALUES (#{businessNo}, #{discountPrice}, #{endDate}, #{startDate})
+    </insert>
+
+    <select id="findRandHot" resultMap="dealMap">
+        SELECT * FROM (
+        SELECT *
+        FROM hot_deal
+        ORDER BY DBMS_RANDOM.RANDOM
+        ) sub
+        WHERE ROWNUM BETWEEN 1 AND 6
+    </select>
+
+    <select id="findAll" resultMap="dealMap">
+        SELECT * FROM hot_deal
+
+        <!--        SELECT *-->
+        <!--        FROM (SELECT ROWNUM rn, v_board.*-->
+        <!--        FROM (-->
+        <!--        SELECT *-->
+        <!--        FROM tbl_board-->
+        <!--        ORDER BY board_no DESC-->
+        <!--        ) v_board)-->
+        <!--        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})-->
+    </select>
+
+    <select id="findOne" resultMap="dealMap">
+        SELECT * FROM hot_deal
+        WHERE business_no=#{businessNo}
+    </select>
+
+    <delete id="remove">
+        DELETE FROM hot_deal
+        WHERE business_no=#{businessNo}
+    </delete>
+
+    <update id="modify">
+        UPDATE hot_deal
+        SET discount_price = #{discountPrice}, end_date=#{endDate}, start_date=#{startDate}
+        WHERE business_no=#{businessNo}
+    </update>
+
+    <!--    <select id="getTotalCount" resultType="int">-->
+    <!--        SELECT COUNT(*)-->
+    <!--        FROM tbl_board-->
+    <!--        <if test="type == 'title'">WHERE title LIKE '%' || #{keyword} || '%'</if>-->
+    <!--        <if test="type == 'writer'">WHERE writer LIKE '%' || #{keyword} || '%'</if>-->
+    <!--        <if test="type == 'content'">WHERE content LIKE '%' || #{keyword} || '%'</if>-->
+    <!--        <if test="type == 'tc'">WHERE title LIKE '%' || #{keyword} || '%'-->
+    <!--            OR content LIKE '%' || #{keyword} || '%'-->
+    <!--        </if>-->
+    <!--    </select>-->
+
+    <!--    <update id="upViewCount">-->
+    <!--        UPDATE tbl_board-->
+    <!--        SET view_cnt = view_cnt + 1-->
+    <!--        WHERE board_no=#{boardNo}-->
+    <!--    </update>-->
+
+    <!--  첨부파일 추가  -->
+    <!--    <insert id="addFile">-->
+    <!--        INSERT INTO file_upload-->
+    <!--        (file_name, bno)-->
+    <!--        VALUES-->
+    <!--        (#{fileName}, seq_tbl_board.currval)-->
+    <!--    </insert>-->
+
+    <!--    <select id="findFileNames" resultType="string">-->
+    <!--        SELECT file_name-->
+    <!--        FROM file_upload-->
+    <!--        WHERE bno = #{bno}-->
+    <!--    </select>-->
+
+    <!--    <select id="findMemberByBoardNo" resultType="com.project.web_prj.board.dto.ValidateMemberDTO">-->
+
+    <!--        SELECT account, auth-->
+    <!--        FROM tbl_member-->
+    <!--        WHERE account = (-->
+    <!--        SELECT account-->
+    <!--        FROM tbl_board-->
+    <!--        WHERE board_no = #{boardNo}-->
+    <!--        )-->
+    <!--    </select>-->
+
+</mapper>

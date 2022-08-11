@@ -2,7 +2,7 @@ package com.project.foodiefoodie.member.repository;
 
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.AuthDTO;
-import com.project.foodiefoodie.member.dto.AutoLoginDTO;
+import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,13 +22,6 @@ public interface MemberMapper {
     Member findMember(String email);
 
 
-    // 자동로그인 쿠키 정보 저장
-//    void saveAutoLoginValue(AutoLoginDTO dto);
-//
-//
-//    // 쿠키값(세션아이디)을 가지고 있는 회원정보 조회
-//    Member findMemberBySessionId(String sessionId);
-
 
     // 회원 탈퇴 기능
     boolean deleteMember(String email);
@@ -38,6 +31,12 @@ public interface MemberMapper {
     boolean modifyMember(Member member);
 
 
-    // 권한 변경 기능
-    boolean authChange(AuthDTO dto);
+    // 자동로그인 쿠키값(세션 아이디값) DB에 저장
+    void saveAutoLoginValue(AutoLoginDTO dto);
+
+    void deleteAutoLoginValue(String email);
+
+
+    // 쿠키값(세션아이디)을 가지고 있는 회원 이메일 조회
+    AutoLoginDTO findIsAutoLoginBySessionId(String sessionId);
 }

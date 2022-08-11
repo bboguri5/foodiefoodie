@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.foodiefoodie.review.repository.ReviewBoardMapper">
+
+    <resultMap id="rbMap" type="com.project.foodiefoodie.review.domain.ReviewBoard">
+        <result property="businessNo" column="business_no"/>
+        <result property="reviewBno" column="review_bno"/>
+        <result property="lastUpdate" column="last_update"/>
+        <result property="likeCnt" column="like_cnt"/>
+        <result property="starRate" column="star_rate"/>
+        <result property="isPrivate" column="private"/>
+    </resultMap>
+
+    <insert id="save">
+        INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate)
+        VALUES (#{email}, #{title}, #{content}, seq_review_board.nextval, #{businessNo},#{starRate})
+    </insert>
+
+    <!--  해당 가게 평균 평점 구하기  -->
+    <select id="getStarRate" resultType="double">
+        SELECT ROUND(AVG(star_rate), 2)
+        FROM review_board
+        WHERE business_no=#{businessNo}
+    </select>
+
+    <!--  해당 가게 리뷰 개수 구하기  -->
+    <select id="getReviewCnt" resultType="Long">
+        SELECT COUNT(star_rate)
+        FROM review_board
+        WHERE business_no=#{businessNo}
+    </select>
+</mapper>

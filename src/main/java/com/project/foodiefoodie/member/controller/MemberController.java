@@ -97,7 +97,7 @@ public class MemberController {
     
     
     // 로그아웃 요청 처리
-    @GetMapping("/logout")
+    @GetMapping("/sign-out")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession();

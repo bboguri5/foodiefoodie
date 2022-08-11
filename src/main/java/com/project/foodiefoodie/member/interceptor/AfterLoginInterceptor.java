@@ -17,6 +17,7 @@ public class AfterLoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         HttpSession session = request.getSession();
+
         if (LoginUtils.isLogin(session)){
             String referer = request.getHeader("Referer");
 

@@ -10,6 +10,8 @@
         <result property="masterName" column="master_name"/>
         <result property="storeName" column="store_name"/>
         <result property="storeAddress" column="store_address"/>
+        <result property="storeDetailAddress" column="store_detail_address"/>
+        <result property="storeExtraAddress" column="store_extra_address"/>
         <result property="storeRegDate" column="store_reg_date"/>
         <result property="hotDeal" column="hot_deal"/>
         <result property="storeCallNumber" column="store_call_number"/>
@@ -25,9 +27,17 @@
 
     <insert id="requestAuthMaster">
         INSERT INTO master
-            (business_no, email, master_name, store_name, store_address, store_call_number)
+            (business_no, email, master_name, store_name, store_address, store_detail_address,
+            <if test="storeExtraAddress != null">
+                store_extra_address,
+            </if>
+            store_call_number)
         VALUES
-            (#{businessNo}, #{email}, #{masterName}, #{storeName}, #{storeAddress}, #{storeCallNumber})
+            (#{businessNo}, #{email}, #{masterName}, #{storeName}, #{storeAddress}, #{storeDetailAddress},
+            <if test="storeExtraAddress != null">
+                #{storeExtraAddress},
+            </if>
+            #{storeCallNumber})
     </insert>
 
     <select id="findBusinessNo" resultType="int">

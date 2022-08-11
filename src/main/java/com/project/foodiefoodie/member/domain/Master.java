@@ -16,6 +16,8 @@ public class Master {
     private String masterName;
     private String storeName;
     private String storeAddress;
+    private String storeDetailAddress;
+    private String storeExtraAddress;
     private Date storeRegDate;
     private char hotDeal;
     private String storeCallNumber;

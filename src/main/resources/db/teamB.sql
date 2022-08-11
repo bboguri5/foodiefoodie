@@ -1,3 +1,8 @@
+
+-- ∞Ë¡§ √ﬂ∞° π◊ ±««— ∫Œø©
+create user teamB IDENTIFIED BY 1234;
+GRANT DBA, connect, RESOURCE TO teamB;
+
 -- DROP TABLE
 DROP TABLE profile_upload;
 DROP TABLE review_upload;
@@ -28,7 +33,7 @@ DROP SEQUENCE seq_review_faq;
 DROP SEQUENCE seq_reply_faq;
 
 
--- SEQUENCE ????
+-- SEQUENCE ª˝º∫
 CREATE SEQUENCE seq_promotion_board;
 CREATE SEQUENCE seq_promotion_food_menu;
 CREATE SEQUENCE seq_review_board;
@@ -38,8 +43,8 @@ CREATE SEQUENCE seq_review_faq;
 CREATE SEQUENCE seq_reply_faq;
 
 
--- TABLE ????
--- ????
+-- TABLE ª˝º∫
+-- ¿Ø¿˙ -- ªÁ¿Â¥‘∞˙ ¥Ÿ∏• ≈◊¿Ã∫Ì 
 CREATE TABLE member (
     email VARCHAR2(50) PRIMARY KEY
     , password VARCHAR2(50) NOT NULL
@@ -53,15 +58,44 @@ CREATE TABLE member (
     , regist_date DATE DEFAULT SYSDATE
     , login_time DATE
 );
-ALTER TABLE member
-MODIFY auth VARCHAR2(20) DEFAULT 'COMMON';
+
+
+insert into member (email, password, nick_name, phone_number, birth, address, name, gender)
+VALUES('abc1234@naver.com', 'aaaa', '±Êµø¿Ã', '01012341234', '20000101', 'º≠øÔ', '»´±Êµø', 'M');
+insert into member (email, password, nick_name, phone_number, birth, address, name, gender)
+VALUES('bbbb2222@naver.com', '1234', '√∂ºˆ', '01022225555', '20001212', '¥Î±∏', '±Ë√∂ºˆ', 'M');
+
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1111', 'abc1234@naver.com', '»´±Êµø', '±Êµø¿Ã≥◊∫–Ωƒ¡˝', 'º≠øÔ ∞≠º≠±∏ ∞°æÁµø', '∫–Ωƒ', '010-2222-3333');
+
+update member set auth = 'MASTER' WHERE email = 'abc1234@naver.com';
+
+SELECT * FROM MEMBER ;
+
+SELECT * FROM MEMBER 
+WHERE email = 'soslimso@naver.com'
+;
+
+
+DELETE FROM member 
+where email = 'soslimso@naver.com'
+;
+
+
+DELETE FROM member 
+where email = 'bbbb2222@naver.com'
+;
+
+
+
+
 ALTER TABLE member
 MODIFY address VARCHAR2(150);
 ALTER TABLE member
-MODIFY password VARCHAR2(150);
-SELECT * FROM member;
+MODIFY auth VARCHAR2(20) DEFAULT 'COMMON';
 
--- ????Œ±???
+update member set auth = 'MASTER' WHERE email = 'abc1234@naver.com';
+-- ¿⁄µø∑Œ±◊¿Œ
 CREATE TABLE auto_login (
     email VARCHAR2(50) NOT NULL
     , cookie VARCHAR2(50) NOT NULL
@@ -72,13 +106,12 @@ CREATE TABLE auto_login (
 );
 
 ALTER TABLE auto_login
-MODIFY ip_address VARCHAR2(30) NULL;
-ALTER TABLE auto_login
 RENAME COLUMN cookie TO session_id;
 
-COMMIT;
+ALTER TABLE auto_login
+MODIFY ip_address VARCHAR2(30) NULL;
 
--- ?????
+-- ªÁæ˜¿⁄-- ªÁæ˜¿⁄øÕ ¿œπ› ªÁøÎ¿⁄ ≈◊¿Ã∫Ì ±∏∫– 
 CREATE TABLE MASTER (
     business_no VARCHAR2(50) PRIMARY KEY
     , email VARCHAR2(50) NOT NULL
@@ -90,17 +123,15 @@ CREATE TABLE MASTER (
     , hot_deal VARCHAR2(2) DEFAULT 'N'
     , store_call_number VARCHAR2(20) NOT NULL
     , CONSTRAINT fk_master_email
-    FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE
+    FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE    
 );
-
-alter table master modify store_address VARCHAR2(150);
-alter table master modify STORE_REG_DATE number(10); -- 08.10 Ï†ïÏïÑÏî® ÏàòÏ†ïÏÇ¨Ìï≠
+alter table master modify STORE_REG_DATE number(10);
 
 ALTER TABLE master
-DROP COLUMN food_categories; -- 08.10 ÎèôÏßÑ ÏàòÏ†ïÏÇ¨Ìï≠
+DROP COLUMN food_categories;
 commit;
 
--- ?????
+-- »´∫∏±€
 CREATE TABLE promotion_board (
     business_no VARCHAR2(50) NOT NULL
     , promotion_bno NUMBER(10) PRIMARY KEY
@@ -111,7 +142,41 @@ CREATE TABLE promotion_board (
     REFERENCES master (business_no) ON DELETE CASCADE
 );
 
--- ???? ???
+SELECT * FROM promotion_board;
+
+ALTER TABLE promotion_board DROP COLUMN avg_star_rate;
+ALTER TABLE promotion_board DROP COLUMN review_cnt;
+
+ALTER TABLE promotion_board
+ADD avg_star_rate DECIMAL(1, 2) DEFAULT 0;
+
+ALTER TABLE promotion_board
+ADD review_cnt NUMBER(10) DEFAULT 0;
+
+COMMIT;
+
+
+ALTER TABLE promotion_board
+ADD avg_star_rate DECIMAL(1, 2);
+
+insert into promotion_board VALUES (101010
+,seq_promotion_board.nextval
+,'¡÷º“   : ∞Ê±‚µµ ±∫∆˜Ω√ ªÍ∫ª∑Œ323π¯±Ê 7-1
+¡ˆπ¯ : ∞Ê±‚µµ ±∫∆˜Ω√ ªÍ∫ªµø 1128-1
+¿¸»≠π¯»£ : 0507-1350-4556
+¿ΩΩƒ ¡æ∑˘ :   µıº∂ / ∏∏µŒ
+∞°∞›¥Î : ∏∏ø¯ πÃ∏∏
+¡÷¬˜   : ¡÷¬˜∞¯∞£æ¯¿Ω
+øµæ˜Ω√∞£ : 11:00 - 21:00
+Ω¨¥¬Ω√∞£ : 15:00 - 16:00
+∏∂¡ˆ∏∑ ¡÷πÆ : 20:30
+»ﬁ¿œ   : ¿œ'
+,sysdate
+,'»≤∞Ì±‚')
+;
+
+
+-- ¿ΩΩƒ ∏ﬁ¥∫
 CREATE TABLE promotion_food_menu(
     menu_no NUMBER(5) PRIMARY KEY
     , promotion_bno NUMBER(10) NOT NULL
@@ -121,7 +186,17 @@ CREATE TABLE promotion_food_menu(
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
--- ?????? ????
+-- ¿ΩΩƒ ∏ﬁ¥∫ ∆ƒ¿œ æ˜∑ŒµÂ
+CREATE TABLE promotion_food_menu_upload(
+         promotion_bno NUMBER(10) NOT NULL
+        ,menu_no NUMBER(10) NOT NULL 
+        , file_path clob
+        , file_name VARCHAR2(100) NOT NULL
+        , CONSTRAINT fk_pro_food_menu_upload FOREIGN KEY (menu_no)
+    REFERENCES promotion_food_menu (menu_no) ON DELETE CASCADE
+);
+
+-- ø˘¡§æ◊ ∞°∞‘
 CREATE TABLE premiume_promotion_board (
     promotion_bno NUMBER(10) NOT NULL
     , start_date DATE
@@ -129,12 +204,17 @@ CREATE TABLE premiume_promotion_board (
     , CONSTRAINT fk_pro_bno FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
+alter table premiume_promotion_board
+MODIFY start_date NUMBER(10);
 
---ALTER TABLE premiume_promotion_board
---ADD premiume_no NUMBER(10) PRIMARY KEY;
+alter table premiume_promotion_board
+MODIFY end_date NUMBER(10);
 
 
--- ????
+
+
+
+-- ∏Æ∫‰
 CREATE TABLE review_board (
     email VARCHAR2(50) NOT NULL
     , title VARCHAR2(70) NOT NULL
@@ -149,7 +229,7 @@ CREATE TABLE review_board (
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- ???
+-- «÷µÙ
 CREATE TABLE hot_deal (
     business_no VARCHAR2(50) NOT NULL
     , discount_price NUMBER(5) NOT NULL
@@ -159,17 +239,30 @@ CREATE TABLE hot_deal (
     REFERENCES master (business_no) ON DELETE CASCADE
 );
 
--- ??????
+alter table hot_deal
+MODIFY start_date NUMBER(10);
+
+alter table hot_deal
+MODIFY end_date NUMBER(10);
+
+
+
+-- ¡Ò∞‹√£±‚ 
 CREATE TABLE favorite_store (
     email VARCHAR2(50) NOT NULL
-    , promotion_bno NUMBER(10) NOT NULL
-    , CONSTRAINT fk_fav_email FOREIGN KEY (email)
-    REFERENCES member (email) ON DELETE CASCADE
+    , promotion_bno NUMBER(10) NOT NULL -- »´∫∏±€ 
+    , CONSTRAINT fk_fav_email FOREIGN KEY (email) -- ≥ªøÎ 
+    REFERENCES member (email) ON DELETE CASCADE -- 
     , CONSTRAINT fk_fav_promo_bno FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
--- ?????? ???? ???
+select * from favorite_store;
+
+insert into 
+
+
+-- ∏Æ∫‰±€ø° ¥Î«— ¥Ò±€
 CREATE TABLE reply (
     review_bno NUMBER(10) NOT NULL
     , reply_no NUMBER(10) PRIMARY KEY
@@ -183,7 +276,7 @@ CREATE TABLE reply (
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- ???? ?????(???)
+-- ∏Æ∫‰ ¡¡æ∆ø‰(√ﬂ√µ)
 CREATE TABLE review_like (
     review_bno NUMBER(10) NOT NULL
     , email VARCHAR2(50) NOT NULL
@@ -193,7 +286,7 @@ CREATE TABLE review_like (
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- ????? ???
+-- »´∫∏±€ Ω≈∞Ì
 CREATE TABLE promotion_faq (
     pr_faq_no NUMBER(10) PRIMARY KEY
     , promotion_bno NUMBER(10) NOT NULL
@@ -202,7 +295,13 @@ CREATE TABLE promotion_faq (
     , faq_complete VARCHAR2(2) DEFAULT 'F'
 );
 
--- ????? ???
+ALTER TABLE promotion_faq
+ADD promotion_writer_email VARCHAR2(50) NOT NULL;
+
+
+
+
+-- ∏Æ∫‰±€ Ω≈∞Ì
 CREATE TABLE review_faq (
     re_faq_no NUMBER(10) PRIMARY KEY
     , review_bno NUMBER(10) NOT NULL
@@ -211,7 +310,10 @@ CREATE TABLE review_faq (
     , faq_complete VARCHAR2(2) DEFAULT 'F'
 );
 
--- ??? ???
+ALTER TABLE review_faq
+ADD review_writer_email VARCHAR2(50) NOT NULL;
+
+-- ¥Ò±€ Ω≈∞Ì
 CREATE TABLE reply_faq (
     reply_faq_no NUMBER(10) PRIMARY KEY
     , reply_no NUMBER(10) NOT NULL
@@ -220,16 +322,43 @@ CREATE TABLE reply_faq (
     , faq_complete VARCHAR2(2) DEFAULT 'F'
 );
 
--- ????? ???? ???Œµ?
-CREATE TABLE promotion_upload (
-    promotion_bno NUMBER(10) NOT NULL
-    , file_path CLOB NOT NULL
-    , file_name VARCHAR2(100)
-    , CONSTRAINT fk_pro_upload FOREIGN KEY (promotion_bno)
+ALTER TABLE reply_faq
+ADD reply_writer_email VARCHAR2(50) NOT NULL;
+
+
+---- »´∫∏±€ ∆ƒ¿œ æ˜∑ŒµÂ
+--CREATE TABLE promotion_upload (
+--    promotion_bno NUMBER(10) NOT NULL
+--    , file_path CLOB NOT NULL
+--    , file_name VARCHAR2(100)
+--    , CONSTRAINT fk_pro_upload FOREIGN KEY (promotion_bno)
+--    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+--);
+--
+--DROP TABLE promotion_upload; 
+
+»´∫∏±€ ¿ÃπÃ¡ˆ ¥Î∫–∑˘«ÿº≠ ≥÷¥¬∞‘ ≥™¿ª∞≈∞∞æ∆ø‰ ∏ﬁ¿Œø°º≠ ≈∏¿Ã∆≤ ªÁ¡¯ «•Ω√«“ ∂ß ø¨∞Ëµ… ºˆ ¿÷µµ∑œ ! 
+±◊∑°º≠ ±◊≥… ≈◊¿Ã∫Ì 3∞°¡ˆ∑Œ ≥™¥≥æÓø‰ ! ∏ﬁ¥∫¿ÃπÃ¡ˆ≈◊¿Ã∫Ì¿∫ ±‚¡∏ø° ¿÷¥¯∞≈ ¿Ã∏ß∏∏ ∫Ø∞Ê !  
+
+create table promotion_upload_detail_img(
+      promotion_bno NUMBER(10) NOT NULL
+    , file_path clob not null
+    , file_name VARCHAR2(100) NULL
+    , CONSTRAINT fk_pro_upload_detail_img FOREIGN KEY (promotion_bno)
+    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+); 
+
+create table promotion_upload_title_img(
+   promotion_bno NUMBER(10) NOT NULL
+    , file_path clob not null
+    , file_name VARCHAR2(100) NULL
+    , CONSTRAINT fk_pro_upload_title_img FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
+alter table promotion_food_menu_upload rename to promotion_upload_menu_img;
 
--- ???? ???? ???Œµ?
+
+-- ∏Æ∫‰ ∆ƒ¿œ æ˜∑ŒµÂ
 CREATE TABLE review_upload(
     review_bno NUMBER(10) NOT NULL
     , file_path VARCHAR2(150) NOT NULL
@@ -238,7 +367,7 @@ CREATE TABLE review_upload(
     REFERENCES review_board (review_bno) ON DELETE CASCADE
 );
 
--- ??????????? ???? ???Œµ?
+-- «¡∑Œ« ¿ÃπÃ¡ˆ ∆ƒ¿œ æ˜∑ŒµÂ
 CREATE TABLE profile_upload(
     email VARCHAR2(50) PRIMARY KEY
     , file_path VARCHAR2(150) NOT NULL
@@ -247,60 +376,13 @@ CREATE TABLE profile_upload(
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- ?????? ???? ??????? ????~~
--- API?? ?????? ???????? ??? ?????????? ?????? ???? ?? ??????? ???????
--- ???? ??????? ????? ?????? ??? ????????.
+-- øµºˆ¡ı ∞¸∑√ ≈◊¿Ã∫Ì¿∫ æ∆¡˜~~
+-- API∏¶ »∞øÎ«ÿº≠ ¥Ÿ¿Ã∑∫∆Æ∑Œ ¿Ø»ø øµºˆ¡ı¿Œ¡ˆ ∞À¡ı¿Ã ≥°≥≠ »ƒ ∞·∞˙∏∏¿ª æÀ∑¡¡ÿ¥Ÿ∏È
+-- ±ª¿Ã ≈◊¿Ã∫Ì¿ª ∏∏µÈæÓº≠ ∞¸∏Æ«“ « ø‰∞° æ¯æÓ∫∏ø©ø‰.
 CREATE TABLE receipt_upload();
 
 
--- ÏùåÏãù Î©îÎâ¥ ÌååÏùº ÏóÖÎ°úÎìú
-CREATE TABLE promotion_food_menu_upload(
-         promotion_bno NUMBER(10) NOT NULL
-        ,menu_no NUMBER(10) NOT NULL
-        , file_path clob
-        , file_name VARCHAR2(100) NOT NULL
-        , CONSTRAINT fk_pro_food_menu_upload FOREIGN KEY (menu_no)
-    REFERENCES promotion_food_menu (menu_no) ON DELETE CASCADE
-);
-
-commit;
-
-
--- ÏÑ±Î†¨Ïî®
-insert into member (email, password, nick_name, phone_number, birth, address, name, gender)
-VALUES('abc1234@naver.com', 'aaaa', 'Í∏∏ÎèôÏù¥', '01012341234', '20000101', 'ÏÑúÏö∏', 'ÌôçÍ∏∏Îèô', 'M');
-insert into member (email, password, nick_name, phone_number, birth, address, name, gender)
-VALUES('bbbb2222@naver.com', '1234', 'Ï≤†Ïàò', '01022225555', '20001212', 'ÎåÄÍµ¨', 'ÍπÄÏ≤†Ïàò', 'M');
-
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
-VALUES('1234-2222-3333-1111', 'abc1234@naver.com', 'ÌôçÍ∏∏Îèô', 'Í∏∏ÎèôÏù¥ÎÑ§Î∂ÑÏãùÏßë', 'ÏÑúÏö∏ Í∞ïÏÑúÍµ¨ Í∞ÄÏñëÎèô', 'Î∂ÑÏãù', '010-2222-3333');
-
-update member set auth = 'MASTER' WHERE email = 'abc1234@naver.com';
-
-
-alter table premiume_promotion_board
-MODIFY start_date NUMBER(10);
-
-alter table premiume_promotion_board
-MODIFY end_date NUMBER(10);
-
-alter table hot_deal
-MODIFY start_date NUMBER(10);
-
-alter table hot_deal
-MODIFY end_date NUMBER(10);
-
-commit;
-
-SELECT
-a.email, a.nick_name, a.phone_number, a.birth, a.address
-, a.name, a.gender, a.auth, a.regist_date, a.login_time
-, b.business_no, b.store_name, b.store_address, b.food_categories
-, b.store_reg_date, b.hot_deal, b.store_call_number
-FROM member a
-LEFT OUTER JOIN master b
-ON a.email = b.email;
-
+commit ;
 
 CREATE TABLE report_member (
     email VARCHAR2(50) NOT NULL
@@ -313,53 +395,6 @@ CREATE TABLE black_list (
     email VARCHAR2(50) NOT NULL
 );
 
+commit ;
 
--- Ï†ïÏïÑÏî®
---insert into promotion_board VALUES (101010
---,seq_promotion_board.nextval
---,'Ï£ºÏÜå   : Í≤ΩÍ∏∞ÎèÑ Íµ∞Ìè¨Ïãú ÏÇ∞Î≥∏Î°ú323Î≤àÍ∏∏ 7-1
---ÏßÄÎ≤à : Í≤ΩÍ∏∞ÎèÑ Íµ∞Ìè¨Ïãú ÏÇ∞Î≥∏Îèô 1128-1
---Ï†ÑÌôîÎ≤àÌò∏ : 0507-1350-4556
---ÏùåÏãù Ï¢ÖÎ•ò :   Îî§ÏÑ¨ / ÎßåÎëê
---Í∞ÄÍ≤©ÎåÄ : ÎßåÏõê ÎØ∏Îßå
---Ï£ºÏ∞®   : Ï£ºÏ∞®Í≥µÍ∞ÑÏóÜÏùå
---ÏòÅÏóÖÏãúÍ∞Ñ : 11:00 - 21:00
---Ïâ¨ÎäîÏãúÍ∞Ñ : 15:00 - 16:00
---ÎßàÏßÄÎßâ Ï£ºÎ¨∏ : 20:30
---Ìú¥Ïùº   : Ïùº'
---,sysdate
---,'Ìô©Í≥†Í∏∞')
---;
 
-create table promotion_upload_detail_img(
-      promotion_bno NUMBER(10) NOT NULL
-    , file_path clob not null
-    , file_name VARCHAR2(100) NULL
-    , CONSTRAINT fk_pro_upload_detail_img FOREIGN KEY (promotion_bno)
-    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-);
-
-create table promotion_upload_title_img(
-   promotion_bno NUMBER(10) NOT NULL
-    , file_path clob not null
-    , file_name VARCHAR2(100) NULL
-    , CONSTRAINT fk_pro_upload_title_img FOREIGN KEY (promotion_bno)
-    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-);
-alter table promotion_food_menu_upload rename to promotion_upload_menu_img;
-
-DROP TABLE promotion_upload;
-
--- Ìï¥ÏõêÏî®
-SELECT * FROM promotion_board;
-
-ALTER TABLE promotion_board DROP COLUMN avg_star_rate;
-ALTER TABLE promotion_board DROP COLUMN review_cnt;
-
-ALTER TABLE promotion_board
-ADD avg_star_rate DECIMAL(1, 2) DEFAULT 0;
-
-ALTER TABLE promotion_board
-ADD review_cnt NUMBER(10) DEFAULT 0;
-
-COMMIT;

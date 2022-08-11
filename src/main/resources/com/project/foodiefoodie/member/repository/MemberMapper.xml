@@ -9,6 +9,8 @@
         <result column="phone_number" property="phoneNumber"/>
         <result column="regist_date" property="regDate"/>
         <result column="login_time" property="recentLoginTime"/>
+        <result column="detail_address" property="detailAddress"/>
+        <result column="extra_address" property="extraAddress"/>
     </resultMap>
 
 
@@ -33,9 +35,17 @@
 
     <insert id="register">
         INSERT INTO member
-        (email, password, nick_name, phone_number, birth, address, name, gender)
+            (email, password, nick_name, phone_number, birth, address, detail_address,
+            <if test="extraAddress != null">
+                extra_address,
+            </if>
+            name, gender)
         VALUES
-        (#{email}, #{password}, #{nickName}, #{phoneNumber}, #{birth}, #{address}, #{name}, #{gender})
+            (#{email}, #{password}, #{nickName}, #{phoneNumber}, #{birth}, #{address}, #{detailAddress},
+            <if test="extraAddress != null">
+                #{extraAddress},
+            </if>
+            #{name}, #{gender})
     </insert>
 
 

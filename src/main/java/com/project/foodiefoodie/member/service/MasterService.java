@@ -23,21 +23,13 @@ public class MasterService {
     // 사업자 권한 요청시 DB 반영 전 중간처리 메서드
     public boolean requestAuthMaster(Master master) {
 
-        // 중복된 사업자 번호인지 확인
-        boolean flag = duplicateBusinessNo(master.getBusinessNo());
-
-        // 중복된 사업자 번호가 아니라면,,
-        if (!flag) {
-            return mapper.requestAuthMaster(master);
-        }
-
-        // 중복된 사업자 번호라면,,
-        return false;
+        return mapper.requestAuthMaster(master);
     }
     
     
     // 중복된 사업자 번호인지 확인해주는 메서드
-    private boolean duplicateBusinessNo(String businessNo) {
+    public boolean duplicateBusinessNo(String businessNo) {
         return mapper.findBusinessNo(businessNo) == 1;
     }
+
 }

@@ -1,3 +1,4 @@
+
 package com.project.foodiefoodie.member.domain;
 
 import lombok.*;

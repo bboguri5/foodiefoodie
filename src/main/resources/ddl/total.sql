@@ -359,6 +359,23 @@ ADD store_extra_address VARCHAR2(50) NULL;
 
 -- 홍보글테이블에 해쉬태그 컬럼 추가했습니당
 alter table promotion_board add hashTag varchar2(200) not null;
+
+-- 홍보글에 신고 당한 횟수 추가했어요
+alter table promotion_board
+add report_cnt number(2) default 0;
+
+-- 사업자당 신고당한 횟수 저장하는 테이블 추가할게요
+create table report_master (
+    business_no VARCHAR2(50) NOT NULL
+    , report_cnt NUMBER (2) DEFAULT 1
+    , CONSTRAINT fk_report_business_no FOREIGN KEY (business_no)
+    REFERENCES master (business_no) ON DELETE CASCADE
+);
+
+-- 사업자 블랙리스트도 추가할게요
+CREATE TABLE black_list_master (
+    business_no VARCHAR2(50) NOT NULL
+);
 COMMIT;
 
 commit;

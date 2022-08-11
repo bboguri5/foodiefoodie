@@ -2,15 +2,13 @@ package com.project.foodiefoodie.proBoard.controller;
 
 
 import com.project.foodiefoodie.member.domain.Master;
+import com.project.foodiefoodie.proBoard.dto.ImageDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 @Log4j2
@@ -44,4 +42,14 @@ public class ProBoardController {
 //        model.addAttribute("master",master);
 //        return "promotion/pro-write";
 //    }
+
+
+    // 동진 : 임의 매핑이에요!
+    @PostMapping("/promotion-write")
+    public String promoWrite(ImageDTO dto) {
+
+        
+
+        return "";
+    }
 }

@@ -4,7 +4,7 @@
 <html lang="ko">
 
 <head>
-    
+
     <%@ include file="/WEB-INF/views/include/static-head.jsp" %>
 
 </head>
@@ -29,7 +29,7 @@
                             <!-- <a href="#0" class="social_bt facebook">Sign up with Facebook</a>
 							<a href="#0" class="social_bt google">Sign up with Google</a>
 							<div class="divider"><span>Or</span></div> -->
-                            <h6>아래 항목들을 입력하세요.</h6>
+                            <h6>아래 항목들을 빠짐없이 입력하세요.</h6>
                             <form id="reg-form" action="/register" method="post">
                                 <div>
                                     <span id="emailChk"></span>
@@ -37,7 +37,7 @@
                                 <div class="form-group">
                                     <input class="form-control" type="email" id="email-input" name="email"
                                         placeholder="Email [실제 존재하는 Email 계정명을 입력하세요 계정명, 비밀번호 찾기에 활용됩니다.]">
-                                    <i class="icon_mail"></i>
+                                    <!-- <i class="icon_mail"></i> -->
                                 </div>
 
                                 <!-- 중복 확인 결과에 대해 알려줄 부분 삽입 -->
@@ -48,14 +48,14 @@
                                 <div class="form-group">
                                     <input class="form-control" id="password_sign"
                                         placeholder="비밀번호 [8~10자리의 특수문자를 포함하여 입력하세요]" name="password">
-                                    <i class="icon_lock"></i>
+                                    <!-- <i class="icon_lock"></i> -->
                                 </div>
                                 <div>
                                     <span id="nameChk"></span>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" type="text" id="name" placeholder="이름" name="name">
-                                    <i class="icon_pencil"></i>
+                                    <!-- <i class="icon_pencil"></i> -->
                                 </div>
                                 <div>
                                     <span id="nickNameChk"></span>
@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <input class="form-control" type="text" id="nick-name"
                                         placeholder="닉네임 [사용하고자 하는 닉네임을 입력하세요.]" name="nickName">
-                                    <i class="icon_pencil"></i>
+                                    <!-- <i class="icon_pencil"></i> -->
                                 </div>
 
 
@@ -73,15 +73,15 @@
                                 <div class="form-group">
                                     <input class="form-control" type="text" id="birth" placeholder="생년월일 [예시: 19991231]"
                                         name="birth" minlength="8" maxlength="8">
-                                    <i class="icon_pencil"></i>
+                                    <!-- <i class="icon_pencil"></i> -->
                                 </div>
                                 <div>
                                     <span id="phoneChk"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" id="phone-num" maxlength="11"
-                                        placeholder="연락처 [예시: 010-1234-5678 -> 01012345678]" name="phoneNumber">
-                                    <i class="icon_pencil"></i>
+                                    <input class="form-control" type="text" id="phone-num" maxlength="13"
+                                        placeholder="연락처 [예시: 010-1234-5678]" name="phoneNumber">
+                                    <!-- <i class="icon_pencil"></i> -->
                                 </div>
                                 <h6>성별</h6>
                                 <div class="form-group">
@@ -90,14 +90,19 @@
                                         <option value="F">여성</option>
                                     </select>
                                 </div>
+
+
+                                <h6>주소</h6>
                                 <div>
                                     <span id="addrChk"></span>
                                 </div>
-                                <div class="form-group add_bottom_15">
-                                    <input class="form-control" id="address" placeholder="주소 [예시: 서울특별시 금천구 한국로 130]"
-                                        name="address" minlength="10">
-                                    <i class="icon_pencil"></i>
-                                </div>
+                                <input class="form-group" type="text" id="sample4_postcode" placeholder="우편번호">
+                                <input class="form-group" type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+                                <input class="form-group addr-api" type="text" id="sample4_roadAddress" placeholder="도로명주소" name="address">
+                                <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+                                <span id="guide" style="color:#999;display:none"></span>
+                                <input class="form-group addr-api" type="text" id="sample4_detailAddress" placeholder="상세주소" name="detailAddress">
+                                <input class="form-group" type="text" id="sample4_extraAddress" placeholder="참고항목" name="extraAddress">
 
                                 <button type="button" id="reg-btn" class="btn_1 full-width mb_5">가입하기</button>
                             </form>
@@ -134,6 +139,8 @@
             const getName = RegExp(/^[가-힣]{2,4}/);
             // 한글로 써야 한다는 정규표현식. 유니코드상 한글의 시작이 '가', 끝이 '힣'이라서
 
+
+            const getNickName = RegExp(/^[a-zA-Zㄱ-힣0-9]{2,12}$/);
 
             const getBitrth = RegExp(/^[0-9]+$/);
             // 생년월일은 숫자로만 입력해야 한다.
@@ -264,7 +271,7 @@
 
             // 4. 닉네임 검증
             const $nickInput = $('#nick-name');
-            const $nickChk = $('nickNameChk');
+            const $nickChk = $('#nickNameChk');
 
             $nickInput.on('keyup', e => {
 
@@ -276,15 +283,15 @@
                     checkArr[3] = false;
                 }
 
-                // 이메일 표현식에 어긋나는 경우
-                else if ($nickInput.val().length < 2) {
+                // 닉네임 정규표현식 검증 및 길이 검증
+                else if (!getNickName.test($nickInput.val()) || $nickInput.val().length < 2 || $nickInput.val().length > 12) {
                     $nickInput.css('border-color', 'red');
-                    $nickChk.text('닉네임은 최소 2자 이상입니다.');
+                    $nickChk.text('닉네임은 최소 2자 이상 12자 이하로 영문, 한글, 숫자만 가능합니다.');
                     $nickChk.css('color', 'red');
                     checkArr[3] = false;
                 } else {
 
-                    // 이메일 중복확인이 여기서 들어가야 한다. 비동기 요청!!
+                    // 닉네임 중복확인. 비동기 요청!!
                     fetch('/member/check?type=nickName&value=' + $nickInput.val())
                         .then(res => res.text())
                         .then(flag => {
@@ -373,44 +380,31 @@
             }); // end 전화번호 검증 로직
 
 
-            // 7. 주소 검증 이건 일단 임시로..
-            const $addrInput = $('#address');
-            const $addrChk = $('#addrChk');
-
-            $addrInput.on('keyup', e => {
-
-                // 아무 입력도 하지 않은 경우
-                if ($addrInput.val().trim() === '') {
-                    $addrInput.css('border-color', 'red');
-                    $addrChk.text('필수 입력사항입니다.');
-                    $addrChk.css('color', 'red');
-                    checkArr[6] = false;
-                }
-
-                // 입력값이 너무 작은 경우..
-                else if ($addrInput.val().length < 14) {
-                    $addrInput.css('border-color', 'red');
-                    $addrChk.text('주소 길이가 너무 짧습니다. 입력을 확인해주세요. 원활한 서비스 이용을 위해 실제 주소를 입력하세요.');
-                    $addrChk.css('color', 'red');
-                    checkArr[6] = false;
-                }
-
-                // 정상 입력인 경우
-                else {
-                    $addrInput.css('border-color', 'greenyellow');
-                    $addrChk.text('주소가 정확한지 다시 한번 확인하세요. 온전한 서비스 이용을 위해 정확한 주소가 필요합니다.');
-                    $addrChk.css('color', 'green');
-                    checkArr[6] = true;
-                }
-            }); // end 주소 검증 로직
-
 
             const $regForm = $('#reg-form');
             const $regBtn = $('#reg-btn');
 
+            const $addrApiInputList = $('.addr-api');
+            const $addrChk = $('#addrChk');
+
             // sign-up 버튼 클릭 이벤트
             $regBtn.on('click', e => {
                 e.preventDefault();
+
+                for (let addrInput of $addrApiInputList) {
+                    if (addrInput.value.trim() === '') {
+                        addrInput.style.borderColor = 'red';
+                        $addrChk.text('필수 입력사항입니다. 원활한 서비스 이용을 위해 정확한 주소를 입력하세요.');
+                        $addrChk.css('color', 'red');
+                        return;
+                    } else {
+                        addrInput.style.borderColor = 'yellowgreen';
+                    }
+                }
+
+
+                $addrChk.text('');
+                checkArr[6] = true;
 
                 for (let c of checkArr) {
                     if (c === false) {
@@ -426,6 +420,73 @@
 
         });
     </script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+    function sample4_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 참고 항목 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if (data.buildingName !== '' && data.apartment === 'Y') {
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data
+                        .buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if (extraRoadAddr !== '') {
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample4_postcode').value = data
+                    .zonecode;
+                document.getElementById("sample4_roadAddress").value =
+                    roadAddr;
+                document.getElementById("sample4_jibunAddress").value = data
+                    .jibunAddress;
+
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if (roadAddr !== '') {
+                    document.getElementById("sample4_extraAddress").value =
+                        extraRoadAddr;
+                } else {
+                    document.getElementById("sample4_extraAddress").value =
+                        '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if (data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr +
+                        ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if (data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr +
+                        ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            }
+        }).open();
+    }
+</script>
 
 </body>
 

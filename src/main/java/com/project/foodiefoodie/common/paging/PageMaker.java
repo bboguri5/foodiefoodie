@@ -78,5 +78,5 @@ public class PageMaker {
         // 다음 버튼 활성화 여부
         this.next = endPage < realEnd;
     }
-
+    
 }

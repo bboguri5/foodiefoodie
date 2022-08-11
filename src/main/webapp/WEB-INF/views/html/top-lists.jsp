@@ -81,7 +81,7 @@
 
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="pb" items="${pb}" varStatus="status">
+                <c:forEach var="dbList" items="${dbList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
@@ -89,14 +89,14 @@
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
-                                        <h3>${masterList[status.index].storeName}</h3>
+                                        <h3>${dbList.storeName}</h3>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${masterList[status.index].storeAddress}</span></li>
+                                <li><span>${dbList.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>맛집이에요~<em>${pb.reviewCnt}개 리뷰</em></span><strong>${pb.avgStarRate}</strong></div>
+                                    <div class="score"><span>맛집이에요~<em>${dbList.reviewCnt}개 리뷰</em></span><strong>${dbList.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>
@@ -104,15 +104,36 @@
                 </c:forEach>
             </div>
             <!-- /row -->
-            <div class="pagination_fg">
-                <a href="#">&laquo;</a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">&raquo;</a>
+            <div class="list-bottom">
+                <!-- 페이지 버튼 -->
+                <div class="paging">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-lg pagination-custom">
+
+                            <c:if test="${pm.prev}">
+                                <li class="page-item"><a class="page-link"
+                                        href="/foodlist?pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
+                                </li>
+                            </c:if>
+
+                            <!-- step=1인 경우,, 생략 가능!! -->
+                            <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
+                                <li data-page-num="${n}" class="page-item"><a class="page-link"
+                                        href="/foodlist?pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
+                                </li>
+                            </c:forEach>
+
+
+                            <c:if test="${pm.next}">
+                                <li class="page-item"><a class="page-link"
+                                        href="/foodlist?pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+
         </div>
         <!-- /container -->
 

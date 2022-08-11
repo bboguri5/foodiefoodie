@@ -332,5 +332,33 @@ DROP COLUMN food_categories;
 ALTER TABLE promotion_board
 ADD avg_star_rate DECIMAL(3, 2) DEFAULT 0;
 
+---------------------------------------------------------- 08 / 11 add
+
+-- 신고접수 테이블
+ALTER TABLE promotion_faq
+ADD promotion_writer_email VARCHAR2(50) NOT NULL;
+
+ALTER TABLE review_faq
+ADD review_writer_email VARCHAR2(50) NOT NULL;
+
+ALTER TABLE reply_faq
+ADD reply_writer_email VARCHAR2(50) NOT NULL;
+
+-- 실제 주소 입력하기 위해 실제 주소 + 상세 주소 컬럼 추가
+ALTER TABLE member
+ADD detail_address VARCHAR2(50) NULL;
+
+ALTER TABLE member
+ADD extra_address VARCHAR2(50) NULL;
+
+ALTER TABLE master
+ADD store_detail_address VARCHAR2(50) NULL;
+
+ALTER TABLE master
+ADD store_extra_address VARCHAR2(50) NULL;
+
+-- 홍보글테이블에 해쉬태그 컬럼 추가했습니당
+alter table promotion_board add hashTag varchar2(200) not null;
+COMMIT;
 
 commit;

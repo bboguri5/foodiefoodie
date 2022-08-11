@@ -104,7 +104,7 @@
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-
+    
     <div class="content-wrapper">
         <div class="container-fluid">
             <!-- Breadcrumbs-->
@@ -122,15 +122,15 @@
 
                 <!-- detail info -->
                 <div class="row">
-                    <!-- map 으로 만들어서 뿌리자 -> 사업자번호 / 가게명 / 대표자 / 카테고리 / 오픈일자 / 식당주소 / 핫딜여부 / 식당 연락처-->
-                    <!-- jstl - foreach문 돌릴 예정  -->
                     <div class="col-md-6 master-detail">
                         <input type="text" class="" hidden>
                         <div class="row-form">
+                            <input type="text" name="businessNo" value="${businessNo}" hidden>
                             <div class="form-group detail-Info">
                                 <label>STORE NAME
                                 </label>
-                                <input type="text" class="form-control" value="${master.storeName}" readonly>
+                                <input type="text" class="form-control" value="${master.storeName}"
+                                    readonly>
                             </div>
                             <div class="form-group detail-Info">
                                 <label>STORE MASTER NAME
@@ -140,7 +140,7 @@
                             <div class="form-group detail-Info">
                                 <label>STORE CALL NUMBER
                                 </label>
-                                <input type="text" class="form-control" value="${master.storeCallNumber}" readonly>
+                                <input type="text" class="form-control"  value="${master.storeCallNumber}" readonly>
                             </div>
                         </div>
                         <div class="form-group detail-Info detail-address">
@@ -149,9 +149,14 @@
                             <input type="text" class="form-control" value="${master.storeAddress}" readonly>
                         </div>
                         <div class="form-group detail-Info">
+                            <label>Title
+                            </label>
+                            <input type="text" class="form-control" name="title" value="${master.storeName}" >
+                        </div>
+                        <div class="form-group detail-Info">
                             <div class="form-group">
                                 <label>HASH TAG</label>
-                                <input type="text" class="form-control" placeholder="예시 : #비비 #미미 (띄어쓰기 필수)">
+                                <input type="text" class="form-control" name="hashTag" placeholder="예시 : #비비 #미미 (띄어쓰기 필수)">
                             </div>
                         </div>
                     </div>
@@ -160,16 +165,16 @@
 
 
 
-                <!-- editor -->
+                <!-- CONTENT editor -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>CONTENT</label>
-                            <div class="editor"></div>
+                            <div class="editor content"></div>
                         </div>
                     </div>
                 </div>
-                <!-- /editor -->
+                <!-- /CONTENT editor -->
 
 
                 <!-- add detail , title img row -->
@@ -224,13 +229,13 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" name="menu"
+                                                    <input type="text" class="form-control menu-name" name="menu"
                                                         placeholder="메뉴명">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="가격">
+                                                    <input type="text" class="form-control menu-price" name="price" placeholder="price">
                                                 </div>
                                             </div>
                                             <div class="col-md-1">
@@ -254,7 +259,6 @@
                     <script>
                         // Pricing add
                         function newMenuItem() {
-                            console.log("??");
                             var newElem = $('form-group add-menu').first().clone();
                             newElem.find('input').val('');
                             newElem.appendTo('table#pricing-list-container');
@@ -273,24 +277,8 @@
                 </div>
                 <!-- /add Menu List -->
 
-                <label for="time">시간 선택</label>
-                <input type="text" id="weekday-openTime" name="time1" class="form-control" style="width:200px;">
-                <script>
-                    $(function () {
-                        $("#weekday-openTime").timepicker({
-                            timeFormat: 'h:mm p',
-                            interval: 60,
-                            minTime: '10',
-                            maxTime: '6:00pm',
-                            defaultTime: '11',
-                            startTime: '10:00',
-                            dynamic: false,
-                            dropdown: true,
-                            scrollbar: true
-                        });
-                    });
-                </script>
 
+                <!-- store time -->
                 <div class="box_general padding_bottom">
                     <div class="header_box version_2">
                         <h2><i class="fa fa-clock-o"></i>Store Time</h2>
@@ -309,26 +297,17 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input id="time1" type="text" class="form-control">
+                                                    <input name="weekday-openTime" type="text"
+                                                        class="form-control select-time">
                                                 </div>
-                                                <script>
-                                                    $("#time1").timepicker({
-                                                        timeFormat: 'h:mm p',
-                                                        interval: 60,
-                                                        minTime: '10',
-                                                        maxTime: '6:00pm',
-                                                        defaultTime: '11',
-                                                        startTime: '10:00',
-                                                        dynamic: false,
-                                                        dropdown: true,
-                                                        scrollbar: true
-                                                    });
-                                                </script>
+
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="마감시간입력">
+                                                    <input name="weekday-closeTime" type="text"
+                                                        class="form-control select-time">
                                                 </div>
+
                                             </div>
                                         </div>
                                     </td>
@@ -343,12 +322,14 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="오픈시간입력">
+                                                    <input name="weekend-openTime" type="text"
+                                                        class="form-control select-time" placeholder="오픈시간입력">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="마감시간입력">
+                                                    <input name="weekend-closeTime" type="text"
+                                                        class="form-control select-time" placeholder="마감시간입력">
                                                 </div>
                                             </div>
                                         </div>
@@ -365,12 +346,14 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="시작시간">
+                                                    <input name="brake-startTime" type="text"
+                                                        class="form-control select-time" placeholder="시작시간">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="종료시간">
+                                                    <input name="brake-endTime" type="text"
+                                                        class="form-control select-time" placeholder="종료시간">
                                                 </div>
                                             </div>
                                         </div>
@@ -396,6 +379,20 @@
 
                         </table>
                     </div>
+                    <script>
+                        // select time 
+                        $(".select-time").timepicker({
+                            timeFormat: 'HH:mm p',
+                            interval: 30,
+                            maxTime: '23:30pm',
+                            defaultTime: '24',
+                            startTime: '08:00',
+                            dynamic: false,
+                            dropdown: true,
+                            scrollbar: true
+                        });
+                    </script>
+                    <!-- /store time -->
 
                 </div>
                 <!-- /row-->
@@ -472,6 +469,32 @@
             height: 200
         });
     </script>
+    <script>
+
+        // 검증 - 가격 숫자만 입력되도록. 한글 입력할 경우 제한 
+
+        // 숫자가 아닌 정규식
+        var replaceNotInt = /[^0-9]/gi;
+        const $menuPrice = $('.menu-price');
+
+        $menuPrice.on("keyup", function () {
+            $(this).val($(this).val().replace(replaceNotInt, "")); // 입력값을 정규식으로 필터링
+
+            var x = $(this).val(); // 필터링 된 숫자값만 들어 있음. 
+            if (x.length > 0) { // 숫자값 길이가 0이상일 경우 
+                $menuPrice.css('border-color', 'green'); // 정상이기때문에 green 
+                if (x.match(replaceNotInt)) { // 중간에 한글 쓸수도 있으니, 다시 매치 
+                    x = x.replace(replaceNotInt, ""); // 한글쓰면 지워짐 
+                }
+                $(this).val(x); // 숫자 value값에 다시 담음
+            }
+            else
+            {
+                $menuPrice.css('border-color', 'red'); // 한글은 길이가 0이기때문에, red 
+            }
+        });
+    </script>
+
 </body>
 
 </html>

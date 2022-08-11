@@ -20,6 +20,7 @@ public class ProBoard {
     private String title;
 
     private String hashTag;
-    private Map<String,Integer> menu;
+    private String menu;
+    private int price;
     private Map<String,String> menuImgs;
 }

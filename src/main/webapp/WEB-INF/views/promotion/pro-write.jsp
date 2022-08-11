@@ -104,303 +104,311 @@
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    
-    <div class="content-wrapper">
-        <div class="container-fluid">
-            <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#">Dashboard</a>
-                </li>
-                <li class="breadcrumb-item active">Add listing</li>
-            </ol>
-            <div class="box_general padding_bottom">
-                <div class="header_box version_2">
-                    <h2><i class="fa fa-file"></i>
-                        Promotional Article Write</h2>
-                </div>
-
-                <!-- detail info -->
-                <div class="row">
-                    <div class="col-md-6 master-detail">
-                        <input type="text" class="" hidden>
-                        <div class="row-form">
-                            <input type="text" name="businessNo" value="${businessNo}" hidden>
-                            <div class="form-group detail-Info">
-                                <label>STORE NAME
-                                </label>
-                                <input type="text" class="form-control" value="${master.storeName}"
-                                    readonly>
-                            </div>
-                            <div class="form-group detail-Info">
-                                <label>STORE MASTER NAME
-                                </label>
-                                <input type="text" class="form-control" value="${master.masterName}" readonly>
-                            </div>
-                            <div class="form-group detail-Info">
-                                <label>STORE CALL NUMBER
-                                </label>
-                                <input type="text" class="form-control"  value="${master.storeCallNumber}" readonly>
-                            </div>
-                        </div>
-                        <div class="form-group detail-Info detail-address">
-                            <label>STORE ADDRESS
-                            </label>
-                            <input type="text" class="form-control" value="${master.storeAddress}" readonly>
-                        </div>
-                        <div class="form-group detail-Info">
-                            <label>Title
-                            </label>
-                            <input type="text" class="form-control" name="title" value="${master.storeName}" >
-                        </div>
-                        <div class="form-group detail-Info">
-                            <div class="form-group">
-                                <label>HASH TAG</label>
-                                <input type="text" class="form-control" name="hashTag" placeholder="예시 : #비비 #미미 (띄어쓰기 필수)">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /detail info -->
-
-
-
-                <!-- CONTENT editor -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>CONTENT</label>
-                            <div class="editor content"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /CONTENT editor -->
-
-
-                <!-- add detail , title img row -->
-                <div class="box_general padding_bottom add-Img-row">
-                    <div class="header_box version_2 add-Img">
-                        <h2><i class="fa fa-list"></i>Title Image Add</h2>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Photos</label>
-                                    <form action="/file-upload" class="dropzone dz-clickable ">
-                                        <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="header_box version_2 add-Img">
-                        <h2><i class="fa fa-list"></i>Detail Image Add</h2>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Photos</label>
-                                    <form action="/file-upload" class="dropzone dz-clickable">
-                                        <div class="dz-default dz-message"><span>Drop files here to upload</span></div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /add detail , title img row -->
-
-                <!-- add Menu List -->
-                <div class="box_general padding_bottom menuImg">
+    <form action="">
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                <!-- Breadcrumbs-->
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item active">Add listing</li>
+                </ol>
+                <div class="box_general padding_bottom">
                     <div class="header_box version_2">
-                        <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
+                        <h2><i class="fa fa-file"></i>
+                            Promotional Article Write</h2>
                     </div>
-                    <!-- add Menu List row -->
+
+                    <!-- detail info -->
+                    <div class="row">
+                        <div class="col-md-6 master-detail">
+                            <input type="text" class="" hidden>
+                            <div class="row-form">
+                                <input type="text" name="businessNo" value="${businessNo}" hidden>
+                                <div class="form-group detail-Info">
+                                    <label>STORE NAME
+                                    </label>
+                                    <input type="text" class="form-control" value="${master.storeName}" readonly>
+                                </div>
+                                <div class="form-group detail-Info">
+                                    <label>STORE MASTER NAME
+                                    </label>
+                                    <input type="text" class="form-control" value="${master.masterName}" readonly>
+                                </div>
+                                <div class="form-group detail-Info">
+                                    <label>STORE CALL NUMBER
+                                    </label>
+                                    <input type="text" class="form-control" value="${master.storeCallNumber}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group detail-Info detail-address">
+                                <label>STORE ADDRESS
+                                </label>
+                                <input type="text" class="form-control" value="${master.storeAddress}" readonly>
+                            </div>
+                            <div class="form-group detail-Info">
+                                <label>Title
+                                </label>
+                                <input type="text" class="form-control" name="title" value="${master.storeName}">
+                            </div>
+                            <div class="form-group detail-Info">
+                                <div class="form-group">
+                                    <label>HASH TAG</label>
+                                    <input type="text" class="form-control" name="hashTag"
+                                        placeholder="예시 : #비비 #미미 (띄어쓰기 필수)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /detail info -->
+
+
+                    <!-- CONTENT editor -->
                     <div class="row">
                         <div class="col-md-12">
-                            <h6>Item</h6>
-                            <table id="pricing-list-container" style="width:100%;">
-                                <tr class="pricing-list-item">
-                                    <td>
-                                        <div class="row menu-row">
-                                            <div class="col-md-2 menu-add-img">
-                                                <form action="/file-upload" class="dropzone dz-clickable menu-add-img">
-                                                    <div class="dz-default dz-message"><span>+</span></div>
-                                                </form>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control menu-name" name="menu"
-                                                        placeholder="메뉴명">
+                            <div class="form-group">
+                                <label>CONTENT</label>
+                                <div class="editor content"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /CONTENT editor -->
+
+
+                    <!-- add detail , title img row -->
+                    <div class="box_general padding_bottom add-Img-row">
+                        <div class="header_box version_2 add-Img">
+                            <h2><i class="fa fa-list"></i>Title Image Add</h2>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Photos</label>
+                                        <button type="text">파일선택(1개)</button>
+                                        <div class="dropzone dz-clickable"><span>Drop files here to upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header_box version_2 add-Img">
+                            <h2><i class="fa fa-list"></i>Detail Image Add</h2>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Photos</label>
+                                        <button type="text">파일선택(여러개)</button>
+                                        <div class="dropzone dz-clickable"><span>Drop files here to upload</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /add detail , title img row -->
+
+                    <!-- add Menu List -->
+                    <div class="box_general padding_bottom menuImg">
+                        <div class="header_box version_2">
+                            <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
+                        </div>
+                        <!-- add Menu List row -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6>Item</h6>
+                                <table id="pricing-list-container" style="width:100%;">
+                                    <tr class="pricing-list-item">
+                                        <td>
+                                            <div class="row menu-row">
+                                                <div class="col-md-2 menu-add-img">
+                                                    <form action="/file-upload"
+                                                        class="dropzone dz-clickable menu-add-img">
+                                                        <div class="dz-default dz-message"><span>+</span></div>
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control menu-name" name="menu"
+                                                            placeholder="메뉴명">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control menu-price" name="price"
+                                                            placeholder="price">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <div class="form-group">
+                                                        <a class="delete" href="#"><i
+                                                                class="fa fa-fw fa-remove"></i></a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control menu-price" name="price" placeholder="price">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                        <!-- /add Menu List row -->
+
+                        <div class="menu-add-btn">
+                            <a href="#0" class="btn_1 gray add-pricing-list-item"><i
+                                    class="fa fa-fw fa-plus-circle"></i>Add
+                                Item</a>
+                        </div>
+                        <script>
+                            // Pricing add
+                            function newMenuItem() {
+                                var newElem = $('form-group add-menu').first().clone();
+                                newElem.find('input').val('');
+                                newElem.appendTo('table#pricing-list-container');
+                            }
+                            if ($("table#pricing-list-container").is('*')) {
+                                $('.add-pricing-list-item').on('click', function (e) {
+                                    e.preventDefault();
+                                    newMenuItem();
+                                });
+                                $(document).on("click", "#pricing-list-container .delete", function (e) {
+                                    e.preventDefault();
+                                    $(this).parent().parent().parent().remove();
+                                });
+                            }
+                        </script>
+                    </div>
+                    <!-- /add Menu List -->
+
+
+                    <!-- store time -->
+                    <div class="box_general padding_bottom">
+                        <div class="header_box version_2">
+                            <h2><i class="fa fa-clock-o"></i>Store Time</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6>Item</h6>
+                                <table id="store-time" style="width:100%;">
+                                    <tr class="store-time-colurm">
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="평일"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input name="weekday-openTime" type="text"
+                                                            class="form-control select-time weekday-openTime">
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input name="weekday-closeTime" type="text"
+                                                            class="form-control select-time">
+                                                    </div>
+
                                                 </div>
                                             </div>
-                                            <div class="col-md-1">
-                                                <div class="form-group">
-                                                    <a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="store-time-colurm">
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="주말"
+                                                            readonly>
+                                                    </div>
                                                 </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input name="weekend-openTime" type="text"
+                                                            class="form-control select-time" placeholder="오픈시간입력">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input name="weekend-closeTime" type="text"
+                                                            class="form-control select-time" placeholder="마감시간입력">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="store-time-colurm">
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Brake Time"
+                                                            readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input name="brake-startTime" type="text"
+                                                            class="form-control select-time" placeholder="시작시간">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input name="brake-endTime" type="text"
+                                                            class="form-control select-time" placeholder="종료시간">
+                                                    </div>
+                                                </div>
+                                            </div>
+                            </div>
+                            </td>
+                            </tr>
+                            <tr class="store-time-colurm">
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="휴무" readonly>
                                             </div>
                                         </div>
-                                    </td>
-                                </tr>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="예시 : 화요일 (요일입력)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
                             </table>
                         </div>
 
-                    </div>
-                    <!-- /add Menu List row -->
-
-                    <div class="menu-add-btn">
-                        <a href="#0" class="btn_1 gray add-pricing-list-item"><i class="fa fa-fw fa-plus-circle"></i>Add
-                            Item</a>
-                    </div>
-                    <script>
-                        // Pricing add
-                        function newMenuItem() {
-                            var newElem = $('form-group add-menu').first().clone();
-                            newElem.find('input').val('');
-                            newElem.appendTo('table#pricing-list-container');
-                        }
-                        if ($("table#pricing-list-container").is('*')) {
-                            $('.add-pricing-list-item').on('click', function (e) {
-                                e.preventDefault();
-                                newMenuItem();
+                        <!-- /store time -->
+                        <script>
+                            // select time 
+                            $(".select-time").timepicker({
+                                timeFormat: 'HH:mm a',
+                                interval: 30,
+                                maxTime: '23:30pm',
+                                defaultTime: '24',
+                                startTime: '08:00',
+                                dynamic: false,
+                                dropdown: true,
+                                scrollbar: true
                             });
-                            $(document).on("click", "#pricing-list-container .delete", function (e) {
-                                e.preventDefault();
-                                $(this).parent().parent().parent().remove();
-                            });
-                        }
-                    </script>
-                </div>
-                <!-- /add Menu List -->
-
-
-                <!-- store time -->
-                <div class="box_general padding_bottom">
-                    <div class="header_box version_2">
-                        <h2><i class="fa fa-clock-o"></i>Store Time</h2>
+                        </script>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h6>Item</h6>
-                            <table id="store-time" style="width:100%;">
-                                <tr class="store-time-colurm">
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="평일" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input name="weekday-openTime" type="text"
-                                                        class="form-control select-time">
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input name="weekday-closeTime" type="text"
-                                                        class="form-control select-time">
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="store-time-colurm">
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="주말" readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input name="weekend-openTime" type="text"
-                                                        class="form-control select-time" placeholder="오픈시간입력">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input name="weekend-closeTime" type="text"
-                                                        class="form-control select-time" placeholder="마감시간입력">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="store-time-colurm">
-                                    <td>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Brake Time"
-                                                        readonly>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input name="brake-startTime" type="text"
-                                                        class="form-control select-time" placeholder="시작시간">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <input name="brake-endTime" type="text"
-                                                        class="form-control select-time" placeholder="종료시간">
-                                                </div>
-                                            </div>
-                                        </div>
-                        </div>
-                        </td>
-                        </tr>
-                        <tr class="store-time-colurm">
-                            <td>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="휴무" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="예시 : 화요일 (요일입력)">
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        </table>
-                    </div>
-                    <script>
-                        // select time 
-                        $(".select-time").timepicker({
-                            timeFormat: 'HH:mm p',
-                            interval: 30,
-                            maxTime: '23:30pm',
-                            defaultTime: '24',
-                            startTime: '08:00',
-                            dynamic: false,
-                            dropdown: true,
-                            scrollbar: true
-                        });
-                    </script>
-                    <!-- /store time -->
-
+                    <!-- /row-->
                 </div>
-                <!-- /row-->
             </div>
-        </div>
 
-    </div>
-    <div class="col-md-12 save-btn"><a href="#0" class="btn_1 medium">Save</a></div>
+        </div>
+        <div class="col-md-12 save-btn"><a href="#0" class="btn_1 medium">Save</a></div>
+    </form>
+
+
     <!-- /content-wrapper -->
     <footer class="sticky-footer">
         <div class="container">
@@ -470,7 +478,6 @@
         });
     </script>
     <script>
-
         // 검증 - 가격 숫자만 입력되도록. 한글 입력할 경우 제한 
 
         // 숫자가 아닌 정규식
@@ -487,13 +494,19 @@
                     x = x.replace(replaceNotInt, ""); // 한글쓰면 지워짐 
                 }
                 $(this).val(x); // 숫자 value값에 다시 담음
-            }
-            else
-            {
+            } else {
                 $menuPrice.css('border-color', 'red'); // 한글은 길이가 0이기때문에, red 
             }
         });
+
+
+        const $weekdayOpenTime = document.querySelector('.weekday-openTime');
+
+        var result = $weekdayOpenTime.value.replace(replaceNotInt, "");
+        console.log(result);
     </script>
+
+
 
 </body>
 

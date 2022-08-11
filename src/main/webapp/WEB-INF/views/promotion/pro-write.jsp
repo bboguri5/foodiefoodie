@@ -104,44 +104,45 @@
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    <form action="">
-        <div class="content-wrapper">
-            <div class="container-fluid">
-                <!-- Breadcrumbs-->
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="#">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item active">Add listing</li>
-                </ol>
-                <div class="box_general padding_bottom">
-                    <div class="header_box version_2">
-                        <h2><i class="fa fa-file"></i>
-                            Promotional Article Write</h2>
-                    </div>
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Add listing</li>
+            </ol>
+            <div class="box_general padding_bottom">
+                <div class="header_box version_2">
+                    <h2><i class="fa fa-file"></i>
+                        Promotional Article Write</h2>
+                </div>
 
-                    <!-- detail info -->
-                    <div class="row">
-                        <div class="col-md-6 master-detail">
-                            <input type="text" class="" hidden>
-                            <div class="row-form">
-                                <input type="text" name="businessNo" value="${businessNo}" hidden>
-                                <div class="form-group detail-Info">
-                                    <label>STORE NAME
-                                    </label>
-                                    <input type="text" class="form-control" value="${master.storeName}" readonly>
-                                </div>
-                                <div class="form-group detail-Info">
-                                    <label>STORE MASTER NAME
-                                    </label>
-                                    <input type="text" class="form-control" value="${master.masterName}" readonly>
-                                </div>
-                                <div class="form-group detail-Info">
-                                    <label>STORE CALL NUMBER
-                                    </label>
-                                    <input type="text" class="form-control" value="${master.storeCallNumber}" readonly>
-                                </div>
+                <!-- detail info -->
+                <div class="row">
+                    <div class="col-md-6 master-detail">
+                        <input type="text" class="" hidden>
+                        <div class="row-form">
+                            <div class="form-group detail-Info">
+                                <label>STORE NAME
+                                </label>
+                                <input type="text" class="form-control" value="${master.storeName}" readonly>
                             </div>
+                            <div class="form-group detail-Info">
+                                <label>STORE MASTER NAME
+                                </label>
+                                <input type="text" class="form-control" value="${master.masterName}" readonly>
+                            </div>
+                            <div class="form-group detail-Info">
+                                <label>STORE CALL NUMBER
+                                </label>
+                                <input type="text" class="form-control" value="${master.storeCallNumber}" readonly>
+                            </div>
+                        </div>
+
+                        <form action="/foodie/write" method="post">
+                            <input type="text" name="businessNo" value="${master.businessNo}" hidden>
                             <div class="form-group detail-Info detail-address">
                                 <label>STORE ADDRESS
                                 </label>
@@ -155,292 +156,253 @@
                             <div class="form-group detail-Info">
                                 <div class="form-group">
                                     <label>HASH TAG</label>
-                                    <input type="text" class="form-control" name="hashTag"
-                                        placeholder="예시 : #비비 #미미 (띄어쓰기 필수)">
+                                    <input type="text" class="form-control hashTag" name="hashTag"
+                                        placeholder="예시 : #비비 #미미 (띄어쓰기 필수)" value="">
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                <!-- /detail info -->
+
+
+                <!-- CONTENT editor -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>CONTENT</label>
+                            <div class="editor content"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /CONTENT editor -->
+
+
+                <!-- add detail , title img row -->
+                <div class="box_general padding_bottom add-Img-row">
+                    <div class="header_box version_2 add-Img">
+                        <h2><i class="fa fa-list"></i>Title Image Add</h2>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Photos</label>
+                                    <button type="text">파일선택(1개)</button>
+                                    <div class="dropzone dz-clickable"><span>Drop files here to upload</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- /detail info -->
+                    <div class="header_box version_2 add-Img">
+                        <h2><i class="fa fa-list"></i>Detail Image Add</h2>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Photos</label>
+                                    <button type="text">파일선택(여러개)</button>
+                                    <div class="dropzone dz-clickable"><span>Drop files here to upload</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+                <!-- /add detail , title img row -->
 
-                    <!-- CONTENT editor -->
+                <!-- add Menu List -->
+                <div class="box_general padding_bottom menuImg">
+                    <div class="header_box version_2">
+                        <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
+                    </div>
+                    <!-- add Menu List row -->
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label>CONTENT</label>
-                                <div class="editor content"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /CONTENT editor -->
-
-
-                    <!-- add detail , title img row -->
-                    <div class="box_general padding_bottom add-Img-row">
-                        <div class="header_box version_2 add-Img">
-                            <h2><i class="fa fa-list"></i>Title Image Add</h2>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Photos</label>
-                                        <button type="text">파일선택(1개)</button>
-                                        <div class="dropzone dz-clickable"><span>Drop files here to upload</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="header_box version_2 add-Img">
-                            <h2><i class="fa fa-list"></i>Detail Image Add</h2>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Photos</label>
-                                        <button type="text">파일선택(여러개)</button>
-                                        <div class="dropzone dz-clickable"><span>Drop files here to upload</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <!-- /add detail , title img row -->
-
-                    <!-- add Menu List -->
-                    <div class="box_general padding_bottom menuImg">
-                        <div class="header_box version_2">
-                            <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
-                        </div>
-                        <!-- add Menu List row -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h6>Item</h6>
-                                <table id="pricing-list-container" style="width:100%;">
-                                    <tr class="pricing-list-item">
-                                        <td>
-                                            <div class="row menu-row">
-                                                <div class="col-md-2 menu-add-img">
-                                                    <form action="/file-upload"
-                                                        class="dropzone dz-clickable menu-add-img">
-                                                        <div class="dz-default dz-message"><span>+</span></div>
-                                                    </form>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control menu-name" name="menu"
-                                                            placeholder="메뉴명">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control menu-price" name="price"
-                                                            placeholder="price">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <div class="form-group">
-                                                        <a class="delete" href="#"><i
-                                                                class="fa fa-fw fa-remove"></i></a>
-                                                    </div>
+                            <h6>Item</h6>
+                            <table id="pricing-list-container" style="width:100%;">
+                                <tr class="pricing-list-item">
+                                    <td>
+                                        <div class="row menu-row">
+                                            <div class="col-md-2 menu-add-img">
+                                                <div class="dropzone dz-clickable menu-add-img">
+                                                    <div class="dz-default dz-message"><span>+</span></div>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                        </div>
-                        <!-- /add Menu List row -->
-
-                        <div class="menu-add-btn">
-                            <a href="#0" class="btn_1 gray add-pricing-list-item"><i
-                                    class="fa fa-fw fa-plus-circle"></i>Add
-                                Item</a>
-                        </div>
-                        <script>
-                            // Pricing add
-                            function newMenuItem() {
-                                var newElem = $('form-group add-menu').first().clone();
-                                newElem.find('input').val('');
-                                newElem.appendTo('table#pricing-list-container');
-                            }
-                            if ($("table#pricing-list-container").is('*')) {
-                                $('.add-pricing-list-item').on('click', function (e) {
-                                    e.preventDefault();
-                                    newMenuItem();
-                                });
-                                $(document).on("click", "#pricing-list-container .delete", function (e) {
-                                    e.preventDefault();
-                                    $(this).parent().parent().parent().remove();
-                                });
-                            }
-                        </script>
-                    </div>
-                    <!-- /add Menu List -->
-
-
-                    <!-- store time -->
-                    <div class="box_general padding_bottom">
-                        <div class="header_box version_2">
-                            <h2><i class="fa fa-clock-o"></i>Store Time</h2>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h6>Item</h6>
-                                <table id="store-time" style="width:100%;">
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="평일"
-                                                            readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekday-openTime" type="text"
-                                                            class="form-control select-time weekday-openTime">
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekday-closeTime" type="text"
-                                                            class="form-control select-time">
-                                                    </div>
-
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control menu-name" name="menu"
+                                                        placeholder="메뉴명">
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="주말"
-                                                            readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekend-openTime" type="text"
-                                                            class="form-control select-time" placeholder="오픈시간입력">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekend-closeTime" type="text"
-                                                            class="form-control select-time" placeholder="마감시간입력">
-                                                    </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="number" class="form-control menu-price" name="price"
+                                                        placeholder="price">
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Brake Time"
-                                                            readonly>
-                                                    </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group">
+                                                    <a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="brake-startTime" type="text"
-                                                            class="form-control select-time" placeholder="시작시간">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="brake-endTime" type="text"
-                                                            class="form-control select-time" placeholder="종료시간">
-                                                    </div>
-                                                </div>
-                                            </div>
-                            </div>
-                            </td>
-                            </tr>
-                            <tr class="store-time-colurm">
-                                <td>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="휴무" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="예시 : 화요일 (요일입력)">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
+                                    </td>
+                                </tr>
                             </table>
                         </div>
 
-                        <!-- /store time -->
-                        <script>
-                            // select time 
-                            $(".select-time").timepicker({
-                                timeFormat: 'HH:mm a',
-                                interval: 30,
-                                maxTime: '23:30pm',
-                                defaultTime: '24',
-                                startTime: '08:00',
-                                dynamic: false,
-                                dropdown: true,
-                                scrollbar: true
-                            });
-                        </script>
                     </div>
-                    <!-- /row-->
+                    <!-- /add Menu List row -->
+
+                    <div class="menu-add-btn">
+                        <a class="btn_1 gray add-pricing-list-item"><i class="fa fa-fw fa-plus-circle"></i>Add
+                            Item</a>
+                    </div>
+                    <script>
+                        // Pricing add
+                        function newMenuItem() {
+                            var newElem = $('form-group add-menu').first().clone();
+                            newElem.find('input').val('');
+                            newElem.appendTo('table#pricing-list-container');
+                        }
+                        if ($("table#pricing-list-container").is('*')) {
+                            $('.add-pricing-list-item').on('click', function (e) {
+                                e.preventDefault();
+                                newMenuItem();
+                            });
+                            $(document).on("click", "#pricing-list-container .delete", function (e) {
+                                e.preventDefault();
+                                $(this).parent().parent().parent().remove();
+                            });
+                        }
+                    </script>
                 </div>
-            </div>
-
-        </div>
-        <div class="col-md-12 save-btn"><a href="#0" class="btn_1 medium">Save</a></div>
-    </form>
+                <!-- /add Menu List -->
 
 
-    <!-- /content-wrapper -->
-    <footer class="sticky-footer">
-        <div class="container">
-            <div class="text-center">
-                <small>Copyright © FOOGRA 2021</small>
-            </div>
-        </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
+                <!-- store time -->
+                <div class="box_general padding_bottom">
+                    <div class="header_box version_2">
+                        <h2><i class="fa fa-clock-o"></i>Store Time</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>Item</h6>
+                            <table id="store-time" style="width:100%;">
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="평일" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekdayOpenTime" type="text"
+                                                        class="form-control select-time weekday-openTime">
+                                                </div>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekdayCloseTime" type="text"
+                                                        class="form-control select-time">
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="주말" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekendOpenTime" type="text"
+                                                        class="form-control select-time" placeholder="오픈시간입력">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekendCloseTime" type="text"
+                                                        class="form-control select-time" placeholder="마감시간입력">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Brake Time"
+                                                        readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="brakeStartTime" type="text"
+                                                        class="form-control select-time" placeholder="시작시간">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="brakeEndTime" type="text"
+                                                        class="form-control select-time" placeholder="종료시간">
+                                                </div>
+                                            </div>
+                                        </div>
+                        </div>
+                        </td>
+                        </tr>
+                        <tr class="store-time-colurm">
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="휴무" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="closedDay"
+                                                placeholder="예시 : 화요일 (요일입력)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        </table>
+                    </div>
+
+                    <!-- /store time -->
+                    <script>
+                        // select time 
+                        $(".select-time").timepicker({
+                            timeFormat: 'HH:mm a',
+                            interval: 30,
+                            maxTime: '23:30pm',
+                            defaultTime: '24',
+                            startTime: '08:00',
+                            dynamic: false,
+                            dropdown: true,
+                            scrollbar: true
+                        });
+                    </script>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="#0">Logout</a>
-                </div>
+                <!-- /row-->
             </div>
         </div>
     </div>
+    <div class="col-md-12 save-btn"><button type="submit" class="btn_1 medium">Save</button></div>
+    </form>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
@@ -478,14 +440,16 @@
         });
     </script>
     <script>
-        // 검증 - 가격 숫자만 입력되도록. 한글 입력할 경우 제한 
+        //입력값 검증 정규표현식
 
-        // 숫자가 아닌 정규식
+
+
+        // ------------------------------- 숫자가 아닌 값은 튕김 --------------------------------
         var replaceNotInt = /[^0-9]/gi;
         const $menuPrice = $('.menu-price');
 
         $menuPrice.on("keyup", function () {
-            $(this).val($(this).val().replace(replaceNotInt, "")); // 입력값을 정규식으로 필터링
+            $(this).val($(this).val().replace(replaceNotInt, "")); // 입력값을 정규식으로 필터링하여 다시 입력값에 담음 
 
             var x = $(this).val(); // 필터링 된 숫자값만 들어 있음. 
             if (x.length > 0) { // 숫자값 길이가 0이상일 경우 
@@ -499,14 +463,55 @@
             }
         });
 
+        
+        const $hashTag = $('.hashTag');
+        $hashTag.on("keyup",function(){
+            const result = $hashTag.val().split(' ');
+            const reulstLength = $hashTag.val().length;
+            console.log(result);
 
-        const $weekdayOpenTime = document.querySelector('.weekday-openTime');
+            if(result > 2)
+            {
+                $(this).val($(this).val(substring(0, reulstLength)));
+                    
+                $hashTag.css('border-color', 'red');
+            }
+        });
 
-        var result = $weekdayOpenTime.value.replace(replaceNotInt, "");
-        console.log(result);
+    </script>
+
+    <script>
+        // const $weekdayOpenTime = document.querySelector('.weekday-openTime');
+
+        // var result = $weekdayOpenTime.value.replace(replaceNotInt, "");
+        // console.log(result);
+
+        // function validateFormValue() {
+        //     const $writerInput = document.getElementById('writer-input');
+        //     const $titleInput = document.getElementById('title-input');
+        //     let flag = false; // 입력 제대로하면 true로 변경
+
+        //     console.log('w: ', $writerInput.value);
+        //     console.log('t: ', $titleInput.value);
+
+        //     if ($writerInput.value.trim() === '') {
+        //         alert('작성자는 필수값입니다~');
+        //     } else if ($titleInput.value.trim() === '') {
+        //         alert('제목은 필수값입니다~');
+        //     } else {
+        //         flag = true;
+        //     }
+
+        //     console.log('flag:', flag);
+
+        //     return flag;
+        // }
     </script>
 
 
+    <script>
+       
+    </script>
 
 </body>
 

@@ -374,7 +374,7 @@
 					<div class="strip">
 						<figure>
 							<span class="ribbon off">-25%</span>
-							<img src="img/lazy-placeholder.png" data-src="img/location_4.jpg" class="owl-lazy" alt="">
+							<img src="/img/lazy-placeholder.png" data-src="/img/location_4.jpg" class="owl-lazy" alt="">
 							<a href="detail-restaurant.html" class="strip_info">
 								<small>Japanese</small>
 								<div class="item_title">
@@ -395,7 +395,7 @@
 					<div class="strip">
 						<figure>
 							<span class="ribbon off">-30%</span>
-							<img src="img/lazy-placeholder.png" data-src="img/location_5.jpg" class="owl-lazy" alt="">
+							<img src="/img/lazy-placeholder.png" data-src="/img/location_5.jpg" class="owl-lazy" alt="">
 							<a href="detail-restaurant.html" class="strip_info">
 								<small>Pizza</small>
 								<div class="item_title">

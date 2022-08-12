@@ -9,6 +9,16 @@
 
 	<style>
 
+		#locationList  {
+			display: flex;
+			justify-content: space-between;
+		}
+		#locationList .item {
+			width: 16%;
+		}
+
+
+
 	</style>
 </head>
 
@@ -110,7 +120,7 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2>오늘의 맛집</h2>
-				<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+				<p>실시간 탑 맛집 이에용~</p>
 				<a href="/foodlist">View All</a>
 			</div>
 
@@ -145,7 +155,7 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2>푸디푸디 추천 맛집</h2>
-				<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+				<p>돈 받았어용~ 헿</p>
 				<a href="#0">View All</a>
 			</div>
 
@@ -306,7 +316,7 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2>어떤 지역 맛집</h2>
-				<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+				<p>근처 맛집을 찾아보세용~</p>
 				<a id="viewAll" href="#0">View All</a>
 			</div>
 

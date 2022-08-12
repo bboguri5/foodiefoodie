@@ -2,6 +2,7 @@ package com.project.foodiefoodie.member.controller;
 
 import com.project.foodiefoodie.member.domain.MasterAndMember;
 import com.project.foodiefoodie.member.domain.Member;
+import com.project.foodiefoodie.member.service.MasterAndMemberService;
 import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.List;
 public class AdminController {
 
     private final MemberService mbs;
-    private final MasterService mms;
+    private final MasterAndMemberService mms;
 
     @GetMapping("/admin/member-management")
     public String memberManagement(Model model) {

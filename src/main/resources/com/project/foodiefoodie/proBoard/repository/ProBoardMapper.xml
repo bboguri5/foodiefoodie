@@ -34,7 +34,7 @@
     </select>
 
 <!--  마스터 가져오기 임시 -->
-    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.MasterAndMember">
+    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
         <result property="businessNo" column="BUSINESS_NO"/>
         <result property="masterName" column="MASTER_NAME"/>
         <result property="storeName" column="STORE_NAME"/>

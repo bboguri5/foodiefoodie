@@ -1,7 +1,7 @@
 package com.project.foodiefoodie.proBoard.controller;
 
 
-import com.project.foodiefoodie.member.domain.MasterAndMember;
+import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.ImageDTO;
 import com.project.foodiefoodie.member.dto.proBoard.StoreTimeDTO;
@@ -30,7 +30,7 @@ public class ProBoardController {
     @GetMapping("/write/{businessNo}")
     public String write(Model model, @PathVariable String businessNo){
         log.info("foodie/write Get - ! {} ",businessNo);
-        MasterAndMember master = proBoardService.selectMaster(businessNo);
+        Master master = proBoardService.selectMaster(businessNo);
         log.info(master);
         model.addAttribute("master",master);
         return "promotion/pro-write";
@@ -47,11 +47,11 @@ public class ProBoardController {
     }
 
     // 동진 : 임의 매핑이에요!
-    @PostMapping("/write")
-    public String promoWrite(ProBoard proBoard,ImageDTO imgDTO) {
-
-        
-
-        return "";
-    }
+//    @PostMapping("/write")
+//    public String promoWrite(ProBoard proBoard,ImageDTO imgDTO) {
+//
+//
+//
+//        return "";
+//    }
 }

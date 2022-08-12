@@ -2,20 +2,91 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<!-- mapper태그는 sql을 매핑할때 사용하는 태그
-     namespace속성에는 사용할 인터페이스의 풀 패키지경로 + 인터페이스이름
-  -->
 <mapper namespace="com.project.foodiefoodie.member.repository.MemberMapper">
-    
+
     <resultMap id="memberMap" type="com.project.foodiefoodie.member.domain.Member">
-        <result property="nickName" column="nick_name"/>
-        <result property="phoneNumber" column="phone_number"/>
-        <result property="registDate" column="regist_date"/>
-        <result property="loginTime" column="login_time"/>
-        <result property="detailAddress" column="detail_address"/>
-        <result property="extraAddress" column="extra_address"/>
+        <result column="nick_name" property="nickName" />
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="regist_date" property="regDate"/>
+        <result column="login_time" property="recentLoginTime"/>
+        <result column="detail_address" property="detailAddress"/>
+        <result column="extra_address" property="extraAddress"/>
     </resultMap>
+
+
+    <select id="isDuplicate" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+        <if test="type=='email'">
+        WHERE email = #{value}
+        </if>
+        <if test="type=='nickName'">
+        WHERE nick_name = #{value}
+        </if>
+    </select>
+
+
+    <select id="findMember" resultMap="memberMap">
+        SELECT *
+        FROM member
+        WHERE email = #{email}
+    </select>
+
+
+    <insert id="register">
+        INSERT INTO member
+            (email, password, nick_name, phone_number, birth, address, detail_address,
+            <if test="extraAddress != null">
+                extra_address,
+            </if>
+            name, gender)
+        VALUES
+            (#{email}, #{password}, #{nickName}, #{phoneNumber}, #{birth}, #{address}, #{detailAddress},
+            <if test="extraAddress != null">
+                #{extraAddress},
+            </if>
+            #{name}, #{gender})
+    </insert>
+
+
+    <delete id="deleteMember">
+        DELETE FROM member
+        WHERE email = #{email}
+    </delete>
+
+
+    <update id="modifyMember">
+        UPDATE member
+        SET password = #{password}, nick_name = #{nickName}, phone_number = #{phoneNumber}, birth = #{birth}
+        , address = #{address}, name = #{name}, gender = #{gender}
+        WHERE email = #{email}
+    </update>
+
+
+    
+    
+    <insert id="saveAutoLoginValue">
+        INSERT INTO auto_login
+            (email, session_id, logout_time)
+        VALUES
+            (#{email}, #{sessionId}, #{limitTime})
+    </insert>
+
+    <resultMap id="autoLogin" type="com.project.foodiefoodie.member.dto.login.AutoLoginDTO">
+        <result column="session_id" property="sessionId"/>
+        <result column="logout_time" property="limitTime"/>
+    </resultMap>
+
+    <select id="findIsAutoLoginBySessionId" resultMap="autoLogin">
+        SELECT email, session_id, logout_time
+        FROM auto_login
+        WHERE session_id = #{sessionId}
+    </select>
+
+    <delete id="deleteAutoLoginValue">
+        DELETE FROM auto_login
+        WHERE email = #{email}
+    </delete>
 
     <select id="findAll" resultMap="memberMap">
         SELECT * FROM member
@@ -36,5 +107,6 @@
         WHERE email = #{email}
     </delete>
 
-
 </mapper>
+
+

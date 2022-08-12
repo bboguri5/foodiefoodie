@@ -63,4 +63,12 @@ public class PromotionBoardService {
     public List<PromotionMasterDTO> findHashTagService(String tag, Page page) {
         return mapper.findHashTag(tag, page);
     }
+
+    public boolean reportCntModifyService(int reportCnt, String businessNo) {
+        return mapper.reportCntModify(reportCnt, businessNo);
+    }
+
+    public int checkReportCnt(String businessNo) {
+        return mapper.checkReportCnt(businessNo);
+    }
 }

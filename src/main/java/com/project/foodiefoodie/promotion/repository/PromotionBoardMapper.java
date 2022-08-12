@@ -36,5 +36,9 @@ public interface PromotionBoardMapper {
     List<PromotionMasterDTO> findHashTag(@Param("hashTag") String hashTag, @Param("page") Page page);
 
     int findHashTagCount(String hashTag);
+
+    boolean reportCntModify(int reportCnt, String businessNo);
+    int checkReportCnt(String businessNo);
+
 }
 

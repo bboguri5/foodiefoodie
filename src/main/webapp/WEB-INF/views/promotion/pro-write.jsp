@@ -266,14 +266,14 @@
                                                 <div class="col-md-2 menu-add-img">
                                                     <div class="form-group">
                                                         <label>Menu-Photos</label>
-                                                    <div>
-                                                        <input type="file" class="menu"
-                                                        accept="image/gif, image/jpeg, image/png, image/bmp"></input>
-                                                    </div>
-                                                    <div class="preview"><span>미리보기</span>
-                                                        <div class="menu-preview"></div>
-                                                    </div>
-                                                    <div class="hidden-menu-box"></div>
+                                                        <div>
+                                                            <input type="file" class="menu"
+                                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
+                                                        </div>
+                                                        <div class="preview"><span>미리보기</span>
+                                                            <div class="menu-preview"></div>
+                                                        </div>
+                                                        <div class="hidden-menu-box"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -326,7 +326,9 @@
                                 $('.add-pricing-list-item').on('click', function (e) {
                                     e.preventDefault();
                                     newMenuItem();
-                                    $('#pricing-list-container:not(:first-child)').children.children.append(' <div class="col-md-1"> <div class="form-group"> <a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a></div></div>');
+                                    $('#pricing-list-container:not(:first-child)').children.children.append(
+                                        ' <div class="col-md-1"> <div class="form-group"> <a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a></div></div>'
+                                    );
                                 });
                                 $(document).on("click", "#pricing-list-container .delete", function (e) {
                                     e.preventDefault();
@@ -577,8 +579,9 @@
             } else { // 단어 10개 이하는 
                 leng = $(this).val().length; // 전역변수에 마지막 글자수 저장 
                 $(this).css('border-color', 'green');
+            }
+        });
         const $weekdayOpenTime = document.querySelector('.weekday-openTime');
-
         var result = $weekdayOpenTime.value.replace(replaceNotInt, "");
         console.log(result);
     </script>
@@ -599,7 +602,7 @@
 
 
         function makeMenuPreviewDOM(this, fileNames) {
-            
+
             // 이미 존재하는 hidden input 태그가 있다면 지우자
             console.log($(this).parent().next().next().children());
             // if ()
@@ -613,6 +616,20 @@
             for (let file of this.files) {
                 formData.append('files', file);
             }
+        }
+
+
+
+        const reqObj = {
+            method: 'POST',
+            body: formData
+        };
+
+        fetch('/ajax-upload', reqObj)
+            .then(res => res.json())
+            .then(fileNames => {
+                makeMenuPreviewDOM(this, fileNames);
+            });
         });
 
 
@@ -629,7 +646,9 @@
                 });
         }
 
-        
+
+
+>>>>>>> origin/master
 
 
         function isExistDetailPreviewDOM() {

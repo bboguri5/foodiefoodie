@@ -14,14 +14,6 @@
         <result property="reportCnt" column="report_cnt"/>
     </resultMap>
 
-    <select id="checkReportCnt" resultType="int">
-        SELECT report_cnt FROM promotion_board
-        WHERE business_no = #{businessNo}
-    </select>
 
-    <update id="reportCntModify">
-        UPDATE promotion_board SET report_cnt = #{reportCnt}
-        WHERE business_no = #{businessNo}
-    </update>
 
 </mapper>

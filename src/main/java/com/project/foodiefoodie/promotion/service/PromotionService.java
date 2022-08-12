@@ -16,12 +16,6 @@ public class PromotionService {
 
     private final PromotionMapper mapper;
 
-    public boolean reportCntModifyService(int reportCnt, String businessNo) {
-        return mapper.reportCntModify(reportCnt, businessNo);
-    }
 
-    public int checkReportCnt(String businessNo) {
-        return mapper.checkReportCnt(businessNo);
-    }
 
 }

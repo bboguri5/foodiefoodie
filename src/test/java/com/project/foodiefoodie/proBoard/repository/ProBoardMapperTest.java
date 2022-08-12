@@ -1,6 +1,6 @@
 package com.project.foodiefoodie.proBoard.repository;
 
-import com.project.foodiefoodie.member.domain.MasterAndMember;
+import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,7 +55,7 @@ class ProBoardMapperTest {
     @DisplayName(" 마스터 이름은 황정아이다.")
     void selectMaster()
     {
-        MasterAndMember master = mapper.selectMaster("101010");
+        Master master = mapper.selectMaster("101010");
         assertEquals(master.getMasterName(),"황정아");
     }
 

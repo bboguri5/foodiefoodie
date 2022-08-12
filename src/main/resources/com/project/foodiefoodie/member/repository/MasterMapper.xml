@@ -3,74 +3,80 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- mapper태그는 sql을 매핑할때 사용하는 태그
-     namespace속성에는 사용할 인터페이스의 풀 패키지경로 + 인터페이스이름
-  -->
 <mapper namespace="com.project.foodiefoodie.member.repository.MasterMapper">
 
-    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.MasterAndMember">
-        <result property="nickName" column="nick_name"/>
-        <result property="phoneNumber" column="phone_number"/>
-        <result property="registDate" column="regist_date"/>
-        <result property="loginTime" column="login_time"/>
+    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
         <result property="businessNo" column="business_no"/>
         <result property="masterName" column="master_name"/>
         <result property="storeName" column="store_name"/>
         <result property="storeAddress" column="store_address"/>
+        <result property="storeDetailAddress" column="store_detail_address"/>
+        <result property="storeExtraAddress" column="store_extra_address"/>
         <result property="storeRegDate" column="store_reg_date"/>
         <result property="hotDeal" column="hot_deal"/>
         <result property="storeCallNumber" column="store_call_number"/>
-        <result property="detailAddress" column="detail_address"/>
-        <result property="extraAddress" column="extra_address"/>
-        <result property="storeDetailAddress" column="store_detail_address"/>
-        <result property="storeExtraAddress" column="store_extra_address"/>
     </resultMap>
 
 
-    <select id="findMaster" resultMap="masterMap">
-        SELECT
-        a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date, a.login_time
-        , b.business_no, b.store_name, b.store_address
-        , b.store_reg_date, b.hot_deal, b.store_call_number, a.detail_address
-        , a.extra_address, b.store_detail_address, b.store_extra_address
-        FROM member a
-        LEFT OUTER JOIN master b
-        ON a.email = b.email
-        WHERE auth = 'MASTER'
+    <select id="getMasterInfo" resultType="com.project.foodiefoodie.member.dto.master.MasterDTO">
+        SELECT store_name AS storeName, store_address AS storeAddress, hot_deal AS hotDeal
+        FROM master
+        WHERE business_no = #{businessNo}
     </select>
 
 
-    <select id="findOneMaster" resultMap="masterMap">
-        SELECT
-        a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date, a.login_time
-        , b.business_no, b.store_name, b.store_address
-        , b.store_reg_date, b.hot_deal, b.store_call_number, a.detail_address
-        , a.extra_address, b.store_detail_address, b.store_extra_address
-        FROM member a
-        LEFT OUTER JOIN master b
-        ON a.email = b.email
-        WHERE a.email = #{email}
+    <insert id="requestAuthMaster">
+        INSERT INTO master
+
+            (business_no, email, master_name, store_name, store_address, store_detail_address,
+            <if test="storeExtraAddress != null">
+                store_extra_address,
+            </if>
+            store_call_number)
+        VALUES
+            (#{businessNo}, #{email}, #{masterName}, #{storeName}, #{storeAddress}, #{storeDetailAddress},
+            <if test="storeExtraAddress != null">
+                #{storeExtraAddress},
+            </if>
+            #{storeCallNumber})
+    </insert>
+
+    <select id="findBusinessNo" resultType="int">
+        SELECT COUNT(*)
+        FROM master
+        WHERE business_no = #{businessNo}
     </select>
 
-    <delete id="removeMaster">
-        DELETE FROM master
-        WHERE email = #{email}
-    </delete>
-
-    <select id="approveMaster" resultMap="masterMap">
-        SELECT
-        a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date, a.login_time
-        , b.business_no, b.store_name, b.store_address
-        , b.store_reg_date, b.hot_deal, b.store_call_number, a.detail_address
-        , a.extra_address, b.store_detail_address, b.store_extra_address
-        FROM member a
-        LEFT OUTER JOIN master b
-        ON a.email = b.email
-        WHERE auth = 'COMMON' AND b.email is not null
+    <select id="findLocationRand" resultType="com.project.foodiefoodie.promotion.dto.PromotionMasterDTO">
+        SELECT business_no AS businessNo, store_name AS storeName, store_address AS storeAddress, avg_star_rate AS
+        avgStarRate, review_cnt AS reviewCnt, file_path AS filePath
+        FROM (
+        SELECT M.business_no, store_name, store_address, avg_star_rate, review_cnt, file_path
+        FROM master M JOIN promotion_board P
+        ON M.business_no = P.business_no
+        WHERE store_address LIKE '%' || #{storeAddress}|| '%'
+        ORDER BY DBMS_RANDOM.RANDOM
+        ) sub
+        WHERE ROWNUM BETWEEN 1 AND 6
     </select>
 
+    <select id="findAllInLocation" resultType="com.project.foodiefoodie.promotion.dto.PromotionMasterDTO">
+        SELECT business_no AS businessNo, store_name AS storeName, store_address AS storeAddress, avg_star_rate AS avgStarRate, file_path AS filePath, review_cnt AS reviewCnt
+        FROM (SELECT ROWNUM rn, t_master.*
+        FROM (
+        SELECT M.business_no, store_name, store_address, avg_star_rate, review_cnt, file_path
+        FROM master M JOIN promotion_board P
+        ON M.business_no = P.business_no
+        WHERE store_address LIKE '%' || #{storeAddress}|| '%'
+        ORDER BY M.business_no DESC
+        ) t_master)
+        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
+    </select>
 
+    <select id="getMyTotalCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM master M JOIN promotion_board P
+        ON M.business_no = P.business_no
+        WHERE store_address LIKE '%' || #{storeAddress}|| '%'
+    </select>
 </mapper>

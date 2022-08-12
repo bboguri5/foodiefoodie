@@ -2,6 +2,7 @@ package com.project.foodiefoodie.proBoard.controller;
 
 
 import com.project.foodiefoodie.member.domain.Master;
+import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.ImageDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 import lombok.RequiredArgsConstructor;
@@ -45,8 +46,8 @@ public class ProBoardController {
 
 
     // 동진 : 임의 매핑이에요!
-    @PostMapping("/promotion-write")
-    public String promoWrite(ImageDTO dto) {
+    @PostMapping("/write")
+    public String promoWrite(ProBoard proBoard,ImageDTO imgDTO) {
 
         
 

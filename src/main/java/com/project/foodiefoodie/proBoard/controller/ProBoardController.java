@@ -37,21 +37,11 @@ public class ProBoardController {
     }
 
     @PostMapping("/write")
-    public String write(ProBoard proBoard, StoreTimeDTO storeTimeDTO)
-    {
+    public String write(ProBoard proBoard, StoreTimeDTO storeTimeDTO, ImageDTO imageDTO) {
         log.info("foodie/write POST - ! {}",proBoard);
         log.info("foodie/write POST - ! {}",storeTimeDTO);
 
 
         return "";
     }
-
-    // 동진 : 임의 매핑이에요!
-//    @PostMapping("/write")
-//    public String promoWrite(ProBoard proBoard,ImageDTO imgDTO) {
-//
-//
-//
-//        return "";
-//    }
 }

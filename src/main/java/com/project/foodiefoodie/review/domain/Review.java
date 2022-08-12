@@ -18,4 +18,5 @@ public class Review {
     private long likeCnt;
     private int starRate;
     private String isPrivate;
+    private int reportCnt;
 }

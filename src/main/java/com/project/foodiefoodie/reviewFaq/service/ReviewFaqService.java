@@ -15,8 +15,8 @@ public class ReviewFaqService {
 
     private final ReviewFaqMapper mapper;
 
-    public List<ReviewFaq> findAllService() {
-        List<ReviewFaq> reviewFaqList = mapper.findAll();
+    public List<ReviewFaq> findAllService(String complete) {
+        List<ReviewFaq> reviewFaqList = mapper.findAll(complete);
         return reviewFaqList;
     }
 
@@ -24,4 +24,9 @@ public class ReviewFaqService {
         ReviewFaq reviewFaq = mapper.findOne(reFaqNo);
         return reviewFaq;
     }
+
+    public boolean updateService(long reFaqNo, String complete) {
+        return mapper.update(reFaqNo, complete);
+    }
+
 }

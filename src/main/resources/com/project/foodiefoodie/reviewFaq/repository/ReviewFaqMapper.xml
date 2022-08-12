@@ -12,10 +12,12 @@
         <result property="reviewBno" column="review_bno"/>
         <result property="writerEmail" column="writer_email"/>
         <result property="faqComplete" column="faq_complete"/>
+        <result property="reviewWriterEmail" column="review_writer_email"/>
     </resultMap>
 
     <select id="findAll" resultMap="reviewFaq">
         SELECT * FROM review_faq
+        WHERE faq_complete = #{complete}
     </select>
 
     <select id="findOne" resultMap="reviewFaq">
@@ -23,5 +25,10 @@
         WHERE re_faq_no = #{reFaqNo}
     </select>
 
+    <update id="update">
+        UPDATE review_faq
+        SET faq_complete = #{complete}
+        WHERE re_faq_no = #{reFaqNo}
+    </update>
 
 </mapper>

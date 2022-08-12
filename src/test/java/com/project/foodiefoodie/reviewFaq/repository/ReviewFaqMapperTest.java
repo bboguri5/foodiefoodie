@@ -19,7 +19,7 @@ class ReviewFaqMapperTest {
     @Test
     @DisplayName("리뷰 신고 리스트를 불러와야 한다.")
     void findAllTest() {
-        List<ReviewFaq> all = mapper.findAll();
+        List<ReviewFaq> all = mapper.findAll("F");
         for (ReviewFaq reviewFaq : all) {
             System.out.println(reviewFaq);
         }

@@ -36,25 +36,31 @@ public class PromotionFaqController {
         return "admin/promotionFaq";
     }
 
-    @PostMapping("/admin/faq-completeFaq")
+    @PostMapping("/admin/promotion-completeFaq")
     public String completeFaq(PromotionFaq promotionFaq, String completeType) {
 
         log.info("/admin/faq-completeFaq POST! - {}", promotionFaq);
 
+        // 거절 버튼 클릭
         if (Objects.equals(completeType, "N")) {
             pros.updateService(promotionFaq.getPrFaqNo(), "N");
-        } else if (Objects.equals(completeType, "T")) {
+        } else if (Objects.equals(completeType, "T")) { // 승인 버튼 클릭
             pros.updateService(promotionFaq.getPrFaqNo(), "T");
             ReportMaster reportMaster = rms.findOneService(promotionFaq.getBusinessNo());
+            // 불량이용자 목록에 있는지 확인
+            // 목록에 없을때
             if (reportMaster == null) {
+                // 목록에 추가
                 rms.saveService(promotionFaq.getBusinessNo());
-            } else {
+            } else { // 목록에 있을 때
+                // 카운트 + 1
                 reportMaster.setReportCnt(reportMaster.getReportCnt() + 1);
                 rms.modifyService(reportMaster);
             }
 
+            // 홍보글에 카운트 추가
             int reportCnt = ps.checkReportCnt(promotionFaq.getBusinessNo());
-            ps.reportCntModifyService(reportCnt, promotionFaq.getBusinessNo());
+            ps.reportCntModifyService(reportCnt + 1, promotionFaq.getBusinessNo());
         }
 
         return "redirect:/admin/promotionFaq";

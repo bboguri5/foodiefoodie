@@ -10,4 +10,5 @@ public class ReviewFaq {
     private String writerEmail;
     private String content;
     private String faqComplete;
+    private String reviewWriterEmail;
 }

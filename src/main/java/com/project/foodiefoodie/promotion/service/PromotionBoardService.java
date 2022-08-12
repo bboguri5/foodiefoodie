@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.promotion.service;
 
 import com.project.foodiefoodie.common.paging.Page;
+import com.project.foodiefoodie.common.search.Search;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import com.project.foodiefoodie.promotion.domain.PromotionBoard;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
@@ -40,4 +41,20 @@ public class PromotionBoardService {
         map.put("tc", totalCnt);
         return map;
     }
+
+    public Map<String, Object> findAllSearchService(Search search) {
+        log.info("findAll service start");
+
+        Map<String, Object> findDataMap = new HashMap<>();
+
+        List<PromotionMasterDTO> searchList = mapper.findAllSearch(search);
+        log.info("{}", searchList);
+
+        // 목록 중간 데이터 처리
+//        processConverting(searchList);
+
+        findDataMap.put("bList", searchList);
+        findDataMap.put("tc", mapper.getTotalCount(search));
+
+        return findDataMap;    }
 }

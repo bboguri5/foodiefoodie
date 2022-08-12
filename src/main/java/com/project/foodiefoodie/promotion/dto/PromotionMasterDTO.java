@@ -12,7 +12,8 @@ public class PromotionMasterDTO {
     private String businessNo;
     private double avgStarRate;
     private Long reviewCnt;
-    String storeName;
-    String storeAddress;
-    char hotDeal;
+    private String storeName;
+    private String storeAddress;
+    private char hotDeal;
+    private String hashTag;
 }

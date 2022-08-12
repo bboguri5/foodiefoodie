@@ -9,8 +9,8 @@ import java.util.List;
 @NoArgsConstructor @AllArgsConstructor
 public class ImageDTO {
 
-    private MultipartFile titleImg;
-    private List<MultipartFile> detailImgList;
-    private List<MultipartFile> menuImgList;
+    private String titleImg;
+    private List<String> detailImg;
+    private List<String> menuImg;
 
 }

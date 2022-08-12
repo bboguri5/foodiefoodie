@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -16,14 +18,18 @@ class ReviewBoardServiceTest {
     @Test
     @DisplayName("리뷰 정보를 저장하고, 프로모션 테이블 업데이트 한다.")
     void saveTest(){
-        ReviewBoard rb = new ReviewBoard();
-        rb.setEmail("bbbb2222@naver.com");
-        rb.setTitle("제목입니다~3");
-        rb.setContent("내용입니다~3");
-        rb.setBusinessNo("1234-2222-3333-1122");
-        rb.setStarRate(4);
+        for (int j = 0; j < 10; j++) {
+            for (int i = 1; i < 10; i++) {
+                ReviewBoard rb = new ReviewBoard();
+                rb.setEmail("bbbb2222@naver.com");
+                rb.setTitle("제목입니다~ " + i);
+                rb.setContent("내용입니다~ " + i);
+                rb.setBusinessNo("1234-2222-3333-111" + i);
+                Random rn = new Random();
+                rb.setStarRate(rn.nextInt(5 - 1 + 1) + 1);
 
-        boolean flag = service.saveService(rb);
-        assertTrue(flag);
+                service.saveService(rb);
+            }
+        }
     }
 }

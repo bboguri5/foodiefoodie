@@ -81,22 +81,22 @@
 
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="dbList" items="${dbList}" varStatus="status">
+                <c:forEach var="ht" items="${hashTagList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <img src="${dbList.filePath}" data-src="${dbList.filePath}" class="img-fluid lazy"
+                                <img src="${ht.filePath}" data-src="${ht.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
-                                        <h3>${dbList.storeName}</h3>
+                                        <h3>${ht.storeName}</h3>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${dbList.storeAddress}</span></li>
+                                <li><span>${ht.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>맛집이에요~<em>${dbList.reviewCnt}개 리뷰</em></span><strong>${dbList.avgStarRate}</strong></div>
+                                    <div class="score"><span>맛집이에요~<em>${ht.reviewCnt}개 리뷰</em></span><strong>${ht.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>
@@ -112,21 +112,21 @@
 
                             <c:if test="${pm.prev}">
                                 <li class="page-item"><a class="page-link"
-                                        href="/foodlist?pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
+                                        href="/hashtag?pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
                                 </li>
                             </c:if>
 
                             <!-- step=1인 경우,, 생략 가능!! -->
                             <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
                                 <li data-page-num="${n}" class="page-item"><a class="page-link"
-                                        href="/foodlist?pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
+                                        href="/hashtag?pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
                                 </li>
                             </c:forEach>
 
 
                             <c:if test="${pm.next}">
                                 <li class="page-item"><a class="page-link"
-                                        href="/foodlist?pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
+                                        href="/hashtag?pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
                                 </li>
                             </c:if>
                         </ul>

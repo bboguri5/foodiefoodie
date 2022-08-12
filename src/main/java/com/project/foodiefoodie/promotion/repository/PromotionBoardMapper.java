@@ -6,6 +6,7 @@ import com.project.foodiefoodie.promotion.domain.PromotionBoard;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import com.project.foodiefoodie.promotion.dto.PromotionReviewDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -31,5 +32,9 @@ public interface PromotionBoardMapper {
     List<PromotionMasterDTO> findAllSearch(Search search);
 
     int getTotalCount(Search search);
+
+    List<PromotionMasterDTO> findHashTag(@Param("hashTag") String hashTag, @Param("page") Page page);
+
+    int findHashTagCount(String hashTag);
 }
 

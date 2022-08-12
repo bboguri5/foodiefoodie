@@ -119,12 +119,22 @@
         .preview-detail-img {
             width: 15%;
             height: 150px;
+
+        }
+
+        .menu-preview {
+
+        }
+
+        .preview-menu-img {
+            width: 50px;
+            height: 50px;
         }
     </style>
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    <form action="" enctype="multipart/form-data">
+    <form id="promotionWriteForm" action="/foodie/write" enctype="multipart/form-data">
         <div class="content-wrapper">
             <div class="container-fluid">
                 <!-- Breadcrumbs-->
@@ -205,12 +215,14 @@
                                     <div class="form-group">
                                         <label>Photos</label>
                                         <div>
-                                            <input type="file" name="titleImg" id="title-img" class="title"
+
+                                            <input type="file" id="title-img" class="title"
                                                 accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
                                         <div class="preview"><span>미리보기</span>
                                             <div id="title-preview"></div>
                                         </div>
+                                        <div id="hidden-title-box"></div>
                                     </div>
                                 </div>
                             </div>
@@ -222,12 +234,14 @@
                                     <div class="form-group">
                                         <label>Photos</label>
                                         <div>
-                                            <input type="file" name="detailImgList" id="detail-img" class="detail"
-                                                multiple accept="image/gif, image/jpeg, image/png, image/bmp"></input>
+
+                                            <input type="file" id="detail-img" class="detail" multiple
+                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
                                         <div class="preview multiple"><span>미리보기</span>
                                             <div id="detail-preview"></div>
                                         </div>
+                                        <div id="hidden-detail-box"></div>
                                     </div>
                                 </div>
                             </div>
@@ -251,20 +265,20 @@
                                             <div class="row menu-row">
                                                 <div class="col-md-2 menu-add-img">
                                                     <div class="form-group">
-                                                        <label>Photos</label>
-                                                        <div>
-                                                            <input type="file" name="detailImgList" id="detail-img"
-                                                                class="detail" multiple
-                                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
-                                                        </div>
-                                                        <div class="preview multiple"><span>미리보기</span>
-                                                            <div id="detail-preview"></div>
-                                                        </div>
+                                                        <label>Menu-Photos</label>
+                                                    <div>
+                                                        <input type="file" class="menu"
+                                                        accept="image/gif, image/jpeg, image/png, image/bmp"></input>
+                                                    </div>
+                                                    <div class="preview"><span>미리보기</span>
+                                                        <div class="menu-preview"></div>
+                                                    </div>
+                                                    <div class="hidden-menu-box"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control menu-name" name="menu"
+                                                        <input type="text" class="form-control menu-name"
                                                             placeholder="메뉴명">
                                                     </div>
                                                 </div>
@@ -288,6 +302,7 @@
                                     class="fa fa-fw fa-plus-circle"></i>Add
                                 Item</a>
                         </div>
+                        <div id="hidden-menu-box"></div>
                         <script>
                             /* 
                                 <div class="col-md-1">
@@ -562,21 +577,10 @@
             } else { // 단어 10개 이하는 
                 leng = $(this).val().length; // 전역변수에 마지막 글자수 저장 
                 $(this).css('border-color', 'green');
-            }
-        });
+        const $weekdayOpenTime = document.querySelector('.weekday-openTime');
 
-
-
-        const $selectTime = document.querySelectorAll('.select-time');
-
-        $selectTime.forEach(e => {
-
-            console.log();
-
-        });
-        console.log($selectTime);
-        // var result = $weekdayOpenTime.value.replace(replaceNotInt, "");
-        // console.log(result);
+        var result = $weekdayOpenTime.value.replace(replaceNotInt, "");
+        console.log(result);
     </script>
 
 
@@ -584,7 +588,49 @@
     <script>
         const $titleInput = document.getElementById('title-img');
         const $detailInput = document.getElementById('detail-img');
+
+        // 메뉴는 좀 다르게 처리해야 함.. 같은 형식의 input 태그가 계속해서 생기기 때문!!
+
+
         const $detailPreviewHidden = document.getElementById('detail-preview');
+        const $hiddenTitleBox = document.getElementById('hidden-title-box');
+        const $hiddenDetailBox = document.getElementById('hidden-detail-box');
+        // const $hiddenMenuBox = document.getElementById('hidden-menu-box');
+
+
+        function makeMenuPreviewDOM(this, fileNames) {
+            
+            // 이미 존재하는 hidden input 태그가 있다면 지우자
+            console.log($(this).parent().next().next().children());
+            // if ()
+
+        }
+
+
+        function ajaxMenuPreview(this) {
+            const formData = new FormData();
+
+            for (let file of this.files) {
+                formData.append('files', file);
+            }
+        });
+
+
+
+            const reqObj = {
+                method: 'POST',
+                body: formData
+            };
+
+            fetch('/ajax-upload', reqObj)
+                .then(res => res.json())
+                .then(fileNames => {
+                    makeMenuPreviewDOM(this, fileNames);
+                });
+        }
+
+        
+
 
         function isExistDetailPreviewDOM() {
             // console.log($detailPreviewHidden.children.length);
@@ -605,9 +651,28 @@
 
         function makeDetailPreviewDOM(fileNames) {
 
+            // 이미 존재하는 hidden 속성의 input 태그를 지우자.
+            if ($hiddenDetailBox.children.length > 0) {
+                for (let hiddenInput of [...$hiddenDetailBox.children]) {
+                    $hiddenDetailBox.removeChild(hiddenInput);
+                }
+            }
+
+
             for (let fileName of fileNames) {
 
                 let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
+
+
+                const newHiddenInput = document.createElement('input');
+                newHiddenInput.setAttribute('type', 'hidden');
+                newHiddenInput.setAttribute('value', fileName);
+                newHiddenInput.setAttribute('name', 'detailImg');
+                newHiddenInput.classList.add('hidden-detail-img');
+
+                // 삽입!
+                $hiddenDetailBox.appendChild(newHiddenInput);
+
 
                 const $img = document.createElement('img');
                 $img.classList.add('preview-detail-img');
@@ -632,6 +697,7 @@
             }
 
 
+
             const reqObj = {
                 method: 'POST',
                 body: formData
@@ -648,10 +714,33 @@
 
         function makeTitlePreviewDOM(fileNames) {
 
+            // 여기서 이미 들어간 히든 인풋을 지워주면 되나..?
+            if ($hiddenTitleBox.children.length > 0) {
+                for (let hiddenInput of [...$hiddenTitleBox.children]) {
+                    $hiddenTitleBox.removeChild(hiddenInput);
+                }
+            }
+
+
+
             for (let fileName of fileNames) {
 
                 let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
 
+                // 동기요청 처리시 hidden 타입인 input 창에 src = 풀경로, alt는 orgin파일명을 넣어줘서
+                // form 태그를 활용해 post 요청을 보낸다.
+                const $newHiddenInput = document.createElement('input');
+                $newHiddenInput.setAttribute('type', 'hidden');
+                $newHiddenInput.setAttribute('name', 'titleImg');
+                $newHiddenInput.setAttribute('value', fileName);
+                $newHiddenInput.classList.add('hidden-title-img');
+
+
+                // form 태그에 삽입
+                $hiddenTitleBox.appendChild($newHiddenInput);
+
+
+                // 비동기로 받아온 이미지 띄우는 로직
                 const $img = document.createElement('img');
                 $img.classList.add('preview-title-img');
 
@@ -715,6 +804,7 @@
 
                 // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
 
+
                 // title 이미지 미리보기 비동기 처리
                 if ($(this).hasClass('title')) {
                     ajaxTitlePreview();
@@ -724,6 +814,12 @@
                 // detail 이미지 미리보기 비동기 처리
                 if ($(this).hasClass('detail')) {
                     ajaxDetailPreview();
+                }
+
+
+                // menu 이미지 미리보기 비동기 처리
+                if ($(this).hasClass('menu')) {
+                    ajaxMenuPreview(this);
                 }
             }
         });

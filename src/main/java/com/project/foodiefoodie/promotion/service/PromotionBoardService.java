@@ -2,8 +2,6 @@ package com.project.foodiefoodie.promotion.service;
 
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.common.search.Search;
-import com.project.foodiefoodie.member.dto.master.MasterDTO;
-import com.project.foodiefoodie.promotion.domain.PromotionBoard;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import com.project.foodiefoodie.promotion.dto.PromotionReviewDTO;
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
@@ -57,4 +55,12 @@ public class PromotionBoardService {
         findDataMap.put("tc", mapper.getTotalCount(search));
 
         return findDataMap;    }
+
+    public int findHashTagCountService(String hashTag) {
+        return mapper.findHashTagCount(hashTag);
+    }
+
+    public List<PromotionMasterDTO> findHashTagService(String tag, Page page) {
+        return mapper.findHashTag(tag, page);
+    }
 }

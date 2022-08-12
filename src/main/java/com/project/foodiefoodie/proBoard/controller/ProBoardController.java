@@ -47,8 +47,8 @@ public class ProBoardController {
     }
 
     // 동진 : 임의 매핑이에요!
-    @PostMapping("/promotion-write")
-    public String promoWrite(ImageDTO dto) {
+    @PostMapping("/write")
+    public String promoWrite(ProBoard proBoard,ImageDTO imgDTO) {
 
         
 

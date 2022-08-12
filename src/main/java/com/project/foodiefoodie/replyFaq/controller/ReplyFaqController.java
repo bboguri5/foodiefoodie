@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.replyFaq.controller;
 
+import com.project.foodiefoodie.blackList.service.BlackListService;
 import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.replyFaq.domain.ReplyFaq;
 import com.project.foodiefoodie.replyFaq.service.ReplyFaqService;
@@ -25,6 +26,7 @@ public class ReplyFaqController {
     private final ReplyFaqService rfs;
     private final ReportMemberService rms;
     private final ReplyService rs;
+    private final BlackListService bls;
 
 
     @GetMapping("/admin/replyFaq")
@@ -62,8 +64,13 @@ public class ReplyFaqController {
                 rms.saveService(replyFaq.getReplyWriterEmail());
             } else { // 목록에 있을 때
                 // 카운트 + 1
-                reportMember.setReportCnt(reportMember.getReportCnt() + 1);
+                int newReportCnt = reportMember.getReportCnt() + 1;
+                reportMember.setReportCnt(newReportCnt);
                 rms.modifyService(reportMember);
+
+                if (newReportCnt == 5) {
+                    bls.saveService(replyFaq.getReplyWriterEmail());
+                }
             }
 
             // 댓글 삭제

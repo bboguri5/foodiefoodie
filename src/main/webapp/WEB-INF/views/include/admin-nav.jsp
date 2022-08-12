@@ -52,6 +52,9 @@
                     <li>
                         <a href="/admin/replyFaq">댓글</a>
                     </li>
+                    <li>
+                        <a href="/admin/completeFaq">처리 완료</a>
+                    </li>
                 </ul>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Premiume"

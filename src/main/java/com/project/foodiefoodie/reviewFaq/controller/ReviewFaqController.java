@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.reviewFaq.controller;
 
+import com.project.foodiefoodie.blackList.service.BlackListService;
 import com.project.foodiefoodie.promotion.service.PromotionService;
 import com.project.foodiefoodie.promotionFaq.domain.PromotionFaq;
 import com.project.foodiefoodie.promotionFaq.service.PromotionFaqService;
@@ -29,6 +30,7 @@ public class ReviewFaqController {
     private final ReviewFaqService rvfs;
     private final ReportMemberService rms;
     private final ReviewService rs;
+    private final BlackListService bls;
 
     @GetMapping("/admin/reviewFaq")
     public String reviewFaqList(Model model) {
@@ -62,8 +64,14 @@ public class ReviewFaqController {
                 rms.saveService(reviewFaq.getReviewWriterEmail());
             } else { // 목록에 있을 때
                 // 카운트 + 1
-                reportMember.setReportCnt(reportMember.getReportCnt() + 1);
+                int newReportCnt = reportMember.getReportCnt() + 1;
+                reportMember.setReportCnt(newReportCnt);
                 rms.modifyService(reportMember);
+
+                if (newReportCnt == 5) {
+                    bls.saveService(reviewFaq.getReviewWriterEmail());
+                }
+
             }
 
             // 리뷰글에 카운트 추가

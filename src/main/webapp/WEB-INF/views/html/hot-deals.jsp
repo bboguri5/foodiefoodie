@@ -16,7 +16,7 @@
         <div class="container">
             <div id="logo">
                 <a href="/">
-                    <img src="img/logo_sticky.svg" width="140" height="35" alt="">
+                    <img src="img/foodie_logo.png" width="120" height="55" alt="">
                 </a>
             </div>
             <ul id="top_menu">
@@ -32,7 +32,7 @@
                     <a href="#0" class="open_close">
                         <i class="icon_close"></i><span>Menu</span>
                     </a>
-                    <a href="index.html"><img src="img/logo.svg" width="140" height="35" alt=""></a>
+                    <a href="/"><img src="img/logo.svg" width="140" height="35" alt=""></a>
                 </div>
                 <ul>
                     <li class="submenu">
@@ -88,14 +88,15 @@
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
-                                        <h3>${hotDealMasters[status.index].storeName}</h3>
+                                        <h3>${hd.storeName}</h3>
+                                        <small>${hd.storeAddress}</small>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${hotDealMasters[status.index].storeAddress}</span></li>
+                                <li><span>기간: ${hd.endDate}</span></li>
                                 <li>
-                                    <div class="score"><span>핫딜!!<em>${pmdList[status.index].reviewCnt}개 리뷰</em></span><strong>${pmdList[status.index].avgStarRate}</strong></div>
+                                    <div class="score"><span>핫딜!!<em>${hd.reviewCnt}개 리뷰</em></span><strong>${hd.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>
@@ -103,14 +104,34 @@
                 </c:forEach>
             </div>
             <!-- /row -->
-            <div class="pagination_fg">
-                <a href="#">&laquo;</a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">&raquo;</a>
+            <div class="list-bottom">
+                <!-- 페이지 버튼 -->
+                <div class="paging">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-lg pagination-custom">
+
+                            <c:if test="${pm.prev}">
+                                <li class="page-item"><a class="page-link"
+                                        href="/hotdeals?pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
+                                </li>
+                            </c:if>
+
+                            <!-- step=1인 경우,, 생략 가능!! -->
+                            <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
+                                <li data-page-num="${n}" class="page-item"><a class="page-link"
+                                        href="/hotdeals?pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
+                                </li>
+                            </c:forEach>
+
+
+                            <c:if test="${pm.next}">
+                                <li class="page-item"><a class="page-link"
+                                        href="/hotdeals?pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
+                                </li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
         <!-- /container -->

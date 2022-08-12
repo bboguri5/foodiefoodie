@@ -22,7 +22,7 @@
 		                <div class="head">
 		                    <div class="title">
 		                    <h3>사업자 권한 요청 성공!</h3>
-		                    <a href="#">Get directions</a>
+		                    <!-- <a href="#">Get directions</a> -->
 		                </div>
 		                </div>
 		                <!-- /head -->

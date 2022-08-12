@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @Log4j2
-public class ajaxController {
+public class AjaxController {
 
     public static final String UPLOAD_PATH = "E:\\foodiefoodie\\upload";
 

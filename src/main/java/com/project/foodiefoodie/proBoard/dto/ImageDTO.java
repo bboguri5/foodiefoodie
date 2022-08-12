@@ -10,7 +10,7 @@ import java.util.List;
 public class ImageDTO {
 
     private MultipartFile titleImg;
-    private List<MultipartFile> detailImgList;
-    private List<MultipartFile> menuImgList;
+    private List<MultipartFile> detailImg;
+    private List<MultipartFile> menuImg;
 
 }

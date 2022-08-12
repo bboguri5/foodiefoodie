@@ -201,9 +201,8 @@
                                     <div class="form-group">
                                         <label>Photos</label>
                                         <div>
-                                            <input type="file" name="titleImg" id="title-img"
-                                                accept="image/gif, image/jpeg, image/png"
-                                                onchange="titleFileTypeCheck(this)"></input>
+                                            <input type="file" name="titleImg" id="title-img" class="title"
+                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
                                         <div class="preview"><span>미리보기</span>
                                             <div id="title-preview"></div>
@@ -219,9 +218,8 @@
                                     <div class="form-group">
                                         <label>Photos</label>
                                         <div>
-                                            <input type="file" name="detailImgList" id="detail-img" multiple
-                                                accept="image/gif, image/jpeg, image/png"
-                                                onchange="detailFileTypeCheck(this)"></input>
+                                            <input type="file" name="detailImgList" id="detail-img" class="detail" multiple
+                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
                                         <div class="preview multiple"><span>미리보기</span>
                                             <div id="detail-preview"></div>
@@ -533,22 +531,82 @@
     </script>
 
 
-
-    <!-- 이미지 파일만 올리도록 처리할 스크립트 영역 -->
-    <!-- 여기서 이미지 태그에 정상적인 이미지를 올렸는지 체크하는 배열을 사용하기 때문에 
-        필수 작성 요소(제목 등)를 여기서 체크해야 할거 같아요! -->
+    <!-- 이미지 파일 검증 및 미리보기 화면 출력하는 스크립트 영역 -->
     <script>
+        const $titleInput = document.getElementById('title-img');
+        const $detailInput = document.getElementById('detail-img');
+        const $detailPreviewHidden = document.getElementById('detail-preview');
+
+        function isExistDetailPreviewDOM() {
+            // console.log($detailPreviewHidden.children.length);
+
+            if($detailPreviewHidden.children.length > 0) {
+
+                // console.log($detailPreviewHidden.children);
+
+
+                for (let $img of [...$detailPreviewHidden.children]) {
+
+                    // console.log($detailPreviewHidden.children.length);
+                    $detailPreviewHidden.removeChild($img);
+                }
+            }
+        }
+
+
+        function makeDetailPreviewDOM(fileNames) {
+
+            for (let fileName of fileNames) {
+
+                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
+
+                const $img = document.createElement('img');
+                $img.classList.add('preview-detail-img');
+
+                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
+                $img.setAttribute('alt', originFileName);
+
+                // const $detailPreviewHidden = document.getElementById('detail-preview');
+
+                $detailPreviewHidden.parentElement.style.display = 'block';
+                $detailPreviewHidden.appendChild($img);
+            }
+        }
+
+
+
+        function ajaxDetailPreview() {
+            const formData = new FormData();
+
+            for (let file of $detailInput.files) {
+                formData.append('files', file);
+            }
+
+
+            const reqObj = {
+                method: 'POST',
+                body: formData
+            };
+
+            fetch('/ajax-upload', reqObj)
+                .then(res => res.json())
+                .then(fileNames => {
+                    isExistDetailPreviewDOM();
+                    makeDetailPreviewDOM(fileNames);
+                });
+        }
+
 
         function makeTitlePreviewDOM(fileNames) {
 
             for (let fileName of fileNames) {
-                
+
                 let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
 
                 const $img = document.createElement('img');
                 $img.classList.add('preview-title-img');
 
-                $img.setAttribute('src', '/loadFile?fileName=' + fileName); 
+                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
                 $img.setAttribute('alt', originFileName);
 
                 const $titlePreviewHidden = document.getElementById('title-preview');
@@ -560,160 +618,64 @@
                 $titlePreviewHidden.parentElement.style.display = 'block';
                 $titlePreviewHidden.appendChild($img);
             }
-
         }
 
 
-        // 0번 인덱스 : 타이틀 이미지 확장자 체크, 1번 인덱스 : 디테일 이미지들 확장자 체크
-        // const inputImgCheckArr = [false, false];
+        function ajaxTitlePreview() {
+            const formData = new FormData();
+
+            for (let file of $titleInput.files) {
+                formData.append('files', file);
+            }
 
 
-        function titleFileTypeCheck(obj) {
+            const reqObj = {
+                method: 'POST',
+                body: formData
+            };
 
-            pathpoint = obj.value.lastIndexOf('.');
-
-            filepoint = obj.value.substring(pathpoint + 1, obj.length);
-
-            filetype = filepoint.toLowerCase();
-
-            const $titleInput = document.getElementById('title-img');
-
-            if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png' || filetype == 'jpeg') {
-
-                // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
-
-                const formData = new FormData();
-
-                for (let file of $titleInput.files) {
-                    formData.append('files', file);
-                }
+            fetch('/ajax-upload', reqObj)
+                .then(res => res.json())
+                .then(fileNames => {
+                    makeTitlePreviewDOM(fileNames);
+                });
+        }
 
 
-                const reqObj = {
-                    method: 'POST',
-                    body: formData
-                };
 
+        // 실행부
+        $(document).on("change", "input[type='file']", function () {
 
-                fetch('/ajax-upload', reqObj)
-                    .then(res => res.json())
-                    .then(fileNames => {
-                        makeTitlePreviewDOM(fileNames);
-                    });
+            var file_path = $(this).val();
 
+            var reg = /(.*?)\.(jpg|bmp|jpeg|png|gif)$/;
 
-                // checkArr[0] = true;
+            // 허용되지 않은 확장자일 경우
+
+            if (file_path != "" && (file_path.match(reg) == null || reg.test(file_path) == false)) {
+
+                $(this).val("");
+
+                alert("이미지 파일만 업로드 가능합니다.");
+
+                $(this).parent().next().css('display', 'none');
 
             } else {
 
-                alert('이미지 파일만 첨부하실 수 있습니다! (사용 가능 확장자 : JPG, JPEG, GIF, PNG)');
-
-                parentObj = obj.parentNode
-
-                node = parentObj.replaceChild(obj.cloneNode(true), obj);
-
-                const $titlePreviewHidden = document.getElementById('title-preview');
-                $titlePreviewHidden.parentElement.style.display = 'none';
-
-                const files = $titleInput.files;
-                // console.log(files);
-
-
-                return false;
-
-            }
-        }
-
-
-        function isExistDetailPreviewDOM() {
-            const $detailPreviewHidden = document.getElementById('detail-preview');
-            if($detailPreviewHidden.children.length > 0) {
-                for (let $img of $detailPreviewHidden.children) {
-                    $detailPreviewHidden.removeChild($img);
-                }
-            }
-        }
-
-
-        function makeDetailPreviewDOM(fileNames) {
-
-            for (let fileName of fileNames) {
-                
-                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
-
-                const $img = document.createElement('img');
-                $img.classList.add('preview-detail-img');
-
-                $img.setAttribute('src', '/loadFile?fileName=' + fileName); 
-                $img.setAttribute('alt', originFileName);
-
-                const $detailPreviewHidden = document.getElementById('detail-preview');
-
-                $detailPreviewHidden.parentElement.style.display = 'block';
-                $detailPreviewHidden.appendChild($img);
-            }
-        }
-
-
-
-        function detailFileTypeCheck(obj) {
-
-            pathpoint = obj.value.lastIndexOf('.');
-
-            filepoint = obj.value.substring(pathpoint + 1, obj.length);
-
-            filetype = filepoint.toLowerCase();
-
-            const $detailInput = document.getElementById('detail-img');
-
-            if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png' || filetype == 'jpeg') {
-
                 // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
 
-                const formData = new FormData();
-
-                for (let file of $detailInput.files) {
-                    formData.append('files', file);
+                // title 이미지 미리보기 비동기 처리
+                if ($(this).hasClass('title')) {
+                    ajaxTitlePreview();
                 }
 
 
-                const reqObj = {
-                    method: 'POST',
-                    body: formData
-                };
-
-                fetch('/ajax-upload', reqObj)
-                    .then(res => res.json())
-                    .then(fileNames => {
-                        isExistDetailPreviewDOM();
-                        makeDetailPreviewDOM(fileNames);
-                    });
-
-
-
-                // checkArr[1] = true;
-
-            } else {
-
-                alert('이미지 파일만 첨부하실 수 있습니다! (사용 가능 확장자 : JPG, JPEG, GIF, PNG)');
-
-                parentObj = obj.parentNode
-
-                node = parentObj.replaceChild(obj.cloneNode(true), obj);
-                
-                const $detailPreviewHidden = document.getElementById('detail-preview');
-                $detailPreviewHidden.parentElement.style.display = 'none';
-
-
-                const $detailInput = document.getElementById('detail-img');
-
-                const files = $detailInput.files;
-                console.log(files);
-                
-                return false;
-
+                // detail 이미지 미리보기 비동기 처리
+                if ($(this).hasClass('detail')) {
+                    ajaxDetailPreview();
+                }
             }
-        }
+        });
     </script>
 
 </body>

@@ -81,24 +81,23 @@
 
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="ml" items="${masterList}" varStatus="status">
+                <c:forEach var="pl" items="${premiumList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                
                                 <img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
-                                        <h3>${ml.storeName}</h3>
+                                        <h3>${pl.storeName}</h3>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${ml.storeAddress}</span></li>
+                                <li><span>${pl.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>근처 맛집<em>${ml.reviewCnt}개
-                                                리뷰</em></span><strong>${ml.avgStarRate}</strong></div>
+                                    <div class="score"><span>푸디푸디 추천 맛집<em>${pl.reviewCnt}개
+                                                리뷰</em></span><strong>${pl.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>
@@ -115,40 +114,28 @@
 
                             <c:if test="${pm.prev}">
                                 <li class="page-item"><a class="page-link"
-                                        href="/locationlist?storeAddress=${address}&pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
+                                        href="/premiumlist?pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
                                 </li>
                             </c:if>
 
                             <!-- step=1인 경우,, 생략 가능!! -->
                             <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
                                 <li data-page-num="${n}" class="page-item"><a class="page-link"
-                                        href="/locationlist?storeAddress=${address}&pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
+                                        href="/premiumlist?pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
                                 </li>
                             </c:forEach>
 
 
                             <c:if test="${pm.next}">
                                 <li class="page-item"><a class="page-link"
-                                        href="/locationlist?storeAddress=${address}&pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
+                                        href="/premiumlist?pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
                                 </li>
                             </c:if>
                         </ul>
                     </nav>
                 </div>
             </div>
-
-
-        <!-- <div class="pagination_fg">
-                <a href="#">&laquo;</a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">&raquo;</a>
-            </div> -->
-        <!-- </div> -->
-        <!-- /container -->
+            <!-- /container -->
 
     </main>
     <!-- /main -->

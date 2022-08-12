@@ -16,7 +16,7 @@
         <div class="container">
             <div id="logo">
                 <a href="/">
-                    <img src="img/logo_sticky.svg" width="140" height="35" alt="">
+                    <img src="img/foodie_logo.png" width="120" height="55" alt="">
                 </a>
             </div>
             <ul id="top_menu">
@@ -32,7 +32,7 @@
                     <a href="#0" class="open_close">
                         <i class="icon_close"></i><span>Menu</span>
                     </a>
-                    <a href="index.html"><img src="img/logo.svg" width="140" height="35" alt=""></a>
+                    <a href="/"><img src="img/logo.svg" width="140" height="35" alt=""></a>
                 </div>
                 <ul>
                     <li class="submenu">
@@ -89,11 +89,12 @@
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
                                         <h3>${hd.storeName}</h3>
+                                        <small>${hd.storeAddress}</small>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${hd.storeAddress}</span></li>
+                                <li><span>기간: ${hd.endDate}</span></li>
                                 <li>
                                     <div class="score"><span>핫딜!!<em>${hd.reviewCnt}개 리뷰</em></span><strong>${hd.avgStarRate}</strong></div>
                                 </li>

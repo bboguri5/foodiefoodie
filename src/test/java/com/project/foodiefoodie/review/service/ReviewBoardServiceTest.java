@@ -17,11 +17,11 @@ class ReviewBoardServiceTest {
     @DisplayName("리뷰 정보를 저장하고, 프로모션 테이블 업데이트 한다.")
     void saveTest(){
         ReviewBoard rb = new ReviewBoard();
-        rb.setEmail("abc1234@naver.com");
-        rb.setTitle("Title God Damn");
-        rb.setContent("Nae Yong");
-        rb.setBusinessNo("1234-2222-3333-1117");
-        rb.setStarRate(5);
+        rb.setEmail("bbbb2222@naver.com");
+        rb.setTitle("제목입니다~3");
+        rb.setContent("내용입니다~3");
+        rb.setBusinessNo("1234-2222-3333-1122");
+        rb.setStarRate(4);
 
         boolean flag = service.saveService(rb);
         assertTrue(flag);

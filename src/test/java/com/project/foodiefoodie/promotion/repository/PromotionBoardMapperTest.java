@@ -34,8 +34,8 @@ class PromotionBoardMapperTest {
     @DisplayName("가게 게시물을 저장해야 한다.")
     void topAvgCountTest() {
 
-        List<PromotionReviewDTO> list = mapper.topAvgRateCount();
-        System.out.println(list);
+//        List<PromotionReviewDTO> list = mapper.topAvgRateCount();
+//        System.out.println(list);
     }
 
     @Test
@@ -50,7 +50,7 @@ class PromotionBoardMapperTest {
     @DisplayName("가게 게시물 모두를 조회해야 한다.")
     void findAllTest() {
 
-        List<PromotionBoard> list = mapper.findAll();
-        System.out.println(list);
+//        List<PromotionBoard> list = mapper.findAll();
+//        System.out.println(list);
     }
 }

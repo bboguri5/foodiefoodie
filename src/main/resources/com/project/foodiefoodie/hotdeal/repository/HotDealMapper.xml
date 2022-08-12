@@ -28,7 +28,7 @@
         ON H.business_no = P.business_no
         JOIN master M
         ON H.business_no = M.business_no
-        ORDER BY DBMS_RANDOM.RANDOM
+        ORDER BY H.end_date
         ) sub
         WHERE ROWNUM BETWEEN 1 AND 6
     </select>

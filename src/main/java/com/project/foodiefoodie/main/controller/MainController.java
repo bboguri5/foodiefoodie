@@ -2,14 +2,12 @@ package com.project.foodiefoodie.main.controller;
 
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.common.paging.PageMaker;
-import com.project.foodiefoodie.hotdeal.domain.HotDeal;
 import com.project.foodiefoodie.hotdeal.dto.DealPromotionMasterDTO;
 import com.project.foodiefoodie.hotdeal.service.HotDealService;
-import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import com.project.foodiefoodie.member.service.MasterService;
-import com.project.foodiefoodie.promotion.domain.PromotionBoard;
+import com.project.foodiefoodie.premium.dto.PremiumPromotionBoardDTO;
+import com.project.foodiefoodie.premium.service.PremiumPromotionBoardService;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
-import com.project.foodiefoodie.promotion.dto.PromotionReviewDTO;
 import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +26,7 @@ public class MainController {
     private final HotDealService hotDealService;
     private final PromotionBoardService promotionBoardService;
     private final MasterService masterService;
+    private final PremiumPromotionBoardService premiumPromotionBoardService;
 
 
     // 메인페이지 요청
@@ -43,6 +41,8 @@ public class MainController {
 
         // 푸디푸디 추천 맛집 --> 돈 받은 가게
         // 프리미엄 프로모션 보드에서 랜덤 겟?
+        List<PremiumPromotionBoardDTO> premiumList = premiumPromotionBoardService.findSevenRand();
+        model.addAttribute("premiumList", premiumList);
 
         // 현재 위치 맛집 TOP 7 --> 내 위치
         // location 이름과 매칭되는 ADDRESS 불러와서 겟

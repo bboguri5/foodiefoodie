@@ -8,7 +8,14 @@
 	<%@ include file="../include/static-head.jsp" %>
 
 	<style>
+		#locationList {
+			display: flex;
+			justify-content: space-between;
+		}
 
+		#locationList .item {
+			width: 16%;
+		}
 	</style>
 </head>
 
@@ -18,11 +25,12 @@
 
 	<main>
 		<div class="hero_single version_2">
-			<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)" 
+			<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)"
 				style="background: url('img/main_background.jpg') no-repeat fixed 90% / cover">
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-xl-9 col-lg-10 col-md-8">
+							<h1>푸디푸디</h1>
 							<p>Foodies Welcome Here</p>
 							<form method="post" action="grid-listing-filterscol.html">
 								<div class="row g-0 custom-search-input">
@@ -109,7 +117,7 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2>오늘의 맛집</h2>
-				<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+				<p>실시간 탑 맛집 이에용~</p>
 				<a href="/foodlist">View All</a>
 			</div>
 
@@ -144,158 +152,34 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2>푸디푸디 추천 맛집</h2>
-				<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
-				<a href="#0">View All</a>
+				<p>돈 받았어용~ 헿</p>
+				<a href="/premiumlist">View All</a>
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
-				<div class="item">
-					<div class="strip">
-						<figure>
-							<span class="ribbon off">-30%</span>
-							<img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="owl-lazy" alt="">
-							<a href="detail-restaurant.html" class="strip_info">
-								<small>Pizza</small>
-								<div class="item_title">
-									<h3>Da Alfredo</h3>
-									<small>27 Old Gloucester St</small>
-								</div>
-							</a>
-						</figure>
-						<ul>
-							<li><span class="loc_open">Now Open</span></li>
-							<li>
-								<div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
-							</li>
-						</ul>
+				<c:forEach var="pl" items="${premiumList}" varStatus="status">
+					<div class="item">
+						<div class="strip">
+							<figure>
+								<img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="owl-lazy"
+									alt="">
+								<a href="detail-restaurant.html" class="strip_info">
+									<small>Pizza</small>
+									<div class="item_title">
+										<h3>${pl.storeName}</h3>
+										<small>${pl.storeAddress}</small>
+									</div>
+								</a>
+							</figure>
+							<ul>
+								<li><span class="loc_open">Now Open</span></li>
+								<li>
+									<div class="score"><span>푸디푸디가 추천하는 맛집<em>${pl.reviewCnt}개 리뷰</em></span><strong>${pl.avgStarRate}</strong></div>
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
-				<div class="item">
-					<div class="strip">
-						<figure>
-							<span class="ribbon off">-40%</span>
-							<img src="img/lazy-placeholder.png" data-src="img/location_2.jpg" class="owl-lazy" alt="">
-							<a href="detail-restaurant.html" class="strip_info">
-								<small>Burghers</small>
-								<div class="item_title">
-									<h3>Best Burghers</h3>
-									<small>27 Old Gloucester St</small>
-								</div>
-							</a>
-						</figure>
-						<ul>
-							<li><span class="loc_open">Now Open</span></li>
-							<li>
-								<div class="score"><span>Superb<em>350 Reviews</em></span><strong>9.5</strong></div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="item">
-					<div class="strip">
-						<figure>
-							<span class="ribbon off">-30%</span>
-							<img src="img/lazy-placeholder.png" data-src="img/location_3.jpg" class="owl-lazy" alt="">
-							<a href="detail-restaurant.html" class="strip_info">
-								<small>Vegetarian</small>
-								<div class="item_title">
-									<h3>Vego Life</h3>
-									<small>27 Old Gloucester St</small>
-								</div>
-							</a>
-						</figure>
-						<ul>
-							<li><span class="loc_open">Now Open</span></li>
-							<li>
-								<div class="score"><span>Superb<em>350 Reviews</em></span><strong>7.5</strong></div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="item">
-					<div class="strip">
-						<figure>
-							<span class="ribbon off">-25%</span>
-							<img src="img/lazy-placeholder.png" data-src="img/location_4.jpg" class="owl-lazy" alt="">
-							<a href="detail-restaurant.html" class="strip_info">
-								<small>Japanese</small>
-								<div class="item_title">
-									<h3>Sushi Temple</h3>
-									<small>27 Old Gloucester St</small>
-								</div>
-							</a>
-						</figure>
-						<ul>
-							<li><span class="loc_open">Now Open</span></li>
-							<li>
-								<div class="score"><span>Superb<em>350 Reviews</em></span><strong>9.5</strong></div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="item">
-					<div class="strip">
-						<figure>
-							<span class="ribbon off">-30%</span>
-							<img src="img/lazy-placeholder.png" data-src="img/location_5.jpg" class="owl-lazy" alt="">
-							<a href="detail-restaurant.html" class="strip_info">
-								<small>Pizza</small>
-								<div class="item_title">
-									<h3>Auto Pizza</h3>
-									<small>27 Old Gloucester St</small>
-								</div>
-							</a>
-						</figure>
-						<ul>
-							<li><span class="loc_open">Now Open</span></li>
-							<li>
-								<div class="score"><span>Superb<em>350 Reviews</em></span><strong>7.0</strong></div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="item">
-					<div class="strip">
-						<figure>
-							<span class="ribbon off">-15%</span>
-							<img src="img/lazy-placeholder.png" data-src="img/location_6.jpg" class="owl-lazy" alt="">
-							<a href="detail-restaurant.html" class="strip_info">
-								<small>Burghers</small>
-								<div class="item_title">
-									<h3>Alliance</h3>
-									<small>27 Old Gloucester St</small>
-								</div>
-							</a>
-						</figure>
-						<ul>
-							<li><span class="loc_open">Now Open</span></li>
-							<li>
-								<div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="item">
-					<div class="strip">
-						<figure>
-							<span class="ribbon off">-30%</span>
-							<img src="img/lazy-placeholder.png" data-src="img/location_7.jpg" class="owl-lazy" alt="">
-							<a href="detail-restaurant.html" class="strip_info">
-								<small>Chinese</small>
-								<div class="item_title">
-									<h3>Alliance</h3>
-									<small>27 Old Gloucester St</small>
-								</div>
-							</a>
-						</figure>
-						<ul>
-							<li><span class="loc_closed">Now Closed</span></li>
-							<li>
-								<div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
-							</li>
-						</ul>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 			<!-- /carousel -->
 
@@ -305,7 +189,7 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2>어떤 지역 맛집</h2>
-				<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
+				<p>근처 맛집을 찾아보세용~</p>
 				<a id="viewAll" href="#0">View All</a>
 			</div>
 
@@ -380,7 +264,7 @@
 											<ul>
 												<li><span class="ribbon off">${hd.discountPrice}원</span>
 												</li>
-												<li>할인 가격</li>
+												<li>기간: ${hd.endDate}</li>
 											</ul>
 										</a>
 									</li>
@@ -405,7 +289,7 @@
 											<ul>
 												<li><span class="ribbon off">${hd.discountPrice}원</span>
 												</li>
-												<li>할인 가격</li>
+												<li>기간: ${hd.endDate}</li>
 											</ul>
 										</a>
 									</li>
@@ -432,7 +316,7 @@
 						<p>Join Us to increase your online visibility. You'll have access to even more
 							customers who are
 							looking to enjoy your tasty dishes at home.</p>
-						<a href="submit-restaurant.html" class="btn_1">Read more</a>
+						<a href="/request-auth" class="btn_1">사업자 등록하기</a>
 					</div>
 				</div>
 			</div>
@@ -514,7 +398,6 @@
 				} else {
 					for (let i = 0; i < masterList.length; i++) {
 						tag +=
-							// `<div class="owl-item">` +
 							`<div class="item">` +
 							`   <div class="strip">` +
 							`       <figure>` +
@@ -535,7 +418,6 @@
 							`       </ul>` +
 							`   </div>` +
 							`</div>`;
-						// `</div>`;
 					}
 
 				}

@@ -106,35 +106,24 @@
             display: none;
         }
 
+        .detail-preview {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
         .preview-title-img {
             width: 100%;
             height: 150px;
         }
 
         .preview-detail-img {
-            width: 20%;
+            width: 15%;
             height: 150px;
-            margin-right: 10px;
         }
     </style>
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    <form action="">
-        <div class="content-wrapper">
-            <div class="container-fluid">
-                <!-- Breadcrumbs-->
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="#">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item active">Add listing</li>
-                </ol>
-                <div class="box_general padding_bottom">
-                    <div class="header_box version_2">
-                        <h2><i class="fa fa-file"></i>
-                            Promotional Article Write</h2>
-                    </div>
     <form action="" enctype="multipart/form-data">
         <div class="content-wrapper">
             <div class="container-fluid">
@@ -186,8 +175,8 @@
                             <div class="form-group detail-Info">
                                 <div class="form-group">
                                     <label>HASH TAG</label>
-                                    <input type="text" class="form-control" name="hashTag"
-                                        placeholder="예시 : #비비 #미미 (띄어쓰기 필수)">
+                                    <input type="text" class="form-control hashTag" name="hashTag"
+                                        placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다.">
                                 </div>
                             </div>
                         </div>
@@ -215,21 +204,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Photos</label>
-                                        <button type="text">파일선택(1개)</button>
-                                        <div class="dropzone dz-clickable"><span>Drop files here to upload</span>
-                                        </div>
-                    <!-- add detail , title img row -->
-                    <div class="box_general padding_bottom add-Img-row">
-                        <div class="header_box version_2 add-Img">
-                            <h2><i class="fa fa-list"></i>Title Image Add</h2>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Photos</label>
                                         <div>
-                                            <input type="file" name="titleImg" id="title-img"
-                                                accept="image/gif, image/jpeg, image/png"
-                                                onchange="titleFileTypeCheck(this)"></input>
+                                            <input type="file" name="titleImg" id="title-img" class="title"
+                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
                                         <div class="preview"><span>미리보기</span>
                                             <div id="title-preview"></div>
@@ -244,19 +221,9 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Photos</label>
-                                        <button type="text">파일선택(여러개)</button>
-                                        <div class="dropzone dz-clickable"><span>Drop files here to upload</span>
-                                        </div>
-                        <div class="header_box version_2 add-Img">
-                            <h2><i class="fa fa-list"></i>Detail Image Add</h2>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Photos</label>
                                         <div>
-                                            <input type="file" name="detailImgList" id="detail-img" multiple
-                                                accept="image/gif, image/jpeg, image/png"
-                                                onchange="detailFileTypeCheck(this)"></input>
+                                            <input type="file" name="detailImgList" id="detail-img" class="detail"
+                                                multiple accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
                                         <div class="preview multiple"><span>미리보기</span>
                                             <div id="detail-preview"></div>
@@ -283,10 +250,17 @@
                                         <td>
                                             <div class="row menu-row">
                                                 <div class="col-md-2 menu-add-img">
-                                                    <form action="/file-upload"
-                                                        class="dropzone dz-clickable menu-add-img">
-                                                        <div class="dz-default dz-message"><span>+</span></div>
-                                                    </form>
+                                                    <div class="form-group">
+                                                        <label>Photos</label>
+                                                        <div>
+                                                            <input type="file" name="detailImgList" id="detail-img"
+                                                                class="detail" multiple
+                                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
+                                                        </div>
+                                                        <div class="preview multiple"><span>미리보기</span>
+                                                            <div id="detail-preview"></div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -298,12 +272,6 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control menu-price" name="price"
                                                             placeholder="price">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <div class="form-group">
-                                                        <a class="delete" href="#"><i
-                                                                class="fa fa-fw fa-remove"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -321,20 +289,33 @@
                                 Item</a>
                         </div>
                         <script>
+                            /* 
+                                <div class="col-md-1">
+                                                                                    <div class="form-group">
+                                                                                        <a class="delete" href="#"><i
+                                                                                                class="fa fa-fw fa-remove"></i></a>
+                                                                                    </div>
+                                                                                </div>
+
+                                */
+
+
                             // Pricing add
                             function newMenuItem() {
-                                var newElem = $('form-group add-menu').first().clone();
+                                var newElem = $('form-group ').first().clone();
                                 newElem.find('input').val('');
                                 newElem.appendTo('table#pricing-list-container');
                             }
+
                             if ($("table#pricing-list-container").is('*')) {
                                 $('.add-pricing-list-item').on('click', function (e) {
                                     e.preventDefault();
                                     newMenuItem();
+                                    $('#pricing-list-container:not(:first-child)').children.children.append(' <div class="col-md-1"> <div class="form-group"> <a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a></div></div>');
                                 });
                                 $(document).on("click", "#pricing-list-container .delete", function (e) {
                                     e.preventDefault();
-                                    $(this).parent().parent().parent().remove();
+                                    $(this).parent().parent().parent().parent().parent().remove();
                                 });
                             }
                         </script>
@@ -541,11 +522,12 @@
     <script>
         // 검증 - 가격 숫자만 입력되도록. 한글 입력할 경우 제한 
 
-        // 숫자가 아닌 정규식
+        // 숫자가 아닌 정규식 -----------------------------------------------------------------------
         var replaceNotInt = /[^0-9]/gi;
         const $menuPrice = $('.menu-price');
 
         $menuPrice.on("keyup", function () {
+            console.log(replaceNotInt);
             $(this).val($(this).val().replace(replaceNotInt, "")); // 입력값을 정규식으로 필터링
 
             var x = $(this).val(); // 필터링 된 숫자값만 들어 있음. 
@@ -561,33 +543,119 @@
         });
 
 
-        const $weekdayOpenTime = document.querySelector('.weekday-openTime');
+        // hasTag 10개 이상 제한 -----------------------------------------------------------------------
+        let leng = 0;
+        const $hashTag = $('.hashTag');
 
-        var result = $weekdayOpenTime.value.replace(replaceNotInt, "");
-        console.log(result);
+        $hashTag.on("keyup", function () {
+
+            const splitThisVal = $(this).val().split(" "); // 공백기준으로 단어 리스트 생성
+
+            if (splitThisVal.length >= 10) // 단어 10개 이상일 경우 
+            {
+                if (leng <= $hashTag.val().length + 1) // leng = 단어 10개 이하의 마지막 글자수가 현재 글자수보다 작으면  
+                {
+                    $hashTag.val($hashTag.val().substring(0, leng)); // 마지막 글자수를 다시 hashtag value에 담아줌 
+                    $(this).css('border-color', 'red'); // 공백 추가 시 빨간 경고 
+                } else
+                    $(this).css('border-color', 'green');
+            } else { // 단어 10개 이하는 
+                leng = $(this).val().length; // 전역변수에 마지막 글자수 저장 
+                $(this).css('border-color', 'green');
+            }
+        });
+
+
+
+        const $selectTime = document.querySelectorAll('.select-time');
+
+        $selectTime.forEach(e => {
+
+            console.log();
+
+        });
+        console.log($selectTime);
+        // var result = $weekdayOpenTime.value.replace(replaceNotInt, "");
+        // console.log(result);
     </script>
 
 
-
-
-
-
-
-    <!-- 이미지 파일만 올리도록 처리할 스크립트 영역 -->
-    <!-- 여기서 이미지 태그에 정상적인 이미지를 올렸는지 체크하는 배열을 사용하기 때문에 
-        필수 작성 요소(제목 등)를 여기서 체크해야 할거 같아요! -->
+    <!-- 이미지 파일 검증 및 미리보기 화면 출력하는 스크립트 영역 -->
     <script>
+        const $titleInput = document.getElementById('title-img');
+        const $detailInput = document.getElementById('detail-img');
+        const $detailPreviewHidden = document.getElementById('detail-preview');
+
+        function isExistDetailPreviewDOM() {
+            // console.log($detailPreviewHidden.children.length);
+
+            if ($detailPreviewHidden.children.length > 0) {
+
+                // console.log($detailPreviewHidden.children);
+
+
+                for (let $img of [...$detailPreviewHidden.children]) {
+
+                    // console.log($detailPreviewHidden.children.length);
+                    $detailPreviewHidden.removeChild($img);
+                }
+            }
+        }
+
+
+        function makeDetailPreviewDOM(fileNames) {
+
+            for (let fileName of fileNames) {
+
+                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
+
+                const $img = document.createElement('img');
+                $img.classList.add('preview-detail-img');
+
+                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
+                $img.setAttribute('alt', originFileName);
+
+                // const $detailPreviewHidden = document.getElementById('detail-preview');
+
+                $detailPreviewHidden.parentElement.style.display = 'block';
+                $detailPreviewHidden.appendChild($img);
+            }
+        }
+
+
+
+        function ajaxDetailPreview() {
+            const formData = new FormData();
+
+            for (let file of $detailInput.files) {
+                formData.append('files', file);
+            }
+
+
+            const reqObj = {
+                method: 'POST',
+                body: formData
+            };
+
+            fetch('/ajax-upload', reqObj)
+                .then(res => res.json())
+                .then(fileNames => {
+                    isExistDetailPreviewDOM();
+                    makeDetailPreviewDOM(fileNames);
+                });
+        }
+
 
         function makeTitlePreviewDOM(fileNames) {
 
             for (let fileName of fileNames) {
-                
+
                 let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
 
                 const $img = document.createElement('img');
                 $img.classList.add('preview-title-img');
 
-                $img.setAttribute('src', '/loadFile?fileName=' + fileName); 
+                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
                 $img.setAttribute('alt', originFileName);
 
                 const $titlePreviewHidden = document.getElementById('title-preview');
@@ -599,160 +667,66 @@
                 $titlePreviewHidden.parentElement.style.display = 'block';
                 $titlePreviewHidden.appendChild($img);
             }
-
         }
 
 
-        // 0번 인덱스 : 타이틀 이미지 확장자 체크, 1번 인덱스 : 디테일 이미지들 확장자 체크
-        // const inputImgCheckArr = [false, false];
+        function ajaxTitlePreview() {
+            const formData = new FormData();
+
+            for (let file of $titleInput.files) {
+                formData.append('files', file);
+            }
 
 
-        function titleFileTypeCheck(obj) {
+            const reqObj = {
+                method: 'POST',
+                body: formData
+            };
 
-            pathpoint = obj.value.lastIndexOf('.');
-
-            filepoint = obj.value.substring(pathpoint + 1, obj.length);
-
-            filetype = filepoint.toLowerCase();
-
-            const $titleInput = document.getElementById('title-img');
-
-            if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png' || filetype == 'jpeg') {
-
-                // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
-
-                const formData = new FormData();
-
-                for (let file of $titleInput.files) {
-                    formData.append('files', file);
-                }
+            fetch('/ajax-upload', reqObj)
+                .then(res => res.json())
+                .then(fileNames => {
+                    makeTitlePreviewDOM(fileNames);
+                });
+        }
 
 
-                const reqObj = {
-                    method: 'POST',
-                    body: formData
-                };
 
+        // 실행부
+        $(document).on("change", "input[type='file']", function () {
 
-                fetch('/ajax-upload', reqObj)
-                    .then(res => res.json())
-                    .then(fileNames => {
-                        makeTitlePreviewDOM(fileNames);
-                    });
+            var file_path = $(this).val();
 
+            file_path = file_path.toLowerCase();
 
-                // checkArr[0] = true;
+            var reg = /(.*?)\.(jpg|bmp|jpeg|png|gif)$/;
+
+            // 허용되지 않은 확장자일 경우
+
+            if (file_path != "" && (file_path.match(reg) == null || reg.test(file_path) == false)) {
+
+                $(this).val("");
+
+                alert("이미지 파일만 업로드 가능합니다.");
+
+                $(this).parent().next().css('display', 'none');
 
             } else {
 
-                alert('이미지 파일만 첨부하실 수 있습니다! (사용 가능 확장자 : JPG, JPEG, GIF, PNG)');
-
-                parentObj = obj.parentNode
-
-                node = parentObj.replaceChild(obj.cloneNode(true), obj);
-
-                const $titlePreviewHidden = document.getElementById('title-preview');
-                $titlePreviewHidden.parentElement.style.display = 'none';
-
-                const files = $titleInput.files;
-                // console.log(files);
-
-
-                return false;
-
-            }
-        }
-
-
-        function isExistDetailPreviewDOM() {
-            const $detailPreviewHidden = document.getElementById('detail-preview');
-            if($detailPreviewHidden.children.length > 0) {
-                for (let $img of $detailPreviewHidden.children) {
-                    $detailPreviewHidden.removeChild($img);
-                }
-            }
-        }
-
-
-        function makeDetailPreviewDOM(fileNames) {
-
-            for (let fileName of fileNames) {
-                
-                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
-
-                const $img = document.createElement('img');
-                $img.classList.add('preview-detail-img');
-
-                $img.setAttribute('src', '/loadFile?fileName=' + fileName); 
-                $img.setAttribute('alt', originFileName);
-
-                const $detailPreviewHidden = document.getElementById('detail-preview');
-
-                $detailPreviewHidden.parentElement.style.display = 'block';
-                $detailPreviewHidden.appendChild($img);
-            }
-        }
-
-
-
-        function detailFileTypeCheck(obj) {
-
-            pathpoint = obj.value.lastIndexOf('.');
-
-            filepoint = obj.value.substring(pathpoint + 1, obj.length);
-
-            filetype = filepoint.toLowerCase();
-
-            const $detailInput = document.getElementById('detail-img');
-
-            if (filetype == 'jpg' || filetype == 'gif' || filetype == 'png' || filetype == 'jpeg') {
-
                 // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
 
-                const formData = new FormData();
-
-                for (let file of $detailInput.files) {
-                    formData.append('files', file);
+                // title 이미지 미리보기 비동기 처리
+                if ($(this).hasClass('title')) {
+                    ajaxTitlePreview();
                 }
 
 
-                const reqObj = {
-                    method: 'POST',
-                    body: formData
-                };
-
-                fetch('/ajax-upload', reqObj)
-                    .then(res => res.json())
-                    .then(fileNames => {
-                        isExistDetailPreviewDOM();
-                        makeDetailPreviewDOM(fileNames);
-                    });
-
-
-
-                // checkArr[1] = true;
-
-            } else {
-
-                alert('이미지 파일만 첨부하실 수 있습니다! (사용 가능 확장자 : JPG, JPEG, GIF, PNG)');
-
-                parentObj = obj.parentNode
-
-                node = parentObj.replaceChild(obj.cloneNode(true), obj);
-                
-                const $detailPreviewHidden = document.getElementById('detail-preview');
-                $detailPreviewHidden.parentElement.style.display = 'none';
-
-
-                const $detailInput = document.getElementById('detail-img');
-
-                const files = $detailInput.files;
-                console.log(files);
-                
-                return false;
-
+                // detail 이미지 미리보기 비동기 처리
+                if ($(this).hasClass('detail')) {
+                    ajaxDetailPreview();
+                }
             }
-        }
+        });
     </script>
 
 </body>

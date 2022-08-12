@@ -119,6 +119,7 @@
         .preview-detail-img {
             width: 15%;
             height: 150px;
+
         }
 
         .menu-preview {
@@ -184,8 +185,8 @@
                             <div class="form-group detail-Info">
                                 <div class="form-group">
                                     <label>HASH TAG</label>
-                                    <input type="text" class="form-control" name="hashTag"
-                                        placeholder="예시 : #비비 #미미 (띄어쓰기 필수)">
+                                    <input type="text" class="form-control hashTag" name="hashTag"
+                                        placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다.">
                                 </div>
                             </div>
                         </div>
@@ -214,6 +215,7 @@
                                     <div class="form-group">
                                         <label>Photos</label>
                                         <div>
+
                                             <input type="file" id="title-img" class="title"
                                                 accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
@@ -232,6 +234,7 @@
                                     <div class="form-group">
                                         <label>Photos</label>
                                         <div>
+
                                             <input type="file" id="detail-img" class="detail" multiple
                                                 accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
@@ -261,7 +264,8 @@
                                         <td>
                                             <div class="row menu-row">
                                                 <div class="col-md-2 menu-add-img">
-                                                    <label>Menu-Photos</label>
+                                                    <div class="form-group">
+                                                        <label>Menu-Photos</label>
                                                     <div>
                                                         <input type="file" class="menu"
                                                         accept="image/gif, image/jpeg, image/png, image/bmp"></input>
@@ -270,6 +274,7 @@
                                                         <div class="menu-preview"></div>
                                                     </div>
                                                     <div class="hidden-menu-box"></div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -281,12 +286,6 @@
                                                     <div class="form-group">
                                                         <input type="text" class="form-control menu-price" name="price"
                                                             placeholder="price">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <div class="form-group">
-                                                        <a class="delete" href="#"><i
-                                                                class="fa fa-fw fa-remove"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -305,20 +304,33 @@
                         </div>
                         <div id="hidden-menu-box"></div>
                         <script>
+                            /* 
+                                <div class="col-md-1">
+                                                                                    <div class="form-group">
+                                                                                        <a class="delete" href="#"><i
+                                                                                                class="fa fa-fw fa-remove"></i></a>
+                                                                                    </div>
+                                                                                </div>
+
+                                */
+
+
                             // Pricing add
                             function newMenuItem() {
-                                var newElem = $('form-group add-menu').first().clone();
+                                var newElem = $('form-group ').first().clone();
                                 newElem.find('input').val('');
                                 newElem.appendTo('table#pricing-list-container');
                             }
+
                             if ($("table#pricing-list-container").is('*')) {
                                 $('.add-pricing-list-item').on('click', function (e) {
                                     e.preventDefault();
                                     newMenuItem();
+                                    $('#pricing-list-container:not(:first-child)').children.children.append(' <div class="col-md-1"> <div class="form-group"> <a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a></div></div>');
                                 });
                                 $(document).on("click", "#pricing-list-container .delete", function (e) {
                                     e.preventDefault();
-                                    $(this).parent().parent().parent().remove();
+                                    $(this).parent().parent().parent().parent().parent().remove();
                                 });
                             }
                         </script>
@@ -525,11 +537,12 @@
     <script>
         // 검증 - 가격 숫자만 입력되도록. 한글 입력할 경우 제한 
 
-        // 숫자가 아닌 정규식
+        // 숫자가 아닌 정규식 -----------------------------------------------------------------------
         var replaceNotInt = /[^0-9]/gi;
         const $menuPrice = $('.menu-price');
 
         $menuPrice.on("keyup", function () {
+            console.log(replaceNotInt);
             $(this).val($(this).val().replace(replaceNotInt, "")); // 입력값을 정규식으로 필터링
 
             var x = $(this).val(); // 필터링 된 숫자값만 들어 있음. 
@@ -545,6 +558,25 @@
         });
 
 
+        // hasTag 10개 이상 제한 -----------------------------------------------------------------------
+        let leng = 0;
+        const $hashTag = $('.hashTag');
+
+        $hashTag.on("keyup", function () {
+
+            const splitThisVal = $(this).val().split(" "); // 공백기준으로 단어 리스트 생성
+
+            if (splitThisVal.length >= 10) // 단어 10개 이상일 경우 
+            {
+                if (leng <= $hashTag.val().length + 1) // leng = 단어 10개 이하의 마지막 글자수가 현재 글자수보다 작으면  
+                {
+                    $hashTag.val($hashTag.val().substring(0, leng)); // 마지막 글자수를 다시 hashtag value에 담아줌 
+                    $(this).css('border-color', 'red'); // 공백 추가 시 빨간 경고 
+                } else
+                    $(this).css('border-color', 'green');
+            } else { // 단어 10개 이하는 
+                leng = $(this).val().length; // 전역변수에 마지막 글자수 저장 
+                $(this).css('border-color', 'green');
         const $weekdayOpenTime = document.querySelector('.weekday-openTime');
 
         var result = $weekdayOpenTime.value.replace(replaceNotInt, "");
@@ -581,6 +613,8 @@
             for (let file of this.files) {
                 formData.append('files', file);
             }
+        });
+
 
 
             const reqObj = {
@@ -596,6 +630,7 @@
         }
 
         
+
 
         function isExistDetailPreviewDOM() {
             // console.log($detailPreviewHidden.children.length);
@@ -660,6 +695,7 @@
             for (let file of $detailInput.files) {
                 formData.append('files', file);
             }
+
 
 
             const reqObj = {
@@ -767,6 +803,7 @@
             } else {
 
                 // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
+
 
                 // title 이미지 미리보기 비동기 처리
                 if ($(this).hasClass('title')) {

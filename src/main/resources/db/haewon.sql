@@ -123,26 +123,47 @@ ADD file_path CLOB NOT NULL;
 
 
 INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
-VALUES ('1234-2222-3333-1122', seq_promotion_board.nextval, '#물', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
-
+VALUES ('1234-2222-3333-1111', seq_promotion_board.nextval, '한식 족발 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1112', seq_promotion_board.nextval, '양식 파스타 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1113', seq_promotion_board.nextval, '일식 스시 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1114', seq_promotion_board.nextval, '한식 족발 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/owner.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1115', seq_promotion_board.nextval, '중식 짜장면 짬뽕 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/owner.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1116', seq_promotion_board.nextval, '카페 커피 케이크 빵 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/owner.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1117', seq_promotion_board.nextval, '한식 족발 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/food_review.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1118', seq_promotion_board.nextval, '술집 소주 맥주 안주 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/food_review.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1119', seq_promotion_board.nextval, '일식 라멘 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/food_review.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1120', seq_promotion_board.nextval, '한식 족발 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/food_review.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1121', seq_promotion_board.nextval, '한식 족발 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
 SELECT * FROM premiume_promotion_board;
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1122', seq_promotion_board.nextval, '한식 족발 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
 
 INSERT INTO premiume_promotion_board
-VALUES(17, 20220101, 20220808);
+VALUES(1, 20220101, 20220808);
 INSERT INTO premiume_promotion_board
-VALUES(10, 20220101, 20220809);
+VALUES(2, 20220101, 20220809);
 INSERT INTO premiume_promotion_board
-VALUES(11, 20220101, 20220820);
+VALUES(3, 20220101, 20220820);
 INSERT INTO premiume_promotion_board
-VALUES(12, 20220101, 20220822);
+VALUES(4, 20220101, 20220822);
 INSERT INTO premiume_promotion_board
-VALUES(13, 20220101, 20220807);
+VALUES(5, 20220101, 20220807);
 INSERT INTO premiume_promotion_board
-VALUES(14, 20220101, 20220731);
+VALUES(6, 20220101, 20220731);
 INSERT INTO premiume_promotion_board
-VALUES(15, 20220101, 20220808);
+VALUES(7, 20220101, 20220808);
 INSERT INTO premiume_promotion_board
-VALUES(16, 20220101, 20220808);
+VALUES(8, 20220101, 20220808);
 
 SELECT * FROM review_board;
 DELETE FROM review_board;
@@ -230,23 +251,6 @@ CREATE TABLE promotion_board (
     , CONSTRAINT fk_busi_no FOREIGN KEY (business_no)
     REFERENCES master (business_no) ON DELETE CASCADE
 );
-
-insert into promotion_board VALUES (101010
-,seq_promotion_board.nextval
-,'�ּ�   : ��⵵ ������ �꺻��323���� 7-1
-���� : ��⵵ ������ �꺻�� 1128-1
-��ȭ��ȣ : 0507-1350-4556
-���� ���� :   ���� / ����
-���ݴ� : ���� �̸�
-����   : ������������
-�����ð� : 11:00 - 21:00
-���½ð� : 15:00 - 16:00
-������ �ֹ� : 20:30
-����   : ��'
-,sysdate
-,'Ȳ����')
-;
-
 
 -- ���� �޴�
 CREATE TABLE promotion_food_menu(
@@ -502,3 +506,4 @@ add report_cnt number(2) default 0;
 
 alter table promotion_board add hashTag varchar2(200) not null;
 
+commit;

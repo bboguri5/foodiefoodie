@@ -46,12 +46,12 @@ public class ProBoardController {
         return "";
     }
 
-    // 동진 : 임의 매핑이에요!
-    @PostMapping("/write")
-    public String promoWrite(ProBoard proBoard,ImageDTO imgDTO) {
-
-        
-
-        return "";
-    }
+//    // 동진 : 임의 매핑이에요!
+//    @PostMapping("/write")
+//    public String promoWrite(ProBoard proBoard,ImageDTO imgDTO) {
+//
+//
+//
+//        return "";
+//    }
 }

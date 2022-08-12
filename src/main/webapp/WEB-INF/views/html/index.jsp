@@ -209,36 +209,13 @@
 
 			<div class="main_title">
 				<span><em></em></span>
-				<h2>어떤 지역 맛집</h2>
+				<h2 id="locationHeader"></h2>
 				<p>근처 맛집을 찾아보세용~</p>
 				<a id="viewAll" href="#0">View All</a>
 			</div>
 
 			<div id="locationList" class="owl-carousel owl-theme carousel_4">
-				<!-- <div class="owl-stage-outer">
-					<div class="owl-stage">
-						<div id="locationList" class="owl-item active">
-
-						</div>
-
-					</div>
-					<div class="owl-nav">
-						<button type="button" role="presentation" class="owl-prev disabled">
-							<i class="arrow_carrot-left"></i>
-						</button>
-						<button type="button" role="presentation" class="owl-next"><i class="arrow_carrot-right"></i>
-						</button>
-					</div>
-					<div class="owl-dots">
-						<button role="button" class="owl-dot active"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-					</div>
-				</div> -->
+				
 			</div>
 			<!-- /carousel -->
 
@@ -405,7 +382,7 @@
 						fetch('/mylocation?storeAddress=' + address)
 							.then(res => res.json())
 							.then(replyMap => {
-								makeLocationDom(replyMap);
+								makeLocationDom(replyMap, address);
 								const $viewAll = document.getElementById('viewAll');
 								$viewAll.onclick = e => {
 									location.href = '/locationlist?storeAddress=' + address;
@@ -418,8 +395,10 @@
 
 			function makeLocationDom({
 				masterList
-			}) {
+			}, address) {
 				console.log(masterList);
+
+				document.getElementById('locationHeader').innerHTML = address + ' 지역 맛집'; 
 
 				// 각 리스트 하나의 태그
 				let tag = '';

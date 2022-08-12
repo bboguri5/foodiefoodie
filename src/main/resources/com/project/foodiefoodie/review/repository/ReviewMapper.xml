@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper태그는 sql을 매핑할때 사용하는 태그
+     namespace속성에는 사용할 인터페이스의 풀 패키지경로 + 인터페이스이름
+  -->
+<mapper namespace="com.project.foodiefoodie.review.repository.ReviewMapper">
+
+    <resultMap id="reviewMap" type="com.project.foodiefoodie.review.domain.Review">
+        <result property="reviewBno" column="review_bno"/>
+        <result property="businessNo" column="business_no"/>
+        <result property="lastUpdated" column="last_update"/>
+        <result property="likeCnt" column="like_cnt"/>
+        <result property="starRate" column="star_rate"/>
+        <result property="isPrivate" column="private"/>
+        <result property="reportCnt" column="report_cnt"/>
+    </resultMap>
+
+    <select id="checkReportCnt" resultType="int">
+        SELECT report_cnt FROM review_board
+        WHERE email = #{email}
+    </select>
+
+    <update id="reportCntModify">
+        UPDATE review_board SET report_cnt = #{reportCnt}
+        WHERE email = #{email}
+    </update>
+
+
+
+</mapper>

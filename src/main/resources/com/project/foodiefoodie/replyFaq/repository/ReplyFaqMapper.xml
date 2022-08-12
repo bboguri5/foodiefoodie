@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper태그는 sql을 매핑할때 사용하는 태그
+     namespace속성에는 사용할 인터페이스의 풀 패키지경로 + 인터페이스이름
+  -->
+<mapper namespace="com.project.foodiefoodie.replyFaq.repository.ReplyFaqMapper">
+    <resultMap id="replyFaq" type="com.project.foodiefoodie.replyFaq.domain.ReplyFaq">
+        <result property="replyFaqNo" column="reply_faq_no"/>
+        <result property="replyNo" column="reply_no"/>
+        <result property="writerEmail" column="writer_email"/>
+        <result property="faqComplete" column="faq_complete"/>
+        <result property="replyWriterEmail" column="reply_writer_email"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="replyFaq">
+        SELECT * FROM reply_faq
+        WHERE faq_complete = #{complete}
+    </select>
+
+    <select id="findOne" resultMap="replyFaq">
+        SELECT * FROM reply_faq
+        WHERE reply_faq_no = #{replyFaqNo}
+    </select>
+
+    <update id="update">
+        UPDATE reply_faq SET faq_complete = #{complete}
+        WHERE reply_faq_no = #{replyFaqNo}
+    </update>
+
+
+</mapper>

@@ -18,4 +18,6 @@ public class PromotionBoard {
         private String title;
         private double avgStarRate;
         private Long reviewCnt;
+        private int reportCnt;
+
 }

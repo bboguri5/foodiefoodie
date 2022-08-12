@@ -644,7 +644,7 @@
 
                 console.log($menuPreviewHidden.children().length);
 
-                
+
                 if ($menuPreviewHidden.children().length > 0) {
                     console.log($menuPreviewHidden.children().length);
                     $menuPreviewHidden.remove($menuPreviewHidden.first());
@@ -677,8 +677,19 @@
                 .then(fileNames => {
                     makeMenuPreviewDOM(input, fileNames);
                 });
+        fetch('/ajax-upload', reqObj)
+            .then(res => res.json())
+            .then(fileNames => {
+                makeMenuPreviewDOM(this, fileNames);
+            });
+        });
 
-        }
+
+
+
+
+
+
 
 
 

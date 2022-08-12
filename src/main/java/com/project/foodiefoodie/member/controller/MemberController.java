@@ -142,17 +142,16 @@ public class MemberController {
         log.info("go service ");
         return "redirect:/myPage-profile";
     }
-//
-//    // 비밀번호 수정 하는 페이지
-//    @GetMapping("/changePassword")
-//    public String getChangePassword(){
-//
-//        return "/myPage/myPage-changePassword";
-//    }
+
+    // 비밀번호 수정 하는 페이지
+    @GetMapping("/myReview")
+    public String getChangePassword(){
+
+        return "/myPage/myPage-myReview";
+    }
 //
 //    @PostMapping("/changePassword")
 //    public String postChangePassword(String word){
-//
 //        return "/myPage/myPage-changePassword";
 //    }
 

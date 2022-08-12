@@ -123,14 +123,14 @@
                 </li>
 
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
-                    <a class="nav-link" href="/favoriteList">
+                    <a class="nav-link" href="/myReview">
                         <i class="fa fa-fw fa-star"></i>
                         <span class="nav-link-text">Reviews 내가쓴 리뷰 </span>
                     </a>
                 </li>
 
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
-                    <a class="nav-link" href="bookmarks.html">
+                    <a class="nav-link" href="/favoriteList">
                         <i class="fa fa-fw fa-heart"></i>
                         <span class="nav-link-text">Bookmarks 즐겨찾기 리스트 </span>
                     </a>

@@ -274,8 +274,7 @@
 									<li>
 										<a href="detail-restaurant.html">
 											<figure>
-												<img src="${hd.filePath}" data-src="${hd.filePath}" alt=""
-													class="lazy">
+												<img src="${hd.filePath}" data-src="${hd.filePath}" alt="" class="lazy">
 											</figure>
 											<div class="score">
 												<strong>${hd.avgStarRate}</strong>
@@ -300,8 +299,7 @@
 									<li>
 										<a href="detail-restaurant.html">
 											<figure>
-												<img src="${hd.filePath}" data-src="${hd.filePath}" alt=""
-													class="lazy">
+												<img src="${hd.filePath}" data-src="${hd.filePath}" alt="" class="lazy">
 											</figure>
 											<div class="score">
 												<strong>${hd.avgStarRate}</strong></div>
@@ -337,7 +335,8 @@
 						<p>Join Us to increase your online visibility. You'll have access to even more
 							customers who are
 							looking to enjoy your tasty dishes at home.</p>
-						<a href="/request-auth" class="btn_1">사업자 등록하기</a>
+
+						<div class="btn_1 addMaster">사업자 등록하기</div>
 					</div>
 				</div>
 			</div>
@@ -353,7 +352,19 @@
 
 	<script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
+
+		// 로그인 한 사람만 사업자 등록 할수있음
+		document.querySelector('.addMaster').onclick = e => {
+			if ('${loginUser}' != '') {
+				location.href = '/request-auth';
+			} else {
+				alert('로그인 해주세요');
+			}
+		};
+
 		$(document).ready(function () {
+
+
 			var options = {
 				enableHighAccuracy: true,
 				timeout: 5000,

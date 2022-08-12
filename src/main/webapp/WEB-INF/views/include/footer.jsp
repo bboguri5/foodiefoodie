@@ -22,8 +22,8 @@
                 <div class="collapse dont-collapse-sm links" id="collapse_2">
                     <ul>
                         <li><a href="grid-listing-filterscol.html">Top Categories</a></li>
-                        <li><a href="grid-listing-filterscol-full-masonry.html">Best Rated</a></li>
-                        <li><a href="grid-listing-filterscol-full-width.html">Best Price</a></li>
+                        <li><a href="/foodlist">Best Rated</a></li>
+                        <li><a href="/hotdeals">Best Price</a></li>
                         <li><a href="grid-listing-filterscol-full-masonry.html">Latest Submissions</a></li>
                     </ul>
                 </div>

@@ -110,7 +110,7 @@ VALUES('1234-2222-3333-1122', 'abc1234@naver.com', '서해원', '맛있는 금�
 SELECT * FROM hot_deal;
 
 INSERT INTO hot_deal (business_no, discount_price, end_date, start_date)
-VALUES ('1234-2222-3333-1122', 8000, 20220809, 20220707);
+VALUES ('1234-2222-3333-1111', 8000, 20220809, 20220707);
 
 SELECT * FROM promotion_board;
 DELETE FROM promotion_board;
@@ -123,7 +123,7 @@ ADD file_path CLOB NOT NULL;
 
 
 INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
-VALUES ('1234-2222-3333-1111', seq_promotion_board.nextval, '#한식 #족발 #맛집 #금천구', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
+VALUES ('1234-2222-3333-1122', seq_promotion_board.nextval, '#물', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
 
 SELECT * FROM premiume_promotion_board;
 
@@ -145,7 +145,7 @@ INSERT INTO premiume_promotion_board
 VALUES(16, 20220101, 20220808);
 
 SELECT * FROM review_board;
-DROP TABLE review_board;
+DELETE FROM review_board;
 
 -- ReviewBoardMapperTest 에서 INSERT
 INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate)
@@ -154,7 +154,10 @@ VALUES ('bbbb2222@naver.com', '제목입니다~', '내용입니다~', seq_review
 COMMIT;
 
 
-
+        SELECT COUNT(*)
+        FROM master M JOIN promotion_board P
+        ON M.business_no = P.business_no
+        WHERE store_address LIKE '%금천구%';
 
 
 update member set auth = 'MASTER' WHERE email = 'abc1234@naver.com';

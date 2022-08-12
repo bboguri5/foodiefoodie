@@ -94,7 +94,7 @@
         SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS storeName, store_address AS storeAddress, file_path AS filePath
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
-        SELECT  P.business_no, avg_star_rate, review_cnt, store_name, store_address
+        SELECT  P.business_no, avg_star_rate, review_cnt, store_name, store_address, file_path
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         WHERE hashTag LIKE '%' || #{hashTag} || '%'

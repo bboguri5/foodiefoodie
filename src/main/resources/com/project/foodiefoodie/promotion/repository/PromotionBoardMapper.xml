@@ -57,6 +57,11 @@
         ON P.business_no = M.business_no
     </select>
 
+    <select id="getMyTotalCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM promotion_board
+    </select>
+
     <select id="topAvgRateCount" resultType="com.project.foodiefoodie.promotion.dto.PromotionMasterDTO">
         SELECT * FROM (
         SELECT P.business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_address AS storeAddress, store_name AS storeName

@@ -6,6 +6,8 @@ import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface MemberMapper {
 
@@ -39,4 +41,9 @@ public interface MemberMapper {
 
     // 쿠키값(세션아이디)을 가지고 있는 회원 이메일 조회
     AutoLoginDTO findIsAutoLoginBySessionId(String sessionId);
+
+    List<Member> findAll();
+    List<Member> findCommon();
+    Member findOneCommon(String email);
+    boolean remove(String email);
 }

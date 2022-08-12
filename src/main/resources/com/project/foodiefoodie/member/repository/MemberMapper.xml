@@ -87,6 +87,26 @@
         DELETE FROM auto_login
         WHERE email = #{email}
     </delete>
+
+    <select id="findAll" resultMap="memberMap">
+        SELECT * FROM member
+    </select>
+
+    <select id="findCommon" resultMap="memberMap">
+        SELECT * FROM member
+        WHERE auth = 'COMMON'
+    </select>
+
+    <select id="findOneCommon" resultMap="memberMap">
+        SELECT * FROM member
+        WHERE email = #{email}
+    </select>
+
+    <delete id="remove">
+        DELETE FROM member
+        WHERE email = #{email}
+    </delete>
+
 </mapper>
 
 

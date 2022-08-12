@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper태그는 sql을 매핑할때 사용하는 태그
+     namespace속성에는 사용할 인터페이스의 풀 패키지경로 + 인터페이스이름
+  -->
+<mapper namespace="com.project.foodiefoodie.blackList.repository.BlackListMasterMapper">
+
+    <resultMap id="BlackListMasterMap" type="com.project.foodiefoodie.blackList.domain.BlackListMaster">
+        <result property="businessNo" column="business_no"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="BlackListMasterMap">
+        SELECT * FROM black_list_master
+    </select>
+
+    <select id="findOne" resultMap="BlackListMasterMap">
+        SELECT * FROM black_list_master
+        WHERE business_no = #{businessNo}
+    </select>
+
+    <insert id="save">
+        INSERT INTO black_list_master VALUES (#{businessNo})
+    </insert>
+
+    <delete id="remove">
+        DELETE FROM black_list_master
+        WHERE business_no = (#{businessNo})
+    </delete>
+</mapper>
+

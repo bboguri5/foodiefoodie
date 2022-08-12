@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper태그는 sql을 매핑할때 사용하는 태그
+     namespace속성에는 사용할 인터페이스의 풀 패키지경로 + 인터페이스이름
+  -->
+<mapper namespace="com.project.foodiefoodie.reply.repository.ReplyMapper">
+
+    <resultMap id="replyMap" type="com.project.foodiefoodie.reply.domain.Reply">
+        <result property="reviewBno" column="review_bno"/>
+        <result property="replyNo" column="reply_no"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="lastUpdate" column="last_update"/>
+    </resultMap>
+
+    <delete id="remove">
+        DELETE FROM reply
+        WHERE reply_no = #{replyNo}
+    </delete>
+
+
+</mapper>

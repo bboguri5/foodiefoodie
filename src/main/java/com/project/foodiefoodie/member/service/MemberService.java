@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -171,4 +172,26 @@ public class MemberService {
             memberMapper.deleteAutoLoginValue(email);
         }
     }
+
+    public List<Member> findAllService() {
+        List<Member> memberList = memberMapper.findAll();
+        return memberList;
+    }
+
+    public List<Member> findCommonService() {
+        List<Member> memberList = memberMapper.findCommon();
+        return memberList;
+    }
+
+
+    public Member findOneCommonService(String email) {
+        Member member = memberMapper.findOneCommon(email);
+        return member;
+    }
+
+    public boolean removeService(String email) {
+        boolean flag = memberMapper.remove(email);
+        return flag;
+    }
+
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper태그는 sql을 매핑할때 사용하는 태그
+     namespace속성에는 사용할 인터페이스의 풀 패키지경로 + 인터페이스이름
+  -->
+<mapper namespace="com.project.foodiefoodie.promotionFaq.repository.PromotionFaqMapper">
+    <resultMap id="proFaq" type="com.project.foodiefoodie.promotionFaq.domain.PromotionFaq">
+        <result property="prFaqNo" column="pr_faq_no"/>
+        <result property="promotionBno" column="promotion_bno"/>
+        <result property="writerEmail" column="writer_email"/>
+        <result property="faqComplete" column="faq_complete"/>
+        <result property="promotionWriterEmail" column="promotion_writer_email"/>
+        <result property="businessNo" column="business_no"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="proFaq">
+        SELECT * FROM promotion_faq
+        WHERE faq_complete = #{complete}
+    </select>
+
+    <select id="findOne" resultMap="proFaq">
+        SELECT * FROM promotion_faq
+        WHERE pr_faq_no = #{prFaqNo}
+    </select>
+
+    <update id="update">
+        UPDATE promotion_faq SET faq_complete = #{complete}
+        WHERE pr_faq_no = #{prFaqNo}
+    </update>
+
+</mapper>

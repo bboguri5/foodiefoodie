@@ -71,7 +71,7 @@
     </select>
 
     <select id="getTotal" resultType="int">
-        SELECT * FROM promotion_board
+        SELECT COUNT(*) FROM promotion_board
     </select>
 
     <select id="topAvgRateCount" resultType="com.project.foodiefoodie.promotion.dto.PromotionMasterDTO">

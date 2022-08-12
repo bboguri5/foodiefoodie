@@ -1,13 +1,9 @@
 package com.project.foodiefoodie.member.controller;
 
-import com.project.foodiefoodie.blackList.domain.BlackList;
-import com.project.foodiefoodie.blackList.service.BlackListService;
-import com.project.foodiefoodie.member.domain.Master;
+import com.project.foodiefoodie.member.domain.MasterAndMember;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.member.service.MemberService;
-import com.project.foodiefoodie.reportMember.domain.ReportMember;
-import com.project.foodiefoodie.reportMember.service.ReportMemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -53,7 +49,7 @@ public class AdminController {
 
         log.info("/admin/member-master GET! - ");
 
-        List<Master> masterList = mms.findMasterService();
+        List<MasterAndMember> masterList = mms.findMasterService();
 
         model.addAttribute("masterList", masterList);
         log.info("masterList - {}", masterList);

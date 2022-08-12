@@ -1,6 +1,5 @@
 package com.project.foodiefoodie.member.repository;
 
-import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import org.apache.ibatis.annotations.Mapper;
 

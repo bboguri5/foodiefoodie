@@ -7,7 +7,7 @@ import java.util.Date;
 @Getter @Setter @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class Master extends Member{
+public class MasterAndMember extends Member{
     private String businessNo;
     private String masterName;
     private String storeName;

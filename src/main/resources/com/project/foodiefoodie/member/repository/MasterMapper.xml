@@ -8,7 +8,7 @@
   -->
 <mapper namespace="com.project.foodiefoodie.member.repository.MasterMapper">
 
-    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
+    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.MasterAndMember">
         <result property="nickName" column="nick_name"/>
         <result property="phoneNumber" column="phone_number"/>
         <result property="registDate" column="regist_date"/>

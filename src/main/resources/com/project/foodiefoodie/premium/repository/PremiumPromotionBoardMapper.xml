@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.foodiefoodie.premium.repository.PremiumPromotionBoardMapper">
+
+    <select id="findSevenRand" resultType="com.project.foodiefoodie.premium.dto.PremiumPromotionBoardDTO">
+        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS
+        storeName, store_address AS storeAddress, file_path AS filePath
+        FROM (
+        SELECT M.business_no, avg_star_rate, review_cnt, store_name, store_address, file_path
+        FROM master M
+        JOIN (
+        SELECT * FROM promotion_board P
+        JOIN premiume_promotion_board PB
+        ON PB.promotion_bno = P.promotion_bno) T
+        ON M.business_no = T.business_no
+        ORDER BY DBMS_RANDOM.RANDOM
+        ) sub
+        WHERE ROWNUM BETWEEN 1 AND 7
+    </select>
+
+    <select id="findAll" resultType="com.project.foodiefoodie.premium.dto.PremiumPromotionBoardDTO">
+        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS
+        storeName, store_address AS storeAddress, file_path AS filePath
+        FROM (SELECT ROWNUM rn, t_pb.*
+        FROM (
+        SELECT M.business_no, avg_star_rate, review_cnt, store_name, store_address, file_path
+        FROM master M
+        JOIN (
+        SELECT * FROM promotion_board P
+        JOIN premiume_promotion_board PB
+        ON PB.promotion_bno = P.promotion_bno) T
+        ON M.business_no = T.business_no
+        ORDER BY end_date
+        ) t_pb)
+        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
+    </select>
+
+    <select id="getMyTotalCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM premiume_promotion_board
+    </select>
+
+</mapper>

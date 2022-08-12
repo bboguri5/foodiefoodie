@@ -1,7 +1,6 @@
 package com.project.foodiefoodie.member.service;
 
 
-import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;

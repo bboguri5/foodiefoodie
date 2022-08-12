@@ -15,4 +15,5 @@ public class PremiumPromotionBoardDTO {
     String storeName;
     String storeAddress;
     char hotDeal;
+    String filePath;
 }

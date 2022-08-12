@@ -84,7 +84,7 @@
                         <div class="strip">
                             <figure>
                                 <span class="ribbon off">${hd.discountPrice}원</span>
-                                <img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="img-fluid lazy"
+                                <img src="${hd.filePath}" data-src="${hd.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">

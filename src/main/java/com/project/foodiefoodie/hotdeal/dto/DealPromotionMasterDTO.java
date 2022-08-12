@@ -18,4 +18,5 @@ public class DealPromotionMasterDTO {
     String storeName;
     String storeAddress;
     char hotDeal;
+    String filePath;
 }

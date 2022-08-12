@@ -585,6 +585,8 @@
     </script>
 
 
+
+
     <!-- 이미지 파일 검증 및 미리보기 화면 출력하는 스크립트 영역 -->
     <script>
         const $titleInput = document.getElementById('title-img');
@@ -599,37 +601,84 @@
         // const $hiddenMenuBox = document.getElementById('hidden-menu-box');
 
 
-        function makeMenuPreviewDOM(this, fileNames) {
+        function makeMenuPreviewDOM(nowInput, fileNames) {
 
             // 이미 존재하는 hidden input 태그가 있다면 지우자
-            console.log($(this).parent().next().next().children());
-            // if ()
+            // console.log($(nowInput).parent().next().next().children().length);
+            const $nowMenuHiddenBox = $(nowInput).parent().next().next();
+
+            if ($nowMenuHiddenBox.children().length > 0) {
+                for (let hiddenInput of [...$nowMenuHiddenBox.children()]) {
+                    $nowMenuHiddenBox.remove(hiddenInput);
+                }
+            }
+
+
+            for (let fileName of fileNames) {
+
+                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
+
+                // 동기요청 처리시 hidden 타입인 input 창에 src = 풀경로, alt는 orgin파일명을 넣어줘서
+                // form 태그를 활용해 post 요청을 보낸다.
+                const $newHiddenInput = document.createElement('input');
+                $newHiddenInput.setAttribute('type', 'hidden');
+                $newHiddenInput.setAttribute('name', 'menuImg');
+                $newHiddenInput.setAttribute('value', fileName);
+                $newHiddenInput.classList.add('hidden-menu-img');
+
+
+                // form 태그에 삽입
+                $(nowInput).parent().next().next().append($newHiddenInput);
+
+
+                // 비동기로 받아온 이미지 띄우는 로직
+                const $img = document.createElement('img');
+                $img.classList.add('preview-menu-img');
+
+                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
+                $img.setAttribute('alt', originFileName);
+
+
+                const $menuPreviewHidden = $(nowInput).parent().next().first();
+                console.log($menuPreviewHidden);
+
+                console.log($menuPreviewHidden.children().length);
+
+                
+                if ($menuPreviewHidden.children().length > 0) {
+                    console.log($menuPreviewHidden.children().length);
+                    $menuPreviewHidden.remove($menuPreviewHidden.first());
+                }
+
+                $menuPreviewHidden.css('display', 'block');
+                $menuPreviewHidden.append($img);
+            }
 
         }
 
 
-        function ajaxMenuPreview(this) {
+        function ajaxMenuPreview(nowInput) {
             const formData = new FormData();
 
-            for (let file of this.files) {
+            const input = $(nowInput);
+
+            for (let file of input[0].files) {
                 formData.append('files', file);
             }
+
+
+            const reqObj = {
+                method: 'POST',
+                body: formData
+            };
+
+            fetch('/ajax-upload', reqObj)
+                .then(res => res.json())
+                .then(fileNames => {
+                    makeMenuPreviewDOM(input, fileNames);
+                });
+
         }
-
-
-
-        const reqObj = {
-            method: 'POST',
-            body: formData
-        };
-
-        fetch('/ajax-upload', reqObj)
-            .then(res => res.json())
-            .then(fileNames => {
-                makeMenuPreviewDOM(this, fileNames);
-            });
-
-
 
 
 
@@ -820,7 +869,8 @@
 
                 // menu 이미지 미리보기 비동기 처리
                 if ($(this).hasClass('menu')) {
-                    ajaxMenuPreview(this);
+                    const $nowInput = $(this);
+                    ajaxMenuPreview($nowInput);
                 }
             }
         });

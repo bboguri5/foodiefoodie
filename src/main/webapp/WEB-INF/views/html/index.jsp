@@ -209,36 +209,13 @@
 
 			<div class="main_title">
 				<span><em></em></span>
-				<h2>어떤 지역 맛집</h2>
+				<h2 id="locationHeader"></h2>
 				<p>근처 맛집을 찾아보세용~</p>
 				<a id="viewAll" href="#0">View All</a>
 			</div>
 
 			<div id="locationList" class="owl-carousel owl-theme carousel_4">
-				<!-- <div class="owl-stage-outer">
-					<div class="owl-stage">
-						<div id="locationList" class="owl-item active">
-
-						</div>
-
-					</div>
-					<div class="owl-nav">
-						<button type="button" role="presentation" class="owl-prev disabled">
-							<i class="arrow_carrot-left"></i>
-						</button>
-						<button type="button" role="presentation" class="owl-next"><i class="arrow_carrot-right"></i>
-						</button>
-					</div>
-					<div class="owl-dots">
-						<button role="button" class="owl-dot active"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
-					</div>
-				</div> -->
+				
 			</div>
 			<!-- /carousel -->
 
@@ -274,8 +251,7 @@
 									<li>
 										<a href="detail-restaurant.html">
 											<figure>
-												<img src="${hd.filePath}" data-src="${hd.filePath}" alt=""
-													class="lazy">
+												<img src="${hd.filePath}" data-src="${hd.filePath}" alt="" class="lazy">
 											</figure>
 											<div class="score">
 												<strong>${hd.avgStarRate}</strong>
@@ -300,8 +276,7 @@
 									<li>
 										<a href="detail-restaurant.html">
 											<figure>
-												<img src="${hd.filePath}" data-src="${hd.filePath}" alt=""
-													class="lazy">
+												<img src="${hd.filePath}" data-src="${hd.filePath}" alt="" class="lazy">
 											</figure>
 											<div class="score">
 												<strong>${hd.avgStarRate}</strong></div>
@@ -337,7 +312,8 @@
 						<p>Join Us to increase your online visibility. You'll have access to even more
 							customers who are
 							looking to enjoy your tasty dishes at home.</p>
-						<a href="/request-auth" class="btn_1">사업자 등록하기</a>
+
+						<div class="btn_1 addMaster">사업자 등록하기</div>
 					</div>
 				</div>
 			</div>
@@ -353,7 +329,19 @@
 
 	<script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
+
+		// 로그인 한 사람만 사업자 등록 할수있음
+		document.querySelector('.addMaster').onclick = e => {
+			if ('${loginUser}' != '') {
+				location.href = '/request-auth';
+			} else {
+				alert('로그인 해주세요');
+			}
+		};
+
 		$(document).ready(function () {
+
+
 			var options = {
 				enableHighAccuracy: true,
 				timeout: 5000,
@@ -394,7 +382,7 @@
 						fetch('/mylocation?storeAddress=' + address)
 							.then(res => res.json())
 							.then(replyMap => {
-								makeLocationDom(replyMap);
+								makeLocationDom(replyMap, address);
 								const $viewAll = document.getElementById('viewAll');
 								$viewAll.onclick = e => {
 									location.href = '/locationlist?storeAddress=' + address;
@@ -407,8 +395,10 @@
 
 			function makeLocationDom({
 				masterList
-			}) {
+			}, address) {
 				console.log(masterList);
+
+				document.getElementById('locationHeader').innerHTML = address + ' 지역 맛집'; 
 
 				// 각 리스트 하나의 태그
 				let tag = '';

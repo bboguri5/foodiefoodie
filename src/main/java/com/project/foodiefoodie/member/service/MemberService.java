@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.member.service;
 
 import com.project.foodiefoodie.member.domain.Member;
+import com.project.foodiefoodie.member.dto.ModifyDTO;
 import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DeleteMemberDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
@@ -81,8 +82,11 @@ public class MemberService {
 
 
     // 회원 수정 중간처리 (만들어야 함)
-    public boolean modifyMemberService() {
-        return false;
+    public boolean modifyMemberService(ModifyDTO modifyDTO ) {
+        log.info("go mapper modi {}", modifyDTO);
+        modifyDTO.setEmail(modifyDTO.getEmail().trim());
+        boolean b = memberMapper.modifyMember(modifyDTO);
+        return b;
     }
 
 
@@ -171,4 +175,16 @@ public class MemberService {
             memberMapper.deleteAutoLoginValue(email);
         }
     }
+
+    // 비밀번호 검증 메서드
+    public boolean findPasswordService(String email ,String password){ // 정상작동함
+        String dbPassword = memberMapper.findPassword(email);
+        if(encoder.matches(password ,dbPassword)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
 }

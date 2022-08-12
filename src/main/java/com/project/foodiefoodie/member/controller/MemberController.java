@@ -2,6 +2,8 @@ package com.project.foodiefoodie.member.controller;
 
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
+import com.project.foodiefoodie.member.dto.ModifyDTO;
+import com.project.foodiefoodie.member.dto.PasswordDTO;
 import com.project.foodiefoodie.member.dto.login.LoginDTO;
 import com.project.foodiefoodie.member.service.LoginFlag;
 import com.project.foodiefoodie.member.service.MemberService;
@@ -12,10 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -118,4 +118,61 @@ public class MemberController {
         // 로그인 상태가 아니라면~
         return "redirect:/";
     }
+
+
+    @GetMapping("/myPage-profile")
+    public String myPageProfile(HttpSession session, Model model){
+        Member loginUser =(Member) session.getAttribute("loginUser");
+        // 새션에는 값이 안변하니까 값이 변한 DB 데이터 값을 가져온다 !
+        Member member = memberService.findMember(loginUser.getEmail());
+        model.addAttribute("member",member);
+        log.info("myPage-profile");
+        return "/myPage/myPage-profile";
+    }
+    @GetMapping("/myPage-modify")
+    public String myPageModify(){
+        log.info("myPage-modify");
+        return "/myPage/myPage-modify";
+    }
+
+    @PostMapping("/modifyMember")
+    public String PostModifyMember(HttpSession session , ModifyDTO modifyDTO ){
+        log.info("modifyDTO : {}" , modifyDTO);
+        memberService.modifyMemberService(modifyDTO);
+        log.info("go service ");
+        return "redirect:/myPage-profile";
+    }
+//
+//    // 비밀번호 수정 하는 페이지
+//    @GetMapping("/changePassword")
+//    public String getChangePassword(){
+//
+//        return "/myPage/myPage-changePassword";
+//    }
+//
+//    @PostMapping("/changePassword")
+//    public String postChangePassword(String word){
+//
+//        return "/myPage/myPage-changePassword";
+//    }
+
+    @PostMapping("/trueAndFalsePassword")
+    @ResponseBody
+    public String trueAndFalsePassword(HttpSession session , @RequestBody PasswordDTO password){
+        Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
+        log.info("password =  {} " , password.getPassword());
+        boolean passwordService= memberService.findPasswordService(member.getEmail(), password.getPassword());
+        log.info("passwordService ========= {}",passwordService);
+        if (passwordService){
+            log.info("password-success");
+            return "password-success";
+        }else {
+            log.info("password-false");
+            return "password-false";
+        }
+    }
+
+
+
+
 }

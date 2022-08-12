@@ -2,9 +2,11 @@ package com.project.foodiefoodie.member.repository;
 
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.AuthDTO;
+import com.project.foodiefoodie.member.dto.ModifyDTO;
 import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MemberMapper {
@@ -28,7 +30,9 @@ public interface MemberMapper {
 
 
     // 회원 정보 수정 기능
-    boolean modifyMember(Member member);
+    boolean modifyMember(ModifyDTO modifyDTO);
+
+    boolean modifyPassword(String password);
 
 
     // 자동로그인 쿠키값(세션 아이디값) DB에 저장
@@ -39,4 +43,9 @@ public interface MemberMapper {
 
     // 쿠키값(세션아이디)을 가지고 있는 회원 이메일 조회
     AutoLoginDTO findIsAutoLoginBySessionId(String sessionId);
+
+
+    // 비밀번호 가져오는 메서드 // 이걸로 비밀번호만 검증할것임 // 수정할때나 , 비밀번호 바꿀때
+    String findPassword(String email);
+
 }

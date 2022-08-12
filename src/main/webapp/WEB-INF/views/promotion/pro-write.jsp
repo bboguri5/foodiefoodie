@@ -106,21 +106,25 @@
             display: none;
         }
 
+        .detail-preview {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
         .preview-title-img {
             width: 100%;
             height: 150px;
         }
 
         .preview-detail-img {
-            width: 20%;
+            width: 15%;
             height: 150px;
-            margin-right: 10px;
         }
     </style>
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    <form action="" enctype="multipart/form-data">
+    <form id="promotionWriteForm" action="/foodie/write" enctype="multipart/form-data">
         <div class="content-wrapper">
             <div class="container-fluid">
                 <!-- Breadcrumbs-->
@@ -201,12 +205,13 @@
                                     <div class="form-group">
                                         <label>Photos</label>
                                         <div>
-                                            <input type="file" name="titleImg" id="title-img" class="title"
+                                            <input type="file" id="title-img" class="title"
                                                 accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
                                         <div class="preview"><span>미리보기</span>
                                             <div id="title-preview"></div>
                                         </div>
+                                        <div id="hidden-title-box"></div>
                                     </div>
                                 </div>
                             </div>
@@ -218,12 +223,13 @@
                                     <div class="form-group">
                                         <label>Photos</label>
                                         <div>
-                                            <input type="file" name="detailImgList" id="detail-img" class="detail" multiple
+                                            <input type="file" id="detail-img" class="detail" multiple
                                                 accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
                                         <div class="preview multiple"><span>미리보기</span>
                                             <div id="detail-preview"></div>
                                         </div>
+                                        <div id="hidden-detail-box"></div>
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +259,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control menu-name" name="menu"
+                                                        <input type="text" class="form-control menu-name"
                                                             placeholder="메뉴명">
                                                     </div>
                                                 </div>
@@ -283,6 +289,7 @@
                                     class="fa fa-fw fa-plus-circle"></i>Add
                                 Item</a>
                         </div>
+                        <div id="hidden-menu-box"></div>
                         <script>
                             // Pricing add
                             function newMenuItem() {
@@ -536,6 +543,10 @@
         const $titleInput = document.getElementById('title-img');
         const $detailInput = document.getElementById('detail-img');
         const $detailPreviewHidden = document.getElementById('detail-preview');
+        const $hiddenTitleBox = document.getElementById('hidden-title-box');
+        const $hiddenDetailBox = document.getElementById('hidden-detail-box');
+        const $hiddenMenuBox = document.getElementById('hidden-menu-box');
+
 
         function isExistDetailPreviewDOM() {
             // console.log($detailPreviewHidden.children.length);
@@ -556,9 +567,28 @@
 
         function makeDetailPreviewDOM(fileNames) {
 
+            // 이미 존재하는 hidden 속성의 input 태그를 지우자.
+            if($hiddenDetailBox.children.length > 0) {
+                for (let hiddenInput of [...$hiddenDetailBox.children]) {
+                    $hiddenDetailBox.removeChild(hiddenInput);
+                }
+            }
+
+            
             for (let fileName of fileNames) {
 
                 let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
+
+
+                const newHiddenInput = document.createElement('input');
+                newHiddenInput.setAttribute('type', 'hidden');
+                newHiddenInput.setAttribute('value', fileName);
+                newHiddenInput.setAttribute('name', 'detailImg');
+                newHiddenInput.classList.add('hidden-detail-img');
+
+                // 삽입!
+                $hiddenDetailBox.appendChild(newHiddenInput);
+
 
                 const $img = document.createElement('img');
                 $img.classList.add('preview-detail-img');
@@ -599,10 +629,33 @@
 
         function makeTitlePreviewDOM(fileNames) {
 
+            // 여기서 이미 들어간 히든 인풋을 지워주면 되나..?
+            if($hiddenTitleBox.children.length > 0) {
+                for (let hiddenInput of [...$hiddenTitleBox.children]) {
+                    $hiddenTitleBox.removeChild(hiddenInput);
+                }
+            }
+            
+
+
             for (let fileName of fileNames) {
 
                 let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
 
+                // 동기요청 처리시 hidden 타입인 input 창에 src = 풀경로, alt는 orgin파일명을 넣어줘서
+                // form 태그를 활용해 post 요청을 보낸다.
+                const $newHiddenInput = document.createElement('input');
+                $newHiddenInput.setAttribute('type', 'hidden');
+                $newHiddenInput.setAttribute('name', 'titleImg');
+                $newHiddenInput.setAttribute('value', fileName);
+                $newHiddenInput.classList.add('hidden-title-img');
+
+
+                // form 태그에 삽입
+                $hiddenTitleBox.appendChild($newHiddenInput);
+
+
+                // 비동기로 받아온 이미지 띄우는 로직
                 const $img = document.createElement('img');
                 $img.classList.add('preview-title-img');
 
@@ -647,6 +700,8 @@
         $(document).on("change", "input[type='file']", function () {
 
             var file_path = $(this).val();
+
+            file_path = file_path.toLowerCase();
 
             var reg = /(.*?)\.(jpg|bmp|jpeg|png|gif)$/;
 

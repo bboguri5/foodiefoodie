@@ -112,21 +112,21 @@
 
                             <c:if test="${pm.prev}">
                                 <li class="page-item"><a class="page-link"
-                                        href="/hashtag?pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
+                                        href="/hashtag?tag=${tag}&pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
                                 </li>
                             </c:if>
 
                             <!-- step=1인 경우,, 생략 가능!! -->
                             <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
                                 <li data-page-num="${n}" class="page-item"><a class="page-link"
-                                        href="/hashtag?pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
+                                        href="/hashtag?tag=${tag}&pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
                                 </li>
                             </c:forEach>
 
 
                             <c:if test="${pm.next}">
                                 <li class="page-item"><a class="page-link"
-                                        href="/hashtag?pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
+                                        href="/hashtag?tag=${tag}&pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
                                 </li>
                             </c:if>
                         </ul>

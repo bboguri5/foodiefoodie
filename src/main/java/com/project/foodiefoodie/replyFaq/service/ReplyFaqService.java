@@ -15,13 +15,17 @@ public class ReplyFaqService {
 
     private final ReplyFaqMapper mapper;
 
-    public List<ReplyFaq> findAllService() {
-        List<ReplyFaq> replyFaqList = mapper.findAll();
+    public List<ReplyFaq> findAllService(String complete) {
+        List<ReplyFaq> replyFaqList = mapper.findAll(complete);
         return replyFaqList;
     }
 
     public ReplyFaq findOneService(long replyFaqNo) {
         ReplyFaq replyFaq = mapper.findOne(replyFaqNo);
         return replyFaq;
+    }
+
+    public boolean updateService(long replyFaqNo, String complete) {
+        return mapper.update(replyFaqNo, complete);
     }
 }

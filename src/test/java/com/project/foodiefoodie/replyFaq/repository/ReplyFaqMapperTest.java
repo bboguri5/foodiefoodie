@@ -19,7 +19,7 @@ class ReplyFaqMapperTest {
     @Test
     @DisplayName("댓글 신고 리스트를 불러와야 한다.")
     void findAllTest() {
-        List<ReplyFaq> list = mapper.findAll();
+        List<ReplyFaq> list = mapper.findAll("F");
         for (ReplyFaq i : list) {
             System.out.println(i);
         }
@@ -30,6 +30,12 @@ class ReplyFaqMapperTest {
     void findOneTest() {
         ReplyFaq one = mapper.findOne(1);
         System.out.println(one);
+    }
+
+    @Test
+    @DisplayName("해당 댓글 신고가 n으로 바뀌어야 한다.")
+    void updateTest() {
+        mapper.update(21, "F");
     }
 
 }

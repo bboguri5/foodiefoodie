@@ -7,6 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface ReplyFaqMapper {
-    List<ReplyFaq> findAll();
+    List<ReplyFaq> findAll(String complete);
     ReplyFaq findOne(long replyFaqNo);
+    boolean update(long replyFaqNo, String complete);
+
 }

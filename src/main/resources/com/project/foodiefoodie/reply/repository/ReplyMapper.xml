@@ -8,4 +8,17 @@
   -->
 <mapper namespace="com.project.foodiefoodie.reply.repository.ReplyMapper">
 
+    <resultMap id="replyMap" type="com.project.foodiefoodie.reply.domain.Reply">
+        <result property="reviewBno" column="review_bno"/>
+        <result property="replyNo" column="reply_no"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="lastUpdate" column="last_update"/>
+    </resultMap>
+
+    <delete id="remove">
+        DELETE FROM reply
+        WHERE reply_no = #{replyNo}
+    </delete>
+
+
 </mapper>

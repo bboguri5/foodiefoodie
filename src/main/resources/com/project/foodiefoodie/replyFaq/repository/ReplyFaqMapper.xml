@@ -12,10 +12,12 @@
         <result property="replyNo" column="reply_no"/>
         <result property="writerEmail" column="writer_email"/>
         <result property="faqComplete" column="faq_complete"/>
+        <result property="replyWriterEmail" column="reply_writer_email"/>
     </resultMap>
 
     <select id="findAll" resultMap="replyFaq">
         SELECT * FROM reply_faq
+        WHERE faq_complete = #{complete}
     </select>
 
     <select id="findOne" resultMap="replyFaq">
@@ -23,7 +25,10 @@
         WHERE reply_faq_no = #{replyFaqNo}
     </select>
 
-
+    <update id="update">
+        UPDATE reply_faq SET faq_complete = #{complete}
+        WHERE reply_faq_no = #{replyFaqNo}
+    </update>
 
 
 </mapper>

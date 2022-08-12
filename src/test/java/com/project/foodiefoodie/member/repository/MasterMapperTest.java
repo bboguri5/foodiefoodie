@@ -2,6 +2,7 @@ package com.project.foodiefoodie.member.repository;
 
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
+import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ class MasterMapperTest {
     @Test
     @DisplayName("일치하는 주소를 가진 마스터 정보를 가져와야 한다")
     void findLocationRandTest() {
-        List<MasterDTO> list = mapper.findLocationRand("서울 금천구");
+        List<PromotionMasterDTO> list = mapper.findLocationRand("서울 금천구");
         System.out.println(list);
     }
 

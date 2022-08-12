@@ -44,7 +44,7 @@ CREATE SEQUENCE seq_reply_faq;
 
 
 -- TABLE ����
--- ���� -- ����԰� �ٸ� ���̺� 
+-- ���� -- ����԰� �ٸ� ���̺�
 CREATE TABLE member (
     email VARCHAR2(50) PRIMARY KEY
     , password VARCHAR2(50) NOT NULL
@@ -61,28 +61,93 @@ CREATE TABLE member (
 
 
 insert into member (email, password, nick_name, phone_number, birth, address, name, gender)
-VALUES('abc1234@naver.com', 'aaaa', '�浿��', '01012341234', '20000101', '����', 'ȫ�浿', 'M');
+VALUES('abc1234@naver.com', 'aaaa', 'Julie', '01012341234', '20000101', '서울 금천구', '서해원', 'M');
 insert into member (email, password, nick_name, phone_number, birth, address, name, gender)
-VALUES('bbbb2222@naver.com', '1234', 'ö��', '01022225555', '20001212', '�뱸', '��ö��', 'M');
+VALUES('bbbb2222@naver.com', '1234', 'Haewon', '01022225555', '20001212', '서울 강남구', '해원서', 'F');
 
+SELECT * FROM master;
 insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
-VALUES('1234-2222-3333-1111', 'abc1234@naver.com', 'ȫ�浿', '�浿�̳׺н���', '���� ������ ���絿', '�н�', '010-2222-3333');
+VALUES('1234-2222-3333-1111', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠', '서울 금천구 가산동', '족발', '010-2222-3333');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1112', 'abc1234@naver.com', '서해원', '맛나다 냉면', '서울 금천구 가산동', '냉면', '010-3222-2333');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1113', 'abc1234@naver.com', '서해원', '오우 커피 맛나', '서울 강남구 도곡동', '커피', '010-2333-3553');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1114', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠2', '서울 금천구 가산동', '족발', '010-2222-3333');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1115', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠3', '서울 금천구 가산동', '족발', '010-2222-3333');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1116', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠3', '서울 금천구 가산동', '족발', '010-2222-3333');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1117', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠4', '서울 금천구 가산동', '족발', '010-2222-3333');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1118', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠5', '서울 금천구 가산동', '족발', '010-2222-3333');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1119', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠6', '서울 금천구 가산동', '냉면', '010-2222-3333');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1120', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠7', '서울 금천구 가산동', '국밥', '010-2222-3333');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+VALUES('1234-2222-3333-1121', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠8', '서울 금천구 가산동', '삼겹살', '010-2222-3333');
+insert into master (business_no, email, master_name, store_name, store_address, food_categories, hot_deal, store_call_number)
+VALUES('1234-2222-3333-1122', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠9', '서울 금천구 가산동', '비빔밥', 'Y', '010-2222-3333');
+
+SELECT * FROM hot_deal;
+
+INSERT INTO hot_deal (business_no, discount_price, end_date, start_date)
+VALUES ('1234-2222-3333-1122', 8000, 20220809, 20220707);
+
+SELECT * FROM promotion_board;
+
+INSERT INTO promotion_board (business_no, promotion_bno, content, title)
+VALUES ('1234-2222-3333-1122', seq_promotion_board.nextval, '내용입니다요오오오오', '제목이구요오오오');
+
+SELECT * FROM premiume_promotion_board;
+
+INSERT INTO premiume_promotion_board
+VALUES(1, 20220101, 20220808);
+INSERT INTO premiume_promotion_board
+VALUES(2, 20220101, 20220809);
+INSERT INTO premiume_promotion_board
+VALUES(3, 20220101, 20220820);
+INSERT INTO premiume_promotion_board
+VALUES(4, 20220101, 20220822);
+INSERT INTO premiume_promotion_board
+VALUES(5, 20220101, 20220807);
+INSERT INTO premiume_promotion_board
+VALUES(6, 20220101, 20220731);
+INSERT INTO premiume_promotion_board
+VALUES(7, 20220101, 20220808);
+INSERT INTO premiume_promotion_board
+VALUES(8, 20220101, 20220808);
+
+SELECT * FROM review_board;
+DROP TABLE review_board;
+
+-- ReviewBoardMapperTest 에서 INSERT
+INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate)
+VALUES ('bbbb2222@naver.com', '제목입니다~', '내용입니다~', seq_review_board.nextval, '1234-2222-3333-1111', 5);
+
+COMMIT;
+
+
+
+
 
 update member set auth = 'MASTER' WHERE email = 'abc1234@naver.com';
 
 SELECT * FROM MEMBER ;
 
-SELECT * FROM MEMBER 
+SELECT * FROM MEMBER
 WHERE email = 'soslimso@naver.com'
 ;
 
 
-DELETE FROM member 
+DELETE FROM member
 where email = 'soslimso@naver.com'
 ;
 
 
-DELETE FROM member 
+DELETE FROM member
 where email = 'bbbb2222@naver.com'
 ;
 
@@ -111,7 +176,7 @@ RENAME COLUMN cookie TO session_id;
 ALTER TABLE auto_login
 MODIFY ip_address VARCHAR2(30) NULL;
 
--- �����-- ����ڿ� �Ϲ� ����� ���̺� ���� 
+-- �����-- ����ڿ� �Ϲ� ����� ���̺� ����
 CREATE TABLE MASTER (
     business_no VARCHAR2(50) PRIMARY KEY
     , email VARCHAR2(50) NOT NULL
@@ -123,7 +188,7 @@ CREATE TABLE MASTER (
     , hot_deal VARCHAR2(2) DEFAULT 'N'
     , store_call_number VARCHAR2(20) NOT NULL
     , CONSTRAINT fk_master_email
-    FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE    
+    FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE
 );
 alter table master modify STORE_REG_DATE number(10);
 
@@ -138,9 +203,6 @@ CREATE TABLE promotion_board (
     , CONSTRAINT fk_busi_no FOREIGN KEY (business_no)
     REFERENCES master (business_no) ON DELETE CASCADE
 );
-
-ALTER TABLE promotion_board
-ADD avg_star_rate DECIMAL(1, 2);
 
 insert into promotion_board VALUES (101010
 ,seq_promotion_board.nextval
@@ -212,6 +274,7 @@ CREATE TABLE review_board (
     REFERENCES member (email) ON DELETE CASCADE
 );
 
+
 -- �ֵ�
 CREATE TABLE hot_deal (
     business_no VARCHAR2(50) NOT NULL
@@ -227,8 +290,6 @@ MODIFY start_date NUMBER(10);
 
 alter table hot_deal
 MODIFY end_date NUMBER(10);
-
-
 
 -- ���ã��
 CREATE TABLE favorite_store (

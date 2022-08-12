@@ -89,11 +89,12 @@
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
                                         <h3>${hd.storeName}</h3>
+                                        <small>${hd.storeAddress}</small>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${hd.storeAddress}</span></li>
+                                <li><span>기간: ${hd.endDate}</span></li>
                                 <li>
                                     <div class="score"><span>핫딜!!<em>${hd.reviewCnt}개 리뷰</em></span><strong>${hd.avgStarRate}</strong></div>
                                 </li>

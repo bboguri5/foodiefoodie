@@ -16,6 +16,23 @@
 		#locationList .item {
 			width: 16%;
 		}
+
+		.search form {
+			display: flex;
+		}
+
+		.search .form-select {
+			flex: 1;
+			margin-top: 8px;
+			border-radius: 10px;
+		}
+
+
+		.search .row {
+			flex: 10;
+		}
+
+		
 	</style>
 </head>
 
@@ -32,21 +49,28 @@
 						<div class="col-xl-9 col-lg-10 col-md-8">
 							<h1>푸디푸디</h1>
 							<p>Foodies Welcome Here</p>
-							<form method="post" action="grid-listing-filterscol.html">
-								<div class="row g-0 custom-search-input">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<input class="form-control no_border_r" type="text"
-												placeholder="지역, 식당, 또는 음식">
-											<i class="icon_pin_alt"></i>
+
+							<div class="search">
+								<form action="/list" method="get">
+									<select class="form-select" name="type" id="search-type">
+										<option value="location">지역</option>
+										<option value="restaurant">식당</option>
+										<option value="food">음식</option>
+									</select>
+									<div class="row g-0 custom-search-input">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<input class="form-control no_border_r" type="text"
+													placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
+												<i class="icon_pin_alt"></i>
+											</div>
+										</div>
+										<div class="col-lg-2">
+											<input type="submit" value="Search">
 										</div>
 									</div>
-									<div class="col-lg-2">
-										<input type="submit" value="Search">
-									</div>
-								</div>
-								<!-- /row -->
-							</form>
+								</form>
+							</div>
 						</div>
 					</div>
 					<!-- /row -->
@@ -174,7 +198,8 @@
 							<ul>
 								<li><span class="loc_open">Now Open</span></li>
 								<li>
-									<div class="score"><span>푸디푸디가 추천하는 맛집<em>${pl.reviewCnt}개 리뷰</em></span><strong>${pl.avgStarRate}</strong></div>
+									<div class="score"><span>푸디푸디가 추천하는 맛집<em>${pl.reviewCnt}개
+												리뷰</em></span><strong>${pl.avgStarRate}</strong></div>
 								</li>
 							</ul>
 						</div>

@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.promotion.repository;
 
 import com.project.foodiefoodie.common.paging.Page;
+import com.project.foodiefoodie.common.search.Search;
 import com.project.foodiefoodie.promotion.domain.PromotionBoard;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import com.project.foodiefoodie.promotion.dto.PromotionReviewDTO;
@@ -26,5 +27,9 @@ public interface PromotionBoardMapper {
     List<PromotionMasterDTO> findAll(Page page);
 
     int getMyTotalCnt();
+
+    List<PromotionMasterDTO> findAllSearch(Search search);
+
+    int getTotalCount(Search search);
 }
 

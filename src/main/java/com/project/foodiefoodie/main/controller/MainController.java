@@ -2,6 +2,7 @@ package com.project.foodiefoodie.main.controller;
 
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.common.paging.PageMaker;
+import com.project.foodiefoodie.common.search.Search;
 import com.project.foodiefoodie.hotdeal.dto.DealPromotionMasterDTO;
 import com.project.foodiefoodie.hotdeal.service.HotDealService;
 import com.project.foodiefoodie.member.service.MasterService;
@@ -14,6 +15,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 import java.util.Map;
@@ -77,6 +79,24 @@ public class MainController {
         model.addAttribute("masterList", findAllMap.get("dbList"));
         model.addAttribute("address", storeAddress);
         return "html/location-list";
+    }
+
+    @GetMapping("/list")
+    public String list(@ModelAttribute("s") Search search, Model model) {
+        log.info("controller request /board/list GET! - search: {}", search);
+
+        Map<String, Object> boardMap = promotionBoardService.findAllSearchService(search);
+        log.info("return data - {}", boardMap.get("bList"));
+
+        // 페이지 정보 생성
+        PageMaker pm = new PageMaker(
+                new Page(search.getPageNum(), search.getAmount())
+                , (Integer) boardMap.get("tc"));
+
+        model.addAttribute("bList", boardMap.get("bList"));
+        model.addAttribute("pm", pm);
+
+        return "html/search-list";
     }
 
     @GetMapping("/test")

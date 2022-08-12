@@ -33,7 +33,7 @@ public class PromotionBoardService {
     // 모든 소개글 정보 요청 중간 처리
     public Map<String, Object> findAllService(Page page) {
         List<PromotionMasterDTO> DBList = mapper.findAll(page);
-        int totalCnt = mapper.getMyTotalCnt();
+        int totalCnt = mapper.getTotal();
         Map<String, Object> map = new HashMap<>();
         map.put("dbList", DBList);
         map.put("tc", totalCnt);
@@ -60,8 +60,14 @@ public class PromotionBoardService {
         return mapper.findHashTagCount(hashTag);
     }
 
-    public List<PromotionMasterDTO> findHashTagService(String tag, Page page) {
-        return mapper.findHashTag(tag, page);
+    public Map<String, Object>  findHashTagService(String tag, Page page) {
+
+        Map<String, Object> findDataMap = new HashMap<>();
+
+        List<PromotionMasterDTO> hashTagList = mapper.findHashTag(tag, page);
+        findDataMap.put("bList", hashTagList);
+        findDataMap.put("tc", mapper.getMyTotalCnt(tag));
+        return findDataMap;
     }
 
     public boolean reportCntModifyService(int reportCnt, String businessNo) {

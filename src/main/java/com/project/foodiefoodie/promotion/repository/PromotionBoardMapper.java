@@ -27,7 +27,9 @@ public interface PromotionBoardMapper {
 
     List<PromotionMasterDTO> findAll(Page page);
 
-    int getMyTotalCnt();
+    int getMyTotalCnt(String hashTag);
+
+    int getTotal();
 
     List<PromotionMasterDTO> findAllSearch(Search search);
 

@@ -115,8 +115,15 @@ public class MainController {
 
     @GetMapping("/hashtag")
     public String hashTagList(Model model, String tag, Page page) {
-        List<PromotionMasterDTO> hashTagList = promotionBoardService.findHashTagService(tag, page);
-        model.addAttribute("hashTagList", hashTagList);
+        Map<String, Object> findAllMap = promotionBoardService.findHashTagService(tag, page);
+
+        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
+        model.addAttribute("tag", tag);
+        model.addAttribute("pm", pm);
+        model.addAttribute("hashTagList", findAllMap.get("bList"));
+
+        log.info("hashTagList pm.endPage - {}", pm.getEndPage());
+
         return "html/hash-search";
     }
 

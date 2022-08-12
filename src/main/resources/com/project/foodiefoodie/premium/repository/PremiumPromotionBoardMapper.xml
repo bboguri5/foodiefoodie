@@ -7,9 +7,9 @@
 
     <select id="findSevenRand" resultType="com.project.foodiefoodie.premium.dto.PremiumPromotionBoardDTO">
         SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS
-        storeName, store_address AS storeAddress
+        storeName, store_address AS storeAddress, file_path AS filePath
         FROM (
-        SELECT M.business_no, avg_star_rate, review_cnt, store_name, store_address
+        SELECT M.business_no, avg_star_rate, review_cnt, store_name, store_address, file_path
         FROM master M
         JOIN (
         SELECT * FROM promotion_board P
@@ -23,10 +23,10 @@
 
     <select id="findAll" resultType="com.project.foodiefoodie.premium.dto.PremiumPromotionBoardDTO">
         SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS
-        storeName, store_address AS storeAddress
+        storeName, store_address AS storeAddress, file_path AS filePath
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
-        SELECT M.business_no, avg_star_rate, review_cnt, store_name, store_address
+        SELECT M.business_no, avg_star_rate, review_cnt, store_name, store_address, file_path
         FROM master M
         JOIN (
         SELECT * FROM promotion_board P

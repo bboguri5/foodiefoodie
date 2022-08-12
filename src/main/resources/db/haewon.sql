@@ -21,6 +21,16 @@ DROP TABLE promotion_board;
 DROP TABLE MASTER;
 DROP TABLE auto_login;
 DROP TABLE member;
+DROP TABLE black_list;
+DROP TABLE black_list_master;
+DROP TABLE promotion_food_menu;
+DROP TABLE promotion_food_menu_upload;
+DROP TABLE promotion_upload_detail_img;
+DROP TABLE promotion_upload_title_img;
+DROP TABLE report_master;
+DROP TABLE report_member;
+
+
 
 
 -- DROP SEQUENCE
@@ -74,27 +84,27 @@ VALUES('bbbb2222@naver.com', '1234', 'Haewon', '01022225555', '20001212', '서�
 SELECT * FROM master;
 insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1111', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠', '서울 금천구 가산동', '010-2222-3333');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1112', 'abc1234@naver.com', '서해원', '맛나다 냉면', '서울 금천구 가산동', '010-3222-2333');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1113', 'abc1234@naver.com', '서해원', '오우 커피 맛나', '서울 강남구 도곡동', '010-2333-3553');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1114', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠2', '서울 금천구 가산동', '010-2222-3333');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1115', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠3', '서울 금천구 가산동', '010-2222-3333');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1116', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠3', '서울 금천구 가산동', '010-2222-3333');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1117', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠4', '서울 금천구 가산동', '010-2222-3333');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1118', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠5', '서울 금천구 가산동', '010-2222-3333');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1119', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠6', '서울 금천구 가산동', '010-2222-3333');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1120', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠7', '서울 금천구 가산동', '010-2222-3333');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
 VALUES('1234-2222-3333-1121', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠8', '서울 금천구 가산동', '010-2222-3333');
-insert into master (business_no, email, master_name, store_name, store_address, food_categories, hot_deal, store_call_number)
+insert into master (business_no, email, master_name, store_name, store_address, hot_deal, store_call_number)
 VALUES('1234-2222-3333-1122', 'abc1234@naver.com', '서해원', '맛있는 금천구 냠냠9', '서울 금천구 가산동', 'Y', '010-2222-3333');
 
 SELECT * FROM hot_deal;
@@ -103,28 +113,36 @@ INSERT INTO hot_deal (business_no, discount_price, end_date, start_date)
 VALUES ('1234-2222-3333-1122', 8000, 20220809, 20220707);
 
 SELECT * FROM promotion_board;
+DELETE FROM promotion_board;
 
-INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title)
-VALUES ('1234-2222-3333-1111', seq_promotion_board.nextval, '#한식 #족발 #금천구 #맛집', '내용입니다요오오오오', '제목이구요오오오');
+ALTER TABLE promotion_board
+ADD file_name VARCHAR2(100) NULL;
+
+ALTER TABLE promotion_board
+ADD file_path CLOB NOT NULL;
+
+
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1111', seq_promotion_board.nextval, '#한식 #족발 #맛집 #금천구', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
 
 SELECT * FROM premiume_promotion_board;
 
 INSERT INTO premiume_promotion_board
-VALUES(1, 20220101, 20220808);
+VALUES(17, 20220101, 20220808);
 INSERT INTO premiume_promotion_board
-VALUES(2, 20220101, 20220809);
+VALUES(10, 20220101, 20220809);
 INSERT INTO premiume_promotion_board
-VALUES(3, 20220101, 20220820);
+VALUES(11, 20220101, 20220820);
 INSERT INTO premiume_promotion_board
-VALUES(4, 20220101, 20220822);
+VALUES(12, 20220101, 20220822);
 INSERT INTO premiume_promotion_board
-VALUES(5, 20220101, 20220807);
+VALUES(13, 20220101, 20220807);
 INSERT INTO premiume_promotion_board
-VALUES(6, 20220101, 20220731);
+VALUES(14, 20220101, 20220731);
 INSERT INTO premiume_promotion_board
-VALUES(7, 20220101, 20220808);
+VALUES(15, 20220101, 20220808);
 INSERT INTO premiume_promotion_board
-VALUES(8, 20220101, 20220808);
+VALUES(16, 20220101, 20220808);
 
 SELECT * FROM review_board;
 DROP TABLE review_board;

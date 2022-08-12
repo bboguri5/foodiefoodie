@@ -85,7 +85,7 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="img-fluid lazy"
+                                <img src="${ht.filePath}" data-src="${ht.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">

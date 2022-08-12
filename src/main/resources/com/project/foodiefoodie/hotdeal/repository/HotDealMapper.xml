@@ -21,7 +21,7 @@
     <select id="findRandHot" resultType="com.project.foodiefoodie.hotdeal.dto.DealPromotionMasterDTO">
         SELECT business_no AS businessNo, discount_price AS discountPrice, end_date AS endDate, start_date AS
         startDate, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_address AS storeAddress, store_name AS
-        storeName
+        storeName, file_path AS filePath
         FROM (
         SELECT *
         FROM hot_deal H JOIN promotion_board P
@@ -36,7 +36,7 @@
     <select id="findAll" resultType="com.project.foodiefoodie.hotdeal.dto.DealPromotionMasterDTO">
         SELECT business_no AS businessNo, discount_price AS discountPrice, end_date AS endDate, start_date AS
         startDate, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_address AS storeAddress, store_name AS
-        storeName
+        storeName, file_path AS filePath
         FROM (SELECT ROWNUM rn, t_hotDeal.*
         FROM (
         SELECT *

@@ -25,10 +25,10 @@
     </select>
 
     <select id="findAllSearch" resultType="com.project.foodiefoodie.promotion.dto.PromotionMasterDTO">
-        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS storeName, store_address AS storeAddress, hashTag AS hashTag
+        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS storeName, store_address AS storeAddress, hashTag AS hashTag, file_path AS filePath
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
-        SELECT  P.business_no, avg_star_rate, review_cnt, store_name, store_address, hashTag
+        SELECT  P.business_no, avg_star_rate, review_cnt, store_name, store_address, hashTag, file_path
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         <!-- 동적 SQL : 검색을 하면 붙고, 안하면 안붙음 -->
@@ -40,10 +40,10 @@
     </select>
 
     <select id="findAll" resultType="com.project.foodiefoodie.promotion.dto.PromotionMasterDTO">
-        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS storeName, store_address AS storeAddress
+        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS storeName, store_address AS storeAddress, file_path AS filePath
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
-        SELECT  P.business_no, avg_star_rate, review_cnt, store_name, store_address
+        SELECT  P.business_no, avg_star_rate, review_cnt, store_name, store_address, file_path
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         ORDER BY avg_star_rate DESC
@@ -64,7 +64,7 @@
 
     <select id="topAvgRateCount" resultType="com.project.foodiefoodie.promotion.dto.PromotionMasterDTO">
         SELECT * FROM (
-        SELECT P.business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_address AS storeAddress, store_name AS storeName
+        SELECT P.business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_address AS storeAddress, store_name AS storeName, file_path AS filePath
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         ORDER BY avgStarRate DESC
@@ -91,7 +91,7 @@
     </select>
 
     <select id="findHashTag" resultType="com.project.foodiefoodie.promotion.dto.PromotionMasterDTO">
-        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS storeName, store_address AS storeAddress
+        SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_name AS storeName, store_address AS storeAddress, file_path AS filePath
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
         SELECT  P.business_no, avg_star_rate, review_cnt, store_name, store_address

@@ -16,4 +16,5 @@ public class PromotionMasterDTO {
     private String storeAddress;
     private char hotDeal;
     private String hashTag;
+    private String filePath;
 }

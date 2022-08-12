@@ -31,8 +31,6 @@
 		.search .row {
 			flex: 10;
 		}
-
-		
 	</style>
 </head>
 
@@ -150,8 +148,7 @@
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="owl-lazy"
-									alt="">
+								<img src="${pmd.filePath}" data-src="${pmd.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
 									<div class="item_title">
 										<h3>${pmd.storeName}</h3>
@@ -185,8 +182,7 @@
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="owl-lazy"
-									alt="">
+								<img src="${pl.filePath}" data-src="${pl.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
 									<small>Pizza</small>
 									<div class="item_title">
@@ -278,8 +274,8 @@
 									<li>
 										<a href="detail-restaurant.html">
 											<figure>
-												<img src="/img/location_list_placeholder.png"
-													data-src="/img/location_list_1.jpg" alt="" class="lazy">
+												<img src="${hd.filePath}" data-src="${hd.filePath}" alt=""
+													class="lazy">
 											</figure>
 											<div class="score">
 												<strong>${hd.avgStarRate}</strong>
@@ -304,8 +300,8 @@
 									<li>
 										<a href="detail-restaurant.html">
 											<figure>
-												<img src="/img/location_list_placeholder.png"
-													data-src="/img/location_list_1.jpg" alt="" class="lazy">
+												<img src="${hd.filePath}" data-src="${hd.filePath}" alt=""
+													class="lazy">
 											</figure>
 											<div class="score">
 												<strong>${hd.avgStarRate}</strong></div>
@@ -426,7 +422,8 @@
 							`<div class="item">` +
 							`   <div class="strip">` +
 							`       <figure>` +
-							`           <img src="img/lazy-placeholder.png" data-src="img/location_1.jpg" class="owl-lazy" alt="">` +
+							`           <img src="` + masterList[i].filePath + `" data-src="` + masterList[i]
+							.filePath + `" class="owl-lazy" alt="">` +
 							`           <a href="detail-restaurant.html" class="strip_info">` +
 							`               <div class="item_title">` +
 							`                   <h3>` + masterList[i].storeName + `</h3>` +

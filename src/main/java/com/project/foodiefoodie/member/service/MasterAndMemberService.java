@@ -2,8 +2,7 @@ package com.project.foodiefoodie.member.service;
 
 
 import com.project.foodiefoodie.member.domain.MasterAndMember;
-import com.project.foodiefoodie.member.repository.MasterAndMemeberMapper;
-import com.project.foodiefoodie.member.repository.MemberMapper;
+import com.project.foodiefoodie.member.repository.MasterAndMemberMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,7 +17,7 @@ import java.util.List;
 
 public class MasterAndMemberService {
 
-    private final MasterAndMemeberMapper mapper;
+    private final MasterAndMemberMapper mapper;
 
 
     public List<MasterAndMember> findMasterService() {

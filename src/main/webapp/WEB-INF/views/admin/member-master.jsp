@@ -50,7 +50,7 @@
                                                 data-name="${ml.name}" data-nickname="${ml.nickName}"
                                                 data-phonenumber="${ml.phoneNumber}" data-birth="${ml.birth}"
                                                 data-address="${ml.address}" data-gender="${ml.gender}"
-                                                data-registDate="${ml.registDate}" data-loginTime="${ml.loginTime}"
+                                                data-registDate="${ml.regDate}" data-loginTime="${ml.recentLoginTime}"
                                                 data-auth="${ml.auth}" data-businessNo="${ml.businessNo}" data-storeName="${ml.storeName}"
                                                 data-storeAddress="${ml.storeAddress}" data-storeRegDate="${ml.storeRegDate}"
                                                 data-hotDeal="${ml.hotDeal}" data-storeCallNumber="${ml.storeCallNumber}"

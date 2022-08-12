@@ -48,7 +48,7 @@
                                                 data-name="${cm.name}" data-nickname="${cm.nickName}"
                                                 data-phonenumber="${cm.phoneNumber}" data-birth="${cm.birth}"
                                                 data-address="${cm.address}" data-gender="${cm.gender}"
-                                                data-registDate="${cm.registDate}" data-loginTime="${cm.loginTime}"
+                                                data-regdate="${cm.regDate}" data-loginTime="${cm.recentLoginTime}"
                                                 data-auth="${cm.auth}" data-detailaddress="${cm.detailAddress}">${cm.email}</a>
                                         </th>
                                         <th>${cm.name}</th>
@@ -149,7 +149,7 @@
                         </div>
                         <div class="form-group">
                             <label>가입일</label>
-                            <input type="text" class="form-control modal-registDate" disabled>
+                            <input type="text" class="form-control modal-regDate" disabled>
                         </div>
                         <div class="form-group">
                             <label>최종 로그인</label>
@@ -185,7 +185,7 @@
                 document.querySelector('.modal-detailAddress').value = e.target.dataset.detailaddress;
                 document.querySelector('.modal-gender').value = e.target.dataset.gender;
                 document.querySelector('.modal-auth').value = e.target.dataset.auth;
-                document.querySelector('.modal-registDate').value = e.target.dataset.registDate;
+                document.querySelector('.modal-regDate').value = e.target.dataset.regdate;
                 document.querySelector('.modal-loginTime').value = e.target.dataset.loginTime;
                 console.log(e.target);
             }

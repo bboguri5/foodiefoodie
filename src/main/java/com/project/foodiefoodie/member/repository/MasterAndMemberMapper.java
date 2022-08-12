@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface MasterAndMemeberMapper {
+public interface MasterAndMemberMapper {
 
 
     List<MasterAndMember> findMaster();

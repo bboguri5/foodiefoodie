@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,9 @@ public class MainController {
     public String mainPage(Model model) {
 
         // 카테고리 N개
+        Map<String, Integer> hashTags = new HashMap<>();
+        getHashTagMap(hashTags);
+        model.addAttribute("hashTags", hashTags);
         // 오늘의 맛집 TOP 7 --> 리뷰 많은 / 평점 좋은
         // 평점 & 리뷰 갯수 총합 탑 랜덤 겟
         List<PromotionMasterDTO> pmd = promotionBoardService.topAvgRateCountService();
@@ -55,6 +59,16 @@ public class MainController {
         model.addAttribute("hotDeals", hotDeals);
 
         return "html/index";
+    }
+
+    private Map<String, Integer> getHashTagMap(Map<String, Integer> hashTags) {
+        hashTags.put("korean", promotionBoardService.findHashTagCountService("한식"));
+        hashTags.put("chinese", promotionBoardService.findHashTagCountService("중식"));
+        hashTags.put("japanese", promotionBoardService.findHashTagCountService("일식"));
+        hashTags.put("western", promotionBoardService.findHashTagCountService("양식"));
+        hashTags.put("bar", promotionBoardService.findHashTagCountService("술집"));
+        hashTags.put("cafe", promotionBoardService.findHashTagCountService("카페"));
+        return  hashTags;
     }
 
 
@@ -97,6 +111,13 @@ public class MainController {
         model.addAttribute("pm", pm);
 
         return "html/search-list";
+    }
+
+    @GetMapping("/hashtag")
+    public String hashTagList(Model model, String tag, Page page) {
+        List<PromotionMasterDTO> hashTagList = promotionBoardService.findHashTagService(tag, page);
+        model.addAttribute("hashTagList", hashTagList);
+        return "html/hash-search";
     }
 
     @GetMapping("/test")

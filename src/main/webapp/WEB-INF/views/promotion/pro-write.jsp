@@ -677,12 +677,8 @@
                 .then(fileNames => {
                     makeMenuPreviewDOM(input, fileNames);
                 });
-        fetch('/ajax-upload', reqObj)
-            .then(res => res.json())
-            .then(fileNames => {
-                makeMenuPreviewDOM(this, fileNames);
-            });
-        });
+       
+        }
 
 
 

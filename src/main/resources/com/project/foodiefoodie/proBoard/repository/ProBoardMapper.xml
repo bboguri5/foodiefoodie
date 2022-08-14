@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.foodiefoodie.proBoard.repository.ProBoardMapper">
 
-    <insert id="save">
+    <insert id="proBoardSave">
         insert into promotion_board VALUES (
         #{businessNo}
         ,seq_promotion_board.nextval

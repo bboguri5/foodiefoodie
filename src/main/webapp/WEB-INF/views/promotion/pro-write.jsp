@@ -128,11 +128,35 @@
             width: 50px;
             height: 50px;
         }
+
+        .c-red {
+            color: red;
+        }
+
+        .c-green {
+            color: green;
+        }
+
+        select.form-control.selectDay {
+            padding: 5px;
+            width: 80px;
+        }
+        select.form-control:not([size]):not([multiple]) {
+           height: calc(2.1rem + 2px);
+        }
+        
+        .form-group.dayBox {
+        display: flex;
+        justify-content: space-between;
+        }
+        .day-delete{
+            background: red;
+        }
     </style>
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    <form id="promotionWriteForm" action="/foodie/write" enctype="multipart/form-data">
+    <form id="promotionWriteForm" action="/foodie/write" method="post" enctype="multipart/form-data">
         <div class="content-wrapper">
             <div class="container-fluid">
                 <!-- Breadcrumbs-->
@@ -176,13 +200,13 @@
                                 <input type="text" class="form-control" value="${master.storeAddress}" readonly>
                             </div>
                             <div class="form-group detail-Info">
-                                <label>Title
+                                <label class="title-label">Title
                                 </label>
-                                <input type="text" class="form-control" name="title" value="${master.storeName}">
+                                <input type="text" class="form-control title" name="title" value="${master.storeName}">
                             </div>
                             <div class="form-group detail-Info">
                                 <div class="form-group">
-                                    <label>HASH TAG</label>
+                                    <label class="hashTag-label">HASH TAG</label>
                                     <input type="text" class="form-control hashTag" name="hashTag"
                                         placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다.">
                                 </div>
@@ -196,8 +220,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label>CONTENT</label>
-                                <div class="editor content"></div>
+                                <label class="content-label">CONTENT</label>
+                                <textarea name="content" class="form-control content" style="height: 150px;" placeholder="Message" id="message_contact" name="message_contact"></textarea>
                             </div>
                         </div>
                     </div>
@@ -213,7 +237,6 @@
                                     <div class="form-group">
                                         <label>Photos</label>
                                         <div>
-
                                             <input type="file" id="title-img" class="title"
                                                 accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                         </div>
@@ -276,14 +299,20 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control menu-name"
+                                                        <input type="text" name="menuName" class="form-control menu-name"
                                                             placeholder="메뉴명">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control menu-price" name="price"
+                                                        <input type="text" class="form-control menu-price" name="menuPrice"
                                                             placeholder="price">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <div class="form-group delete-form">
+                                                        <a class="delete" href="#"><i
+                                                                class="fa fa-fw fa-remove"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -301,39 +330,7 @@
                                 Item</a>
                         </div>
                         <div id="hidden-menu-box"></div>
-                        <script>
-                            /* 
-                                <div class="col-md-1">
-                                                                                    <div class="form-group">
-                                                                                        <a class="delete" href="#"><i
-                                                                                                class="fa fa-fw fa-remove"></i></a>
-                                                                                    </div>
-                                                                                </div>
 
-                                */
-
-
-                            // Pricing add
-                            function newMenuItem() {
-                                var newElem = $('form-group ').first().clone();
-                                newElem.find('input').val('');
-                                newElem.appendTo('table#pricing-list-container');
-                            }
-
-                            if ($("table#pricing-list-container").is('*')) {
-                                $('.add-pricing-list-item').on('click', function (e) {
-                                    e.preventDefault();
-                                    newMenuItem();
-                                    $('#pricing-list-container:not(:first-child)').children.children.append(
-                                        ' <div class="col-md-1"> <div class="form-group"> <a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a></div></div>'
-                                    );
-                                });
-                                $(document).on("click", "#pricing-list-container .delete", function (e) {
-                                    e.preventDefault();
-                                    $(this).parent().parent().parent().parent().parent().remove();
-                                });
-                            }
-                        </script>
                     </div>
                     <!-- /add Menu List -->
 
@@ -358,14 +355,14 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekday-openTime" type="text"
+                                                        <input name="weekdayOpenTime" type="text"
                                                             class="form-control select-time weekday-openTime">
                                                     </div>
 
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekday-closeTime" type="text"
+                                                        <input name="weekdayCloseTime" type="text"
                                                             class="form-control select-time">
                                                     </div>
 
@@ -384,13 +381,13 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekend-openTime" type="text"
+                                                        <input name="weekendOpenTime" type="text"
                                                             class="form-control select-time" placeholder="오픈시간입력">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekend-closeTime" type="text"
+                                                        <input name="weekendCloseTime" type="text"
                                                             class="form-control select-time" placeholder="마감시간입력">
                                                     </div>
                                                 </div>
@@ -402,46 +399,59 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Brake Time"
+                                                        <input type="text" class="form-control" placeholder="Break Time"
                                                             readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="brake-startTime" type="text"
+                                                        <input name="breakStartTime" type="text"
                                                             class="form-control select-time" placeholder="시작시간">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="brake-endTime" type="text"
+                                                        <input name="breakEndTime" type="text"
                                                             class="form-control select-time" placeholder="종료시간">
                                                     </div>
                                                 </div>
                                             </div>
-                            </div>
-                            </td>
-                            </tr>
-                            <tr class="store-time-colurm">
-                                <td>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="휴무" readonly>
+                       
+                                        </td>
+                                    </tr>
+                                    <tr class="store-time-colurm">
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="휴무" readonly="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input type="text" name="closedDay" class="form-control closedDay" placeholder="휴무 옵션 선택" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group dayBox">
+                                                        <select type="text" class="form-control selectDay" placeholder="예시 : 화요일 (요일입력)">
+                                                            <option value="월">월</option>
+                                                            <option value="화">화</option>
+                                                            <option value="수">수</option>
+                                                            <option value="목">목</option>
+                                                            <option value="금">금</option>
+                                                            <option value="토">토</option>
+                                                            <option value="일">일</option>
+                                                            <option vlaue=null>없음</option>
+                                                    </select>
+                                                    <button type="button" class="btn_1 day-delete">제거</button>
+                                                    </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="예시 : 화요일 (요일입력)">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
+                                        </td>
+                                    </tr>
+                                </tr>
                             </table>
                         </div>
-
                         <!-- /store time -->
                         <script>
                             // select time 
@@ -458,11 +468,11 @@
                         </script>
                     </div>
                     <!-- /row-->
+                    </div>
                 </div>
             </div>
-
         </div>
-        <div class="col-md-12 save-btn"><a href="#0" class="btn_1 medium">Save</a></div>
+        <div class="col-md-12 save-btn"><button type="button" class="btn_1 medium save">Save</button></div>
     </form>
 
 
@@ -534,39 +544,195 @@
             height: 200
         });
     </script>
+
     <script>
-        // 검증 - 가격 숫자만 입력되도록. 한글 입력할 경우 제한 
 
-        // 숫자가 아닌 정규식 -----------------------------------------------------------------------
-        var replaceNotInt = /[^0-9]/gi;
-        const $menuPrice = $('.menu-price');
+    </script>
 
-        $menuPrice.on("keyup", function () {
-            console.log(replaceNotInt);
-            $(this).val($(this).val().replace(replaceNotInt, "")); // 입력값을 정규식으로 필터링
+    <!-- jungah script -->
+    <script>
 
-            var x = $(this).val(); // 필터링 된 숫자값만 들어 있음. 
-            if (x.length > 0) { // 숫자값 길이가 0이상일 경우 
-                $menuPrice.css('border-color', 'green'); // 정상이기때문에 green 
-                if (x.match(replaceNotInt)) { // 중간에 한글 쓸수도 있으니, 다시 매치 
-                    x = x.replace(replaceNotInt, ""); // 한글쓰면 지워짐 
-                }
-                $(this).val(x); // 숫자 value값에 다시 담음
+        /* -------------------------------- 요일 선택,제거 -------------------------------- */
+        const $selectDay = $('.selectDay');
+        const $closedDay = $('.closedDay');
+        let result = [];
+        $selectDay.on('change',function(){
+            result.push($selectDay.val());
+            $closedDay.val(result.join());
+
+            if($selectDay.val() === '없음')
+            {
+                result = [];
+                $closedDay.val($selectDay.val());
+            }
+
+        });
+
+        $('.day-delete').on('click',function(){
+                result = [];
+                $closedDay.val('');
+        });
+        /* -------------------------------- /요일 선택,제거 --------------------------------  */
+
+
+        /* -------------------------------- save 시 검증 -------------------------------- */
+        const $titleTag = $('.title');
+        const $hashTag_Tag = $('.hashTag');
+        const $contentTag = $('.content');
+        const checkArr = [false, false, false];
+
+        // ------------------ 필수정보 --------------------
+        $titleTag.on('keyup', function () {
+
+            if ($titleTag.val().trim() === '') {
+                $titleTag.css('border-color', 'red');
+                $('.title-label').html('TITLE <b class="c-red title-red">[ 제목은 필수정보입니다. ]</b>');
+                checkArr[0] = false;
             } else {
-                $menuPrice.css('border-color', 'red'); // 한글은 길이가 0이기때문에, red 
+                $titleTag.css('border-color', 'green');
+                $('.title-red').remove();
+                checkArr[0] = true;
+            }
+        });
+
+        $hashTag_Tag.on('keyup', function () {
+
+            if ($hashTag_Tag.val().trim() === '') {
+                $hashTag_Tag.css('border-color', 'red');
+                $('.hashTag-label').html('HASH TAG <b class="c-red hashTag-red">[ 해시태그는 필수정보입니다. ]</b>');
+                checkArr[1] = false;
+            } else {
+                $hashTag_Tag.css('border-color', 'green');
+                $('.hashTag-red').remove();
+                checkArr[1] = true;
+            }
+        });
+
+        $contentTag.on('keyup', function () {
+
+            if ($contentTag.val().trim() === '') {
+                $('.content').css('border-color', 'red');
+                $('.content-label').html('CONTENT <b class="c-red content-red">[ 내용은 필수정보입니다. ]</b>');
+                checkArr[2] = false;
+            } else {
+                console.log("??");
+                $('.content').css('border-color', 'green');
+                $('.content-red').remove();
+                checkArr[2] = true;
             }
         });
 
 
-        // hasTag 10개 이상 제한 -----------------------------------------------------------------------
+        // ------------------ 저장 ---------------------
+
+        $('.save').on('click', e => {
+            if (!checkArr.includes(false)) {
+
+                /* 오픈시간,마감시간 0000 형식으로 변경  */
+                const $selectTimeList = document.querySelectorAll('.select-time');
+                $selectTimeList.forEach(element => {
+                    const replaceNotInt = /[^0-9]/gi;
+                    element.value = element.value.replace(replaceNotInt, '');
+                    console.log(element.value);
+                });
+              
+                $('#promotionWriteForm').submit();
+
+            } else {
+                alert("입력값을 확인해주세요.");
+
+            }
+        });
+        /* -------------------------------- /save 시 검증 -------------------------------- */
+
+        /* -------------------------------- menu add -------------------------------- */
+        
+        // 첫번재 삭제버튼은 표시 안함
+        const par = $('table#pricing-list-container').first().find('.delete').remove();
+
+        // 메뉴 추가 script
+        function newMenuItem() {
+            var newElem = $('form-group').first().clone(); // 첫번쨰 메뉴 복사 
+            newElem.find('input').val(''); // input 리셋 
+            newElem.appendTo('table#pricing-list-container'); // 추가 
+        }
+
+        if ($("table#pricing-list-container").is('*')) { // 
+            $('.add-pricing-list-item').on('click', function (e) {
+                e.preventDefault();
+                newMenuItem();
+
+                // add한 영역 delete 생성  
+                $('.menu-row').last().find('.delete-form').append(
+                    '<a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a>')
+                $(this).css('border-colore', 'none');
+                priceInputOnlyInt(); // add 한 입력창 검증 
+
+            });
+            $(document).on("click", "#pricing-list-container .delete", function (e) {
+                e.preventDefault();
+                $(this).parent().parent().parent().parent().parent().remove();
+            });
+
+        }
+
+        /* -------------------------------- /menu add -------------------------------- */
+
+        /* -------------------------------- /입력 검증 -------------------------------- */
+
+        
+        // ------------------ 메뉴 price 숫자만 입력 ---------------------
+        priceInputOnlyInt(); // 처음 입력창 검증 
+
+        // 메뉴 price 입력창 검증 함수 (숫자만 입력) 
+        function priceInputOnlyInt() {
+            var replaceNotInt = /[^0-9]/gi;
+            
+            const $menuPrice = $('.menu-price');
+
+            $menuPrice.on("keyup", function () {
+                console.log(replaceNotInt);
+                $(this).val($(this).val().replace(replaceNotInt, "")); // 입력값을 정규식으로 필터링
+
+                var x = $(this).val(); // 필터링 된 숫자값만 들어 있음. 
+                if (x.length > 0) { // 숫자값 길이가 0이상일 경우 
+                    $(this).css('border-color', 'green'); // 정상이기때문에 green 
+                    if (x.match(replaceNotInt)) { // 중간에 한글 쓸수도 있으니, 다시 매치 
+                        x = x.replace(replaceNotInt, ""); // 한글쓰면 지워짐 
+                    }
+                    $(this).val(x); // 숫자 value값에 다시 담음
+                } else {
+                    $(this).css('border-color', 'red'); 
+                }
+            });
+        }
+        // ------------------ /menu price 숫자만 입력 ---------------------
+
+
+       // ------- 해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
         let leng = 0;
         const $hashTag = $('.hashTag');
 
         $hashTag.on("keyup", function () {
 
+            // 특수문자 정규식 변수(공백 미포함)
+            var replaceChar = /[~!@\#$%^&*\()\-=+_'\;<>0-9\/.\`:\"\\,\[\]?|{}]/gi;
+            
+            // 완성형 아닌 한글 정규식
+            var replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
+                        
             const splitThisVal = $(this).val().split(" "); // 공백기준으로 단어 리스트 생성
+            // $(this).val($(this).val().replace(replaceChar,''));
 
-            if (splitThisVal.length >= 10) // 단어 10개 이상일 경우 
+            const cleanArr = splitThisVal.filter(Boolean);
+            var x = $(this).val();
+            if (x.length > 0) {
+                if (x.match(replaceChar) || x.match(replaceNotFullKorean)) {
+                    x = x.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+                }
+                $(this).val(x);
+            }
+            if (cleanArr.length >= 11 && cleanArr.length) // 단어 10개 이상일 경우 
             {
                 if (leng <= $hashTag.val().length + 1) // leng = 단어 10개 이하의 마지막 글자수가 현재 글자수보다 작으면  
                 {
@@ -576,13 +742,12 @@
                     $(this).css('border-color', 'green');
             } else { // 단어 10개 이하는 
                 leng = $(this).val().length; // 전역변수에 마지막 글자수 저장 
-                $(this).css('border-color', 'green');
             }
         });
-        const $weekdayOpenTime = document.querySelector('.weekday-openTime');
-        var result = $weekdayOpenTime.value.replace(replaceNotInt, "");
-        console.log(result);
+       // ------- /해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
+        
     </script>
+    <!-- /jungah script -->
 
 
 
@@ -677,12 +842,12 @@
                 .then(fileNames => {
                     makeMenuPreviewDOM(input, fileNames);
                 });
-        fetch('/ajax-upload', reqObj)
-            .then(res => res.json())
-            .then(fileNames => {
-                makeMenuPreviewDOM(this, fileNames);
-            });
-        });
+            fetch('/ajax-upload', reqObj)
+                .then(res => res.json())
+                .then(fileNames => {
+                    makeMenuPreviewDOM(this, fileNames);
+                });
+        };
 
 
 

@@ -269,9 +269,13 @@
                                                                 accept="image/gif, image/jpeg, image/png, image/bmp"></input>
                                                         </div>
                                                         <div class="preview"><span>미리보기</span>
-                                                            <div class="menu-preview"></div>
+                                                            <div class="menu-preview">
+                                                                <img src="#" alt="#" class="preview-menu-img">
+                                                            </div>
                                                         </div>
-                                                        <div class="hidden-menu-box"></div>
+                                                        <div class="hidden-menu-box">
+                                                            <input type="hidden" name="menu">
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -596,67 +600,41 @@
 
 
         const $detailPreviewHidden = document.getElementById('detail-preview');
+        $detailPreviewHidden.nextElementSibling
         const $hiddenTitleBox = document.getElementById('hidden-title-box');
         const $hiddenDetailBox = document.getElementById('hidden-detail-box');
         // const $hiddenMenuBox = document.getElementById('hidden-menu-box');
 
 
+        // 
         function makeMenuPreviewDOM(nowInput, fileNames) {
-
-            // 이미 존재하는 hidden input 태그가 있다면 지우자
-            // console.log($(nowInput).parent().next().next().children().length);
-            const $nowMenuHiddenBox = $(nowInput).parent().next().next();
-
-            if ($nowMenuHiddenBox.children().length > 0) {
-                for (let hiddenInput of [...$nowMenuHiddenBox.children()]) {
-                    $nowMenuHiddenBox.remove(hiddenInput);
-                }
-            }
 
 
             for (let fileName of fileNames) {
 
                 let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
 
-                // 동기요청 처리시 hidden 타입인 input 창에 src = 풀경로, alt는 orgin파일명을 넣어줘서
-                // form 태그를 활용해 post 요청을 보낸다.
-                const $newHiddenInput = document.createElement('input');
-                $newHiddenInput.setAttribute('type', 'hidden');
-                $newHiddenInput.setAttribute('name', 'menuImg');
-                $newHiddenInput.setAttribute('value', fileName);
-                $newHiddenInput.classList.add('hidden-menu-img');
-
-
-                // form 태그에 삽입
-                $(nowInput).parent().next().next().append($newHiddenInput);
-
 
                 // 비동기로 받아온 이미지 띄우는 로직
-                const $img = document.createElement('img');
-                $img.classList.add('preview-menu-img');
-
-                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
-                $img.setAttribute('alt', originFileName);
+                const $img = $(nowInput).parent().next().find('img');
+                $img.attr('src', '/loadFile?fileName=' + fileName);
+                $img.attr('alt', originFileName);
 
 
-                const $menuPreviewHidden = $(nowInput).parent().next().first();
-                console.log($menuPreviewHidden);
-
-                console.log($menuPreviewHidden.children().length);
+                const $menuPreviewBox = $(nowInput).parent().next();
+                $menuPreviewBox.css('display', 'block');
 
 
-                if ($menuPreviewHidden.children().length > 0) {
-                    console.log($menuPreviewHidden.children().length);
-                    $menuPreviewHidden.remove($menuPreviewHidden.first());
-                }
-
-                $menuPreviewHidden.css('display', 'block');
-                $menuPreviewHidden.append($img);
+                // 히든 인풋 태그 value에 이미지 src값 넣어주기
+                const cloneSrcVal = $img.attr('src');
+                const hiddenMenuInput = $img.parent().parent().next().find('input');
+                hiddenMenuInput.val(cloneSrcVal);
             }
 
         }
 
 
+        // 메뉴 이미지 비동기 요청
         function ajaxMenuPreview(nowInput) {
             const formData = new FormData();
 
@@ -682,38 +660,8 @@
 
 
 
-
-
-
-
-
-
-
-        function isExistDetailPreviewDOM() {
-            // console.log($detailPreviewHidden.children.length);
-
-            if ($detailPreviewHidden.children.length > 0) {
-
-                // console.log($detailPreviewHidden.children);
-
-
-                for (let $img of [...$detailPreviewHidden.children]) {
-
-                    // console.log($detailPreviewHidden.children.length);
-                    $detailPreviewHidden.removeChild($img);
-                }
-            }
-        }
-
-
+        // 디테일 이미지 미리보기 화면 렌더링
         function makeDetailPreviewDOM(fileNames) {
-
-            // 이미 존재하는 hidden 속성의 input 태그를 지우자.
-            if ($hiddenDetailBox.children.length > 0) {
-                for (let hiddenInput of [...$hiddenDetailBox.children]) {
-                    $hiddenDetailBox.removeChild(hiddenInput);
-                }
-            }
 
 
             for (let fileName of fileNames) {
@@ -745,7 +693,7 @@
         }
 
 
-
+        // 디테일 이미지 미리보기 비동기 요청
         function ajaxDetailPreview() {
             const formData = new FormData();
 
@@ -754,21 +702,43 @@
             }
 
 
-
             const reqObj = {
                 method: 'POST',
                 body: formData
             };
 
+
             fetch('/ajax-upload', reqObj)
                 .then(res => res.json())
                 .then(fileNames => {
-                    isExistDetailPreviewDOM();
+                    // isExistDetailPreviewDOM();
                     makeDetailPreviewDOM(fileNames);
                 });
         }
 
 
+        // 디테일 이미지 파일 개수 제한 처리
+        function uploadingFileCountCheck(obj) {
+            // console.log($(obj)[0].files.length);
+
+            // 최대 업로드 가능 파일 개수
+            let maxFileCnt = 5;
+
+            const detailPreviewBox = document.querySelector('#detail-preview');
+
+            // console.log(detailPreviewBox.children.length);
+
+            if ($(obj)[0].files.length > maxFileCnt || [...detailPreviewBox.children].length >= maxFileCnt) {
+                $(obj).val("");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+
+
+        // 타이틀 이미지 미리보기 렌더링
         function makeTitlePreviewDOM(fileNames) {
 
             // 여기서 이미 들어간 히든 인풋을 지워주면 되나..?
@@ -816,6 +786,7 @@
         }
 
 
+        // 타이틀 이미지 미리보기 위한 비동기 요청
         function ajaxTitlePreview() {
             const formData = new FormData();
 
@@ -870,7 +841,12 @@
 
                 // detail 이미지 미리보기 비동기 처리
                 if ($(this).hasClass('detail')) {
-                    ajaxDetailPreview();
+                    // 파일 개수 검증이 들어가야 한다.
+                    if (uploadingFileCountCheck($(this))) {
+                        ajaxDetailPreview();
+                    } else {
+                        alert('최대 5개의 이미지 파일만을 업로드 하실 수 있습니다.');
+                    }
                 }
 
 

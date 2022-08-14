@@ -30,6 +30,7 @@ public class MasterController {
     }
 
 
+    // 사업자 번호 중복 비동기 처리
     @GetMapping("/master/check")
     @ResponseBody
     public ResponseEntity<Boolean> duplicateBusinessNo(String businessNo) {

@@ -376,6 +376,33 @@ create table report_master (
 CREATE TABLE black_list_master (
     business_no VARCHAR2(50) NOT NULL
 );
-COMMIT;
 
+alter table promotion_faq
+add business_no varchar2(50) not null;
+
+---------------------------------------------------------- 08 / 12 add
+alter table review_board
+add report_cnt number(2) default 0;
+
+ALTER TABLE promotion_board
+ADD file_name VARCHAR2(100) NULL;
+
+ALTER TABLE promotion_board
+ADD file_path CLOB NOT NULL;
 commit;
+
+
+----------------------------------------------------------- 08 / 15
+create table PROMOTION_STORE_TIME
+(
+    promotion_bno number(10) NOT NULL
+    ,weekdayOpenTime number(8) NOT NULL
+    ,weekdayCloseTime number(8) NOT NULL
+    ,weekendOpenTime number(8) NOT NULL
+    ,weekendCloseTime number(8) NOT NULL
+    ,breakStartTime number(8) NOT NULL
+    ,breakEndTime number(8) NOT NULL
+    ,closedDay VARCHAR2(2)
+    , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
+    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+);

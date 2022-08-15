@@ -24,13 +24,13 @@
         ,#{closedDay}
     </insert>
 
-    <insert id="menuSave">
-        insert into PROMOTION_FOOD_MENU VALUES (
-        ,SEQ_PROMOTION_FOOD_MENU.nextval
-        ,#{}
-        )
+<!--    <insert id="menuSave">-->
+<!--        insert into PROMOTION_FOOD_MENU VALUES (-->
+<!--        ,SEQ_PROMOTION_FOOD_MENU.nextval-->
+<!--        ,#{}-->
+<!--        )-->
 
-    </insert>
+<!--    </insert>-->
 
     <update id="modify">
         UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}

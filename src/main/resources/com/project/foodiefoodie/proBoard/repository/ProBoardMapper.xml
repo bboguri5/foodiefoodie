@@ -13,6 +13,25 @@
         ,#{title})
     </insert>
 
+    <insert id="storeTimeSave">
+        insert into PROMOTION_STORE_TIME VALUES (
+        ,#{weekdayOpenTime}
+        ,#{weekdayCloseTime}
+        ,#[weekendOpenTime}
+        ,#{weekendCloseTime}
+        ,#{breakStartTime}
+        ,#{breakEndTime}
+        ,#{closedDay}
+    </insert>
+
+    <insert id="menuSave">
+        insert into PROMOTION_FOOD_MENU VALUES (
+        ,SEQ_PROMOTION_FOOD_MENU.nextval
+        ,#{}
+        )
+
+    </insert>
+
     <update id="modify">
         UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}
     </update>

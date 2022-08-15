@@ -37,9 +37,11 @@ public class ProBoardController {
     }
 
     @PostMapping("/write")
-    public String write(ProBoard proBoard, StoreTimeDTO storeTimeDTO , ImageDTO imageDTO) {
+    public String write(ProBoard proBoard, StoreTimeDTO storeTimeDTO ,  ImageDTO imageDTO) {
         log.info("foodie/write POST - ! {}",proBoard);
         log.info("foodie/write POST - ! {} ",storeTimeDTO);
+        proBoardService.proBoardSave(proBoard);
+
         return "";
     }
 }

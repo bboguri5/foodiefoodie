@@ -21,8 +21,7 @@ public class ProBoard {
     private String content;
     private String title;
     private String hashTag;
-    private List<String> menuName;
-    private List<String> menuPrice;
+
 
     // 동진 : 메뉴가 여러개 들어올걸 대비해서 리스트 타입으로 받아야 스프링에서 알아서 넣어줄거 같아요!
 //    private List<String> menu; // menu라는 변수명은 input name 속성값과 맞춘 것!   menuList라고 하시려면 @RequestParm("menu") 활용!

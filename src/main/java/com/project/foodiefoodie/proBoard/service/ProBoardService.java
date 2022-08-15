@@ -15,9 +15,9 @@ public class ProBoardService {
 
     private final ProBoardMapper proBoardMapper;
 
-    public boolean save(ProBoard proBoard) {
+    public boolean proBoardSave(ProBoard proBoard) {
 
-        return proBoardMapper.save(proBoard);
+        return proBoardMapper.proBoardSave(proBoard);
     }
 
     public boolean modify(ProBoard proBoard) {

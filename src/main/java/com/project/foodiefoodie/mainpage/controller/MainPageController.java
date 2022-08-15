@@ -8,9 +8,6 @@ import com.project.foodiefoodie.hotdeal.service.HotDealService;
 import com.project.foodiefoodie.mainpage.domain.MainPage;
 import com.project.foodiefoodie.mainpage.service.MainPageService;
 import com.project.foodiefoodie.member.service.MasterService;
-import com.project.foodiefoodie.premium.dto.PremiumPromotionBoardDTO;
-import com.project.foodiefoodie.premium.service.PremiumPromotionBoardService;
-import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -30,8 +27,6 @@ public class MainPageController {
 
     private final HotDealService hotDealService;
     private final PromotionBoardService promotionBoardService;
-    private final MasterService masterService;
-    private final PremiumPromotionBoardService premiumPromotionBoardService;
     private final MainPageService mainPageService;
 
     // 메인페이지 요청
@@ -43,25 +38,58 @@ public class MainPageController {
         getHashTagMap(hashTags);
         model.addAttribute("hashTags", hashTags);
 
-        // 오늘의 맛집 TOP 7 --> 리뷰 많은 / 평점 좋은
-        // 평점 & 리뷰 갯수 총합 탑 랜덤 겟
+        // 오늘의 맛집 TOP 7 --> 평균 평점 계산하여 상위 7개 가져오기
         List<MainPage> topToday = mainPageService.findTopTodayService();
         model.addAttribute("topToday", topToday);
 
-        // 푸디푸디 추천 맛집 --> 돈 받은 가게
-        // 프리미엄 프로모션 보드에서 랜덤 겟?
-        List<PremiumPromotionBoardDTO> premiumList = premiumPromotionBoardService.findSevenRand();
+        // 푸디푸디 추천 맛집 --> 월정액 가게들 랜덤으로 메인에 보여주기 (기한 체크)
+        List<MainPage> premiumList = mainPageService.findRandPremiumService();
         model.addAttribute("premiumList", premiumList);
 
-        // 현재 위치 맛집 TOP 7 --> 내 위치
+        // 현재 나의 위치 맛집 중 TOP 7 -->
         // location 이름과 매칭되는 ADDRESS 불러와서 겟
-        // index 내에서 비동기 처리됨
+        // index.jsp 내에서 비동기 처리됨
 
         // 핫딜 리스트 TOP 6 --> 아무거나 TOP 6
         List<DealPromotionMasterDTO> hotDeals = hotDealService.findRandHotService();
         model.addAttribute("hotDeals", hotDeals);
 
         return "html/index";
+    }
+
+    // 평점순 정렬된 오늘의 맛집 정보 전체 불러오기
+    @GetMapping("/foodlist")
+    public String foodList(Model model, Page page) {
+
+        Map<String, Object> findAllMap = mainPageService.findTopTodayAllService(page);
+        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
+
+        model.addAttribute("pm", pm);
+        model.addAttribute("topTodayAll", findAllMap.get("topTodayAll"));
+        return "html/top-lists";
+    }
+
+    @GetMapping("/premiumlist")
+    public String premiumList(Page page, Model model) {
+        Map<String, Object> findAllMap = mainPageService.findAllPremiumService(page);
+        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
+
+        model.addAttribute("pm", pm);
+        model.addAttribute("premiumList", findAllMap.get("premiumList"));
+
+        return "html/premium-list";
+    }
+
+    @GetMapping("/locationlist")
+    public String locationList(Model model, String storeAddress, Page page) {
+
+        Map<String, Object> findAllMap = mainPageService.findAllInLocationService(storeAddress, page);
+        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
+
+        model.addAttribute("pm", pm);
+        model.addAttribute("locations", findAllMap.get("locationList"));
+        model.addAttribute("address", storeAddress);
+        return "html/location-list";
     }
 
     private Map<String, Integer> getHashTagMap(Map<String, Integer> hashTags) {
@@ -75,28 +103,8 @@ public class MainPageController {
     }
 
 
-    @GetMapping("/foodlist")
-    public String foodList(Model model, Page page) {
 
-        Map<String, Object> findAllMap = promotionBoardService.findAllService(page);
-        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
 
-        model.addAttribute("pm", pm);
-        model.addAttribute("dbList", findAllMap.get("dbList"));
-        return "html/top-lists";
-    }
-
-    @GetMapping("/locationlist")
-    public String locationList(Model model, String storeAddress, Page page) {
-
-        Map<String, Object> findAllMap = masterService.findAllInLocationService(storeAddress, page);
-        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
-
-        model.addAttribute("pm", pm);
-        model.addAttribute("masterList", findAllMap.get("dbList"));
-        model.addAttribute("address", storeAddress);
-        return "html/location-list";
-    }
 
     @GetMapping("/list")
     public String list(@ModelAttribute("s") Search search, Model model) {

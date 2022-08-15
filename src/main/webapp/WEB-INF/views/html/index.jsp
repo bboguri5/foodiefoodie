@@ -144,23 +144,27 @@
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
-				<c:forEach var="topList" items="${topList}" varStatus="status">
+				<c:forEach var="topToday" items="${topToday}" varStatus="status">
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<img src="${topList.filePath}" data-src="${topList.filePath}" class="owl-lazy" alt="">
+								<c:if test="${topToday.hotDeal == 'Y'.charAt(0)}">
+									<span class="ribbon off">${topToday.discountPrice}</span>
+								</c:if>
+								<img src="${topToday.filePath}" data-src="${topToday.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
 									<div class="item_title">
-										<h3>${topList.storeName}</h3>
-										<small>${topList.storeAddress}</small>
+										<h3>${topToday.storeName}</h3>
+										<small># : ${topToday.hashTag}</small>
 									</div>
 								</a>
 							</figure>
 							<ul>
-								<li><span class="loc_open">Now Open</span></li>
+								<!-- <li><span class="loc_open">Now Open</span></li> -->
+								<li><span>${topToday.storeAddress}</span></li>
 								<li>
-									<div class="score"><span>최고맛집<em>${topList.reviewCnt}개
-												리뷰</em></span><strong>${topList.avgStarRate}</strong></div>
+									<div class="score"><span>최고맛집<em>${topToday.reviewCnt}개
+												리뷰</em></span><strong>${topToday.avgStarRate}</strong></div>
 								</li>
 							</ul>
 						</div>
@@ -184,17 +188,16 @@
 							<figure>
 								<img src="${pl.filePath}" data-src="${pl.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
-									<small>Pizza</small>
 									<div class="item_title">
 										<h3>${pl.storeName}</h3>
-										<small>${pl.storeAddress}</small>
+										<small># : ${pl.hashTag}</small>
 									</div>
 								</a>
 							</figure>
 							<ul>
-								<li><span class="loc_open">Now Open</span></li>
+								<li><span>${pl.storeAddress}</span></li>
 								<li>
-									<div class="score"><span>푸디푸디가 추천하는 맛집<em>${pl.reviewCnt}개
+									<div class="score"><span>푸디푸디 추천 맛집<em>${pl.reviewCnt}개
 												리뷰</em></span><strong>${pl.avgStarRate}</strong></div>
 								</li>
 							</ul>
@@ -339,6 +342,8 @@
 			}
 		};
 
+
+		// 현재 위도 경도 계산하여 주소로 돌려주는 API
 		$(document).ready(function () {
 
 
@@ -394,9 +399,9 @@
 
 
 			function makeLocationDom({
-				masterList
+				locationList
 			}, address) {
-				console.log(masterList);
+				console.log(locationList);
 
 				document.getElementById('locationHeader').innerHTML = address + ' 지역 맛집'; 
 
@@ -404,28 +409,29 @@
 				let tag = '';
 
 
-				if (masterList === null || masterList.length === 0) {
+				if (locationList === null || locationList.length === 0) {
 					tag += "<div id='locationList'>주변에 식당이 없습니다! ㅠㅠ</div>";
 				} else {
-					for (let i = 0; i < masterList.length; i++) {
+					for (let i = 0; i < locationList.length; i++) {
 						tag +=
 							`<div class="item">` +
 							`   <div class="strip">` +
 							`       <figure>` +
-							`           <img src="` + masterList[i].filePath + `" data-src="` + masterList[i]
+							`           <img src="` + locationList[i].filePath + `" data-src="` + locationList[i]
 							.filePath + `" class="owl-lazy" alt="">` +
 							`           <a href="detail-restaurant.html" class="strip_info">` +
 							`               <div class="item_title">` +
-							`                   <h3>` + masterList[i].storeName + `</h3>` +
-							`                   <small>` + masterList[i].storeAddress + `</small>` +
+							`                   <h3>` + locationList[i].storeName + `</h3>` +
+							`                   <small># : ` + locationList[i].hashTag + `</small>` +
+
 							`               </div>` +
 							`           </a>` +
 							`       </figure>` +
 							`       <ul>` +
-							`           <li><span class="loc_open">Now Open</span></li>` +
+							`			<li><span>` +locationList[i].storeAddress + `</span></li>` +
 							`           <li>` +
-							`               <div class="score"><span>근처 맛집<em>` + masterList[i].reviewCnt +
-							`개 리뷰</em></span><strong>` + masterList[i].avgStarRate + `</strong></div>` +
+							`               <div class="score"><span>근처 맛집<em>` + locationList[i].reviewCnt +
+							`개 리뷰</em></span><strong>` + locationList[i].avgStarRate + `</strong></div>` +
 							`           </li>` +
 							`       </ul>` +
 							`   </div>` +
@@ -436,11 +442,6 @@
 
 				document.getElementById('locationList').innerHTML = tag;
 			}
-
-			// function printAddress(address) {
-			//     console.log(address);
-
-			// }
 
 
 			function onGeoError() {

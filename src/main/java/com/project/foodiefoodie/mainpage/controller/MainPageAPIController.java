@@ -1,5 +1,7 @@
 package com.project.foodiefoodie.mainpage.controller;
 
+import com.project.foodiefoodie.mainpage.domain.MainPage;
+import com.project.foodiefoodie.mainpage.service.MainPageService;
 import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import lombok.RequiredArgsConstructor;
@@ -17,16 +19,15 @@ import java.util.Map;
 @Log4j2
 @CrossOrigin
 public class MainPageAPIController {
-    private final MasterService masterService;
+    private final MainPageService mainPageService;
 
     @GetMapping("/mylocation")
     public Map<String, Object> myLocation(String storeAddress) {
-        log.info("mylocation GET - address : {}", storeAddress);
-
+//        log.info("mylocation GET - address : {}", storeAddress);
         Map<String, Object> replyMap = new HashMap<>();
-        List<PromotionMasterDTO> masterList = masterService.findLocationRandService(storeAddress);
+        List<MainPage> locationList =  mainPageService.findLocationRandService(storeAddress);
 
-        replyMap.put("masterList", masterList);
+        replyMap.put("locationList", locationList);
 
         return replyMap;
     }

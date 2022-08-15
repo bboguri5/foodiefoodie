@@ -81,22 +81,26 @@
 
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="dbList" items="${dbList}" varStatus="status">
+                <c:forEach var="topTodayAll" items="${topTodayAll}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <img src="${dbList.filePath}" data-src="${dbList.filePath}" class="img-fluid lazy"
+                                <c:if test="${topTodayAll.hotDeal == 'Y'.charAt(0)}">
+									<span class="ribbon off">${topTodayAll.discountPrice}</span>
+								</c:if>
+                                <img src="${topTodayAll.filePath}" data-src="${topTodayAll.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
-                                        <h3>${dbList.storeName}</h3>
+                                        <h3>${topTodayAll.storeName}</h3>
+                                        <small># : ${topTodayAll.hashTag}</small>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${dbList.storeAddress}</span></li>
+                                <li><span>${topTodayAll.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>맛집이에요~<em>${dbList.reviewCnt}개 리뷰</em></span><strong>${dbList.avgStarRate}</strong></div>
+                                    <div class="score"><span>맛집이에요~<em>${topTodayAll.reviewCnt}개 리뷰</em></span><strong>${topTodayAll.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>

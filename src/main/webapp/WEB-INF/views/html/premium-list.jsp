@@ -90,6 +90,7 @@
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <div class="item_title">
                                         <h3>${pl.storeName}</h3>
+                                        <small># : ${pl.hashTag}</small>
                                     </div>
                                 </a>
                             </figure>

@@ -20,24 +20,10 @@ public class PromotionBoardService {
 
     private final PromotionBoardMapper mapper;
 
-    public List<PromotionMasterDTO> topAvgRateCountService() {
-        return mapper.topAvgRateCount();
-    }
-
     // 해당 소개글 정보 요청 중간 처리
     public PromotionReviewDTO findOneService(String businessNo) {
         PromotionReviewDTO one = mapper.findOne(businessNo);
         return one;
-    }
-
-    // 모든 소개글 정보 요청 중간 처리
-    public Map<String, Object> findAllService(Page page) {
-        List<PromotionMasterDTO> DBList = mapper.findAll(page);
-        int totalCnt = mapper.getTotal();
-        Map<String, Object> map = new HashMap<>();
-        map.put("dbList", DBList);
-        map.put("tc", totalCnt);
-        return map;
     }
 
     public Map<String, Object> findAllSearchService(Search search) {

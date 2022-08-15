@@ -1,5 +1,4 @@
-package com.project.foodiefoodie.mainpage.domain;
-
+package com.project.foodiefoodie.mainpage.dto;
 
 import lombok.*;
 
@@ -8,7 +7,8 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MainPage {
+public class MainPagePremiumDTO {
+    private Long promotionBno;
     private String businessNo;
     private String storeName;
     private String storeAddress;

@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE htll>
+<htll lang="en">
 
 <head>
 
@@ -21,7 +21,7 @@
             </div>
             <ul id="top_menu">
                 <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+                <li><a href="wishlist.htll" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
             </ul>
             <!-- /top_menu -->
             <a href="#0" class="open_close">
@@ -81,24 +81,25 @@
 
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="ml" items="${masterList}" varStatus="status">
+                <c:forEach var="ll" items="${locations}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
                                 
-                                <img src="${ml.filePath}" data-src="${ml.filePath}" class="img-fluid lazy"
+                                <img src="${ll.filePath}" data-src="${ll.filePath}" class="img-fluid lazy"
                                     alt="">
-                                <a href="detail-restaurant.html" class="strip_info">
+                                <a href="detail-restaurant.htll" class="strip_info">
                                     <div class="item_title">
-                                        <h3>${ml.storeName}</h3>
+                                        <h3>${ll.storeName}</h3>
+                                        <small># : ${ll.hashTag}</small>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${ml.storeAddress}</span></li>
+                                <li><span>${ll.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>근처 맛집<em>${ml.reviewCnt}개
-                                                리뷰</em></span><strong>${ml.avgStarRate}</strong></div>
+                                    <div class="score"><span>근처 맛집<em>${ll.reviewCnt}개
+                                                리뷰</em></span><strong>${ll.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>
@@ -157,4 +158,4 @@
 
 </body>
 
-</html>
+</htll>

@@ -160,7 +160,8 @@ insert into master (business_no, email, master_name, store_name, store_address, 
 VALUES('1234-2222-3333-1122', 'abc1234@naver.com', '재밌어', '맛있는 금천구 냠냠9', '서울 금천구 가산동', 'Y', '010-2222-3333');
 insert into master (business_no, email, master_name, store_name, store_address, hot_deal, store_call_number)
 VALUES('1234-2222-3333-1123', 'abc1234@naver.com', '헤헤헤', '맛있는 은평구 냠냠9', '서울 은평구 진관동', 'Y', '010-2222-3333');
-
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
+VALUES('1234-2222-3333-1124', 'abc1234@naver.com', '대구임', '맛있는 대구야 냠냠1', '대구 동구', '010-2222-3333');
 commit;
 
 ------------------------------ promotion board -----------------------------------

@@ -33,3 +33,10 @@
 
 <link href="/css/home.css" rel="stylesheet">
 
+
+    <!-- SPECIFIC CSS -->
+    <link href="css/blog.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+

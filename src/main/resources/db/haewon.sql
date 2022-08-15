@@ -227,6 +227,8 @@ INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title
 VALUES ('1234-2222-3333-1122', seq_promotion_board.nextval, '한식 족발 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
 INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
 VALUES ('1234-2222-3333-1123', seq_promotion_board.nextval, '한식 족발 은평구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1124', seq_promotion_board.nextval, '한식 족발 동구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
 
 commit;
 

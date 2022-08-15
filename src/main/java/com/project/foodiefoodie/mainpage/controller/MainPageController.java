@@ -3,11 +3,9 @@ package com.project.foodiefoodie.mainpage.controller;
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.common.paging.PageMaker;
 import com.project.foodiefoodie.common.search.Search;
-import com.project.foodiefoodie.hotdeal.dto.DealPromotionMasterDTO;
 import com.project.foodiefoodie.hotdeal.service.HotDealService;
 import com.project.foodiefoodie.mainpage.domain.MainPage;
 import com.project.foodiefoodie.mainpage.service.MainPageService;
-import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,7 +23,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MainPageController {
 
-    private final HotDealService hotDealService;
     private final PromotionBoardService promotionBoardService;
     private final MainPageService mainPageService;
 
@@ -51,7 +48,7 @@ public class MainPageController {
         // index.jsp 내에서 비동기 처리됨
 
         // 핫딜 리스트 TOP 6 --> 아무거나 TOP 6
-        List<DealPromotionMasterDTO> hotDeals = hotDealService.findRandHotService();
+        List<MainPage> hotDeals = mainPageService.findRandHotDealService();
         model.addAttribute("hotDeals", hotDeals);
 
         return "html/index";
@@ -90,6 +87,16 @@ public class MainPageController {
         model.addAttribute("locations", findAllMap.get("locationList"));
         model.addAttribute("address", storeAddress);
         return "html/location-list";
+    }
+
+    @GetMapping("/hotdeals")
+    public String hotDeals(Model model, Page page) {
+        Map<String, Object> findAllMap = mainPageService.findAllHotDealService(page);
+        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
+
+        model.addAttribute("pm", pm);
+        model.addAttribute("hotDeals", findAllMap.get("hotDeals"));
+        return "html/hot-deals";
     }
 
     private Map<String, Integer> getHashTagMap(Map<String, Integer> hashTags) {

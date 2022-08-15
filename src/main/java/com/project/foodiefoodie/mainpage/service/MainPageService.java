@@ -3,7 +3,6 @@ package com.project.foodiefoodie.mainpage.service;
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.mainpage.domain.MainPage;
 import com.project.foodiefoodie.mainpage.repository.MainPageMapper;
-import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -48,18 +47,33 @@ public class MainPageService {
         map.put("tc", totalCnt);
         return map;
     }
-    
+
     // 현재 위치에 있는 랜덤 6개 가게 불러오기 중간 처리
     public List<MainPage> findLocationRandService(String storeAddress) {
         return mapper.findLocationRand(storeAddress);
     }
-    
+
     // 현재 위치에 있는 가게 전체 불러오기 중간 처리
     public Map<String, Object> findAllInLocationService(String storeAddress, Page page) {
         List<MainPage> locationList = mapper.findAllInLocation(storeAddress, page);
         int totalCnt = mapper.getLocationCnt(storeAddress);
         Map<String, Object> map = new HashMap<>();
         map.put("locationList", locationList);
+        map.put("tc", totalCnt);
+        return map;
+    }
+
+    // hot deal 랜덤 6개 목록 요청 중간 처리
+    public List<MainPage> findRandHotDealService() {
+        return mapper.findRandHotDeal();
+    }
+
+    // hot deal 목록 요청 중간 처리
+    public Map<String, Object> findAllHotDealService(Page page) {
+        List<MainPage> hotDeals = mapper.findAllHotDeal(page);
+        int totalCnt = mapper.getHotDealCnt();
+        Map<String, Object> map = new HashMap<>();
+        map.put("hotDeals", hotDeals);
         map.put("tc", totalCnt);
         return map;
     }

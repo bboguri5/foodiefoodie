@@ -37,4 +37,14 @@ public interface MainPageMapper {
     // 현재 위치에 있는 가게 개수 계산
     int getLocationCnt(String storeAddress);
 
+
+    // hot deal 랜덤 6개 목록 요청
+    List<MainPage> findRandHotDeal();
+
+    // hot deal 목록 요청 중간 처리
+    List<MainPage> findAllHotDeal(Page page);
+
+    // 기간 내 핫딜 개수
+    int getHotDealCnt();
+
 }

@@ -8,6 +8,24 @@
 
     <%@ include file="../include/static-head.jsp" %>
 
+    
+    <style>
+        .search form {
+			display: flex;
+		}
+
+		.search .form-select {
+			flex: 1;
+			margin-top: 8px;
+			border-radius: 10px;
+		}
+
+
+		.search .row {
+			flex: 10;
+		}
+    </style>
+
 </head>
 
 <body>
@@ -52,32 +70,7 @@
     <!-- /header -->
 
     <main>
-        <div class="page_header element_to_stick">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
-                        <div class="breadcrumbs">
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Category</a></li>
-                                <li>Page active</li>
-                            </ul>
-                        </div>
-                        <h1>145 restaurants in Convent Street 2983</h1>
-                    </div>
-                    <div class="col-xl-4 col-lg-5 col-md-5">
-                        <div class="search_bar_list">
-                            <input type="text" class="form-control" placeholder="Search again...">
-                            <input type="submit" value="Search">
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-        </div>
-        <!-- /page_header -->
-
-
+        <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
             <div class="row">

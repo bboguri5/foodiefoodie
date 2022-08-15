@@ -167,7 +167,7 @@ commit;
 ------------------------------ promotion board -----------------------------------
 -- 홍보글
 
-CREATE TABLE promotion_board (
+    CREATE TABLE promotion_board (
     business_no VARCHAR2(50) NOT NULL
     , promotion_bno NUMBER(10) PRIMARY KEY
     , hashTag varchar2(200) not null

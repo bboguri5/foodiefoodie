@@ -23,15 +23,5 @@ public class HotDealController {
 
     private final HotDealService hotDealService;
 
-    // Hot Deal 랜덤 6개 목록 요청
-    @GetMapping("/hotdeals")
-    public String hotDeals(Model model, Page page) {
-        Map<String, Object> findAllMap = hotDealService.findAllService(page);
-        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
-
-        model.addAttribute("pm", pm);
-        model.addAttribute("hotDeals", findAllMap.get("dbList"));
-        return "html/hot-deals";
-    }
 
 }

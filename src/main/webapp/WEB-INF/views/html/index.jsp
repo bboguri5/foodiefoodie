@@ -246,6 +246,7 @@
 					</div>
 				</div>
 
+
 				<c:forEach var="hd" items="${hotDeals}" varStatus="status">
 					<c:if test="${hotDeals.indexOf(hd) gt 2}">
 						<div class="col-md-6">
@@ -256,14 +257,12 @@
 											<figure>
 												<img src="${hd.filePath}" data-src="${hd.filePath}" alt="" class="lazy">
 											</figure>
-											<div class="score">
-												<strong>${hd.avgStarRate}</strong>
-											</div>
+											<div class="score"><strong>${hd.avgStarRate}</strong></div>
+											<em>${hd.storeAddress}</em>
 											<h3>${hd.storeName}</h3>
-											<small>${hd.storeAddress}</small>
+											<small># : ${hd.hashTag}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}원</span>
-												</li>
+												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
 												<li>기간: ${hd.endDate}</li>
 											</ul>
 										</a>
@@ -281,13 +280,12 @@
 											<figure>
 												<img src="${hd.filePath}" data-src="${hd.filePath}" alt="" class="lazy">
 											</figure>
-											<div class="score">
-												<strong>${hd.avgStarRate}</strong></div>
+											<div class="score"><strong>${hd.avgStarRate}</strong></div>
+											<em>${hd.storeAddress}</em>
 											<h3>${hd.storeName}</h3>
-											<small>${hd.storeAddress}</small>
+											<small># : ${hd.hashTag}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}원</span>
-												</li>
+												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
 												<li>기간: ${hd.endDate}</li>
 											</ul>
 										</a>

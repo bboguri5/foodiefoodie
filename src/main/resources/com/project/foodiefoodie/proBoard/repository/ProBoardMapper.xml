@@ -4,13 +4,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.foodiefoodie.proBoard.repository.ProBoardMapper">
 
-    <insert id="save">
+    <insert id="proBoardSave">
         insert into promotion_board VALUES (
         #{businessNo}
         ,seq_promotion_board.nextval
         ,#{content}
         ,sysdate
         ,#{title})
+    </insert>
+
+    <insert id="storeTimeSave">
+        insert into PROMOTION_STORE_TIME VALUES (
+        ,#{weekdayOpenTime}
+        ,#{weekdayCloseTime}
+        ,#[weekendOpenTime}
+        ,#{weekendCloseTime}
+        ,#{breakStartTime}
+        ,#{breakEndTime}
+        ,#{closedDay}
+    </insert>
+
+    <insert id="menuSave">
+        insert into PROMOTION_FOOD_MENU VALUES (
+        ,SEQ_PROMOTION_FOOD_MENU.nextval
+        ,#{}
+        )
+
     </insert>
 
     <update id="modify">

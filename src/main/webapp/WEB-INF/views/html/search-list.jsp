@@ -74,23 +74,29 @@
 
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="db" items="${bList}" varStatus="status">
+                <c:forEach var="sl" items="${searchList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <img src="${db.filePath}" data-src="${db.filePath}" class="img-fluid lazy"
+                                <c:if test="${sl.hotDeal == 'Y'.charAt(0)}">
+									<span class="ribbon off">${sl.discountPrice}</span>
+								</c:if>
+                                <img src="${sl.filePath}" data-src="${sl.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
+                                    <c:if test="${sl.hotDeal == 'Y'.charAt(0)}">
+                                        <small>기간: ${sl.endDate}</small>
+                                    </c:if>
                                     <div class="item_title">
-                                        <h3>${db.storeName}</h3>
+                                        <h3>${sl.storeName}</h3>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${db.storeAddress}</span></li>
+                                <li><span>${sl.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>푸디푸디 추천 맛집<em>${db.reviewCnt}개
-                                                리뷰</em></span><strong>${db.avgStarRate}</strong></div>
+                                    <div class="score"><span>푸디푸디 추천 맛집<em>${sl.reviewCnt}개
+                                                리뷰</em></span><strong>${sl.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>

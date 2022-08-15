@@ -1,7 +1,9 @@
 package com.project.foodiefoodie.mainpage.repository;
 
 import com.project.foodiefoodie.common.paging.Page;
+import com.project.foodiefoodie.common.search.Search;
 import com.project.foodiefoodie.mainpage.domain.MainPage;
+import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -46,5 +48,18 @@ public interface MainPageMapper {
 
     // 기간 내 핫딜 개수
     int getHotDealCnt();
+
+
+    // 해당 서치 리스트 가져오기
+    List<MainPage> findAllSearch(Search search);
+
+    // 해당 서치 개수
+    int getTotalCount(Search search);
+
+    // 해당 해쉬태그 리스트 가져오기
+    List<MainPage> findHashTag(@Param("hashTag") String hashTag, @Param("page") Page page);
+
+    // 해당 해쉬태그 개수
+    int findHashTagCount(String hashTag);
 
 }

@@ -78,11 +78,18 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
+                                <c:if test="${ht.hotDeal == 'Y'.charAt(0)}">
+									<span class="ribbon off">${ht.discountPrice}</span>
+								</c:if>
                                 <img src="${ht.filePath}" data-src="${ht.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
+                                    <c:if test="${ht.hotDeal == 'Y'.charAt(0)}">
+                                        <small>기간: ${ht.endDate}</small>
+                                    </c:if>
                                     <div class="item_title">
                                         <h3>${ht.storeName}</h3>
+                                        <small># : ${ht.hashTag}</small>
                                     </div>
                                 </a>
                             </figure>

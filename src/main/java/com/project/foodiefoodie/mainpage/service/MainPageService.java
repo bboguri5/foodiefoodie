@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.mainpage.service;
 
 import com.project.foodiefoodie.common.paging.Page;
+import com.project.foodiefoodie.common.search.Search;
 import com.project.foodiefoodie.mainpage.domain.MainPage;
 import com.project.foodiefoodie.mainpage.repository.MainPageMapper;
 import lombok.RequiredArgsConstructor;
@@ -76,5 +77,39 @@ public class MainPageService {
         map.put("hotDeals", hotDeals);
         map.put("tc", totalCnt);
         return map;
+    }
+
+    public Map<String, Object> findAllSearchService(Search search) {
+        log.info("findAll service start");
+
+        Map<String, Object> findDataMap = new HashMap<>();
+
+        List<MainPage> searchList = mapper.findAllSearch(search);
+
+        findDataMap.put("searchList", searchList);
+        findDataMap.put("tc", mapper.getTotalCount(search));
+
+        return findDataMap;
+    }
+
+    // 해당 해쉬태그 리스트 가져오기 중간 처리
+    public Map<String, Object> findHashTagService(String tag, Page page) {
+
+        Map<String, Object> findDataMap = new HashMap<>();
+
+        List<MainPage> hashTagList = mapper.findHashTag(tag, page);
+        findDataMap.put("hashTagList", hashTagList);
+        findDataMap.put("tc", mapper.findHashTagCount(tag));
+        return findDataMap;
+    }
+
+    public Map<String, Integer> findHashTagCountService(Map<String, Integer> hashTags) {
+        hashTags.put("korean", mapper.findHashTagCount("한식"));
+        hashTags.put("chinese", mapper.findHashTagCount("중식"));
+        hashTags.put("japanese", mapper.findHashTagCount("일식"));
+        hashTags.put("western", mapper.findHashTagCount("양식"));
+        hashTags.put("bar", mapper.findHashTagCount("술집"));
+        hashTags.put("cafe", mapper.findHashTagCount("카페"));
+        return hashTags;
     }
 }

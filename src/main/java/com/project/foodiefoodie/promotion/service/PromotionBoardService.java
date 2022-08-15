@@ -26,36 +26,6 @@ public class PromotionBoardService {
         return one;
     }
 
-    public Map<String, Object> findAllSearchService(Search search) {
-        log.info("findAll service start");
-
-        Map<String, Object> findDataMap = new HashMap<>();
-
-        List<PromotionMasterDTO> searchList = mapper.findAllSearch(search);
-        log.info("{}", searchList);
-
-        // 목록 중간 데이터 처리
-//        processConverting(searchList);
-
-        findDataMap.put("bList", searchList);
-        findDataMap.put("tc", mapper.getTotalCount(search));
-
-        return findDataMap;    }
-
-    public int findHashTagCountService(String hashTag) {
-        return mapper.findHashTagCount(hashTag);
-    }
-
-    public Map<String, Object>  findHashTagService(String tag, Page page) {
-
-        Map<String, Object> findDataMap = new HashMap<>();
-
-        List<PromotionMasterDTO> hashTagList = mapper.findHashTag(tag, page);
-        findDataMap.put("bList", hashTagList);
-        findDataMap.put("tc", mapper.getMyTotalCnt(tag));
-        return findDataMap;
-    }
-
     public boolean reportCntModifyService(int reportCnt, String businessNo) {
         return mapper.reportCntModify(reportCnt, businessNo);
     }

@@ -186,6 +186,9 @@
 					<div class="item">
 						<div class="strip">
 							<figure>
+								<c:if test="${pl.hotDeal == 'Y'.charAt(0)}">
+									<span class="ribbon off">${pl.discountPrice}</span>
+								</c:if>
 								<img src="${pl.filePath}" data-src="${pl.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
 									<div class="item_title">
@@ -415,13 +418,11 @@
 							`<div class="item">` +
 							`   <div class="strip">` +
 							`       <figure>` +
-							`           <img src="` + locationList[i].filePath + `" data-src="` + locationList[i]
-							.filePath + `" class="owl-lazy" alt="">` +
+							`           <img src="` + locationList[i].filePath + `" data-src="` + locationList[i].filePath + `" class="owl-lazy" alt="">` +
 							`           <a href="detail-restaurant.html" class="strip_info">` +
 							`               <div class="item_title">` +
 							`                   <h3>` + locationList[i].storeName + `</h3>` +
 							`                   <small># : ` + locationList[i].hashTag + `</small>` +
-
 							`               </div>` +
 							`           </a>` +
 							`       </figure>` +

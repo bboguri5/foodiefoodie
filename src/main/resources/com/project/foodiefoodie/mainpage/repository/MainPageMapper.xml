@@ -186,4 +186,56 @@
         ( SELECT TO_CHAR (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
     </select>
 
+    <!-- 해당 해쉬태그 개수 구하기 -->
+    <select id="findHashTagCount" resultType="int">
+        SELECT COUNT(*)
+        FROM promotion_board
+        WHERE hashTag LIKE '%' || #{hashTag} || '%'
+    </select>
+
+    <!-- 해당 해쉬태그 리스트 가져오기 -->
+    <select id="findHashTag" resultMap="mpMap">
+        SELECT *
+        FROM (SELECT ROWNUM rn, t_pb.*
+        FROM (
+        SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        discount_price, start_date, end_date, hashTag
+        FROM promotion_board P JOIN master M
+        ON P.business_no = M.business_no
+        LEFT OUTER JOIN hot_deal H
+        ON H.business_no = P.business_no
+        WHERE hashTag LIKE '%' || #{hashTag} || '%'
+        ) t_pb)
+        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
+    </select>
+
+    <!-- 해당 서치 리스트 가져오기 -->
+    <select id="findAllSearch" resultMap="mpMap">
+        SELECT *
+        FROM (SELECT ROWNUM rn, t_pb.*
+        FROM (
+        SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        discount_price, start_date, end_date, hashTag
+        FROM promotion_board P JOIN master M
+        ON P.business_no = M.business_no
+        LEFT OUTER JOIN hot_deal H
+        ON H.business_no = P.business_no
+        <!-- 동적 SQL : 검색을 하면 붙고, 안하면 안붙음 -->
+        <if test="type == 'location'">WHERE store_address LIKE '%' || #{keyword} || '%'</if>
+        <if test="type == 'restaurant'">WHERE store_name LIKE '%' || #{keyword} || '%'</if>
+        <if test="type == 'food'">WHERE hashTag LIKE '%' || #{keyword} || '%'</if>
+        ) t_pb)
+        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
+    </select>
+
+    <!-- 해당 서치 개수 -->
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM promotion_board P JOIN master M
+        ON P.business_no = M.business_no
+        <if test="type == 'location'">WHERE store_address LIKE '%' || #{keyword} || '%'</if>
+        <if test="type == 'restaurant'">WHERE store_name LIKE '%' || #{keyword} || '%'</if>
+        <if test="type == 'food'">WHERE hashTag LIKE '%' || #{keyword} || '%'</if>
+    </select>
+
 </mapper>

@@ -3,10 +3,8 @@ package com.project.foodiefoodie.mainpage.controller;
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.common.paging.PageMaker;
 import com.project.foodiefoodie.common.search.Search;
-import com.project.foodiefoodie.hotdeal.service.HotDealService;
 import com.project.foodiefoodie.mainpage.domain.MainPage;
 import com.project.foodiefoodie.mainpage.service.MainPageService;
-import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -23,7 +21,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MainPageController {
 
-    private final PromotionBoardService promotionBoardService;
     private final MainPageService mainPageService;
 
     // 메인페이지 요청
@@ -32,7 +29,7 @@ public class MainPageController {
 
         // 카테고리 N개
         Map<String, Integer> hashTags = new HashMap<>();
-        getHashTagMap(hashTags);
+        mainPageService.findHashTagCountService(hashTags);
         model.addAttribute("hashTags", hashTags);
 
         // 오늘의 맛집 TOP 7 --> 평균 평점 계산하여 상위 7개 가져오기
@@ -52,6 +49,21 @@ public class MainPageController {
         model.addAttribute("hotDeals", hotDeals);
 
         return "html/index";
+    }
+
+    // 해당 해쉬태그 리스트 전체 조회
+    @GetMapping("/hashtag")
+    public String hashTagList(Model model, String tag, Page page) {
+        Map<String, Object> findAllMap = mainPageService.findHashTagService(tag, page);
+
+        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
+        model.addAttribute("tag", tag);
+        model.addAttribute("pm", pm);
+        model.addAttribute("hashTagList", findAllMap.get("hashTagList"));
+
+        log.info("hashTagList pm.endPage - {}", pm.getEndPage());
+
+        return "html/hash-search";
     }
 
     // 평점순 정렬된 오늘의 맛집 정보 전체 불러오기
@@ -99,25 +111,11 @@ public class MainPageController {
         return "html/hot-deals";
     }
 
-    private Map<String, Integer> getHashTagMap(Map<String, Integer> hashTags) {
-        hashTags.put("korean", promotionBoardService.findHashTagCountService("한식"));
-        hashTags.put("chinese", promotionBoardService.findHashTagCountService("중식"));
-        hashTags.put("japanese", promotionBoardService.findHashTagCountService("일식"));
-        hashTags.put("western", promotionBoardService.findHashTagCountService("양식"));
-        hashTags.put("bar", promotionBoardService.findHashTagCountService("술집"));
-        hashTags.put("cafe", promotionBoardService.findHashTagCountService("카페"));
-        return hashTags;
-    }
-
-
-
-
-
     @GetMapping("/list")
     public String list(@ModelAttribute("s") Search search, Model model) {
         log.info("controller request /board/list GET! - search: {}", search);
 
-        Map<String, Object> boardMap = promotionBoardService.findAllSearchService(search);
+        Map<String, Object> boardMap = mainPageService.findAllSearchService(search);
         log.info("return data - {}", boardMap.get("bList"));
 
         // 페이지 정보 생성
@@ -125,29 +123,15 @@ public class MainPageController {
                 new Page(search.getPageNum(), search.getAmount())
                 , (Integer) boardMap.get("tc"));
 
-        model.addAttribute("bList", boardMap.get("bList"));
+        model.addAttribute("searchList", boardMap.get("searchList"));
         model.addAttribute("pm", pm);
 
         return "html/search-list";
     }
 
-    @GetMapping("/hashtag")
-    public String hashTagList(Model model, String tag, Page page) {
-        Map<String, Object> findAllMap = promotionBoardService.findHashTagService(tag, page);
-
-        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
-        model.addAttribute("tag", tag);
-        model.addAttribute("pm", pm);
-        model.addAttribute("hashTagList", findAllMap.get("bList"));
-
-        log.info("hashTagList pm.endPage - {}", pm.getEndPage());
-
-        return "html/hash-search";
-    }
-
-    @GetMapping("/test")
-    public String test() {
-        return "html/test";
-    }
+//    @GetMapping("/test")
+//    public String test() {
+//        return "html/test";
+//    }
 
 }

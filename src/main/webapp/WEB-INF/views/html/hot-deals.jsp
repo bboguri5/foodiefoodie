@@ -9,22 +9,6 @@
 	<%@ include file="../include/static-head.jsp" %>
 
     
-    <style>
-        .search form {
-			display: flex;
-		}
-
-		.search .form-select {
-			flex: 1;
-			margin-top: 8px;
-			border-radius: 10px;
-		}
-
-
-		.search .row {
-			flex: 10;
-		}
-    </style>
 
 </head>
 

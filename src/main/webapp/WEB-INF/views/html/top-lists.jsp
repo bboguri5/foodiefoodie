@@ -84,6 +84,9 @@
                                 <img src="${topTodayAll.filePath}" data-src="${topTodayAll.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
+                                    <c:if test="${topTodayAll.hotDeal == 'Y'.charAt(0)}">
+                                        <small>기간: ${topTodayAll.endDate}</small>
+                                    </c:if>
                                     <div class="item_title">
                                         <h3>${topTodayAll.storeName}</h3>
                                         <small># : ${topTodayAll.hashTag}</small>

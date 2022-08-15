@@ -1,10 +1,12 @@
-package com.project.foodiefoodie.main.controller;
+package com.project.foodiefoodie.mainpage.controller;
 
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.common.paging.PageMaker;
 import com.project.foodiefoodie.common.search.Search;
 import com.project.foodiefoodie.hotdeal.dto.DealPromotionMasterDTO;
 import com.project.foodiefoodie.hotdeal.service.HotDealService;
+import com.project.foodiefoodie.mainpage.domain.MainPage;
+import com.project.foodiefoodie.mainpage.service.MainPageService;
 import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.premium.dto.PremiumPromotionBoardDTO;
 import com.project.foodiefoodie.premium.service.PremiumPromotionBoardService;
@@ -24,13 +26,13 @@ import java.util.Map;
 @Controller
 @Log4j2
 @RequiredArgsConstructor
-public class MainController {
+public class MainPageController {
 
     private final HotDealService hotDealService;
     private final PromotionBoardService promotionBoardService;
     private final MasterService masterService;
     private final PremiumPromotionBoardService premiumPromotionBoardService;
-
+    private final MainPageService mainPageService;
 
     // 메인페이지 요청
     @GetMapping("/")
@@ -40,10 +42,11 @@ public class MainController {
         Map<String, Integer> hashTags = new HashMap<>();
         getHashTagMap(hashTags);
         model.addAttribute("hashTags", hashTags);
+
         // 오늘의 맛집 TOP 7 --> 리뷰 많은 / 평점 좋은
         // 평점 & 리뷰 갯수 총합 탑 랜덤 겟
-        List<PromotionMasterDTO> pmd = promotionBoardService.topAvgRateCountService();
-        model.addAttribute("pmd", pmd);
+        List<MainPage> topToday = mainPageService.findTopTodayService();
+        model.addAttribute("topToday", topToday);
 
         // 푸디푸디 추천 맛집 --> 돈 받은 가게
         // 프리미엄 프로모션 보드에서 랜덤 겟?
@@ -68,7 +71,7 @@ public class MainController {
         hashTags.put("western", promotionBoardService.findHashTagCountService("양식"));
         hashTags.put("bar", promotionBoardService.findHashTagCountService("술집"));
         hashTags.put("cafe", promotionBoardService.findHashTagCountService("카페"));
-        return  hashTags;
+        return hashTags;
     }
 
 

@@ -1,9 +1,7 @@
-package com.project.foodiefoodie.main;
+package com.project.foodiefoodie.mainpage.controller;
 
-import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
-import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Log4j2
 @CrossOrigin
-public class MainAPIController {
+public class MainPageAPIController {
     private final MasterService masterService;
 
     @GetMapping("/mylocation")

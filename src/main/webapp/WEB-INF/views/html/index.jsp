@@ -144,23 +144,23 @@
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
-				<c:forEach var="pmd" items="${pmd}" varStatus="status">
+				<c:forEach var="topList" items="${topList}" varStatus="status">
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<img src="${pmd.filePath}" data-src="${pmd.filePath}" class="owl-lazy" alt="">
+								<img src="${topList.filePath}" data-src="${topList.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
 									<div class="item_title">
-										<h3>${pmd.storeName}</h3>
-										<small>${pmd.storeAddress}</small>
+										<h3>${topList.storeName}</h3>
+										<small>${topList.storeAddress}</small>
 									</div>
 								</a>
 							</figure>
 							<ul>
 								<li><span class="loc_open">Now Open</span></li>
 								<li>
-									<div class="score"><span>최고맛집<em>${pmd.reviewCnt}개
-												리뷰</em></span><strong>${pmd.avgStarRate}</strong></div>
+									<div class="score"><span>최고맛집<em>${topList.reviewCnt}개
+												리뷰</em></span><strong>${topList.avgStarRate}</strong></div>
 								</li>
 							</ul>
 						</div>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.foodiefoodie.mainpage.repository.MainPageMapper">
+
+    <resultMap id="mpMap" type="com.project.foodiefoodie.mainpage.domain.MainPage">
+        <result property="businessNo" column="business_no"/>
+        <result property="storeName" column="store_name"/>
+        <result property="store_address" column="store_address"/>
+        <result property="avgStarRate" column="avg_star_rate"/>
+        <result property="reviewCnt" column="review_cnt"/>
+        <result property="hotDeal" column="hot_deal"/>
+        <result property="filePath" column="file_path"/>
+        <result property="discountPrice" column="discount_price"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+    </resultMap>
+
+    <select id="findTopToday" resultMap="mpMap">
+        SELECT * FROM (
+        SELECT P.business_no, store_name, store_address, avg_star_rate ASR, review_cnt, hot_deal, file_path, discount_price, start_date, end_date
+        FROM promotion_board P JOIN master M
+        ON P.business_no = M.business_no
+        LEFT OUTER JOIN hot_deal H
+        ON H.business_no = P.business_no
+        ORDER BY ASR DESC
+        ) sub
+        WHERE ROWNUM BETWEEN 1 AND 7
+    </select>
+
+
+</mapper>

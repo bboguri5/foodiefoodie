@@ -30,6 +30,8 @@ public class AjaxController {
     @ResponseBody
     public ResponseEntity<List<String>> ajaxUpload(List<MultipartFile> files) {
 
+        long maxFileSize = 10 * 1024 * 1024;
+
         if (files != null) {
             log.info("/ajax-upload POST!! - {}", files.get(0).getOriginalFilename());
 
@@ -37,6 +39,10 @@ public class AjaxController {
 
 
             for (MultipartFile file : files) {
+
+                if (file.getSize() > maxFileSize) {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
 
                 String fullPath = FileUtils.uploadFile(file, UPLOAD_PATH);
 

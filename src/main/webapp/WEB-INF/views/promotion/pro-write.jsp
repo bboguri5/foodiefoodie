@@ -274,7 +274,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="hidden-menu-box">
-                                                            <input type="hidden" name="menu">
+                                                            <input type="hidden" name="menuImg">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -729,13 +729,26 @@
             // console.log(detailPreviewBox.children.length);
 
             if ($(obj)[0].files.length > maxFileCnt || [...detailPreviewBox.children].length >= maxFileCnt) {
-                $(obj).val("");
+                $(obj).val('');
                 return false;
             } else {
                 return true;
             }
         }
 
+
+        function uploadingFileSizeCheck(obj) {
+            let maxFileSize = 10 * 1024 * 1024; // 파일 최대 용량 10MB
+
+            for (let file of $(obj)[0].files) {
+                if (file.size > maxFileSize) {
+                    $(obj).val('');
+                    return false;
+                } 
+            }
+
+            return true;
+        }
 
 
         // 타이틀 이미지 미리보기 렌더링
@@ -831,6 +844,10 @@
             } else {
 
                 // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
+                if (!uploadingFileSizeCheck($(this))) {
+                    alert('첨부파일 사이즈는 10MB 이내로 등록 가능합니다.');
+                    return;
+                }
 
 
                 // title 이미지 미리보기 비동기 처리
@@ -842,9 +859,10 @@
                 // detail 이미지 미리보기 비동기 처리
                 if ($(this).hasClass('detail')) {
                     // 파일 개수 검증이 들어가야 한다.
-                    if (uploadingFileCountCheck($(this))) {
-                        ajaxDetailPreview();
-                    } else {
+                    if (uploadingFileCountCheck($(this))) { // 파일 개수 검증
+                            ajaxDetailPreview();
+                        }
+                    else {
                         alert('최대 5개의 이미지 파일만을 업로드 하실 수 있습니다.');
                     }
                 }
@@ -852,9 +870,9 @@
 
                 // menu 이미지 미리보기 비동기 처리
                 if ($(this).hasClass('menu')) {
-                    const $nowInput = $(this);
-                    ajaxMenuPreview($nowInput);
+                    ajaxMenuPreview($(this));
                 }
+            
             }
         });
     </script>

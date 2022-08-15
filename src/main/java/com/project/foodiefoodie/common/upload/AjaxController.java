@@ -30,19 +30,23 @@ public class AjaxController {
     @ResponseBody
     public ResponseEntity<List<String>> ajaxUpload(List<MultipartFile> files) {
 
-        log.info("/ajax-upload POST!! - {}", files.get(0).getOriginalFilename());
+        if (files != null) {
+            log.info("/ajax-upload POST!! - {}", files.get(0).getOriginalFilename());
 
-        List<String> fileNames = new ArrayList<>();
+            List<String> fileNames = new ArrayList<>();
 
 
-        for (MultipartFile file : files) {
+            for (MultipartFile file : files) {
 
-            String fullPath = FileUtils.uploadFile(file, UPLOAD_PATH);
+                String fullPath = FileUtils.uploadFile(file, UPLOAD_PATH);
 
-            fileNames.add(fullPath);
+                fileNames.add(fullPath);
+            }
+
+            return new ResponseEntity<>(fileNames, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(fileNames, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 

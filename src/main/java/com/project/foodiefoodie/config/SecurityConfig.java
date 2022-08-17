@@ -3,9 +3,12 @@ package com.project.foodiefoodie.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.HttpFirewall;
 
 @Configuration
 @EnableWebSecurity // 시큐리티 설정을 웹에 적용하는 어노테이션
@@ -38,5 +41,17 @@ public class SecurityConfig { // 본격적으로 쓰고자 하면 여기서 설�
 //                .antMatchers("/board/**").hasRole("ADMIN"); // /board 요청은 ADMIN 권한이 있는 애만 접속가능하게 한다는 뜻이다.
 
         return http.build();
+    }
+
+
+    // url에 더블 슬래시가 들어가도 괜찮도록 허용해주는 하위 2개의 메서드
+    public void configure(WebSecurity web) throws Exception {
+        web.httpFirewall(defaultHttpFireWall());
+    }
+
+
+    @Bean
+    public HttpFirewall defaultHttpFireWall() {
+        return new DefaultHttpFirewall();
     }
 }

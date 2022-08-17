@@ -79,7 +79,7 @@
                                     <span id="phoneChk"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" id="phone-num" maxlength="13"
+                                    <input class="form-control phoneNumber" type="text" id="phone-num" maxlength="13"
                                         placeholder="연락처 [예시: 010-1234-5678]" name="phoneNumber">
                                     <!-- <i class="icon_pencil"></i> -->
                                 </div>
@@ -486,6 +486,18 @@
             }
         }).open();
     }
+</script>
+
+
+<!-- 연락처 입력시 자동으로 하이픈 작성을 해주는 스크립트 영역 -->
+<script>
+
+    $(document).on("keyup", ".phoneNumber", function() {        
+
+        $(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); 
+
+    });
+
 </script>
 
 </body>

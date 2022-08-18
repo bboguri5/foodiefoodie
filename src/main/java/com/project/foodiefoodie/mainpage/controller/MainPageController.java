@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,8 @@ public class MainPageController {
     // 메인페이지 요청
     @GetMapping("/")
     public String mainPage(Model model) {
+
+        model.addAttribute("todayDate", getTodayDate());
 
         // 카테고리 N개
         Map<String, Integer> hashTags = new HashMap<>();
@@ -51,6 +55,12 @@ public class MainPageController {
         return "html/index";
     }
 
+    private String getTodayDate() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
+    }
+
     // 해당 해쉬태그 리스트 전체 조회
     @GetMapping("/hashtag")
     public String hashTagList(Model model, String tag, Page page) {
@@ -60,6 +70,7 @@ public class MainPageController {
         model.addAttribute("tag", tag);
         model.addAttribute("pm", pm);
         model.addAttribute("hashTagList", findAllMap.get("hashTagList"));
+        model.addAttribute("todayDate", getTodayDate());
 
         log.info("hashTagList pm.endPage - {}", pm.getEndPage());
 
@@ -75,6 +86,7 @@ public class MainPageController {
 
         model.addAttribute("pm", pm);
         model.addAttribute("topTodayAll", findAllMap.get("topTodayAll"));
+        model.addAttribute("todayDate", getTodayDate());
         return "html/top-lists";
     }
 
@@ -85,6 +97,7 @@ public class MainPageController {
 
         model.addAttribute("pm", pm);
         model.addAttribute("premiumList", findAllMap.get("premiumList"));
+        model.addAttribute("todayDate", getTodayDate());
 
         return "html/premium-list";
     }
@@ -98,6 +111,7 @@ public class MainPageController {
         model.addAttribute("pm", pm);
         model.addAttribute("locations", findAllMap.get("locationList"));
         model.addAttribute("address", storeAddress);
+        model.addAttribute("todayDate", getTodayDate());
         return "html/location-list";
     }
 
@@ -108,6 +122,8 @@ public class MainPageController {
 
         model.addAttribute("pm", pm);
         model.addAttribute("hotDeals", findAllMap.get("hotDeals"));
+        model.addAttribute("todayDate", getTodayDate());
+
         return "html/hot-deals";
     }
 
@@ -125,6 +141,7 @@ public class MainPageController {
 
         model.addAttribute("searchList", boardMap.get("searchList"));
         model.addAttribute("pm", pm);
+        model.addAttribute("todayDate", getTodayDate());
 
         return "html/search-list";
     }

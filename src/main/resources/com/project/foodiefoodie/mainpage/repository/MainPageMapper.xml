@@ -150,16 +150,16 @@
 
     <!-- hot deal 랜덤 6개 목록 요청-->
     <select id="findRandHotDeal" resultMap="mpMap">
-        SELECT *
-        FROM (SELECT ROWNUM rn, sub.*
-        FROM (
+        SELECT * FROM (
         SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
         discount_price, start_date, end_date, hashTag
         FROM promotion_board P JOIN hot_deal H
         ON P.business_no = H.business_no
         JOIN master M
         ON H.business_no = M.business_no
-        ORDER BY end_date ) sub)
+        WHERE end_date > (SELECT TO_CHAR
+        (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
+        ORDER BY end_date ) sub
         WHERE ROWNUM BETWEEN 1 AND 6
     </select>
 
@@ -174,6 +174,8 @@
         ON P.business_no = H.business_no
         JOIN master M
         ON H.business_no = M.business_no
+        WHERE end_date > (SELECT TO_CHAR
+        (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
         ORDER BY end_date ) sub)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
     </select>

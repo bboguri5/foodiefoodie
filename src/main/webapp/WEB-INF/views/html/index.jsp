@@ -148,7 +148,7 @@
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<c:if test="${topToday.hotDeal == 'Y'.charAt(0)}">
+								<c:if test="${topToday.hotDeal == 'Y'.charAt(0) && topToday.endDate > todayDate}">
 									<span class="ribbon off">${topToday.discountPrice}</span>
 								</c:if>
 								<img src="${topToday.filePath}" data-src="${topToday.filePath}" class="owl-lazy" alt="">
@@ -186,7 +186,7 @@
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<c:if test="${pl.hotDeal == 'Y'.charAt(0)}">
+								<c:if test="${pl.hotDeal == 'Y'.charAt(0) && pl.endDate > todayDate}">
 									<span class="ribbon off">${pl.discountPrice}</span>
 								</c:if>
 								<img src="${pl.filePath}" data-src="${pl.filePath}" class="owl-lazy" alt="">
@@ -418,6 +418,9 @@
 							`<div class="item">` +
 							`   <div class="strip">` +
 							`       <figure>` +
+							`			<c:if test="` + locationList[i] + ` == 'Y'.charAt(0) && ` + locationList[i].endDate `>` + todayDate + `}">` +
+							`				<span class="ribbon off">` + locationList[i].discountPrice + `</span>` +
+							`			</c:if>` +
 							`           <img src="` + locationList[i].filePath + `" data-src="` + locationList[i].filePath + `" class="owl-lazy" alt="">` +
 							`           <a href="detail-restaurant.html" class="strip_info">` +
 							`               <div class="item_title">` +

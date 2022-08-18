@@ -8,10 +8,17 @@
     <resultMap id="rbMap" type="com.project.foodiefoodie.review.domain.ReviewBoard">
         <result property="businessNo" column="business_no"/>
         <result property="reviewBno" column="review_bno"/>
-        <result property="lastUpdate" column="last_update"/>
+        <result property="lastUpdated" column="last_updated"/>
         <result property="likeCnt" column="like_cnt"/>
         <result property="starRate" column="star_rate"/>
         <result property="isPrivate" column="private"/>
+    </resultMap>
+
+    <resultMap id="rbDTOMap" type="com.project.foodiefoodie.review.dto.ReviewBoardDTO">
+        <result property="reviewBno" column="review_bno"/>
+        <result property="lastUpdated" column="last_updated"/>
+        <result property="likeCnt" column="like_cnt"/>
+        <result property="starRate" column="star_rate"/>
     </resultMap>
 
     <insert id="save">
@@ -32,4 +39,16 @@
         FROM review_board
         WHERE business_no=#{businessNo}
     </select>
+
+    <select id="findAllReviews" resultMap="rbDTOMap">
+        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt
+        FROM review_board
+    </select>
+
+    <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
+        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt
+        FROM review_board
+        WHERE review_bno = #{reviewBno}
+    </select>
+
 </mapper>

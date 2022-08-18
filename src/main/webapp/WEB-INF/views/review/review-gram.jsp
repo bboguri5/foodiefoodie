@@ -31,6 +31,7 @@
 		.search .row {
 			flex: 10;
 		}
+
 	</style>
 </head>
 
@@ -38,179 +39,39 @@
 
 	<%@ include file="../include/detail-header.jsp" %>
 
-    <main>
-		<div class="page_header element_to_stick">
-		    <div class="container">
-		    	<div class="row">
-		    		<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
-		    			<div class="breadcrumbs blog">
-				            <ul>
-				                <li><a href="#">Home</a></li>
-				                <li><a href="#">Category</a></li>
-				                <li>Page active</li>
-				            </ul>
-		       	 		</div>
-		    		</div>
-		    		<div class="col-xl-4 col-lg-5 col-md-5">
-		    			<div class="search_bar_list">
-							<input type="text" class="form-control" placeholder="Search in blog...">
-							<input type="submit" value="Search">
-						</div>
-		    		</div>
-		    	</div>
-		    	<!-- /row -->		       
-		    </div>
-		</div>
-		<!-- /page_header -->
+	<main>
+		<%@ include file="../include/page-header.jsp" %>
 
-		<div class="container margin_30_40">			
+		<div class="container margin_30_40">
 			<div class="row">
 				<div class="col-lg-9">
 					<div class="row">
-						<div class="col-md-6">
-							<article class="blog">
-								<figure>
-									<a href="blog-post.html"><img src="img/blog-1.jpg" alt="">
-										<div class="preview"><span>Read more</span></div>
-									</a>
-								</figure>
-								<div class="post_info">
-									<small>Category - 20 Nov. 2017</small>
-									<h2><a href="blog-post.html">Ea exerci option hendrerit</a></h2>
-									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
-									<ul>
-										<li>
-											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
-										</li>
-										<li><i class="icon_comment_alt"></i>20</li>
-									</ul>
-								</div>
-							</article>
-							<!-- /article -->
-						</div>
-						<!-- /col -->
-						<div class="col-md-6">
-							<article class="blog">
-								<figure>
-									<a href="blog-post.html"><img src="img/blog-2.jpg" alt="">
-										<div class="preview"><span>Read more</span></div>
-									</a>
-								</figure>
-								<div class="post_info">
-									<small>Category - 20 Nov. 2017</small>
-									<h2><a href="blog-post.html">At usu sale dolorum offendit</a></h2>
-									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
-									<ul>
-										<li>
-											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
-										</li>
-										<li><i class="icon_comment_alt"></i>20</li>
-									</ul>
-								</div>
-							</article>
-							<!-- /article -->
-						</div>
-						<!-- /col -->
-						<div class="col-md-6">
-							<article class="blog">
-								<figure>
-									<a href="blog-post.html"><img src="img/blog-3.jpg" alt="">
-										<div class="preview"><span>Read more</span></div>
-									</a>
-								</figure>
-								<div class="post_info">
-									<small>Category - 20 Nov. 2017</small>
-									<h2><a href="blog-post.html">Iusto nominavi petentium in</a></h2>
-									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
-									<ul>
-										<li>
-											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
-										</li>
-										<li><i class="icon_comment_alt"></i>20</li>
-									</ul>
-								</div>
-							</article>
-							<!-- /article -->
-						</div>
-						<!-- /col -->
-						<div class="col-md-6">
-							<article class="blog">
-								<figure>
-									<a href="blog-post.html"><img src="img/blog-4.jpg" alt="">
-										<div class="preview"><span>Read more</span></div>
-									</a>
-								</figure>
-								<div class="post_info">
-									<small>Category - 20 Nov. 2017</small>
-									<h2><a href="blog-post.html">Assueverit concludaturque quo</a></h2>
-									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
-									<ul>
-										<li>
-											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
-										</li>
-										<li><i class="icon_comment_alt"></i>20</li>
-									</ul>
-								</div>
-							</article>
-							<!-- /article -->
-						</div>
-						<!-- /col -->
-						<div class="col-md-6">
-							<article class="blog">
-								<figure>
-									<a href="blog-post.html"><img src="img/blog-5.jpg" alt="">
-										<div class="preview"><span>Read more</span></div>
-									</a>
-								</figure>
-								<div class="post_info">
-									<small>Category - 20 Nov. 2017</small>
-									<h2><a href="blog-post.html">Nec nihil menandri appellantur</a></h2>
-									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
-									<ul>
-										<li>
-											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
-										</li>
-										<li><i class="icon_comment_alt"></i>20</li>
-									</ul>
-								</div>
-							</article>
-							<!-- /article -->
-						</div>
-						<!-- /col -->
-						<div class="col-md-6">
-							<article class="blog">
-								<figure>
-									<a href="blog-post.html"><img src="img/blog-6.jpg" alt="">
-										<div class="preview"><span>Read more</span></div>
-									</a>
-								</figure>
-								<div class="post_info">
-									<small>Category - 20 Nov. 2017</small>
-									<h2><a href="blog-post.html">Te congue everti his salutandi</a></h2>
-									<p>Quodsi sanctus pro eu, ne audire scripserit quo. Vel an enim offendit salutandi, in eos quod omnes epicurei, ex veri qualisque scriptorem mei.</p>
-									<ul>
-										<li>
-											<div class="thumb"><img src="img/avatar.jpg" alt=""></div> Admin
-										</li>
-										<li><i class="icon_comment_alt"></i>20</li>
-									</ul>
-								</div>
-							</article>
-							<!-- /article -->
-						</div>
-						<!-- /col -->
+						<c:forEach var="rl" items="${reviewList}">
+							<div class="col-md-6">
+								<article class="blog">
+									<figure>
+										<a href="/review/detail?reviewBno=${rl.reviewBno}"><img src="img/blog-1.jpg" alt="">
+											<div class="preview"><span>Read more</span></div>
+										</a>
+									</figure>
+									<div class="post_info">
+										<small>Last Updated - ${rl.lastUpdated}</small>
+										<h2><a href="blog-post.html">${rl.title}</a></h2>
+										<p>${rl.content}
+										<ul>
+											<li>
+												<div class="thumb"><img src="img/avatar.jpg" alt=""></div> ${rl.email}
+											</li>
+											<li><i class="icon_comment_alt"></i>${rl.likeCnt}</li>
+										</ul>
+									</div>
+								</article>
+								<!-- /article -->
+							</div>
+						</c:forEach>
+
 					</div>
 					<!-- /row -->
-
-					<div class="pagination_fg">
-					  <a href="#">«</a>
-					  <a href="#" class="active">1</a>
-					  <a href="#">2</a>
-					  <a href="#">3</a>
-					  <a href="#">4</a>
-					  <a href="#">5</a>
-					  <a href="#">»</a>
-					</div>
 
 				</div>
 				<!-- /col -->
@@ -275,10 +136,10 @@
 				</aside>
 				<!-- /aside -->
 			</div>
-			<!-- /row -->	
+			<!-- /row -->
 		</div>
 		<!-- /container -->
-		
+
 	</main>
 
 	<%@ include file="../include/footer.jsp" %>

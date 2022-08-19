@@ -20,6 +20,7 @@ public class blackListController {
     private final BlackListService bls;
     private final BlackListMasterService blms;
 
+    // 일반회원 블랙리스트 페이지
     @GetMapping("/admin/member-blackList")
     public String blackList(Model model) {
 
@@ -31,6 +32,7 @@ public class blackListController {
         return "admin/member-blackList";
     }
 
+    // 사업자 블랙리스트 페이지
     @GetMapping("/admin/member-blackList-master")
     public String blackListMaster(Model model) {
 

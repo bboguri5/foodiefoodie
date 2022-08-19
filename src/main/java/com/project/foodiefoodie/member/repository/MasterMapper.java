@@ -33,11 +33,7 @@ public interface MasterMapper {
 
     int getMyTotalCnt(String storeAddress);
 
-    List<MasterAndMember> findMaster();
-    MasterAndMember findOneMaster(String email);
-    boolean removeMaster(String email);
-
-    // 아직 승인 나지 않은 사업자 리스트
-    List<MasterAndMember> approveMaster();
+    // 해당 마스터만 삭제
+    boolean removeMaster(String businessNo);
 
 }

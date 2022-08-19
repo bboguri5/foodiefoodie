@@ -20,5 +20,13 @@
         WHERE reply_no = #{replyNo}
     </delete>
 
+    <select id="findAll" resultMap="replyMap">
+        SELECT * FROM reply
+    </select>
+
+    <select id="findOne" resultMap="replyMap">
+        SELECT * FROM reply
+        WHERE reply_no = #{replyNo}
+    </select>
 
 </mapper>

@@ -79,4 +79,10 @@
         ON M.business_no = P.business_no
         WHERE store_address LIKE '%' || #{storeAddress}|| '%'
     </select>
+
+    <delete id="removeMaster">
+        DELETE FROM master
+        WHERE business_no = #{businessNo}
+    </delete>
+
 </mapper>

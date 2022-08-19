@@ -5,10 +5,16 @@
 
 <head>
     <%@ include file="../include/admin-static-head.jsp" %>
+
+    <style>
+        .cancell{
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    
+
     <%@ include file="../include/admin-nav.jsp" %>
 
     <div class="content-wrapper">
@@ -16,31 +22,45 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">회원관리</a>
+                    <a href="#">광고관리</a>
                 </li>
-                <li class="breadcrumb-item active">사업자</li>
+                <li class="breadcrumb-item active">신청중</li>
             </ol>
             <!-- Example DataTables Card-->
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-table"></i>사업자</div>
+                    <i class="fa fa-table"></i>신청 목록</div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>사업자 번호</th>
+                                    <th>홍보글</th>
+                                    <th>시작일자</th>
+                                    <th>종료일자</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>사업자 번호</th>
+                                    <th>홍보글</th>
+                                    <th>시작일자</th>
+                                    <th>종료일자</th>
+                                    <th></th>
                                 </tr>
                             </tfoot>
-                            <tbody>
-                                <c:forEach var="blm" items="${blackListMaster}">
+                            <tbody class="premiume-target">
+                                <c:forEach var="pt" items="${premiumeT}">
                                     <tr>
-                                        <th>${blm.businessNo}</th>
+                                        <th>
+                                            <a href="#">${pt.promotionBno}</a>
+                                        </th>
+                                        <th>${pt.startDate}</th>
+                                        <th>${pt.endDate}</th>
+                                        <th data-promotionbno="${pt.promotionBno}" data-startdate="${pt.startDate}"
+                                            data-enddate="${pt.endDate}">
+                                            <span class="cancell">취소</span>
+                                        </th>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -84,6 +104,40 @@
             </div>
         </div>
     </div>
+
+
+
+    <form action="/admin/premiume-complete" method="POST" class="premiume-complete">
+        <input type="hidden" name="promotionBno" class="promotionBno-data">
+        <input type="hidden" name="startDate" class="startDate-data">
+        <input type="hidden" name="endDate" class="endDate-data">
+        <input type="hidden" name="complete" class="complete-data">
+    </form>
+
+
+
+
+
+
+
+    <script>
+        (function () {
+
+            const $premiumeTarget = document.querySelector('.premiume-target');
+            const $premiumeComplete = document.querySelector('.premiume-complete');
+            // console.log($premiumeComplete);
+            $premiumeTarget.onclick = e => {
+                document.querySelector('.promotionBno-data').value = e.target.parentElement.dataset.promotionbno;
+                document.querySelector('.startDate-data').value = e.target.parentElement.dataset.startdate;
+                document.querySelector('.endDate-data').value = e.target.parentElement.dataset.enddate;
+                if (e.target.getAttribute('class') === 'cancell') {
+                    document.querySelector('.complete-data').value = 'N';
+                    $premiumeComplete.submit();
+                }
+            }
+
+        }())
+    </script>
 
 </body>
 

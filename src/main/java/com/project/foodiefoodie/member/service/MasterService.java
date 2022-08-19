@@ -52,4 +52,7 @@ public class MasterService {
         return map;
     }
 
+    public boolean removeMasterService(String businessNo) {
+        return mapper.removeMaster(businessNo);
+    }
 }

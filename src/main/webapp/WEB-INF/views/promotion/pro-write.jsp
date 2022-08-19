@@ -29,7 +29,7 @@
     <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Plugin styles -->
     <link href="/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-    <link href="/vendor/dropzone.css" rel="stylesheet">
+    <!-- <link href="/vendor/dropzone.css" rel="stylesheet"> -->
     <link href="/css/date_picker.css" rel="stylesheet">
     <!-- Your custom styles -->
     <link href="/css/custom.css" rel="stylesheet">
@@ -39,6 +39,9 @@
     <!-- time picker : 시간/날짜 api -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+    <!-- dropzone -->
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
     <style>
         /* detail info */
@@ -73,9 +76,9 @@
             justify-content: center;
         }
 
-        .menu-add-img {
-            width: 80px;
-            min-height: 80px;
+        .menu-add-img .form-group {
+            height: 100px;
+
         }
 
         /* add detail , title img  */
@@ -84,50 +87,35 @@
             border-bottom: 0;
         }
 
-        .add-Img {
-            min-height: 0;
-            width: 50%;
-            height: 100px;
-        }
-
-        .add-Img-row {
-            display: flex;
-            justify-content: space-between;
-            height: 300px;
-        }
-
         .save-btn {
             display: flex;
             justify-content: center;
         }
 
-        .preview {
+        /* .preview {
             width: 100%;
             display: none;
         }
 
-        .detail-preview {
+        #detail-preview {
             display: flex;
             justify-content: space-evenly;
         }
 
         .preview-title-img {
-            width: 100%;
-            height: 150px;
+            width: 150px;
+            height: 100px;
         }
 
         .preview-detail-img {
-            width: 15%;
-            height: 150px;
-
+            width: 20%;
+            height: 50px;
         }
-
-        .menu-preview {}
 
         .preview-menu-img {
             width: 50px;
             height: 50px;
-        }
+        } */
 
         .c-red {
             color: red;
@@ -141,18 +129,122 @@
             padding: 5px;
             width: 80px;
         }
+
         select.form-control:not([size]):not([multiple]) {
-           height: calc(2.1rem + 2px);
+            height: calc(2.1rem + 2px);
         }
-        
+
         .form-group.dayBox {
-        display: flex;
-        justify-content: space-between;
+            display: flex;
+            justify-content: space-between;
         }
-        .day-delete{
+
+        .day-delete {
             background: red;
         }
+
+        .form-control.content {
+            min-height: 300px;
+        }
+
+        /* dropzone */
+
+        .dropzone {
+            border: 2px dotted gray;
+            min-height: 190px;
+        }
+
+        .add-Img-row .row {
+            justify-content: space-between;
+        }
+
+        .add-Img-row .form-group:nth-child(1) {
+            width: 25%;
+            margin-left: 20px;
+        }
+
+        .add-Img-row .form-group:nth-child(2) {
+            width: 70%;
+            margin-right: 20px;
+        }
+
+        #title-dropzone.dropzone .dz-preview .dz-image {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropzone .dz-remove {
+            position: absolute;
+            z-index: 100;
+            right: 10px;
+            top: 10px;
+            color: red;
+            font-weight: 700;
+        }
+
+        #title-dropzone.dropzone {
+            resize: both;
+            overflow: auto;
+        }
+
+        #detail-dropzone.dropzone {
+            display: flex;
+            justify-content: space-evenly;
+            resize: both;
+            overflow: auto;
+            position: relative;
+        }
+
+        #menu-dropzone.dropzone {
+            padding: 0;
+        }
+
+        #detail-dropzone .dz-default.dz-message {
+            position: absolute;
+            top: 50px;
+        }
+
+        #detail-dropzone.dropzone .dz-preview .dz-image {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+
+        #detail-dropzone.dropzone .dz-remove {
+            position: absolute;
+            z-index: 100;
+            right: 10px;
+            top: 10px;
+            color: red;
+        }
+
+        .dropzone .dz-preview .dz-details .dz-size {
+            font-size: 10px;
+        }
+
+        .dropzone .dz-preview .dz-details .dz-filename {
+            font-size: 10px;
+        }
+
+        .dropzone .dz-preview .dz-progress {
+            z-index: 0;
+        }
+
+        .dropzone#menu-dropzone {
+            min-height: 50px;
+        }
+
+        .menu-add-img .dz-preview.dz-image-preview {
+            min-height: 0;
+        }
+
+        .menu-add-img .dz-preview.dz-image-preview .dz-image {
+            width: 80px;
+            height: 80px;
+        }
     </style>
+
+
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
@@ -197,7 +289,7 @@
                             <div class="form-group detail-Info detail-address">
                                 <label>STORE ADDRESS
                                 </label>
-                                <input type="text" class="form-control" value="${master.storeAddress}" readonly>
+                                <input type="text" class="form-control" value="${totalAddress}" readonly>
                             </div>
                             <div class="form-group detail-Info">
                                 <label class="title-label">Title
@@ -221,7 +313,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="content-label">CONTENT</label>
-                                <textarea name="content" class="form-control content" style="height: 150px;" placeholder="Message" id="message_contact" name="message_contact"></textarea>
+                                <textarea name="content" class="form-control content" style="height: 150px;"
+                                    placeholder="Message" id="message_contact" name="message_contact"></textarea>
                             </div>
                         </div>
                     </div>
@@ -230,6 +323,27 @@
 
                     <!-- add detail , title img row -->
                     <div class="box_general padding_bottom add-Img-row">
+                        <div class="header_box version_2 add-Img">
+                            <h2><i class="fa fa-list"></i>Title & Detail Image Add</h2>
+                        </div>
+                        <div class="row">
+                            <div class="form-group title-group">
+                                <label>Title</label>
+                                <div class="dropzone col-md-12" id="title-dropzone"></div>
+                            </div>
+
+                            <div class="form-group detail-group">
+                                <label class="detail-img-label">Detail</label>
+                                <div class="dropzone" id="detail-dropzone"></div>
+                                <input type="file" name="detailImgFiles" class="dz-hidden-input hidden-detail-img"
+                                    multiple="multiple" accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
+                                    style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- add detail , title img row -->
+                <!-- <div class="box_general padding_bottom add-Img-row">
                         <div class="header_box version_2 add-Img">
                             <h2><i class="fa fa-list"></i>Title Image Add</h2>
                             <div class="row">
@@ -267,192 +381,181 @@
                                 </div>
                             </div>
                         </div>
+                    </div> -->
+                <!-- /add detail , title img row -->
+
+                <!-- add Menu List -->
+                <div class="box_general padding_bottom menuImg">
+                    <div class="header_box version_2">
+                        <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
+                    </div>
+                    <!-- add Menu List row -->
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <table id="pricing-list-container" style="width:100%;">
+                                <tr class="pricing-list-item">
+                                    <td>
+                                        <div class="row menu-row">
+                                            <div class="col-md-1">
+                                                <h6>plus menu</h6>
+                                            </div>
+                                            <div class="col-md-1 menu-add-img">
+                                                <div class="form-group">
+                                                    <div class="dropzone menu1" id="menu-dropzone"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="menuName" class="form-control menu-name"
+                                                        placeholder="메뉴명">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control menu-price" name="menuPrice"
+                                                        placeholder="price">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group delete-form">
+                                                    <a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
 
                     </div>
-                    <!-- /add detail , title img row -->
+                    <!-- /add Menu List row -->
 
-                    <!-- add Menu List -->
-                    <div class="box_general padding_bottom menuImg">
-                        <div class="header_box version_2">
-                            <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
-                        </div>
-                        <!-- add Menu List row -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h6>Item</h6>
-                                <table id="pricing-list-container" style="width:100%;">
-                                    <tr class="pricing-list-item">
-                                        <td>
-                                            <div class="row menu-row">
-                                                <div class="col-md-2 menu-add-img">
-                                                    <div class="form-group">
-                                                        <label>Menu-Photos</label>
-                                                        <div>
-                                                            <input type="file" class="menu"
-                                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
-                                                        </div>
-                                                        <div class="preview"><span>미리보기</span>
-                                                            <div class="menu-preview">
-                                                                <img src="#" alt="#" class="preview-menu-img">
-                                                            </div>
-                                                        </div>
-                                                        <div class="hidden-menu-box">
-                                                            <input type="hidden" name="menuImg">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" name="menuName" class="form-control menu-name"
-                                                            placeholder="메뉴명">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control menu-price" name="menuPrice"
-                                                            placeholder="price">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <div class="form-group delete-form">
-                                                        <a class="delete" href="#"><i
-                                                                class="fa fa-fw fa-remove"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                        </div>
-                        <!-- /add Menu List row -->
-
-                        <div class="menu-add-btn">
-                            <a href="#0" class="btn_1 gray add-pricing-list-item"><i
-                                    class="fa fa-fw fa-plus-circle"></i>Add
-                                Item</a>
-                        </div>
-                        <div id="hidden-menu-box"></div>
-
+                    <div class="menu-add-btn">
+                        <a href="#0" class="btn_1 gray add-pricing-list-item"><i class="fa fa-fw fa-plus-circle"></i>Add
+                            Item</a>
                     </div>
-                    <!-- /add Menu List -->
+                    <div id="hidden-menu-box"></div>
+
+                </div>
+                <!-- /add Menu List -->
 
 
-                    <!-- store time -->
-                    <div class="box_general padding_bottom">
-                        <div class="header_box version_2">
-                            <h2><i class="fa fa-clock-o"></i>Store Time</h2>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h6>Item</h6>
-                                <table id="store-time" style="width:100%;">
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="평일"
-                                                            readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekdayOpenTime" type="text"
-                                                            class="form-control select-time weekday-openTime">
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekdayCloseTime" type="text"
-                                                            class="form-control select-time">
-                                                    </div>
-
+                <!-- store time -->
+                <div class="box_general padding_bottom">
+                    <div class="header_box version_2">
+                        <h2><i class="fa fa-clock-o"></i>Store Time</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>Item</h6>
+                            <table id="store-time" style="width:100%;">
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="평일" readonly>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="주말"
-                                                            readonly>
-                                                    </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekdayOpenTime" type="text"
+                                                        class="form-control select-time weekday-openTime">
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekendOpenTime" type="text"
-                                                            class="form-control select-time" placeholder="오픈시간입력">
-                                                    </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekdayCloseTime" type="text"
+                                                        class="form-control select-time">
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekendCloseTime" type="text"
-                                                            class="form-control select-time" placeholder="마감시간입력">
-                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="주말" readonly>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Break Time"
-                                                            readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="breakStartTime" type="text"
-                                                            class="form-control select-time" placeholder="시작시간">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="breakEndTime" type="text"
-                                                            class="form-control select-time" placeholder="종료시간">
-                                                    </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekendOpenTime" type="text"
+                                                        class="form-control select-time" placeholder="오픈시간입력">
                                                 </div>
                                             </div>
-                       
-                                        </td>
-                                    </tr>
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="휴무" readonly="">
-                                                    </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekendCloseTime" type="text"
+                                                        class="form-control select-time" placeholder="마감시간입력">
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" name="closedDay" class="form-control closedDay" placeholder="휴무 옵션 선택" readonly>
-                                                    </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Break Time"
+                                                        readonly>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group dayBox">
-                                                        <select type="text" class="form-control selectDay" placeholder="예시 : 화요일 (요일입력)">
-                                                            <option value="월">월</option>
-                                                            <option value="화">화</option>
-                                                            <option value="수">수</option>
-                                                            <option value="목">목</option>
-                                                            <option value="금">금</option>
-                                                            <option value="토">토</option>
-                                                            <option value="일">일</option>
-                                                            <option vlaue=null>없음</option>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="breakStartTime" type="text"
+                                                        class="form-control select-time" placeholder="시작시간">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="breakEndTime" type="text"
+                                                        class="form-control select-time" placeholder="종료시간">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="휴무"
+                                                        readonly="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="closedDay" class="form-control closedDay"
+                                                        placeholder="휴무 옵션 선택" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group dayBox">
+                                                    <select type="text" class="form-control selectDay"
+                                                        placeholder="예시 : 화요일 (요일입력)">
+                                                        <option value="월">월</option>
+                                                        <option value="화">화</option>
+                                                        <option value="수">수</option>
+                                                        <option value="목">목</option>
+                                                        <option value="금">금</option>
+                                                        <option value="토">토</option>
+                                                        <option value="일">일</option>
+                                                        <option vlaue=null>없음</option>
                                                     </select>
                                                     <button type="button" class="btn_1 day-delete">제거</button>
-                                                    </div>
+                                                </div>
                                             </div>
-                                        </td>
-                                    </tr>
+                                    </td>
+                                </tr>
                                 </tr>
                             </table>
                         </div>
@@ -472,9 +575,9 @@
                         </script>
                     </div>
                     <!-- /row-->
-                    </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="col-md-12 save-btn"><button type="button" class="btn_1 medium save">Save</button></div>
     </form>
@@ -526,7 +629,7 @@
     <!-- Custom scripts for all pages-->
     <script src="/js/admin.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="/vendor/dropzone.min.js"></script>
+    <!-- <script src="/vendor/dropzone.min.js"></script> -->
     <script src="/vendor/bootstrap-datepicker.js"></script>
     <script>
         $('input.date-pick').datepicker();
@@ -548,33 +651,28 @@
             height: 200
         });
     </script>
-
-    <script>
-
-    </script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
     <!-- jungah script -->
     <script>
-
         /* -------------------------------- 요일 선택,제거 -------------------------------- */
         const $selectDay = $('.selectDay');
         const $closedDay = $('.closedDay');
         let result = [];
-        $selectDay.on('change',function(){
+        $selectDay.on('change', function () {
             result.push($selectDay.val());
             $closedDay.val(result.join());
 
-            if($selectDay.val() === '없음')
-            {
+            if ($selectDay.val() === '없음') {
                 result = [];
                 $closedDay.val($selectDay.val());
             }
 
         });
 
-        $('.day-delete').on('click',function(){
-                result = [];
-                $closedDay.val('');
+        $('.day-delete').on('click', function () {
+            result = [];
+            $closedDay.val('');
         });
         /* -------------------------------- /요일 선택,제거 --------------------------------  */
 
@@ -619,7 +717,6 @@
                 $('.content-label').html('CONTENT <b class="c-red content-red">[ 내용은 필수정보입니다. ]</b>');
                 checkArr[2] = false;
             } else {
-                console.log("??");
                 $('.content').css('border-color', 'green');
                 $('.content-red').remove();
                 checkArr[2] = true;
@@ -627,30 +724,11 @@
         });
 
 
-        // ------------------ 저장 ---------------------
 
-        $('.save').on('click', e => {
-            if (!checkArr.includes(false)) {
-
-                /* 오픈시간,마감시간 0000 형식으로 변경  */
-                const $selectTimeList = document.querySelectorAll('.select-time');
-                $selectTimeList.forEach(element => {
-                    const replaceNotInt = /[^0-9]/gi;
-                    element.value = element.value.replace(replaceNotInt, '');
-                    console.log(element.value);
-                });
-              
-                $('#promotionWriteForm').submit();
-
-            } else {
-                alert("입력값을 확인해주세요.");
-
-            }
-        });
         /* -------------------------------- /save 시 검증 -------------------------------- */
 
         /* -------------------------------- menu add -------------------------------- */
-        
+
         // 첫번재 삭제버튼은 표시 안함
         const par = $('table#pricing-list-container').first().find('.delete').remove();
 
@@ -661,8 +739,11 @@
             newElem.appendTo('table#pricing-list-container'); // 추가 
         }
 
+        let count = 1;
+
         if ($("table#pricing-list-container").is('*')) { // 
             $('.add-pricing-list-item').on('click', function (e) {
+                const $container = $('#pricing-list-container');
                 e.preventDefault();
                 newMenuItem();
 
@@ -672,6 +753,20 @@
                 $(this).css('border-colore', 'none');
                 priceInputOnlyInt(); // add 한 입력창 검증 
 
+                const $target = $('#pricing-list-container').last().find('.menu1').last();
+
+                // img박스 리셋  
+                $target.last().removeClass('dz-started');
+                $target.last().removeClass('dz-max-files-reached');
+                $target.last()[0].innerHTML = '';
+
+                // menuimg에 dropzone 일일히 적용하기 위한 코드 
+                count++;
+                $target.removeClass('menu1');
+                $target.addClass('menu' + count)
+
+                addMenuImg(count);
+
             });
             $(document).on("click", "#pricing-list-container .delete", function (e) {
                 e.preventDefault();
@@ -680,18 +775,19 @@
 
         }
 
+
         /* -------------------------------- /menu add -------------------------------- */
 
         /* -------------------------------- /입력 검증 -------------------------------- */
 
-        
+
         // ------------------ 메뉴 price 숫자만 입력 ---------------------
         priceInputOnlyInt(); // 처음 입력창 검증 
 
         // 메뉴 price 입력창 검증 함수 (숫자만 입력) 
         function priceInputOnlyInt() {
             var replaceNotInt = /[^0-9]/gi;
-            
+
             const $menuPrice = $('.menu-price');
 
             $menuPrice.on("keyup", function () {
@@ -706,14 +802,14 @@
                     }
                     $(this).val(x); // 숫자 value값에 다시 담음
                 } else {
-                    $(this).css('border-color', 'red'); 
+                    $(this).css('border-color', 'red');
                 }
             });
         }
         // ------------------ /menu price 숫자만 입력 ---------------------
 
 
-       // ------- 해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
+        // ------- 해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
         let leng = 0;
         const $hashTag = $('.hashTag');
 
@@ -721,14 +817,15 @@
 
             // 특수문자 정규식 변수(공백 미포함)
             var replaceChar = /[~!@\#$%^&*\()\-=+_'\;<>0-9\/.\`:\"\\,\[\]?|{}]/gi;
-            
+
             // 완성형 아닌 한글 정규식
             var replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
-                        
+
             const splitThisVal = $(this).val().split(" "); // 공백기준으로 단어 리스트 생성
             // $(this).val($(this).val().replace(replaceChar,''));
 
             const cleanArr = splitThisVal.filter(Boolean);
+
             var x = $(this).val();
             if (x.length > 0) {
                 if (x.match(replaceChar) || x.match(replaceNotFullKorean)) {
@@ -748,16 +845,254 @@
                 leng = $(this).val().length; // 전역변수에 마지막 글자수 저장 
             }
         });
-       // ------- /해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
-        
+        // ------- /해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
     </script>
+
+    <script>
+        // image file upload and dropzone 
+        Dropzone.autoDiscover = false;
+
+        const titleDropzone = new Dropzone("#title-dropzone.dropzone", {
+            url: "/foodie/write",
+            method: 'post',
+            autoProcessQueue: false,
+            clickable: true,
+            createImageThumbnails: true,
+            thumbnailHeight: 120, // Upload icon size
+            thumbnailWidth: 300, // Upload icon size
+            maxFiles: 1, // 업로드 파일수
+            maxFilesize: 10, // 최대업로드용량 : 100MB
+            paramName: 'titleImg', // 서버에서 사용할 formdata 이름 설정 (default는 file)
+            addRemoveLinks: true, // 업로드 후 파일 삭제버튼 표시 여부
+            dictRemoveFile: 'X', // 삭제버튼 표시 텍스트
+            acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF', // 
+
+            init: function () {
+                let myDropzone = this; // closure 변수 (화살표 함수 쓰지않게 주의)
+
+                // 서버에 제출 submit 버튼 이벤트 등록
+                document.querySelector('.save').addEventListener('click', function () {
+
+                    // 거부된 파일이 있다면
+                    if (myDropzone.getRejectedFiles().length > 0) {
+                        let files = myDropzone.getRejectedFiles();
+                        console.log('거부된 파일이 있습니다.', files);
+                        return;
+                    }
+
+                    // myDropzone.processQueue(); // autoProcessQueue: false로 해주었기 때문에, 메소드 api로 파일을 서버로 제출
+                });
+
+                // 업로드한 파일을 서버에 요청하는 동안 호출 실행
+                this.on('sending', function (file, xhr, formData) {
+                    console.log('보내는중');
+                });
+
+                // 서버로 파일이 성공적으로 전송되면 실행
+                this.on('success', function (file, responseText) {
+                    console.log('성공');
+                });
+
+                // 업로드 에러 처리
+                this.on('error', function (file, errorMessage) {
+                    alert(errorMessage);
+                });
+            }
+        });
+
+        let overlapSet = new Set();
+        const detailDropzone = new Dropzone("#detail-dropzone.dropzone", {
+            url: "/foodie/write",
+            method: 'post',
+            autoProcessQueue: false, // 바로 서버로 보낼건지 
+            clickable: true, // 클릭 가능여부 
+            createImageThumbnails: true, //이미지 미리보기처리
+            thumbnailWidth: 100, // Upload icon size
+            thumbnailHeight: 100, // Upload icon size
+            maxFiles: 5, // 업로드 파일수
+            maxFilesize: 100, // 최대업로드용량 : 100MB
+            addRemoveLinks: true, // 업로드 후 파일 삭제버튼 표시 여부
+            dictRemoveFile: 'X', // 삭제버튼 표시 텍스트
+            acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF', // 
+            parallelUploads: 5,
+            uploadMultiple: true,
+            init: function () {
+
+                let myDropzone = this;
+
+                document.querySelector('.save').addEventListener('click', function () {
+                    const $detailInput = myDropzone.hiddenFileInput;
+                    const $detailTag = document.querySelector('.hidden-detail-img');
+
+                    const dataTranster = new DataTransfer();
+
+                    for (const img of imgList) {
+                        dataTranster.items.add(img);
+                    }
+
+                    $detailTag.files = dataTranster.files;
+                });
+
+                let count = 0;
+                this.on('addedfiles', function (files) {
+                    let overResult = '';
+
+                    if (myDropzone.files.length > 5) {
+
+                        for (const file of files) {
+                            myDropzone.removeFile(file);
+                        }
+                        $('.detail-img-label').html(
+                            'detail <b class="c-red detail-red">[ 이미지는 5개까지만 가능합니다. ]</b>');
+                        setTimeout(function () {
+                            $('.detail-red').remove();
+                        }, 5000); // 5초동안만 경고 노출
+                        return;
+
+                    } else {
+                        for (const setFile of overlapSet) {
+                            for (const file of files) {
+                                if (setFile === file.name) {
+                                    overResult += file.name + ' ';
+                                    myDropzone.removeFile(file);
+                                }
+                            }
+                        }
+                    }
+
+                    if (overResult.length > 1) {
+                        $('.detail-img-label').html(
+                            'detail <b class="c-red detail-red">[ 중복된 파일은 ' + overResult +
+                            '입니다.]</b>');
+
+                        setTimeout(function () {
+                            $('.detail-red').remove();
+                        }, 5000);
+                        return;
+
+                    } else {
+                        for (const file of files) {
+                            overlapSet.add(file.name);
+                        }
+                        return;
+                    }
+
+                    for (const file of files) {
+                        overlapSet.add(file.name);
+                    }
+                });
+
+                myDropzone.on('removedfile', function (file) {
+                    const overlapArr = [];
+                    for (const dropFile of myDropzone.files) {
+                        overlapArr.push(dropFile.name);
+                    }
+                    overlapSet = new Set(overlapArr);
+                })
+            }
+        });
+
+        addMenuImg(1);
+
+        function addMenuImg(index) {
+            let dropName = '.menu' + index;
+            console.log('index : ', index);
+
+            const menuDropzone = new Dropzone(dropName, {
+                url: "/foodie/write",
+                method: 'post',
+                autoProcessQueue: false, // 바로 서버로 보낼건지 
+                clickable: true, // 클릭 가능여부 
+                createImageThumbnails: true, //이미지 미리보기처리
+                thumbnailHeight: 80, // Upload icon size
+                thumbnailWidth: 80, // Upload icon size
+                maxFiles: 1, // 업로드 파일수
+                maxFilesize: 100, // 최대업로드용량 : 100MB
+                paramName: '', // 서버에서 사용할 formdata 이름 설정 (default는 file)
+                addRemoveLinks: true, // 업로드 후 파일 삭제버튼 표시 여부
+                dictRemoveFile: 'X', // 삭제버튼 표시 텍스트
+                acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF', // 
+
+                init: function () {
+                    // 최초 dropzone 설정시 init을 통해 호출
+                    console.log('최초 실행');
+                    let myDropzone = this; // closure 변수 (화살표 함수 쓰지않게 주의)
+
+                    // 서버에 제출 submit 버튼 이벤트 등록
+                    document.querySelector('.save').addEventListener('click', function () {
+
+                        // 거부된 파일이 있다면
+                        if (myDropzone.getRejectedFiles().length > 0) {
+                            let files = myDropzone.getRejectedFiles();
+                            console.log('거부된 파일이 있습니다.', files);
+                            return;
+                        }
+
+                    });
+
+                    // 업로드한 파일을 서버에 요청하는 동안 호출 실행
+                    this.on('sending', function (file, xhr, formData) {
+                        console.log('보내는중');
+                    });
+
+                    // 서버로 파일이 성공적으로 전송되면 실행
+                    this.on('success', function (file, responseText) {
+                        console.log('성공');
+                    });
+
+                    // 업로드 에러 처리
+                    this.on('error', function (file, errorMessage) {
+                        alert(errorMessage);
+                    });
+
+                }
+            });
+        }
+
+        // ------------------ 저장 ---------------------
+
+        $('.save').on('click', e => {
+
+            const $detailTag = document.querySelector('.hidden-detail-img');
+            const dataTranster = new DataTransfer();
+
+            imgList = [];
+
+            for (const file of detailDropzone.files) {
+                dataTranster.items.add(file);
+                imgList.push(file);
+            }
+
+            $detailTag.files = dataTranster.files;
+
+            if (!checkArr.includes(false)) {
+
+                /* 오픈시간,마감시간 0000 형식으로 변경  */
+                const $selectTimeList = document.querySelectorAll('.select-time');
+                $selectTimeList.forEach(element => {
+                    const replaceNotInt = /[^0-9]/gi;
+                    element.value = element.value.replace(replaceNotInt, '');
+                    console.log(element.value);
+                });
+
+                console.log("out save");
+
+                $('#promotionWriteForm').submit();
+
+            } else {
+                alert("입력값을 확인해주세요.");
+
+            }
+        });
+    </script>
+
     <!-- /jungah script -->
 
 
 
 
     <!-- 이미지 파일 검증 및 미리보기 화면 출력하는 스크립트 영역 -->
-    <script>
+    <!-- <script>
         const $titleInput = document.getElementById('title-img');
         const $detailInput = document.getElementById('detail-img');
 
@@ -825,7 +1160,6 @@
         }
 
 
-
         // 디테일 이미지 미리보기 화면 렌더링
         function makeDetailPreviewDOM(fileNames) {
 
@@ -864,6 +1198,7 @@
             const formData = new FormData();
 
             for (let file of $detailInput.files) {
+                console.log(file);
                 formData.append('files', file);
             }
 
@@ -902,7 +1237,6 @@
             }
         }
 
-
         function uploadingFileSizeCheck(obj) {
             let maxFileSize = 10 * 1024 * 1024; // 파일 최대 용량 10MB
 
@@ -926,8 +1260,6 @@
                     $hiddenTitleBox.removeChild(hiddenInput);
                 }
             }
-
-
 
             for (let fileName of fileNames) {
 
@@ -961,6 +1293,9 @@
 
                 $titlePreviewHidden.parentElement.style.display = 'block';
                 $titlePreviewHidden.appendChild($img);
+
+                const $xBtn = document.createElement('button');
+                $xBtn.classList.add('xBtn');
             }
         }
 
@@ -986,62 +1321,73 @@
                 });
         }
 
-
-
         // 실행부
-        $(document).on("change", "input[type='file']", function () {
+        $(document).on("change", "input[type='file']", function (file) {
 
-            var file_path = $(this).val();
+            Dropzone.autoDiscover = false; 
+            const dropzone = new Dropzone("input.dropzone", { 
+            url: "/foodie/write",
+            method: 'post',
+            // ... 옵션
+            });
 
-            file_path = file_path.toLowerCase();
+         
+            // var file_path = $(this).val();
 
-            var reg = /(.*?)\.(jpg|bmp|jpeg|png|gif)$/;
+            // file_path = file_path.toLowerCase();
+         
+     
 
-            // 허용되지 않은 확장자일 경우
+            // var reg = /(.*?)\.(jpg|bmp|jpeg|png|gif)$/;
 
-            if (file_path != "" && (file_path.match(reg) == null || reg.test(file_path) == false)) {
+            // // 허용되지 않은 확장자일 경우
 
-                $(this).val("");
+            // if (file_path != "" && (file_path.match(reg) == null || reg.test(file_path) == false)) {
 
-                alert("이미지 파일만 업로드 가능합니다.");
+            //     $(this).val("");
 
-                $(this).parent().next().css('display', 'none');
+            //     alert("이미지 파일만 업로드 가능합니다.");
 
-            } else {
+            //     $(this).parent().next().css('display', 'none');
 
-                // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
-                if (!uploadingFileSizeCheck($(this))) {
-                    alert('첨부파일 사이즈는 10MB 이내로 등록 가능합니다.');
-                    return;
-                }
+            // } else {
 
-
-                // title 이미지 미리보기 비동기 처리
-                if ($(this).hasClass('title')) {
-                    ajaxTitlePreview();
-                }
-
-
-                // detail 이미지 미리보기 비동기 처리
-                if ($(this).hasClass('detail')) {
-                    // 파일 개수 검증이 들어가야 한다.
-                    if (uploadingFileCountCheck($(this))) { // 파일 개수 검증
-                            ajaxDetailPreview();
-                        }
-                    else {
-                        alert('최대 5개의 이미지 파일만을 업로드 하실 수 있습니다.');
-                    }
-                }
+            //     // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
+            //     if (!uploadingFileSizeCheck($(this))) {
+            //         alert('첨부파일 사이즈는 10MB 이내로 등록 가능합니다.');
+            //         return;
+            //     }
 
 
-                // menu 이미지 미리보기 비동기 처리
-                if ($(this).hasClass('menu')) {
-                    ajaxMenuPreview($(this));
-                }
+            //     // title 이미지 미리보기 비동기 처리
+            //     if ($(this).hasClass('title')) {
+            //         ajaxTitlePreview();
+            //     }
+
+
+            //     // detail 이미지 미리보기 비동기 처리
+            //     if ($(this).hasClass('detail')) {
+            //         // 파일 개수 검증이 들어가야 한다.
+            //         if (uploadingFileCountCheck($(this))) { // 파일 개수 검증
+            //                 ajaxDetailPreview();
+            //             }
+            //         else {
+            //             alert('최대 5개의 이미지 파일만을 업로드 하실 수 있습니다.');
+            //         }
+            //     }
+
+
+            //     // menu 이미지 미리보기 비동기 처리
+            //     if ($(this).hasClass('menu')) {
+            //         ajaxMenuPreview($(this));
+            //     }
             
-            }
+            // }
         });
-    </script>
+    </script> -->
+
+
+
 
 </body>
 

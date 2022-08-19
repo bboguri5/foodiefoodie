@@ -178,41 +178,53 @@
     // 로그인시 로직 처리
     function login() {
 
+        $('.sign-in-wrapper').keyup(e => {
+            console.log(e.keyCode);
+            if (e.keyCode === 13) {
+                loginSubmit(e);
+            }
+        });
+
+
         const loginBtn = document.getElementById('login-btn');
         loginBtn.onclick = e => {
-
-            e.preventDefault();
-
-            const inputData = {
-                email: document.getElementById('login-email').value,
-                password: document.getElementById('login-pw').value,
-                autoLogin: document.getElementById('auto-login').checked
-            };
-
-            console.log(inputData);
-
-            const reqObj = {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(inputData)
-            };
-
-            fetch('/login', reqObj)
-                .then(res => res.text())
-                .then(flag => {
-                    if (flag === 'SUCCESS') {
-
-                        location.href = "/";
-
-                    } else if (flag === 'NO_PW') {
-                        alert('일치하지 않는 비밀번호입니다.');
-                    } else {
-                        alert('존재하지 않는 이메일입니다.');
-                    }
-                });
+            loginSubmit(e);
         };
+    }
+
+    
+    function loginSubmit(e) {
+        e.preventDefault();
+
+        const inputData = {
+            email: document.getElementById('login-email').value,
+            password: document.getElementById('login-pw').value,
+            autoLogin: document.getElementById('auto-login').checked
+        };
+
+        console.log(inputData);
+
+        const reqObj = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(inputData)
+        };
+
+        fetch('/login', reqObj)
+            .then(res => res.text())
+            .then(flag => {
+                if (flag === 'SUCCESS') {
+
+                    location.href = "/";
+
+                } else if (flag === 'NO_PW') {
+                    alert('일치하지 않는 비밀번호입니다.');
+                } else {
+                    alert('존재하지 않는 이메일입니다.');
+                }
+            });
     }
 
 

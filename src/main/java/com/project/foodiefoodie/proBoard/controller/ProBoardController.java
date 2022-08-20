@@ -51,7 +51,6 @@ public class ProBoardController {
                         List<MultipartFile> menuImgFiles) {
         log.info("foodie/write POST - ! {}",proBoard);
         log.info("foodie/write POST - ! {}",storeTimeDTO);
-
         log.info("foodie/write POST!! - titleImgFile : {}", titleImgFile.get(0).getOriginalFilename());
         log.info("foodie/write POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
         log.info("foodie/write POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
@@ -61,14 +60,10 @@ public class ProBoardController {
             put("detail",detailImgFiles);
             put("menu",menuImgFiles);
         }};
-//
-//        if (detailImgFiles != null) {
-//
-//            for (int i = 0; i < detailImgFiles.size(); i++) {
-//                String fullPath = proBoardService.uploadMasterFile(detailImgFiles.get(i), UPLOAD_PATH, proBoard.getBusinessNo(),"detail" + (i+1) );
-//                files.add(fullPath);
-//            }
-//        }
+
+
+        proBoardService.uploadMasterFile(fileMap, UPLOAD_PATH, proBoard.getBusinessNo());
+
         return "";
     }
 

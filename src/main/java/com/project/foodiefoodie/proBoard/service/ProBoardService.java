@@ -5,19 +5,17 @@ import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.repository.ProBoardMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.sound.sampled.Port;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
+@Log4j2
 @RequiredArgsConstructor
 public class ProBoardService {
 
@@ -46,18 +44,11 @@ public class ProBoardService {
     }
 
 
-    private String getMasterNewUploadPath(String uploadPath,String businessNo,String newFileName) {
-        String[] args = {"title","detail","menu"};
+    private String getMasterNewUploadPath(String uploadPath,String businessNo,String newFolder) {
 
         String newUploadPath = uploadPath;
         newUploadPath += File.separator + businessNo;
-        if(newFileName.contains(args[0]))
-            newUploadPath += File.separator + args[0];
-        else if(newFileName.contains(args[1]))
-            newUploadPath += File.separator + args[1];
-        else if(newFileName.contains(args[2]))
-            newUploadPath += File.separator + args[2];
-        else { return null;}
+        newUploadPath += File.separator + newFolder;
 
         File dirName = new File(newUploadPath);
         if (!dirName.exists()) dirName.mkdirs();
@@ -71,26 +62,42 @@ public class ProBoardService {
 //
 //    }
 
-    public String uploadMasterFile(MultipartFile file, String uploadPath, String businessNo, String newFileName) {
+    public void uploadMasterFile(Map<String,List<MultipartFile>> fileMap, String uploadPath, String businessNo) {
 
-        String newUploadPath = getMasterNewUploadPath(uploadPath,businessNo,newFileName);
-        newFileName = newFileName + "_" + file.getOriginalFilename();
-        if(newUploadPath == null)
-            return null;
+        log.info(" uploadMasterFile service : init ");
 
-        File f = new File(newUploadPath,newFileName);
+        String[] args = {"title","detail","menu"};
 
-        try {
-            file.transferTo(f);
+        for (int i = 0; i < fileMap.size(); i++) {
+            List<MultipartFile> files = fileMap.get(args[i]);
+            for (int j = 0; j < files.size(); j++) {
+                MultipartFile file = files.get(j);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+                if(file.isEmpty()) return;
+
+                log.info(" uploadMasterFile service file : {} ",file.getOriginalFilename());
+
+                String newUploadPath = getMasterNewUploadPath(uploadPath,businessNo,args[i]);
+                String newFileName = String.format("%s_%s",args[i]+(j+1), file.getOriginalFilename());
+                String fileFullPath = newUploadPath + File.separator + newFileName;
+                String responseFilePath = fileFullPath.substring(uploadPath.length());
+
+                if(newUploadPath == null)
+                    return ;
+
+                File f = new File(newUploadPath,newFileName);
+
+                try {
+                    file.transferTo(f);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                log.info(" uploadMasterFile service fileFullPath : {}" , responseFilePath.replace("\\", "/"));
+            }
         }
 
-        String fileFullPath = newUploadPath + File.separator + newFileName;
-        String responseFilePath = fileFullPath.substring(uploadPath.length());
-
-        return responseFilePath.replace("\\", "/");
     }
 
 }

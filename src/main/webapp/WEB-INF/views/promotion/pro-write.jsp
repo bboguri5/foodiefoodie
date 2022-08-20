@@ -289,7 +289,7 @@
                             <div class="form-group detail-Info detail-address">
                                 <label>STORE ADDRESS
                                 </label>
-                                <input type="text" class="form-control" value="${totalAddress}" readonly>
+                                <input type="text" class="form-control" value="${master.storeAddress}" readonly>
                             </div>
                             <div class="form-group detail-Info">
                                 <label class="title-label">Title
@@ -330,6 +330,9 @@
                             <div class="form-group title-group">
                                 <label>Title</label>
                                 <div class="dropzone col-md-12" id="title-dropzone"></div>
+                                <input type="file" name="titleImgFile" class="dz-hidden-input hidden-title-img"
+                                    accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
+                                    style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
                             </div>
 
                             <div class="form-group detail-group">
@@ -423,9 +426,14 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </td>
                                 </tr>
                             </table>
+
+                            <input type="file" name="menuImgFiles" class="dz-hidden-input hidden-menu-img"
+                                multiple="multiple" accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
+                                style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
                         </div>
 
                     </div>
@@ -729,43 +737,49 @@
 
         /* -------------------------------- menu add -------------------------------- */
 
-        // 첫번재 삭제버튼은 표시 안함
-        const par = $('table#pricing-list-container').first().find('.delete').remove();
-
-        // 메뉴 추가 script
-        function newMenuItem() {
-            var newElem = $('form-group').first().clone(); // 첫번쨰 메뉴 복사 
-            newElem.find('input').val(''); // input 리셋 
-            newElem.appendTo('table#pricing-list-container'); // 추가 
-        }
 
         let count = 1;
+        let menuList = [];
 
-        if ($("table#pricing-list-container").is('*')) { // 
+        const par = $('table#pricing-list-container').first().find('.delete').remove();
+
+        function newMenuItem() {
+            var newElem = $('form-group').first().clone();
+            newElem.find('input').val('');
+            newElem.appendTo('table#pricing-list-container');
+        }
+
+        if ($("table#pricing-list-container").is('*')) {
             $('.add-pricing-list-item').on('click', function (e) {
+
+                count++;
+
                 const $container = $('#pricing-list-container');
                 e.preventDefault();
                 newMenuItem();
 
-                // add한 영역 delete 생성  
                 $('.menu-row').last().find('.delete-form').append(
-                    '<a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a>')
+                    '<a class="delete' + ' menuDelete' + count + '"' +
+                    ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
                 $(this).css('border-colore', 'none');
-                priceInputOnlyInt(); // add 한 입력창 검증 
+
+
+                priceInputOnlyInt();
+
 
                 const $target = $('#pricing-list-container').last().find('.menu1').last();
 
-                // img박스 리셋  
                 $target.last().removeClass('dz-started');
                 $target.last().removeClass('dz-max-files-reached');
                 $target.last()[0].innerHTML = '';
 
-                // menuimg에 dropzone 일일히 적용하기 위한 코드 
-                count++;
                 $target.removeClass('menu1');
                 $target.addClass('menu' + count)
 
+                menuList.push(null);
+
                 addMenuImg(count);
+
 
             });
             $(document).on("click", "#pricing-list-container .delete", function (e) {
@@ -775,16 +789,14 @@
 
         }
 
-
         /* -------------------------------- /menu add -------------------------------- */
 
         /* -------------------------------- /입력 검증 -------------------------------- */
 
 
         // ------------------ 메뉴 price 숫자만 입력 ---------------------
-        priceInputOnlyInt(); // 처음 입력창 검증 
+        priceInputOnlyInt();
 
-        // 메뉴 price 입력창 검증 함수 (숫자만 입력) 
         function priceInputOnlyInt() {
             var replaceNotInt = /[^0-9]/gi;
 
@@ -792,15 +804,15 @@
 
             $menuPrice.on("keyup", function () {
                 console.log(replaceNotInt);
-                $(this).val($(this).val().replace(replaceNotInt, "")); // 입력값을 정규식으로 필터링
+                $(this).val($(this).val().replace(replaceNotInt, ""));
 
-                var x = $(this).val(); // 필터링 된 숫자값만 들어 있음. 
-                if (x.length > 0) { // 숫자값 길이가 0이상일 경우 
-                    $(this).css('border-color', 'green'); // 정상이기때문에 green 
-                    if (x.match(replaceNotInt)) { // 중간에 한글 쓸수도 있으니, 다시 매치 
-                        x = x.replace(replaceNotInt, ""); // 한글쓰면 지워짐 
+                var x = $(this).val();
+                if (x.length > 0) {
+                    $(this).css('border-color', 'green');
+                    if (x.match(replaceNotInt)) {
+                        x = x.replace(replaceNotInt, "");
                     }
-                    $(this).val(x); // 숫자 value값에 다시 담음
+                    $(this).val(x);
                 } else {
                     $(this).css('border-color', 'red');
                 }
@@ -815,14 +827,11 @@
 
         $hashTag.on("keyup", function () {
 
-            // 특수문자 정규식 변수(공백 미포함)
             var replaceChar = /[~!@\#$%^&*\()\-=+_'\;<>0-9\/.\`:\"\\,\[\]?|{}]/gi;
 
-            // 완성형 아닌 한글 정규식
             var replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
 
-            const splitThisVal = $(this).val().split(" "); // 공백기준으로 단어 리스트 생성
-            // $(this).val($(this).val().replace(replaceChar,''));
+            const splitThisVal = $(this).val().split(" ");
 
             const cleanArr = splitThisVal.filter(Boolean);
 
@@ -833,23 +842,22 @@
                 }
                 $(this).val(x);
             }
-            if (cleanArr.length >= 11 && cleanArr.length) // 단어 10개 이상일 경우 
-            {
-                if (leng <= $hashTag.val().length + 1) // leng = 단어 10개 이하의 마지막 글자수가 현재 글자수보다 작으면  
-                {
-                    $hashTag.val($hashTag.val().substring(0, leng)); // 마지막 글자수를 다시 hashtag value에 담아줌 
-                    $(this).css('border-color', 'red'); // 공백 추가 시 빨간 경고 
+            if (cleanArr.length >= 11 && cleanArr.length) {
+                if (leng <= $hashTag.val().length + 1) {
+                    $hashTag.val($hashTag.val().substring(0, leng));
+                    $(this).css('border-color', 'red');
                 } else
                     $(this).css('border-color', 'green');
-            } else { // 단어 10개 이하는 
-                leng = $(this).val().length; // 전역변수에 마지막 글자수 저장 
+            } else {
+                leng = $(this).val().length;
             }
         });
         // ------- /해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
     </script>
 
     <script>
-        // image file upload and dropzone 
+        // -------------- fiel upload and file dropzone --------------
+
         Dropzone.autoDiscover = false;
 
         const titleDropzone = new Dropzone("#title-dropzone.dropzone", {
@@ -858,82 +866,34 @@
             autoProcessQueue: false,
             clickable: true,
             createImageThumbnails: true,
-            thumbnailHeight: 120, // Upload icon size
-            thumbnailWidth: 300, // Upload icon size
-            maxFiles: 1, // 업로드 파일수
-            maxFilesize: 10, // 최대업로드용량 : 100MB
-            paramName: 'titleImg', // 서버에서 사용할 formdata 이름 설정 (default는 file)
-            addRemoveLinks: true, // 업로드 후 파일 삭제버튼 표시 여부
-            dictRemoveFile: 'X', // 삭제버튼 표시 텍스트
-            acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF', // 
-
-            init: function () {
-                let myDropzone = this; // closure 변수 (화살표 함수 쓰지않게 주의)
-
-                // 서버에 제출 submit 버튼 이벤트 등록
-                document.querySelector('.save').addEventListener('click', function () {
-
-                    // 거부된 파일이 있다면
-                    if (myDropzone.getRejectedFiles().length > 0) {
-                        let files = myDropzone.getRejectedFiles();
-                        console.log('거부된 파일이 있습니다.', files);
-                        return;
-                    }
-
-                    // myDropzone.processQueue(); // autoProcessQueue: false로 해주었기 때문에, 메소드 api로 파일을 서버로 제출
-                });
-
-                // 업로드한 파일을 서버에 요청하는 동안 호출 실행
-                this.on('sending', function (file, xhr, formData) {
-                    console.log('보내는중');
-                });
-
-                // 서버로 파일이 성공적으로 전송되면 실행
-                this.on('success', function (file, responseText) {
-                    console.log('성공');
-                });
-
-                // 업로드 에러 처리
-                this.on('error', function (file, errorMessage) {
-                    alert(errorMessage);
-                });
-            }
+            thumbnailHeight: 120,
+            thumbnailWidth: 300,
+            maxFiles: 1,
+            maxFilesize: 10,
+            addRemoveLinks: true,
+            dictRemoveFile: 'X',
+            acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
         });
 
         let overlapSet = new Set();
         const detailDropzone = new Dropzone("#detail-dropzone.dropzone", {
             url: "/foodie/write",
             method: 'post',
-            autoProcessQueue: false, // 바로 서버로 보낼건지 
-            clickable: true, // 클릭 가능여부 
-            createImageThumbnails: true, //이미지 미리보기처리
-            thumbnailWidth: 100, // Upload icon size
-            thumbnailHeight: 100, // Upload icon size
-            maxFiles: 5, // 업로드 파일수
-            maxFilesize: 100, // 최대업로드용량 : 100MB
-            addRemoveLinks: true, // 업로드 후 파일 삭제버튼 표시 여부
-            dictRemoveFile: 'X', // 삭제버튼 표시 텍스트
-            acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF', // 
+            autoProcessQueue: false,
+            clickable: true,
+            createImageThumbnails: true,
+            thumbnailWidth: 100,
+            thumbnailHeight: 100,
+            maxFiles: 5,
+            maxFilesize: 100,
+            addRemoveLinks: true,
+            dictRemoveFile: 'X',
+            acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
             parallelUploads: 5,
             uploadMultiple: true,
             init: function () {
 
                 let myDropzone = this;
-
-                document.querySelector('.save').addEventListener('click', function () {
-                    const $detailInput = myDropzone.hiddenFileInput;
-                    const $detailTag = document.querySelector('.hidden-detail-img');
-
-                    const dataTranster = new DataTransfer();
-
-                    for (const img of imgList) {
-                        dataTranster.items.add(img);
-                    }
-
-                    $detailTag.files = dataTranster.files;
-                });
-
-                let count = 0;
                 this.on('addedfiles', function (files) {
                     let overResult = '';
 
@@ -946,7 +906,7 @@
                             'detail <b class="c-red detail-red">[ 이미지는 5개까지만 가능합니다. ]</b>');
                         setTimeout(function () {
                             $('.detail-red').remove();
-                        }, 5000); // 5초동안만 경고 노출
+                        }, 5000);
                         return;
 
                     } else {
@@ -996,86 +956,105 @@
 
         function addMenuImg(index) {
             let dropName = '.menu' + index;
-            console.log('index : ', index);
-
+            let deleteName = '.menuDelete' + index;
             const menuDropzone = new Dropzone(dropName, {
                 url: "/foodie/write",
                 method: 'post',
-                autoProcessQueue: false, // 바로 서버로 보낼건지 
-                clickable: true, // 클릭 가능여부 
-                createImageThumbnails: true, //이미지 미리보기처리
-                thumbnailHeight: 80, // Upload icon size
-                thumbnailWidth: 80, // Upload icon size
-                maxFiles: 1, // 업로드 파일수
-                maxFilesize: 100, // 최대업로드용량 : 100MB
-                paramName: '', // 서버에서 사용할 formdata 이름 설정 (default는 file)
-                addRemoveLinks: true, // 업로드 후 파일 삭제버튼 표시 여부
-                dictRemoveFile: 'X', // 삭제버튼 표시 텍스트
-                acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF', // 
+                autoProcessQueue: false,
+                clickable: true,
+                createImageThumbnails: true,
+                thumbnailHeight: 80,
+                thumbnailWidth: 80,
+                maxFiles: 1,
+                maxFilesize: 100,
+                paramName: '',
+                addRemoveLinks: true,
+                dictRemoveFile: 'X',
+                acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
 
                 init: function () {
-                    // 최초 dropzone 설정시 init을 통해 호출
-                    console.log('최초 실행');
-                    let myDropzone = this; // closure 변수 (화살표 함수 쓰지않게 주의)
+                    let myDropzone = this;
+                    this.on('addedfile', function (file) {
+                        menuList[index - 1] = file;
+                        console.log("add : ", menuList);
+                    });
 
-                    // 서버에 제출 submit 버튼 이벤트 등록
-                    document.querySelector('.save').addEventListener('click', function () {
+                    $(deleteName).on('click', function (e) {
+                        const targetfileName = $(dropName).last().find('.dz-filename').children()
+                            .text();
 
-                        // 거부된 파일이 있다면
-                        if (myDropzone.getRejectedFiles().length > 0) {
-                            let files = myDropzone.getRejectedFiles();
-                            console.log('거부된 파일이 있습니다.', files);
+                        if (targetfileName === '')
                             return;
+
+                        for (let index = 0; index < menuList.length; index++) {
+                            if (menuList[index].name === targetfileName) {
+                                menuList[index - 1] = null;
+                            }
                         }
+                    })
+                    myDropzone.on('removedfile', function (file) {
 
-                    });
-
-                    // 업로드한 파일을 서버에 요청하는 동안 호출 실행
-                    this.on('sending', function (file, xhr, formData) {
-                        console.log('보내는중');
-                    });
-
-                    // 서버로 파일이 성공적으로 전송되면 실행
-                    this.on('success', function (file, responseText) {
-                        console.log('성공');
-                    });
-
-                    // 업로드 에러 처리
-                    this.on('error', function (file, errorMessage) {
-                        alert(errorMessage);
-                    });
-
+                        console.log(file.name);
+                        for (const menu of menuList) {
+                            if ((menu != null) && (menu.name === file.name)) {
+                                menuList[index - 1] = null;
+                            }
+                        }
+                    })
                 }
+
             });
+
+            return menuDropzone;
         }
 
-        // ------------------ 저장 ---------------------
+        // -------------- // fiel upload and file dropzone --------------
+
+
+        // ---------------------------- submit -------------------------------
 
         $('.save').on('click', e => {
 
             const $detailTag = document.querySelector('.hidden-detail-img');
-            const dataTranster = new DataTransfer();
+            const $titleTag = document.querySelector('.hidden-title-img');
+            const $menuTag = document.querySelector('.hidden-menu-img');
 
-            imgList = [];
+            const detailDataTranster = new DataTransfer();
+            const titleDataTraster = new DataTransfer();
+            const menuDataTraster = new DataTransfer();
 
-            for (const file of detailDropzone.files) {
-                dataTranster.items.add(file);
-                imgList.push(file);
+
+            if (menuList.length > 0) {
+
+                for (const menuFile of menuList) {
+                    if (menuFile != null) {
+                        menuDataTraster.items.add(menuFile);
+                    }
+                }
+
+                $menuTag.files = menuDataTraster.files;
             }
 
-            $detailTag.files = dataTranster.files;
+            if (titleDropzone.files.length > 0) {
+                titleDataTraster.items.add(titleDropzone.files[0]);
+                $titleTag.files = titleDataTraster.files;
 
+            }
+
+            if (detailDropzone.files.length > 0) {
+                for (const detailFile of detailDropzone.files) {
+                    detailDataTranster.items.add(detailFile);
+                }
+                $detailTag.files = detailDataTranster.files;
+
+            }
             if (!checkArr.includes(false)) {
 
-                /* 오픈시간,마감시간 0000 형식으로 변경  */
                 const $selectTimeList = document.querySelectorAll('.select-time');
                 $selectTimeList.forEach(element => {
                     const replaceNotInt = /[^0-9]/gi;
                     element.value = element.value.replace(replaceNotInt, '');
-                    console.log(element.value);
                 });
-
-                console.log("out save");
 
                 $('#promotionWriteForm').submit();
 

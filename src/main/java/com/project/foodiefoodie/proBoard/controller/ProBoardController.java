@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 
 @Log4j2
@@ -29,7 +27,7 @@ import java.util.Queue;
 public class ProBoardController {
 
     private final ProBoardService proBoardService;
-    public static final String UPLOAD_PATH = "C:\\foodiefoodie\\upload";
+    public  final String UPLOAD_PATH = "C:\\foodiefoodie\\upload";
 
     @GetMapping("/detail")
     public String detail() {
@@ -47,19 +45,30 @@ public class ProBoardController {
     }
 
     @PostMapping("/write")
-    public String write(ProBoard proBoard, StoreTimeDTO storeTimeDTO , List<MultipartFile> detailImgFiles) {
+    public String write(ProBoard proBoard, StoreTimeDTO storeTimeDTO ,
+                        List<MultipartFile> titleImgFile,
+                        List<MultipartFile> detailImgFiles ,
+                        List<MultipartFile> menuImgFiles) {
         log.info("foodie/write POST - ! {}",proBoard);
         log.info("foodie/write POST - ! {}",storeTimeDTO);
-        log.info("foodie/write POST!! - {}", detailImgFiles.get(0).getOriginalFilename());
 
-        List<String> fileNames = new ArrayList<>();
-        if (detailImgFiles != null) {
+        log.info("foodie/write POST!! - titleImgFile : {}", titleImgFile.get(0).getOriginalFilename());
+        log.info("foodie/write POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
+        log.info("foodie/write POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
 
-            for (int i = 0; i < detailImgFiles.size(); i++) {
-                String fullPath = proBoardService.uploadMasterFile(detailImgFiles.get(i), UPLOAD_PATH, proBoard.getBusinessNo(),"detail" + (i+1) );
-                fileNames.add(fullPath);
-            }
-        }
+        Map<String,List<MultipartFile>> fileMap = new HashMap<>(){{
+            put("title",titleImgFile);
+            put("detail",detailImgFiles);
+            put("menu",menuImgFiles);
+        }};
+//
+//        if (detailImgFiles != null) {
+//
+//            for (int i = 0; i < detailImgFiles.size(); i++) {
+//                String fullPath = proBoardService.uploadMasterFile(detailImgFiles.get(i), UPLOAD_PATH, proBoard.getBusinessNo(),"detail" + (i+1) );
+//                files.add(fullPath);
+//            }
+//        }
         return "";
     }
 

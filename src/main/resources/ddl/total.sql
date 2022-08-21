@@ -393,7 +393,8 @@ commit;
 
 
 ----------------------------------------------------------- 08 / 15
-    create table PROMOTION_STORE_TIME
+
+ create table PROMOTION_STORE_TIME
     (
         promotion_bno number(10) NOT NULL
         ,weekdayOpenTime number(8) NOT NULL
@@ -402,7 +403,10 @@ commit;
         ,weekendCloseTime number(8) NOT NULL
         ,breakStartTime number(8) NOT NULL
         ,breakEndTime number(8) NOT NULL
-        ,closedDay VARCHAR2(2)
+        ,closedDay VARCHAR2(20)
         , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
         REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
     );
+
+    alter table promotion_board modify FILE_NAME null;
+    alter table promotion_board modify file_path null;

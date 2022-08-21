@@ -1,7 +1,9 @@
 package com.project.foodiefoodie.proBoard.dto;
 
+import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import lombok.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Getter
@@ -9,7 +11,10 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuDTO {
+public class MenuDTO{
+
+//    private int menuNo;
     private List<String> menuName;
-    private List<String> menuPrice;
+    private List<Integer> menuPrice;
+
 }

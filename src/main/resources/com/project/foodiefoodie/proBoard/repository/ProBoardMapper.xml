@@ -4,64 +4,118 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.foodiefoodie.proBoard.repository.ProBoardMapper">
 
-    <insert id="proBoardSave">
-        insert into promotion_board VALUES (
+
+    <insert id="saveProBoard">
+        insert into promotion_board (
+        BUSINESS_NO
+        ,PROMOTION_BNO
+        ,CONTENT
+        ,LAST_UPDATED
+        ,TITLE
+        ,HASHTAG
+        )
+        VALUES (
         #{businessNo}
         ,seq_promotion_board.nextval
         ,#{content}
         ,sysdate
-        ,#{title})
+        ,#{title}
+        ,#{hashTag}
+        )
     </insert>
 
-    <insert id="storeTimeSave">
+    <insert id="saveProBoardStoreTime">
         insert into PROMOTION_STORE_TIME VALUES (
-        ,#{weekdayOpenTime}
-        ,#{weekdayCloseTime}
-        ,#[weekendOpenTime}
-        ,#{weekendCloseTime}
-        ,#{breakStartTime}
-        ,#{breakEndTime}
-        ,#{closedDay}
+        #{promotionBno}
+        ,#{storeTimeDTO.weekdayOpenTime}
+        ,#{storeTimeDTO.weekdayCloseTime}
+        ,#{storeTimeDTO.weekendOpenTime}
+        ,#{storeTimeDTO.weekendCloseTime}
+        ,#{storeTimeDTO.breakStartTime}
+        ,#{storeTimeDTO.breakEndTime}
+        ,#{storeTimeDTO.closedDay}
+        )
+    </insert>
+    <insert id="saveProBoardMenu">
+        insert into PROMOTION_FOOD_MENU VALUES (
+        SEQ_PROMOTION_FOOD_MENU.nextval
+        ,#{promotionBno}
+        ,#{menuName}
+        ,#{menuPrice}
+        )
+    </insert>
+    <insert id="saveProBoardImage">
+        <if test="imageDTO.type=='title'">
+            insert into PROMOTION_UPLOAD_TITLE_IMG VALUES (
+            #{promotionBno}
+            ,#{imageDTO.filePath}
+            ,#{imageDTO.fileName}
+            )
+        </if>
+        <if test="imageDTO.type=='detail'">
+            insert into PROMOTION_UPLOAD_DETAIL_IMG VALUES (
+            #{promotionBno}
+            ,#{imageDTO.filePath}
+            ,#{imageDTO.fileName}
+            )
+        </if>
+        <if test="imageDTO.type=='menu'">
+            insert into PROMOTION_UPLOAD_MENU_IMG VALUES (
+            #{promotionBno}
+            ,#{imageDTO.menuNo}
+            ,#{imageDTO.filePath}
+            ,#{imageDTO.fileName}
+            )
+        </if>
     </insert>
 
-<!--    <insert id="menuSave">-->
-<!--        insert into PROMOTION_FOOD_MENU VALUES (-->
-<!--        ,SEQ_PROMOTION_FOOD_MENU.nextval-->
-<!--        ,#{}-->
-<!--        )-->
+    <!--&lt;!&ndash;    <insert id="menuSave">&ndash;&gt;-->
+    <!--&lt;!&ndash;        insert into PROMOTION_FOOD_MENU VALUES (&ndash;&gt;-->
+    <!--&lt;!&ndash;        ,SEQ_PROMOTION_FOOD_MENU.nextval&ndash;&gt;-->
+    <!--&lt;!&ndash;        ,#{}&ndash;&gt;-->
+    <!--&lt;!&ndash;        )&ndash;&gt;-->
 
-<!--    </insert>-->
+    <!--&lt;!&ndash;    </insert>&ndash;&gt;-->
 
-    <update id="modify">
-        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}
-    </update>
+    <!--    <update id="modify">-->
+    <!--        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}-->
+    <!--    </update>-->
 
-    <delete id="delete">
-        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}
-    </delete>
+    <!--    <delete id="delete">-->
+    <!--        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}-->
+    <!--    </delete>-->
 
-    <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">
-        <result property="businessNo" column="business_no"/>
-        <result property="promotionBno" column="promotion_bno"/>
-        <result property="lastUpdated" column="last_updated"/>
-    </resultMap>
+    <!--    <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">-->
+    <!--        <result property="businessNo" column="business_no"/>-->
+    <!--        <result property="promotionBno" column="promotion_bno"/>-->
+    <!--        <result property="lastUpdated" column="last_updated"/>-->
+    <!--    </resultMap>-->
 
-    <select id="selectOne" resultMap="proBoardMap">
-        SELECT *
-        FROM promotion_board
-        where promotion_bno = #{promotionBno}
-    </select>
+    <!--    <select id="selectOne" resultMap="proBoardMap">-->
+    <!--        SELECT *-->
+    <!--        FROM promotion_board-->
+    <!--        where promotion_bno = #{promotionBno}-->
+    <!--    </select>-->
 
-<!--  마스터 가져오기 임시 -->
-    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
-        <result property="businessNo" column="BUSINESS_NO"/>
-        <result property="masterName" column="MASTER_NAME"/>
-        <result property="storeName" column="STORE_NAME"/>
-        <result property="storeAddress" column="STORE_ADDRESS"/>
-        <result property="hotDeal" column="HOT_DEAL"/>
-        <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
-    </resultMap>
-    <select id="selectMaster" resultMap="masterMap">
-        select * from master where BUSINESS_NO = #{businessNo}
-    </select>
+        <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
+            <result property="businessNo" column="BUSINESS_NO"/>
+            <result property="masterName" column="MASTER_NAME"/>
+            <result property="storeName" column="STORE_NAME"/>
+            <result property="storeAddress" column="STORE_ADDRESS"/>
+            <result property="hotDeal" column="HOT_DEAL"/>
+            <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
+        </resultMap>
+
+        <select id="selectMaster" resultMap="masterMap">
+            select * from master where BUSINESS_NO = #{businessNo}
+        </select>
+
+        <select id="selectPromotionBno" resultType="int">
+            select promotion_bno from PROMOTION_BOARD where business_no =  #{businessNo}
+        </select>
+
+
+        <select id="selectMenuNo" resultType="int">
+            select menu_no from promotion_food_menu where promotion_bno = #{promotion_bno} order by menu_no ASC
+        </select>
 </mapper>

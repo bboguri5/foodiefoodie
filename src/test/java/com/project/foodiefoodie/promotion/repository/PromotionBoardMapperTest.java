@@ -20,7 +20,7 @@ class PromotionBoardMapperTest {
 
     @Test
     @DisplayName("가게 게시물을 저장해야 한다.")
-    void saveTest() {
+    void saveProBoardTest() {
         PromotionBoard pb = new PromotionBoard();
         pb.setBusinessNo("1234-2222-3333-1117");
         pb.setContent("내용입니다.");

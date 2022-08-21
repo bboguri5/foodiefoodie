@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -36,9 +37,29 @@ public class KakaoPaymentController {
 
         String pcRedirectUrl = readyForPaymentMap.get("pcRedirectUrl");
 
-        session.setAttribute("pcUrl", pcRedirectUrl);
+        model.addAttribute("pcUrl", pcRedirectUrl);
 
-        return "redirect:/" + pcRedirectUrl;
+        return "payment/test-result";
     }
 
+
+    // 결제 성공시 api에서 보낼 요청
+    @GetMapping("/success-order")
+    public String success() {
+        return "payment/success-order";
+    }
+
+
+    // 결제 취소시 api에서 보낼 요청 
+    @GetMapping("/cancel-order")
+    public String cancel() {
+        return "payment/cancel-order";
+    }
+
+
+    // 결제 실패시 api에서 보낼 요청
+    @GetMapping("/fail-order")
+    public String fail() {
+        return "payment/fail-order";
+    }
 }

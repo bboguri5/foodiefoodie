@@ -2,6 +2,8 @@ package com.project.foodiefoodie.member.controller;
 
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
+import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
+import com.project.foodiefoodie.member.dto.find.FindPwDTO;
 import com.project.foodiefoodie.member.dto.login.LoginDTO;
 import com.project.foodiefoodie.member.service.LoginFlag;
 import com.project.foodiefoodie.member.service.MemberService;
@@ -117,5 +119,61 @@ public class MemberController {
 
         // 로그인 상태가 아니라면~
         return "redirect:/";
+    }
+
+
+
+    // 계정 찾기 화면 요청 처리
+    @GetMapping("/find-email")
+    public String findEmail() {
+        log.info("/find-email GET!!");
+        return "member/find/find-email";
+    }
+
+
+
+    // 실질적 계정 찾기 요청 처리
+    @PostMapping("/find-email")
+    public String findEmail2(FindEmailDTO dto, Model model) {
+        log.info("/find-email POST!! - {}", dto);
+
+        String foundEmail = memberService.findEmail(dto);
+
+        model.addAttribute("foundEmail", foundEmail); // null 검증은 클라이언트 쪽에서 하자.
+
+        return "member/find/find-email-result";
+    }
+
+
+
+    // 비번 찾기 화면 요청 처리
+    @GetMapping("/find-pw")
+    public String findPw() {
+        return "member/find/find-pw";
+    }
+    
+    
+    
+    // 실질적 비번 찾기 요청 처리
+    @PostMapping("/find-pw")
+    public String findPw2(FindPwDTO dto, Model model) {
+        log.info("/find-pw POST!! - {}", dto);
+
+        boolean flag = memberService.changePw(dto);
+
+        model.addAttribute("flag", flag);
+        model.addAttribute("email", dto.getEmail());
+
+        return "member/find/find-pw-result";
+    }
+
+
+    // 인증 코드 검증 요청 처리
+    @PostMapping("/check-authCode")
+    public String checkAuth(String email, String authCode, Model model) {
+
+
+
+        return "";
     }
 }

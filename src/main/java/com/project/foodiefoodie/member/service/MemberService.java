@@ -1,6 +1,8 @@
 package com.project.foodiefoodie.member.service;
 
 import com.project.foodiefoodie.member.domain.Member;
+import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
+import com.project.foodiefoodie.member.dto.find.FindPwDTO;
 import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DeleteMemberDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
@@ -196,4 +198,27 @@ public class MemberService {
         return flag;
     }
 
+
+
+    // 계정(이메일) 찾기
+    public String findEmail(FindEmailDTO dto) {
+        String foundEmail = memberMapper.findEmail(dto);
+        return foundEmail;
+    }
+
+
+    
+    // 비번 변경용 회원 존재 유무 찾기 
+    public boolean changePw(FindPwDTO dto) {
+        
+        if (memberMapper.changePw(dto) == 1) {
+            // 이메일 보내는 로직이 수행되어야 함.
+            String email = dto.getEmail();
+
+
+            return true;
+        }
+        
+        return false;
+    }
 }

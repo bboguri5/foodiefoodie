@@ -2,6 +2,7 @@ package com.project.foodiefoodie.review.service;
 
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
+import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.repository.ReviewBoardMapper;
 import lombok.RequiredArgsConstructor;
@@ -46,5 +47,9 @@ public class ReviewBoardService {
 
     public ReviewBoardDTO findOneReviewService(long reviewBno) {
         return rbMapper.findOneReview(reviewBno);
+    }
+
+    public List<ReviewUpload> findReviewUploadsService(long reviewBno) {
+        return rbMapper.findReviewUploads(reviewBno);
     }
 }

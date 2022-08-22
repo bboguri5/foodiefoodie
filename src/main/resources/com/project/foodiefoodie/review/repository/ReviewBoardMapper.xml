@@ -21,6 +21,13 @@
         <result property="starRate" column="star_rate"/>
     </resultMap>
 
+    <resultMap id="ruMap" type="com.project.foodiefoodie.review.domain.ReviewUpload">
+        <result property="reviewBno" column="review_bno"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileName" column="file_name"/>
+    </resultMap>
+
+
     <insert id="save">
         INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate)
         VALUES (#{email}, #{title}, #{content}, seq_review_board.nextval, #{businessNo},#{starRate})
@@ -51,4 +58,14 @@
         WHERE review_bno = #{reviewBno}
     </select>
 
+    <select id="reviewUpload" resultMap="ruMap">
+        INSERT INTO review_upload
+        VALUES (#{reviewBno}, #{filePath}, #{fileName})
+    </select>
+
+    <select id="findReviewUploads" resultMap="ruMap">
+        SELECT review_bno, file_path
+        FROM review_upload
+        WHERE review_bno = #{reviewBno}
+    </select>
 </mapper>

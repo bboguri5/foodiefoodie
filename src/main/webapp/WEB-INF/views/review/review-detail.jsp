@@ -9,6 +9,21 @@
     <%@ include file="../include/static-head.jsp" %>
 
 
+    <!-- GOOGLE WEB FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!-- SPECIFIC CSS -->
+    <link href="/css/detail-page.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="/css/custom.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -45,30 +60,43 @@
                 <div class="col-lg-9">
                     <div class="singlepost">
                         <figure>
-                            <!-- section visual -->
-                            <section class="visual">
-                                <ul class="slide">
-                                    <li>
-                                        <img src="/img/.jpg" alt="슬라이드 이미지1">
-                                    </li>
-                                    <li>
-                                        <img src="/img/visual1.jpg" alt="슬라이드 이미지1">
-                                    </li>
-                                    <li>
-                                        <img src="/img/visual1.jpg" alt="슬라이드 이미지1">
-                                    </li>
-                                    <li>
-                                        <img src="/img/visual1.jpg" alt="슬라이드 이미지1">
-                                    </li>
-                                    <li>
-                                        <img src="/img/visual1.jpg" alt="슬라이드 이미지1">
-                                    </li>
-                                    <li>
-                                        <img src="/img/visual1.jpg" alt="슬라이드 이미지1">
-                                    </li>
-                                </ul>
-                            </section>
-                            <!-- //section visual -->
+                            <div class="owl-carousel owl-theme carousel_1 magnific-gallery owl-loaded owl-drag">
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage"
+                                        style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2488px;">
+                                        <div class="owl-item active" style="width: 829.325px;">
+                                            <div class="item">
+                                                <a href="/img/location_1.jpg" title="Photo title"
+                                                    data-effect="mfp-zoom-in"><img src="/img/detail_1.jpg" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <div class="owl-item" style="width: 829.325px;">
+                                            <div class="item">
+                                                <a href="/img/location_1.jpg" title="Photo title"
+                                                    data-effect="mfp-zoom-in"><img
+                                                        src="/img/lazy-placeholder-detail.png"
+                                                        data-src="/img/detail_2.jpg" class="owl-lazy" alt=""></a>
+                                            </div>
+                                        </div>
+                                        <div class="owl-item" style="width: 829.325px;">
+                                            <div class="item">
+                                                <a href="/img/location_1.jpg" title="Photo title"
+                                                    data-effect="mfp-zoom-in"><img
+                                                        src="/img/lazy-placeholder-detail.png"
+                                                        data-src="/img/detail_3.jpg" class="owl-lazy" alt=""></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="owl-nav disabled"><button type="button" role="presentation"
+                                        class="owl-prev"><span aria-label="Previous">‹</span></button><button
+                                        type="button" role="presentation" class="owl-next"><span
+                                            aria-label="Next">›</span></button></div>
+                                <!-- <div class="owl-dots"><button role="button"
+                                        class="owl-dot active"><span></span></button><button role="button"
+                                        class="owl-dot"><span></span></button><button role="button"
+                                        class="owl-dot"><span></span></button></div> -->
+                            </div>
 
                         </figure>
                         <h1>${review.title}</h1>
@@ -307,7 +335,10 @@
     <!-- /main -->
 
     <%@ include file="../include/footer.jsp" %>
-
+    <script src="/js/sticky_sidebar.min.js"></script>
+    <script src="/js/specific_detail.js"></script>
+    <script src="/js/datepicker_func_1.js"></script>
+    <script src="/js/switcher.js"></script>
 
 
 </body>

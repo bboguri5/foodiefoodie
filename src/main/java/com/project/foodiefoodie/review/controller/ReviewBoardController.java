@@ -2,6 +2,7 @@ package com.project.foodiefoodie.review.controller;
 
 import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
+import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +33,11 @@ public class ReviewBoardController {
     @GetMapping("/review/detail")
     public String reviewDetail(long reviewBno, Model model) {
         ReviewBoardDTO review = reviewBoardService.findOneReviewService(reviewBno);
+        List<ReviewUpload> reviewUploads = reviewBoardService.findReviewUploadsService(reviewBno);
         List<Reply> replyList = replyService.findAllRepliesService(reviewBno);
 
         model.addAttribute("review", review);
+        model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyList", replyList);
         return "review/review-detail";
     }

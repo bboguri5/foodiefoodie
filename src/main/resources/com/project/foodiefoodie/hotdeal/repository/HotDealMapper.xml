@@ -18,40 +18,6 @@
         VALUES (#{businessNo}, #{discountPrice}, #{endDate}, #{startDate})
     </insert>
 
-    <select id="findRandHot" resultType="com.project.foodiefoodie.hotdeal.dto.DealPromotionMasterDTO">
-        SELECT business_no AS businessNo, discount_price AS discountPrice, end_date AS endDate, start_date AS
-        startDate, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_address AS storeAddress, store_name AS
-        storeName, file_path AS filePath
-        FROM (
-        SELECT *
-        FROM hot_deal H JOIN promotion_board P
-        ON H.business_no = P.business_no
-        JOIN master M
-        ON H.business_no = M.business_no
-        ORDER BY H.end_date
-        ) sub
-        WHERE ROWNUM BETWEEN 1 AND 6
-    </select>
-
-    <select id="findAll" resultType="com.project.foodiefoodie.hotdeal.dto.DealPromotionMasterDTO">
-        SELECT business_no AS businessNo, discount_price AS discountPrice, end_date AS endDate, start_date AS
-        startDate, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt, store_address AS storeAddress, store_name AS
-        storeName, file_path AS filePath
-        FROM (SELECT ROWNUM rn, t_hotDeal.*
-        FROM (
-        SELECT *
-        FROM hot_deal H JOIN promotion_board P
-        ON H.business_no = P.business_no
-        JOIN master M
-        ON H.business_no = M.business_no ) t_hotDeal)
-        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
-    </select>
-
-    <select id="getMyTotalCnt" resultType="int">
-        SELECT COUNT(*)
-        FROM hot_deal
-    </select>
-
     <select id="findOne" resultMap="dealMap">
         SELECT * FROM hot_deal
         WHERE business_no=#{businessNo}

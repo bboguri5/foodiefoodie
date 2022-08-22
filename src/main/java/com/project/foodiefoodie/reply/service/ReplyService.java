@@ -20,6 +20,10 @@ public class ReplyService {
         return mapper.remove(replyNo);
     }
 
+    public List<Reply> findAllRepliesService(long reviewBno) {
+        return mapper.findAllReplies(reviewBno);
+    }
+
     public List<Reply> findAllService() {
         return mapper.findAll();
     }

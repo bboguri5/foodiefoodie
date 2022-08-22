@@ -13,5 +13,5 @@ public class Reply {
     private String email;
     private String content;
     private String nickName;
-    private Date lastUpdate;
+    private Date lastUpdated;
 }

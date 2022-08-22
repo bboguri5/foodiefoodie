@@ -1,8 +1,9 @@
 package com.project.foodiefoodie.review.controller;
 
+import com.project.foodiefoodie.reply.domain.Reply;
+import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewBoardController {
 
-    private final ReviewBoardService service;
+    private final ReviewBoardService reviewBoardService;
+    private final ReplyService replyService;
 
     @GetMapping("/review")
     public String review(Model model) {
 
-        List<ReviewBoardDTO> reviewList = service.findAllReviewsService();
+        List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService();
         model.addAttribute("reviewList", reviewList);
 
         return "review/review-gram";
@@ -29,8 +31,11 @@ public class ReviewBoardController {
 
     @GetMapping("/review/detail")
     public String reviewDetail(long reviewBno, Model model) {
-        ReviewBoardDTO review = service.findOneReviewService(reviewBno);
+        ReviewBoardDTO review = reviewBoardService.findOneReviewService(reviewBno);
+        List<Reply> replyList = replyService.findAllRepliesService(reviewBno);
+
         model.addAttribute("review", review);
+        model.addAttribute("replyList", replyList);
         return "review/review-detail";
     }
 

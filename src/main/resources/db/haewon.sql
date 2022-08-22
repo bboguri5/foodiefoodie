@@ -405,6 +405,8 @@ CREATE TABLE reply (
     REFERENCES member (email) ON DELETE CASCADE
 );
 
+INSERT INTO reply VALUES ('3', seq_reply.nextval, 'bbbb2222@naver.com', '댓글 마니 달자아앙', 'Haewon', SYSDATE);
+
 ------------------------------ review like -----------------------------------
 -- 리뷰 좋아요(추천)
 

@@ -76,7 +76,7 @@
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
-        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date > (SELECT TO_CHAR
+        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
         (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL))
         ORDER BY DBMS_RANDOM.RANDOM ) sub
         WHERE ROWNUM BETWEEN 1 AND 7
@@ -93,7 +93,7 @@
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
-        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date > (SELECT TO_CHAR
+        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
         (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL))
         ORDER BY end_date
         ) sub)
@@ -103,7 +103,7 @@
     <!-- 프리미엄 가게 개수 계산 -->
     <select id="getPremiumCnt" resultType="int">
         SELECT COUNT(*)
-        FROM premiume_promotion_board WHERE end_date > (SELECT TO_CHAR
+        FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
         (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
     </select>
 
@@ -157,7 +157,7 @@
         ON P.business_no = H.business_no
         JOIN master M
         ON H.business_no = M.business_no
-        WHERE end_date > (SELECT TO_CHAR
+        WHERE end_date >= (SELECT TO_CHAR
         (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
         ORDER BY end_date ) sub
         WHERE ROWNUM BETWEEN 1 AND 6
@@ -174,7 +174,7 @@
         ON P.business_no = H.business_no
         JOIN master M
         ON H.business_no = M.business_no
-        WHERE end_date > (SELECT TO_CHAR
+        WHERE end_date >= (SELECT TO_CHAR
         (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
         ORDER BY end_date ) sub)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
@@ -184,7 +184,7 @@
     <select id="getHotDealCnt" resultType="int">
         SELECT COUNT(*)
         FROM hot_deal
-        WHERE end_date >
+        WHERE end_date >=
         ( SELECT TO_CHAR (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
     </select>
 

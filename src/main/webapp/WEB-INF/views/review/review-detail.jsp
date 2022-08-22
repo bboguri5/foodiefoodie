@@ -64,28 +64,16 @@
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage"
                                         style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2488px;">
-                                        <div class="owl-item active" style="width: 829.325px;">
-                                            <div class="item">
-                                                <a href="/img/location_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img src="/img/detail_1.jpg" alt=""></a>
+                                        <c:forEach var="uploads" items="${uploads}">
+                                            <div class="owl-item active" style="width: 829.325px;">
+                                                <div class="item">
+                                                    <a href="${uploads.filePath}" title="Photo title"
+                                                        data-effect="mfp-zoom-in"><img
+                                                            src="${uploads.filePath}"
+                                                            alt=""></a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="owl-item" style="width: 829.325px;">
-                                            <div class="item">
-                                                <a href="/img/location_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/lazy-placeholder-detail.png"
-                                                        data-src="/img/detail_2.jpg" class="owl-lazy" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <div class="owl-item" style="width: 829.325px;">
-                                            <div class="item">
-                                                <a href="/img/location_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/lazy-placeholder-detail.png"
-                                                        data-src="/img/detail_3.jpg" class="owl-lazy" alt=""></a>
-                                            </div>
-                                        </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <div class="owl-nav disabled"><button type="button" role="presentation"

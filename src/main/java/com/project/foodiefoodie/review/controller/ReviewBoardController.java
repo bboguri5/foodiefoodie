@@ -26,6 +26,8 @@ public class ReviewBoardController {
 
         List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService();
         model.addAttribute("reviewList", reviewList);
+//        model.addAttribute("uploads", reviewUploads);
+
 
         return "review/review-gram";
     }

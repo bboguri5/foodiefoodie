@@ -22,6 +22,7 @@ public class ReplyService {
 
     public List<Reply> findAllRepliesService(long reviewBno) {
         return mapper.findAllReplies(reviewBno);
+    }
     public List<Reply> findAllService() {
         return mapper.findAll();
     }

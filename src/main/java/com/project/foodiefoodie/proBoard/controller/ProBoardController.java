@@ -4,7 +4,7 @@ package com.project.foodiefoodie.proBoard.controller;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.ImageDTO;
-import com.project.foodiefoodie.member.dto.proBoard.StoreTimeDTO;
+import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -37,9 +37,11 @@ public class ProBoardController {
     }
 
     @PostMapping("/write")
-    public String write(ProBoard proBoard, StoreTimeDTO storeTimeDTO, ImageDTO imageDTO) {
+    public String write(ProBoard proBoard, StoreTimeDTO storeTimeDTO ,  ImageDTO imageDTO) {
         log.info("foodie/write POST - ! {}",proBoard);
         log.info("foodie/write POST - ! {}",storeTimeDTO);
+        log.info("foodie/write POST!! - {}", imageDTO);
+        proBoardService.proBoardSave(proBoard);
 
 
         return "";

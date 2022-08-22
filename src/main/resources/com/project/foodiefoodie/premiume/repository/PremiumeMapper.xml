@@ -21,6 +21,7 @@
 
     <select id="findAll" resultMap="premiumeMap">
         SELECT * FROM premiume_promotion_board
+        WHERE complete = #{complete}
     </select>
 
     <insert id="save">
@@ -33,7 +34,7 @@
     </delete>
 
     <update id="modify">
-        UPDATE premiume_promotion_board SET start_date = #{startDate} , end_date = #{endDate}
+        UPDATE premiume_promotion_board SET start_date = #{startDate} , end_date = #{endDate}, complete = #{complete}
         WHERE promotion_bno = #{promotionBno}
     </update>
 

@@ -28,5 +28,14 @@ public interface MasterMapper {
 
     // 아직 승인 나지 않은 사업자 리스트
     List<MasterAndMember> approveMaster();
+    // 메인 페이지에 현재 위치 주소와 맞는 TOP 7 랜덤 식당 불러오기
+    List<PromotionMasterDTO> findLocationRand(String storeAddress);
+
+    List<PromotionMasterDTO> findAllInLocation(@Param("storeAddress") String storeAddress, @Param("page")Page page);
+
+    int getMyTotalCnt(String storeAddress);
+
+    // 해당 마스터만 삭제
+    boolean removeMaster(String businessNo);
 
 }

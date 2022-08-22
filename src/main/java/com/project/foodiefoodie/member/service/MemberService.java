@@ -173,22 +173,24 @@ public class MemberService {
         }
     }
 
+    // 전체 조회
     public List<Member> findAllService() {
         List<Member> memberList = memberMapper.findAll();
         return memberList;
     }
 
+    // 일반회원만 조회
     public List<Member> findCommonService() {
         List<Member> memberList = memberMapper.findCommon();
         return memberList;
     }
 
-
+    // 일반회원 단일 객체 조회
     public Member findOneCommonService(String email) {
         Member member = memberMapper.findOneCommon(email);
         return member;
     }
-
+    // 회원 탈퇴
     public boolean removeService(String email) {
         boolean flag = memberMapper.remove(email);
         return flag;

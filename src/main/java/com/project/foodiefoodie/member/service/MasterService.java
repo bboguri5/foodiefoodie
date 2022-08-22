@@ -32,4 +32,7 @@ public class MasterService {
         return mapper.findBusinessNo(businessNo) == 1;
     }
 
+    public boolean removeMasterService(String businessNo) {
+        return mapper.removeMaster(businessNo);
+    }
 }

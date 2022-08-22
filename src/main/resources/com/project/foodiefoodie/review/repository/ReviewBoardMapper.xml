@@ -50,6 +50,8 @@
     <select id="findAllReviews" resultMap="rbDTOMap">
         SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt
         FROM review_board
+        WHERE private = 'F'
+        ORDER BY last_updated DESC
     </select>
 
     <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
@@ -68,4 +70,5 @@
         FROM review_upload
         WHERE review_bno = #{reviewBno}
     </select>
+
 </mapper>

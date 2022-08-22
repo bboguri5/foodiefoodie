@@ -30,4 +30,5 @@ public interface ReviewBoardMapper {
     List<ReviewUpload> findReviewUploads(long reviewBno);
 
     void reviewUpload(long reviewBno, String filePath, String fileName);
+
 }

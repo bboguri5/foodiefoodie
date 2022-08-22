@@ -35,4 +35,10 @@
         WHERE reply_no = #{replyNo}
     </select>
 
+    <select id="findReplyCount" resultType="int">
+        SELECT COUNT(*)
+        FROM reply
+        WHERE review_bno = #{reviewBno}
+    </select>
+
 </mapper>

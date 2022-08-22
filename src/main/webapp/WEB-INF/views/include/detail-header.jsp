@@ -5,7 +5,7 @@
     <div class="container">
         <div id="logo">
             <a href="/">
-                <img src="img/foodie_logo.png" width="120" height="55" alt="">
+                <img src="/img/foodie_logo.png" width="120" height="55" alt="">
             </a>
         </div>
         <ul id="top_menu">

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -42,7 +44,8 @@ public class ReviewBoardService {
     }
 
     public List<ReviewBoardDTO> findAllReviewsService() {
-        return rbMapper.findAllReviews();
+        List<ReviewBoardDTO> allReviews = rbMapper.findAllReviews();
+        return allReviews;
     }
 
     public ReviewBoardDTO findOneReviewService(long reviewBno) {

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,11 +26,32 @@ public class ReviewBoardController {
     public String review(Model model) {
 
         List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService();
-        model.addAttribute("reviewList", reviewList);
-//        model.addAttribute("uploads", reviewUploads);
+        List<ReviewUpload> reviewUploads = new ArrayList<>();
+        List<Integer> replyCount = new ArrayList<>();
 
+        // 첫번째 리뷰 사진 리스트 모아오기
+        getUploads(reviewUploads, replyCount, reviewList);
+        model.addAttribute("reviewList", reviewList);
+        model.addAttribute("uploads", reviewUploads);
+        model.addAttribute("replyCount", replyCount);
 
         return "review/review-gram";
+    }
+
+    private void getUploads(List<ReviewUpload> reviewUploads, List<Integer> replyCount, List<ReviewBoardDTO> reviewList) {
+        for (int i = 0; i < reviewList.size(); i++) {
+            long reviewBno = reviewList.get(i).getReviewBno();
+            List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUploadsService(reviewBno);
+            int count = replyService.findReplyCountService(reviewBno);
+
+            if (!reviewUpload.isEmpty()) {
+                reviewUploads.add(reviewUpload.get(0));
+            } else {
+                reviewUploads.add(null);
+            }
+
+            replyCount.add(count);
+        }
     }
 
     @GetMapping("/review/detail")
@@ -38,9 +60,11 @@ public class ReviewBoardController {
         List<ReviewUpload> reviewUploads = reviewBoardService.findReviewUploadsService(reviewBno);
         List<Reply> replyList = replyService.findAllRepliesService(reviewBno);
 
+
         model.addAttribute("review", review);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyList", replyList);
+        model.addAttribute("replyCount", replyService.findReplyCountService(reviewBno));
         return "review/review-detail";
     }
 

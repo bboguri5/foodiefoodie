@@ -44,7 +44,33 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="singlepost">
-                        <figure><img alt="" class="img-fluid" src="/img/blog-single.jpg"></figure>
+                        <figure>
+                            <!-- section visual -->
+                            <section class="visual">
+                                <ul class="slide">
+                                    <li>
+                                        <img src="/img/.jpg" alt="슬라이드 이미지1">
+                                    </li>
+                                    <li>
+                                        <img src="/img/visual1.jpg" alt="슬라이드 이미지1">
+                                    </li>
+                                    <li>
+                                        <img src="/img/visual1.jpg" alt="슬라이드 이미지1">
+                                    </li>
+                                    <li>
+                                        <img src="/img/visual1.jpg" alt="슬라이드 이미지1">
+                                    </li>
+                                    <li>
+                                        <img src="/img/visual1.jpg" alt="슬라이드 이미지1">
+                                    </li>
+                                    <li>
+                                        <img src="/img/visual1.jpg" alt="슬라이드 이미지1">
+                                    </li>
+                                </ul>
+                            </section>
+                            <!-- //section visual -->
+
+                        </figure>
                         <h1>${review.title}</h1>
                         <div class="postmeta">
                             <ul>

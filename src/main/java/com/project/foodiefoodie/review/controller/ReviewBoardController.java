@@ -24,6 +24,7 @@ public class ReviewBoardController {
 
     @GetMapping("/review")
     public String review(Model model) {
+        log.info("review started - list");
 
         List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService();
         List<ReviewUpload> reviewUploads = new ArrayList<>();
@@ -68,5 +69,11 @@ public class ReviewBoardController {
         return "review/review-detail";
     }
 
+    @GetMapping("/review/uplike")
+    public String upLike(long reviewBno) {
+        log.info("uplike started - {}", reviewBno);
+        reviewBoardService.upLikeService(reviewBno);
+        return "redirect:/review";
+    }
 
 }

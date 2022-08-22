@@ -31,4 +31,8 @@ public interface ReviewBoardMapper {
 
     void reviewUpload(long reviewBno, String filePath, String fileName);
 
+    boolean upLike(long reviewBno);
+
+    int getLike(long reviewBno);
+
 }

@@ -71,4 +71,16 @@
         WHERE review_bno = #{reviewBno}
     </select>
 
+    <update id="upLike">
+        UPDATE review_board
+        SET like_cnt = (SELECT like_cnt FROM review_board WHERE review_bno = #{reviewBno}) + 1
+        WHERE review_bno = #{reviewBno}
+    </update>
+
+    <select id="getLike" resultType="int">
+        SELECT like_cnt
+        FROM review_board
+        WHERE review_bno = #{reviewBno}
+    </select>
+
 </mapper>

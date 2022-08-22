@@ -55,4 +55,12 @@ public class ReviewBoardService {
     public List<ReviewUpload> findReviewUploadsService(long reviewBno) {
         return rbMapper.findReviewUploads(reviewBno);
     }
+
+    public boolean upLikeService(long reviewBno) {
+        return rbMapper.upLike(reviewBno);
+    }
+
+    public int getLikeService(long reviewBno) {
+        return rbMapper.getLike(reviewBno);
+    }
 }

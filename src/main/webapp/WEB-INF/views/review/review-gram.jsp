@@ -27,7 +27,6 @@
 			border-radius: 10px;
 		}
 
-
 		.search .row {
 			flex: 10;
 		}
@@ -48,6 +47,14 @@
 		.post_info li i {
 			margin-left: 10px;
 		}
+
+		.icon_heart_alt:hover {
+			cursor: pointer;
+		}
+
+		.icon_comment_alt {
+			cursor: pointer;
+		}
 	</style>
 </head>
 
@@ -61,7 +68,7 @@
 		<div class="container margin_30_40">
 			<div class="outer row">
 				<div class="col-lg-9">
-					<div class="row">
+					<div class="row upCount">
 						<c:forEach var="rl" items="${reviewList}" varStatus="status">
 							<!-- <div class="col-md-6"> -->
 							<article class="blog">
@@ -82,8 +89,9 @@
 												${rl.email}
 											</li>
 											<li>
-												<i class="icon_heart_alt"></i>${rl.likeCnt}
-												<i class="icon_comment_alt"></i>${replyCount[status.index]}
+												<i id="${rl.reviewBno}" class="icon_heart_alt"></i><span id="heart">${rl.likeCnt}</span>
+												<i id="${rl.reviewBno}"
+													class="icon_comment_alt"></i>${replyCount[status.index]}
 											</li>
 
 										</ul>
@@ -108,6 +116,53 @@
 	</main>
 
 	<%@ include file="../include/footer.jsp" %>
+
+	<script>
+		const upCount = document.querySelector('.upCount');
+		upCount.addEventListener('click', e => {
+			if (e.target.className === 'icon_heart_alt') {
+				// location.href = '/review/uplike?reviewBno=' + event.target.id;
+				// console.log('clicked: ', e.target.className);	
+				upLikeCount(e);
+			}
+		});
+
+		function upLikeCount(e) {
+			// 서버에 수정 비동기 요청 보내기
+			const bno = e.target.id;
+			// console.log(rno);
+			const reqInfo = {
+				method: 'PUT',
+				headers: {
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({
+					likeCnt: $('#modReplyText').val(),
+					reviewBno: bno
+				})
+			};
+			fetch('/review/uplike?reviewBno=' + bno, reqInfo)
+				.then(res => res.text())
+				.then(msg => {
+					if (msg === 'up-success') {
+						alert('upCount 성공!!');
+						showLikes(e); // 좋아요 새로불러오기
+					} else {
+						alert('upCount 실패!!');
+					}
+				});
+		}
+
+		function showLikes(e) {
+			const bno = e.target.id;
+			fetch('/review/getLike?reviewBno=' + bno)
+				.then(res => res.text())
+				.then(likeCnt => {
+					document.getElementById("heart").innerHTML = likeCnt;
+				});
+		}
+		
+	</script>
 
 
 </body>

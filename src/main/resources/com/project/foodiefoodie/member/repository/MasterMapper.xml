@@ -39,4 +39,10 @@
         WHERE business_no = #{businessNo}
     </select>
 
+
+    <delete id="removeMaster">
+        DELETE FROM master
+        WHERE business_no = #{businessNo}
+    </delete>
+
 </mapper>

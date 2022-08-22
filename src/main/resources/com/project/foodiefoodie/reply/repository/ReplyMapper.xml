@@ -26,5 +26,13 @@
         WHERE review_bno = #{reviewBno}
     </select>
 
+    <select id="findAll" resultMap="replyMap">
+        SELECT * FROM reply
+    </select>
+
+    <select id="findOne" resultMap="replyMap">
+        SELECT * FROM reply
+        WHERE reply_no = #{replyNo}
+    </select>
 
 </mapper>

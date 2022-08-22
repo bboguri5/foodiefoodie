@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface PremiumeMapper {
-    List<Premiume> findAll();
+    List<Premiume> findAll(String complete);
     boolean save(Premiume premiume);
     boolean remove(long promotionBno);
     boolean modify(Premiume premiume);

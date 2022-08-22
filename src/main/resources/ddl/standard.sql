@@ -1,4 +1,3 @@
-
 -- 계정 추가 및 권한 부여
 create user teamB IDENTIFIED BY 1234;
 GRANT DBA, connect, RESOURCE TO teamB;
@@ -130,6 +129,7 @@ CREATE TABLE premiume_promotion_board (
     promotion_bno NUMBER(10) NOT NULL
     , start_date NUMBER(10)
     , end_date NUMBER(10)
+    , complete VARCHAR2(2) DEFAULT 'N'
     , CONSTRAINT fk_pro_bno FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
@@ -319,5 +319,9 @@ CREATE TABLE receipt_upload();
 
 
 
------------------------------------
 
+
+
+commit;
+
+-----------------------------------

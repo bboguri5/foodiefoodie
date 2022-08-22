@@ -14,16 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PremiumeService {
 
-//    List<Premiume> findAll();
-//    boolean save(Premiume premiume);
-//    boolean remove(long promotionBno);
-//    boolean modify(Premiume premiume);
-
 
     private final PremiumeMapper mapper;
 
-    public List<Premiume> findAllService() {
-        List<Premiume> premiumeList = mapper.findAll();
+    public List<Premiume> findAllService(String complete) {
+        List<Premiume> premiumeList = mapper.findAll(complete);
         return premiumeList;
     }
 

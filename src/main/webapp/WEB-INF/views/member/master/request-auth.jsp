@@ -98,8 +98,8 @@
                                         고객과 원활한 소통을 위해 정확한 전화번호를 입력하세요.</span>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control master" type="text" id="store-call-num" maxlength="13"
-                                        placeholder="하이픈(-)까지 정확히 입력하세요." name="storeCallNumber">
+                                    <input class="form-control master storeCallNumber" type="text" id="store-call-num" maxlength="13"
+                                        placeholder="예시 : [02-123-4567]" name="storeCallNumber">
                                     <!-- <i class="icon_pencil"></i> -->
                                 </div>
                                 <div>
@@ -278,6 +278,17 @@
         }
     </script>
 
+<!-- 가게 전화번호 입력시 자동으로 하이픈 작성해주는 스크립트 영역-->
+<script>
+
+    $(document).on("keyup", ".storeCallNumber", function() { 
+
+        $(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); 
+
+    });
+	
+
+</script>
 </body>
 
 </html>

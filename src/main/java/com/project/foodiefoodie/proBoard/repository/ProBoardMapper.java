@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ProBoardMapper {
 
 
-    boolean save (ProBoard proBoard);
+    boolean proBoardSave (ProBoard proBoard);
     boolean modify(ProBoard proBoard);
     boolean delete(int promotionBno);
     ProBoard selectOne (int promotionBno);

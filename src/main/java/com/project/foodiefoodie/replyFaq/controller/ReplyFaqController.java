@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.replyFaq.controller;
 
 import com.project.foodiefoodie.blackList.service.BlackListService;
+import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.replyFaq.domain.ReplyFaq;
 import com.project.foodiefoodie.replyFaq.service.ReplyFaqService;
@@ -38,6 +39,7 @@ public class ReplyFaqController {
 
         model.addAttribute("replyFaqList", replyFaqList);
         log.info("replyFaqList - {}", replyFaqList);
+
 
 
         return "admin/replyFaq";

@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.promotionFaq.service;
 
 import com.project.foodiefoodie.promotionFaq.domain.PromotionFaq;
+import com.project.foodiefoodie.promotionFaq.dto.PromotionFaqDTO;
 import com.project.foodiefoodie.promotionFaq.repository.PromotionFaqMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -29,4 +30,7 @@ public class PromotionFaqService {
         return mapper.update(prFaqNo, complete);
     }
 
+    public List<PromotionFaqDTO> findAllAndTitleService(String complete) {
+        return mapper.findAllAndTitle(complete);
+    }
 }

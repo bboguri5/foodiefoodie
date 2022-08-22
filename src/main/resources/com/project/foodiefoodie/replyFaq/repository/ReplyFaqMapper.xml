@@ -15,6 +15,19 @@
         <result property="replyWriterEmail" column="reply_writer_email"/>
     </resultMap>
 
+    <resultMap id="replyFaqDTO" type="com.project.foodiefoodie.replyFaq.dto.ReplyFaqDTO">
+        <result property="replyFaqNo" column="reply_faq_no"/>
+        <result property="replyNo" column="reply_no"/>
+        <result property="writerEmail" column="writer_email"/>
+        <result property="replyFaqContent" column="reply_faq_content"/>
+        <result property="faqComplete" column="faq_complete"/>
+        <result property="replyWriterEmail" column="reply_writer_email"/>
+        <result property="reviewBno" column="review_bno"/>
+        <result property="replyContent" column="content"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="lastUpdate" column="last_updated"/>
+    </resultMap>
+
     <select id="findAll" resultMap="replyFaq">
         SELECT * FROM reply_faq
         WHERE faq_complete = #{complete}
@@ -30,5 +43,15 @@
         WHERE reply_faq_no = #{replyFaqNo}
     </update>
 
+    <select id="findAllReply" resultMap="replyFaqDTO">
+        SELECT
+        a.reply_faq_no, a.reply_no, a.writer_email, a.reply_faq_content
+        , a.faq_complete, a.reply_writer_email
+        , b.review_bno, b.content, b.nick_name, b.last_updated
+        FROM reply_faq a
+        LEFT OUTER JOIN reply b
+        ON a.reply_no = b.reply_no
+        WHERE a.faq_complete = #{complete}
+    </select>
 
 </mapper>

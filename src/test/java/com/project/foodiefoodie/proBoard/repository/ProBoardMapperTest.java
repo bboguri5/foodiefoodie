@@ -15,16 +15,16 @@ class ProBoardMapperTest {
     @Autowired
     ProBoardMapper mapper;
 
-    @Test
-    void saveTest(){
-
-        ProBoard proBoard = new ProBoard();
-        proBoard.setBusinessNo("101010");
-        proBoard.setTitle("황고기");
-        proBoard.setContent("dkdkdkdkdkdkfajslkflskjdfjskdfjsdlkfjlksdjfljsdlkfjsladkjfjslkdjfajsdfjlksdfds");
-        mapper.save(proBoard);
-
-    }
+//    @Test
+//    void saveTest(){
+//
+//        ProBoard proBoard = new ProBoard();
+//        proBoard.setBusinessNo("101010");
+//        proBoard.setTitle("황고기");
+//        proBoard.setContent("dkdkdkdkdkdkfajslkflskjdfjskdfjsdlkfjlksdjfljsdlkfjsladkjfjslkdjfajsdfjlksdfds");
+//        mapper.save(proBoard);
+//
+//    }
 
     @Test
     @DisplayName("title이 황고기이여야 한다.")

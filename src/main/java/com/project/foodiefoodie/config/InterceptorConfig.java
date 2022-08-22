@@ -1,7 +1,9 @@
 package com.project.foodiefoodie.config;
 
+import com.project.foodiefoodie.member.interceptor.AdminInterceptor;
 import com.project.foodiefoodie.member.interceptor.AfterLoginInterceptor;
 import com.project.foodiefoodie.member.interceptor.AutoLoginInterceptor;
+import com.project.foodiefoodie.member.interceptor.UnLoginInterceptor;
 import com.project.foodiefoodie.member.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,6 +18,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     private final AutoLoginInterceptor autoLoginInterceptor;
     private final AfterLoginInterceptor afterLoginInterceptor;
+    private final AdminInterceptor adminInterceptor;
+    private final UnLoginInterceptor unLoginInterceptor;
 
 
     // 인터셉터 설정 추가 메서드
@@ -26,8 +30,17 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(autoLoginInterceptor)
                 .addPathPatterns("/**");
 
+
         // 로그인 후 회원가입 및 로그인 재진입 차단
         registry.addInterceptor(afterLoginInterceptor)
-                .addPathPatterns("/login", "/register");
+                .addPathPatterns("/login", "/register", "/find-email", "find-pw");
+
+
+        // 로그인 하지 않은 경우 차단할 요청들 나열하기
+        registry.addInterceptor(unLoginInterceptor)
+                .addPathPatterns("/kakao/payment-test");
+
+        registry.addInterceptor(adminInterceptor)
+                .addPathPatterns("/admin/*");
     }
 }

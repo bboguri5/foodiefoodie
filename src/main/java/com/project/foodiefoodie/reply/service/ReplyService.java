@@ -1,10 +1,13 @@
 package com.project.foodiefoodie.reply.service;
 
 
+import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.repository.ReplyMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Log4j2
@@ -17,4 +20,15 @@ public class ReplyService {
         return mapper.remove(replyNo);
     }
 
+    public List<Reply> findAllRepliesService(long reviewBno) {
+        return mapper.findAllReplies(reviewBno);
+    }
+
+    public List<Reply> findAllService() {
+        return mapper.findAll();
+    }
+
+    public Reply findOneService(long replyNo) {
+        return mapper.findOne(replyNo);
+    }
 }

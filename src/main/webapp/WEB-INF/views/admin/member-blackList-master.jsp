@@ -18,7 +18,7 @@
                 <li class="breadcrumb-item">
                     <a href="#">회원관리</a>
                 </li>
-                <li class="breadcrumb-item active">블랙 리스트</li>
+                <li class="breadcrumb-item active">사업자</li>
             </ol>
             <!-- Example DataTables Card-->
             <div class="card mb-3">

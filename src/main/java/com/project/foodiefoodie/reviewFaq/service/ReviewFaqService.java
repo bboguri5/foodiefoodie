@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.reviewFaq.service;
 
 import com.project.foodiefoodie.reviewFaq.domain.ReviewFaq;
+import com.project.foodiefoodie.reviewFaq.dto.ReviewFaqDTO;
 import com.project.foodiefoodie.reviewFaq.repository.ReviewFaqMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,6 +28,10 @@ public class ReviewFaqService {
 
     public boolean updateService(long reFaqNo, String complete) {
         return mapper.update(reFaqNo, complete);
+    }
+
+    public List<ReviewFaqDTO> findAllAndTitleService(String complete) {
+        return mapper.findAllAndTitle(complete);
     }
 
 }

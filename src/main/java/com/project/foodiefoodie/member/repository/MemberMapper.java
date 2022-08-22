@@ -3,6 +3,8 @@ package com.project.foodiefoodie.member.repository;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.AuthDTO;
 import com.project.foodiefoodie.member.dto.ModifyDTO;
+import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
+import com.project.foodiefoodie.member.dto.find.FindPwDTO;
 import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -50,6 +52,13 @@ public interface MemberMapper {
     List<Member> findCommon();
     Member findOneCommon(String email);
     boolean remove(String email);
+
+
+    String findEmail(FindEmailDTO dto);
+
+    int findPw(FindPwDTO dto);
+
+    boolean changePw(String email, String pw);
 
 
     // 비밀번호 가져오는 메서드 // 이걸로 비밀번호만 검증할것임 // 수정할때나 , 비밀번호 바꿀때

@@ -18,12 +18,12 @@
                 <li class="breadcrumb-item">
                     <a href="#">신고관리</a>
                 </li>
-                <li class="breadcrumb-item active">홍보글 관리</li>
+                <li class="breadcrumb-item active">처리 완료</li>
             </ol>
             <!-- Example DataTables Card-->
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-table"></i>홍보글 신고 목록</div>
+                    <i class="fa fa-table"></i>처리완료 목록</div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -47,15 +47,24 @@
                                 <c:forEach var="pf" items="${promotionFaqList}">
                                     <tr>
                                         <th>홍보글</th>
-                                        <th>${pf.prFaqNo}</th>
+                                        <th><a href="#0" data-toggle="modal" data-target=".promotion-faq"
+                                                data-prfaqno="${pf.prFaqNo}" data-promotionbno="${pf.promotionBno}"
+                                                data-writeremail="${pf.writerEmail}"
+                                                data-promotionwriteremail="${pf.promotionWriterEmail}"
+                                                data-content="${pf.content}" data-businessno="${pf.businessNo}">
+                                                ${pf.prFaqNo}</a></th>
                                         <th>${pf.promotionWriterEmail}</th>
                                         <th>${pf.businessNo}</th>
-                                     </tr>
+                                    </tr>
                                 </c:forEach>
                                 <c:forEach var="rf" items="${reviewFaqList}">
                                     <tr>
                                         <th>리뷰</th>
-                                        <th>${rf.reFaqNo}</th>
+                                        <th><a href="#0" data-toggle="modal" data-target=".review-faq"
+                                            data-refaqno="${rf.reFaqNo}" data-reviewbno="${rf.reviewBno}"
+                                            data-writeremail="${rf.writerEmail}" data-content="${rf.content}"
+                                            data-faqcomplete="${rf.faqComplete}" data-reviewwriteremail="${rf.reviewWriterEmail}">
+                                                ${rf.reFaqNo}</a></th>
                                         <th>${rf.reviewWriterEmail}</th>
                                         <th></th>
                                     </tr>
@@ -63,7 +72,11 @@
                                 <c:forEach var="rf" items="${replyFaqList}">
                                     <tr>
                                         <th>댓글</th>
-                                        <th>${rf.replyFaqNo}</th>
+                                        <th><a href="#0" data-toggle="modal" data-target=".reply-faq"
+                                            data-replyfaqno="${rf.replyFaqNo}" data-replyno="${rf.replyNo}"
+                                            data-writeremail="${rf.writerEmail}" data-content="${rf.content}"
+                                            data-faqcomplete="${rf.faqComplete}" data-replywriteremail="${rf.replyWriterEmail}">
+                                                ${rf.replyFaqNo}</a></th>
                                         <th>${rf.replyWriterEmail}</th>
                                         <th></th>
                                     </tr>
@@ -111,9 +124,9 @@
     </div>
 
 
-    <!-- Edit Booking Modal -->
-    <form action="/admin/promotion-completeFaq" method="post" class="modal-form">
-        <div class="modal fade edit_booking" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+    <!-- promotion-faq Modal -->
+    <form action="/admin/promotion-completeFaq" method="post" class="promotion-modal-form">
+        <div class="modal fade promotion-faq" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -126,75 +139,214 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>신고번호</label>
-                            <input type="text" class="form-control modal-report-no" name="prFaqNo" readonly>
+                            <input type="text" class="form-control promotion-modal-report-no" name="prFaqNo" readonly>
                         </div>
                         <div class="form-group">
                             <label>홍보글</label>
-                            <input type="text" class="form-control modal-promotion-bno" name="promotionBno" readonly>
+                            <input type="text" class="form-control promotion-modal-promotion-bno" name="promotionBno" readonly>
                         </div>
                         <div class="form-group">
                             <label>신고 작성자</label>
-                            <input type="text" class="form-control modal-writer-email" name="writerEmail" readonly>
+                            <input type="text" class="form-control promotion-modal-writer-email" name="writerEmail" readonly>
                         </div>
                         <div class="form-group">
                             <label>홍보 작성자</label>
-                            <input type="text" class="form-control modal-promotion-writer-email"
+                            <input type="text" class="form-control promotion-modal-promotion-writer-email"
                                 name="promotionWriterEmail" readonly>
                         </div>
                         <div class="form-group">
                             <label>홍보 작성자 사업자번호</label>
-                            <input type="text" class="form-control modal-businessno" name="businessNo" readonly>
+                            <input type="text" class="form-control promotion-modal-businessno" name="businessNo" readonly>
                         </div>
                         <div class="form-group">
                             <label>사유</label>
-                            <input type="text" class="form-control modal-contents" name="content" readonly>
+                            <input type="text" class="form-control promotion-modal-contents" name="content" readonly>
                         </div>
-                        <input type="hidden" class="form-control complete-type" name="completeType">
+                        <input type="hidden" class="form-control promotion-complete-type" name="completeType">
                         <!-- /Row -->
                     </div>
                     <div class="modal-footer btn-wrap">
-                        <button class="btn btn-primary del-btn complete-t" type="button">승인</button>
-                        <button class="btn btn-primary del-btn complete-n" type="button">거절</button>
+                        <button class="btn btn-primary del-btn promotion-complete-n" type="button">신고 취소</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 
+
+    <!-- review-faq Modal -->
+    <form action="/admin/review-completeFaq" method="post" class="modal-form">
+        <div class="modal fade review-faq" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="edit_bookingLabel">신고글 정보</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>신고번호</label>
+                            <input type="text" class="form-control review-modal-report-no" name="reFaqNo" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>리뷰글</label>
+                            <input type="text" class="form-control review-modal-review-bno" name="reviewBno" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>신고 작성자</label>
+                            <input type="text" class="form-control review-modal-writer-email" name="writerEmail" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>리뷰 작성자</label>
+                            <input type="text" class="form-control review-modal-review-writer-email"
+                                name="reviewWriterEmail" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>사유</label>
+                            <input type="text" class="form-control review-modal-contents" name="content" readonly>
+                        </div>
+                        <input type="hidden" class="form-control review-complete-type" name="completeType">
+                        <!-- /Row -->
+                    </div>
+                    <div class="modal-footer btn-wrap">
+                        <button class="btn btn-primary del-btn review-complete-n" type="button">신고 취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <!-- reply-faq Modal -->
+    <form action="/admin/reply-completeFaq" method="post" class="modal-form">
+        <div class="modal fade reply-faq" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="edit_bookingLabel">신고글 정보</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>신고번호</label>
+                            <input type="text" class="form-control reply-modal-report-no" name="replyFaqNo" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>리뷰글</label>
+                            <input type="text" class="form-control reply-modal-reply-no" name="replyNo" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>신고 작성자</label>
+                            <input type="text" class="form-control reply-modal-writer-email" name="writerEmail" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>리뷰 작성자</label>
+                            <input type="text" class="form-control reply-modal-reply-writer-email"
+                                name="replyWriterEmail" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>사유</label>
+                            <input type="text" class="form-control reply-modal-contents" name="content" readonly>
+                        </div>
+                        <input type="hidden" class="form-control reply-complete-type" name="completeType">
+                        <!-- /Row -->
+                    </div>
+                    <div class="modal-footer btn-wrap">
+                        <button class="btn btn-primary del-btn reply-complete-n" type="button">신고 취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+
     <script>
-        (function () {
+        function promotionModalData() {
             const $targetNo = document.querySelector('.target-no');
-            console.log($targetNo);
             $targetNo.addEventListener('click', e => {
-                console.log(e.target);
-                console.log(e.target.dataset.content);
-                console.log(document.querySelector('.modal-content'));
-                document.querySelector('.modal-report-no').value = e.target.dataset.prfaqno;
-                document.querySelector('.modal-promotion-bno').value = e.target.dataset.promotionbno;
-                document.querySelector('.modal-writer-email').value = e.target.dataset.writeremail;
-                document.querySelector('.modal-promotion-writer-email').value = e.target.dataset
+                document.querySelector('.promotion-modal-report-no').value = e.target.dataset.prfaqno;
+                document.querySelector('.promotion-modal-promotion-bno').value = e.target.dataset.promotionbno;
+                document.querySelector('.promotion-modal-writer-email').value = e.target.dataset.writeremail;
+                document.querySelector('.promotion-modal-promotion-writer-email').value = e.target.dataset
                     .promotionwriteremail;
-                document.querySelector('.modal-businessno').value = e.target.dataset.businessno;
-                document.querySelector('.modal-contents').value = e.target.dataset.content;
+                document.querySelector('.promotion-modal-businessno').value = e.target.dataset.businessno;
+                document.querySelector('.promotion-modal-contents').value = e.target.dataset.content;
             })
 
             const $btnWrap = document.querySelector('.btn-wrap');
-            console.log($btnWrap);
-            const $modalForm = document.querySelector('.modal-form');
-            console.log($modalForm);
+            const $modalForm = document.querySelector('.promotion-modal-form');
+            
             $btnWrap.addEventListener('click', e => {
-                console.log(e.target);
-                
-                if(e.target === document.querySelector('.complete-t')) {
-                    document.querySelector('.complete-type').value = 'T';
-                    $modalForm.submit();
-                } else if(e.target === document.querySelector('.complete-n')) {
-                    document.querySelector('.complete-type').value = 'N';
+            
+
+                if (e.target === document.querySelector('.promotion-complete-n')) {
+                    document.querySelector('.promotion-complete-type').value = 'N';
                     $modalForm.submit();
                 }
             })
+        }
+
+        function reviewModalData() {
+            const $targetNo = document.querySelector('.target-no');
+            $targetNo.addEventListener('click', e => {
+                document.querySelector('.review-modal-report-no').value = e.target.dataset.refaqno;
+                document.querySelector('.review-modal-review-bno').value = e.target.dataset.reviewbno;
+                document.querySelector('.review-modal-writer-email').value = e.target.dataset.writeremail;
+                document.querySelector('.review-modal-review-writer-email').value = e.target.dataset
+                    .reviewwriteremail;
+                document.querySelector('.review-modal-contents').value = e.target.dataset.content;
+            })
+
+            const $btnWrap = document.querySelector('.btn-wrap');
+            const $modalForm = document.querySelector('.modal-form');
+            
+            $btnWrap.addEventListener('click', e => {
+                
+                if(e.target === document.querySelector('.review-complete-n')) {
+                    document.querySelector('.review-complete-type').value = 'N';
+                    $modalForm.submit();
+                }
+            })
+        }
+
+        function replyModalData() {
+            const $targetNo = document.querySelector('.target-no');
+            $targetNo.addEventListener('click', e => {
+                document.querySelector('.reply-modal-report-no').value = e.target.dataset.replyfaqno;
+                document.querySelector('.reply-modal-reply-no').value = e.target.dataset.replyno;
+                document.querySelector('.reply-modal-writer-email').value = e.target.dataset.writeremail;
+                document.querySelector('.reply-modal-reply-writer-email').value = e.target.dataset
+                    .replywriteremail;
+                document.querySelector('.reply-modal-contents').value = e.target.dataset.content;
+            })
+
+            const $btnWrap = document.querySelector('.btn-wrap');
+            const $modalForm = document.querySelector('.modal-form');
+            $btnWrap.addEventListener('click', e => {
+                
+                if(e.target === document.querySelector('.reply-complete-n')) {
+                    document.querySelector('.reply-complete-type').value = 'N';
+                    $modalForm.submit();
+                }
+            })
+        }
 
 
+        (function () {
+            
+            promotionModalData();
+            reviewModalData();
+            replyModalData();
 
         }())
     </script>

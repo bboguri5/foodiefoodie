@@ -29,14 +29,14 @@ class PremiumeMapperTest {
         boolean flag = mapper.save(p);
     }
 
-    @Test
-    @DisplayName("월정액 리스트가 출력되어야 한다.")
-    void findAllTest() {
-        List<Premiume> premiumeList = mapper.findAll();
-        for (Premiume p : premiumeList) {
-            System.out.println(p);
-        }
-    }
+//    @Test
+//    @DisplayName("월정액 리스트가 출력되어야 한다.")
+//    void findAllTest() {
+//        List<Premiume> premiumeList = mapper.findAll();
+//        for (Premiume p : premiumeList) {
+//            System.out.println(p);
+//        }
+//    }
 
     @Test
     @DisplayName("해당 객체가 수정되어야 한다.")

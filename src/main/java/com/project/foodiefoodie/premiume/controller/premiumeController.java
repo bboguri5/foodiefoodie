@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.premiume.controller;
 
 import com.project.foodiefoodie.premiume.domain.Premiume;
+import com.project.foodiefoodie.premiume.dto.PremiumeDTO;
 import com.project.foodiefoodie.premiume.service.PremiumeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,8 +24,8 @@ public class premiumeController {
 
 //        log.info("premiume-F GET! - ");
 
-        List<Premiume> premiumeF = pres.findAllService("F");
-        model.addAttribute("premiumeF", premiumeF);
+        List<PremiumeDTO> premiumeDTOList = pres.findAllAndTitleService("F");
+        model.addAttribute("premiumeF", premiumeDTOList);
 //        log.info("premiumeF - {}", premiumeF);
 
 
@@ -32,21 +33,21 @@ public class premiumeController {
     }
 
     @PostMapping("admin/premiume-complete")
-    public String premiumeComplete(Premiume premiume) {
+    public String premiumeComplete(Premiume premiume, String menu) {
 
         log.info("premiume-complete POST! - {}", premiume);
 
-        pres.modifyService(premiume);
+//        pres.modifyService(premiume);
 
-        return "redirect:/admin/premiume-F";
+        return "redirect:/admin/premiume-" + menu;
     }
 
     @GetMapping("admin/premiume-T")
     public String premiumeListT(Model model) {
 //        log.info("premiume-T GET! - ");
 
-        List<Premiume> premiumeT = pres.findAllService("T");
-        model.addAttribute("premiumeT", premiumeT);
+        List<PremiumeDTO> premiumeDTOList = pres.findAllAndTitleService("T");
+        model.addAttribute("premiumeT", premiumeDTOList);
 
 
         return "admin/premiume-T";

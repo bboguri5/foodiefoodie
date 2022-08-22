@@ -53,7 +53,7 @@
                                 <c:forEach var="pt" items="${premiumeT}">
                                     <tr>
                                         <th>
-                                            <a href="#">${pt.promotionBno}</a>
+                                            <a href="#">${pt.title}</a>
                                         </th>
                                         <th>${pt.startDate}</th>
                                         <th>${pt.endDate}</th>
@@ -112,6 +112,7 @@
         <input type="hidden" name="startDate" class="startDate-data">
         <input type="hidden" name="endDate" class="endDate-data">
         <input type="hidden" name="complete" class="complete-data">
+        <input type="hidden" name="menu" value="T">
     </form>
 
 

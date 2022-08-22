@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.premiume.service;
 
 import com.project.foodiefoodie.premiume.domain.Premiume;
+import com.project.foodiefoodie.premiume.dto.PremiumeDTO;
 import com.project.foodiefoodie.premiume.repository.PremiumeMapper;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,10 @@ public class PremiumeService {
     public boolean modifyService(Premiume premiume) {
         boolean flag = mapper.modify(premiume);
         return flag;
+    }
+
+    public List<PremiumeDTO> findAllAndTitleService(String complete) {
+        return mapper.findAllAndTitle(complete);
     }
 
 }

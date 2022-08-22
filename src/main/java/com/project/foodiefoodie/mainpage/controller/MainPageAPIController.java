@@ -1,9 +1,9 @@
-package com.project.foodiefoodie.main;
+package com.project.foodiefoodie.mainpage.controller;
 
-import com.project.foodiefoodie.member.dto.master.MasterDTO;
+import com.project.foodiefoodie.mainpage.domain.MainPage;
+import com.project.foodiefoodie.mainpage.service.MainPageService;
 import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
-import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,17 +18,16 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Log4j2
 @CrossOrigin
-public class MainAPIController {
-    private final MasterService masterService;
+public class MainPageAPIController {
+    private final MainPageService mainPageService;
 
     @GetMapping("/mylocation")
     public Map<String, Object> myLocation(String storeAddress) {
-        log.info("mylocation GET - address : {}", storeAddress);
-
+//        log.info("mylocation GET - address : {}", storeAddress);
         Map<String, Object> replyMap = new HashMap<>();
-        List<PromotionMasterDTO> masterList = masterService.findLocationRandService(storeAddress);
+        List<MainPage> locationList =  mainPageService.findLocationRandService(storeAddress);
 
-        replyMap.put("masterList", masterList);
+        replyMap.put("locationList", locationList);
 
         return replyMap;
     }

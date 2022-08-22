@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -27,21 +29,16 @@ class ReviewBoardMapperTest {
         boolean flag = mapper.save(rb);
         assertTrue(flag);
     }
-
-//    @Test
-//    @DisplayName("리뷰 정보를 저장해야 한다.")
-//    void saveTest() {
-//        for (int j = 0; j < 10; j++) {
-//            for (int i = 1; i < 10; i++) {
-//                ReviewBoard rb = new ReviewBoard();
-//                rb.setEmail("bbbb2222@naver.com");
-//                rb.setTitle("제목입니다~ " + i);
-//                rb.setContent("내용입니다~ " + i);
-//                rb.setBusinessNo("1234-2222-3333-111"+i);
-//                Random rn = new Random();
-//                rb.setStarRate(rn.nextInt(5 - 1 + 1) + 1);
-//                mapper.save(rb);
-//            }
-//        }
-//    }
+    
+    @Test
+    @DisplayName("리뷰 사진을 넣어야한다.")
+    void reviewUploadTest() {
+        for (int i = 1; i <= 120; i++) {
+            for (int j = 1; j <= 3; j++) {
+                Random rn = new Random();
+                int k = rn.nextInt(88 - 5 + 5) + 5;
+                mapper.reviewUpload(i, "img/download/food" + k + ".jpg", "img/download/food" + k + ".jpg");
+            }
+        }
+    }
 }

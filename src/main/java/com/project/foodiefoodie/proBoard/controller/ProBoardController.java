@@ -81,19 +81,4 @@ public class ProBoardController {
 
         return "";
     }
-
-    @PostMapping("/upload")
-    @ResponseBody
-    public ResponseEntity<List<String>> ajaxUpload(List<MultipartFile> imgs) {
-
-        if (imgs != null) {
-            log.info("/ajax-upload POST!! - {}", imgs);
-
-            List<String> fileNames = new ArrayList<>();
-            return new ResponseEntity<>(fileNames, HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
-
 }

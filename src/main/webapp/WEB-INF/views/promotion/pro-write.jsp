@@ -345,47 +345,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- add detail , title img row -->
-                <!-- <div class="box_general padding_bottom add-Img-row">
-                        <div class="header_box version_2 add-Img">
-                            <h2><i class="fa fa-list"></i>Title Image Add</h2>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Photos</label>
-                                        <div>
-                                            <input type="file" id="title-img" class="title"
-                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
-                                        </div>
-                                        <div class="preview"><span>미리보기</span>
-                                            <div id="title-preview"></div>
-                                        </div>
-                                        <div id="hidden-title-box"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="header_box version_2 add-Img">
-                            <h2><i class="fa fa-list"></i>Detail Image Add</h2>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Photos</label>
-                                        <div>
-
-                                            <input type="file" id="detail-img" class="detail" multiple
-                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
-                                        </div>
-                                        <div class="preview multiple"><span>미리보기</span>
-                                            <div id="detail-preview"></div>
-                                        </div>
-                                        <div id="hidden-detail-box"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                <!-- /add detail , title img row -->
 
                 <!-- add Menu List -->
                 <div class="box_general padding_bottom menuImg">
@@ -393,6 +352,7 @@
                         <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
                     </div>
                     <!-- add Menu List row -->
+
                     <div class="row">
                         <div class="col-md-12">
 
@@ -557,7 +517,7 @@
                                                         <option value="금">금</option>
                                                         <option value="토">토</option>
                                                         <option value="일">일</option>
-                                                        <option vlaue=null>없음</option>
+                                                        <option vlaue=null selected>없음</option>
                                                     </select>
                                                     <button type="button" class="btn_1 day-delete">제거</button>
                                                 </div>
@@ -589,40 +549,6 @@
         </div>
         <div class="col-md-12 save-btn"><button type="button" class="btn_1 medium save">Save</button></div>
     </form>
-
-
-    <!-- /content-wrapper -->
-    <footer class="sticky-footer">
-        <div class="container">
-            <div class="text-center">
-                <small>Copyright © FOOGRA 2021</small>
-            </div>
-        </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="#0">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
@@ -731,24 +657,25 @@
             }
         });
 
-
-
         /* -------------------------------- /save 시 검증 -------------------------------- */
 
         /* -------------------------------- menu add -------------------------------- */
 
 
         let count = 1;
-        let menuList = [];
-        menuList.push(new File(["default"], "default", {
+        let menuFileList = []; // img file list
+
+        // default 이미지 없는 메뉴는 기본이미지으로 대체하기 위해 default으로 비어있는 파일. 
+        // 첫 menu item을 위해 push 
+        menuFileList.push(new File(["default"], "default", {
             type: "image/png",
             name: "foodie_default.PNG"
         }));
 
-        const par = $('table#pricing-list-container').first().find('.delete').remove();
+        const par = $('table#pricing-list-container').first().find('.delete').remove(); // menu x버튼 클릭 시 line 삭제 
 
-        function newMenuItem() {
-            var newElem = $('form-group').first().clone();
+        function newMenuItem() { // menu 입력란 생성 
+            var newElem = $('form-group').first().clone(); // 첫 item 복사 
             newElem.find('input').val('');
             newElem.appendTo('table#pricing-list-container');
         }
@@ -756,7 +683,7 @@
         if ($("table#pricing-list-container").is('*')) {
             $('.add-pricing-list-item').on('click', function (e) {
 
-                ++count;
+                ++count; // 추가된 menuItem 마다 번호 부여하여 구분 하기위함.
 
                 const $container = $('#pricing-list-container');
                 e.preventDefault();
@@ -765,12 +692,13 @@
                 $('.menu-row').last().find('.delete-form').append(
                     '<a class="delete' + ' menuDelete' + count + '"' +
                     ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
-                $(this).css('border-colore', 'none');
+                $(this).css('border-colore', 'none'); // 처음 menuItem 제외하고 추가 시 delete 버튼 생성 
 
 
-                priceInputOnlyInt();
+                priceInputOnlyInt(); // 추가된 menuItem에서 price 숫자검증 
 
 
+                // add menu item 이미지 리셋 
                 const $target = $('#pricing-list-container').last().find('.menu1').last();
 
                 $target.last().removeClass('dz-started');
@@ -780,15 +708,19 @@
                 $target.removeClass('menu1');
                 $target.addClass('menu' + count)
 
-                menuList.push(new File(["default"], "default", {
+
+                // 추가할 때마다 리스트에 비어있는 파일 추가 
+                menuFileList.push(new File(["default"], "default", {
                     type: "image/png",
                     name: "foodie_default.PNG"
                 }));
-                console.log("add : ", menuList);
-                addMenuImg(count);
+                console.log("add : ", menuFileList);
+
+                addMenuImg(count); // menu item add imgs 
 
 
             });
+
             $(document).on("click", "#pricing-list-container .delete", function (e) {
                 e.preventDefault();
                 $(this).parent().parent().parent().parent().parent().remove();
@@ -810,7 +742,7 @@
             const $menuPrice = $('.menu-price');
 
             $menuPrice.on("keyup", function () {
-                console.log(replaceNotInt);
+
                 $(this).val($(this).val().replace(replaceNotInt, ""));
 
                 var x = $(this).val();
@@ -891,7 +823,7 @@
             thumbnailWidth: 100,
             thumbnailHeight: 100,
             maxFiles: 5,
-            maxFilesize: 100,
+            maxFilesize: 10,
             addRemoveLinks: true,
             dictRemoveFile: 'X',
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
@@ -900,33 +832,35 @@
             init: function () {
 
                 let myDropzone = this;
-                this.on('addedfiles', function (files) {
-                    let overResult = '';
 
-                    if (myDropzone.files.length > 5) {
+                // dorpzone은 파일을 올릴 때마다 기존 파일들은 삭제되고 새로운 file list가 생성 
+                this.on('addedfiles', function (files) { // detail - menu 추가시  
+                    let overResult = ''; // 중북된 파일 경고문구
+
+                    if (myDropzone.files.length > 5) { // detail - img 5개 제한 
 
                         for (const file of files) {
-                            myDropzone.removeFile(file);
+                            myDropzone.removeFile(file); // 5개 이상일 경우 자동 삭제 
                         }
                         $('.detail-img-label').html(
                             'detail <b class="c-red detail-red">[ 이미지는 5개까지만 가능합니다. ]</b>');
                         setTimeout(function () {
                             $('.detail-red').remove();
-                        }, 5000);
+                        }, 5000); // 5초동안만 경고문구 발생 
                         return;
 
                     } else {
-                        for (const setFile of overlapSet) {
-                            for (const file of files) {
+                        for (const setFile of overlapSet) { // 기존 file list  
+                            for (const file of files) { // 새 file list 
                                 if (setFile === file.name) {
                                     overResult += file.name + ' ';
-                                    myDropzone.removeFile(file);
+                                    myDropzone.removeFile(file); // 중복 시 삭제
                                 }
                             }
                         }
                     }
 
-                    if (overResult.length > 1) {
+                    if (overResult.length > 1) { // 중복된 파일 경우 
                         $('.detail-img-label').html(
                             'detail <b class="c-red detail-red">[ 중복된 파일은 ' + overResult +
                             '입니다.]</b>');
@@ -936,13 +870,9 @@
                         }, 5000);
                         return;
 
-                    } else {
-                        for (const file of files) {
-                            overlapSet.add(file.name);
-                        }
-                        return;
                     }
 
+                    // 5개 이상 X , 중복 X 경우 set List에 추가 
                     for (const file of files) {
                         overlapSet.add(file.name);
                     }
@@ -953,14 +883,14 @@
                     for (const dropFile of myDropzone.files) {
                         overlapArr.push(dropFile.name);
                     }
-                    overlapSet = new Set(overlapArr);
+                    overlapSet = new Set(overlapArr); // 삭제 후 남은 file list 다시 담음 
                 })
             }
         });
 
-        addMenuImg(1);
+        addMenuImg(1); // 첫번째 menu item dropzone 처리  
 
-        function addMenuImg(index) {
+        function addMenuImg(index) { // 추가된 menu item dropzone 처리 
             let dropName = '.menu' + index;
             let deleteName = '.menuDelete' + index;
             const menuDropzone = new Dropzone(dropName, {
@@ -972,60 +902,33 @@
                 thumbnailHeight: 80,
                 thumbnailWidth: 80,
                 maxFiles: 1,
-                maxFilesize: 100,
-                paramName: '',
+                maxFilesize: 10,
                 addRemoveLinks: true,
                 dictRemoveFile: 'X',
                 acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
 
                 init: function () {
                     let myDropzone = this;
-                    this.on('addedfile', function (file) {
-                        menuList[index - 1] = file;
-                        console.log("add : ", menuList);
+                    this.on('addedfile', function (file) { // menu item 추가 시 
+                        menuFileList[index - 1] = file;
+                        console.log("add : ", menuFileList);
                     });
 
-                    $(deleteName).on('click', function (e) {
-                        const targetfileName = $(dropName).last().find('.dz-filename').children()
-                            .text();
+                    $(deleteName).on('click', function (e) { // menu item 삭제 시 
+                        delete menuFileList[index - 1];
+                        --index;
+                        console.log("delete : ", menuFileList);
+                    });
 
-                        if (targetfileName === '') {
-                            delete menuList[index - 1];
-                            index--;
-                            menuList[index] = new File(["default"], "default", {
-                                type: "image/png",
-                                name: "foodie_default.PNG"
-                            });
-                            console.log("delete : ", menuList);
-                            return;
-                        }
+                    myDropzone.on('removedfile', function (file) { // menu img 삭제 시 
 
-                        for (let i = 0; i < menuList.length; i++) {
-                            if (menuList[i] == null)
-                                continue;
-
-                            console.log(menuList[i].name);
-                            if (menuList[i].name === targetfileName) {
-
-                                delete menuList[i];
-                                console.log("delete : ", menuList);
-                            }
-                        }
-
-                        index--;
-
-                    })
-                    myDropzone.on('removedfile', function (file) {
-
-                        console.log(file.name);
-                        for (const menu of menuList) {
+                        for (const menu of menuFileList) {
                             if ((menu != null) && (menu.name === file.name)) {
-                                console.log("remove : ", index - 1)
-                                menuList[index - 1] = new File(["default"], "default", {
+                                menuFileList[index - 1] = new File(["default"], "default", {
                                     type: "image/png",
                                     name: "foodie_default.PNG"
                                 });
-                                console.log("remove : ", menuList);
+                                console.log("remove : ", menuFileList);
                             }
                         }
                     })
@@ -1049,16 +952,19 @@
             const $titleHiddenTag = document.querySelector('.hidden-title-img');
             const $menuHiddenTag = document.querySelector('.hidden-menu-img');
 
+
+            // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
             const detailDataTranster = new DataTransfer();
             const titleDataTraster = new DataTransfer();
             const menuDataTraster = new DataTransfer();
 
-            console.log(menuDataTraster);
-            if (menuList.length > 0) {
-
-                for (const menuFile of menuList) {
-                    menuDataTraster.items.add(menuFile);
+            if (menuFileList.length > 0) {
+                for (const menuFile of menuFileList) {
+                    if (menuFile != null) {
+                        menuDataTraster.items.add(menuFile);
+                    }
                 }
+                console.log("menuDataTraster : ", menuFileList);
 
                 $menuHiddenTag.files = menuDataTraster.files;
             }
@@ -1077,8 +983,7 @@
 
             }
 
-
-            // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 확인
+            // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
             const $menuNameList = document.querySelectorAll(".menu-name");
             const $menuPriceList = document.querySelectorAll(".menu-price");
 
@@ -1100,16 +1005,19 @@
 
             // 해시태그 중복 확인
             const hashTagList = $hashTag.val().split(' ');
+            console.log(hashTagList);
 
-            for (const tag of hashTagList) {
-                if (tag === "") break;
-
-                for (let index = 1; index < hashTagList.length; index++) {
+            for (let i = 0; i < hashTagList.length; i++) {
+                const tag = hashTagList[i];
+                for (let index = i + 1; index < hashTagList.length; index++) {
+                    console.log(tag, "vs", hashTagList[index]);
                     if (tag === hashTagList[index]) {
+                        alert("해시태그에 중복된 단어가 있습니다. 다시 입력해주세요.")
                         return;
                     }
                 }
             }
+
 
             if (!checkArr.includes(false)) { // 필수 이력 완료시
 
@@ -1122,7 +1030,7 @@
 
                 // 내용 \n -> <br>으로 치환
                 const content = $contentTag.val().replace(/\n/gi, "<br>");
-                $contentTag.val() = content
+                $contentTag.val(content)
 
                 $('#promotionWriteForm').submit();
 
@@ -1132,310 +1040,6 @@
             }
         });
     </script>
-
-    <!-- /jungah script -->
-
-
-
-
-    <!-- 이미지 파일 검증 및 미리보기 화면 출력하는 스크립트 영역 -->
-    <!-- <script>
-        const $titleInput = document.getElementById('title-img');
-        const $detailInput = document.getElementById('detail-img');
-
-        // 메뉴는 좀 다르게 처리해야 함.. 같은 형식의 input 태그가 계속해서 생기기 때문!!
-
-
-        const $detailPreviewHidden = document.getElementById('detail-preview');
-        $detailPreviewHidden.nextElementSibling
-        const $hiddenTitleBox = document.getElementById('hidden-title-box');
-        const $hiddenDetailBox = document.getElementById('hidden-detail-box');
-        // const $hiddenMenuBox = document.getElementById('hidden-menu-box');
-
-
-        // 
-        function makeMenuPreviewDOM(nowInput, fileNames) {
-
-
-            for (let fileName of fileNames) {
-
-                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
-
-
-                // 비동기로 받아온 이미지 띄우는 로직
-                const $img = $(nowInput).parent().next().find('img');
-                $img.attr('src', '/loadFile?fileName=' + fileName);
-                $img.attr('alt', originFileName);
-
-
-                const $menuPreviewBox = $(nowInput).parent().next();
-                $menuPreviewBox.css('display', 'block');
-
-
-                // 히든 인풋 태그 value에 이미지 src값 넣어주기
-                const cloneSrcVal = $img.attr('src');
-                const hiddenMenuInput = $img.parent().parent().next().find('input');
-                hiddenMenuInput.val(cloneSrcVal);
-            }
-
-        }
-
-
-        // 메뉴 이미지 비동기 요청
-        function ajaxMenuPreview(nowInput) {
-            const formData = new FormData();
-
-            const input = $(nowInput);
-
-            for (let file of input[0].files) {
-                formData.append('files', file);
-            }
-
-
-            const reqObj = {
-                method: 'POST',
-                body: formData
-            };
-
-            fetch('/ajax-upload', reqObj)
-                .then(res => res.json())
-                .then(fileNames => {
-                    makeMenuPreviewDOM(input, fileNames);
-                });
-
-       
-        }
-
-
-        // 디테일 이미지 미리보기 화면 렌더링
-        function makeDetailPreviewDOM(fileNames) {
-
-
-            for (let fileName of fileNames) {
-
-                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
-
-
-                const newHiddenInput = document.createElement('input');
-                newHiddenInput.setAttribute('type', 'hidden');
-                newHiddenInput.setAttribute('value', fileName);
-                newHiddenInput.setAttribute('name', 'detailImg');
-                newHiddenInput.classList.add('hidden-detail-img');
-
-                // 삽입!
-                $hiddenDetailBox.appendChild(newHiddenInput);
-
-
-                const $img = document.createElement('img');
-                $img.classList.add('preview-detail-img');
-
-                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
-                $img.setAttribute('alt', originFileName);
-
-                // const $detailPreviewHidden = document.getElementById('detail-preview');
-
-                $detailPreviewHidden.parentElement.style.display = 'block';
-                $detailPreviewHidden.appendChild($img);
-            }
-        }
-
-
-        // 디테일 이미지 미리보기 비동기 요청
-        function ajaxDetailPreview() {
-            const formData = new FormData();
-
-            for (let file of $detailInput.files) {
-                console.log(file);
-                formData.append('files', file);
-            }
-
-
-            const reqObj = {
-                method: 'POST',
-                body: formData
-            };
-
-
-            fetch('/ajax-upload', reqObj)
-                .then(res => res.json())
-                .then(fileNames => {
-                    // isExistDetailPreviewDOM();
-                    makeDetailPreviewDOM(fileNames);
-                });
-        }
-
-
-        // 디테일 이미지 파일 개수 제한 처리
-        function uploadingFileCountCheck(obj) {
-            // console.log($(obj)[0].files.length);
-
-            // 최대 업로드 가능 파일 개수
-            let maxFileCnt = 5;
-
-            const detailPreviewBox = document.querySelector('#detail-preview');
-
-            // console.log(detailPreviewBox.children.length);
-
-            if ($(obj)[0].files.length > maxFileCnt || [...detailPreviewBox.children].length >= maxFileCnt) {
-                $(obj).val('');
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        function uploadingFileSizeCheck(obj) {
-            let maxFileSize = 10 * 1024 * 1024; // 파일 최대 용량 10MB
-
-            for (let file of $(obj)[0].files) {
-                if (file.size > maxFileSize) {
-                    $(obj).val('');
-                    return false;
-                } 
-            }
-
-            return true;
-        }
-
-
-        // 타이틀 이미지 미리보기 렌더링
-        function makeTitlePreviewDOM(fileNames) {
-
-            // 여기서 이미 들어간 히든 인풋을 지워주면 되나..?
-            if ($hiddenTitleBox.children.length > 0) {
-                for (let hiddenInput of [...$hiddenTitleBox.children]) {
-                    $hiddenTitleBox.removeChild(hiddenInput);
-                }
-            }
-
-            for (let fileName of fileNames) {
-
-                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
-
-                // 동기요청 처리시 hidden 타입인 input 창에 src = 풀경로, alt는 orgin파일명을 넣어줘서
-                // form 태그를 활용해 post 요청을 보낸다.
-                const $newHiddenInput = document.createElement('input');
-                $newHiddenInput.setAttribute('type', 'hidden');
-                $newHiddenInput.setAttribute('name', 'titleImg');
-                $newHiddenInput.setAttribute('value', fileName);
-                $newHiddenInput.classList.add('hidden-title-img');
-
-
-                // form 태그에 삽입
-                $hiddenTitleBox.appendChild($newHiddenInput);
-
-
-                // 비동기로 받아온 이미지 띄우는 로직
-                const $img = document.createElement('img');
-                $img.classList.add('preview-title-img');
-
-                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
-                $img.setAttribute('alt', originFileName);
-
-                const $titlePreviewHidden = document.getElementById('title-preview');
-
-                if ($titlePreviewHidden.children.length > 0) {
-                    $titlePreviewHidden.removeChild($titlePreviewHidden.firstElementChild);
-                }
-
-                $titlePreviewHidden.parentElement.style.display = 'block';
-                $titlePreviewHidden.appendChild($img);
-
-                const $xBtn = document.createElement('button');
-                $xBtn.classList.add('xBtn');
-            }
-        }
-
-
-        // 타이틀 이미지 미리보기 위한 비동기 요청
-        function ajaxTitlePreview() {
-            const formData = new FormData();
-
-            for (let file of $titleInput.files) {
-                formData.append('files', file);
-            }
-
-
-            const reqObj = {
-                method: 'POST',
-                body: formData
-            };
-
-            fetch('/ajax-upload', reqObj)
-                .then(res => res.json())
-                .then(fileNames => {
-                    makeTitlePreviewDOM(fileNames);
-                });
-        }
-
-        // 실행부
-        $(document).on("change", "input[type='file']", function (file) {
-
-            Dropzone.autoDiscover = false; 
-            const dropzone = new Dropzone("input.dropzone", { 
-            url: "/foodie/write",
-            method: 'post',
-            // ... 옵션
-            });
-
-         
-            // var file_path = $(this).val();
-
-            // file_path = file_path.toLowerCase();
-         
-     
-
-            // var reg = /(.*?)\.(jpg|bmp|jpeg|png|gif)$/;
-
-            // // 허용되지 않은 확장자일 경우
-
-            // if (file_path != "" && (file_path.match(reg) == null || reg.test(file_path) == false)) {
-
-            //     $(this).val("");
-
-            //     alert("이미지 파일만 업로드 가능합니다.");
-
-            //     $(this).parent().next().css('display', 'none');
-
-            // } else {
-
-            //     // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
-            //     if (!uploadingFileSizeCheck($(this))) {
-            //         alert('첨부파일 사이즈는 10MB 이내로 등록 가능합니다.');
-            //         return;
-            //     }
-
-
-            //     // title 이미지 미리보기 비동기 처리
-            //     if ($(this).hasClass('title')) {
-            //         ajaxTitlePreview();
-            //     }
-
-
-            //     // detail 이미지 미리보기 비동기 처리
-            //     if ($(this).hasClass('detail')) {
-            //         // 파일 개수 검증이 들어가야 한다.
-            //         if (uploadingFileCountCheck($(this))) { // 파일 개수 검증
-            //                 ajaxDetailPreview();
-            //             }
-            //         else {
-            //             alert('최대 5개의 이미지 파일만을 업로드 하실 수 있습니다.');
-            //         }
-            //     }
-
-
-            //     // menu 이미지 미리보기 비동기 처리
-            //     if ($(this).hasClass('menu')) {
-            //         ajaxMenuPreview($(this));
-            //     }
-            
-            // }
-        });
-    </script> -->
-
-
-
-
 </body>
 
 </html>

@@ -63,7 +63,7 @@
         </if>
     </insert>
     <update id="saveProBoardTitleImg">
-        UPDATE promotion_board SET file_path = #{titleFilePth}, file_name= #{fileName} WHERE #{promotionBno}
+        UPDATE promotion_board SET file_path = #{titleFilePath}, file_name = #{titleFileName} WHERE promotion_bno = #{promotionBno}
     </update>
 
     <!--&lt;!&ndash;    <insert id="menuSave">&ndash;&gt;-->

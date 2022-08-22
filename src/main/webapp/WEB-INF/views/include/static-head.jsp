@@ -32,3 +32,11 @@
 <script src="/js/jquery-3.3.1.min.js"></script>
 
 <link href="/css/home.css" rel="stylesheet">
+
+<!-- <style>
+
+    #forgot_pw {
+        display: block;
+    }
+
+</style> -->

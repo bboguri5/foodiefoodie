@@ -107,6 +107,23 @@
         WHERE email = #{email}
     </delete>
 
+    <select id="findEmail" resultType="string">
+        SELECT email
+        FROM member
+        WHERE name = #{name}
+            AND birth = #{birth}
+            AND phone_number = #{phoneNumber}
+    </select>
+
+    <select id="changePw" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+        WHERE email = #{email}
+            AND name = #{name}
+            AND birth = #{birth}
+            AND phone_number = #{phoneNumber}
+    </select>
+
 </mapper>
 
 

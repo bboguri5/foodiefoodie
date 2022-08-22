@@ -2,6 +2,8 @@ package com.project.foodiefoodie.member.repository;
 
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.AuthDTO;
+import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
+import com.project.foodiefoodie.member.dto.find.FindPwDTO;
 import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -46,4 +48,9 @@ public interface MemberMapper {
     List<Member> findCommon();
     Member findOneCommon(String email);
     boolean remove(String email);
+
+
+    String findEmail(FindEmailDTO dto);
+
+    int changePw(FindPwDTO dto);
 }

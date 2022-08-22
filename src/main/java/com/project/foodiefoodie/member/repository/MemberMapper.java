@@ -52,5 +52,7 @@ public interface MemberMapper {
 
     String findEmail(FindEmailDTO dto);
 
-    int changePw(FindPwDTO dto);
+    int findPw(FindPwDTO dto);
+
+    boolean changePw(String email, String pw);
 }

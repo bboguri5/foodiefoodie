@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.member.service;
 
+import com.project.foodiefoodie.common.api.mail.service.EmailServiceImpl;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
 import com.project.foodiefoodie.member.dto.find.FindPwDTO;
@@ -27,6 +28,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberMapper memberMapper;
+    private final EmailServiceImpl emailService;
 
     private final BCryptPasswordEncoder encoder;
 
@@ -209,16 +211,23 @@ public class MemberService {
 
     
     // 비번 변경용 회원 존재 유무 찾기 
-    public boolean changePw(FindPwDTO dto) {
+    public String findPw(FindPwDTO dto) throws Exception {
         
-        if (memberMapper.changePw(dto) == 1) {
+        if (memberMapper.findPw(dto) == 1) {
             // 이메일 보내는 로직이 수행되어야 함.
             String email = dto.getEmail();
+            String authCode = emailService.sendAuthCodeEmail(email);
 
-
-            return true;
+            return authCode;
         }
         
-        return false;
+        return null;
+    }
+
+    public boolean changePw(String email, String pw) {
+
+        String encodedPw = encoder.encode(pw);
+
+        return memberMapper.changePw(email, encodedPw);
     }
 }

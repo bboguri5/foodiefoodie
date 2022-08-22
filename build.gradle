@@ -55,6 +55,10 @@ dependencies {
 	// 매번 새로고침 하지 않아도 jsp 변동사항 즉시 확인 가능하게 도와주는 라이브러리(?)
 	implementation 'org.springframework.boot:spring-boot-devtools'
 
+
+	// 메일 관련 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
 
 }

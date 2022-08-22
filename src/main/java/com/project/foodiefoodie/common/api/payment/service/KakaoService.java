@@ -42,10 +42,15 @@ public class KakaoService {
         connection.setRequestMethod("POST");
 
         // 4-1. 요청 헤더 설정
-        connection.setRequestProperty("Authorization", "KakaoAK " + KakaoMyApp.KAKAO_ADMIN_KEY);
-        connection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        String authValue = "KakaoAK " + KakaoMyApp.KAKAO_ADMIN_KEY;
+        log.info("authval: {}", authValue);
+        connection.setRequestProperty("Authorization", authValue);
+//        connection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         connection.setDoOutput(true); // 응답 결과를 받아보자
+
+        // get으로 확인해보고 보내기
+        log.info("auth {}", connection.getRequestProperties());
 
 
         sendReadyForPaymentRequest(connection, session);
@@ -108,16 +113,16 @@ public class KakaoService {
             // 테스트용이라 가맹점 코드는 [ TC0ONETIME ] 활용. 실제로 사용하기 위해선 제휴를 맺어야 함.
             queryParam
                     .append("cid=TC0ONETIME")
-                    .append("&partner_order_id=999") // 가맹점 주문번호. 테스트용 임의 주문번호 999 부여
+                    .append("&partner_order_id=995") // 가맹점 주문번호. 테스트용 임의 주문번호 999 부여
                     .append("&partner_user_id=" + member.getEmail())
                     .append("&item_name=" + "트러플 오일 파스타") // 복수의 품명은 어케..?
                                                                 // 콤마 나열 또는 ~~외 n개 식 표기해야할듯??
                     .append("&quantity=1") // 수량 일단 1개 임의 지정
                     .append("&total_amount=25000") // 포장금액 2만 5천원 임의 지정
                     .append("&tax_free_amount=" + 0) // 면세액이 얼만지 적는 항목 같음..
-                    .append("&approval_url=" + "http:localhost:8186/success-order") // 결제 성공시 redirect_url 지정
-                    .append("&cancel_url=" + "http:localhost:8186/cancel-order") // 결제 취소시 redirect_url 지정
-                    .append("&fail_url=" + "http:localhost:8186/fail-order"); // 결제 실패시 redirect_url 지정
+                    .append("&approval_url=" + "http://localhost:8186/success-order") // 결제 성공시 redirect_url 지정
+                    .append("&cancel_url=" + "http://localhost:8186/cancel-order") // 결제 취소시 redirect_url 지정
+                    .append("&fail_url=" + "http://localhost:8186/fail-order"); // 결제 실패시 redirect_url 지정
 
 
             bw.write(queryParam.toString());

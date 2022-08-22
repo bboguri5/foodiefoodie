@@ -52,23 +52,29 @@ public class ProBoardController {
                         List<MultipartFile> titleImgFile,
                         List<MultipartFile> detailImgFiles ,
                         List<MultipartFile> menuImgFiles) {
+
         log.info("foodie/write POST - ! {}",proBoard);
         log.info("foodie/write POST - ! {}",storeTimeDTO);
         log.info("foodie/write POST!! - titleImgFile : {}", titleImgFile.get(0).getOriginalFilename());
         log.info("foodie/write POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
         log.info("foodie/write POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
-        log.info("foodie/write POST!! - 여기서 문제가 발생하는듯..?");
+
         String[] menuNames = request.getParameterValues("menuName");
         String[] menuPrices = request.getParameterValues("menuPrice");
+
         log.info("foodie/write POST!! - menuNames : {}", menuNames);
         log.info("foodie/write POST!! - menuPrices : {}", menuPrices);
+
         List<String[]> menuList = new ArrayList<>(Arrays.asList(menuNames,menuPrices));
+
         Map<String,List<MultipartFile>> fileMap = new HashMap<>(){{
             put("title",titleImgFile);
             put("detail",detailImgFiles);
             put("menu",menuImgFiles);
         }};
+
         log.info("foodie/write POST!! - fileMap : {}", fileMap);
+
         boolean proBoardSaveResult = proBoardService.saveProBoard(proBoard,storeTimeDTO,menuList,fileMap);
 
         log.info("foodie/write POST - proBoardSaveResult {}",proBoardSaveResult);

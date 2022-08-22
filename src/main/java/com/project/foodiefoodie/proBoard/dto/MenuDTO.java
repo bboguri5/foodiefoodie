@@ -13,8 +13,10 @@ import java.util.List;
 @AllArgsConstructor
 public class MenuDTO{
 
-//    private int menuNo;
-    private List<String> menuName;
-    private List<Integer> menuPrice;
+   private String menuName;
+   private int menuPrice;
+   private String filePath;
+   private String fileName;
+
 
 }

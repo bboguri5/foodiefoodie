@@ -410,3 +410,20 @@ commit;
 
     alter table promotion_board modify FILE_NAME null;
     alter table promotion_board modify file_path null;
+
+    ------------------------------------------------------ 08 / 22
+
+    DROP TABLE promotion_upload_menu_img;
+    DROP TABLE promotion_food_menu;
+
+ -- 음식 메뉴 및 업로드
+    CREATE TABLE promotion_food_menu(
+        menu_no NUMBER(5)primary key
+        , promotion_bno NUMBER(10) NOT NULL
+        , menu_name VARCHAR2(20) NOT NULL
+        , price NUMBER(6) NOT NULL
+        , file_path clob
+        , file_name VARCHAR2(100)
+        , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
+        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+    );

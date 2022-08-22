@@ -15,9 +15,13 @@ import java.util.List;
 public interface ProBoardMapper {
 
     boolean saveProBoard(ProBoard proBoard);
-    boolean saveProBoardStoreTime(int promotionBno,StoreTimeDTO storeTimeDTO);
-    boolean saveProBoardMenu(int promotionBno, String menuName , Integer menuPrice);
+
+    boolean saveProBoardStoreTime(int promotionBno, StoreTimeDTO storeTimeDTO);
+
+    boolean saveProBoardMenu(int promotionBno,MenuDTO menuDTO);
+
     boolean saveProBoardImage(int promotionBno, ImageDTO imageDTO);
+
     List<Integer> selectMenuNo(int promotionBno);
 
     boolean modify(ProBoard proBoard);
@@ -29,6 +33,7 @@ public interface ProBoardMapper {
     int selectPromotionBno(String businessNo);
 
     Master selectMaster(String businessNo);
+
     MenuDTO selectMenu(int promotionBno);
 
 }

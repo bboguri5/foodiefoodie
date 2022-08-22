@@ -12,11 +12,6 @@ import java.util.Map;
 @NoArgsConstructor @AllArgsConstructor
 public class ImageDTO {
 
-//    private String titleImg;
-//    private List<String> detailImg;
-//    private List<String> menuImg;
-
-    private int menuNo;
     private String fileName;
     private String filePath;
     private String type;

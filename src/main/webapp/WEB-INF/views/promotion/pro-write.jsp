@@ -740,6 +740,7 @@
 
         let count = 1;
         let menuList = [];
+        menuList.push(new File(["default"], "default", {type: "image/png" , name: "foodie_default.PNG"}));
 
         const par = $('table#pricing-list-container').first().find('.delete').remove();
 
@@ -752,7 +753,7 @@
         if ($("table#pricing-list-container").is('*')) {
             $('.add-pricing-list-item').on('click', function (e) {
 
-                count++;
+                ++count;
 
                 const $container = $('#pricing-list-container');
                 e.preventDefault();
@@ -776,8 +777,8 @@
                 $target.removeClass('menu1');
                 $target.addClass('menu' + count)
 
-                menuList.push(null);
-
+                menuList.push(new File(["default"], "default", {type: "image/png" , name: "foodie_default.PNG"}));
+                console.log("add : ", menuList);
                 addMenuImg(count);
 
 
@@ -983,21 +984,37 @@
                         const targetfileName = $(dropName).last().find('.dz-filename').children()
                             .text();
 
-                        if (targetfileName === '')
+                        if (targetfileName === '') {
+                            delete menuList[index - 1];
+                            index--;
+                            menuList[index] = new File(["default"], "default", {type: "image/png" , name: "foodie_default.PNG"});
+                            console.log("delete : ", menuList);
                             return;
+                        }
 
-                        for (let index = 0; index < menuList.length; index++) {
-                            if (menuList[index].name === targetfileName) {
-                                menuList[index - 1] = null;
+                        for (let i = 0; i < menuList.length; i++) {
+                            if(menuList[i] == null)
+                                continue;
+
+                            console.log(menuList[i].name);
+                            if (menuList[i].name === targetfileName) {
+
+                                delete menuList[i];
+                                console.log("delete : ", menuList);
                             }
                         }
+
+                        index--;
+
                     })
                     myDropzone.on('removedfile', function (file) {
 
                         console.log(file.name);
                         for (const menu of menuList) {
                             if ((menu != null) && (menu.name === file.name)) {
-                                menuList[index - 1] = null;
+                                console.log("remove : ", index - 1)
+                                menuList[index - 1] = new File(["default"], "default", {type: "image/png" , name: "foodie_default.PNG"});
+                                console.log("remove : ", menuList);
                             }
                         }
                     })
@@ -1023,13 +1040,11 @@
             const titleDataTraster = new DataTransfer();
             const menuDataTraster = new DataTransfer();
 
-
+            console.log(menuDataTraster);
             if (menuList.length > 0) {
 
                 for (const menuFile of menuList) {
-                    if (menuFile != null) {
-                        menuDataTraster.items.add(menuFile);
-                    }
+                    menuDataTraster.items.add(menuFile);
                 }
 
                 $menuTag.files = menuDataTraster.files;

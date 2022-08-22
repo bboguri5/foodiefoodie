@@ -40,8 +40,10 @@
         insert into PROMOTION_FOOD_MENU VALUES (
         SEQ_PROMOTION_FOOD_MENU.nextval
         ,#{promotionBno}
-        ,#{menuName}
-        ,#{menuPrice}
+        ,#{menuDTO.menuName}
+        ,#{menuDTO.menuPrice}
+        ,#{menuDTO.filePath}
+        ,#{menuDTO.fileName}
         )
     </insert>
     <insert id="saveProBoardImage">
@@ -55,14 +57,6 @@
         <if test="imageDTO.type=='detail'">
             insert into PROMOTION_UPLOAD_DETAIL_IMG VALUES (
             #{promotionBno}
-            ,#{imageDTO.filePath}
-            ,#{imageDTO.fileName}
-            )
-        </if>
-        <if test="imageDTO.type=='menu'">
-            insert into PROMOTION_UPLOAD_MENU_IMG VALUES (
-            #{promotionBno}
-            ,#{imageDTO.menuNo}
             ,#{imageDTO.filePath}
             ,#{imageDTO.fileName}
             )

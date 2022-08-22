@@ -9,7 +9,6 @@ DROP TABLE black_list_master;
 DROP TABLE report_member;
 DROP TABLE report_master;
 DROP TABLE promotion_upload_title_img;
-DROP TABLE promotion_upload_menu_img;
 DROP TABLE promotion_upload_detail_img;
 DROP TABLE promotion_food_menu;
 DROP TABLE profile_upload;
@@ -114,15 +113,17 @@ CREATE TABLE promotion_board (
 );
 
 
--- 음식 메뉴
-CREATE TABLE promotion_food_menu(
-    menu_no NUMBER(5) PRIMARY KEY
-    , promotion_bno NUMBER(10) NOT NULL
-    , menu_name VARCHAR2(20) NOT NULL
-    , price NUMBER(6) NOT NULL
-    , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
-    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-);
+-- 음식 메뉴 및 업로드
+    CREATE TABLE promotion_food_menu(
+        menu_no NUMBER(5)primary key
+        , promotion_bno NUMBER(10) NOT NULL
+        , menu_name VARCHAR2(20) NOT NULL
+        , price NUMBER(6) NOT NULL
+        , file_path clob
+        , file_name VARCHAR2(100)
+        , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
+        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+    );
 
 
 -- 월정액 가게
@@ -249,15 +250,6 @@ CREATE TABLE profile_upload(
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- 음식 메뉴 파일 업로드
-CREATE TABLE promotion_upload_menu_img (
-         promotion_bno NUMBER(10) NOT NULL
-        ,menu_no NUMBER(10) NOT NULL
-        , file_path clob
-        , file_name VARCHAR2(100) NOT NULL
-        , CONSTRAINT fk_pro_food_menu_upload FOREIGN KEY (menu_no)
-    REFERENCES promotion_food_menu (menu_no) ON DELETE CASCADE
-);
 
 -- 신고처리된 내역있는 일반유저
 CREATE TABLE report_member (

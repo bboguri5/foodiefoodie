@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ReviewMapper {
 
     boolean reportCntModify(int reportCnt, String email);
+
     int checkReportCnt(String email);
 
 }

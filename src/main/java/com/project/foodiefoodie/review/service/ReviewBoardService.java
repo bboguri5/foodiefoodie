@@ -2,10 +2,13 @@ package com.project.foodiefoodie.review.service;
 
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
+import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.repository.ReviewBoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +38,13 @@ public class ReviewBoardService {
         }
 
         return false;
+    }
+
+    public List<ReviewBoardDTO> findAllReviewsService() {
+        return rbMapper.findAllReviews();
+    }
+
+    public ReviewBoardDTO findOneReviewService(long reviewBno) {
+        return rbMapper.findOneReview(reviewBno);
     }
 }

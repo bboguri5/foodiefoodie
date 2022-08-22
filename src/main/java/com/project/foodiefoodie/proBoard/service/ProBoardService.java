@@ -97,10 +97,13 @@ public class ProBoardService {
         String newFileName ="";
         String fileFullPath ="";
         String responseFilePath ="";
+
         for (int i = 0; i < fileMap.size(); i++) {
             List<MultipartFile> files = fileMap.get(args[i]);
             for (int j = 0; j < files.size(); j++) {
                 MultipartFile file = files.get(j);
+                if (file == null) break;
+
                 log.info(" uploadMasterFile service file : {} - {} ", args[i], file.getOriginalFilename());
 
                 if(file.getOriginalFilename().equals("default"))

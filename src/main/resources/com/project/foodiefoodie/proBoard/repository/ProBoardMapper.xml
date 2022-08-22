@@ -62,6 +62,9 @@
             )
         </if>
     </insert>
+    <update id="saveProBoardTitleImg">
+        UPDATE promotion_board SET file_path = #{titleFilePth}, file_name= #{fileName} WHERE #{promotionBno}
+    </update>
 
     <!--&lt;!&ndash;    <insert id="menuSave">&ndash;&gt;-->
     <!--&lt;!&ndash;        insert into PROMOTION_FOOD_MENU VALUES (&ndash;&gt;-->

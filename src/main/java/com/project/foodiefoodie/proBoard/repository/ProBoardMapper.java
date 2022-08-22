@@ -24,6 +24,8 @@ public interface ProBoardMapper {
 
     List<Integer> selectMenuNo(int promotionBno);
 
+    boolean saveProBoardTitleImg(int promotionBno, String titleFilePth, String titleFileName);
+
     boolean modify(ProBoard proBoard);
 
     boolean delete(int promotionBno);

@@ -413,6 +413,8 @@ commit;
 
     ------------------------------------------------------ 08 / 22
 
+ALTER TABLE reply_faq RENAME COLUMN content TO reply_faq_content;
+
     DROP TABLE promotion_upload_menu_img;
     DROP TABLE promotion_food_menu;
 

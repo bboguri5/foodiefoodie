@@ -687,7 +687,7 @@
 
         /* -------------------------------- save 시 검증 -------------------------------- */
         const $titleTag = $('.title');
-        const $hashTag_Tag = $('.hashTag');
+        const $hashTag = $('.hashTag');
         const $contentTag = $('.content');
         const checkArr = [false, false, false];
 
@@ -705,14 +705,14 @@
             }
         });
 
-        $hashTag_Tag.on('keyup', function () {
+        $hashTag.on('keyup', function () {
 
-            if ($hashTag_Tag.val().trim() === '') {
-                $hashTag_Tag.css('border-color', 'red');
+            if ($hashTag.val().trim() === '') {
+                $hashTag.css('border-color', 'red');
                 $('.hashTag-label').html('HASH TAG <b class="c-red hashTag-red">[ 해시태그는 필수정보입니다. ]</b>');
                 checkArr[1] = false;
             } else {
-                $hashTag_Tag.css('border-color', 'green');
+                $hashTag.css('border-color', 'green');
                 $('.hashTag-red').remove();
                 checkArr[1] = true;
             }
@@ -740,7 +740,10 @@
 
         let count = 1;
         let menuList = [];
-        menuList.push(new File(["default"], "default", {type: "image/png" , name: "foodie_default.PNG"}));
+        menuList.push(new File(["default"], "default", {
+            type: "image/png",
+            name: "foodie_default.PNG"
+        }));
 
         const par = $('table#pricing-list-container').first().find('.delete').remove();
 
@@ -777,7 +780,10 @@
                 $target.removeClass('menu1');
                 $target.addClass('menu' + count)
 
-                menuList.push(new File(["default"], "default", {type: "image/png" , name: "foodie_default.PNG"}));
+                menuList.push(new File(["default"], "default", {
+                    type: "image/png",
+                    name: "foodie_default.PNG"
+                }));
                 console.log("add : ", menuList);
                 addMenuImg(count);
 
@@ -824,7 +830,6 @@
 
         // ------- 해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
         let leng = 0;
-        const $hashTag = $('.hashTag');
 
         $hashTag.on("keyup", function () {
 
@@ -987,13 +992,16 @@
                         if (targetfileName === '') {
                             delete menuList[index - 1];
                             index--;
-                            menuList[index] = new File(["default"], "default", {type: "image/png" , name: "foodie_default.PNG"});
+                            menuList[index] = new File(["default"], "default", {
+                                type: "image/png",
+                                name: "foodie_default.PNG"
+                            });
                             console.log("delete : ", menuList);
                             return;
                         }
 
                         for (let i = 0; i < menuList.length; i++) {
-                            if(menuList[i] == null)
+                            if (menuList[i] == null)
                                 continue;
 
                             console.log(menuList[i].name);
@@ -1013,7 +1021,10 @@
                         for (const menu of menuList) {
                             if ((menu != null) && (menu.name === file.name)) {
                                 console.log("remove : ", index - 1)
-                                menuList[index - 1] = new File(["default"], "default", {type: "image/png" , name: "foodie_default.PNG"});
+                                menuList[index - 1] = new File(["default"], "default", {
+                                    type: "image/png",
+                                    name: "foodie_default.PNG"
+                                });
                                 console.log("remove : ", menuList);
                             }
                         }
@@ -1032,9 +1043,11 @@
 
         $('.save').on('click', e => {
 
-            const $detailTag = document.querySelector('.hidden-detail-img');
-            const $titleTag = document.querySelector('.hidden-title-img');
-            const $menuTag = document.querySelector('.hidden-menu-img');
+
+            // 이미지 file 변환 및 form 태그 내 input에 추가. 
+            const $detailHiddenTag = document.querySelector('.hidden-detail-img');
+            const $titleHiddenTag = document.querySelector('.hidden-title-img');
+            const $menuHiddenTag = document.querySelector('.hidden-menu-img');
 
             const detailDataTranster = new DataTransfer();
             const titleDataTraster = new DataTransfer();
@@ -1047,12 +1060,12 @@
                     menuDataTraster.items.add(menuFile);
                 }
 
-                $menuTag.files = menuDataTraster.files;
+                $menuHiddenTag.files = menuDataTraster.files;
             }
 
             if (titleDropzone.files.length > 0) {
                 titleDataTraster.items.add(titleDropzone.files[0]);
-                $titleTag.files = titleDataTraster.files;
+                $titleHiddenTag.files = titleDataTraster.files;
 
             }
 
@@ -1060,16 +1073,56 @@
                 for (const detailFile of detailDropzone.files) {
                     detailDataTranster.items.add(detailFile);
                 }
-                $detailTag.files = detailDataTranster.files;
+                $detailHiddenTag.files = detailDataTranster.files;
 
             }
-            if (!checkArr.includes(false)) {
 
+
+            // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 확인
+            const $menuNameList = document.querySelectorAll(".menu-name");
+            const $menuPriceList = document.querySelectorAll(".menu-price");
+
+            for (let index = 0; index < $menuNameList.length; index++) {
+                if (($menuNameList.length === 1) && ($menuPriceList.length === 1)) {
+                    if ($menuNameList[index].value.length === 0 && $menuPriceList[index].value.length === 0)
+                        break;
+                }
+
+                if ($menuNameList[index].value.length > 0 && $menuPriceList[index].value.length === 0) {
+                    alert(" 메뉴 금액을 반드시 입력해주세요. ")
+                    return;
+                } else if ($menuPriceList[index].value.length > 0 && $menuNameList[index].value.leng === 0) {
+                    alert(" 메뉴명을 반드시 입력해주세요. ")
+                    return;
+                }
+            }
+
+
+            // 해시태그 중복 확인
+            const hashTagList = $hashTag.val().split(' ');
+
+            for (const tag of hashTagList) {
+                if (tag === "") break;
+
+                for (let index = 1; index < hashTagList.length; index++) {
+                    if (tag === hashTagList[index]) {
+                        return;
+                    }
+                }
+            }
+
+            if (!checkArr.includes(false)) { // 필수 이력 완료시
+
+                // 시간 0000으로 변환 
                 const $selectTimeList = document.querySelectorAll('.select-time');
                 $selectTimeList.forEach(element => {
                     const replaceNotInt = /[^0-9]/gi;
                     element.value = element.value.replace(replaceNotInt, '');
                 });
+
+                // 내용 \n -> <br>으로 치환
+                const content = $contentTag.val().replace(/\n/gi, "<br>");
+                $contentTag.val() = content
 
                 $('#promotionWriteForm').submit();
 

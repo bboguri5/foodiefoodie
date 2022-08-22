@@ -11,6 +11,7 @@ DROP TABLE report_master;
 DROP TABLE promotion_upload_title_img;
 DROP TABLE promotion_upload_detail_img;
 DROP TABLE promotion_food_menu;
+DROP TABLE promotion_store_time;
 DROP TABLE profile_upload;
 DROP TABLE review_upload;
 DROP TABLE reply_faq;

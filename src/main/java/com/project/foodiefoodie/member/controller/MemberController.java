@@ -2,6 +2,7 @@ package com.project.foodiefoodie.member.controller;
 
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
+import com.project.foodiefoodie.member.dto.find.EmailCodeDTO;
 import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
 import com.project.foodiefoodie.member.dto.find.FindPwDTO;
 import com.project.foodiefoodie.member.dto.login.LoginDTO;
@@ -156,12 +157,12 @@ public class MemberController {
     
     // 실질적 비번 찾기 요청 처리
     @PostMapping("/find-pw")
-    public String findPw2(FindPwDTO dto, Model model) {
+    public String findPw2(FindPwDTO dto, Model model) throws Exception {
         log.info("/find-pw POST!! - {}", dto);
 
-        boolean flag = memberService.changePw(dto);
+        String authCode = memberService.findPw(dto);
 
-        model.addAttribute("flag", flag);
+        model.addAttribute("authCode", authCode);
         model.addAttribute("email", dto.getEmail());
 
         return "member/find/find-pw-result";
@@ -170,10 +171,35 @@ public class MemberController {
 
     // 인증 코드 검증 요청 처리
     @PostMapping("/check-authCode")
-    public String checkAuth(String email, String authCode, Model model) {
+    public String checkAuth(EmailCodeDTO dto, Model model) {
+        log.info("/check-authCode POST!! - {}", dto);
+
+        String authCode = dto.getAuthCode();
+        String realAuthCode = dto.getRealAuthCode();
+
+        boolean flag = false;
+
+        if (authCode.equals(realAuthCode)) {
+            flag = true;
+        }
+
+        model.addAttribute("flag", flag); // true가 나오면 인증코드가 일치한 것이므로 해당 페이지 내에서 비번 변경하게 해주기.
+        model.addAttribute("email", dto.getEmail());
+
+
+        return "member/find/check-emailCode-result";
+    }
 
 
 
-        return "";
+    // 비밀번호 변경 요청 처리
+    @PostMapping("/change-pw")
+    public String changePw(String email, String pw) {
+        log.info("/change-pw POST!! - email : {}, pw : {}", email, pw);
+
+        boolean flag = memberService.changePw(email, pw);
+
+
+        return "member/find/change-pw-success";
     }
 }

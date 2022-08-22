@@ -32,7 +32,7 @@
         <div class="container margin_60_40">
             <div class="row justify-content-center">
                 <div class="col-lg-7">
-                    <c:if test="${flag != false}">
+                    <c:if test="${authCode != null}">
                         <div class="box_booking_2">
                             <div class="head">
                                 <div class="title">
@@ -48,13 +48,14 @@
                                     <form action="/check-authCode" method="post">
                                         <input type="text" name="authCode" placeholder="이메일 인증코드">
                                         <input type="hidden" name="email" value="${email}">
+                                        <input type="hidden" name="realAuthCode" value="${authCode}">
                                         <button type="submit">전송</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="${flag == false}">
+                    <c:if test="${authCode == null}">
                         <div class="box_booking_2">
                             <div class="head">
                                 <div class="title">

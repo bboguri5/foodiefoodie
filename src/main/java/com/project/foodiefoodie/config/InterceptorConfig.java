@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.config;
 
+import com.project.foodiefoodie.member.interceptor.AdminInterceptor;
 import com.project.foodiefoodie.member.interceptor.AfterLoginInterceptor;
 import com.project.foodiefoodie.member.interceptor.AutoLoginInterceptor;
 import com.project.foodiefoodie.member.repository.MemberMapper;
@@ -16,6 +17,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     private final AutoLoginInterceptor autoLoginInterceptor;
     private final AfterLoginInterceptor afterLoginInterceptor;
+    private final AdminInterceptor adminInterceptor;
 
 
     // 인터셉터 설정 추가 메서드
@@ -29,5 +31,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
         // 로그인 후 회원가입 및 로그인 재진입 차단
         registry.addInterceptor(afterLoginInterceptor)
                 .addPathPatterns("/login", "/register");
+
+        registry.addInterceptor(adminInterceptor)
+                .addPathPatterns("/admin/*");
     }
 }

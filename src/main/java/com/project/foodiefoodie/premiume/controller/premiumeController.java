@@ -5,6 +5,7 @@ import com.project.foodiefoodie.premiume.dto.PremiumeDTO;
 import com.project.foodiefoodie.premiume.service.PremiumeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +53,7 @@ public class premiumeController {
 
         return "admin/premiume-T";
     }
+
 
 
 }

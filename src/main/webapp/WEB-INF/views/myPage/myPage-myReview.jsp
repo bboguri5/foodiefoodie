@@ -40,38 +40,175 @@
             margin-left: 20px;
         }
 
-       
 
+        .instaHeader {
+            display: flex;
+            background: skyblue;
+            width: 100%;
+            height: 200px;
+        }
+
+        .instaHeader .picture {
+            flex: 2;
+            background: blue;
+            position: relative;
+
+        }
+
+        .instaHeader .picture .profilePicture {
+            border-radius: 50%;
+            height: 50%;
+            width: 50%;
+            background: pink;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .instaHeader .profileContent {
+            flex: 5;
+            background: green;
+
+        }
+
+        .instaHeader .profileContent .userId {
+            text-align: center;
+        }
+
+        .instaHeader .profileContent .myInfo {
+            margin-top: 50px;
+            height: 30px;
+            display: flex;
+        }
+
+        .instaHeader .profileContent .myInfo .boardCnt {
+            color: black;
+            margin-left: 50px;
+            flex: 1;
+        }
+
+        .instaHeader .profileContent .myInfo .followYou {
+            color: black;
+            flex: 1;
+        }
+
+        .instaHeader .profileContent .myInfo .followMe {
+            color: black;
+            flex: 1;
+        }
+
+        .myReview-allWrap #hoverWrapper {
+            width: 100%;
+            height: 100px;
+            background: yellow;
+            position: relative;
+        }
+
+        .myReview-allWrap .hoverMenu {
+            position: absolute;
+            display: flex;
+            height: 100%;
+            width: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: yellowgreen;
+        }
+
+        .myReview-allWrap .hoverMenu .myReview {
+            text-align: center;
+            line-height: 100px;
+            flex: 1;
+            border: 1px solid #000;
+        }
+
+        .myReview-allWrap .hoverMenu .favoriteList {
+            text-align: center;
+            line-height: 100px;
+            flex: 1;
+            border: 1px solid #000;
+        }
+
+        .myReview-allWrap .reviewPictureWrapper {
+            width: 100%;
+            background: purple;
+            height: 100vh;
+            position: relative;
+            
+        }
+
+        .myReview-allWrap .reviewPictureWrapper .reviewPictureBox {
+            background: gray;
+            width: 95%;
+            height: 100%;
+            margin-top: 30px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-content: flex-start;
+        }
+        .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox{
+            width: 33%;
+            height: 200px;
+            background: pink;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+            margin-left: 3px;
+        }
+        .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .reviewPicture{
+            flex: 7;
+            border: 1px solid #000;
+        }
+        .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .title{
+            flex: 1;
+            border: 1px solid #000;
+        }
+        .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .content{
+            flex: 2;
+            border: 1px solid #000;
+        }
+
+        
     </style>
 
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-        <a class="navbar-brand" href="index.html"><img src="/mypage/img/logo.svg" alt="" width="142" height="36"></a>
+        <a class="navbar-brand" href="/"><img src="/mypage/img/logo.svg" alt="" width="142" height="36"></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
+
+            
+   <!-- ----------------------------------------------------------------------------------- -->
+           
             <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
-                    <a class="nav-link" href="user-profile.html">
+                    <a class="nav-link" href="/myPage-profile">
                         <i class="fa fa-fw fa-user"></i>
                         <span class="nav-link-text">내 정보 / 수정/ 탈퇴</span>
                     </a>
                 </li>
 
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
-                    <a class="nav-link" href="reviews.html">
+                    <a class="nav-link" href="/myReview">
                         <i class="fa fa-fw fa-star"></i>
                         <span class="nav-link-text">Reviews 내가쓴 리뷰 </span>
                     </a>
                 </li>
 
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
-                    <a class="nav-link" href="bookmarks.html">
+                    <a class="nav-link" href="/favoriteList">
                         <i class="fa fa-fw fa-heart"></i>
                         <span class="nav-link-text">Bookmarks 즐겨찾기 리스트 </span>
                     </a>
@@ -79,19 +216,25 @@
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
                     <a class="nav-link" href="messages.html">
                         <i class="fa fa-fw fa-envelope-open"></i>
-                        <span class="nav-link-text">Messages 내가 먹은 내역 </span>
+                        <span class="nav-link-text"> 결제 내역 </span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                    <a class="nav-link" href="messages.html">
+                    <a class="nav-link" href="/reviewReport">
                         <i class="fa fa-fw fa-envelope-open"></i>
-                        <span class="nav-link-text">Messages 신고기능 </span>
+                        <span class="nav-link-text"> 게시글 신고 내역 </span>
                     </a>
                 </li>
-
-
-                <!--  옆에 메뉴 끝 라인   -->
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
+                    <a class="nav-link" href="/replyReport">
+                        <i class="fa fa-fw fa-envelope-open"></i>
+                        <span class="nav-link-text">댓글 신고 내역 </span>
+                    </a>
+                </li>
             </ul>
+            
+            <!-- ----------------------------------------------------------------------------------- -->
+
             <ul class="navbar-nav sidenav-toggler">
                 <li class="nav-item">
                     <a class="nav-link text-center" id="sidenavToggler">
@@ -212,23 +355,67 @@
             <div class="instaHeader">
                 <div class="picture">
                     <div class="profilePicture">
-                            + 
+                        ${profile.filePath} , ${profile.fileName}
+                        <img src="" alt="">
+                        <form action="" method="post">
+                            <!-- 히든으로 감춰서 보낼수있다 -->
+                            <input type="hidden" name="qwe" value="123">
+                        </form>
                     </div>
                 </div>
                 <div class="profileContent">
                     <h2 class="userId">${loginUser.email} 계정 이메일</h2>
                     <div class="myInfo">
                         <div class="boardCnt">게시물수 ? </div>
-                        <div class="follow">내가 한거</div>
-                        <div class="follow">나한테 팔로우 건사람 </div>
+                        <div class="followYou">내가 한거</div>
+                        <div class="followMe">나한테 팔로우 건사람 </div>
                     </div>
-                    
+                </div>
+            </div>
+            <div id="hoverWrapper">
+                <div class="hoverMenu">
+                    <div class="myReview">내 리뷰 보기 </div>
+                    <div class="favoriteList">즐겨찾기 사진 모음집</div>
                 </div>
             </div>
 
-            <div class="instaMiddle">
-                여기에 사진을 올릴거야 
-
+            <div class="reviewPictureWrapper">
+                <div class="reviewPictureBox">
+                    <c:forEach var="reviewInfo" items="${reviewInfo}">
+                        <div class="reviewBox item1">
+                            <div class="reviewPicture picBox">
+                               파일경로 : ${reviewInfo.filePath}
+                                파일이름 : ${reviewInfo.fileName}
+                                <img src="" alt="">
+                            </div>
+                            <div class="title">${reviewInfo.title}</div>
+                            <div class="content">${reviewInfo.content}</div>
+                        </div>
+                    </c:forEach>
+                    <!-- <div class="reviewBox item2">
+                        <div class="reviewPicture picBox">
+                            여기에 사진을 올릴거야
+                        </div>
+                        <div class="title">+ 타이틀 </div>
+                        <div class="content">+콘텐트 </div>
+                    </div>
+                    <div class="reviewBox item3">
+                        <div class="reviewPicture picBox">
+                            여기에 사진을 올릴거야
+                        </div>
+                        <div class="title">+ 타이틀 </div>
+                        <div class="content">+콘텐트 </div>
+                    </div>
+                    <div class="reviewBox item4">
+                        <div class="reviewPicture picBox">
+                            여기에 사진을 올릴거야
+                        </div>
+                        <div class="title">+ 타이틀 </div>
+                        <div class="content">+콘텐트 </div>
+                    </div>
+                     -->
+                    
+                </div>
             </div>
 
 
@@ -263,38 +450,7 @@
     <script src="/mypage/vendor/dropzone.min.js"></script>
 
 
-    <!-- 게시글 상세보기 관련 script -->
-    <script>
-        // <div class="btnbox">
-        //     <button type="button" class="btn successModify btn-success">수정 완료 </button>
-        //     <button type="button" class="btn return btn-primary">되돌아 가기</button>
-        // </div>
 
-        const $successModiBtn = document.querySelector('.successModify');
-        const $returnBtn = document.querySelector('.return');
-        const $modiForm = document.querySelector('.modiForm');
-
-        if ($successModiBtn !== null) {
-            //수정버튼
-            $successModiBtn.onclick = e => {
-                console.log("수정완료버튼 눌렀다 ! / 수정되서 다시 내 프로필로 돌아가는거임 ");
-                // 클릭까지는 됨 서브밋이 안됨 
-                $modiForm.submit();
-
-                // location.href = '/modifyMember';
-            };
-        }
-
-        if ($returnBtn !== null) {
-            // 되돌아가기!! 
-
-            $returnBtn.onclick = e => {
-                console.log("되돌이가기 , 수정안하고 그냥 뒤로가는기능 ");
-
-                location.href = '/myPage-profile';
-            };
-        }
-    </script>
 </body>
 
 </html>

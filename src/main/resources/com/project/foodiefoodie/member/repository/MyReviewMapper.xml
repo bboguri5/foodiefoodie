@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.foodiefoodie.member.repository.MyReviewMapper">
+
+    <resultMap id="reviewTitle" type="com.project.foodiefoodie.member.dto.MyReviewTitleDTO">
+        <result column="review_bno" property="reviewBno" />
+    </resultMap>
+
+    <resultMap id="reviewPath" type="com.project.foodiefoodie.member.dto.MyReviewPathDTO">
+        <result column="file_path" property="filePath" />
+        <result column="file_name" property="fileName" />
+    </resultMap>
+
+    <resultMap id="profilePath" type="com.project.foodiefoodie.member.dto.ProfileDTO">
+        <result column="file_path" property="filePath" />
+        <result column="file_name" property="fileName" />
+    </resultMap>
+
+<!--    <resultMap id="reviewDTO" type="com.project.foodiefoodie.member.dto.MyReviewDTO">-->
+<!--        <result column="file_path" property="filePath" />-->
+<!--        <result column="file_name" property="fileName" />-->
+<!--    </resultMap>-->
+
+    <select id="reviewTitle" resultMap="reviewTitle">
+        SELECT title,content,review_bno
+        FROM review_board
+        WHERE email = #{email}
+    </select>
+
+    <select id="reviewPath"  resultMap="reviewPath">
+        select  file_path , file_name
+        from review_upload
+        where review_bno = #{reviewBno}
+    </select>
+
+
+<!--    profilePicture-->
+
+    <select id="profilePicture" resultMap="profilePath">
+        SELECT * FROM profile_upload
+        where email = #{email}
+    </select>
+
+    <delete id="deleteProfile">
+        delete from profile_upload
+        where email = #{email}
+    </delete>
+
+    <select id="countProfile" resultType="int">
+        select count(*) from profile_upload
+        where email = #{email}
+    </select>
+
+    <insert id="insertProfile">
+        INSERT INTO profile_upload
+        VALUES(#{email} , #{filePath} , #{fileName})
+    </insert>
+
+
+
+</mapper>
+
+

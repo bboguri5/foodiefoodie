@@ -53,13 +53,16 @@
 
 <body class="fixed-nav sticky-footer" id="page-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-        <a class="navbar-brand" href="index.html"><img src="/mypage/img/logo.svg" alt="" width="142" height="36"></a>
+        <a class="navbar-brand" href="/"><img src="/mypage/img/logo.svg" alt="" width="142" height="36"></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
             aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
+            
+            <!-- ---------------------------------------------------------------------- -->
+
             <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
                     <a class="nav-link" href="/myPage-profile">
@@ -84,19 +87,26 @@
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
                     <a class="nav-link" href="messages.html">
                         <i class="fa fa-fw fa-envelope-open"></i>
-                        <span class="nav-link-text">Messages 내가 먹은 내역 </span>
+                        <span class="nav-link-text"> 결제 내역 </span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                    <a class="nav-link" href="messages.html">
+                    <a class="nav-link" href="/reviewReport">
                         <i class="fa fa-fw fa-envelope-open"></i>
-                        <span class="nav-link-text">Messages 신고기능 </span>
+                        <span class="nav-link-text"> 게시글 신고 내역 </span>
                     </a>
                 </li>
-
-
-                <!--  옆에 메뉴 끝 라인   -->
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
+                    <a class="nav-link" href="/replyReport">
+                        <i class="fa fa-fw fa-envelope-open"></i>
+                        <span class="nav-link-text">댓글 신고 내역 </span>
+                    </a>
+                </li>
             </ul>
+
+              <!-- ---------------------------------------------------------------------- -->
+
+            
             <ul class="navbar-nav sidenav-toggler">
                 <li class="nav-item">
                     <a class="nav-link text-center" id="sidenavToggler">

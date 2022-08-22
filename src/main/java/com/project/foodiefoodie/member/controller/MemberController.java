@@ -143,12 +143,12 @@ public class MemberController {
         return "redirect:/myPage-profile";
     }
 
-    // 비밀번호 수정 하는 페이지
-    @GetMapping("/myReview")
-    public String getChangePassword(){
-
-        return "/myPage/myPage-myReview";
-    }
+//
+//    @GetMapping("/myReview")
+//    public String getChangePassword(){
+//
+//        return "/myPage/myPage-myReview";
+//    }
 //
 //    @PostMapping("/changePassword")
 //    public String postChangePassword(String word){

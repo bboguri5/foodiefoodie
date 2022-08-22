@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.foodiefoodie.myPage.repository.MyPageMapper">
+    <!--맵퍼 경로 맞음    -->
+
+    <resultMap id="reviewReportMap" type="com.project.foodiefoodie.myPage.dto.ReviewReportDTO">
+        <result column="re_faq_no" property="reFaqNo" />
+        <result column="review_bno" property="reviewBno" />
+        <result column="writer_email" property="writerEmail" />
+        <result column="review_writer_email" property="reviewWriterEmail" />
+    </resultMap>
+
+    <resultMap id="replyReportMap" type="com.project.foodiefoodie.myPage.dto.ReplyReportDTO">
+        <result column="reply_faq_no" property="replyFaqNo"/>
+        <result column="reply_no" property="replyNo"/>
+        <result column="writer_email" property="writerEmail"/>
+        <result column="reply_faq_content" property="replyFaqContent"/>
+        <result column="reply_writer_email" property="replyWriterEmail"/>
+    </resultMap>
+
+
+    <select id="reviewReportDTOList" resultMap="reviewReportMap">
+        SELECT re_faq_no, review_bno, writer_email, content
+        FROM review_faq
+        WHERE review_writer_email = #{reviewWriteEmail}
+        AND faq_complete = 't'
+    </select>
+
+    <select id="replyReportDTOList"  resultMap="replyReportMap">
+        select reply_faq_no, reply_no, writer_email, reply_faq_content
+        from reply_faq
+        where reply_writer_email = #{replyWriterEmail}
+        and faq_complete = 't'
+    </select>
+
+
+
+
+
+
+</mapper>
+
+

@@ -8,6 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class FavoriteListDTO {
+    // 즐겨찾기 사진 안들어간 버전
 
     private String storeName;
     private String storeAddress;

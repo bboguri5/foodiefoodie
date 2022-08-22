@@ -138,16 +138,23 @@
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
                     <a class="nav-link" href="messages.html">
                         <i class="fa fa-fw fa-envelope-open"></i>
-                        <span class="nav-link-text">Messages 내가 먹은 내역 </span>
+                        <span class="nav-link-text"> 결제 내역 </span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                    <a class="nav-link" href="messages.html">
+                    <a class="nav-link" href="/reviewReport">
                         <i class="fa fa-fw fa-envelope-open"></i>
-                        <span class="nav-link-text">Messages 신고기능 </span>
+                        <span class="nav-link-text"> 게시글 신고 내역 </span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
+                    <a class="nav-link" href="/replyReport">
+                        <i class="fa fa-fw fa-envelope-open"></i>
+                        <span class="nav-link-text">댓글 신고 내역 </span>
                     </a>
                 </li>
             </ul>
+
             <!-- 옆라인 끝 ================================================================== -->
 
             <!--  옆에 메뉴 끝 라인   -->
@@ -321,7 +328,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>address 주소</label>
-                                    <input type="text" class="form-control" placeholder="${member.address}" readonly>
+                                    <input type="text" class="form-control" placeholder="${member.address} ${member.extraAddress} ${member.detailAddress} " readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">

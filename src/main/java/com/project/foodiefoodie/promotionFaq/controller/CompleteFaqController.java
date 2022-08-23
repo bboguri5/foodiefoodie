@@ -27,6 +27,8 @@ public class CompleteFaqController {
     public String completeFaqList(Model model) {
 
         log.info("/admin/completeFaq GET! - ");
+
+
         String T = "T";
         List<PromotionFaq> promotionFaqList = profs.findAllService(T);
         List<ReviewFaq> reviewFaqList = reviewfs.findAllService(T);

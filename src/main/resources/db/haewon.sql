@@ -160,13 +160,14 @@ insert into master (business_no, email, master_name, store_name, store_address, 
 VALUES('1234-2222-3333-1122', 'abc1234@naver.com', '재밌어', '맛있는 금천구 냠냠9', '서울 금천구 가산동', 'Y', '010-2222-3333');
 insert into master (business_no, email, master_name, store_name, store_address, hot_deal, store_call_number)
 VALUES('1234-2222-3333-1123', 'abc1234@naver.com', '헤헤헤', '맛있는 은평구 냠냠9', '서울 은평구 진관동', 'Y', '010-2222-3333');
-
+insert into master (business_no, email, master_name, store_name, store_address, store_call_number)
+VALUES('1234-2222-3333-1124', 'abc1234@naver.com', '대구임', '맛있는 대구야 냠냠1', '대구 동구', '010-2222-3333');
 commit;
 
 ------------------------------ promotion board -----------------------------------
 -- 홍보글
 
-CREATE TABLE promotion_board (
+    CREATE TABLE promotion_board (
     business_no VARCHAR2(50) NOT NULL
     , promotion_bno NUMBER(10) PRIMARY KEY
     , hashTag varchar2(200) not null
@@ -226,6 +227,8 @@ INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title
 VALUES ('1234-2222-3333-1122', seq_promotion_board.nextval, '한식 족발 금천구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
 INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
 VALUES ('1234-2222-3333-1123', seq_promotion_board.nextval, '한식 족발 은평구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
+INSERT INTO promotion_board (business_no, promotion_bno, hashTag, content, title, file_path)
+VALUES ('1234-2222-3333-1124', seq_promotion_board.nextval, '한식 족발 동구 맛집', '내용입니다요오오오오', '제목이구요오오오', 'img/main_background.jpg');
 
 commit;
 
@@ -401,6 +404,8 @@ CREATE TABLE reply (
     , CONSTRAINT fk_rep_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
 );
+
+INSERT INTO reply VALUES ('3', seq_reply.nextval, 'bbbb2222@naver.com', '댓글 마니 달자아앙', 'Haewon', SYSDATE);
 
 ------------------------------ review like -----------------------------------
 -- 리뷰 좋아요(추천)

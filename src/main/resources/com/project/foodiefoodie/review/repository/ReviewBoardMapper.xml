@@ -8,11 +8,25 @@
     <resultMap id="rbMap" type="com.project.foodiefoodie.review.domain.ReviewBoard">
         <result property="businessNo" column="business_no"/>
         <result property="reviewBno" column="review_bno"/>
-        <result property="lastUpdate" column="last_update"/>
+        <result property="lastUpdated" column="last_updated"/>
         <result property="likeCnt" column="like_cnt"/>
         <result property="starRate" column="star_rate"/>
         <result property="isPrivate" column="private"/>
     </resultMap>
+
+    <resultMap id="rbDTOMap" type="com.project.foodiefoodie.review.dto.ReviewBoardDTO">
+        <result property="reviewBno" column="review_bno"/>
+        <result property="lastUpdated" column="last_updated"/>
+        <result property="likeCnt" column="like_cnt"/>
+        <result property="starRate" column="star_rate"/>
+    </resultMap>
+
+    <resultMap id="ruMap" type="com.project.foodiefoodie.review.domain.ReviewUpload">
+        <result property="reviewBno" column="review_bno"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileName" column="file_name"/>
+    </resultMap>
+
 
     <insert id="save">
         INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate)
@@ -32,4 +46,41 @@
         FROM review_board
         WHERE business_no=#{businessNo}
     </select>
+
+    <select id="findAllReviews" resultMap="rbDTOMap">
+        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt
+        FROM review_board
+        WHERE private = 'F'
+        ORDER BY last_updated DESC
+    </select>
+
+    <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
+        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt
+        FROM review_board
+        WHERE review_bno = #{reviewBno}
+    </select>
+
+    <select id="reviewUpload" resultMap="ruMap">
+        INSERT INTO review_upload
+        VALUES (#{reviewBno}, #{filePath}, #{fileName})
+    </select>
+
+    <select id="findReviewUploads" resultMap="ruMap">
+        SELECT review_bno, file_path
+        FROM review_upload
+        WHERE review_bno = #{reviewBno}
+    </select>
+
+    <update id="upLike">
+        UPDATE review_board
+        SET like_cnt = (SELECT like_cnt FROM review_board WHERE review_bno = #{reviewBno}) + 1
+        WHERE review_bno = #{reviewBno}
+    </update>
+
+    <select id="getLike" resultType="int">
+        SELECT like_cnt
+        FROM review_board
+        WHERE review_bno = #{reviewBno}
+    </select>
+
 </mapper>

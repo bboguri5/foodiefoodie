@@ -8,10 +8,6 @@
   -->
 <mapper namespace="com.project.foodiefoodie.premiume.repository.PremiumeMapper">
 
-<!--    List<Premiume> premiumeList();-->
-<!--    boolean save(Premiume premiume);-->
-<!--    boolean remove(long promotionBno);-->
-<!--    boolean modify(Premiume premiume);-->
 
     <resultMap id="premiumeMap" type="com.project.foodiefoodie.premiume.domain.Premiume">
         <result property="promotionBno" column="promotion_bno"/>
@@ -19,8 +15,15 @@
         <result property="endDate" column="end_date"/>
     </resultMap>
 
+    <resultMap id="premiumeDTO" type="com.project.foodiefoodie.premiume.dto.PremiumeDTO">
+        <result property="promotionBno" column="promotion_bno"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+    </resultMap>
+
     <select id="findAll" resultMap="premiumeMap">
         SELECT * FROM premiume_promotion_board
+        WHERE complete = #{complete}
     </select>
 
     <insert id="save">
@@ -33,8 +36,19 @@
     </delete>
 
     <update id="modify">
-        UPDATE premiume_promotion_board SET start_date = #{startDate} , end_date = #{endDate}
+        UPDATE premiume_promotion_board SET start_date = #{startDate} , end_date = #{endDate}, complete = #{complete}
         WHERE promotion_bno = #{promotionBno}
     </update>
+
+    <select id="findAllAndTitle" resultMap="premiumeDTO">
+        SELECT
+        a.promotion_bno, a.start_date, a.end_date
+        , a.complete, b.title
+        FROM premiume_promotion_board a
+        JOIN promotion_board b
+        ON a.promotion_bno = b.promotion_bno
+        WHERE a.complete = #{complete}
+
+    </select>
 
 </mapper>

@@ -13,26 +13,25 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BlackListService {
 
-//    List<BlackList> findAll();
-//    BlackList findOne(String email);
-//    boolean save(String email);
-//    boolean remove(String email);
-
 
     private final BlackListMapper mapper;
 
+    // 일반회원 블랙리스트
     public List<BlackList> findAllService() {
         return mapper.findAll();
     }
 
+    // 이메일로 단일 객체 조회
     public BlackList findOneService(String email) {
         return mapper.findOne(email);
     }
 
+    // 일반회원 블랙리스트 등록
     public boolean saveService(String email) {
         return mapper.save(email);
     }
 
+    // 일반회원 블랙리스트 삭제
     public boolean removeService(String email) {
         return mapper.remove(email);
     }

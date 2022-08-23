@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.promotionFaq.repository;
 
 import com.project.foodiefoodie.promotionFaq.domain.PromotionFaq;
+import com.project.foodiefoodie.promotionFaq.dto.PromotionFaqDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,14 @@ class PromotionFaqMapperTest {
         boolean flag = mapper.update(22, "T");
         assertTrue(flag);
     }
+
+    @Test
+    void findAllTitle() {
+        List<PromotionFaqDTO> f = mapper.findAllAndTitle("F");
+        for (PromotionFaqDTO promotionFaqDTO : f) {
+            System.out.println(promotionFaqDTO);
+        }
+    }
+
 
 }

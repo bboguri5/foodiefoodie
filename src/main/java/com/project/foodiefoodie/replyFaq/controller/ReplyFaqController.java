@@ -1,8 +1,10 @@
 package com.project.foodiefoodie.replyFaq.controller;
 
 import com.project.foodiefoodie.blackList.service.BlackListService;
+import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.replyFaq.domain.ReplyFaq;
+import com.project.foodiefoodie.replyFaq.dto.ReplyFaqDTO;
 import com.project.foodiefoodie.replyFaq.service.ReplyFaqService;
 import com.project.foodiefoodie.reportMember.domain.ReportMember;
 import com.project.foodiefoodie.reportMember.service.ReportMemberService;
@@ -34,10 +36,11 @@ public class ReplyFaqController {
 
         log.info("/admin/replyFaq GET! - ");
         String F = "F";
-        List<ReplyFaq> replyFaqList = rfs.findAllService(F);
+        List<ReplyFaqDTO> replyFaqDTOList = rfs.findAllReplyService(F);
 
-        model.addAttribute("replyFaqList", replyFaqList);
-        log.info("replyFaqList - {}", replyFaqList);
+        model.addAttribute("replyFaqList", replyFaqDTOList);
+        log.info("replyFaqList - {}", replyFaqDTOList);
+
 
 
         return "admin/replyFaq";
@@ -63,6 +66,10 @@ public class ReplyFaqController {
                 // 목록에 추가
                 rms.saveService(replyFaq.getReplyWriterEmail());
             } else { // 목록에 있을 때
+                if (reportMember.getReportCnt() >= 5) {
+                    return "redirect:/admin/replyFaq";
+                }
+
                 // 카운트 + 1
                 int newReportCnt = reportMember.getReportCnt() + 1;
                 reportMember.setReportCnt(newReportCnt);

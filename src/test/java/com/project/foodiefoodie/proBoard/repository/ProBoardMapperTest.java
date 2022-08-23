@@ -45,6 +45,7 @@ class ProBoardMapperTest {
 //
 //        System.out.println(storeTime);
 //        proMapper.saveProBoardStoreTime(storeTime);
+
 //    }
 
     @Test

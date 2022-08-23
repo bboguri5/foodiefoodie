@@ -12,7 +12,7 @@
         <result property="reviewBno" column="review_bno"/>
         <result property="replyNo" column="reply_no"/>
         <result property="nickName" column="nick_name"/>
-        <result property="lastUpdate" column="last_update"/>
+        <result property="lastUpdated" column="last_updated"/>
     </resultMap>
 
     <delete id="remove">
@@ -20,5 +20,25 @@
         WHERE reply_no = #{replyNo}
     </delete>
 
+    <select id="findAllReplies" resultMap="replyMap">
+        SELECT *
+        FROM reply
+        WHERE review_bno = #{reviewBno}
+    </select>
+
+    <select id="findAll" resultMap="replyMap">
+        SELECT * FROM reply
+    </select>
+
+    <select id="findOne" resultMap="replyMap">
+        SELECT * FROM reply
+        WHERE reply_no = #{replyNo}
+    </select>
+
+    <select id="findReplyCount" resultType="int">
+        SELECT COUNT(*)
+        FROM reply
+        WHERE review_bno = #{reviewBno}
+    </select>
 
 </mapper>

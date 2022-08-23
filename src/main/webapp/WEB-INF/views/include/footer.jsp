@@ -128,6 +128,9 @@
             <input type="email" class="form-control" name="email" id="login-email">
             <i class="icon_mail_alt"></i>
         </div>
+        <div class="clearfix add_bottom_15">
+            <div class="float-end"><a id="forgot-email" href="javascript:void(0);">Forgot Email?</a></div>
+        </div>
         <div class="form-group">
             <label>password</label>
             <input type="password" class="form-control" name="password" id="login-pw">
@@ -140,22 +143,22 @@
                     <span class="checkmark"></span>
                 </label>
             </div>
-            <div class="float-end"><a id="forgot" href="javascript:void(0);">Forgot Password?</a></div>
+            <div class="float-end"><a id="forgot-pw" href="javascript:void(0);">Forgot Password?</a></div>
         </div>
         <div class="text-center">
             <input type="button" value="Log In" class="btn_1 full-width mb_5" id="login-btn">
             Don’t have an email? <a href="/register">Sign up</a>
         </div>
-        <div id="forgot_pw">
+        <!-- <div id="forgot_pw">
             <div class="form-group">
                 <label>Please confirm login email below</label>
-                <input type="email" class="form-control" name="email_forgot" id="email_forgot">
+                <input type="button" class="form-control" name="email_forgot" id="email-forgot">
                 <i class="icon_mail_alt"></i>
             </div>
             <p>You will receive an email containing a link allowing you to reset your password to a new preferred
                 one.</p>
-            <div class="text-center"><input type="submit" value="Reset Password" class="btn_1"></div>
-        </div>
+            <div class="text-center"><input type="button" value="Reset Password" class="btn_1" id="reset-pw"></div>
+        </div> -->
     </div>
     <!--form -->
 </div>
@@ -174,6 +177,8 @@
 <script src="/js/main_map_scripts.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
 
+
+<!-- 로그인 요청 로직 처리 -->
 <script>
     // 로그인시 로직 처리
     function login() {
@@ -234,4 +239,44 @@
         login();
 
     })();
+</script>
+
+
+<!-- 이메일, 비번 찾기 로직 처리 -->
+<script>
+
+    // 이메일 찾기 로직
+    function findEmail() {
+
+        const $findEmailBtn = document.getElementById('forgot-email');
+
+        $findEmailBtn.onclick = e => {
+            location.href = '/find-email';
+        }
+
+    }
+
+
+    // 비번 찾기 로직
+    function findPW() {
+
+        const $findPwBtn = document.getElementById('forgot-pw');
+
+
+        $findPwBtn.onclick = e => {
+            location.href = '/find-pw';
+        }
+
+    }
+
+
+
+    // 실행부
+    (function () {
+
+        findEmail();
+        findPW();
+
+    }) ();
+
 </script>

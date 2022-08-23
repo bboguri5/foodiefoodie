@@ -1,6 +1,10 @@
 package com.project.foodiefoodie.member.service;
 
+import com.project.foodiefoodie.common.api.mail.service.EmailServiceImpl;
 import com.project.foodiefoodie.member.domain.Member;
+import com.project.foodiefoodie.member.dto.ModifyDTO;
+import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
+import com.project.foodiefoodie.member.dto.find.FindPwDTO;
 import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DeleteMemberDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
@@ -25,6 +29,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberMapper memberMapper;
+    private final EmailServiceImpl emailService;
 
     private final BCryptPasswordEncoder encoder;
 
@@ -82,8 +87,11 @@ public class MemberService {
 
 
     // 회원 수정 중간처리 (만들어야 함)
-    public boolean modifyMemberService() {
-        return false;
+    public boolean modifyMemberService(ModifyDTO modifyDTO ) {
+        log.info("go mapper modi {}", modifyDTO);
+        modifyDTO.setEmail(modifyDTO.getEmail().trim());
+        boolean b = memberMapper.modifyMember(modifyDTO);
+        return b;
     }
 
 
@@ -173,25 +181,69 @@ public class MemberService {
         }
     }
 
+    // 전체 조회
     public List<Member> findAllService() {
         List<Member> memberList = memberMapper.findAll();
         return memberList;
     }
 
+    // 일반회원만 조회
     public List<Member> findCommonService() {
         List<Member> memberList = memberMapper.findCommon();
         return memberList;
     }
 
-
+    // 일반회원 단일 객체 조회
     public Member findOneCommonService(String email) {
         Member member = memberMapper.findOneCommon(email);
         return member;
     }
-
+    // 회원 탈퇴
     public boolean removeService(String email) {
         boolean flag = memberMapper.remove(email);
         return flag;
     }
 
+
+    // 비밀번호 검증 메서드
+    public boolean findPasswordService(String email ,String password){ // 정상작동함
+        String dbPassword = memberMapper.findPassword(email);
+        if(encoder.matches(password ,dbPassword)){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
+
+
+    // 계정(이메일) 찾기
+    public String findEmail(FindEmailDTO dto) {
+        String foundEmail = memberMapper.findEmail(dto);
+        return foundEmail;
+    }
+
+
+
+    // 비번 변경용 회원 존재 유무 찾기
+    public String findPw(FindPwDTO dto) throws Exception {
+
+        if (memberMapper.findPw(dto) == 1) {
+            // 이메일 보내는 로직이 수행되어야 함.
+            String email = dto.getEmail();
+            String authCode = emailService.sendAuthCodeEmail(email);
+
+            return authCode;
+        }
+
+        return null;
+    }
+
+    public boolean changePw(String email, String pw) {
+
+        String encodedPw = encoder.encode(pw);
+
+        return memberMapper.changePw(email, encodedPw);
+    }
 }

@@ -5,6 +5,7 @@ import com.project.foodiefoodie.blackList.service.BlackListService;
 import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import com.project.foodiefoodie.promotion.service.PromotionService;
 import com.project.foodiefoodie.promotionFaq.domain.PromotionFaq;
+import com.project.foodiefoodie.promotionFaq.dto.PromotionFaqDTO;
 import com.project.foodiefoodie.promotionFaq.service.PromotionFaqService;
 import com.project.foodiefoodie.reportMember.domain.ReportMaster;
 import com.project.foodiefoodie.reportMember.service.ReportMasterService;
@@ -36,9 +37,9 @@ public class PromotionFaqController {
 
         String F = "F";
         log.info("/admin/promotionFaq GET! - ");
-        List<PromotionFaq> promotionFaqList = pros.findAllService(F);
-        model.addAttribute("proFaqList", promotionFaqList);
-        log.info("promotionFaqList - {}", promotionFaqList);
+        List<PromotionFaqDTO> promotionFaqDTOList = pros.findAllAndTitleService(F);
+        model.addAttribute("proFaqList", promotionFaqDTOList);
+        log.info("promotionFaqList - {}", promotionFaqDTOList);
         return "admin/promotionFaq";
     }
 
@@ -60,6 +61,9 @@ public class PromotionFaqController {
                 // 목록에 추가
                 rms.saveService(promotionFaq.getBusinessNo());
             } else { // 목록에 있을 때
+                if (reportMaster.getReportCnt() >= 5) {
+                    return "redirect:/admin/promotionFaq";
+                }
                 // 카운트 + 1
                 int newReportCnt = reportMaster.getReportCnt() + 1;
                 reportMaster.setReportCnt(newReportCnt);

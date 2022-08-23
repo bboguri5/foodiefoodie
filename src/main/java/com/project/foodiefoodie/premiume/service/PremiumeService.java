@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.premiume.service;
 
 import com.project.foodiefoodie.premiume.domain.Premiume;
+import com.project.foodiefoodie.premiume.dto.PremiumeDTO;
 import com.project.foodiefoodie.premiume.repository.PremiumeMapper;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -14,16 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PremiumeService {
 
-//    List<Premiume> findAll();
-//    boolean save(Premiume premiume);
-//    boolean remove(long promotionBno);
-//    boolean modify(Premiume premiume);
-
 
     private final PremiumeMapper mapper;
 
-    public List<Premiume> findAllService() {
-        List<Premiume> premiumeList = mapper.findAll();
+    public List<Premiume> findAllService(String complete) {
+        List<Premiume> premiumeList = mapper.findAll(complete);
         return premiumeList;
     }
 
@@ -40,6 +36,10 @@ public class PremiumeService {
     public boolean modifyService(Premiume premiume) {
         boolean flag = mapper.modify(premiume);
         return flag;
+    }
+
+    public List<PremiumeDTO> findAllAndTitleService(String complete) {
+        return mapper.findAllAndTitle(complete);
     }
 
 }

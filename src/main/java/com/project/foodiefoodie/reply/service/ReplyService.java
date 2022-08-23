@@ -31,4 +31,8 @@ public class ReplyService {
     public Reply findOneService(long replyNo) {
         return mapper.findOne(replyNo);
     }
+
+    public int findReplyCountService(long reviewBno) {
+        return mapper.findReplyCount(reviewBno);
+    }
 }

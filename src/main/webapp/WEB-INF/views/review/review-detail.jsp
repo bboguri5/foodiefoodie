@@ -24,6 +24,12 @@
     <!-- YOUR CUSTOM CSS -->
     <link href="/css/custom.css" rel="stylesheet">
 
+    <style>
+        .col-lg-9 {
+            margin: auto;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -64,28 +70,16 @@
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage"
                                         style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2488px;">
-                                        <div class="owl-item active" style="width: 829.325px;">
-                                            <div class="item">
-                                                <a href="/img/location_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img src="/img/detail_1.jpg" alt=""></a>
+                                        <c:forEach var="uploads" items="${uploads}">
+                                            <div class="owl-item active" style="width: 829.325px;">
+                                                <div class="item">
+                                                    <a href="${uploads.filePath}" title="Photo title"
+                                                        data-effect="mfp-zoom-in"><img
+                                                            src="${uploads.filePath}"
+                                                            alt=""></a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="owl-item" style="width: 829.325px;">
-                                            <div class="item">
-                                                <a href="/img/location_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/lazy-placeholder-detail.png"
-                                                        data-src="/img/detail_2.jpg" class="owl-lazy" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <div class="owl-item" style="width: 829.325px;">
-                                            <div class="item">
-                                                <a href="/img/location_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/lazy-placeholder-detail.png"
-                                                        data-src="/img/detail_3.jpg" class="owl-lazy" alt=""></a>
-                                            </div>
-                                        </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <div class="owl-nav disabled"><button type="button" role="presentation"
@@ -102,32 +96,17 @@
                         <h1>${review.title}</h1>
                         <div class="postmeta">
                             <ul>
-                                <li><a href="#"><i class="icon_folder-alt"></i> Category</a></li>
+                                <!-- <li><a href="#"><i class="icon_folder-alt"></i> Category</a></li> -->
                                 <li><i class="icon_calendar"></i> ${review.lastUpdated}</li>
                                 <li><a href="#"><i class="icon_pencil-edit"></i> ${review.email}</a></li>
-                                <li><a href="#"><i class="icon_comment_alt"></i> (14) Comments</a></li>
+                                <li><a href="#"><i class="icon_comment_alt"></i> (${replyCount}) Comments</a></li>
+                                <li><a href="#"><i id="${rl.reviewBno}" class="icon_heart_alt"></i><span id="heart">${review.likeCnt}</span></a></li>
+
+												
                             </ul>
                         </div>
                         <!-- /post meta -->
                         <div class="post-content">
-                            <div class="dropcaps">
-                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
-                                    piece of classical Latin literature from 45 BC, making it over 2000 years old.
-                                    Richard
-                                    McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one
-                                    of
-                                    the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going
-                                    through
-                                    the cites of the word in classical literature, discovered the undoubtable source.
-                                    Lorem
-                                    Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum"
-                                    (The
-                                    Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on
-                                    the
-                                    theory of ethics, very popular during the Renaissance. The first line of Lorem
-                                    Ipsum,
-                                    "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                            </div>
 
                             <p>${review.content}</p>
                         </div>
@@ -266,66 +245,6 @@
 
                 </div>
                 <!-- /col -->
-
-                <aside class="col-lg-3">
-                    <div class="widget">
-                        <div class="widget-title first">
-                            <h4>Latest Post</h4>
-                        </div>
-                        <ul class="comments-list">
-                            <li>
-                                <div class="alignleft">
-                                    <a href="#0"><img src="/img/blog-5.jpg" alt=""></a>
-                                </div>
-                                <small>Category - 11.08.2016</small>
-                                <h3><a href="#" title="">Verear qualisque ex minimum...</a></h3>
-                            </li>
-                            <li>
-                                <div class="alignleft">
-                                    <a href="#0"><img src="/img/blog-6.jpg" alt=""></a>
-                                </div>
-                                <small>Category - 11.08.2016</small>
-                                <h3><a href="#" title="">Verear qualisque ex minimum...</a></h3>
-                            </li>
-                            <li>
-                                <div class="alignleft">
-                                    <a href="#0"><img src="/img/blog-4.jpg" alt=""></a>
-                                </div>
-                                <small>Category - 11.08.2016</small>
-                                <h3><a href="#" title="">Verear qualisque ex minimum...</a></h3>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /widget -->
-                    <div class="widget">
-                        <div class="widget-title">
-                            <h4>Categories</h4>
-                        </div>
-                        <ul class="cats">
-                            <li><a href="#">Food <span>(12)</span></a></li>
-                            <li><a href="#">Places to visit <span>(21)</span></a></li>
-                            <li><a href="#">New Places <span>(44)</span></a></li>
-                            <li><a href="#">Suggestions and guides <span>(31)</span></a></li>
-                        </ul>
-                    </div>
-                    <!-- /widget -->
-                    <div class="widget">
-                        <div class="widget-title">
-                            <h4>Popular Tags</h4>
-                        </div>
-                        <div class="tags">
-                            <a href="#">Food</a>
-                            <a href="#">Bars</a>
-                            <a href="#">Cooktails</a>
-                            <a href="#">Shops</a>
-                            <a href="#">Best Offers</a>
-                            <a href="#">Transports</a>
-                            <a href="#">Restaurants</a>
-                        </div>
-                    </div>
-                    <!-- /widget -->
-                </aside>
-                <!-- /aside -->
             </div>
             <!-- /row -->
         </div>

@@ -14,4 +14,6 @@ public interface ReplyMapper {
     List<Reply> findAll();
 
     Reply findOne(long replyNo);
+
+    int findReplyCount(long reviewBno);
 }

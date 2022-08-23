@@ -5,7 +5,7 @@
     <div class="container">
         <div id="logo">
             <a href="/">
-                <img src="img/foodie_logo.png" width="120" height="55" alt="">
+                <img src="/img/foodie_logo.png" width="120" height="55" alt="">
             </a>
         </div>
         <ul id="top_menu">
@@ -31,7 +31,7 @@
                     <a href="/foodlist" class="show-submenu">맛집 리스트</a>
                 </li>
                 <li class="submenu">
-                    <a href="#0" class="show-submenu">리뷰 리스트</a>
+                    <a href="/review" class="show-submenu">리뷰 리스트</a>
                 </li>
 
             </ul>

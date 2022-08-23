@@ -135,11 +135,7 @@
 				method: 'PUT',
 				headers: {
 					'content-type': 'application/json'
-				},
-				body: JSON.stringify({
-					likeCnt: $('#modReplyText').val(),
-					reviewBno: bno
-				})
+				}
 			};
 			fetch('/review/uplike?reviewBno=' + bno, reqInfo)
 				.then(res => res.text())

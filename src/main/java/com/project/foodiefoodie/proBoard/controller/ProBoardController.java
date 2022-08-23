@@ -62,8 +62,8 @@ public class ProBoardController {
         String[] menuNames = request.getParameterValues("menuName");
         String[] menuPrices = request.getParameterValues("menuPrice");
 
-        log.info("foodie/write POST!! - menuNames : {}", menuNames);
-        log.info("foodie/write POST!! - menuPrices : {}", menuPrices);
+//        log.info("foodie/write POST!! - menuNames : {}", menuNames);
+//        log.info("foodie/write POST!! - menuPrices : {}", menuPrices);
 
         List<String[]> menuList = new ArrayList<>(Arrays.asList(menuNames,menuPrices));
 

@@ -40,11 +40,11 @@
             cursor: default;
             pointer-events: none;
         }
+
         .pagination .page-item:hover a {
             background: #888 !important;
             color: #fff !important;
         }
-
     </style>
 
 </head>
@@ -54,6 +54,8 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <main>
+        <%@ include file="../include/page-header.jsp" %>
+
         <div class="page_header element_to_stick">
             <div class="container">
                 <div class="row">
@@ -116,7 +118,7 @@
                                 <li><i class="icon_calendar"></i> ${review.lastUpdated}</li>
                                 <li><a href="#"><i class="icon_pencil-edit"></i> ${review.email}</a></li>
                                 <li><a href="#"><i class="icon_comment_alt"></i> (${replyCount}) Comments</a></li>
-                                <li><a href="#"><i id="${rl.reviewBno}" class="icon_heart_alt"></i><span
+                                <li class="upCount"><a href="#"><i class="icon_heart_alt"></i><span
                                             id="heart">${review.likeCnt}</span></a></li>
 
 
@@ -143,16 +145,19 @@
 
                     <hr>
 
+                    <a name="section-comment"></a>
                     <h5>Leave a comment</h5>
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
                             <div class="form-group">
-                                <input readonly type="text" value="${loginUser.nickName}" name="name" id="name2" class="form-control" placeholder="이름">
+                                <input readonly type="text" value="${loginUser.nickName}" name="name" id="name2"
+                                    class="form-control" placeholder="이름">
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <div class="form-group">
-                                <input readonly type="text" value="${loginUser.email}" name="email" id="email2" class="form-control" placeholder="이메일">
+                                <input readonly type="text" value="${loginUser.email}" name="email" id="email2"
+                                    class="form-control" placeholder="이메일">
                             </div>
                         </div>
                     </div>
@@ -194,6 +199,9 @@
 
             // // 댓글 등록 버튼 클릭이벤트 처리
             makeReplyRegisterClickEvent();
+
+            // 좋아요 비동기로 올려주는 이벤트 처리
+            upLikeCountEvent();
 
             // // 댓글 수정 모달 오픈, 삭제 이벤트 처리
             // openModifyModalAndRemoveEvent();
@@ -299,8 +307,8 @@
             };
         }
 
-         // 댓글 등록 이벤트 처리 핸들러 등록 함수
-         function makeReplyRegisterClickEvent() {
+        // 댓글 등록 이벤트 처리 핸들러 등록 함수
+        function makeReplyRegisterClickEvent() {
             document.getElementById('replyAddBtn').onclick = makeReplyRegisterClickHandler;
         }
 
@@ -310,10 +318,9 @@
             const $contentInput = document.getElementById('comments2');
             // 서버로 전송할 데이터들
             const replyData = {
-                replyWriter: $writerInput.value,
-                replyText: $contentInput.value,
+                email: $writerInput.value,
+                content: $contentInput.value,
                 reviewBno: bno,
-                email: '${loginUser.email}',
                 nickName: '${loginUser.nickName}'
             };
             // POST요청을 위한 요청 정보 객체
@@ -332,10 +339,52 @@
                         // 댓글 입력창 리셋
                         $contentInput.value = '';
                         // 댓글 목록 재요청
-                        showReplies(document.querySelector('.pagination').dataset.fp);
+                        showReplies();
                     } else {
                         alert('댓글 등록 실패');
                     }
+                });
+        }
+
+
+        function upLikeCountEvent() {
+            const upCount = document.querySelector('.upCount');
+            upCount.onclick = e => {
+                upLikeCount();
+            };
+        }
+
+        function upLikeCount() {
+            // 서버에 수정 비동기 요청 보내기
+            // const rbno = '${review.reviewBno}';
+            const reqInfo = {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    likeCnt: document.getElementById('heart').innerHTML,
+                    reviewBno: bno
+                })
+            };
+            fetch('/review/uplike?reviewBno=' + bno, reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'up-success') {
+                        alert('upCount 성공!!');
+                        showLikes(); // 좋아요 새로불러오기
+                    } else {
+                        alert('upCount 실패!!');
+                    }
+                });
+        }
+
+        function showLikes() {
+            // const bno = e.target.id;
+            fetch('/review/getLike?reviewBno=' + bno)
+                .then(res => res.text())
+                .then(likeCnt => {
+                    document.getElementById("heart").innerHTML = likeCnt;
                 });
         }
     </script>

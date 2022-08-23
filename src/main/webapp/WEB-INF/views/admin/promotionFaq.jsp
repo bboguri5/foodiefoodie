@@ -53,7 +53,7 @@
                                                 data-content="${pf.content}" data-businessno="${pf.businessNo}">
                                                 ${pf.prFaqNo}</a>
                                         </th>
-                                        <th><a href="#">${pf.promotionBno}</a></th>
+                                        <th><a href="#">${pf.title}</a></th>
                                         <th>${pf.writerEmail}</th>
                                         <th>${pf.promotionWriterEmail}</th>
                                     </tr>
@@ -119,7 +119,7 @@
                             <input type="text" class="form-control modal-report-no" name="prFaqNo" readonly>
                         </div>
                         <div class="form-group">
-                            <label>홍보글</label>
+                            <label>홍보글 번호</label>
                             <input type="text" class="form-control modal-promotion-bno" name="promotionBno" readonly>
                         </div>
                         <div class="form-group">

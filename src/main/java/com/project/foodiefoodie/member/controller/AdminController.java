@@ -54,6 +54,18 @@ public class AdminController {
         return "redirect:/admin/member-management";
     }
 
+    // 사업자 탈퇴 처리
+    @PostMapping("/admin/remove-master")
+    public String removeMaster(String businessNo) {
+
+        log.info("/admin/remove-member POST! - {}", businessNo);
+
+        ms.removeMasterService(businessNo);
+
+        return "redirect:/admin/member-management";
+    }
+
+
     // 사업자 관리 페이지
     @GetMapping("/admin/member-master")
     public String masterList(Model model) {

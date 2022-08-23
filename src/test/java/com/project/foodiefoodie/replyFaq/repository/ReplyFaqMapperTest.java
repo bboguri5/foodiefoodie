@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.replyFaq.repository;
 
 import com.project.foodiefoodie.replyFaq.domain.ReplyFaq;
+import com.project.foodiefoodie.replyFaq.dto.ReplyFaqDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +39,12 @@ class ReplyFaqMapperTest {
         mapper.update(21, "F");
     }
 
+
+    @Test
+    void aaa() {
+        List<ReplyFaqDTO> f = mapper.findAllReply("F");
+        for (ReplyFaqDTO replyFaqDTO : f) {
+            System.out.println(replyFaqDTO);
+        }
+    }
 }

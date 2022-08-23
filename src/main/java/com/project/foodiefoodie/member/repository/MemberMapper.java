@@ -2,9 +2,13 @@ package com.project.foodiefoodie.member.repository;
 
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.AuthDTO;
+import com.project.foodiefoodie.member.dto.ModifyDTO;
+import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
+import com.project.foodiefoodie.member.dto.find.FindPwDTO;
 import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -30,7 +34,9 @@ public interface MemberMapper {
 
 
     // 회원 정보 수정 기능
-    boolean modifyMember(Member member);
+    boolean modifyMember(ModifyDTO modifyDTO);
+
+    boolean modifyPassword(String password);
 
 
     // 자동로그인 쿠키값(세션 아이디값) DB에 저장
@@ -46,4 +52,16 @@ public interface MemberMapper {
     List<Member> findCommon();
     Member findOneCommon(String email);
     boolean remove(String email);
+
+
+    String findEmail(FindEmailDTO dto);
+
+    int findPw(FindPwDTO dto);
+
+    boolean changePw(String email, String pw);
+
+
+    // 비밀번호 가져오는 메서드 // 이걸로 비밀번호만 검증할것임 // 수정할때나 , 비밀번호 바꿀때
+    String findPassword(String email);
+
 }

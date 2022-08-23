@@ -1,3 +1,4 @@
+
 -- 계정 추가 및 권한 부여
 create user teamB IDENTIFIED BY 1234;
 GRANT DBA, connect, RESOURCE TO teamB;
@@ -325,3 +326,5 @@ CREATE TABLE receipt_upload();
 commit;
 
 -----------------------------------
+-----------------------------------
+

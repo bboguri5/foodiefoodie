@@ -23,7 +23,7 @@ class ProBoardMapperTest {
 //        proBoard.setTitle("황고기");
 //        proBoard.setContent("dkdkdkdkdkdkfajslkflskjdfjskdfjsdlkfjlksdjfljsdlkfjsladkjfjslkdjfajsdfjlksdfds");
 //        mapper.save(proBoard);
-
+//
 //    }
 
     @Test

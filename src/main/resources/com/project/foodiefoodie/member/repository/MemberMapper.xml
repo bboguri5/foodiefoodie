@@ -49,6 +49,7 @@
     </insert>
 
 
+
     <delete id="deleteMember">
         DELETE FROM member
         WHERE email = #{email}
@@ -57,10 +58,19 @@
 
     <update id="modifyMember">
         UPDATE member
-        SET password = #{password}, nick_name = #{nickName}, phone_number = #{phoneNumber}, birth = #{birth}
-        , address = #{address}, name = #{name}, gender = #{gender}
+        SET nick_name = #{nickName}, phone_number = #{phoneNumber} , address = #{address}
         WHERE email = #{email}
     </update>
+
+    <!--  비밀번호 일치 불일치 하려고 만드는것   -->
+    <select id="findPassword" resultType="string">
+        SELECT password
+        FROM member
+        WHERE email = #{email}
+    </select>
+
+
+
 
 
     
@@ -107,6 +117,28 @@
         WHERE email = #{email}
     </delete>
 
+    <select id="findEmail" resultType="string">
+        SELECT email
+        FROM member
+        WHERE name = #{name}
+            AND birth = #{birth}
+            AND phone_number = #{phoneNumber}
+    </select>
+
+    <select id="findPw" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+        WHERE email = #{email}
+            AND name = #{name}
+            AND birth = #{birth}
+            AND phone_number = #{phoneNumber}
+    </select>
+
+    <update id="changePw">
+        UPDATE member
+        SET password = #{encodedPw}
+        WHERE email = #{email}
+    </update>
 </mapper>
 
 

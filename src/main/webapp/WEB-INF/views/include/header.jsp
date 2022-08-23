@@ -28,7 +28,7 @@
                         <div class="dropdown-menu">
                             <div class="dropdown-menu-content">
                                 <ul>
-                                    <li><a href="/mypage-profile"><i class="icon_cog"></i>MyPage</a></li>
+                                    <li><a href="/myPage-profile"><i class="icon_cog"></i>MyPage</a></li>
                                     <li><a href="#0"><i class="icon_document"></i>Bookings</a></li>
                                     <li><a href="#0"><i class="icon_heart"></i>Wish List</a></li>
                                     <li><a href="/sign-out"><i class="icon_key"></i>Log out</a></li>

@@ -15,6 +15,15 @@
         <result property="reviewWriterEmail" column="review_writer_email"/>
     </resultMap>
 
+    <resultMap id="reviewFaqDTO" type="com.project.foodiefoodie.reviewFaq.dto.ReviewFaqDTO">
+        <result property="reFaqNo" column="re_faq_no"/>
+        <result property="reviewBno" column="review_bno"/>
+        <result property="writerEmail" column="writer_email"/>
+        <result property="faqComplete" column="faq_complete"/>
+        <result property="reviewWriterEmail" column="review_writer_email"/>
+    </resultMap>
+
+
     <select id="findAll" resultMap="reviewFaq">
         SELECT * FROM review_faq
         WHERE faq_complete = #{complete}
@@ -30,5 +39,16 @@
         SET faq_complete = #{complete}
         WHERE re_faq_no = #{reFaqNo}
     </update>
+
+    <select id="findAllAndTitle" resultMap="reviewFaqDTO">
+        SELECT
+        a.re_faq_no, a.review_bno, a.writer_email
+        , a.content, a.faq_complete, a.review_writer_email
+        , b.title
+        FROM review_faq a
+        JOIN review_board b
+        ON a.review_bno = b.review_bno
+        WHERE a.faq_complete = #{complete}
+    </select>
 
 </mapper>

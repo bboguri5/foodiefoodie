@@ -36,6 +36,7 @@ public interface MasterMapper {
     int getMyTotalCnt(String storeAddress);
 
     // 해당 마스터만 삭제
-//    boolean removeMaster(String businessNo);
+
+    // boolean removeMaster(String businessNo);
 
 }

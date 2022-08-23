@@ -85,11 +85,11 @@
 									<p>${rl.content}
 										<ul>
 											<li>
-												<div class="thumb"><img src="img/avatar.jpg" alt=""></div>
+												<div class="thumb"><img src="/img/avatar.jpg" alt=""></div>
 												${rl.email}
 											</li>
 											<li>
-												<i id="${rl.reviewBno}" class="icon_heart_alt"></i><span id="heart">${rl.likeCnt}</span>
+												<i id="${rl.reviewBno}" class="icon_heart_alt"></i><span id="heart${rl.reviewBno}">${rl.likeCnt}</span>
 												<i id="${rl.reviewBno}"
 													class="icon_comment_alt"></i>${replyCount[status.index]}
 											</li>
@@ -118,12 +118,13 @@
 	<%@ include file="../include/footer.jsp" %>
 
 	<script>
+
 		const upCount = document.querySelector('.upCount');
 		upCount.addEventListener('click', e => {
 			if (e.target.className === 'icon_heart_alt') {
-				// location.href = '/review/uplike?reviewBno=' + event.target.id;
-				// console.log('clicked: ', e.target.className);	
 				upLikeCount(e);
+			} else if (e.target.className === 'icon_comment_alt') {
+				location.href='/review/detail?reviewBno='+ e.target.id + '#section-comment';
 			}
 		});
 
@@ -154,7 +155,7 @@
 			fetch('/review/getLike?reviewBno=' + bno)
 				.then(res => res.text())
 				.then(likeCnt => {
-					document.getElementById("heart").innerHTML = likeCnt;
+					document.getElementById("heart"+bno).innerHTML = likeCnt;
 				});
 		}
 		

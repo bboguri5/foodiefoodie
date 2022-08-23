@@ -143,6 +143,7 @@
 
                     <hr>
 
+                    <a name="section-comment"></a>
                     <h5>Leave a comment</h5>
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
@@ -376,8 +377,8 @@
                 });
         }
 
-        function showLikes(e) {
-            const bno = e.target.id;
+        function showLikes() {
+            // const bno = e.target.id;
             fetch('/review/getLike?reviewBno=' + bno)
                 .then(res => res.text())
                 .then(likeCnt => {

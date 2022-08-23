@@ -23,14 +23,17 @@ public class ReviewAPIController {
 
 
     @PutMapping("/review/uplike")
-    public String upLike(@RequestBody ReviewBoardDTO reviewBoardDTO, long reviewBno) {
-        log.info("likeCount - {}", reviewBoardDTO);
-        return "up-fail";
-//        return reviewBoardService.upLikeService(reviewBno) ? "up-success" : "up-fail";
+    public String upLike(long reviewBno) {
+//        log.info("likeCount - {}", reviewBoardDTO);
+//        return "up-fail";
+        return reviewBoardService.upLikeService(reviewBno) ? "up-success" : "up-fail";
     }
 
     @GetMapping("/review/getLike")
     public int getLike(long reviewBno) {
-        return reviewBoardService.getLikeService(reviewBno);
+        log.info("/getLike {}", reviewBno);
+        int like = reviewBoardService.getLikeService(reviewBno);
+        log.info("like: {}", like);
+        return like;
     }
 }

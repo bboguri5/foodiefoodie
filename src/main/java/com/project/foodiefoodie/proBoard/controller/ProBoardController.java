@@ -31,9 +31,21 @@ public class ProBoardController {
 
     private final ProBoardService proBoardService;
 
-    @GetMapping("/detail")
-    public String detail() {
-        log.info(" foodie/detail Get - ! ");
+    @GetMapping("/detail/{promotionBno}")
+    public String detail(Model model, @PathVariable int promotionBno) {
+        log.info(" foodie/detail Get - !  {} " , promotionBno);
+
+
+        ProBoard proBoard = proBoardService.selectOne(promotionBno);
+        Master master = proBoardService.selectMaster(proBoard.getBusinessNo());
+        StoreTimeDTO storeTimeDTO = proBoardService.selectStoreTime(promotionBno);
+
+
+
+        model.addAttribute("master",master);
+        model.addAttribute("proBoard",proBoard);
+        model.addAttribute("storeTime",storeTimeDTO);
+       log.info("{}",storeTimeDTO);
         return "promotion/pro-detail";
     }
 
@@ -62,9 +74,6 @@ public class ProBoardController {
         String[] menuNames = request.getParameterValues("menuName");
         String[] menuPrices = request.getParameterValues("menuPrice");
 
-        log.info("foodie/write POST!! - menuNames : {}", menuNames);
-        log.info("foodie/write POST!! - menuPrices : {}", menuPrices);
-
         List<String[]> menuList = new ArrayList<>(Arrays.asList(menuNames,menuPrices));
 
         Map<String,List<MultipartFile>> fileMap = new HashMap<>(){{
@@ -81,4 +90,6 @@ public class ProBoardController {
 
         return "";
     }
+
+
 }

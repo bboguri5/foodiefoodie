@@ -26,6 +26,7 @@ public interface ProBoardMapper {
 
     boolean saveProBoardTitleImg(int promotionBno, String titleFilePath, String titleFileName);
 
+    StoreTimeDTO selectStoreTime(int promotionBno);
     boolean modify(ProBoard proBoard);
 
     boolean delete(int promotionBno);

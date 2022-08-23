@@ -13,11 +13,11 @@ import java.util.Date;
 @AllArgsConstructor
 public class StoreTimeDTO {
 
-    private Integer weekdayOpenTime;
-    private Integer weekdayCloseTime;
-    private Integer weekendOpenTime;
-    private Integer weekendCloseTime;
-    private Integer breakStartTime;
-    private Integer breakEndTime;
+    private String weekdayOpenTime;
+    private String weekdayCloseTime;
+    private String weekendOpenTime;
+    private String weekendCloseTime;
+    private String breakStartTime;
+    private String breakEndTime;
     private String closedDay;
 }

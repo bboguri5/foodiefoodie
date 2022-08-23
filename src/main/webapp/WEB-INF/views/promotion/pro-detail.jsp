@@ -39,6 +39,49 @@
 
 </head>
 
+<style>
+    .container.margin_detail .col-lg-8 {
+        width: 100%;
+    }
+
+    section.detail-section {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .menu-gallery {
+        width: 50%;
+        margin-left: 25%;
+    }
+
+    .endLine {
+        margin: 20px 0 20px 0;
+        border-bottom: 1px solid rgb(204, 197, 197);
+    }
+
+
+    .update_date {
+        display: flex;
+        justify-content: end;
+    }
+
+    h2.detailInfoTitle {
+        text-align: start;
+    }
+
+    .info-detail th {
+    width: 110px;
+    font-size: .9rem;
+    color: rgba(79,79,79,0.6);
+    line-height: 1.7;
+    text-align: left;
+    vertical-align: top;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+    
+</style>
+
 <body>
     <!-- header -->
     <header class="header_in clearfix">
@@ -160,9 +203,13 @@
 
     <!-- main -->
     <main>
-        <div class="hero_in detail_page background-image" data-background="url(img/restaurant_detail_hero.jpg)">
+        <div class="hero_in detail_page background-image" data-background="url(${proBoard.filePath}${proBoard.fileName})">
+                <img src="${proBoard.filePath}${proBoard.fileName}"> 
+        <!-- <div class="hero_in detail_page background-image"
+        style="background-image: url('${proBoard.filePath}${proBoard.fileName}')"
+        data-background="url(${proBoard.filePath}${proBoard.fileName})"> -->
+            <!-- <div class="hero_in detail_page background-image" style="background-image: url('${titleImg}')"> -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-
                 <div class="container">
                     <div class="main_info">
                         <div class="row">
@@ -170,8 +217,9 @@
                                 <div class="head">
                                     <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
                                 </div>
-                                <h1>Pizzeria da Alfredo</h1>
-                                ITALIAN - 27 Old Gloucester St, 4530 - <a
+                                <h1>Pizzeria da Alfredo</h1> <!-- ${title} -->
+
+                                <!-- ${address} -->ITALIAN - 27 Old Gloucester St, 4530 - <a
                                     href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
                                     target="blank">Get directions</a>
                             </div>
@@ -198,7 +246,6 @@
         <div class="container margin_detail">
             <div class="row">
                 <div class="col-lg-8">
-
                     <div class="tabs_detail">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
@@ -206,12 +253,15 @@
                                     role="tab">Information</a>
                             </li>
                             <li class="nav-item">
-                                <a id="tab-B" href="#pane-B" class="nav-link" data-bs-toggle="tab"
+                                <a id="tab-B" href="#pane-B" class="nav-link" data-bs-toggle="tab" role="tab">menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="tab-C" href="#pane-C" class="nav-link" data-bs-toggle="tab"
                                     role="tab">Reviews</a>
                             </li>
                         </ul>
-
                         <div class="tab-content" role="tablist">
+                            <!-- tab-A -->
                             <div id="pane-A" class="card tab-pane fade show active" role="tabpanel"
                                 aria-labelledby="tab-A">
                                 <div class="card-header" role="tab" id="heading-A">
@@ -224,16 +274,9 @@
                                 </div>
                                 <div id="collapse-A" class="collapse" role="tabpanel" aria-labelledby="heading-A">
                                     <div class="card-body info_content">
-                                        <p>Mei at intellegat reprehendunt, te facilisis definiebas dissentiunt usu.
-                                            Choro delicata voluptatum cu vix. Sea error splendide at. Te sed facilisi
-                                            persequeris definitiones, ad per scriptorem instructior, vim latine
-                                            adipiscing no. Cu tacimates salutandi his, mel te dicant quodsi aperiri.
-                                            Unum timeam his eu.</p>
-                                        <p>An malorum ornatus nostrum vel, graece iracundia laboramus cu ius. No pro
-                                            mazim blandit instructior, sumo voluptaria has et, vide persecuti abhorreant
-                                            ne est.</p>
                                         <div class="add_bottom_25"></div>
-                                        <h2>Pictures from our users</h2>
+                                        <!-- detail photo -->
+                                        <h2>Detail Photos</h2>
                                         <div class="pictures magnific-gallery clearfix">
                                             <figure><a href="/img/detail_gallery/detail_1.jpg" title="Photo title"
                                                     data-effect="mfp-zoom-in"><img
@@ -262,363 +305,157 @@
                                                         data-src="/img/thumb_detail_5.jpg" class="lazy" alt=""></a>
                                             </figure>
                                         </div>
-                                        <!-- /pictures -->
-                                        <h2>Da Alfredo Menu</h2>
-                                        <h3>Starters</h3>
-                                        <div class="menu-gallery">
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-1.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€9.90</em>
-                                                    <h4>Imported Salmon Steak</h4>
-                                                    <p>Base de arroz, aguacate, salmón noruego, semillas de sésamo,
-                                                        edamame, wakame</p>
-                                                </div>
+                                        <!-- /detail photo -->
+                                        <!-- detail info -->
+                                        <section class="detail-section">
+                                            <div class="add_bottom_25"></div>
+                                            <h2 class="detailInfoTitle"> 기본 정보</h2>
+                                            <div class="info-detail">
+                                                <table class="info-table">
+                                                    <tbody>
+                                                        <tr class="only-desktop">
+                                                            <th>주소</th>
+                                                            <td>${master.storeAddress} ${master.storeDetailAddress}<br> <!-- ${address} -->
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="only-desktop">
+                                                            <th>전화번호</th>
+                                                            <td>${master.storeCallNumber}</td> <!-- ${storeCallNumber} -->
+                                                        </tr>
+
+                                                            <!-- 메뉴 입력시 평균 표시  -->
+                                                        <!-- <tr>
+                                                            <th>가격대</th>
+                                                            <td>3만원-4만원</td> 
+                                                        </tr> -->
+
+                                                        <tr>
+                                                            <th style="vertical-align:top;">영업시간</th>
+                                                            <td>월-금: ${storeTime.weekdayOpenTime} - ${storeTime.weekdayCloseTime}
+                                                                <br> 토: ${storeTime.weekendOpenTime} - ${storeTime.weekendCloseTime}
+                                                                <br> 브레이크타임: ${storeTime.breakStartTime} - ${storeTime.breakEndTime}</td>
+                                                            <!-- ${StoreTime} -->
+                                                        </tr>
+                                                        <tr>
+                                                            <th>휴일</th>
+                                                            <td>${storeTime.closedDay}</td>
+                                                        </tr><!-- ${StoreTime} -->
+                                                    </tbody>
+                                                </table>
+                                                <p class="update_date">
+                                                    업데이트
+                                                    : ${proBoard.lastUpdated}
+                                                </p>
+                                                <div class="endLine"></div>
                                             </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-2.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€7.90</em>
-                                                    <h4>Poke bol</h4>
-                                                    <p>Queso de cabra light, dátiles, jamón serrano y rúcula</p>
-                                                </div>
+                                            <!-- /detail info -->
+
+                                            <div class="add_bottom_25"></div>
+                                            <h2 class="detailInfoTitle"> 사장님이 작성한 글</h2>
+                                            <div class="content" >
+                                                ${proBoard.content}
                                             </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_3.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-3.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€8.90</em>
-                                                    <h4>Ensalada cesar</h4>
-                                                    <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                        proteínico y salsa césar</p>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        </section>
+
+
+
+                                    </div>
+                                </div>
+                                <div class="endLine"></div>
+                            </div>
+                            <!-- B Type -->
+                            <div id="pane-B" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
+                                <div class="card-header" role="tab" id="heading-B">
+                                    <div class="card-header" role="tab" id="heading-B">
+                                        <h5>
+                                            <a class="collapsed" data-bs-toggle="collapse" href="#collapse-B"
+                                                aria-expanded="true" aria-controls="collapse-B">
+                                                Information
+                                            </a>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
+                                    <div class="card-body info_content">
                                         <!-- /menu-gallery -->
-                                        <hr>
-                                        <h3>Main Course</h3>
-                                        <div class="menu-gallery">
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-4.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€15.90</em>
-                                                    <h4>Oriental</h4>
-                                                    <p>Cama de tabule con taquitos de pollo a la mostaza light</p>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-5.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€11.90</em>
-                                                    <h4>Vegan Burguer</h4>
-                                                    <p>Medio pollo asado acompañado de arroz o patatas al toque masala
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_3.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-6.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€10.90</em>
-                                                    <h4>Indio Fit</h4>
-                                                    <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                        proteínico</p>
-                                                </div>
-                                            </div>
-                                            <div class="content_more">
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_4.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-7.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€15.90</em>
-                                                        <h4>Oriental</h4>
-                                                        <p>Cama de tabule con taquitos de pollo a la mostaza light</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-8.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€11.90</em>
-                                                        <h4>Vegan Burguer</h4>
-                                                        <p>Medio pollo asado acompañado de arroz o patatas al toque
-                                                            masala</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-9.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€10.90</em>
-                                                        <h4>Indio Fit</h4>
-                                                        <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                            proteínico</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /content_more -->
-                                            <a href="#0" class="show_hide" data-content="toggle-text">Read More</a>
-                                        </div>
-                                        <!-- /menu-gallery -->
-                                        <hr>
-                                        <h3>Dessert</h3>
-                                        <div class="menu-gallery">
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-10.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€15.90</em>
-                                                    <h4>Oriental</h4>
-                                                    <p>Cama de tabule con taquitos de pollo a la mostaza light</p>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-11.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€11.90</em>
-                                                    <h4>Vegan Burguer</h4>
-                                                    <p>Medio pollo asado acompañado de arroz o patatas al toque masala
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_3.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-12.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€10.90</em>
-                                                    <h4>Indio Fit</h4>
-                                                    <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                        proteínico y salsa césar 0%</p>
-                                                </div>
-                                            </div>
-                                            <div class="content_more">
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_4.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-13.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€15.90</em>
-                                                        <h4>Oriental</h4>
-                                                        <p>Cama de tabule con taquitos de pollo a la mostaza light</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-14.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€11.90</em>
-                                                        <h4>Vegan Burguer</h4>
-                                                        <p>Medio pollo asado acompañado de arroz o patatas al toque
-                                                            masala</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-15.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€10.90</em>
-                                                        <h4>Indio Fit</h4>
-                                                        <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                            proteínico y salsa césar 0%</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /content_more -->
-                                            <a href="#0" class="show_hide" data-content="toggle-text">Read More</a>
-                                        </div>
-                                        <!-- /menu-gallery -->
-                                        <div class="add_bottom_45"></div>
                                         <div class="special_offers add_bottom_45">
-                                            <h2>Special Offers</h2>
-                                            <div class="menu-gallery">
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_4.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-16.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€10.90</em>
-                                                        <h4>Indio Fit</h4>
-                                                        <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                            proteínico y salsa césar 0%</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-17.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€15.90</em>
-                                                        <h4>Oriental</h4>
-                                                        <p>Cama de tabule con taquitos de pollo a la mostaza light</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-18.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€11.90</em>
-                                                        <h4>Vegan Burguer</h4>
-                                                        <p>Medio pollo asado acompañado de arroz o patatas al toque
-                                                            masala</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_3.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-18.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€10.90</em>
-                                                        <h4>Indio Fit</h4>
-                                                        <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                            proteínico y salsa césar 0%</p>
-                                                    </div>
+                                            <h2>Menu</h2>
+                                        </div>
+                                        <div class="add_bottom_45"></div>
+                                        <div class="menu-gallery">
+                                            <div class="menu_item thumbs">
+                                                <figure>
+                                                    <a href="/img/menu_item_large_4.jpg" title="Photo title"
+                                                        data-effect="mfp-zoom-in">
+                                                        <img src="/img/menu-thumb-placeholder.jpg"
+                                                            data-src="/img/menu-thumb-16.jpg" alt="" class="lazy">
+                                                    </a>
+                                                </figure>
+                                                <div>
+                                                    <em>€10.90</em>
+                                                    <h4>Indio Fit</h4>
                                                 </div>
                                             </div>
-                                            <!-- /special_offers -->
+                                            <div class="menu_item thumbs">
+                                                <figure>
+                                                    <a href="/img/menu_item_large_1.jpg" title="Photo title"
+                                                        data-effect="mfp-zoom-in">
+                                                        <img src="/img/menu-thumb-placeholder.jpg"
+                                                            data-src="/img/menu-thumb-17.jpg" alt="" class="lazy">
+                                                    </a>
+                                                </figure>
+                                                <div>
+                                                    <em>€15.90</em>
+                                                    <h4>Oriental</h4>
+                                                </div>
+                                            </div>
+                                            <div class="menu_item thumbs">
+                                                <figure>
+                                                    <a href="/img/menu_item_large_2.jpg" title="Photo title"
+                                                        data-effect="mfp-zoom-in">
+                                                        <img src="/img/menu-thumb-placeholder.jpg"
+                                                            data-src="/img/menu-thumb-18.jpg" alt="" class="lazy">
+                                                    </a>
+                                                </figure>
+                                                <div>
+                                                    <em>€11.90</em>
+                                                    <h4>Vegan Burguer</h4>
+                                                </div>
+                                            </div>
+                                            <div class="menu_item thumbs">
+                                                <figure>
+                                                    <a href="/img/menu_item_large_3.jpg" title="Photo title"
+                                                        data-effect="mfp-zoom-in">
+                                                        <img src="/img/menu-thumb-placeholder.jpg"
+                                                            data-src="/img/menu-thumb-18.jpg" alt="" class="lazy">
+                                                    </a>
+                                                </figure>
+                                                <div>
+                                                    <em>€10.90</em>
+                                                    <h4>Indio Fit</h4>
+                                                </div>
+                                            </div>
                                         </div>
                                         <!-- /menu-gallery -->
 
-                                        <div class="other_info">
-                                            <h2>How to get to Pizzeria Alfredo</h2>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <h3>Address</h3>
-                                                    <p>27 Old Gloucester St, 4530<br><a
-                                                            href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                                                            target="blank"><strong>Get directions</strong></a></p>
-                                                    <strong>Follow Us</strong><br>
-                                                    <p class="follow_us_detail"><a href="#0"><i
-                                                                class="social_facebook_square"></i></a><a href="#0"><i
-                                                                class="social_instagram_square"></i></a><a href="#0"><i
-                                                                class="social_twitter_square"></i></a></p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h3>Opening Time</h3>
-                                                    <p><strong>Lunch</strong><br> Mon. to Sat. 11.00am - 3.00pm<p>
-                                                            <p><strong>Dinner</strong><br> Mon. to Sat. 6.00pm- 1.00am
-                                                            </p>
-                                                            <p><span class="loc_closed">Sunday Closed</span></p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h3>Services</h3>
-                                                    <p><strong>Credit Cards</strong><br> Mastercard, Visa, Amex</p>
-                                                    <p><strong>Other</strong><br> Wifi, Parking, Wheelchair Accessible
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <!-- /row -->
-                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
-                            <!-- /tab -->
 
-                            <div id="pane-B" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
-                                <div class="card-header" role="tab" id="heading-B">
+                            <!-- C Type -->
+                            <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-C">
+                                <div class="card-header" role="tab" id="heading-C">
                                     <h5>
-                                        <a class="collapsed" data-bs-toggle="collapse" href="#collapse-B"
-                                            aria-expanded="false" aria-controls="collapse-B">
+                                        <a class="collapsed" data-bs-toggle="collapse" href="#collapse-C"
+                                            aria-expanded="false" aria-controls="collapse-C">
                                             Reviews
                                         </a>
                                     </h5>
                                 </div>
-                                <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
+                                <div id="collapse-C" class="collapse" role="tabpanel" aria-labelledby="heading-C">
                                     <div class="card-body reviews">
                                         <div class="row add_bottom_45 d-flex align-items-center">
                                             <div class="col-md-3">
@@ -640,7 +477,8 @@
                                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3"><strong>9.0</strong>
+                                                            <div class="col-xl-2 col-lg-3 col-3">
+                                                                <strong>9.0</strong>
                                                             </div>
                                                         </div>
                                                         <!-- /row -->
@@ -653,7 +491,8 @@
                                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3"><strong>9.5</strong>
+                                                            <div class="col-xl-2 col-lg-3 col-3">
+                                                                <strong>9.5</strong>
                                                             </div>
                                                         </div>
                                                         <!-- /row -->
@@ -668,7 +507,8 @@
                                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3"><strong>6.0</strong>
+                                                            <div class="col-xl-2 col-lg-3 col-3">
+                                                                <strong>6.0</strong>
                                                             </div>
                                                         </div>
                                                         <!-- /row -->
@@ -681,7 +521,8 @@
                                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3"><strong>6.0</strong>
+                                                            <div class="col-xl-2 col-lg-3 col-3">
+                                                                <strong>6.0</strong>
                                                             </div>
                                                         </div>
                                                         <!-- /row -->
@@ -700,14 +541,17 @@
                                                     </div>
                                                     <div class="col-md-10 review_content">
                                                         <div class="clearfix add_bottom_15">
-                                                            <span class="rating">8.5<small>/10</small> <strong>Rating
+                                                            <span class="rating">8.5<small>/10</small>
+                                                                <strong>Rating
                                                                     average</strong></span>
                                                             <em>Published 54 minutes ago</em>
                                                         </div>
                                                         <h4>"Great Location!!"</h4>
                                                         <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros
-                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus, sit
-                                                            commodo veritus te, erat legere fabulas has ut. Rebum laudem
+                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus,
+                                                            sit
+                                                            commodo veritus te, erat legere fabulas has ut. Rebum
+                                                            laudem
                                                             cum ea, ius essent fuisset ut. Viderer petentium cu his.
                                                             Tollit molestie suscipiantur his et.</p>
                                                         <ul>
@@ -732,14 +576,17 @@
                                                     </div>
                                                     <div class="col-md-10 review_content">
                                                         <div class="clearfix add_bottom_15">
-                                                            <span class="rating">8.5<small>/10</small> <strong>Rating
+                                                            <span class="rating">8.5<small>/10</small>
+                                                                <strong>Rating
                                                                     average</strong></span>
                                                             <em>Published 10 Oct. 2019</em>
                                                         </div>
                                                         <h4>"Awesome Experience"</h4>
                                                         <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros
-                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus, sit
-                                                            commodo veritus te, erat legere fabulas has ut. Rebum laudem
+                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus,
+                                                            sit
+                                                            commodo veritus te, erat legere fabulas has ut. Rebum
+                                                            laudem
                                                             cum ea, ius essent fuisset ut. Viderer petentium cu his.
                                                             Tollit molestie suscipiantur his et.</p>
                                                         <ul>
@@ -764,14 +611,17 @@
                                                     </div>
                                                     <div class="col-md-10 review_content">
                                                         <div class="clearfix add_bottom_15">
-                                                            <span class="rating">9.0<small>/10</small> <strong>Rating
+                                                            <span class="rating">9.0<small>/10</small>
+                                                                <strong>Rating
                                                                     average</strong></span>
                                                             <em>Published 11 Oct. 2019</em>
                                                         </div>
                                                         <h4>"Really great dinner!!"</h4>
                                                         <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros
-                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus, sit
-                                                            commodo veritus te, erat legere fabulas has ut. Rebum laudem
+                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus,
+                                                            sit
+                                                            commodo veritus te, erat legere fabulas has ut. Rebum
+                                                            laudem
                                                             cum ea, ius essent fuisset ut. Viderer petentium cu his.
                                                             Tollit molestie suscipiantur his et.</p>
                                                         <ul>
@@ -795,10 +645,14 @@
                                                             <strong>Reply from Foogra</strong>
                                                             <em>Published 3 minutes ago</em>
                                                             <p><br>Hi Monika,<br><br>Eos tollit ancillae ea, lorem
-                                                                consulatu qui ne, eu eros eirmod scaevola sea. Et nec
-                                                                tantas accusamus salutatus, sit commodo veritus te, erat
-                                                                legere fabulas has ut. Rebum laudem cum ea, ius essent
-                                                                fuisset ut. Viderer petentium cu his. Tollit molestie
+                                                                consulatu qui ne, eu eros eirmod scaevola sea. Et
+                                                                nec
+                                                                tantas accusamus salutatus, sit commodo veritus te,
+                                                                erat
+                                                                legere fabulas has ut. Rebum laudem cum ea, ius
+                                                                essent
+                                                                fuisset ut. Viderer petentium cu his. Tollit
+                                                                molestie
                                                                 suscipiantur his et.<br><br>Thanks</p>
                                                         </div>
                                                     </div>
@@ -813,63 +667,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- /tab-content -->
                         </div>
-                        <!-- /tab-content -->
+                        <!-- /tabs_detail -->
                     </div>
-                    <!-- /tabs_detail -->
+                    <!-- /col -->
                 </div>
-                <!-- /col -->
-
-                <div class="col-lg-4" id="sidebar_fixed">
-                    <div class="box_booking mobile_fixed">
-                        <div class="head">
-                            <h3>Contact Us</h3>
-                            <small>Or Call us at 0434 3432245</small>
-                            <a href="#0" class="close_panel_mobile"><i class="icon_close"></i></a>
-                        </div>
-                        <!-- /head -->
-                        <div class="main">
-                            <div id="message-detail-contact"></div>
-                            <form method="post" action="assets/detail_contact.php" id="detail_contact"
-                                autocomplete="off">
-                                <input type="text" name="restaurant_name" id="restaurant_name"
-                                    value="Pizzeria Da Aldredo" hidden="hidden">
-                                <div class="form-group">
-                                    <input type="text" name="name_detail_contact" id="name_detail_contact"
-                                        class="form-control" placeholder="Name and Last Name">
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" name="email_detail_contact" id="email_detail_contact"
-                                        class="form-control" placeholder="Email address">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="telephone_detail_contact" id="telephone_detail_contact"
-                                        class="form-control" placeholder="Telephone">
-                                </div>
-                                <div class="form-group add_bottom_15">
-                                    <textarea class="form-control" name="message_detail" id="message_detail"
-                                        placeholder="Your message"></textarea>
-                                </div>
-                                <div class="btn_1_mobile" style="position: relative;">
-                                    <input class="btn_1 full-width" type="submit" value="Send message"
-                                        id="submit-message">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- /box_booking -->
-                    <div class="btn_reserve_fixed"><a href="#0" class="btn_1 full-width">Send message</a></div>
-                    <ul class="share-buttons">
-                        <li><a class="fb-share" href="#0"><i class="social_facebook"></i> Share</a></li>
-                        <li><a class="twitter-share" href="#0"><i class="social_twitter"></i> Share</a></li>
-                        <li><a class="gplus-share" href="#0"><i class="social_googleplus"></i> Share</a></li>
-                    </ul>
-                </div>
-
+                <!-- /row -->
             </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
+            <!-- /container -->
 
     </main>
     <!-- /main -->

@@ -82,17 +82,20 @@
     <!--        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}-->
     <!--    </delete>-->
 
-    <!--    <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">-->
-    <!--        <result property="businessNo" column="business_no"/>-->
-    <!--        <result property="promotionBno" column="promotion_bno"/>-->
-    <!--        <result property="lastUpdated" column="last_updated"/>-->
-    <!--    </resultMap>-->
+        <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">
+            <result property="businessNo" column="business_no"/>
+            <result property="promotionBno" column="promotion_bno"/>
+            <result property="lastUpdated" column="last_updated"/>
+            <result property="avgStarRate" column="AVG_STAR_RATE"/>
+            <result property="filePath" column="file_path"/>
+            <result property="fileName" column="file_name"/>
+        </resultMap>
 
-    <!--    <select id="selectOne" resultMap="proBoardMap">-->
-    <!--        SELECT *-->
-    <!--        FROM promotion_board-->
-    <!--        where promotion_bno = #{promotionBno}-->
-    <!--    </select>-->
+        <select id="selectOne" resultMap="proBoardMap">
+            SELECT *
+            FROM promotion_board
+            where promotion_bno = #{promotionBno}
+        </select>
 
         <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
             <result property="businessNo" column="BUSINESS_NO"/>
@@ -111,8 +114,13 @@
             select promotion_bno from PROMOTION_BOARD where business_no =  #{businessNo}
         </select>
 
-
         <select id="selectMenuNo" resultType="int">
             select menu_no from promotion_food_menu where promotion_bno = #{promotion_bno} order by menu_no ASC
         </select>
+
+    <resultMap id="StoreTimeMap" type="com.project.foodiefoodie.proBoard.dto.StoreTimeDTO"/>
+    <select id="selectStoreTime" resultMap="StoreTimeMap">
+        select * from PROMOTION_STORE_TIME where promotion_bno = #{promotionBno}
+    </select>
+    
 </mapper>

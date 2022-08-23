@@ -1024,8 +1024,16 @@
                 // 시간 0000으로 변환 
                 const $selectTimeList = document.querySelectorAll('.select-time');
                 $selectTimeList.forEach(element => {
-                    const replaceNotInt = /[^0-9]/gi;
-                    element.value = element.value.replace(replaceNotInt, '');
+
+                    console.log(element.value);
+                    if(element.value.includes("am"))
+                    {
+                        element.value = element.value.replace(' am', '');
+                    }
+                    else if(element.value.includes("pm"))
+                    {
+                        element.value = element.value.replace(' pm','');
+                    }
                 });
 
                 // 내용 \n -> <br>으로 치환

@@ -60,6 +60,7 @@ public class ProBoardService {
         return proBoardMapper.selectMaster(businessNo);
     }
 
+    public StoreTimeDTO selectStoreTime(int promotionBno){return  proBoardMapper.selectStoreTime(promotionBno);}
 
 
     // upload path 생성 함수
@@ -110,7 +111,7 @@ public class ProBoardService {
                 File f = new File(newUploadPath, newFileName); // 파일 객체 생성
 
                 try {
-                    saveProBoardImagePath(promotionBno, fileFullPath, newFileName, menuList, j, args[i]); // 서버 이미지 경로 DB 저장
+                    saveProBoardImagePath(promotionBno, newUploadPath, newFileName, menuList, j, args[i]); // 서버 이미지 경로 DB 저장
 
                     if(file.getOriginalFilename().equals("default")) continue; // default 는 이미지 저장 X
 
@@ -126,25 +127,25 @@ public class ProBoardService {
     }
 
     // 서버 경로 이미지 저장 함수
-    public void saveProBoardImagePath(int promotionBno, String fileFullPath, String newFileName, List<String[]> menuList, int index , String type) {
+    public void saveProBoardImagePath(int promotionBno, String newUploadPath, String newFileName, List<String[]> menuList, int index , String type) {
 
-        log.info("saveProBoardImage service - file : {}  ", fileFullPath  );
+        log.info("saveProBoardImage service - file : {}  ", newUploadPath  );
 
         if (type.equals("menu")) {
             log.info("save ProBoardImage service -  menu_no ASC {} ", index);
 
             // 메뉴 리스트 저장 (img파일포함) - menuList.get(0) = menuNames , menuList.get(1) = menuPrices
-            proBoardMapper.saveProBoardMenu(promotionBno, new MenuDTO(menuList.get(0)[index], Integer.parseInt(menuList.get(1)[index]), fileFullPath, newFileName));
+            proBoardMapper.saveProBoardMenu(promotionBno, new MenuDTO(menuList.get(0)[index], Integer.parseInt(menuList.get(1)[index]), newUploadPath, newFileName));
             return;
         }
         if(type.equals("title"))
         {
             // proBoard title img 파일 경로 저장
-            proBoardMapper.saveProBoardTitleImg(promotionBno,fileFullPath,newFileName);
+            proBoardMapper.saveProBoardTitleImg(promotionBno,newUploadPath,newFileName);
         }
 
         // title , detail img file 저장
-        proBoardMapper.saveProBoardImage(promotionBno, new ImageDTO(newFileName, fileFullPath, type));
+        proBoardMapper.saveProBoardImage(promotionBno, new ImageDTO(newFileName, newUploadPath, type));
     }
 
 

@@ -22,4 +22,6 @@ public class ReplyFaqDTO {
     private String replyContent;
     private String nickName;
     private Date lastUpdate;
+
+    private String shortContent;
 }

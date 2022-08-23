@@ -3,7 +3,7 @@
 
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.html"><img src="img/logo.svg" alt="" width="142" height="36"></a>
+    <a class="navbar-brand" href="/"><img src="../img/foodie_logo.png" alt="" width="110" height="36"></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -18,7 +18,7 @@
                 </a>
                 <ul class="sidenav-second-level collapse" id="member">
                     <li>
-                        <a href="/admin/member-management">일반회원</a>
+                        <a href="/admin/member">일반회원</a>
                     </li>
                     <li>
                         <a href="/admin/member-master">사업자</a>
@@ -88,22 +88,16 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <form class="form-inline my-2 my-lg-0 mr-lg-2">
-                    <div class="input-group">
-                        <input class="form-control search-top" type="text" placeholder="Search for...">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#exampleModal"><i
-                        class="fa fa-fw fa-sign-out"></i>Logout</a>
+               <a href="/sign-out"><i class="fa fa-fw fa-sign-out"></i>Logout</a>
             </li>
         </ul>
     </div>
 </nav>
 <!-- /Navigation-->
+
+
+<script>
+    (function() {
+        
+    }())
+</script>

@@ -84,8 +84,8 @@ public class ProBoardService {
         String[] args = {"title", "detail", "menu"};
         String newUploadPath ="";
         String newFileName ="";
-        String fileFullPath ="";
-        String responseFilePath ="";
+//        String fileFullPath ="";
+//        String responseFilePath ="";
 
         for (int i = 0; i < fileMap.size(); i++) { // key = title , detail , menu
             List<MultipartFile> files = fileMap.get(args[i]);
@@ -99,13 +99,13 @@ public class ProBoardService {
                 {
                     newUploadPath = "\\img";
                     newFileName = "foodie_default.PNG"; // 기본 이미지
-                    fileFullPath = newUploadPath + File.separator + newFileName;
+//                    fileFullPath = newUploadPath + File.separator + newFileName;
                 }
                 else // 이미지가 있는 파일들
                 {
                     newUploadPath = getMasterNewUploadPath(proBoard.getBusinessNo(), args[i]);
                     newFileName = String.format("%s_%s", args[i] + (j + 1), file.getOriginalFilename());
-                    fileFullPath = newUploadPath + File.separator + newFileName;
+//                    fileFullPath = newUploadPath + File.separator + newFileName;
                 }
 
                 File f = new File(newUploadPath, newFileName); // 파일 객체 생성

@@ -1,9 +1,14 @@
 package com.project.foodiefoodie.util;
 
+import lombok.SneakyThrows;
+import org.apache.ibatis.javassist.bytecode.ByteArray;
 import org.springframework.http.MediaType;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
@@ -36,31 +41,28 @@ public class FileUtils {
     }
 
 
-
     // 1. 사용자가 파일을 업로드했을 때 새로운 파일명을 생성해서 반환하고
     //    해당 파일명으로 업로드하는 메서드
     // ex) 사용자가 상어.jpg를 올렸으면 이름을 저장하기 전에 중복없는 이름으로 바꿈.
 
     /**
-     *
-     * @param file - 클라이언트가 업로드한 파일 정보
+     * @param file       - 클라이언트가 업로드한 파일 정보
      * @param uploadPath - 서버의 업로드 루트 디렉토리 (E:/sl_basic/upload)
      * @return - 업로드가 완료된 새로운 파일의 Full Path(풀 경로)
      */
     public static String uploadFile(MultipartFile file, String uploadPath) {
-        
+
         // 중복이 없는 파일명으로 변경하기
         // ex) 상어.png -> 3fwetrwwagsdfsafd-dfsdfdsfa_상어.png
-        
+
         String newFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename(); // 로그인시 너무 많이 틀리면 자동입력방지 문자열을 적으라고 할 때도 이런걸 잘라서 한다고 한다.
 
-        
+
         // 업로드 경로도 변경하고자 함
         // E:sl_basic_upload 가 현재 업로드 경로인데
         // 날짜별로 관리하고자 한다.
         // E:sl_basic_upload/2022/08/01 이런 식으로!!
         String newUploadPath = getNewUploadPath(uploadPath);
-
 
 
         // 파일 업로드 수행
@@ -93,6 +95,7 @@ public class FileUtils {
 
     /**
      * 원본 업로드 경로를 받아서 일자별 폴더를 생성한 후 최종경로를 리턴
+     *
      * @param uploadPath - 원본 업로드 경로
      * @return - 일자별 폴더가 포함된 새로운 업로드 경로
      */
@@ -139,5 +142,32 @@ public class FileUtils {
     public static String getFileExtension(String fileName) {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
+
+    public static byte[] getImgByte(String fileFullPath){
+
+        FileInputStream fileReader ;
+        ByteArrayOutputStream byteArr = new ByteArrayOutputStream();
+        int result;
+        try
+        {
+            File file = new File(fileFullPath);
+            fileReader = new FileInputStream(file);
+            byte[] buf = new byte[1024];
+            while ((result = fileReader.read()) != -1) {
+                byteArr.write(buf,0,result);
+            }
+            byte[] imgbuf = null;
+            imgbuf = byteArr.toByteArray();
+            byteArr.close();
+            fileReader.close();
+            return imgbuf;
+        }catch (Exception e)
+        {
+            e.getStackTrace();
+            return null;
+        }
+    }
+
+
 
 } // end class

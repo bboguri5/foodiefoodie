@@ -92,31 +92,6 @@
             justify-content: center;
         }
 
-        /* .preview {
-            width: 100%;
-            display: none;
-        }
-
-        #detail-preview {
-            display: flex;
-            justify-content: space-evenly;
-        }
-
-        .preview-title-img {
-            width: 150px;
-            height: 100px;
-        }
-
-        .preview-detail-img {
-            width: 20%;
-            height: 50px;
-        }
-
-        .preview-menu-img {
-            width: 50px;
-            height: 50px;
-        } */
-
         .c-red {
             color: red;
         }

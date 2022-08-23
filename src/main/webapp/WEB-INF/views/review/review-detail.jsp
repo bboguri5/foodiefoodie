@@ -54,6 +54,8 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <main>
+        <%@ include file="../include/page-header.jsp" %>
+
         <div class="page_header element_to_stick">
             <div class="container">
                 <div class="row">

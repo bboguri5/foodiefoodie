@@ -24,8 +24,6 @@ public class ReviewAPIController {
 
     @PutMapping("/review/uplike")
     public String upLike(long reviewBno) {
-//        log.info("likeCount - {}", reviewBoardDTO);
-//        return "up-fail";
         return reviewBoardService.upLikeService(reviewBno) ? "up-success" : "up-fail";
     }
 

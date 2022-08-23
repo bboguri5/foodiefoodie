@@ -9,7 +9,7 @@
                     <select class="form-select" name="type" id="search-type">
                         <option value="location">지역</option>
                         <option value="restaurant">식당</option>
-                        <option value="food">음식</option>
+                        <option value="food">카테고리</option>
                     </select>
                     <div class="row g-0 custom-search-input">
                         <div class="col-lg-6">

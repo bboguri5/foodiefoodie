@@ -149,16 +149,6 @@
             <input type="button" value="Log In" class="btn_1 full-width mb_5" id="login-btn">
             Don’t have an email? <a href="/register">Sign up</a>
         </div>
-        <!-- <div id="forgot_pw">
-            <div class="form-group">
-                <label>Please confirm login email below</label>
-                <input type="button" class="form-control" name="email_forgot" id="email-forgot">
-                <i class="icon_mail_alt"></i>
-            </div>
-            <p>You will receive an email containing a link allowing you to reset your password to a new preferred
-                one.</p>
-            <div class="text-center"><input type="button" value="Reset Password" class="btn_1" id="reset-pw"></div>
-        </div> -->
     </div>
     <!--form -->
 </div>

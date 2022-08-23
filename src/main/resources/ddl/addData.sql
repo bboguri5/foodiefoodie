@@ -1,7 +1,27 @@
+-- 스케줄러 설정하는 법 (광고 종료 실행)
+-- 스케줄러가 설정한 시간에 설정한 반복 횟수로 해당 프로시저를 작동하는 원리
+-- 1. 프로시저 -> 새 프로시저 생성 (스키마 : teamB, 이름 : 원하시는대로 - ex) SP_PREMIUM_BOARD_UPDATE)
+-- 2. begin, end 사이에 실행시킬 sql 작성
+    -- update premiume_promotion_board set complete = 'N'
+    -- where end_date = to_number(to_char(sysdate,'yyyymmdd'))
+    -- and complete = 'T';
+-- 3. 스케줄러 -> 작업 -> 새 작업
+    -- 작업이름 : 원하시는대로 ex) SH_PREMIUM_BOARD_UPDATE
+    -- 설명 : 적고싶은대로~ ex) 오전 1시 마다 premium 종료일자가 현재일자 이전인 객체 값 변환
+    -- 작업 클래스 : SYS.DEFAULT_JOB_CLASS
+    -- 작업유형 : 내장프로시저, 스키마-teamB, 프로시저-만드신 프로시저
+    -- 작업실행시간 : 반복, 반복간격: 오른쪽 버튼 클릭, 시작,종료날짜 입력안하면 무한반복
+    -- 반복간격 버튼 클릭 이후 : 매-1,DAILY 시간-01:00:00 , 확인 버튼클릭
+    -- 적용!
 
+
+-- admin
+-- 먼저 admin@naver.com으로 회원가입 해주시구 업데이트문 돌려주세용~
+update member set auth = 'ADMIN' where email = 'admin@naver.com';
 
 -- member (common)
-delete from member;
+delete from member
+where email = 'admin@naver.com';
 
 
 insert into member (email, password, nick_name, phone_number, birth, address, name, gender)
@@ -156,21 +176,21 @@ COMMIT;
 delete from premiume_promotion_board;
 
 INSERT INTO premiume_promotion_board
-VALUES(1, 20220101, 20220808);
+VALUES(1, 20220101, 20220830, 'T');
 INSERT INTO premiume_promotion_board
-VALUES(2, 20220101, 20220809);
+VALUES(2, 20220101, 20220831, 'F');
 INSERT INTO premiume_promotion_board
-VALUES(3, 20220101, 20220820);
+VALUES(3, 20220101, 20220826, 'T');
 INSERT INTO premiume_promotion_board
-VALUES(4, 20220101, 20220822);
+VALUES(4, 20220101, 20220912, 'F');
 INSERT INTO premiume_promotion_board
-VALUES(5, 20220101, 20220807);
+VALUES(5, 20220101, 20220913, 'F');
 INSERT INTO premiume_promotion_board
-VALUES(6, 20220101, 20220731);
+VALUES(6, 20220101, 20220915, 'F');
 INSERT INTO premiume_promotion_board
-VALUES(7, 20220101, 20220808);
+VALUES(7, 20220101, 20220825, 'T');
 INSERT INTO premiume_promotion_board
-VALUES(8, 20220101, 20220808);
+VALUES(8, 20220101, 20220826, 'F');
 
 
 SELECT * FROM premiume_promotion_board;
@@ -277,23 +297,24 @@ COMMIT;
 
 
 -- reply_faq
-INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, content, reply_writer_email)
+INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, reply_faq_content, reply_writer_email)
 VALUES(seq_reply_faq.nextval, 1, 'hhh8888@naver.com', '댓글신고데이터1', 'jjj1010@naver.com');
-INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, content, reply_writer_email)
+INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, reply_faq_content, reply_writer_email)
 VALUES(seq_reply_faq.nextval, 2, 'hhh8888@naver.com', '댓글신고데이터2', 'jjj1010@naver.com');
-INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, content, reply_writer_email)
+INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, reply_faq_content, reply_writer_email)
 VALUES(seq_reply_faq.nextval, 3, 'hhh8888@naver.com', '댓글신고데이터3', 'ggg7777@naver.com');
-INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, content, reply_writer_email)
+INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, reply_faq_content, reply_writer_email)
 VALUES(seq_reply_faq.nextval, 4, 'hhh8888@naver.com', '댓글신고데이터4', 'ddd4444@naver.com');
-INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, content, reply_writer_email)
+INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, reply_faq_content, reply_writer_email)
 VALUES(seq_reply_faq.nextval, 5, 'hhh8888@naver.com', '댓글신고데이터5', 'ddd4444@naver.com');
 
 
-INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, content, reply_writer_email, faq_complete)
+INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, reply_faq_content, reply_writer_email, faq_complete)
 VALUES(seq_reply_faq.nextval, 5, 'hhh8888@naver.com', '댓글신고데이터6', 'six123@naver.com', 'T');
-INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, content, reply_writer_email, faq_complete)
+INSERT INTO reply_faq(reply_faq_no, reply_no, writer_email, reply_faq_content, reply_writer_email, faq_complete)
 VALUES(seq_reply_faq.nextval, 5, 'hhh8888@naver.com', '댓글신고데이터7', 'six123@naver.com', 'T');
 
+select * from reply_faq;
 
 COMMIT;
 

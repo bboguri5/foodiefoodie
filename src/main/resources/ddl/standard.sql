@@ -1,4 +1,3 @@
-
 -- 계정 추가 및 권한 부여
 create user teamB IDENTIFIED BY 1234;
 GRANT DBA, connect, RESOURCE TO teamB;
@@ -9,7 +8,6 @@ DROP TABLE black_list_master;
 DROP TABLE report_member;
 DROP TABLE report_master;
 DROP TABLE promotion_upload_title_img;
-DROP TABLE promotion_upload_menu_img;
 DROP TABLE promotion_upload_detail_img;
 DROP TABLE promotion_food_menu;
 DROP TABLE profile_upload;
@@ -23,11 +21,13 @@ DROP TABLE favorite_store;
 DROP TABLE hot_deal;
 DROP TABLE review_board;
 DROP TABLE premiume_promotion_board;
+DROP TABLE promotion_store_time;
 DROP TABLE promotion_board;
 DROP TABLE MASTER;
 DROP TABLE auto_login;
 DROP TABLE member;
 
+commit;
 
 -- DROP SEQUENCE
 DROP SEQUENCE seq_promotion_board;
@@ -66,6 +66,7 @@ CREATE TABLE member (
     , detail_address VARCHAR2(50)
     , extra_address VARCHAR2(50)
 );
+
 
 
 -- 자동로그인
@@ -108,20 +109,9 @@ CREATE TABLE promotion_board (
     , hashTag varchar2(200) not null
     , report_cnt number(2) default 0
     , file_name VARCHAR2(100) NULL
-    , file_path CLOB NOT NULL
+    , file_path CLOB NULL
     , CONSTRAINT fk_busi_no FOREIGN KEY (business_no)
     REFERENCES master (business_no) ON DELETE CASCADE
-);
-
-
--- 음식 메뉴
-CREATE TABLE promotion_food_menu(
-    menu_no NUMBER(5) PRIMARY KEY
-    , promotion_bno NUMBER(10) NOT NULL
-    , menu_name VARCHAR2(20) NOT NULL
-    , price NUMBER(6) NOT NULL
-    , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
-    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
 
@@ -226,7 +216,7 @@ CREATE TABLE reply_faq (
     reply_faq_no NUMBER(10) PRIMARY KEY
     , reply_no NUMBER(10) NOT NULL
     , writer_email VARCHAR2(50) NOT NULL
-    , content CLOB
+    , reply_faq_content CLOB
     , faq_complete VARCHAR2(2) DEFAULT 'F'
     , reply_writer_email VARCHAR2(50) NOT NULL
 );
@@ -241,6 +231,7 @@ CREATE TABLE review_upload(
     REFERENCES review_board (review_bno) ON DELETE CASCADE
 );
 
+
 -- 프로필이미지 파일 업로드
 CREATE TABLE profile_upload(
     email VARCHAR2(50) PRIMARY KEY
@@ -250,15 +241,7 @@ CREATE TABLE profile_upload(
     REFERENCES member (email) ON DELETE CASCADE
 );
 
--- 음식 메뉴 파일 업로드
-CREATE TABLE promotion_upload_menu_img (
-         promotion_bno NUMBER(10) NOT NULL
-        ,menu_no NUMBER(10) NOT NULL
-        , file_path clob
-        , file_name VARCHAR2(100) NOT NULL
-        , CONSTRAINT fk_pro_food_menu_upload FOREIGN KEY (menu_no)
-    REFERENCES promotion_food_menu (menu_no) ON DELETE CASCADE
-);
+
 
 -- 신고처리된 내역있는 일반유저
 CREATE TABLE report_member (
@@ -281,6 +264,7 @@ create table report_master (
     , CONSTRAINT fk_report_business_no FOREIGN KEY (business_no)
     REFERENCES master (business_no) ON DELETE CASCADE
 );
+
 
 -- 블랙리스트 (사업자)
 CREATE TABLE black_list_master (
@@ -306,6 +290,33 @@ create table promotion_upload_title_img(
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
+-- 영업시간
+ create table PROMOTION_STORE_TIME
+    (
+        promotion_bno number(10) NOT NULL
+        ,weekdayOpenTime number(8) NOT NULL
+        ,weekdayCloseTime number(8) NOT NULL
+        ,weekendOpenTime number(8) NOT NULL
+        ,weekendCloseTime number(8) NOT NULL
+        ,breakStartTime number(8) NOT NULL
+        ,breakEndTime number(8) NOT NULL
+        ,closedDay VARCHAR2(20)
+        , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
+        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+    );
+    
+-- 음식 메뉴
+CREATE TABLE promotion_food_menu(
+        menu_no NUMBER(5)primary key
+        , promotion_bno NUMBER(10) NOT NULL
+        , menu_name VARCHAR2(20) NOT NULL
+        , price NUMBER(6) NOT NULL
+        , file_path clob
+        , file_name VARCHAR2(100)
+        , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
+        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+    );
+
 
 COMMIT;
 
@@ -313,11 +324,11 @@ COMMIT;
 -- 영수증 관련 테이블은 아직~~
 -- API를 활용해서 다이렉트로 유효 영수증인지 검증이 끝난 후 결과만을 알려준다면
 -- 굳이 테이블을 만들어서 관리할 필요가 없어보여요.
-CREATE TABLE receipt_upload();
+--CREATE TABLE receipt_upload();
 
 
 -- 추가
-
+   
 
 
 
@@ -326,5 +337,3 @@ CREATE TABLE receipt_upload();
 commit;
 
 -----------------------------------
------------------------------------
-

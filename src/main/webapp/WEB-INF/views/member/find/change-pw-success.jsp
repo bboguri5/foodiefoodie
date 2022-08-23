@@ -27,7 +27,7 @@
 
 		<div class="container margin_60_40">
 			<div class="row justify-content-center">
-				<div class="col-lg-4">
+				<div class="col-lg-5">
 					<div class="box_booking_2">
 						<div class="head">
 							<div class="title">
@@ -50,6 +50,7 @@
 								</div>
 								<br>
 								<h3>비밀번호 변경에 성공했습니다.</h3>
+								<p>로그인한 상태에서 비밀번호 변경을 한 경우에는 자동 로그아웃 처리됩니다. <br> 새로운 비밀번호로 다시 로그인하세요.</p>
 								<br>
 								<a href="/login">바로 로그인하기</a>
 							</div>

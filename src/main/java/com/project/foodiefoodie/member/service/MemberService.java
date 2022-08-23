@@ -246,4 +246,8 @@ public class MemberService {
 
         return memberMapper.changePw(email, encodedPw);
     }
+
+    public String sendEmailAuthCode(String email) throws Exception {
+        return emailService.sendAuthCodeEmail(email);
+    }
 }

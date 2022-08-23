@@ -32,66 +32,33 @@
         <div class="container margin_60_40">
             <div class="row justify-content-center">
                 <div class="col-lg-7">
-                    <c:if test="${flag != false}">
                         <div class="box_booking_2">
                             <div class="head">
                                 <div class="title">
-                                    <h3>이메일 인증 성공!</h3>
+                                    <h3>비밀번호 변경하기</h3>
                                 </div>
                             </div>
                             <!-- /head -->
                             <div class="main">
                                 <div id="confirm">
-                                    <h3>비밀번호 변경하기</h3>
+                                    <h3>현재 비밀번호 확인</h3>
                                     <br>
-                                    <form action="/change/pw" method="post" id="change-pw-form">
-                                        <c:if test="${loginUser == null}">
-                                            <input type="hidden" name="email" value="${email}">
-                                        </c:if>
-                                        <c:if test="${loginUser != null}">
-                                            <input type="hidden" name="email" value="${loginUser.email}">
-                                        </c:if>
+                                    <form action="/check/oldPw" method="post" id="check-oldPw-form">
                                         <div class="form-group">
-                                            <label>변경할 비밀번호를 입력하세요.</label>
+                                            <label>현재 비밀번호를 입력하세요.</label>
                                             <span id="pwChk"></span>
-                                            <input class="form-control" id="password_sign" type="password" name="newPw">
+                                            <input class="form-control" id="password_sign" type="password" name="oldPw">
                                         </div>
                                         <div class="form-group">
-                                            <label>변경할 비밀번호를 다시 한번 입력하세요.</label>
+                                            <label>현재 비밀번호를 다시 한번 입력하세요.</label>
                                             <span id="rePwChk"></span>
                                             <input class="form-control" id="recheck-pw" type="password">
                                         </div>
-                                        <button type="button" id="change-pw-btn">전송</button>
+                                        <button type="button" id="check-oldPw-btn">전송</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
-                    </c:if>
-                    <c:if test="${flag == false}">
-                        <div class="box_booking_2">
-                            <div class="head">
-                                <div class="title">
-                                    <h3>이메일 인증에 실패했습니다.</h3>
-                                </div>
-                            </div>
-                            <!-- /head -->
-                            <div class="main">
-                                <div id="confirm">
-                                    <h3>이메일 인증코드가 일치하지 않습니다. 다시 시도하세요.</h3>
-                                    <c:if test="${loginUser == null}">
-                                        <br>
-                                        <a href="/find/pw">비밀번호 다시 찾기</a>
-                                        <br>
-                                        <a href="/register">회원가입</a>
-                                    </c:if>
-                                    <c:if test="${loginUser != null}">
-                                        <br>
-                                        <a href="/change/pw">처음부터 다시 시도하기</a>
-                                    </c:if>
-                                </div>
-                            </div>
-                        </div>
-                    </c:if>
                     <!-- /box_booking -->
                 </div>
                 <!-- /col -->
@@ -116,12 +83,12 @@
             // 또는!! 시작을 특수문자로 해도 되고, 영문이나 숫자를 하나라도 포함해야 한다.
 
 
+        
+            // 1. 현재 비밀번호  2. 확인용 재입력 비밀번호
+            const checkArr = [false, false]; 
 
-            // 1. 변경 비밀번호  2. 확인용 재입력 비밀번호
-            const checkArr = [false, false];
 
-
-            // 1. 처음 input 창 검증 처리
+            // 1. 처음 input 창 현재 비밀번호 검증 처리
             const $pwInput = $('#password_sign');
             const $pwChk = $('#pwChk');
 
@@ -149,40 +116,40 @@
                 // 정상적으로 입력한 경우
                 else {
                     $pwInput.css('border-color', 'greenyellow');
-                    $pwChk.text('변경 가능한 비밀번호입니다.');
+                    $pwChk.text('');
                     $pwChk.css('color', 'green');
                     checkArr[0] = true;
                 }
-            }); // end 비밀번호 검증 로직
+            }); // end 현재 비밀번호 검증 로직
 
 
 
-            // 2. 두 번째 변경 비밀번호 확인용 input 창 검증 처리
+            // 2. 두 번째 현재 비밀번호 확인용 input 창 검증 처리
             const $reCheckInput = $('#recheck-pw');
             const $rePwChk = $('#rePwChk');
 
 
             $reCheckInput.on('keyup', e => {
-                // 처음 입력한 변경할 비밀번호와 일치하는 경우
+                // 처음 입력한 현재 비밀번호와 일치하는 경우
                 if ($reCheckInput.val() == $pwInput.val()) {
                     $reCheckInput.css('border-color', 'greenyellow');
                     $rePwChk.text('');
                     $rePwChk.css('color', 'green');
                     checkArr[1] = true;
-                }
-
-                // 처음 입력한 변경할 비밀번호와 일치하지 않는 경우
+                } 
+                
+                // 처음 입력한 현재 비밀번호와 일치하지 않는 경우
                 else {
                     $reCheckInput.css('border-color', 'red');
-                    $rePwChk.text('먼저 입력된 변경 비밀번호와 일치하지 않습니다.');
+                    $rePwChk.text('먼저 입력된 현재 비밀번호와 일치하지 않습니다.');
                     $rePwChk.css('color', 'red');
                     checkArr[1] = false;
                 }
-            }); // end 변경 비밀번호 재확인용 검증 로직
+            }); // end 현재 비밀번호 재확인용 검증 로직
 
 
-            const $changePwBtn = $('#change-pw-btn');
-            const $changePwForm = $('#change-pw-form');
+            const $changePwBtn = $('#check-oldPw-btn');
+            const $changePwForm = $('#check-oldPw-form');
 
             $changePwBtn.on('click', e => {
 

@@ -23,7 +23,7 @@ public class AfterLoginInterceptor implements HandlerInterceptor {
 
             log.info("exist session ID, redirect!! - {}", referer);
 
-            response.sendRedirect(referer);
+            response.sendRedirect("/");
             return false;
         }
 

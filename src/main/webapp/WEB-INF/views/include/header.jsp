@@ -5,8 +5,8 @@
     <div class="container">
         <div id="logo">
             <a href="/">
-                <img src="img/foodie_logo.png" width="120" height="55" alt="" class="logo_normal">
-                <img src="img/foodie_logo.png" width="120" height="55" alt="" class="logo_sticky">
+                <img src="/img/foodie_logo.png" width="120" height="55" alt="" class="logo_normal">
+                <img src="/img/foodie_logo.png" width="120" height="55" alt="" class="logo_sticky">
             </a>
         </div>
 
@@ -50,7 +50,7 @@
                 <a href="#0" class="open_close">
                     <i class="icon_close"></i><span>Menu</span>
                 </a>
-                <a href="index.html"><img src="img/logo.svg" width="140" height="35" alt=""></a>
+                <a href="index.html"><img src="/img/logo.svg" width="140" height="35" alt=""></a>
             </div>
             <ul>
                 <li class="submenu">

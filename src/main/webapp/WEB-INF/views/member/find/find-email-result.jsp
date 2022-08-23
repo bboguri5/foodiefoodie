@@ -37,6 +37,7 @@
                             <div class="head">
                                 <div class="title">
                                     <h3>계정 이메일을 찾았습니다.</h3>
+                                    <br>
                                     <!-- <a href="#">Get directions</a> -->
                                 </div>
                             </div>
@@ -44,6 +45,7 @@
                             <div class="main">
                                 <div id="confirm">
                                     <h3>계정 이메일 : '${foundEmail}'</h3>
+                                    <br>
                                     <a href="/login">바로 로그인하기</a>
                                 </div>
                             </div>
@@ -54,6 +56,7 @@
                             <div class="head">
                                 <div class="title">
                                     <h3>계정 이메일 찾기에 실패했습니다.</h3>
+                                    <br>
                                     <!-- <a href="#">Get directions</a> -->
                                 </div>
                             </div>
@@ -61,7 +64,8 @@
                             <div class="main">
                                 <div id="confirm">
                                     <h3>입력하신 정보와 일치하는 계정이 존재하지 않습니다. <br> 다시 시도해주세요.</h3>
-                                    <a href="/find-email">계정 이메일 다시 찾기</a>
+                                    <br>
+                                    <a href="/find/email">계정 이메일 다시 찾기</a>
                                     <br>
                                     <a href="/register">회원가입</a>
                                 </div>

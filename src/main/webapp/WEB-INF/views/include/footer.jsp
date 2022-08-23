@@ -251,7 +251,7 @@
         const $findEmailBtn = document.getElementById('forgot-email');
 
         $findEmailBtn.onclick = e => {
-            location.href = '/find-email';
+            location.href = '/find/email';
         }
 
     }
@@ -264,7 +264,7 @@
 
 
         $findPwBtn.onclick = e => {
-            location.href = '/find-pw';
+            location.href = '/find/pw';
         }
 
     }

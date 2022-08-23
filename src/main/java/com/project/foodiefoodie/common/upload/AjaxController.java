@@ -22,7 +22,7 @@ import java.util.List;
 @Log4j2
 public class AjaxController {
 
-    public static final String UPLOAD_PATH = "E:\\foodiefoodie\\upload";
+    public static final String UPLOAD_PATH = "C:\\foodiefoodie\\upload";
 
 
     // 비동기 파일 업로딩 처리.

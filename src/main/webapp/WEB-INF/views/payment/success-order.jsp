@@ -22,7 +22,6 @@
 		                <div class="head">
 		                    <div class="title">
 		                    <h3>주문 성공!</h3>
-		                    <a href="#">Get directions</a>
 		                </div>
 		                </div>
 		                <!-- /head -->

@@ -21,6 +21,11 @@ public class ProBoard {
     private String content;
     private String title;
     private String hashTag;
+    private int avgStarRate;
+    private int review_cnt;
+    private int report_cnt;
+    private String filePath;
+    private String fileName;
 
 
     // 동진 : 메뉴가 여러개 들어올걸 대비해서 리스트 타입으로 받아야 스프링에서 알아서 넣어줄거 같아요!

@@ -65,6 +65,13 @@ public class MemberController {
     }
 
 
+    // 로그인 화면 요청 처리
+    @GetMapping("/login")
+    public String login() {
+        return "member/login";
+    }
+
+
     // 모달 창에서 로그인 비동기 요청 처리
     @PostMapping("/login")
     @ResponseBody
@@ -125,7 +132,7 @@ public class MemberController {
 
 
     // 계정 찾기 화면 요청 처리
-    @GetMapping("/find-email")
+    @GetMapping("/find/email")
     public String findEmail() {
         log.info("/find-email GET!!");
         return "member/find/find-email";
@@ -134,7 +141,7 @@ public class MemberController {
 
 
     // 실질적 계정 찾기 요청 처리
-    @PostMapping("/find-email")
+    @PostMapping("/find/email")
     public String findEmail2(FindEmailDTO dto, Model model) {
         log.info("/find-email POST!! - {}", dto);
 
@@ -148,7 +155,7 @@ public class MemberController {
 
 
     // 비번 찾기 화면 요청 처리
-    @GetMapping("/find-pw")
+    @GetMapping("/find/pw")
     public String findPw() {
         return "member/find/find-pw";
     }
@@ -156,7 +163,7 @@ public class MemberController {
 
 
     // 실질적 비번 찾기 요청 처리
-    @PostMapping("/find-pw")
+    @PostMapping("/find/pw")
     public String findPw2(FindPwDTO dto, Model model) throws Exception {
         log.info("/find-pw POST!! - {}", dto);
 
@@ -170,7 +177,7 @@ public class MemberController {
 
 
     // 인증 코드 검증 요청 처리
-    @PostMapping("/check-authCode")
+    @PostMapping("/check/authCode")
     public String checkAuth(EmailCodeDTO dto, Model model) {
         log.info("/check-authCode POST!! - {}", dto);
 
@@ -193,11 +200,11 @@ public class MemberController {
 
 
     // 비밀번호 변경 요청 처리
-    @PostMapping("/change-pw")
-    public String changePw(String email, String pw) {
-        log.info("/change-pw POST!! - email : {}, pw : {}", email, pw);
+    @PostMapping("/change/pw")
+    public String changePw(String email, String newPw) {
+        log.info("/change-pw POST!! - email : {}, pw : {}", email, newPw);
 
-        boolean flag = memberService.changePw(email, pw);
+        boolean flag = memberService.changePw(email, newPw);
 
 
         return "member/find/change-pw-success";

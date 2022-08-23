@@ -240,9 +240,9 @@ public class MemberService {
         return null;
     }
 
-    public boolean changePw(String email, String pw) {
+    public boolean changePw(String email, String newPw) {
 
-        String encodedPw = encoder.encode(pw);
+        String encodedPw = encoder.encode(newPw);
 
         return memberMapper.changePw(email, encodedPw);
     }

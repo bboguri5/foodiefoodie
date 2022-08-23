@@ -393,16 +393,39 @@ commit;
 
 
 ----------------------------------------------------------- 08 / 15
-create table PROMOTION_STORE_TIME
-(
-    promotion_bno number(10) NOT NULL
-    ,weekdayOpenTime number(8) NOT NULL
-    ,weekdayCloseTime number(8) NOT NULL
-    ,weekendOpenTime number(8) NOT NULL
-    ,weekendCloseTime number(8) NOT NULL
-    ,breakStartTime number(8) NOT NULL
-    ,breakEndTime number(8) NOT NULL
-    ,closedDay VARCHAR2(2)
-    , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
-    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-);
+
+ create table PROMOTION_STORE_TIME
+    (
+        promotion_bno number(10) NOT NULL
+        ,weekdayOpenTime number(8) NOT NULL
+        ,weekdayCloseTime number(8) NOT NULL
+        ,weekendOpenTime number(8) NOT NULL
+        ,weekendCloseTime number(8) NOT NULL
+        ,breakStartTime number(8) NOT NULL
+        ,breakEndTime number(8) NOT NULL
+        ,closedDay VARCHAR2(20)
+        , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
+        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+    );
+
+    alter table promotion_board modify FILE_NAME null;
+    alter table promotion_board modify file_path null;
+
+    ------------------------------------------------------ 08 / 22
+
+ALTER TABLE reply_faq RENAME COLUMN content TO reply_faq_content;
+
+    DROP TABLE promotion_upload_menu_img;
+    DROP TABLE promotion_food_menu;
+
+ -- 음식 메뉴 및 업로드
+    CREATE TABLE promotion_food_menu(
+        menu_no NUMBER(5)primary key
+        , promotion_bno NUMBER(10) NOT NULL
+        , menu_name VARCHAR2(20) NOT NULL
+        , price NUMBER(6) NOT NULL
+        , file_path clob
+        , file_name VARCHAR2(100)
+        , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
+        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+    );

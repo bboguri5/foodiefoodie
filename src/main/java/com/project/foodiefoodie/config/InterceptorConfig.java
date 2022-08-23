@@ -31,9 +31,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**");
 
 
-        // 로그인 후 회원가입 및 로그인 재진입 차단
+        // 로그인 후 회원가입 및 로그인, email, pw 찾기 및 변경 URL 진입 차단
         registry.addInterceptor(afterLoginInterceptor)
-                .addPathPatterns("/login", "/register", "/find-email", "find-pw");
+                .addPathPatterns("/login", "/register", "/find/*", "/check/*");
 
 
         // 로그인 하지 않은 경우 차단할 요청들 나열하기

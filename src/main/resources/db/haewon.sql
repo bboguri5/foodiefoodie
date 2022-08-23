@@ -249,6 +249,10 @@ CREATE TABLE premiume_promotion_board (
 --alter table premiume_promotion_board
 --MODIFY end_date NUMBER(10);
 
+update premiume_promotion_board set complete = 'N'
+  where end_date = to_number(to_char(sysdate,'yyyymmdd'))
+  and complete = 'T';
+
 SELECT * FROM premiume_promotion_board;
 
 -- promotion_bno는 promotion_board 테이블에 있는 promotion_bno와 맞춰서 넣어야 해요!
@@ -406,6 +410,9 @@ CREATE TABLE reply (
 );
 
 INSERT INTO reply VALUES ('3', seq_reply.nextval, 'bbbb2222@naver.com', '댓글 마니 달자아앙', 'Haewon', SYSDATE);
+INSERT INTO reply VALUES (1, seq_reply.nextval, 'julie@gmail.com', '댓글 달거양 ㅋㅋㅋㅋㅋ 좀 많이 달면
+        어케될까ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ 재밌네',
+        'julie', SYSDATE);
 
 ------------------------------ review like -----------------------------------
 -- 리뷰 좋아요(추천)

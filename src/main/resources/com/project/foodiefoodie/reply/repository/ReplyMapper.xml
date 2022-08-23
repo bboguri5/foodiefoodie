@@ -27,12 +27,33 @@
     </select>
 
     <select id="findAll" resultMap="replyMap">
-        SELECT * FROM reply
+        SELECT *
+        FROM (
+        SELECT ROWNUM rn, v_reply.*
+        FROM (
+        SELECT *
+        FROM reply
+        WHERE review_bno = #{reviewBno}
+        ORDER BY reply_no DESC
+        ) v_reply
+        )
+        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
     </select>
 
     <select id="findOne" resultMap="replyMap">
         SELECT * FROM reply
         WHERE reply_no = #{replyNo}
     </select>
+
+    <select id="findReplyCount" resultType="int">
+        SELECT COUNT(*)
+        FROM reply
+        WHERE review_bno = #{reviewBno}
+    </select>
+
+    <insert id="save">
+        INSERT INTO reply
+        VALUES (#{reviewBno}, seq_reply.nextval, #{email}, #{content}, #{nickName}, SYSDATE)
+    </insert>
 
 </mapper>

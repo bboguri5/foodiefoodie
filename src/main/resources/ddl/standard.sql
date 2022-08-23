@@ -115,6 +115,19 @@ CREATE TABLE promotion_board (
 );
 
 
+-- 음식 메뉴 및 업로드
+    CREATE TABLE promotion_food_menu(
+        menu_no NUMBER(5)primary key
+        , promotion_bno NUMBER(10) NOT NULL
+        , menu_name VARCHAR2(20) NOT NULL
+        , price NUMBER(6) NOT NULL
+        , file_path clob
+        , file_name VARCHAR2(100)
+        , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
+        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+    );
+
+
 -- 월정액 가게
 CREATE TABLE premiume_promotion_board (
     promotion_bno NUMBER(10) NOT NULL
@@ -304,18 +317,7 @@ create table promotion_upload_title_img(
         , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
         REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
     );
-    
--- 음식 메뉴
-CREATE TABLE promotion_food_menu(
-        menu_no NUMBER(5)primary key
-        , promotion_bno NUMBER(10) NOT NULL
-        , menu_name VARCHAR2(20) NOT NULL
-        , price NUMBER(6) NOT NULL
-        , file_path clob
-        , file_name VARCHAR2(100)
-        , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
-        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-    );
+
 
 
 COMMIT;
@@ -328,7 +330,7 @@ COMMIT;
 
 
 -- 추가
-   
+
 
 
 

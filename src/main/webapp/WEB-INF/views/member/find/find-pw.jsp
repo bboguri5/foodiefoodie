@@ -43,7 +43,7 @@
 							<div class="divider"><span>Or</span></div> -->
                             <h6>회원가입 당시의 계정 이메일, 성함, 전화번호, 생년월일을 입력하세요.</h6>
                             <br>
-                            <form id="find-pw-form" action="/find-pw" method="post">
+                            <form id="find-pw-form" action="/find/pw" method="post">
 
                                 <div>
                                     <span id="emailChk"></span>
@@ -151,7 +151,7 @@
                 else {
                     // 정상적으로 입력한 경우
                     $emailInput.css('border-color', 'greenyellow');
-                    $emailChk.text('사용 가능한 이메일입니다');
+                    $emailChk.text('');
                     $emailChk.css('color', 'green');
                     checkArr[0] = true;
                 }

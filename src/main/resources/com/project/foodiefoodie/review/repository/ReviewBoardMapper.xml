@@ -27,6 +27,10 @@
         <result property="fileName" column="file_name"/>
     </resultMap>
 
+    <resultMap id="likeMap" type="com.project.foodiefoodie.review.domain.ReviewLike">
+        <result property="reviewBno" column="review_bno"/>
+    </resultMap>
+
 
     <insert id="save">
         INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate)
@@ -60,10 +64,10 @@
         WHERE review_bno = #{reviewBno}
     </select>
 
-    <select id="reviewUpload" resultMap="ruMap">
+    <insert id="reviewUpload">
         INSERT INTO review_upload
         VALUES (#{reviewBno}, #{filePath}, #{fileName})
-    </select>
+    </insert>
 
     <select id="findReviewUploads" resultMap="ruMap">
         SELECT review_bno, file_path
@@ -77,10 +81,29 @@
         WHERE review_bno = #{reviewBno}
     </update>
 
+    <update id="downLike">
+        UPDATE review_board
+        SET like_cnt = (SELECT like_cnt FROM review_board WHERE review_bno = #{reviewBno}) - 1
+        WHERE review_bno = #{reviewBno}
+    </update>
+
+    <insert id="saveReviewLike">
+        INSERT INTO review_like
+        VALUES (#{reviewBno}, #{email})
+    </insert>
+
+    <delete id="deleteReviewLike">
+        DELETE FROM review_like WHERE review_bno=#{reviewBno} AND email=#{email}
+    </delete>
+
     <select id="getLike" resultType="int">
         SELECT like_cnt
         FROM review_board
         WHERE review_bno = #{reviewBno}
+    </select>
+
+    <select id="isLiked" resultType="int">
+        SELECT COUNT(*) FROM review_like WHERE email=#{email} AND review_bno=#{reviewBno}
     </select>
 
 </mapper>

@@ -41,7 +41,7 @@
 	<main>
 		<div class="hero_single version_2">
 			<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)"
-				style="background: url('img/main_background.jpg') no-repeat fixed 90% / cover">
+				style="background: url('/img/main_background.jpg') no-repeat fixed 90% / cover">
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-xl-9 col-lg-10 col-md-8">
@@ -151,7 +151,7 @@
 								<c:if test="${topToday.hotDeal == 'Y'.charAt(0) && topToday.endDate > todayDate}">
 									<span class="ribbon off">${topToday.discountPrice}</span>
 								</c:if>
-								<img src="${topToday.filePath}" data-src="${topToday.filePath}" class="owl-lazy" alt="">
+								<img src="${topToday.filePath}"  data-src="${topToday.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
 									<div class="item_title">
 										<h3>${topToday.storeName}</h3>

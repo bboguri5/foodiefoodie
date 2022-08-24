@@ -39,6 +39,7 @@
 
     <link href="/css/detail-page-delivery.css" rel="stylesheet">
 
+    <!-- menu -->
     <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
@@ -47,7 +48,9 @@
         href="/img/apple-touch-icon-144x144-precomposed.png">
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 
-
+    <!-- notice -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/admin.css" rel="stylesheet">
 
     <style id="theia-sticky-sidebar-stylesheet-TSS">
         .theiaStickySidebar:after {
@@ -60,6 +63,7 @@
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
     </script>
+
 
 </head>
 
@@ -116,8 +120,13 @@
         height: 50px;
         border: 0;
     }
-    .openKaKaoMap{
+
+    .openKaKaoMap {
         margin-left: 10px;
+    }
+
+    h1{
+        color: #fff !important ;
     }
 </style>
 
@@ -294,8 +303,7 @@
                                     role="tab">Reviews</a>
                             </li>
                             <li class="nav-item">
-                                <a id="tab-D" href="#pane-D" class="nav-link" data-bs-toggle="tab"
-                                    role="tab">Notice</a>
+                                <a id="tab-D" href="#pane-D" class="nav-link" data-bs-toggle="tab" role="tab">Notice</a>
                             </li>
                         </ul>
                         <div class="tab-content" role="tablist">
@@ -812,7 +820,7 @@
                             </div>
                             <!-- /C type -->
                             <!-- D type -->
-                            <div id="pane-D" class="card tab-pane fade show active" role="tabpanel"
+                            <div id="pane-D" class="card tab-pane fade show" role="tabpanel"
                                 aria-labelledby="tab-D">
                                 <div class="card-header" role="tab" id="heading-D">
                                     <h5>
@@ -825,23 +833,97 @@
                                 <div id="collapse-D" class="collapse" role="tabpanel" aria-labelledby="heading-D">
                                     <div class="card-body info_content">
                                         <div class="add_bottom_25"></div>
-                                        <!-- detail photo -->
+                                        <!-- 공지사항  -->
                                         <h2>공지사항</h2>
-                                        <!-- /detail photo -->
+                                        <div class="noticeBox">
+                                            <!-- <div class="header_box">
+                                                <div class="filter">
+                                                    <div class="styled-select short">
+                                                        <select name="orderby">
+                                                            <option value="Any time">Any time</option>
+                                                            <option value="Latest">Latest</option>
+                                                            <option value="Oldest">Oldest</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="list_general">
+                                                <ul>
+                                                    <li>
+                                                        <figure><img src="img/item_1.jpg" alt=""></figure>
+                                                        <small>Pizza - Italian</small>
+                                                        <h4>La Monnalisa</h4>
+                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
+                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
+                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
+                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
+                                                            vocent ocurreret per....</p>
+                                                        <p><a href="#0" class="btn_1 gray"><i
+                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
+                                                        <ul class="buttons">
+                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
+                                                                        class="fa fa-fw fa-times-circle-o"></i>
+                                                                    Cancel</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <figure><img src="img/item_2.jpg" alt=""></figure>
+                                                        <small>Pizza - Italian</small>
+                                                        <h4>Da Alfredo</h4>
+                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
+                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
+                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
+                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
+                                                            vocent ocurreret per....</p>
+                                                        <p><a href="#0" class="btn_1 gray"><i
+                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
+                                                        <ul class="buttons">
+                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
+                                                                        class="fa fa-fw fa-times-circle-o"></i>
+                                                                    Cancel</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <figure><img src="img/item_3.jpg" alt=""></figure>
+                                                        <small>Japanese</small>
+                                                        <h4>Sushi Gold</h4>
+                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
+                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
+                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
+                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
+                                                            vocent ocurreret per....</p>
+                                                        <p><a href="#0" class="btn_1 gray"><i
+                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
+                                                        <ul class="buttons">
+                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
+                                                                        class="fa fa-fw fa-times-circle-o"></i>
+                                                                    Cancel</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- /공지사항 -->
                                         <!-- detail info -->
                                     </div>
                                 </div>
                             </div>
-                            <!-- /tab-content -->
+
                         </div>
-                        <!-- /tabs_detail -->
+                        <!-- /tab-content -->
                     </div>
-                    <!-- /col -->
+                    <!-- /tabs_detail -->
+
                 </div>
+                <!-- /col -->
+
                 <!-- /row -->
             </div>
-            <!-- /container -->
 
+            <!-- /row -->
+
+            <!-- /container -->
+        </div>
     </main>
     <!-- /main -->
 
@@ -1070,7 +1152,7 @@
     const $openKakaoMap = $(".openKaKaoMap");
     $openKakaoMap.on("click", function () {
 
-        const area = "https://map.kakao.com/link/search/" + `${master.storeAddress}`;  
+        const area = "https://map.kakao.com/link/search/" + `${master.storeAddress}`;
         $openKakaoMap.attr("href", area);
     });
 </script>

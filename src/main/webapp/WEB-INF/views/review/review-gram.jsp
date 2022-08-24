@@ -41,7 +41,7 @@
 		}
 
 		.post_info h2 {
-			margin-top: 10px;
+			margin: 20px 0;
 		}
 
 		.post_info li i {
@@ -56,18 +56,27 @@
 			cursor: pointer;
 		}
 
-        p {
-            overflow-wrap: break-word;
-        }
+		p {
+			overflow-wrap: break-word;
+		}
 
-        nav.main-menu {
-            height: 100%;
-            margin-right: 40px;
-        }
+		.page_header .container .row form {
+			width: 75%;
 
-        .submenu .show-submenu {
-            color: #589442;
-        }
+		}
+
+		.page_header .container .row .col-xl-8 {
+			width: 20%;
+		}
+
+		nav.main-menu {
+			height: 100%;
+			margin-right: 40px;
+		}
+
+		.submenu .show-submenu {
+			color: #589442;
+		}
 	</style>
 </head>
 
@@ -79,12 +88,15 @@
 		<div class="page_header element_to_stick">
 			<div class="container">
 				<div class="row">
-					<div class="col-xl-4 col-lg-5 col-md-5">
-						<div class="search_bar_list">
-							<input type="text" class="form-control" placeholder="Search in blog...">
-							<input type="submit" value="Search">
+					<form action="/review/search" method="get">
+						<div class="col-xl-4 col-lg-5 col-md-5">
+							<div class="search_bar_list">
+								<input value="${search}" name="search" type="text" class="form-control"
+									placeholder="Search in blog...">
+								<input type="submit" value="Search">
+							</div>
 						</div>
-					</div>
+					</form>
 					<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
 						<nav class="main-menu">
 							<ul>
@@ -104,7 +116,12 @@
 		</div>
 		<!-- /page_header -->
 
+
 		<div class="container margin_30_40">
+			<c:if test="${empty reviewList}">
+				<p>일치하는 검색 결과가 없습니다.</p>
+			</c:if>
+
 			<div class="outer row">
 				<div class="col-lg-9">
 					<div class="row upCount">
@@ -122,6 +139,8 @@
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
 									<h2><a href="/review/detail?reviewBno=${rl.reviewBno}">${rl.title}</a></h2>
 
+									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
+									<p>식당 주소: ${rl.storeAddress}</p>
 									<p>${rl.content}
 										<ul>
 											<li>

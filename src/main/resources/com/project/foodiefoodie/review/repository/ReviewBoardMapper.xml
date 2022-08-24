@@ -19,6 +19,9 @@
         <result property="lastUpdated" column="last_updated"/>
         <result property="likeCnt" column="like_cnt"/>
         <result property="starRate" column="star_rate"/>
+        <result property="businessNo" column="business_no"/>
+        <result property="storeName" column="store_name"/>
+        <result property="storeAddress" column="store_address"/>
     </resultMap>
 
     <resultMap id="ruMap" type="com.project.foodiefoodie.review.domain.ReviewUpload">
@@ -52,16 +55,34 @@
     </select>
 
     <select id="findAllReviews" resultMap="rbDTOMap">
-        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt
-        FROM review_board
+        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no, m.store_name, m.store_address
+        FROM review_board rb
+        JOIN master m
+        ON rb.business_no = m.business_no
         WHERE private = 'F'
-        ORDER BY last_updated DESC
+        ORDER BY rb.last_updated DESC
     </select>
 
     <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
-        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt
-        FROM review_board
-        WHERE review_bno = #{reviewBno}
+        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no, m.store_name, m.store_address
+        FROM review_board rb
+        JOIN master m
+        ON rb.business_no = m.business_no
+        WHERE rb.review_bno = #{reviewBno}
+    </select>
+
+    <select id="searchAllReview" resultMap="rbDTOMap">
+        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no, m.store_name, m.store_address
+        FROM review_board rb
+        JOIN master m
+        ON rb.business_no = m.business_no
+        WHERE private = 'F'
+        AND rb.email LIKE '%' || #{search}|| '%'
+        OR rb.title LIKE '%' || #{search}|| '%'
+        OR rb.content LIKE '%' || #{search}|| '%'
+        OR m.store_name LIKE '%' || #{search}|| '%'
+        OR m.store_address LIKE '%' || #{search}|| '%'
+        ORDER BY rb.last_updated DESC
     </select>
 
     <insert id="reviewUpload">
@@ -105,5 +126,7 @@
     <select id="isLiked" resultType="int">
         SELECT COUNT(*) FROM review_like WHERE email=#{email} AND review_bno=#{reviewBno}
     </select>
+
+
 
 </mapper>

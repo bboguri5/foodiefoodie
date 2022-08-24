@@ -48,6 +48,32 @@
             color: #fff !important;
         }
 
+        p {
+            overflow-wrap: break-word;
+        }
+        
+        h1 {
+            margin-bottom: 15px;
+        }
+
+        .page_header .container .row form {
+			width: 75%;
+
+		}
+
+		.page_header .container .row .col-xl-8 {
+			width: 20%;
+		}
+
+		nav.main-menu {
+			height: 100%;
+			margin-right: 40px;
+		}
+
+		.submenu .show-submenu {
+			color: #589442;
+		}
+
     </style>
 
 </head>
@@ -57,6 +83,37 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <main>
+
+        <div class="page_header element_to_stick">
+			<div class="container">
+				<div class="row">
+					<form action="/review/search" method="get">
+						<div class="col-xl-4 col-lg-5 col-md-5">
+							<div class="search_bar_list">
+								<input value="${search}" name="search" type="text" class="form-control" placeholder="Search in blog...">
+								<input type="submit" value="Search">
+							</div>
+						</div>
+					</form>
+					<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
+						<nav class="main-menu">
+							<ul>
+								<li class="submenu">
+									<a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
+									<ul>
+										<li><a href="#">추천순</a></li>
+										<li><a href="#">최신순</a></li>
+									</ul>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+		</div>
+		<!-- /page_header -->
+
         <div class="container margin_30_40">
             <div class="row">
                 <div class="col-lg-9">
@@ -81,10 +138,6 @@
                                         class="owl-prev"><span aria-label="Previous">‹</span></button><button
                                         type="button" role="presentation" class="owl-next"><span
                                             aria-label="Next">›</span></button></div>
-                                <!-- <div class="owl-dots"><button role="button"
-                                        class="owl-dot active"><span></span></button><button role="button"
-                                        class="owl-dot"><span></span></button><button role="button"
-                                        class="owl-dot"><span></span></button></div> -->
                             </div>
 
                         </figure>
@@ -103,7 +156,8 @@
                         </div>
                         <!-- /post meta -->
                         <div class="post-content">
-
+                            <p>식당 이름: <a href="#">${review.storeName}</a></p>
+                            <p>식당 주소: ${review.storeAddress}</p>
                             <p>${review.content}</p>
                         </div>
                         <!-- /post -->

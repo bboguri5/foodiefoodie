@@ -408,24 +408,30 @@ commit;
         REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
     );
 
-    alter table promotion_board modify FILE_NAME null;
-    alter table promotion_board modify file_path null;
 
-    ------------------------------------------------------ 08 / 22
+   ------------------------------------------------------------- 08 / 24
 
-ALTER TABLE reply_faq RENAME COLUMN content TO reply_faq_content;
+alter table review_board modify star_rate NUMBER(2,1) DEFAULT 2.5;
 
-    DROP TABLE promotion_upload_menu_img;
-    DROP TABLE promotion_food_menu;
+ALTER TABLE hot_deal DROP COLUMN start_date ;
+ALTER TABLE hot_deal DROP COLUMN end_date ;
 
- -- 음식 메뉴 및 업로드
-    CREATE TABLE promotion_food_menu(
-        menu_no NUMBER(5)primary key
-        , promotion_bno NUMBER(10) NOT NULL
-        , menu_name VARCHAR2(20) NOT NULL
-        , price NUMBER(6) NOT NULL
-        , file_path clob
-        , file_name VARCHAR2(100)
-        , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
-        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-    );
+   CREATE TABLE order_list (
+       order_no NUMBER(8) PRIMARY KEY -- 주문 번호
+       , business_no VARCHAR2(50) NOT NULL -- 주문이 들어간 가게 사업자 번호
+       , CONSTRAINT fk_order_busi_no FOREIGN KEY (business_no)
+       REFERENCES MASTER (business_no) ON DELETE CASCADE
+       , email VARCHAR2(50) NOT NULL -- 주문한 사람 계정 이메일
+       , CONSTRAINT fk_order_email FOREIGN KEY (email)
+       REFERENCES member (email) ON DELETE CASCADE
+       , order_date DATE DEFAULT SYSDATE -- 주문 날짜
+   );
+
+   CREATE TABLE order_detail (
+       order_no NUMBER(8) NOT NULL -- 주문 번호
+       , CONSTRAINT fk_order_no FOREIGN KEY (order_no)
+       REFERENCES order_list (order_no) ON DELETE CASCADE
+       , order_menu VARCHAR2(50) NOT NULL -- 주문한 메뉴명
+       , menu_ea NUMBER(2) NOT NULL -- 주문 수량
+       , price NUMBER(10) NOT NULL -- 가격
+   );

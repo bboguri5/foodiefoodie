@@ -49,7 +49,7 @@
                                         <th><a href="#0" data-toggle="modal" data-target=".edit_booking"
                                             data-businessno="${al.businessNo}" data-email="${al.email}"
                                             data-mastername="${al.masterName}" data-storename="${al.storeName}"
-                                            data-storeaddress="${al.storeAddress}" data-storedetailaddress="${storeDetailAddress}"
+                                            data-storeaddress="${al.storeAddress}" data-storedetailaddress="${al.storeDetailAddress}"
                                             data-storecallnumber="${al.storeCallNumber}">
                                                 ${al.businessNo}</a>
                                         </th>

@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.util.List;
+
 import static com.project.foodiefoodie.common.api.mail.service.EmailServiceImpl.authCode;
 import static com.project.foodiefoodie.member.service.LoginFlag.*;
 
@@ -146,9 +148,10 @@ public class MemberController {
     public String findEmail2(FindEmailDTO dto, Model model) {
         log.info("/find-email POST!! - {}", dto);
 
-        String foundEmail = memberService.findEmail(dto);
+        List<String> emailList = memberService.findEmail(dto);
 
-        model.addAttribute("foundEmail", foundEmail); // null 검증은 클라이언트 쪽에서 하자.
+        model.addAttribute("foundEmailList", emailList); // null 검증은 클라이언트 쪽에서 하자.
+        model.addAttribute("emailListSize", emailList.size());
 
         return "member/find/find-email-result";
     }

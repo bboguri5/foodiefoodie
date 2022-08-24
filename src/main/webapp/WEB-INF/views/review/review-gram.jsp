@@ -150,8 +150,8 @@
 											<li>
 												<i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i><span
 													id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-												<i id="${rl.reviewBno}"
-													class="icon_comment_alt"></i>${replyCount[status.index]}
+												<a href="/review/detail?reviewBno=${rl.reviewBno}#section-comment"><i id="${rl.reviewBno}"
+													class="icon_comment_alt"></i>${replyCount[status.index]}</a>
 											</li>
 
 										</ul>

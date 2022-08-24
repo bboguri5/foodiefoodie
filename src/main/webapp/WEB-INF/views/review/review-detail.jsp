@@ -24,6 +24,8 @@
     <!-- YOUR CUSTOM CSS -->
     <link href="/css/custom.css" rel="stylesheet">
 
+    <link href="/css/home.css" rel="stylesheet">
+
     <style>
         .col-lg-9 {
             margin: auto;
@@ -45,6 +47,7 @@
             background: #888 !important;
             color: #fff !important;
         }
+
     </style>
 
 </head>
@@ -54,32 +57,6 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <main>
-        <%@ include file="../include/page-header.jsp" %>
-
-        <div class="page_header element_to_stick">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
-                        <div class="breadcrumbs blog">
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Category</a></li>
-                                <li>Page active</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-5 col-md-5">
-                        <div class="search_bar_list">
-                            <input type="text" class="form-control" placeholder="Search in blog...">
-                            <input type="submit" value="Search">
-                        </div>
-                    </div>
-                </div>
-                <!-- /row -->
-            </div>
-        </div>
-        <!-- /page_header -->
-
         <div class="container margin_30_40">
             <div class="row">
                 <div class="col-lg-9">

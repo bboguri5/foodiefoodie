@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -33,21 +34,20 @@ public class ProBoardController {
     private final ProBoardService proBoardService;
 
     @GetMapping("/detail/{promotionBno}")
-    public String detail(Model model, HttpServletResponse response , @PathVariable int promotionBno) throws UnsupportedEncodingException {
+    public String detail(Model model, @PathVariable int promotionBno)  {
         log.info(" foodie/detail Get - !  {} ", promotionBno);
 
         ProBoard proBoard = proBoardService.selectOne(promotionBno);
         Master master = proBoardService.selectMaster(proBoard.getBusinessNo());
         StoreTimeDTO storeTimeDTO = proBoardService.selectStoreTime(promotionBno);
 
-        byte[] img = FileUtils.getImgByte("C:\\SLClass\\file_icon.jpg");
-        byte[] imgByte = Base64.encodeBase64(img);
-        String imgStr = new String(imgByte,"UTF-8");
-        model.addAttribute("titleImg",imgStr);
+        String img = FileUtils.getFileContent("C:\\foodiefoodie\\proBoard\\1234-12-12345\\detail\\detail3_detail3.jpg");
+
+        model.addAttribute("titleImg",img);
         model.addAttribute("master", master);
         model.addAttribute("proBoard", proBoard);
         model.addAttribute("storeTime", storeTimeDTO);
-//        model.addAttribute("titleImg", );
+
         log.info("{}", storeTimeDTO);
         return "promotion/pro-detail";
     }
@@ -93,6 +93,8 @@ public class ProBoardController {
 
         return "";
     }
+
+
 
 
 }

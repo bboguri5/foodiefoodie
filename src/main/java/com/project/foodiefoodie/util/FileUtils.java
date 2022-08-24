@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.util;
 
 import lombok.SneakyThrows;
+import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.javassist.bytecode.ByteArray;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -12,10 +13,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+
+@Log4j2
 public class FileUtils {
 
     // MIME TYPE 설정을 위한 Map 만들기
@@ -143,31 +147,29 @@ public class FileUtils {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
-    public static byte[] getImgByte(String fileFullPath){
 
-        FileInputStream fileReader ;
-        ByteArrayOutputStream byteArr = new ByteArrayOutputStream();
-        int result;
-        try
-        {
-            File file = new File(fileFullPath);
-            fileReader = new FileInputStream(file);
-            byte[] buf = new byte[1024];
-            while ((result = fileReader.read()) != -1) {
-                byteArr.write(buf,0,result);
-            }
-            byte[] imgbuf = null;
-            imgbuf = byteArr.toByteArray();
-            byteArr.close();
-            fileReader.close();
-            return imgbuf;
-        }catch (Exception e)
-        {
-            e.getStackTrace();
-            return null;
-        }
+
+    // file 경로 byte으로 변환 후 base64으로 string type으로 return;
+    // 로컬경로의 이미지는 보안문제로 적용되지 않기때문에 변환하여 전달
+    public static String getFileContent (String filePath) {
+        byte[] filebyte = getImgByte(filePath);
+        return convertBlobToBase64(filebyte);
     }
 
+    private static String convertBlobToBase64 (byte[] blob) {
+        return new String(Base64.getEncoder().encode(blob));
+    }
 
+    private static  byte[] getImgByte(String fileFullPath){
 
+        byte[] bytes;
+        try {
+            // FileUtils -> 변환해주는 API
+            bytes = org.apache.commons.io.FileUtils.readFileToByteArray(new File(fileFullPath));
+            return bytes;
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+        return null;
+    }
 } // end class

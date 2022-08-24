@@ -38,7 +38,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         // 로그인 하지 않은 경우 차단할 요청들 나열하기
         registry.addInterceptor(unLoginInterceptor)
-                .addPathPatterns("/kakao/payment-test");
+                .addPathPatterns("/kakao/payment-test", "/master/*", "/myPage/*");
 
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns("/admin/*");

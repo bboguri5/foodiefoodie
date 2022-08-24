@@ -270,7 +270,7 @@ public class MemberController {
     }
 
 
-    @GetMapping("/myPage-profile")
+    @GetMapping("/myPage/profile")
     public String myPageProfile(HttpSession session, Model model) {
         Member loginUser = (Member) session.getAttribute("loginUser");
         // 새션에는 값이 안변하니까 값이 변한 DB 데이터 값을 가져온다 !
@@ -280,13 +280,13 @@ public class MemberController {
         return "/myPage/myPage-profile";
     }
 
-    @GetMapping("/myPage-modify")
+    @GetMapping("/myPage/modify")
     public String myPageModify() {
         log.info("myPage-modify");
         return "/myPage/myPage-modify";
     }
 
-    @PostMapping("/modifyMember")
+    @PostMapping("/myPage/modify")
     public String PostModifyMember(HttpSession session, ModifyDTO modifyDTO) {
         log.info("modifyDTO : {}", modifyDTO);
         memberService.modifyMemberService(modifyDTO);

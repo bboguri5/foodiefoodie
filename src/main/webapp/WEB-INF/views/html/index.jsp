@@ -14,7 +14,7 @@
 		}
 
 		#locationList .item {
-			width: 16%;
+			width: 19%;
 		}
 
 		.search form {
@@ -432,7 +432,7 @@
 							`       <ul>` +
 							`			<li><span>` +locationList[i].storeAddress + `</span></li>` +
 							`           <li>` +
-							`               <div class="score"><span>근처 맛집<em>` + locationList[i].reviewCnt +
+							`               <div class="score"><span>주변 맛집<em>` + locationList[i].reviewCnt +
 							`개 리뷰</em></span><strong>` + locationList[i].avgStarRate + `</strong></div>` +
 							`           </li>` +
 							`       </ul>` +

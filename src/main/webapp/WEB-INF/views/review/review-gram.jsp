@@ -55,6 +55,19 @@
 		.icon_comment_alt {
 			cursor: pointer;
 		}
+
+        p {
+            overflow-wrap: break-word;
+        }
+
+        nav.main-menu {
+            height: 100%;
+            margin-right: 40px;
+        }
+
+        .submenu .show-submenu {
+            color: #589442;
+        }
 	</style>
 </head>
 
@@ -63,7 +76,33 @@
 	<%@ include file="../include/detail-header.jsp" %>
 
 	<main>
-		<%@ include file="../include/page-header.jsp" %>
+		<div class="page_header element_to_stick">
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-4 col-lg-5 col-md-5">
+						<div class="search_bar_list">
+							<input type="text" class="form-control" placeholder="Search in blog...">
+							<input type="submit" value="Search">
+						</div>
+					</div>
+					<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
+						<nav class="main-menu">
+							<ul>
+								<li class="submenu">
+									<a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
+									<ul>
+										<li><a href="#">추천순</a></li>
+										<li><a href="#">최신순</a></li>
+									</ul>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+		</div>
+		<!-- /page_header -->
 
 		<div class="container margin_30_40">
 			<div class="outer row">
@@ -82,6 +121,7 @@
 									<small>Last Updated - ${rl.lastUpdated}
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
 									<h2><a href="/review/detail?reviewBno=${rl.reviewBno}">${rl.title}</a></h2>
+
 									<p>${rl.content}
 										<ul>
 											<li>
@@ -121,7 +161,6 @@
 	<script>
 		const upCount = document.querySelector('.upCount');
 		upCount.addEventListener('click', e => {
-
 			if (e.target.classList.contains('heartIcon')) {
 				likeOrUnlike(e);
 			} else if (e.target.className.classList.contains('icon_comment_alt')) {

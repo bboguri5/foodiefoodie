@@ -39,6 +39,28 @@ class ProBoardMapperTest {
         StoreTimeDTO storeTimeDTO = proMapper.selectStoreTime(6);
         System.out.println("나온거야? " + storeTimeDTO);
     }
+
+    @Test
+    @DisplayName("히히 구냥 해봄 ")
+    void selectImagesTest()
+    {
+        Map<String,List<ImageDTO>> imageMap = Map.of(
+                "title",proMapper.selectImages(9,"title"),
+               "detail",proMapper.selectImages(9,"detail")
+        );
+        System.out.println(imageMap.get("detail"));
+    }
+
+    @Test
+    @DisplayName("메뉴 info 가져오기")
+    void selectMenuInfoTest()
+    {
+        List<MenuDTO> menuDTOS = proMapper.selectMenuInfo(9);
+        for(MenuDTO menuDTO: menuDTOS)
+        {
+            System.out.println(menuDTO);
+        }
+    }
 //
 //    @Test
 //    @DisplayName("storeTime이 저장되어야 한다.")

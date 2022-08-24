@@ -4,24 +4,19 @@ package com.project.foodiefoodie.proBoard.controller;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 
+import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
-import com.project.foodiefoodie.util.FileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.util.*;
 
 
@@ -41,9 +36,11 @@ public class ProBoardController {
         Master master = proBoardService.selectMaster(proBoard.getBusinessNo());
         StoreTimeDTO storeTimeDTO = proBoardService.selectStoreTime(promotionBno);
 
-        String img = FileUtils.getFileContent("C:\\foodiefoodie\\proBoard\\1234-12-12345\\detail\\detail3_detail3.jpg");
-
-        model.addAttribute("titleImg",img);
+        model.addAttribute("titleImg",proBoardService.selectTitleImg(promotionBno));
+        model.addAttribute("detailImgList",proBoardService.selectDetailImgList(proBoard.getPromotionBno()));
+        List<MenuDTO> menuDTOS = proBoardService.selectMenuInfo(promotionBno);
+        model.addAttribute("menuList",menuDTOS);
+        log.info("{}",menuDTOS);
         model.addAttribute("master", master);
         model.addAttribute("proBoard", proBoard);
         model.addAttribute("storeTime", storeTimeDTO);

@@ -7,13 +7,12 @@ import com.project.foodiefoodie.proBoard.dto.ImageDTO;
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.repository.ProBoardMapper;
-import com.sun.tools.jconsole.JConsoleContext;
+import com.project.foodiefoodie.util.FoodieFileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.sound.sampled.Port;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -60,7 +59,9 @@ public class ProBoardService {
         return proBoardMapper.selectMaster(businessNo);
     }
 
-    public StoreTimeDTO selectStoreTime(int promotionBno){return  proBoardMapper.selectStoreTime(promotionBno);}
+    public StoreTimeDTO selectStoreTime(int promotionBno) {
+        return proBoardMapper.selectStoreTime(promotionBno);
+    }
 
 
     // upload path 생성 함수
@@ -82,8 +83,8 @@ public class ProBoardService {
 
         log.info(" uploadMasterFile service - init {}", promotionBno);
         String[] args = {"title", "detail", "menu"};
-        String newUploadPath ="";
-        String newFileName ="";
+        String newUploadPath = "";
+        String newFileName = "";
 //        String fileFullPath ="";
 //        String responseFilePath ="";
 
@@ -95,13 +96,12 @@ public class ProBoardService {
 
                 log.info(" uploadMasterFile service file - key : {} value : {} ", args[i], file.getOriginalFilename());
 
-                if(file.getOriginalFilename().equals("default")) // default = 이미지가 없는 메뉴
+                if (file.getOriginalFilename().equals("default")) // default = 이미지가 없는 메뉴
                 {
                     newUploadPath = "\\img";
                     newFileName = "foodie_default.PNG"; // 기본 이미지
 //                    fileFullPath = newUploadPath + File.separator + newFileName;
-                }
-                else // 이미지가 있는 파일들
+                } else // 이미지가 있는 파일들
                 {
                     newUploadPath = getMasterNewUploadPath(proBoard.getBusinessNo(), args[i]);
                     newFileName = String.format("%s_%s", args[i] + (j + 1), file.getOriginalFilename());
@@ -113,7 +113,7 @@ public class ProBoardService {
                 try {
                     saveProBoardImagePath(promotionBno, newUploadPath, newFileName, menuList, j, args[i]); // 서버 이미지 경로 DB 저장
 
-                    if(file.getOriginalFilename().equals("default")) continue; // default 는 이미지 저장 X
+                    if (file.getOriginalFilename().equals("default")) continue; // default 는 이미지 저장 X
 
                     file.transferTo(f);
 
@@ -127,26 +127,50 @@ public class ProBoardService {
     }
 
     // 서버 경로 이미지 저장 함수
-    public void saveProBoardImagePath(int promotionBno, String newUploadPath, String newFileName, List<String[]> menuList, int index , String type) {
+    public void saveProBoardImagePath(int promotionBno, String newUploadPath, String newFileName, List<String[]> menuList, int index, String type) {
 
-        log.info("saveProBoardImage service - file : {}  ", newUploadPath  );
+        log.info("saveProBoardImage service - file : {}  ", newUploadPath);
 
         if (type.equals("menu")) {
             log.info("save ProBoardImage service -  menu_no ASC {} ", index);
 
             // 메뉴 리스트 저장 (img파일포함) - menuList.get(0) = menuNames , menuList.get(1) = menuPrices
-            proBoardMapper.saveProBoardMenu(promotionBno, new MenuDTO(menuList.get(0)[index], Integer.parseInt(menuList.get(1)[index]), newUploadPath, newFileName));
+            proBoardMapper.saveProBoardMenu(promotionBno, new MenuDTO(0, menuList.get(0)[index], Integer.parseInt(menuList.get(1)[index]), newUploadPath, newFileName));
             return;
         }
-        if(type.equals("title"))
-        {
+        if (type.equals("title")) {
             // proBoard title img 파일 경로 저장
-            proBoardMapper.saveProBoardTitleImg(promotionBno,newUploadPath,newFileName);
+            proBoardMapper.saveProBoardTitleImg(promotionBno, newUploadPath, newFileName);
         }
 
         // title , detail img file 저장
         proBoardMapper.saveProBoardImage(promotionBno, new ImageDTO(newFileName, newUploadPath, type));
     }
 
+
+    public List<MenuDTO> selectMenuInfo(int promotionBno) {
+        List<MenuDTO> menuDTOS = proBoardMapper.selectMenuInfo(promotionBno);
+        for (MenuDTO menuDTO : menuDTOS) {
+            menuDTO.setFilePath(FoodieFileUtils.getFileContent(menuDTO.getFilePath() + "//" + menuDTO.getFileName()));
+        }
+        return menuDTOS;
+    }
+
+    public String selectTitleImg(int promotionBno) {
+        ImageDTO titleImg = (proBoardMapper.selectImages(promotionBno, "title")).get(0);
+        return FoodieFileUtils.getFileContent(titleImg.getFilePath() + '\\' + titleImg.getFileName());
+    }
+
+    public List<String> selectDetailImgList(int promotionBno) {
+        List<ImageDTO> detailImgList = proBoardMapper.selectImages(promotionBno, "detail");
+
+        List<String> detailImgStrList = new ArrayList<>();
+
+        for (ImageDTO detailImg : detailImgList) {
+            detailImgStrList.add(FoodieFileUtils.getFileContent(detailImg.getFilePath() + '\\' + detailImg.getFileName()));
+        }
+
+        return detailImgStrList;
+    }
 
 }

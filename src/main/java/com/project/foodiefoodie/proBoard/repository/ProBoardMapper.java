@@ -22,7 +22,6 @@ public interface ProBoardMapper {
 
     boolean saveProBoardImage(int promotionBno, ImageDTO imageDTO);
 
-    List<Integer> selectMenuNo(int promotionBno);
 
     boolean saveProBoardTitleImg(int promotionBno, String titleFilePath, String titleFileName);
 
@@ -37,6 +36,6 @@ public interface ProBoardMapper {
 
     Master selectMaster(String businessNo);
 
-    MenuDTO selectMenu(int promotionBno);
-
+    List<ImageDTO> selectImages(int promotionBno,String type);
+    List<MenuDTO> selectMenuInfo(int promotionBno);
 }

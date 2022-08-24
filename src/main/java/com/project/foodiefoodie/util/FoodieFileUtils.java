@@ -1,15 +1,10 @@
 package com.project.foodiefoodie.util;
 
-import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
-import org.apache.ibatis.javassist.bytecode.ByteArray;
 import org.springframework.http.MediaType;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
@@ -20,7 +15,7 @@ import java.util.UUID;
 
 
 @Log4j2
-public class FileUtils {
+public class FoodieFileUtils {
 
     // MIME TYPE 설정을 위한 Map 만들기
     private static final Map<String, MediaType> mediaMap;

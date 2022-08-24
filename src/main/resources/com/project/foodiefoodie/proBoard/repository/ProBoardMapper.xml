@@ -122,5 +122,30 @@
     <select id="selectStoreTime" resultMap="StoreTimeMap">
         select * from PROMOTION_STORE_TIME where promotion_bno = #{promotionBno}
     </select>
-    
+
+    <resultMap id="imageDTO" type="com.project.foodiefoodie.proBoard.dto.ImageDTO">
+        <result property="filePath" column="file_path"/>
+        <result property="fileName" column="file_name"/>
+    </resultMap>
+
+    <select id="selectImages" resultMap="imageDTO">
+
+        <if test="type == 'title' ">
+            select file_path, file_name from promotion_board where promotion_bno = #{promotionBno}
+        </if>
+        <if test="type == 'detail'">
+            select file_path, file_name from PROMOTION_UPLOAD_DETAIL_IMG where promotion_bno = #{promotionBno}
+        </if>
+    </select>
+
+    <resultMap id="menuDTO" type="com.project.foodiefoodie.proBoard.dto.MenuDTO">
+        <result property="menuNo" column="menu_no"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuPrice" column="price"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileName" column="file_name"/>
+    </resultMap>
+    <select id="selectMenuInfo" resultMap="menuDTO">
+        select * from PROMOTION_FOOD_MENU where promotion_bno = #{promotionBno}
+    </select>
 </mapper>

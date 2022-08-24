@@ -37,6 +37,17 @@
     <!-- YOUR CUSTOM CSS -->
     <link href="/css/custom.css" rel="stylesheet">
 
+    <link href="/css/detail-page-delivery.css" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/img/apple-touch-icon-144x144-precomposed.png">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+
+    <style id="theia-sticky-sidebar-stylesheet-TSS">.theiaStickySidebar:after {content: ""; display: table; clear: both;}</style>
+
 </head>
 
 <style>
@@ -50,8 +61,9 @@
     }
 
     .menu-gallery {
-        width: 50%;
-        margin-left: 25%;
+        width: 100%;
+        padding-left: 25%;
+        padding-right: 25%;
     }
 
     .endLine {
@@ -70,17 +82,29 @@
     }
 
     .info-detail th {
-    width: 110px;
-    font-size: .9rem;
-    color: rgba(79,79,79,0.6);
-    line-height: 1.7;
-    text-align: left;
-    vertical-align: top;
-    padding-right: 10px;
-    padding-bottom: 5px;
-}
+        width: 110px;
+        font-size: .9rem;
+        color: rgba(79, 79, 79, 0.6);
+        line-height: 1.7;
+        text-align: left;
+        vertical-align: top;
+        padding-right: 10px;
+        padding-bottom: 5px;
+    }
 
-    
+    .menuInfo {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .menuAddBtn {
+        background: rgb(255, 112, 112);
+        width: 50px;
+        height: 50px;
+        border: 0;
+    }
+
+
 </style>
 
 <body>
@@ -204,8 +228,9 @@
 
     <!-- main -->
     <main>
-        <div class="hero_in detail_page title_img_add" style=" background-image: url('data:image/jpg;base64,${titleImg}');">
-                <!-- <img src="data:image/jpg;base64,${titleImg}" >  -->
+        <div class="hero_in detail_page title_img_add"
+            style=" background-image: url('data:image/jpg;base64,${titleImg}');">
+            <!-- <img src="data:image/jpg;base64,${titleImg}">  -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                 <div class="container">
                     <div class="main_info">
@@ -214,8 +239,8 @@
                                 <div class="head">
                                     <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
                                 </div>
-                                <h1>Pizzeria da Alfredo</h1> 
-                              ITALIAN - 27 Old Gloucester St, 4530 - <a
+                                <h1>Pizzeria da Alfredo</h1>
+                                ITALIAN - 27 Old Gloucester St, 4530 - <a
                                     href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
                                     target="blank">Get directions</a>
                             </div>
@@ -274,32 +299,13 @@
                                         <!-- detail photo -->
                                         <h2>Detail Photos</h2>
                                         <div class="pictures magnific-gallery clearfix">
-                                            <figure><a href="/img/detail_gallery/detail_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/thumb_detail_placeholder.jpg"
-                                                        data-src="img/thumb_detail_1.jpg" class="lazy" alt=""></a>
-                                            </figure>
-                                            <figure><a href="/img/detail_gallery/detail_2.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/thumb_detail_placeholder.jpg"
-                                                        data-src="img/thumb_detail_2.jpg" class="lazy" alt=""></a>
-                                            </figure>
-                                            <figure><a href="/img/detail_gallery/detail_3.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/thumb_detail_placeholder.jpg"
-                                                        data-src="img/thumb_detail_3.jpg" class="lazy" alt=""></a>
-                                            </figure>
-                                            <figure><a href="/img/detail_gallery/detail_4.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/thumb_detail_placeholder.jpg"
-                                                        data-src="img/thumb_detail_4.jpg" class="lazy" alt=""></a>
-                                            </figure>
-                                            <figure><a href="/img/detail_gallery/detail_5.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><span
-                                                        class="d-flex align-items-center justify-content-center">+10</span><img
-                                                        src="/img/thumb_detail_placeholder.jpg"
-                                                        data-src="/img/thumb_detail_5.jpg" class="lazy" alt=""></a>
-                                            </figure>
+                                            <c:forEach var="detailImg" items="${detailImgList}" varStatus="status">
+                                                <figure><a title="Photo title" data-effect="mfp-zoom-in"><img
+                                                            src="data:image/jpg;base64,${detailImg}"
+                                                            data-src="data:image/jpg;base64,${detailImg}" class="lazy"
+                                                            alt=""></a>
+                                                </figure>
+                                            </c:forEach>
                                         </div>
                                         <!-- /detail photo -->
                                         <!-- detail info -->
@@ -311,15 +317,17 @@
                                                     <tbody>
                                                         <tr class="only-desktop">
                                                             <th>주소</th>
-                                                            <td>${master.storeAddress} ${master.storeDetailAddress}<br> <!-- ${address} -->
+                                                            <td>${master.storeAddress} ${master.storeDetailAddress}<br>
+                                                                <!-- ${address} -->
                                                             </td>
                                                         </tr>
                                                         <tr class="only-desktop">
                                                             <th>전화번호</th>
-                                                            <td>${master.storeCallNumber}</td> <!-- ${storeCallNumber} -->
+                                                            <td>${master.storeCallNumber}</td>
+                                                            <!-- ${storeCallNumber} -->
                                                         </tr>
 
-                                                            <!-- 메뉴 입력시 평균 표시  -->
+                                                        <!-- 메뉴 입력시 평균 표시  -->
                                                         <!-- <tr>
                                                             <th>가격대</th>
                                                             <td>3만원-4만원</td> 
@@ -327,9 +335,12 @@
 
                                                         <tr>
                                                             <th style="vertical-align:top;">영업시간</th>
-                                                            <td>월-금: ${storeTime.weekdayOpenTime} - ${storeTime.weekdayCloseTime}
-                                                                <br> 토: ${storeTime.weekendOpenTime} - ${storeTime.weekendCloseTime}
-                                                                <br> 브레이크타임: ${storeTime.breakStartTime} - ${storeTime.breakEndTime}</td>
+                                                            <td>월-금: ${storeTime.weekdayOpenTime} -
+                                                                ${storeTime.weekdayCloseTime}
+                                                                <br> 토: ${storeTime.weekendOpenTime} -
+                                                                ${storeTime.weekendCloseTime}
+                                                                <br> 브레이크타임: ${storeTime.breakStartTime} -
+                                                                ${storeTime.breakEndTime}</td>
                                                             <!-- ${StoreTime} -->
                                                         </tr>
                                                         <tr>
@@ -348,14 +359,11 @@
 
                                             <div class="add_bottom_25"></div>
                                             <h2 class="detailInfoTitle"> 사장님이 작성한 글</h2>
-                                            <div class="content" >
+                                            <div class="content">
                                                 ${proBoard.content}
                                             </div>
 
                                         </section>
-
-
-
                                     </div>
                                 </div>
                                 <div class="endLine"></div>
@@ -373,72 +381,200 @@
                                     </div>
                                 </div>
                                 <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
-                                    <div class="card-body info_content">
+                                    <div class="card-body info_content menu-body">
                                         <!-- /menu-gallery -->
                                         <div class="special_offers add_bottom_45">
                                             <h2>Menu</h2>
                                         </div>
                                         <div class="add_bottom_45"></div>
                                         <div class="menu-gallery">
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_4.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-16.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€10.90</em>
-                                                    <h4>Indio Fit</h4>
+                                            <!-- menu itmes -->
+                                            <c:forEach var="menu" items="${menuList}">
+                                                <div class="menu_item thumbs">
+                                                    <figure>
+                                                        <a title="Photo title" data-effect="mfp-zoom-in">
+                                                            <img src="data:image/jpg;base64,${menu.filePath}"
+                                                                data-src="data:image/jpg;base64,${menu.filePath}" alt=""
+                                                                class="lazy">
+                                                        </a>
+                                                    </figure>
+                                                    <div class="menuInfo">
+                                                        <h4>${menu.menuName}</h4>
+                                                        <em>${menu.menuPrice}</em>
+                                                        <button class="menuAddBtn" type="button">방문포장</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-17.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€15.90</em>
-                                                    <h4>Oriental</h4>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-18.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€11.90</em>
-                                                    <h4>Vegan Burguer</h4>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_3.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-18.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€10.90</em>
-                                                    <h4>Indio Fit</h4>
-                                                </div>
-                                            </div>
+                                            </c:forEach>
+                                            <!-- menu itmes -->
                                         </div>
                                         <!-- /menu-gallery -->
+                                        <div class="add_bottom_45"></div>
+                                    </div>
+                                    <div class="theiaStickySidebar">
+                                    <div class="box_booking">
+                                        <div class="head">
+                                            <h3>Order Summary</h3>
+                                            <div class="offer">Up to -40% off</div>
+                                        </div>
+                                        <!-- /head -->
+                                        <div class="main">
+                                            <ul class="clearfix">
+                                                <li><a href="#0">1x Enchiladas</a><span>$11</span></li>
+                                                <li><a href="#0">2x Burrito</a><span>$14</span></li>
+                                                <li><a href="#0">1x Chicken</a><span>$18</span></li>
+                                                <li><a href="#0">2x Corona Beer</a><span>$9</span></li>
+                                                <li><a href="#0">2x Cheese Cake</a><span>$11</span></li>
+                                            </ul>
 
-
-
+                                            <ul class="clearfix">
+                                                <li>Subtotal<span>$56</span></li>
+                                                <li>Delivery fee<span>$10</span></li>
+                                                <li class="total">Total<span>$66</span></li>
+                                            </ul>
+                                            <div class="row opt_order">
+                                                <div class="col-6">
+                                                    <label class="container_radio">Delivery
+                                                        <input type="radio" value="option1" name="opt_order"
+                                                            checked="">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-6">
+                                                    <label class="container_radio">Take away
+                                                        <input type="radio" value="option1" name="opt_order">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="dropdown day">
+                                                <a href="#" data-bs-toggle="dropdown">Day <span
+                                                        id="selected_day"></span></a>
+                                                <div class="dropdown-menu">
+                                                    <div class="dropdown-menu-content">
+                                                        <h4>Which day delivered?</h4>
+                                                        <div class="radio_select chose_day">
+                                                            <ul>
+                                                                <li>
+                                                                    <input type="radio" id="day_1" name="day"
+                                                                        value="Today">
+                                                                    <label
+                                                                        for="day_1">Today<em>-40%</em></label>
+                                                                </li>
+                                                                <li>
+                                                                    <input type="radio" id="day_2" name="day"
+                                                                        value="Tomorrow">
+                                                                    <label
+                                                                        for="day_2">Tomorrow<em>-40%</em></label>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <!-- /people_select -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /dropdown -->
+                                            <div class="dropdown time">
+                                                <a href="#" data-bs-toggle="dropdown">Time <span
+                                                        id="selected_time"></span></a>
+                                                <div class="dropdown-menu">
+                                                    <div class="dropdown-menu-content">
+                                                        <h4>Lunch</h4>
+                                                        <div class="radio_select add_bottom_15">
+                                                            <ul>
+                                                                <li>
+                                                                    <input type="radio" id="time_1" name="time"
+                                                                        value="12.00am">
+                                                                    <label
+                                                                        for="time_1">12.00<em>-40%</em></label>
+                                                                </li>
+                                                                <li>
+                                                                    <input type="radio" id="time_2" name="time"
+                                                                        value="08.30pm">
+                                                                    <label
+                                                                        for="time_2">12.30<em>-40%</em></label>
+                                                                </li>
+                                                                <li>
+                                                                    <input type="radio" id="time_3" name="time"
+                                                                        value="09.00pm">
+                                                                    <label
+                                                                        for="time_3">1.00<em>-40%</em></label>
+                                                                </li>
+                                                                <li>
+                                                                    <input type="radio" id="time_4" name="time"
+                                                                        value="09.30pm">
+                                                                    <label
+                                                                        for="time_4">1.30<em>-40%</em></label>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <!-- /time_select -->
+                                                        <h4>Dinner</h4>
+                                                        <div class="radio_select">
+                                                            <ul>
+                                                                <li>
+                                                                    <input type="radio" id="time_5" name="time"
+                                                                        value="08.00pm">
+                                                                    <label
+                                                                        for="time_1">20.00<em>-40%</em></label>
+                                                                </li>
+                                                                <li>
+                                                                    <input type="radio" id="time_6" name="time"
+                                                                        value="08.30pm">
+                                                                    <label
+                                                                        for="time_2">20.30<em>-40%</em></label>
+                                                                </li>
+                                                                <li>
+                                                                    <input type="radio" id="time_7" name="time"
+                                                                        value="09.00pm">
+                                                                    <label
+                                                                        for="time_3">21.00<em>-40%</em></label>
+                                                                </li>
+                                                                <li>
+                                                                    <input type="radio" id="time_8" name="time"
+                                                                        value="09.30pm">
+                                                                    <label
+                                                                        for="time_4">21.30<em>-40%</em></label>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <!-- /time_select -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /dropdown -->
+                                            <a href="booking-delivery-2.html"
+                                                class="btn_1 full-width mb_5">Order Now</a>
+                                            <div class="text-center"><small>No money charged on this
+                                                    steps</small></div>
+                                        </div>
+                                    </div>
+                                    <ul class="share-buttons">
+                                        <li><a class="fb-share" href="#0"><i class="social_facebook"></i>
+                                                Share</a></li>
+                                        <li><a class="twitter-share" href="#0"><i class="social_twitter"></i>
+                                                Share</a></li>
+                                        <li><a class="gplus-share" href="#0"><i class="social_googleplus"></i>
+                                                Share</a></li>
+                                    </ul>
+                                    <div class="resize-sensor"
+                                        style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;">
+                                        <div class="resize-sensor-expand"
+                                            style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
+                                            <div
+                                                style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 413px; height: 772px;">
+                                            </div>
+                                        </div>
+                                        <div class="resize-sensor-shrink"
+                                            style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
+                                            <div
+                                                style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                
+                                </div>
+                                
                             </div>
 
                             <!-- C Type -->
@@ -850,5 +986,9 @@
     <script src="/js/specific_detail.js"></script>
 
 </body>
+
+<script>
+    const mfpImg = $('.mfp-img');
+</script>
 
 </html>

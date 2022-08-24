@@ -219,9 +219,9 @@ public class MemberService {
 
 
     // 계정(이메일) 찾기
-    public String findEmail(FindEmailDTO dto) {
-        String foundEmail = memberMapper.findEmail(dto);
-        return foundEmail;
+    public List<String> findEmail(FindEmailDTO dto) {
+        List<String> emailList = memberMapper.findEmail(dto);
+        return emailList;
     }
 
 
@@ -240,10 +240,14 @@ public class MemberService {
         return null;
     }
 
-    public boolean changePw(String email, String pw) {
+    public boolean changePw(String email, String newPw) {
 
-        String encodedPw = encoder.encode(pw);
+        String encodedPw = encoder.encode(newPw);
 
         return memberMapper.changePw(email, encodedPw);
+    }
+
+    public String sendEmailAuthCode(String email) throws Exception {
+        return emailService.sendAuthCodeEmail(email);
     }
 }

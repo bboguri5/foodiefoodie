@@ -69,11 +69,19 @@ public class ReviewBoardController {
         return "review/review-detail";
     }
 
-    @GetMapping("/review/uplike")
-    public String upLike(long reviewBno) {
-        log.info("uplike started - {}", reviewBno);
-        reviewBoardService.upLikeService(reviewBno);
-        return "redirect:/review";
+    @GetMapping("/review/search")
+    public String searchReview(String search, Model model) {
+        List<ReviewBoardDTO> searchList = reviewBoardService.searchAllReviewService(search);
+        List<ReviewUpload> reviewUploads = new ArrayList<>();
+        List<Integer> replyCount = new ArrayList<>();
+
+        // 첫번째 리뷰 사진 리스트 모아오기
+        getUploads(reviewUploads, replyCount, searchList);
+        model.addAttribute("reviewList", searchList);
+        model.addAttribute("uploads", reviewUploads);
+        model.addAttribute("replyCount", replyCount);
+        model.addAttribute("search", search);
+        return "review/review-gram";
     }
 
 }

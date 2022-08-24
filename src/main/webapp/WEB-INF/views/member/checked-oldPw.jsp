@@ -32,7 +32,7 @@
         <div class="container margin_60_40">
             <div class="row justify-content-center">
                 <div class="col-lg-7">
-                    <c:if test="${authCode != null}">
+                    <c:if test="${flag == true}">
                         <div class="box_booking_2">
                             <div class="head">
                                 <div class="title">
@@ -44,17 +44,15 @@
                                 <div id="confirm">
                                     <h3>계정 이메일로 인증 코드 메일을 전송했습니다. <br>메일 확인 후 하단 입력창에 인증코드를 입력하세요.</h3>
                                     <br>
-                                    <form action="/check/authCode" method="post">
-                                        <input type="text" name="authCode" placeholder="이메일 인증코드">
-                                        <input type="hidden" name="email" value="${email}">
-                                        <input type="hidden" name="realAuthCode" value="${authCode}">
+                                    <form action="/check/member/authCode" method="post">
+                                        <input type="text" name="inputAuthCode" placeholder="이메일 인증코드">
                                         <button type="submit">전송</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="${authCode == null}">
+                    <c:if test="${flag == false}">
                         <div class="box_booking_2">
                             <div class="head">
                                 <div class="title">
@@ -65,11 +63,9 @@
                             <!-- /head -->
                             <div class="main">
                                 <div id="confirm">
-                                    <h3>입력하신 정보와 일치하는 계정이 존재하지 않습니다. <br> 다시 시도하세요.</h3>
+                                    <h3>잘못된 현재 비밀번호를 입력하셨습니다. <br> 다시 시도하세요.</h3>
                                     <br>
-                                    <a href="/find/pw">비밀번호 다시 찾기</a>
-                                    <br>
-                                    <a href="/register">회원가입</a>
+                                    <a href="/change/pw">다시 시도하기</a>
                                 </div>
                             </div>
                         </div>

@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control master" type="text" id="master-name" name="masterName"
-                                        value="${loginUser.name}" readonly>
+                                        value="${loginUser.name}">
                                     <!-- <i class="icon_pencil"></i> -->
                                 </div>
 
@@ -141,6 +141,10 @@
             // 전화번호는 2,3글자의 지역번호 또는 01?로 시작하며 하이픈이 들어간 이후 3 또는 4자리, 그리고 다시 하이픈 후 4자리의 숫자가 들어가야 한다.
 
 
+            // 사업주명 정규표현식
+            const getMasterName = RegExp(/^[가-힣]{2,4}/);
+
+
             const $reqMasterInputList = document.querySelectorAll('.master');
             const $reqAuthBtn = document.getElementById('req-auth-btn');
             const $reqAuthForm = document.getElementById('req-auth-form');
@@ -199,7 +203,18 @@
 
                     $('#store-call-num').css('border-color', 'red');
 
-                    alert('형식에 맞지 않는 가게 전화번호입니다. 입력을 확인해주세요. ');
+                    alert('형식에 맞지 않는 가게 전화번호입니다. 입력을 확인하세요. ');
+                    return;
+                }
+
+
+                // 사업주명 정규표현식 검증
+                if(!getMasterName.test($('#master-name').val())) {
+
+                    $('#master-name').css('border-color', 'red');
+
+                    alert('형식에 맞지 않는 사업주명입니다. 입력을 확인하세요.')
+                    
                     return;
                 }
 

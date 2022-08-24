@@ -2,9 +2,9 @@ package com.project.foodiefoodie.review.repository;
 
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
-import com.project.foodiefoodie.review.dto.AvgStarDTO;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -34,5 +34,15 @@ public interface ReviewBoardMapper {
     boolean upLike(long reviewBno);
 
     int getLike(long reviewBno);
+
+    int isLiked(@Param("reviewBno") long reviewBno, @Param("email") String email);
+
+    boolean downLike(long reviewBno);
+
+    boolean saveReviewLike(long reviewBno, String email);
+
+    boolean deleteReviewLike(long reviewBno, String email);
+
+    List<ReviewBoardDTO> searchAllReview(String search);
 
 }

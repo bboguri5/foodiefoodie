@@ -6,16 +6,11 @@
         <div class="row">
             <div class="search">
                 <form action="/list" method="get">
-                    <select class="form-select" name="type" id="search-type">
-                        <option value="location">지역</option>
-                        <option value="restaurant">식당</option>
-                        <option value="food">음식</option>
-                    </select>
                     <div class="row g-0 custom-search-input">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input class="form-control no_border_r" type="text"
-                                    placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
+                                <input class="form-control no_border_r" type="text" placeholder="지역, 식당, 또는 음식"
+                                    name="keyword" value="${s.keyword}">
                                 <i class="icon_pin_alt"></i>
                             </div>
                         </div>
@@ -24,10 +19,27 @@
                         </div>
                     </div>
                 </form>
+                <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
+                    <nav class="main-menu">
+                        <ul>
+                            <li class="submenu">
+                                <a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
+                                <ul>
+                                    <li><a href="#">평점순</a></li>
+                                    <li><a href="#">리뷰 많은순</a></li>
+                                    <li><a href="#">최신순</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
+
+
         </div>
-        <!-- /row -->
     </div>
+    <!-- /row -->
+</div>
 </div>
 <!-- /page_header -->
 

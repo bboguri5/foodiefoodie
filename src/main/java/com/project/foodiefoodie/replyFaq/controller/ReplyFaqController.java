@@ -38,6 +38,8 @@ public class ReplyFaqController {
         String F = "F";
         List<ReplyFaqDTO> replyFaqDTOList = rfs.findAllReplyService(F);
 
+
+
         model.addAttribute("replyFaqList", replyFaqDTOList);
         log.info("replyFaqList - {}", replyFaqDTOList);
 

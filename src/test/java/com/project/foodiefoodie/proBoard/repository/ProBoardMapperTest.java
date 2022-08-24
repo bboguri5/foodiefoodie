@@ -115,6 +115,7 @@ class ProBoardMapperTest {
 //        imageDTO.setMenuNo(0);
 //        proMapper.saveProBoardImage(3, imageDTO);
 
+
 //        for (int menuNo : proMapper.selectMenuNo(3)) {
 //            System.out.println(menuNo);
 //            imageDTO.setMenuNo(menuNo);

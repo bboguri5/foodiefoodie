@@ -76,6 +76,7 @@ public class ProBoardController {
 
         List<String[]> menuList = new ArrayList<>(Arrays.asList(menuNames, menuPrices));
 
+
         Map<String, List<MultipartFile>> fileMap = new HashMap<>() {{
             put("title", titleImgFile);
             put("detail", detailImgFiles);

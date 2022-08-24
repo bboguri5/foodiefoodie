@@ -14,7 +14,7 @@
 		}
 
 		#locationList .item {
-			width: 16%;
+			width: 19%;
 		}
 
 		.search form {
@@ -41,7 +41,7 @@
 	<main>
 		<div class="hero_single version_2">
 			<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)"
-				style="background: url('img/main_background.jpg') no-repeat fixed 90% / cover">
+				style="background: url('/img/main_background.jpg') no-repeat fixed 90% / cover">
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-xl-9 col-lg-10 col-md-8">
@@ -50,11 +50,6 @@
 
 							<div class="search">
 								<form action="/list" method="get">
-									<select class="form-select" name="type" id="search-type">
-										<option value="location">지역</option>
-										<option value="restaurant">식당</option>
-										<option value="food">음식</option>
-									</select>
 									<div class="row g-0 custom-search-input">
 										<div class="col-lg-6">
 											<div class="form-group">
@@ -151,7 +146,7 @@
 								<c:if test="${topToday.hotDeal == 'Y'.charAt(0) && topToday.endDate > todayDate}">
 									<span class="ribbon off">${topToday.discountPrice}</span>
 								</c:if>
-								<img src="${topToday.filePath}" data-src="${topToday.filePath}" class="owl-lazy" alt="">
+								<img src="${topToday.filePath}"  data-src="${topToday.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
 									<div class="item_title">
 										<h3>${topToday.storeName}</h3>
@@ -432,7 +427,7 @@
 							`       <ul>` +
 							`			<li><span>` +locationList[i].storeAddress + `</span></li>` +
 							`           <li>` +
-							`               <div class="score"><span>근처 맛집<em>` + locationList[i].reviewCnt +
+							`               <div class="score"><span>주변 맛집<em>` + locationList[i].reviewCnt +
 							`개 리뷰</em></span><strong>` + locationList[i].avgStarRate + `</strong></div>` +
 							`           </li>` +
 							`       </ul>` +

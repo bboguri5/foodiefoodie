@@ -25,13 +25,13 @@ class ReplyMapperTest {
         assertTrue(flag);
     }
 
-    @Test
-    void findAllTest() {
-        List<Reply> all =  mapper.findAll();
-        for (Reply reply : all) {
-            System.out.println(reply);
-        }
-    }
+//    @Test
+//    void findAllTest() {
+//        List<Reply> all =  mapper.findAll();
+//        for (Reply reply : all) {
+//            System.out.println(reply);
+//        }
+//    }
 
     @Test
     void findOneTest() {

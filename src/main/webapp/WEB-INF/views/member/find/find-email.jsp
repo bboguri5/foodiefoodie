@@ -43,7 +43,7 @@
 							<div class="divider"><span>Or</span></div> -->
                             <h6>회원가입시 사용한 성함, 전화번호, 생년월일을 입력하세요.</h6>
                             <br>
-                            <form id="find-email-form" action="/find-email" method="post">
+                            <form id="find-email-form" action="/find/email" method="post">
 
                                 <div>
                                     <span id="nameChk"></span>

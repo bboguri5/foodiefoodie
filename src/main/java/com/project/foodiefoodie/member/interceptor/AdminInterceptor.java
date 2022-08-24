@@ -21,7 +21,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         log.info("admin interceptor preHandle");
         Member loginUser = (Member) session.getAttribute("loginUser");
         if (loginUser != null) {
-            if (!Objects.equals(loginUser.getEmail(), "admin@naver.com")) {
+            if (!Objects.equals(loginUser.getAuth().toString(), "ADMIN")) {
                 response.sendRedirect("/");
                 return false;
             }

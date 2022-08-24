@@ -52,7 +52,7 @@ public class MainPageController {
         List<MainPage> hotDeals = mainPageService.findRandHotDealService();
         model.addAttribute("hotDeals", hotDeals);
 
-        return "html/index";
+        return "main/index";
     }
 
     private String getTodayDate() {
@@ -74,7 +74,7 @@ public class MainPageController {
 
         log.info("hashTagList pm.endPage - {}", pm.getEndPage());
 
-        return "html/hash-search";
+        return "main/hash-search";
     }
 
     // 평점순 정렬된 오늘의 맛집 정보 전체 불러오기
@@ -87,7 +87,7 @@ public class MainPageController {
         model.addAttribute("pm", pm);
         model.addAttribute("topTodayAll", findAllMap.get("topTodayAll"));
         model.addAttribute("todayDate", getTodayDate());
-        return "html/top-lists";
+        return "main/top-lists";
     }
 
     @GetMapping("/premiumlist")
@@ -99,7 +99,7 @@ public class MainPageController {
         model.addAttribute("premiumList", findAllMap.get("premiumList"));
         model.addAttribute("todayDate", getTodayDate());
 
-        return "html/premium-list";
+        return "main/premium-list";
     }
 
     @GetMapping("/locationlist")
@@ -112,7 +112,7 @@ public class MainPageController {
         model.addAttribute("locations", findAllMap.get("locationList"));
         model.addAttribute("address", storeAddress);
         model.addAttribute("todayDate", getTodayDate());
-        return "html/location-list";
+        return "main/location-list";
     }
 
     @GetMapping("/hotdeals")
@@ -124,7 +124,7 @@ public class MainPageController {
         model.addAttribute("hotDeals", findAllMap.get("hotDeals"));
         model.addAttribute("todayDate", getTodayDate());
 
-        return "html/hot-deals";
+        return "main/hot-deals";
     }
 
     @GetMapping("/list")
@@ -143,7 +143,7 @@ public class MainPageController {
         model.addAttribute("pm", pm);
         model.addAttribute("todayDate", getTodayDate());
 
-        return "html/search-list";
+        return "main/search-list";
     }
 
 //    @GetMapping("/test")

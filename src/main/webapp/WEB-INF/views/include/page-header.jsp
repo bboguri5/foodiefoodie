@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="search">
-                <form action="/list" method="get">
+                <form action="/list?sort=star" method="get">
                     <div class="row g-0 custom-search-input">
                         <div class="col-lg-6">
                             <div class="form-group">
@@ -19,20 +19,6 @@
                         </div>
                     </div>
                 </form>
-                <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
-                    <nav class="main-menu">
-                        <ul>
-                            <li class="submenu">
-                                <a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
-                                <ul>
-                                    <li><a href="#">평점순</a></li>
-                                    <li><a href="#">리뷰 많은순</a></li>
-                                    <li><a href="#">최신순</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
             </div>
 
 

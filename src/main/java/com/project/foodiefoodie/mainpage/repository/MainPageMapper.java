@@ -51,7 +51,7 @@ public interface MainPageMapper {
 
 
     // 해당 서치 리스트 가져오기
-    List<MainPage> findAllSearch(Search search);
+    List<MainPage> findAllSearch(@Param("s") Search search, @Param("sort") String sort);
 
     // 해당 서치 개수
     int getTotalCount(Search search);

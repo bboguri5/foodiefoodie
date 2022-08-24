@@ -49,7 +49,7 @@
 							<p>Foodies Welcome Here</p>
 
 							<div class="search">
-								<form action="/list" method="get">
+								<form action="/list?sort=star" method="get">
 									<div class="row g-0 custom-search-input">
 										<div class="col-lg-6">
 											<div class="form-group">

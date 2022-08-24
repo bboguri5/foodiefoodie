@@ -37,14 +37,14 @@
 
         /* 페이지 액티브 기능 */
         .pagination .page-item.p-active a {
-            background: #333 !important;
+            background: #589442 !important;
             color: #fff !important;
             cursor: default;
             pointer-events: none;
         }
 
         .pagination .page-item:hover a {
-            background: #888 !important;
+            background: #a6c09c !important;
             color: #fff !important;
         }
 
@@ -95,19 +95,6 @@
                             </div>
                         </div>
                     </form>
-                    <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
-                        <nav class="main-menu">
-                            <ul>
-                                <li class="submenu">
-                                    <a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
-                                    <ul>
-                                        <li><a href="#">추천순</a></li>
-                                        <li><a href="#">최신순</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
                 </div>
                 <!-- /row -->
             </div>

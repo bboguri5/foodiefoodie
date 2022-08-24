@@ -128,10 +128,10 @@ public class MainPageController {
     }
 
     @GetMapping("/list")
-    public String list(@ModelAttribute("s") Search search, Model model) {
+    public String list(@ModelAttribute("s") Search search, Model model, String sort) {
         log.info("controller request /board/list GET! - search: {}", search);
 
-        Map<String, Object> boardMap = mainPageService.findAllSearchService(search);
+        Map<String, Object> boardMap = mainPageService.findAllSearchService(search, sort);
         log.info("return data - {}", boardMap.get("bList"));
 
         // 페이지 정보 생성

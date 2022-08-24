@@ -92,31 +92,6 @@
             justify-content: center;
         }
 
-        /* .preview {
-            width: 100%;
-            display: none;
-        }
-
-        #detail-preview {
-            display: flex;
-            justify-content: space-evenly;
-        }
-
-        .preview-title-img {
-            width: 150px;
-            height: 100px;
-        }
-
-        .preview-detail-img {
-            width: 20%;
-            height: 50px;
-        }
-
-        .preview-menu-img {
-            width: 50px;
-            height: 50px;
-        } */
-
         .c-red {
             color: red;
         }
@@ -1024,8 +999,16 @@
                 // 시간 0000으로 변환 
                 const $selectTimeList = document.querySelectorAll('.select-time');
                 $selectTimeList.forEach(element => {
-                    const replaceNotInt = /[^0-9]/gi;
-                    element.value = element.value.replace(replaceNotInt, '');
+
+                    console.log(element.value);
+                    if(element.value.includes("am"))
+                    {
+                        element.value = element.value.replace(' am', '');
+                    }
+                    else if(element.value.includes("pm"))
+                    {
+                        element.value = element.value.replace(' pm','');
+                    }
                 });
 
                 // 내용 \n -> <br>으로 치환

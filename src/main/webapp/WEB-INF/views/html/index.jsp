@@ -53,7 +53,7 @@
 									<div class="row g-0 custom-search-input">
 										<div class="col-lg-6">
 											<div class="form-group">
-												<input class="form-control no_border_r" type="text"
+												<input required class="form-control no_border_r" type="text"
 													placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
 												<i class="icon_pin_alt"></i>
 											</div>
@@ -332,7 +332,7 @@
 		// 로그인 한 사람만 사업자 등록 할수있음
 		document.querySelector('.addMaster').onclick = e => {
 			if ('${loginUser}' != '') {
-				location.href = '/request-auth';
+				location.href = '/master/register';
 			} else {
 				alert('로그인 해주세요');
 			}

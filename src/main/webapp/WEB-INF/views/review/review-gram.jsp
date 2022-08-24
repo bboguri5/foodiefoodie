@@ -91,7 +91,7 @@
 					<form action="/review/search" method="get">
 						<div class="col-xl-4 col-lg-5 col-md-5">
 							<div class="search_bar_list">
-								<input value="${search}" name="search" type="text" class="form-control"
+								<input required value="${search}" name="search" type="text" class="form-control"
 									placeholder="Search in blog...">
 								<input type="submit" value="Search">
 							</div>

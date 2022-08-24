@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-// 다시 커밋
 @Service
 @Log4j2
 @RequiredArgsConstructor

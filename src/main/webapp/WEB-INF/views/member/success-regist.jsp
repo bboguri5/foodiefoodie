@@ -7,6 +7,20 @@
     
 	<%@ include file="/WEB-INF/views/include/static-head.jsp" %>
 
+	<style>
+		main {
+            height: 65vh;
+        }
+
+        .box_booking_2 {
+            margin-top: 70px;
+        }
+
+		.title {
+            margin-bottom: 70px;
+        }
+	</style>
+
 </head>
 
 <body>

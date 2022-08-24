@@ -48,6 +48,10 @@ public class ReviewBoardService {
         return allReviews;
     }
 
+    public List<ReviewBoardDTO> searchAllReviewService(String search) {
+        return rbMapper.searchAllReview(search);
+    }
+
     public ReviewBoardDTO findOneReviewService(long reviewBno) {
         return rbMapper.findOneReview(reviewBno);
     }

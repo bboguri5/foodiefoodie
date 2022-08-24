@@ -43,4 +43,6 @@ public interface ReviewBoardMapper {
 
     boolean deleteReviewLike(long reviewBno, String email);
 
+    List<ReviewBoardDTO> searchAllReview(String search);
+
 }

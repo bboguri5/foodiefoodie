@@ -48,7 +48,7 @@
 			margin-left: 10px;
 		}
 
-		.icon_heart_alt:hover {
+		.heartIcon:hover {
 			cursor: pointer;
 		}
 
@@ -121,20 +121,21 @@
 									<small>Last Updated - ${rl.lastUpdated}
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
 									<h2><a href="/review/detail?reviewBno=${rl.reviewBno}">${rl.title}</a></h2>
-									<p>${rl.content}</p>
-									<ul>
-										<li>
-											<div class="thumb"><img src="/img/avatar.jpg" alt=""></div>
-											${rl.email}
-										</li>
-										<li>
-											<i id="${rl.reviewBno}" class="icon_heart_alt"></i><span
-												id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-											<i id="${rl.reviewBno}"
-												class="icon_comment_alt"></i>${replyCount[status.index]}
-										</li>
 
-									</ul>
+									<p>${rl.content}
+										<ul>
+											<li>
+												<div class="thumb"><img src="/img/avatar.jpg" alt=""></div>
+												${rl.email}
+											</li>
+											<li>
+												<i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i><span
+													id="heart${rl.reviewBno}">${rl.likeCnt}</span>
+												<i id="${rl.reviewBno}"
+													class="icon_comment_alt"></i>${replyCount[status.index]}
+											</li>
+
+										</ul>
 								</div>
 							</article>
 							<!-- /article -->
@@ -160,14 +161,14 @@
 	<script>
 		const upCount = document.querySelector('.upCount');
 		upCount.addEventListener('click', e => {
-			if (e.target.className === 'icon_heart_alt') {
-				upLikeCount(e);
-			} else if (e.target.className === 'icon_comment_alt') {
+			if (e.target.classList.contains('heartIcon')) {
+				likeOrUnlike(e);
+			} else if (e.target.className.classList.contains('icon_comment_alt')) {
 				location.href = '/review/detail?reviewBno=' + e.target.id + '#section-comment';
 			}
 		});
 
-		function upLikeCount(e) {
+		function likeOrUnlike(e) {
 			// 서버에 수정 비동기 요청 보내기
 			const bno = e.target.id;
 			// console.log(rno);
@@ -177,23 +178,39 @@
 					'content-type': 'application/json'
 				}
 			};
-			fetch('/review/uplike?reviewBno=' + bno, reqInfo)
+
+			const email = '${loginUser.email}';
+			fetch('/review/updownlike?reviewBno=' + bno + '&email=' + email, reqInfo)
 				.then(res => res.text())
 				.then(msg => {
 					if (msg === 'up-success') {
-						alert('upCount 성공!!');
-						showLikes(e); // 좋아요 새로불러오기
+						alert('upLike 성공!!');
+						showUpLike(e); // 좋아요 새로불러오기
 					} else {
-						alert('upCount 실패!!');
+						alert('downLike 성공!!');
+						showDownLike(e);
 					}
 				});
 		}
 
-		function showLikes(e) {
+		function showUpLike(e) {
 			const bno = e.target.id;
 			fetch('/review/getLike?reviewBno=' + bno)
 				.then(res => res.text())
 				.then(likeCnt => {
+					document.getElementById(bno).classList.add('icon_heart');
+					document.getElementById(bno).classList.remove('icon_heart_alt');
+					document.getElementById("heart" + bno).innerHTML = likeCnt;
+				});
+		}
+
+		function showDownLike(e) {
+			const bno = e.target.id;
+			fetch('/review/getLike?reviewBno=' + bno)
+				.then(res => res.text())
+				.then(likeCnt => {
+					document.getElementById(bno).classList.remove('icon_heart');
+					document.getElementById(bno).classList.add('icon_heart_alt');
 					document.getElementById("heart" + bno).innerHTML = likeCnt;
 				});
 		}

@@ -6,14 +6,14 @@ import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.repository.ReviewBoardMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service
+@Log4j2
 @RequiredArgsConstructor
 public class ReviewBoardService {
 
@@ -62,5 +62,23 @@ public class ReviewBoardService {
 
     public int getLikeService(long reviewBno) {
         return rbMapper.getLike(reviewBno);
+    }
+
+    public boolean isLikedService(long reviewBno, String email) {
+        int liked = rbMapper.isLiked(reviewBno, email);
+        log.info("liked returned int - {}", liked);
+        return liked >= 1;
+    }
+
+    public boolean downLikeService(long reviewBno) {
+        return rbMapper.downLike(reviewBno);
+    }
+
+    public boolean saveReviewLikeService(long reviewBno, String email) {
+        return rbMapper.saveReviewLike(reviewBno, email);
+    }
+
+    public boolean deleteReviewLikeService(long reviewBno, String email) {
+        return rbMapper.deleteReviewLike(reviewBno, email);
     }
 }

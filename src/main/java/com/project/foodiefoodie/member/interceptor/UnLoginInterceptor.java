@@ -20,9 +20,14 @@ public class UnLoginInterceptor implements HandlerInterceptor {
 
         if (!LoginUtils.isLogin(session)) {
 
-            log.info("UnLoginRequest! referer : {}", request.getHeader("Referer"));
+            String referer = request.getHeader("Referer");
+            log.info("UnLoginRequest! referer : {}", referer);
 
-            response.sendRedirect("/"); // 메인으로 돌리기
+            if (referer != null) {
+                response.sendRedirect(referer);
+            } else {
+                response.sendRedirect("/"); // 메인으로 돌리기
+            }
 
             return false;
         }

@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.member.controller;
 
+import com.project.foodiefoodie.common.api.mail.service.EmailServiceImpl;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
 import com.project.foodiefoodie.member.dto.find.EmailCodeDTO;
@@ -12,6 +13,7 @@ import com.project.foodiefoodie.member.service.LoginFlag;
 import com.project.foodiefoodie.member.service.MemberService;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static com.project.foodiefoodie.common.api.mail.service.EmailServiceImpl.authCode;
 import static com.project.foodiefoodie.member.service.LoginFlag.*;
 
 @Controller
@@ -76,7 +79,7 @@ public class MemberController {
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<String> login(@RequestBody LoginDTO inputData,
-                                HttpServletResponse response,
+                                        HttpServletResponse response,
                                         HttpSession session,
                                         Model model) {
 
@@ -104,8 +107,8 @@ public class MemberController {
             return new ResponseEntity<>(flag.toString(), HttpStatus.NOT_FOUND);
         }
     }
-    
-    
+
+
     // 로그아웃 요청 처리
     @GetMapping("/sign-out")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -130,14 +133,12 @@ public class MemberController {
     }
 
 
-
     // 계정 찾기 화면 요청 처리
     @GetMapping("/find/email")
     public String findEmail() {
         log.info("/find-email GET!!");
         return "member/find/find-email";
     }
-
 
 
     // 실질적 계정 찾기 요청 처리
@@ -153,13 +154,11 @@ public class MemberController {
     }
 
 
-
     // 비번 찾기 화면 요청 처리
     @GetMapping("/find/pw")
     public String findPw() {
         return "member/find/find-pw";
     }
-
 
 
     // 실질적 비번 찾기 요청 처리
@@ -184,11 +183,7 @@ public class MemberController {
         String authCode = dto.getAuthCode();
         String realAuthCode = dto.getRealAuthCode();
 
-        boolean flag = false;
-
-        if (authCode.equals(realAuthCode)) {
-            flag = true;
-        }
+        boolean flag = authCode.equals(realAuthCode);
 
         model.addAttribute("flag", flag); // true가 나오면 인증코드가 일치한 것이므로 해당 페이지 내에서 비번 변경하게 해주기.
         model.addAttribute("email", dto.getEmail());
@@ -198,37 +193,102 @@ public class MemberController {
     }
 
 
+    // 비밀번호 변경 화면 요청 처리 (마이페이지 통한 비번 변경 요청)
+    @GetMapping("/change/pw")
+    public String changePw(HttpSession session) {
+
+        if (LoginUtils.isLogin(session)) {
+            log.info("/change/pw GET!!");
+            return "member/change-pw";
+        }
+
+        return "redirect:/";
+    }
+
+
+    // 현재 비밀번호 입력 후 검증 요청 처리
+    @PostMapping("/check/oldPw")
+    public String checkOldPw(HttpSession session, String oldPw, Model model) throws Exception {
+
+        if (LoginUtils.isLogin(session)) {
+            Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
+            boolean flag = memberService.findPasswordService(member.getEmail(), oldPw);
+
+            if (flag) { // 올바르게 현재 비밀번호를 입력했다면 해당 이메일로 인증 메일을 보내고 session에 인증 코드를 넣어 리턴
+                String authCode = memberService.sendEmailAuthCode(member.getEmail());
+                session.setAttribute("authCode", authCode);
+                model.addAttribute("flag", true);
+            }
+            else { // 현재 비밀번호라고 입력한 데이터가 db에 저장된 비밀번호와 일치하지 않는 경우
+                model.addAttribute("flag", false);
+            }
+
+            return "member/checked-oldPw";
+        }
+
+        return "redirect:/";
+    }
+
+
+    // 로그인한 상태에서 비번 변경 요청 도중 이메일 인증코드 검증 요청 처리
+    @PostMapping("/check/member/authCode")
+    public String checkAuthCode(HttpSession session, String inputAuthCode, Model model) {
+
+        if (LoginUtils.isLogin(session)) {
+            String authCode = (String) session.getAttribute("authCode");
+            session.removeAttribute("authCode");
+
+            log.info("session authCode : {}", authCode);
+            log.info("inputAuthCode : {}", inputAuthCode);
+
+            if (inputAuthCode.equals(authCode)) {
+                model.addAttribute("flag", true);
+
+            } else {
+                model.addAttribute("flag", false);
+            }
+
+            return "member/find/check-emailCode-result";
+        }
+
+        return "redirect:/";
+    }
+
 
     // 비밀번호 변경 요청 처리
     @PostMapping("/change/pw")
-    public String changePw(String email, String newPw) {
+    public String changePw(String email, String newPw, HttpSession session) {
         log.info("/change-pw POST!! - email : {}, pw : {}", email, newPw);
 
         boolean flag = memberService.changePw(email, newPw);
 
+        if (LoginUtils.isLogin(session)) {
+            session.removeAttribute(LoginUtils.LOGIN_FLAG);
+        }
 
         return "member/find/change-pw-success";
     }
 
 
-    @GetMapping("/myPage-profile")
-    public String myPageProfile(HttpSession session, Model model){
-        Member loginUser =(Member) session.getAttribute("loginUser");
+    @GetMapping("/myPage/profile")
+    public String myPageProfile(HttpSession session, Model model) {
+        Member loginUser = (Member) session.getAttribute("loginUser");
         // 새션에는 값이 안변하니까 값이 변한 DB 데이터 값을 가져온다 !
         Member member = memberService.findMember(loginUser.getEmail());
-        model.addAttribute("member",member);
+        model.addAttribute("member", member);
         log.info("myPage-profile");
         return "/myPage/myPage-profile";
     }
-    @GetMapping("/myPage-modify")
-    public String myPageModify(){
+
+    @GetMapping("/myPage/modify")
+    public String myPageModify() {
         log.info("myPage-modify");
         return "/myPage/myPage-modify";
     }
 
-    @PostMapping("/modifyMember")
-    public String PostModifyMember(HttpSession session , ModifyDTO modifyDTO ){
-        log.info("modifyDTO : {}" , modifyDTO);
+    @PostMapping("/myPage/modify")
+    public String PostModifyMember(HttpSession session, ModifyDTO modifyDTO) {
+        log.info("modifyDTO : {}", modifyDTO);
         memberService.modifyMemberService(modifyDTO);
         log.info("go service ");
         return "redirect:/myPage-profile";
@@ -248,21 +308,19 @@ public class MemberController {
 
     @PostMapping("/trueAndFalsePassword")
     @ResponseBody
-    public String trueAndFalsePassword(HttpSession session , @RequestBody PasswordDTO password){
+    public String trueAndFalsePassword(HttpSession session, @RequestBody PasswordDTO password) {
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
-        log.info("password =  {} " , password.getPassword());
-        boolean passwordService= memberService.findPasswordService(member.getEmail(), password.getPassword());
-        log.info("passwordService ========= {}",passwordService);
-        if (passwordService){
+        log.info("password =  {} ", password.getPassword());
+        boolean passwordService = memberService.findPasswordService(member.getEmail(), password.getPassword());
+        log.info("passwordService ========= {}", passwordService);
+        if (passwordService) {
             log.info("password-success");
             return "password-success";
-        }else {
+        } else {
             log.info("password-false");
             return "password-false";
         }
     }
-
-
 
 
 }

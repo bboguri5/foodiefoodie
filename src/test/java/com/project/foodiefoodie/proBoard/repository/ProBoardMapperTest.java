@@ -52,9 +52,9 @@ class ProBoardMapperTest {
     @DisplayName("menu가 저장되어야 한다.")
     void saveProBoardMenuTest() {
 
-        proMapper.saveProBoardMenu(3, "짜장면", 3000);
-        proMapper.saveProBoardMenu(3, "짬뽕", 5000);
-        proMapper.saveProBoardMenu(3, "탕수육", 7000);
+//        proMapper.saveProBoardMenu(3, "짜장면", 3000);
+//        proMapper.saveProBoardMenu(3, "짬뽕", 5000);
+//        proMapper.saveProBoardMenu(3, "탕수육", 7000);
 
     }
 
@@ -82,7 +82,7 @@ class ProBoardMapperTest {
         imageDTO.setFileName("a");
         imageDTO.setFilePath("b");
         imageDTO.setType("detail");
-        imageDTO.setMenuNo(0);
+//        imageDTO.setMenuNo(0);
         proMapper.saveProBoardImage(3, imageDTO);
 
 //        for (int menuNo : proMapper.selectMenuNo(3)) {

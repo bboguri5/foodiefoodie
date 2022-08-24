@@ -29,7 +29,7 @@ public class AdminController {
     private final MasterService ms;
 
     // 관리자 첫화면, 일반회원 목록
-    @GetMapping("/admin/member-management")
+    @GetMapping("/admin/member")
     public String memberManagement(Model model) {
 
         log.info("/admin/member-management GET!! - ");

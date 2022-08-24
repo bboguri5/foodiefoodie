@@ -327,43 +327,56 @@
         function upLikeCountEvent() {
             const upCount = document.querySelector('.upCount');
             upCount.onclick = e => {
-                upLikeCount();
+				likeOrUnlike();
             };
         }
 
-        function upLikeCount() {
-            // 서버에 수정 비동기 요청 보내기
-            // const rbno = '${review.reviewBno}';
-            const reqInfo = {
-                method: 'PUT',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    likeCnt: document.getElementById('heart').innerHTML,
-                    reviewBno: bno
-                })
-            };
-            fetch('/review/uplike?reviewBno=' + bno, reqInfo)
-                .then(res => res.text())
-                .then(msg => {
-                    if (msg === 'up-success') {
-                        alert('upCount 성공!!');
-                        showLikes(); // 좋아요 새로불러오기
-                    } else {
-                        alert('upCount 실패!!');
-                    }
-                });
-        }
+		function likeOrUnlike() {
+			// 서버에 수정 비동기 요청 보내기
+			const bno = e.target.id;
+			// console.log(rno);
+			const reqInfo = {
+				method: 'PUT',
+				headers: {
+					'content-type': 'application/json'
+				}
+			};
 
-        function showLikes() {
-            // const bno = e.target.id;
-            fetch('/review/getLike?reviewBno=' + bno)
-                .then(res => res.text())
-                .then(likeCnt => {
-                    document.getElementById("heart").innerHTML = likeCnt;
-                });
-        }
+			const email = '${loginUser.email}';
+			fetch('/review/updownlike?reviewBno=' + bno + '&email=' + email, reqInfo)
+				.then(res => res.text())
+				.then(msg => {
+					if (msg === 'up-success') {
+						alert('upLike 성공!!');
+						showUpLike(); // 좋아요 새로불러오기
+					} else {
+						alert('downLike 성공!!');
+						showDownLike();
+					}
+				});
+		}
+
+		function showUpLike() {
+			const bno = e.target.id;
+			fetch('/review/getLike?reviewBno=' + bno)
+				.then(res => res.text())
+				.then(likeCnt => {
+					document.getElementById(bno).classList.add('icon_heart');
+					document.getElementById(bno).classList.remove('icon_heart_alt');
+					document.getElementById("heart" + bno).innerHTML = likeCnt;
+				});
+		}
+
+		function showDownLike() {
+			const bno = e.target.id;
+			fetch('/review/getLike?reviewBno=' + bno)
+				.then(res => res.text())
+				.then(likeCnt => {
+					document.getElementById(bno).classList.remove('icon_heart');
+					document.getElementById(bno).classList.add('icon_heart_alt');
+					document.getElementById("heart" + bno).innerHTML = likeCnt;
+				});
+		}
     </script>
 
 

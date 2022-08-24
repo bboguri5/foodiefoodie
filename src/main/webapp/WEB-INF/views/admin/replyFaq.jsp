@@ -61,7 +61,7 @@
                                                 data-email="${rf.replyWriterEmail}"
                                                 data-replycontent="${rf.replyContent}" data-nickname="${rf.nickName}"
                                                 data-lastupdate="${rf.lastUpdate}">
-                                                ${rf.replyNo}</a>
+                                                ${rf.shortContent}</a>
                                         </th>
                                         <th>${rf.writerEmail}</th>
                                         <th>${rf.replyWriterEmail}</th>

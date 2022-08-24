@@ -31,7 +31,21 @@ public class ReplyFaqService {
     }
 
     public List<ReplyFaqDTO> findAllReplyService(String complete) {
-        return mapper.findAllReply(complete);
+        List<ReplyFaqDTO> replyFaqDTOList = mapper.findAllReply(complete);
+
+        for (ReplyFaqDTO r : replyFaqDTOList) {
+            String replyContent = r.getReplyContent();
+            if (replyContent.length() > 5) {
+                String substring = replyContent.substring(0, 5);
+                r.setShortContent(substring + "...");
+            } else {
+                r.setShortContent(replyContent);
+            }
+
+        }
+
+
+        return replyFaqDTOList;
     }
 
 }

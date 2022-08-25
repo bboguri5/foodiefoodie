@@ -71,7 +71,7 @@ public class ReviewBoardService {
 
     public boolean isLikedService(long reviewBno, String email) {
         int liked = rbMapper.isLiked(reviewBno, email);
-        log.info("liked returned int - {}", liked);
+        log.info("liked returned int - {}", liked >= 1);
         return liked >= 1;
     }
 

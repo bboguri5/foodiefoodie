@@ -56,7 +56,7 @@ public class ReviewBoardController {
     }
 
     @GetMapping("/review/detail")
-    public String reviewDetail(long reviewBno, Model model) {
+    public String reviewDetail(long reviewBno, String email, Model model) {
         ReviewBoardDTO review = reviewBoardService.findOneReviewService(reviewBno);
         List<ReviewUpload> reviewUploads = reviewBoardService.findReviewUploadsService(reviewBno);
         List<Reply> replyList = replyService.findAllRepliesService(reviewBno);
@@ -66,6 +66,7 @@ public class ReviewBoardController {
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyList", replyList);
         model.addAttribute("replyCount", replyService.findReplyCountService(reviewBno));
+        model.addAttribute("isLiked", reviewBoardService.isLikedService(reviewBno, email));
         return "review/review-detail";
     }
 

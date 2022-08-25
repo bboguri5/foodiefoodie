@@ -135,8 +135,9 @@
                                 <li><i class="icon_calendar"></i> ${review.lastUpdated}</li>
                                 <li><a href="#"><i class="icon_pencil-edit"></i> ${review.email}</a></li>
                                 <li><a href="#"><i class="icon_comment_alt"></i> (${replyCount}) Comments</a></li>
-                                <li class="upCount"><a href="#"><i class="icon_heart_alt"></i><span
-                                            id="heart">${review.likeCnt}</span></a></li>
+                                <li class="upCount"><a href="#"><i id="${review.reviewBno}"
+                                            class="icon_heart_alt"></i><span
+                                            id="heart${review.reviewBno}">${review.likeCnt}</span></a></li>
 
 
                             </ul>
@@ -368,15 +369,25 @@
 
 
         function upLikeCountEvent() {
+
+
+            if ('${isLiked}' === "true" ) {
+                document.getElementById(bno).classList.add('icon_heart');
+                document.getElementById(bno).classList.remove('icon_heart_alt');
+            }
+
             const upCount = document.querySelector('.upCount');
             upCount.onclick = e => {
-                likeOrUnlike();
+                if ('${loginUser}' == null) {
+                    alert('로그인 후 사용 가능합니다');
+                } else {
+                    likeOrUnlike(e);
+                }
             };
         }
 
         function likeOrUnlike() {
             // 서버에 수정 비동기 요청 보내기
-            const bno = e.target.id;
             // console.log(rno);
             const reqInfo = {
                 method: 'PUT',
@@ -400,7 +411,6 @@
         }
 
         function showUpLike() {
-            const bno = e.target.id;
             fetch('/review/getLike?reviewBno=' + bno)
                 .then(res => res.text())
                 .then(likeCnt => {
@@ -411,7 +421,6 @@
         }
 
         function showDownLike() {
-            const bno = e.target.id;
             fetch('/review/getLike?reviewBno=' + bno)
                 .then(res => res.text())
                 .then(likeCnt => {

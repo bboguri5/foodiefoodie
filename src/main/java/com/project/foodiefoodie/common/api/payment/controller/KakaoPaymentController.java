@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.common.api.payment.controller;
 
+import com.project.foodiefoodie.common.api.payment.dto.OrderInfo;
 import com.project.foodiefoodie.common.api.payment.dto.OrderInfoDTO;
 import com.project.foodiefoodie.common.api.payment.service.KakaoService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -29,14 +31,11 @@ public class KakaoPaymentController {
 
     // 주문 데이터를 들고 주문 확인창으로 이동 요청 처리
     @GetMapping("/kakao/order/request")
-    public String orderRequest(List<String> menu, List<Integer> quantity , List<Integer> price, Model model, HttpSession session) {
-        log.info("/order/request GET!! - {}, {}, {}", menu, quantity, price);
+    public String orderRequest(@RequestBody List<OrderInfo> orderInfoList, Model model, HttpSession session) {
+        log.info("/order/request GET!! - {}", orderInfoList);
 
 
-        session.setAttribute("menuList", menu);
-        session.setAttribute("quantityList", quantity);
-        session.setAttribute("priceList", price);
-
+        session.setAttribute("orderInfoList", orderInfoList);
         return "payment/check-order"; // -> 확인창에서 최종 주문 요청을 하게 되면 KakaoController에서 작업 수행.
     }
 

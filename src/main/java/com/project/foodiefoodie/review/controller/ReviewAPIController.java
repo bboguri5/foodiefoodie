@@ -5,10 +5,9 @@ import com.project.foodiefoodie.review.service.ReviewBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,5 +41,11 @@ public class ReviewAPIController {
         int like = reviewBoardService.getLikeService(reviewBno);
 //        log.info("like: {}", like);
         return like;
+    }
+
+
+    @PostMapping("/test")
+    public void test(@RequestBody List<Test> test) {
+        log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!! - {}", test);
     }
 }

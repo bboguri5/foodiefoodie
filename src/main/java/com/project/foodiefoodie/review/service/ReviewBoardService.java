@@ -43,13 +43,14 @@ public class ReviewBoardService {
         return false;
     }
 
-    public List<ReviewBoardDTO> findAllReviewsService() {
-        List<ReviewBoardDTO> allReviews = rbMapper.findAllReviews();
+    public List<ReviewBoardDTO> findAllReviewsService(String sort) {
+        List<ReviewBoardDTO> allReviews = rbMapper.findAllReviews(sort);
         return allReviews;
     }
 
-    public List<ReviewBoardDTO> searchAllReviewService(String search) {
-        return rbMapper.searchAllReview(search);
+    public List<ReviewBoardDTO> searchAllReviewService(String search, String sort) {
+//        log.info("search - {}", search);
+        return rbMapper.searchAllReview(search, sort);
     }
 
     public ReviewBoardDTO findOneReviewService(long reviewBno) {

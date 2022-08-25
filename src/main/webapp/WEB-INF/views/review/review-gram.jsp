@@ -103,8 +103,14 @@
 								<li class="submenu">
 									<a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
 									<ul>
-										<li><a href="#">추천순</a></li>
-										<li><a href="#">최신순</a></li>
+										<c:if test="${not empty search}">
+											<li><a href="/review/search?search=${search}&sort=like">추천순</a></li>
+											<li><a href="/review/search?search=${search}&sort=latest">최신순</a></li>
+										</c:if>
+										<c:if test="${empty search}">
+											<li><a href="/review?sort=like">추천순</a></li>
+											<li><a href="/review?sort=latest">최신순</a></li>
+										</c:if>
 									</ul>
 								</li>
 							</ul>
@@ -150,8 +156,9 @@
 											<li>
 												<i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i><span
 													id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-												<a href="/review/detail?reviewBno=${rl.reviewBno}#section-comment"><i id="${rl.reviewBno}"
-													class="icon_comment_alt"></i>${replyCount[status.index]}</a>
+												<a href="/review/detail?reviewBno=${rl.reviewBno}#section-comment"><i
+														id="${rl.reviewBno}"
+														class="icon_comment_alt"></i>${replyCount[status.index]}</a>
 											</li>
 
 										</ul>

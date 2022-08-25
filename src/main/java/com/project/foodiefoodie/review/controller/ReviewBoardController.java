@@ -23,10 +23,10 @@ public class ReviewBoardController {
     private final ReplyService replyService;
 
     @GetMapping("/review")
-    public String review(Model model) {
+    public String review(String sort, Model model) {
         log.info("review started - list");
 
-        List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService();
+        List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService(sort);
         List<ReviewUpload> reviewUploads = new ArrayList<>();
         List<Integer> replyCount = new ArrayList<>();
 
@@ -70,8 +70,8 @@ public class ReviewBoardController {
     }
 
     @GetMapping("/review/search")
-    public String searchReview(String search, Model model) {
-        List<ReviewBoardDTO> searchList = reviewBoardService.searchAllReviewService(search);
+    public String searchReview(String search, String sort, Model model) {
+        List<ReviewBoardDTO> searchList = reviewBoardService.searchAllReviewService(search, sort);
         List<ReviewUpload> reviewUploads = new ArrayList<>();
         List<Integer> replyCount = new ArrayList<>();
 

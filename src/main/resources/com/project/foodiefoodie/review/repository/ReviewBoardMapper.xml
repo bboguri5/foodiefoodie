@@ -55,16 +55,19 @@
     </select>
 
     <select id="findAllReviews" resultMap="rbDTOMap">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no, m.store_name, m.store_address
+        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no,
+        m.store_name, m.store_address
         FROM review_board rb
         JOIN master m
         ON rb.business_no = m.business_no
         WHERE private = 'F'
-        ORDER BY rb.last_updated DESC
+        <if test="sort == 'latest'">ORDER BY rb.last_updated DESC</if>
+        <if test="sort == 'like'">ORDER BY rb.like_cnt DESC</if>
     </select>
 
     <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no, m.store_name, m.store_address
+        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no,
+        m.store_name, m.store_address
         FROM review_board rb
         JOIN master m
         ON rb.business_no = m.business_no
@@ -72,7 +75,8 @@
     </select>
 
     <select id="searchAllReview" resultMap="rbDTOMap">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no, m.store_name, m.store_address
+        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no,
+        m.store_name, m.store_address
         FROM review_board rb
         JOIN master m
         ON rb.business_no = m.business_no
@@ -82,7 +86,8 @@
         OR rb.content LIKE '%' || #{search}|| '%'
         OR m.store_name LIKE '%' || #{search}|| '%'
         OR m.store_address LIKE '%' || #{search}|| '%'
-        ORDER BY rb.last_updated DESC
+        <if test="sort == 'latest'">ORDER BY rb.last_updated DESC</if>
+        <if test="sort == 'like'">ORDER BY rb.like_cnt DESC</if>
     </select>
 
     <insert id="reviewUpload">
@@ -126,7 +131,6 @@
     <select id="isLiked" resultType="int">
         SELECT COUNT(*) FROM review_like WHERE email=#{email} AND review_bno=#{reviewBno}
     </select>
-
 
 
 </mapper>

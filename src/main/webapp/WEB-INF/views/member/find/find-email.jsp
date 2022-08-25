@@ -214,6 +214,31 @@
                     checkArr[2] = true;
                 }
 
+            }); 
+
+            $phoneNumInput.on('change', e => {
+                // 아무 입력도 하지 않은 경우
+                if ($phoneNumInput.val().trim() === '') {
+                    $phoneNumInput.css('border-color', 'red');
+                    $phoneChk.text('필수 입력사항입니다.');
+                    $phoneChk.css('color', 'red');
+                    checkArr[2] = false;
+                }
+
+                // 입력값이 전화번호 정규표현식에 위배될 경우
+                else if (!getPhoneNum.test($phoneNumInput.val())) {
+                    $phoneNumInput.css('border-color', 'red');
+                    $phoneChk.text('올바른 전화번호 양식이 아닙니다. 입력을 확인해주세요. 예시: 010-1234-5678');
+                    $phoneChk.css('color', 'red');
+                    checkArr[2] = false;
+                }
+
+                // 정상 입력인 경우
+                else {
+                    $phoneNumInput.css('border-color', 'greenyellow');
+                    $phoneChk.text('');
+                    checkArr[2] = true;
+                }
             }); // end 전화번호 검증 로직
 
 

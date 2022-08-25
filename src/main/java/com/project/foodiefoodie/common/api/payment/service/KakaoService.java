@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.project.foodiefoodie.common.api.KakaoMyApp;
-import com.project.foodiefoodie.common.api.payment.domain.PaymentProduct;
+import com.project.foodiefoodie.common.api.payment.dto.OrderInfoDTO;
 import com.project.foodiefoodie.common.api.payment.repository.PaymentMapper;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.util.LoginUtils;
@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +29,7 @@ public class KakaoService {
 
 
     // 결제 준비 로직
-    public Map<String, String> readyForPayment(HttpSession session, PaymentProduct orderInfo) throws IOException {
+    public Map<String, String> readyForPayment(HttpSession session, OrderInfoDTO orderInfo) throws IOException {
 
         // 1. 정해진 요청 url
         String reqUri = "https://kapi.kakao.com/v1/payment/ready";
@@ -109,7 +107,7 @@ public class KakaoService {
     }
 
 
-    private static void sendReadyForPaymentRequest(HttpURLConnection connection, HttpSession session, PaymentProduct orderInfo) {
+    private static void sendReadyForPaymentRequest(HttpURLConnection connection, HttpSession session, OrderInfoDTO orderInfo) {
 
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
 
@@ -123,7 +121,7 @@ public class KakaoService {
                     .append("cid=TC0ONETIME")
                     .append("&partner_order_id=" + orderInfo.getBusinessNo()) // 가맹점 사업자 번호.
                     .append("&partner_user_id=" + member.getEmail())
-                    .append("&item_name=" + "트러플 오일 파스타"); // 복수의 품명은 어케..?
+                    .append("&item_name=" + orderInfo.getMenu().get(0)); // 복수의 품명은 어케..?
                                                                 // 콤마 나열 또는 ~~외 식으로 표기해야할듯??
             if (orderInfo.getMenu().size() > 2) {
                 queryParam.append(" 외");
@@ -153,7 +151,7 @@ public class KakaoService {
         }
     }
 
-    
+
     // DB에 주문 정보를 기록하기 위해 거치는 중간 처리
     public boolean insertOrderInfoToDB(HttpSession session, String businessNo) {
 
@@ -164,7 +162,7 @@ public class KakaoService {
 
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = member.getEmail();
-        
+
         // 먼저 orderNo가 생성되어야 함.
         paymentMapper.insertOrderList(email, businessNo);
 
@@ -182,7 +180,7 @@ public class KakaoService {
             paymentMapper.insertOrderDetail(orderNo, menu, quantity, price);
         }
 
-        
+
         // 세션에서 정보를 지워줘야 이후 다른 주문을 또 시도하고자 할 때 문제가 발생하지 않는다.
         session.removeAttribute("menuList");
         session.removeAttribute("quantityList");

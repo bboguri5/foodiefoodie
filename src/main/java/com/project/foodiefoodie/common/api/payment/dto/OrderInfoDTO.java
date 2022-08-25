@@ -1,4 +1,4 @@
-package com.project.foodiefoodie.common.api.payment.domain;
+package com.project.foodiefoodie.common.api.payment.dto;
 
 import lombok.*;
 
@@ -6,7 +6,7 @@ import java.util.List;
 
 @Getter @Setter @ToString
 @NoArgsConstructor @AllArgsConstructor
-public class PaymentProduct {
+public class OrderInfoDTO {
     
     private String businessNo; // 주문이 들어가는 가게의 사업자 번호
     private List<String> menu; // 메뉴 이름들이 담긴 리스트

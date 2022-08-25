@@ -1,7 +1,6 @@
 package com.project.foodiefoodie.common.api.payment.controller;
 
-import com.project.foodiefoodie.common.api.KakaoMyApp;
-import com.project.foodiefoodie.common.api.payment.domain.PaymentProduct;
+import com.project.foodiefoodie.common.api.payment.dto.OrderInfoDTO;
 import com.project.foodiefoodie.common.api.payment.service.KakaoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -45,7 +43,7 @@ public class KakaoPaymentController {
 
 //    @GetMapping("/kakao/payment-test")
     @PostMapping("/kakao/order/request")
-    public String test(HttpSession session, PaymentProduct orderInfo, Model model) throws IOException {
+    public String test(HttpSession session, OrderInfoDTO orderInfo, Model model) throws IOException {
 
         log.info("/kakao/order/request POST!! - {}", orderInfo);
 

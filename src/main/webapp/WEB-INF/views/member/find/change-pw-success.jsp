@@ -31,12 +31,6 @@
 					<div class="box_booking_2">
 						<div class="head">
 							<div class="title">
-								<h3>비밀번호 변경 성공!</h3>
-							</div>
-						</div>
-						<!-- /head -->
-						<div class="main">
-							<div id="confirm">
 								<div class="icon icon--order-success svg add_bottom_15">
 									<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72">
 										<g fill="none" stroke="#8EC343" stroke-width="2">
@@ -48,6 +42,12 @@
 										</g>
 									</svg>
 								</div>
+								<h3>비밀번호 변경 성공!</h3>
+							</div>
+						</div>
+						<!-- /head -->
+						<div class="main">
+							<div id="confirm">
 								<br>
 								<h3>비밀번호 변경에 성공했습니다.</h3>
 								<p>로그인한 상태에서 비밀번호 변경을 한 경우에는 자동 로그아웃 처리됩니다. <br> 새로운 비밀번호로 다시 로그인하세요.</p>

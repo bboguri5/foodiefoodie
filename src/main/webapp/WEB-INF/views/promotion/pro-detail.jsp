@@ -135,7 +135,7 @@
     <header class="header_in clearfix">
         <div class="container">
             <div id="logo">
-                <a href="index.html">
+                <a href="/">
                     <img src="/img/logo_sticky.svg" width="140" height="35" alt="">
                 </a>
             </div>

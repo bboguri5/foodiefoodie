@@ -37,43 +37,42 @@
 
         /* 페이지 액티브 기능 */
         .pagination .page-item.p-active a {
-            background: #333 !important;
+            background: #589442 !important;
             color: #fff !important;
             cursor: default;
             pointer-events: none;
         }
 
         .pagination .page-item:hover a {
-            background: #888 !important;
+            background: #a6c09c !important;
             color: #fff !important;
         }
 
         p {
             overflow-wrap: break-word;
         }
-        
+
         h1 {
             margin-bottom: 15px;
         }
 
         .page_header .container .row form {
-			width: 75%;
+            width: 75%;
 
-		}
+        }
 
-		.page_header .container .row .col-xl-8 {
-			width: 20%;
-		}
+        .page_header .container .row .col-xl-8 {
+            width: 20%;
+        }
 
-		nav.main-menu {
-			height: 100%;
-			margin-right: 40px;
-		}
+        nav.main-menu {
+            height: 100%;
+            margin-right: 40px;
+        }
 
-		.submenu .show-submenu {
-			color: #589442;
-		}
-
+        .submenu .show-submenu {
+            color: #589442;
+        }
     </style>
 
 </head>
@@ -85,34 +84,22 @@
     <main>
 
         <div class="page_header element_to_stick">
-			<div class="container">
-				<div class="row">
-					<form action="/review/search" method="get">
-						<div class="col-xl-4 col-lg-5 col-md-5">
-							<div class="search_bar_list">
-								<input value="${search}" name="search" type="text" class="form-control" placeholder="Search in blog...">
-								<input type="submit" value="Search">
-							</div>
-						</div>
-					</form>
-					<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
-						<nav class="main-menu">
-							<ul>
-								<li class="submenu">
-									<a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
-									<ul>
-										<li><a href="#">추천순</a></li>
-										<li><a href="#">최신순</a></li>
-									</ul>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-		</div>
-		<!-- /page_header -->
+            <div class="container">
+                <div class="row">
+                    <form action="/review/search" method="get">
+                        <div class="col-xl-4 col-lg-5 col-md-5">
+                            <div class="search_bar_list">
+                                <input required value="${search}" name="search" type="text" class="form-control"
+                                    placeholder="Search in blog...">
+                                <input type="submit" value="Search">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /row -->
+            </div>
+        </div>
+        <!-- /page_header -->
 
         <div class="container margin_30_40">
             <div class="row">
@@ -148,8 +135,9 @@
                                 <li><i class="icon_calendar"></i> ${review.lastUpdated}</li>
                                 <li><a href="#"><i class="icon_pencil-edit"></i> ${review.email}</a></li>
                                 <li><a href="#"><i class="icon_comment_alt"></i> (${replyCount}) Comments</a></li>
-                                <li class="upCount"><a href="#"><i class="icon_heart_alt"></i><span
-                                            id="heart">${review.likeCnt}</span></a></li>
+                                <li class="upCount"><a href="#"><i id="${review.reviewBno}"
+                                            class="icon_heart_alt"></i><span
+                                            id="heart${review.reviewBno}">${review.likeCnt}</span></a></li>
 
 
                             </ul>
@@ -178,28 +166,30 @@
 
                     <a name="section-comment"></a>
                     <h5>Leave a comment</h5>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="form-group">
-                                <input readonly type="text" value="${loginUser.nickName}" name="name" id="name2"
-                                    class="form-control" placeholder="이름">
+                    <c:if test="${empty loginUser}">로그인 후에 댓글을 달 수 있습니다.</c:if>
+                    <c:if test="${not empty loginUser}">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <input readonly type="text" value="${loginUser.nickName}" name="name" id="name2"
+                                        class="form-control" placeholder="이름">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <input readonly type="text" value="${loginUser.email}" name="email" id="email2"
+                                        class="form-control" placeholder="이메일">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="form-group">
-                                <input readonly type="text" value="${loginUser.email}" name="email" id="email2"
-                                    class="form-control" placeholder="이메일">
-                            </div>
+                        <div class="form-group">
+                            <textarea class="form-control comment_write" name="comments" id="comments2" rows="6"
+                                placeholder="Comment"></textarea>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control comment_write" name="comments" id="comments2" rows="6"
-                            placeholder="Comment"></textarea>
-                    </div>
-                    <div id="replyAddBtn" class="form-group">
-                        <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
-                    </div>
-
+                        <div id="replyAddBtn" class="form-group">
+                            <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
+                        </div>
+                    </c:if>
                 </div>
                 <!-- /col -->
             </div>
@@ -379,58 +369,66 @@
 
 
         function upLikeCountEvent() {
+
+
+            if ('${isLiked}' === "true" ) {
+                document.getElementById(bno).classList.add('icon_heart');
+                document.getElementById(bno).classList.remove('icon_heart_alt');
+            }
+
             const upCount = document.querySelector('.upCount');
             upCount.onclick = e => {
-				likeOrUnlike();
+                if ('${loginUser}' == null) {
+                    alert('로그인 후 사용 가능합니다');
+                } else {
+                    likeOrUnlike(e);
+                }
             };
         }
 
-		function likeOrUnlike() {
-			// 서버에 수정 비동기 요청 보내기
-			const bno = e.target.id;
-			// console.log(rno);
-			const reqInfo = {
-				method: 'PUT',
-				headers: {
-					'content-type': 'application/json'
-				}
-			};
+        function likeOrUnlike() {
+            // 서버에 수정 비동기 요청 보내기
+            // console.log(rno);
+            const reqInfo = {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            };
 
-			const email = '${loginUser.email}';
-			fetch('/review/updownlike?reviewBno=' + bno + '&email=' + email, reqInfo)
-				.then(res => res.text())
-				.then(msg => {
-					if (msg === 'up-success') {
-						alert('upLike 성공!!');
-						showUpLike(); // 좋아요 새로불러오기
-					} else {
-						alert('downLike 성공!!');
-						showDownLike();
-					}
-				});
-		}
+            const email = '${loginUser.email}';
+            fetch('/review/updownlike?reviewBno=' + bno + '&email=' + email, reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'up-success') {
+                        alert('upLike 성공!!');
+                        showUpLike(); // 좋아요 새로불러오기
+                    } else {
+                        alert('downLike 성공!!');
+                        showDownLike();
+                    }
+                });
+        }
 
-		function showUpLike() {
-			const bno = e.target.id;
-			fetch('/review/getLike?reviewBno=' + bno)
-				.then(res => res.text())
-				.then(likeCnt => {
-					document.getElementById(bno).classList.add('icon_heart');
-					document.getElementById(bno).classList.remove('icon_heart_alt');
-					document.getElementById("heart" + bno).innerHTML = likeCnt;
-				});
-		}
+        function showUpLike() {
+            fetch('/review/getLike?reviewBno=' + bno)
+                .then(res => res.text())
+                .then(likeCnt => {
+                    document.getElementById(bno).classList.add('icon_heart');
+                    document.getElementById(bno).classList.remove('icon_heart_alt');
+                    document.getElementById("heart" + bno).innerHTML = likeCnt;
+                });
+        }
 
-		function showDownLike() {
-			const bno = e.target.id;
-			fetch('/review/getLike?reviewBno=' + bno)
-				.then(res => res.text())
-				.then(likeCnt => {
-					document.getElementById(bno).classList.remove('icon_heart');
-					document.getElementById(bno).classList.add('icon_heart_alt');
-					document.getElementById("heart" + bno).innerHTML = likeCnt;
-				});
-		}
+        function showDownLike() {
+            fetch('/review/getLike?reviewBno=' + bno)
+                .then(res => res.text())
+                .then(likeCnt => {
+                    document.getElementById(bno).classList.remove('icon_heart');
+                    document.getElementById(bno).classList.add('icon_heart_alt');
+                    document.getElementById("heart" + bno).innerHTML = likeCnt;
+                });
+        }
     </script>
 
 

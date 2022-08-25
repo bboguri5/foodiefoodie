@@ -23,7 +23,7 @@ public interface ReviewBoardMapper {
 //    // 해당 가게 리뷰 게시물 별점 총점 가져오기
 //    List<AvgStarDTO> avgStarRate();
 
-    List<ReviewBoardDTO> findAllReviews();
+    List<ReviewBoardDTO> findAllReviews(String sort);
 
     ReviewBoardDTO findOneReview(long reviewBno);
 
@@ -43,6 +43,6 @@ public interface ReviewBoardMapper {
 
     boolean deleteReviewLike(long reviewBno, String email);
 
-    List<ReviewBoardDTO> searchAllReview(String search);
+    List<ReviewBoardDTO> searchAllReview(@Param("search") String search, @Param("sort") String sort);
 
 }

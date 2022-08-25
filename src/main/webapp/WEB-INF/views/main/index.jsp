@@ -49,11 +49,11 @@
 							<p>Foodies Welcome Here</p>
 
 							<div class="search">
-								<form action="/list" method="get">
+								<form action="/list?sort=star" method="get">
 									<div class="row g-0 custom-search-input">
 										<div class="col-lg-6">
 											<div class="form-group">
-												<input class="form-control no_border_r" type="text"
+												<input required class="form-control no_border_r" type="text"
 													placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
 												<i class="icon_pin_alt"></i>
 											</div>
@@ -227,7 +227,7 @@
 						<small>Foodie Foodie</small>
 						<h3>직접 먹어본 사람들만의 솔직한 리뷰</h3>
 						<p>많은 후기를 보고 맛집을 찾아보세요!</p>
-						<a href="/review" class="btn_1">맛집 리뷰 보러가기</a>
+						<a href="/review?sort=latest" class="btn_1">맛집 리뷰 보러가기</a>
 					</div>
 				</div>
 				<!-- /wrapper -->
@@ -332,7 +332,7 @@
 		// 로그인 한 사람만 사업자 등록 할수있음
 		document.querySelector('.addMaster').onclick = e => {
 			if ('${loginUser}' != '') {
-				location.href = '/request-auth';
+				location.href = '/master/register';
 			} else {
 				alert('로그인 해주세요');
 			}

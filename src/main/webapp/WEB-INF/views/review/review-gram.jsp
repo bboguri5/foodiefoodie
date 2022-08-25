@@ -91,7 +91,7 @@
 					<form action="/review/search" method="get">
 						<div class="col-xl-4 col-lg-5 col-md-5">
 							<div class="search_bar_list">
-								<input value="${search}" name="search" type="text" class="form-control"
+								<input required value="${search}" name="search" type="text" class="form-control"
 									placeholder="Search in blog...">
 								<input type="submit" value="Search">
 							</div>
@@ -103,8 +103,14 @@
 								<li class="submenu">
 									<a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
 									<ul>
-										<li><a href="#">추천순</a></li>
-										<li><a href="#">최신순</a></li>
+										<c:if test="${not empty search}">
+											<li><a href="/review/search?search=${search}&sort=like">추천순</a></li>
+											<li><a href="/review/search?search=${search}&sort=latest">최신순</a></li>
+										</c:if>
+										<c:if test="${empty search}">
+											<li><a href="/review?sort=like">추천순</a></li>
+											<li><a href="/review?sort=latest">최신순</a></li>
+										</c:if>
 									</ul>
 								</li>
 							</ul>
@@ -129,7 +135,7 @@
 							<!-- <div class="col-md-6"> -->
 							<article class="blog">
 								<figure>
-									<a href="/review/detail?reviewBno=${rl.reviewBno}"><img
+									<a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}"><img
 											src="${uploads[status.index].filePath}" alt="">
 										<div class="preview"><span>Read more</span></div>
 									</a>
@@ -137,7 +143,7 @@
 								<div class="post_info">
 									<small>Last Updated - ${rl.lastUpdated}
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
-									<h2><a href="/review/detail?reviewBno=${rl.reviewBno}">${rl.title}</a></h2>
+									<h2><a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a></h2>
 
 									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
 									<p>식당 주소: ${rl.storeAddress}</p>
@@ -150,8 +156,9 @@
 											<li>
 												<i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i><span
 													id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-												<a href="/review/detail?reviewBno=${rl.reviewBno}#section-comment"><i id="${rl.reviewBno}"
-													class="icon_comment_alt"></i>${replyCount[status.index]}</a>
+												<a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}#section-comment"><i
+														id="${rl.reviewBno}"
+														class="icon_comment_alt"></i>${replyCount[status.index]}</a>
 											</li>
 
 										</ul>
@@ -181,9 +188,13 @@
 		const upCount = document.querySelector('.upCount');
 		upCount.addEventListener('click', e => {
 			if (e.target.classList.contains('heartIcon')) {
-				likeOrUnlike(e);
+				if ('${loginUser}' == null) {
+					alert('로그인 후 사용 가능합니다');
+				} else {
+					likeOrUnlike(e);
+				}
 			} else if (e.target.className.classList.contains('icon_comment_alt')) {
-				location.href = '/review/detail?reviewBno=' + e.target.id + '#section-comment';
+				location.href = '/review/detail?email=${loginUser.email}&reviewBno=' + e.target.id + '#section-comment';
 			}
 		});
 

@@ -394,7 +394,7 @@ commit;
 
 
 ----------------------------------------------------------- 08 / 15
-
+drop table PROMOTION_STORE_TIME;
  create table PROMOTION_STORE_TIME
     (
         promotion_bno number(10) NOT NULL
@@ -435,3 +435,26 @@ ALTER TABLE hot_deal DROP COLUMN end_date ;
        , menu_ea NUMBER(2) NOT NULL -- 주문 수량
        , price NUMBER(10) NOT NULL -- 가격
    );
+
+   ----------------------------------------------------------- 08/25
+   drop table promotion_notice;
+   create table promotion_notice
+   (
+       promotion_bno NUMBER(10),
+       content varchar2(300) NOT NULL,
+       update_date date DEFAULT SYSDATE NOT NULL,
+        CONSTRAINT fk_promotion_bno_notice FOREIGN KEY (promotion_bno)
+           REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+   );
+
+   select * from promotion_notice;
+
+   alter table review_board
+   modify store_name VARCHAR2(50) NOT NULL;
+
+   ALTER TABLE review_board
+   add store_address VARCHAR2(150) NOT NULL;
+   ALTER TABLE review_board
+   add store_detail_address VARCHAR2(50) NULL;
+   ALTER TABLE review_board
+   add store_extra_address VARCHAR2(50) NULL;

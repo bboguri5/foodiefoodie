@@ -46,8 +46,6 @@ public class ProBoardController {
 
         model.addAttribute("noticeList",proBoardService.selectNotice(promotionBno));
 
-
-        log.info("{}", storeTimeDTO);
         return "promotion/pro-detail";
     }
 
@@ -58,15 +56,15 @@ public class ProBoardController {
     {
         log.info("saveDetailNotice controller RequestBody {}",noticeDTO);
         boolean result = proBoardService.saveNotice(noticeDTO);
-        log.info("result {} ",result);
         return result ? "insert-success" : "insert-failed";
     }
 
     @GetMapping ("/detail/noticeShow")
-    public String showAgainDetailNotice()
+    public List<NoticeDTO> showAgainDetailNotice(int promotionBno)
     {
-
-        return "";
+        List<NoticeDTO> noticeDTOS = proBoardService.selectNotice(promotionBno);
+        log.info("showAgainDetailNotice noticeDOTS - {} ",noticeDTOS);
+        return noticeDTOS;
     }
 
 

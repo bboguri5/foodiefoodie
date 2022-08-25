@@ -39,7 +39,11 @@ public class ProBoardService {
         return result;
     }
 
-    public boolean saveNotice(NoticeDTO noticeDTO){return  proBoardMapper.saveNotice(noticeDTO);}
+    public boolean saveNotice(NoticeDTO noticeDTO){
+
+
+        return  proBoardMapper.saveNotice(noticeDTO);
+    }
 
     public boolean modify(ProBoard proBoard) {
         return proBoardMapper.modify(proBoard);

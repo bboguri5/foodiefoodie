@@ -163,7 +163,7 @@
         <result property="updateDate" column="update_date"/>
     </resultMap>
     <select id="selectNotice" resultMap="noticeDTO">
-        select * from promotion_notice where promotion_bno = #{promotionBno}
+        select * from promotion_notice where promotion_bno = #{promotionBno} order by update_date desc
     </select>
 
 

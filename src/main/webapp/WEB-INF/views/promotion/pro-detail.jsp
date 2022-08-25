@@ -886,7 +886,7 @@
                                                                     삭제</a></li>
                                                         </ul>
                                                         <p class="update_date">
-                                                            업데이트
+                                                            업데이트 : ${notice.updateAFewDaysAgo}
                                                         </p>
                                                     </li>
                                                 </c:forEach>
@@ -1230,13 +1230,21 @@
             console.log(msg);
             if(msg === 'insert-success'){
                 alert("공지사항 등록 성공");
-                $noticeContent.val(''); 
+                $noticeContent.val('');
+                $('.mfp-close').click();
+                
+                fetch('/foodie/detail/noticeShow',${promotionBno})
+                .then(res => json())
+                .then(noticeL =>{
+                    console.log(noticeL);
+                })
             }else{
                 alert("공지사항 등록 실패");
             }
         });
-
     }
+
+    
 
     // function showReplies(pageNum = 1) {
     //         fetch('/reply?reviewBno=' + bno + '&pageNum=' + pageNum)

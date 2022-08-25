@@ -5,6 +5,7 @@ import com.project.foodiefoodie.proBoard.dto.ImageDTO;
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
+import com.project.foodiefoodie.util.DateFormatUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.matchers.Not;
@@ -76,10 +77,17 @@ class ProBoardMapperTest {
     }
 
     @Test
-    @DisplayName("공지사항 저장")
-    void saveNoticeTest()
+    @DisplayName("시간")
+    void timeForTodayTest()
     {
+        List<NoticeDTO> noticeDTOS = proMapper.selectNotice(16);
+        for(NoticeDTO noticeDTO : noticeDTOS)
+        {
+            String s = DateFormatUtils.makeFewDaysAgo(noticeDTO.getUpdateDate());
+            System.out.println(s);
+        }
     }
+
 //
 //    @Test
 //    @DisplayName("storeTime이 저장되어야 한다.")

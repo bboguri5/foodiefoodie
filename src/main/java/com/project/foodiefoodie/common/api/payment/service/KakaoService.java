@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.project.foodiefoodie.common.api.KakaoMyApp;
-import com.project.foodiefoodie.common.api.payment.domain.PaymentProduct;
+import com.project.foodiefoodie.common.api.payment.dto.OrderInfoDTO;
 import com.project.foodiefoodie.common.api.payment.repository.PaymentMapper;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.util.LoginUtils;
@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +29,7 @@ public class KakaoService {
 
 
     // 결제 준비 로직
-    public Map<String, String> readyForPayment(HttpSession session, PaymentProduct orderInfo) throws IOException {
+    public Map<String, String> readyForPayment(HttpSession session, OrderInfoDTO orderInfo) throws IOException {
 
         // 1. 정해진 요청 url
         String reqUri = "https://kapi.kakao.com/v1/payment/ready";
@@ -109,7 +107,7 @@ public class KakaoService {
     }
 
 
-    private static void sendReadyForPaymentRequest(HttpURLConnection connection, HttpSession session, PaymentProduct orderInfo) {
+    private static void sendReadyForPaymentRequest(HttpURLConnection connection, HttpSession session, OrderInfoDTO orderInfo) {
 
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
 

@@ -5,8 +5,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.project.foodiefoodie.common.api.KakaoMyApp;
 import com.project.foodiefoodie.common.api.payment.domain.PaymentProduct;
+import com.project.foodiefoodie.common.api.payment.repository.PaymentMapper;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.util.LoginUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
 @Log4j2
+@RequiredArgsConstructor
 public class KakaoService {
+
+    private final PaymentMapper paymentMapper;
 
 
     // 결제 준비 로직
@@ -111,10 +117,11 @@ public class KakaoService {
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()))) {
 
             StringBuilder queryParam = new StringBuilder();
+
             // 테스트용이라 가맹점 코드는 [ TC0ONETIME ] 활용. 실제로 사용하기 위해선 제휴를 맺어야 함.
             queryParam
                     .append("cid=TC0ONETIME")
-                    .append("&partner_order_id=995") // 가맹점 주문번호. 테스트용 임의 주문번호 999 부여
+                    .append("&partner_order_id=" + orderInfo.getBusinessNo()) // 가맹점 사업자 번호.
                     .append("&partner_user_id=" + member.getEmail())
                     .append("&item_name=" + "트러플 오일 파스타"); // 복수의 품명은 어케..?
                                                                 // 콤마 나열 또는 ~~외 식으로 표기해야할듯??
@@ -123,8 +130,8 @@ public class KakaoService {
             } else {
                 queryParam.append(orderInfo.getMenu().toString());
             }
-            queryParam.append("&quantity=1") // 수량 일단 1개 임의 지정
-                    .append("&total_amount=" + String.valueOf(orderInfo.getTotalPrice())) // 총 결제금액
+            queryParam.append("&quantity=" + orderInfo.getTotalQuantity()) // 총 주문 수량
+                    .append("&total_amount=" + orderInfo.getTotalPrice()) // 총 결제금액
                     .append("&tax_free_amount=" + 0) // 면세액이 얼만지 적는 항목 같음..
                     .append("&approval_url=" + "http://localhost:8186/success-order") // 결제 성공시 redirect_url 지정
                     .append("&cancel_url=" + "http://localhost:8186/cancel-order") // 결제 취소시 redirect_url 지정
@@ -144,5 +151,43 @@ public class KakaoService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    
+    // DB에 주문 정보를 기록하기 위해 거치는 중간 처리
+    public boolean insertOrderInfoToDB(HttpSession session, String businessNo) {
+
+        List<String> menuList = (List<String>) session.getAttribute("menuList");
+        List<Integer> quantityList = (List<Integer>) session.getAttribute("quantityList");
+        List<Integer> priceList = (List<Integer>) session.getAttribute("priceList");
+
+
+        Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
+        String email = member.getEmail();
+        
+        // 먼저 orderNo가 생성되어야 함.
+        paymentMapper.insertOrderList(email, businessNo);
+
+
+        // 생성된 주문번호를 다시 가져와야 함.
+        // 한 사람이 한 곳의 가게에서 여러 번 주문을 했을 수 있기 때문에 마지막 주문 기록을 가져와야 함.
+        int orderNo = paymentMapper.findCurrentOrderNo(email, businessNo);
+
+
+        for (int i = 0; i < menuList.size(); i++) {
+            String menu = menuList.get(i);
+            int quantity = quantityList.get(i);
+            int price = priceList.get(i);
+
+            paymentMapper.insertOrderDetail(orderNo, menu, quantity, price);
+        }
+
+        
+        // 세션에서 정보를 지워줘야 이후 다른 주문을 또 시도하고자 할 때 문제가 발생하지 않는다.
+        session.removeAttribute("menuList");
+        session.removeAttribute("quantityList");
+        session.removeAttribute("priceList");
+
+        return true;
     }
 }

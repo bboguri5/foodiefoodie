@@ -125,8 +125,12 @@
         margin-left: 10px;
     }
 
-    h1{
-        color: #fff !important ;
+    h1 {
+        color: #fff !important;
+    }
+
+    #quantity {
+        margin-left: 420px;
     }
 </style>
 
@@ -397,6 +401,12 @@
                                 </div>
                             </div>
                             <!-- /A type -->
+
+
+
+
+
+
                             <!-- B type -->
                             <div id="pane-B" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
                                 <div class="card-header" role="tab" id="heading-B">
@@ -427,10 +437,11 @@
                                                                 class="lazy">
                                                         </a>
                                                     </figure>
-                                                    <div class="menuInfo">
-                                                        <h4>${menu.menuName}</h4>
-                                                        <em>${menu.menuPrice}</em>
-                                                        <button class="menuAddBtn" type="button">방문포장</button>
+                                                    <div id="menu${menu.menuNo}" class="menuInfo">
+                                                        <h4 id="menu-name">${menu.menuName}</h4>
+                                                        <em id="menu-price">${menu.menuPrice}</em>
+                                                        <button id="${menu.menuNo}" class="menuAddBtn"
+                                                            type="button">방문포장</button>
                                                     </div>
                                                 </div>
                                             </c:forEach>
@@ -447,149 +458,25 @@
                                             </div>
                                             <!-- /head -->
                                             <div class="main">
-                                                <ul class="clearfix">
-                                                    <li><a href="#0">1x Enchiladas</a><span>$11</span></li>
-                                                    <li><a href="#0">2x Burrito</a><span>$14</span></li>
-                                                    <li><a href="#0">1x Chicken</a><span>$18</span></li>
-                                                    <li><a href="#0">2x Corona Beer</a><span>$9</span></li>
-                                                    <li><a href="#0">2x Cheese Cake</a><span>$11</span></li>
+                                                <ul id="async-order-list" class="clearfix">
+
                                                 </ul>
 
+                                                <form action="#" method="get">
+                                                    <input hidden value="" type="text">
+                                                </form>
+
                                                 <ul class="clearfix">
-                                                    <li>Subtotal<span>$56</span></li>
-                                                    <li>Delivery fee<span>$10</span></li>
                                                     <li class="total">Total<span>$66</span></li>
                                                 </ul>
-                                                <div class="row opt_order">
-                                                    <div class="col-6">
-                                                        <label class="container_radio">Delivery
-                                                            <input type="radio" value="option1" name="opt_order"
-                                                                checked="">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label class="container_radio">Take away
-                                                            <input type="radio" value="option1" name="opt_order">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown day">
-                                                    <a href="#" data-bs-toggle="dropdown">Day <span
-                                                            id="selected_day"></span></a>
-                                                    <div class="dropdown-menu">
-                                                        <div class="dropdown-menu-content">
-                                                            <h4>Which day delivered?</h4>
-                                                            <div class="radio_select chose_day">
-                                                                <ul>
-                                                                    <li>
-                                                                        <input type="radio" id="day_1" name="day"
-                                                                            value="Today">
-                                                                        <label for="day_1">Today<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="day_2" name="day"
-                                                                            value="Tomorrow">
-                                                                        <label for="day_2">Tomorrow<em>-40%</em></label>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- /people_select -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /dropdown -->
-                                                <div class="dropdown time">
-                                                    <a href="#" data-bs-toggle="dropdown">Time <span
-                                                            id="selected_time"></span></a>
-                                                    <div class="dropdown-menu">
-                                                        <div class="dropdown-menu-content">
-                                                            <h4>Lunch</h4>
-                                                            <div class="radio_select add_bottom_15">
-                                                                <ul>
-                                                                    <li>
-                                                                        <input type="radio" id="time_1" name="time"
-                                                                            value="12.00am">
-                                                                        <label for="time_1">12.00<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_2" name="time"
-                                                                            value="08.30pm">
-                                                                        <label for="time_2">12.30<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_3" name="time"
-                                                                            value="09.00pm">
-                                                                        <label for="time_3">1.00<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_4" name="time"
-                                                                            value="09.30pm">
-                                                                        <label for="time_4">1.30<em>-40%</em></label>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- /time_select -->
-                                                            <h4>Dinner</h4>
-                                                            <div class="radio_select">
-                                                                <ul>
-                                                                    <li>
-                                                                        <input type="radio" id="time_5" name="time"
-                                                                            value="08.00pm">
-                                                                        <label for="time_1">20.00<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_6" name="time"
-                                                                            value="08.30pm">
-                                                                        <label for="time_2">20.30<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_7" name="time"
-                                                                            value="09.00pm">
-                                                                        <label for="time_3">21.00<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_8" name="time"
-                                                                            value="09.30pm">
-                                                                        <label for="time_4">21.30<em>-40%</em></label>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- /time_select -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /dropdown -->
-                                                <a href="booking-delivery-2.html" class="btn_1 full-width mb_5">Order
+
+                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
                                                     Now</a>
                                                 <div class="text-center"><small>No money charged on this
                                                         steps</small></div>
                                             </div>
                                         </div>
-                                        <ul class="share-buttons">
-                                            <li><a class="fb-share" href="#0"><i class="social_facebook"></i>
-                                                    Share</a></li>
-                                            <li><a class="twitter-share" href="#0"><i class="social_twitter"></i>
-                                                    Share</a></li>
-                                            <li><a class="gplus-share" href="#0"><i class="social_googleplus"></i>
-                                                    Share</a></li>
-                                        </ul>
-                                        <div class="resize-sensor"
-                                            style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;">
-                                            <div class="resize-sensor-expand"
-                                                style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
-                                                <div
-                                                    style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 413px; height: 772px;">
-                                                </div>
-                                            </div>
-                                            <div class="resize-sensor-shrink"
-                                                style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
-                                                <div
-                                                    style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%">
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
 
                                 </div>
@@ -820,8 +707,7 @@
                             </div>
                             <!-- /C type -->
                             <!-- D type -->
-                            <div id="pane-D" class="card tab-pane fade show" role="tabpanel"
-                                aria-labelledby="tab-D">
+                            <div id="pane-D" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-D">
                                 <div class="card-header" role="tab" id="heading-D">
                                     <h5>
                                         <a class="collapsed" data-bs-toggle="collapse" href="#collapse-D"
@@ -850,7 +736,7 @@
                                             <div class="list_general">
                                                 <ul>
                                                     <li>
-                                                        <figure><img src="img/item_1.jpg" alt=""></figure>
+                                                        <figure><img src="/img/item_1.jpg" alt=""></figure>
                                                         <small>Pizza - Italian</small>
                                                         <h4>La Monnalisa</h4>
                                                         <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
@@ -867,7 +753,7 @@
                                                         </ul>
                                                     </li>
                                                     <li>
-                                                        <figure><img src="img/item_2.jpg" alt=""></figure>
+                                                        <figure><img src="/img/item_2.jpg" alt=""></figure>
                                                         <small>Pizza - Italian</small>
                                                         <h4>Da Alfredo</h4>
                                                         <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
@@ -884,7 +770,7 @@
                                                         </ul>
                                                     </li>
                                                     <li>
-                                                        <figure><img src="img/item_3.jpg" alt=""></figure>
+                                                        <figure><img src="/img/item_3.jpg" alt=""></figure>
                                                         <small>Japanese</small>
                                                         <h4>Sushi Gold</h4>
                                                         <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
@@ -1095,66 +981,160 @@
     <script src="/js/common_scripts.min.js"></script>
     <script src="/js/common_func.js"></script>
     <script src="/js/validate.js"></script>
+    <script src="/js/takeout-order.js"></script>
 
     <!-- SPECIFIC SCRIPTS -->
     <script src="/js/sticky_sidebar.min.js"></script>
     <script src="/js/specific_detail.js"></script>
-</body>
 
-<script>
-    let positionAddress = '';
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-        mapOption = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-            level: 3, // 지도의 확대 레벨
-        };
+    <!-- <script>
+        let positionAddress = '';
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3, // 지도의 확대 레벨
+            };
 
-    // 지도를 생성합니다    
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+        // 지도를 생성합니다    
+        var map = new kakao.maps.Map(mapContainer, mapOption);
 
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
 
-    // 주소로 좌표를 검색합니다
-    geocoder.addressSearch(`${master.storeAddress}`, function (result, status) {
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(`${master.storeAddress}`, function (result, status) {
 
-        // 정상적으로 검색이 완료됐으면 
-        if (status === kakao.maps.services.Status.OK) {
+            // 정상적으로 검색이 완료됐으면 
+            if (status === kakao.maps.services.Status.OK) {
 
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-            // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new kakao.maps.Marker({
-                map: map,
-                position: coords
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+
+                // console.log(coords);
+                positionAddress = coords;
+                // console.log(positionAddress);
+
+                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: '<div style="width:150px;text-align:center;padding:6px 0;">${master.storeName}</div>'
+                });
+                infowindow.open(map, marker);
+
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+
+                // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+                var zoomControl = new kakao.maps.ZoomControl();
+                map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+            }
+
+        });
+
+        const $openKakaoMap = $(".openKaKaoMap");
+        $openKakaoMap.on("click", function () {
+
+            const area = "https://map.kakao.com/link/search/" + `${master.storeAddress}`;
+            $openKakaoMap.attr("href", area);
+        });
+    </script> -->
+    <!-- javascript -->
+
+
+
+
+
+
+    <script>
+        (function () {
+            menuAddClickEvent();
+            submitOrderClickEvent();
+        })();
+
+
+        function menuAddClickEvent() {
+            const menuAddBtn = document.querySelector('.menu-gallery');
+            menuAddBtn.addEventListener('click', e => {
+                // console.log(e.target.classList);
+                if (e.target.classList.contains('menuAddBtn')) {
+                    // console.log('menuAddBtn clicked');
+                    addToOrder(e.target);
+                }
             });
-
-            // console.log(coords);
-            positionAddress = coords;
-            // console.log(positionAddress);
-
-            // 인포윈도우로 장소에 대한 설명을 표시합니다
-            var infowindow = new kakao.maps.InfoWindow({
-                content: '<div style="width:150px;text-align:center;padding:6px 0;">${master.storeName}</div>'
-            });
-            infowindow.open(map, marker);
-
-            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-            map.setCenter(coords);
-
-            // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-            var zoomControl = new kakao.maps.ZoomControl();
-            map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
         }
 
-    });
+        const menuList = [];
+        // console.log("0 : " ,menuList.length);
 
-    const $openKakaoMap = $(".openKaKaoMap");
-    $openKakaoMap.on("click", function () {
 
-        const area = "https://map.kakao.com/link/search/" + `${master.storeAddress}`;
-        $openKakaoMap.attr("href", area);
-    });
-</script>
+        function addToOrder(target) {
+            const menuInfo = document.getElementById('menu' + target.id);
+            console.log(menuInfo);
+
+            const menuName = document.getElementById('menu-name').innerHTML;
+            const menuPrice = document.getElementById('menu-price').innerHTML;
+
+            let tag = '';
+
+
+            tag += `<li><a href="#0">` + menuName + `</a><input id="quantity" type="number" value="1"></input><span>` +
+                menuPrice + `</span></li>`;
+
+            document.getElementById('async-order-list').innerHTML += tag;
+
+            const menu = {
+                menuName: menuName,
+                menuPrice: menuPrice
+            // business_no
+            // quantity
+            }
+
+            menuList[menuList.length] = menu;
+
+
+            // console.log("1 : " ,menuList.length);
+            console.log(menuList);
+
+        }
+
+        function submitOrderClickEvent() {
+            document.getElementById('submit-order').onclick = e => {
+                e.preventDefault();
+                submitOrder();
+            };
+        }
+
+        function submitOrder() {
+            // POST요청을 위한 요청 정보 객체
+            const reqInfo = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(menuList)
+            };
+
+            console.log(JSON.stringify(menuList));
+
+            //  ?business_no=
+            fetch('/test', reqInfo)
+                .then(res => res.text())
+                .then(msg => console.log(msg));
+        }
+    </script>
+
+
+
+
+
+
+</body>
+
+
+
 
 </html>

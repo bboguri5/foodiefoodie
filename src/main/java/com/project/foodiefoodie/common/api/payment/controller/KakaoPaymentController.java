@@ -31,7 +31,7 @@ public class KakaoPaymentController {
 
     // 주문 데이터를 들고 주문 확인창으로 이동 요청 처리
     @GetMapping("/kakao/order/request")
-    public String orderRequest(List<String> menu, List<String> quantity , List<Integer> price, Model model, HttpSession session) {
+    public String orderRequest(List<String> menu, List<Integer> quantity , List<Integer> price, Model model, HttpSession session) {
         log.info("/order/request GET!! - {}, {}, {}", menu, quantity, price);
 
 
@@ -44,15 +44,23 @@ public class KakaoPaymentController {
 
 
 //    @GetMapping("/kakao/payment-test")
-    @PostMapping("/kakao/order/requset")
+    @PostMapping("/kakao/order/request")
     public String test(HttpSession session, PaymentProduct orderInfo, Model model) throws IOException {
 
-        log.info("/kakao/payment-test GET!!");
+        log.info("/kakao/order/request POST!! - {}", orderInfo);
 
         // 결제 준비를 위해 Post 요청이 수행되어야 함.
         Map<String, String> readyForPaymentMap = kakaoService.readyForPayment(session, orderInfo);
 
         String pcRedirectUrl = readyForPaymentMap.get("pcRedirectUrl");
+
+
+        // 결제 성공 url을 받아왔다면 db에 반영해줘야 함.
+        String paymentFlag = pcRedirectUrl.substring(pcRedirectUrl.lastIndexOf("/"));
+
+        if (paymentFlag.equals("success-order")) {
+            kakaoService.insertOrderInfoToDB(session, orderInfo.getBusinessNo());
+        }
 
         model.addAttribute("pcUrl", pcRedirectUrl);
 

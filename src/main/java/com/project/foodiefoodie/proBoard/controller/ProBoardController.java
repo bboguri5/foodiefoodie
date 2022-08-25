@@ -5,6 +5,7 @@ import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
+import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
@@ -36,18 +37,38 @@ public class ProBoardController {
         Master master = proBoardService.selectMaster(proBoard.getBusinessNo());
         StoreTimeDTO storeTimeDTO = proBoardService.selectStoreTime(promotionBno);
 
-        model.addAttribute("titleImg",proBoardService.selectTitleImg(promotionBno));
-        model.addAttribute("detailImgList",proBoardService.selectDetailImgList(proBoard.getPromotionBno()));
-        List<MenuDTO> menuDTOS = proBoardService.selectMenuInfo(promotionBno);
-        model.addAttribute("menuList",menuDTOS);
-        log.info("{}",menuDTOS);
         model.addAttribute("master", master);
         model.addAttribute("proBoard", proBoard);
         model.addAttribute("storeTime", storeTimeDTO);
+        model.addAttribute("menuList",proBoardService.selectMenuInfo(promotionBno));
+        model.addAttribute("titleImg",proBoardService.selectTitleImg(promotionBno));
+        model.addAttribute("detailImgList",proBoardService.selectDetailImgList(promotionBno));
+
+        model.addAttribute("noticeList",proBoardService.selectNotice(promotionBno));
+
 
         log.info("{}", storeTimeDTO);
         return "promotion/pro-detail";
     }
+
+
+    @PostMapping ("/detail/noticeSave")
+    @ResponseBody
+    public String saveDetailNotice(@RequestBody NoticeDTO noticeDTO)
+    {
+        log.info("saveDetailNotice controller RequestBody {}",noticeDTO);
+        boolean result = proBoardService.saveNotice(noticeDTO);
+        log.info("result {} ",result);
+        return result ? "insert-success" : "insert-failed";
+    }
+
+    @GetMapping ("/detail/noticeShow")
+    public String showAgainDetailNotice()
+    {
+
+        return "";
+    }
+
 
     @GetMapping("/write/{businessNo}")
     public String write(Model model, @PathVariable String businessNo) {
@@ -91,7 +112,6 @@ public class ProBoardController {
 
         return "";
     }
-
 
 
 

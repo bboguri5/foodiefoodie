@@ -5,11 +5,13 @@ import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.ImageDTO;
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
+import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.repository.ProBoardMapper;
 import com.project.foodiefoodie.util.FoodieFileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.relational.core.sql.Not;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,11 +39,7 @@ public class ProBoardService {
         return result;
     }
 
-
-//    public boolean saveProBoardStoreTime(int promotionBno,StoreTimeDTO storeTime)
-//    {
-//        return proBoardMapper.saveProBoardStoreTime(promotionBno,storeTime);
-//    }
+    public boolean saveNotice(NoticeDTO noticeDTO){return  proBoardMapper.saveNotice(noticeDTO);}
 
     public boolean modify(ProBoard proBoard) {
         return proBoardMapper.modify(proBoard);
@@ -145,6 +143,12 @@ public class ProBoardService {
 
         // title , detail img file 저장
         proBoardMapper.saveProBoardImage(promotionBno, new ImageDTO(newFileName, newUploadPath, type));
+    }
+
+
+    public List<NoticeDTO> selectNotice(int promotionBno)
+    {
+        return proBoardMapper.selectNotice(promotionBno);
     }
 
 

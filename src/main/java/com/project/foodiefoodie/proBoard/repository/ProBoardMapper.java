@@ -5,6 +5,7 @@ import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.ImageDTO;
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
+import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -25,6 +26,8 @@ public interface ProBoardMapper {
 
     boolean saveProBoardTitleImg(int promotionBno, String titleFilePath, String titleFileName);
 
+    boolean saveNotice(NoticeDTO noticeDTO);
+
     StoreTimeDTO selectStoreTime(int promotionBno);
     boolean modify(ProBoard proBoard);
 
@@ -38,4 +41,6 @@ public interface ProBoardMapper {
 
     List<ImageDTO> selectImages(int promotionBno,String type);
     List<MenuDTO> selectMenuInfo(int promotionBno);
+    List<NoticeDTO> selectNotice(int promotionBno);
+
 }

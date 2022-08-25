@@ -15,6 +15,7 @@ DROP TABLE reply;
 DROP TABLE favorite_store;
 DROP TABLE hot_deal;
 DROP TABLE review_board;
+drop table PROMOTION_STORE_TIME;
 DROP TABLE premiume_promotion_board;
 DROP TABLE promotion_food_menu;
 DROP TABLE promotion_board;
@@ -397,17 +398,16 @@ commit;
  create table PROMOTION_STORE_TIME
     (
         promotion_bno number(10) NOT NULL
-        ,weekdayOpenTime number(8) NOT NULL
-        ,weekdayCloseTime number(8) NOT NULL
-        ,weekendOpenTime number(8) NOT NULL
-        ,weekendCloseTime number(8) NOT NULL
-        ,breakStartTime number(8) NOT NULL
-        ,breakEndTime number(8) NOT NULL
+        ,weekdayOpenTime varchar2(10) NOT NULL
+        ,weekdayCloseTime varchar2(10) NOT NULL
+        ,weekendOpenTime varchar2(10) NOT NULL
+        ,weekendCloseTime varchar2(10) NOT NULL
+        ,breakStartTime varchar2(10) NOT NULL
+        ,breakEndTime varchar2(10) NOT NULL
         ,closedDay VARCHAR2(20)
         , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
         REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
     );
-
 
    ------------------------------------------------------------- 08 / 24
 

@@ -3,9 +3,11 @@ package com.project.foodiefoodie.proBoard.repository;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.ImageDTO;
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
+import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -60,6 +62,23 @@ class ProBoardMapperTest {
         {
             System.out.println(menuDTO);
         }
+    }
+
+    @Test
+    @DisplayName("공지사항 가져오기")
+    void selectNoticeTest()
+    {
+        List<NoticeDTO> noticeDTOS = proMapper.selectNotice(10);
+        for(NoticeDTO notice : noticeDTOS)
+        {
+            System.out.println(notice);
+        }
+    }
+
+    @Test
+    @DisplayName("공지사항 저장")
+    void saveNoticeTest()
+    {
     }
 //
 //    @Test

@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.common.api.payment.controller;
 
 import com.project.foodiefoodie.common.api.KakaoMyApp;
+import com.project.foodiefoodie.common.api.payment.domain.PaymentProduct;
 import com.project.foodiefoodie.common.api.payment.service.KakaoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -27,13 +29,28 @@ public class KakaoPaymentController {
     }
 
 
-    @GetMapping("/kakao/payment-test")
-    public String test(HttpSession session, Model model) throws IOException {
+    // 주문 데이터를 들고 주문 확인창으로 이동 요청 처리
+    @GetMapping("/kakao/order/request")
+    public String orderRequest(List<String> menu, List<String> quantity , List<Integer> price, Model model, HttpSession session) {
+        log.info("/order/request GET!! - {}, {}, {}", menu, quantity, price);
+
+
+        session.setAttribute("menuList", menu);
+        session.setAttribute("quantityList", quantity);
+        session.setAttribute("priceList", price);
+
+        return "payment/check-order"; // -> 확인창에서 최종 주문 요청을 하게 되면 KakaoController에서 작업 수행.
+    }
+
+
+//    @GetMapping("/kakao/payment-test")
+    @PostMapping("/kakao/order/requset")
+    public String test(HttpSession session, PaymentProduct orderInfo, Model model) throws IOException {
 
         log.info("/kakao/payment-test GET!!");
 
         // 결제 준비를 위해 Post 요청이 수행되어야 함.
-        Map<String, String> readyForPaymentMap = kakaoService.readyForPayment(session);
+        Map<String, String> readyForPaymentMap = kakaoService.readyForPayment(session, orderInfo);
 
         String pcRedirectUrl = readyForPaymentMap.get("pcRedirectUrl");
 

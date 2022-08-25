@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.project.foodiefoodie.common.api.KakaoMyApp;
+import com.project.foodiefoodie.common.api.payment.domain.PaymentProduct;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.extern.log4j.Log4j2;
@@ -24,7 +25,7 @@ public class KakaoService {
 
 
     // 결제 준비 로직
-    public Map<String, String> readyForPayment(HttpSession session) throws IOException {
+    public Map<String, String> readyForPayment(HttpSession session, PaymentProduct orderInfo) throws IOException {
 
         // 1. 정해진 요청 url
         String reqUri = "https://kapi.kakao.com/v1/payment/ready";
@@ -53,7 +54,7 @@ public class KakaoService {
         log.info("auth {}", connection.getRequestProperties());
 
 
-        sendReadyForPaymentRequest(connection, session);
+        sendReadyForPaymentRequest(connection, session, orderInfo);
 
 
         // 5. 응답 데이터 받기
@@ -102,7 +103,7 @@ public class KakaoService {
     }
 
 
-    private static void sendReadyForPaymentRequest(HttpURLConnection connection, HttpSession session) {
+    private static void sendReadyForPaymentRequest(HttpURLConnection connection, HttpSession session, PaymentProduct orderInfo) {
 
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
 
@@ -115,10 +116,15 @@ public class KakaoService {
                     .append("cid=TC0ONETIME")
                     .append("&partner_order_id=995") // 가맹점 주문번호. 테스트용 임의 주문번호 999 부여
                     .append("&partner_user_id=" + member.getEmail())
-                    .append("&item_name=" + "트러플 오일 파스타") // 복수의 품명은 어케..?
-                                                                // 콤마 나열 또는 ~~외 n개 식 표기해야할듯??
-                    .append("&quantity=1") // 수량 일단 1개 임의 지정
-                    .append("&total_amount=25000") // 포장금액 2만 5천원 임의 지정
+                    .append("&item_name=" + "트러플 오일 파스타"); // 복수의 품명은 어케..?
+                                                                // 콤마 나열 또는 ~~외 식으로 표기해야할듯??
+            if (orderInfo.getMenu().size() > 2) {
+                queryParam.append(" 외");
+            } else {
+                queryParam.append(orderInfo.getMenu().toString());
+            }
+            queryParam.append("&quantity=1") // 수량 일단 1개 임의 지정
+                    .append("&total_amount=" + String.valueOf(orderInfo.getTotalPrice())) // 총 결제금액
                     .append("&tax_free_amount=" + 0) // 면세액이 얼만지 적는 항목 같음..
                     .append("&approval_url=" + "http://localhost:8186/success-order") // 결제 성공시 redirect_url 지정
                     .append("&cancel_url=" + "http://localhost:8186/cancel-order") // 결제 취소시 redirect_url 지정

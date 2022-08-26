@@ -124,7 +124,7 @@ public class KakaoService {
                     .append("&item_name=" + orderInfo.getMenu().get(0)); // 복수의 품명은 어케..?
                                                                 // 콤마 나열 또는 ~~외 식으로 표기해야할듯??
             if (orderInfo.getMenu().size() > 2) {
-                queryParam.append(" 외");
+                queryParam.append(" 외" + (orderInfo.getMenu().size() -1));
             } else {
                 queryParam.append(orderInfo.getMenu().toString());
             }

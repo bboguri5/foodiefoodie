@@ -37,132 +37,130 @@
     <!-- YOUR CUSTOM CSS -->
     <link href="/css/custom.css" rel="stylesheet">
 
+    <link href="/css/detail-page-delivery.css" rel="stylesheet">
+
+    <!-- menu -->
+    <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+        href="/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+        href="/img/apple-touch-icon-144x144-precomposed.png">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+
+    <!-- notice -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/admin.css" rel="stylesheet">
+
+    <style id="theia-sticky-sidebar-stylesheet-TSS">
+        .theiaStickySidebar:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+    <!-- kakao map -->
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
+    </script>
+
+
 </head>
 
+<style>
+    .container.margin_detail .col-lg-8 {
+        width: 100%;
+    }
+
+    section.detail-section {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .menu-gallery {
+        width: 100%;
+        padding-left: 25%;
+        padding-right: 25%;
+    }
+
+    .endLine {
+        margin: 20px 0 20px 0;
+        border-bottom: 1px solid rgb(204, 197, 197);
+    }
+
+
+    .update_date {
+        display: flex;
+        justify-content: end;
+    }
+
+    h2.detailInfoTitle {
+        text-align: start;
+    }
+
+    .info-detail th {
+        width: 110px;
+        font-size: .9rem;
+        color: rgba(79, 79, 79, 0.6);
+        line-height: 1.7;
+        text-align: left;
+        vertical-align: top;
+        padding-right: 10px;
+        padding-bottom: 5px;
+    }
+
+    .menuInfo {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .menuAddBtn {
+        background: rgb(255, 112, 112);
+        width: 50px;
+        height: 50px;
+        border: 0;
+    }
+
+    .openKaKaoMap {
+        margin-left: 10px;
+    }
+
+    h1 {
+        color: #fff !important;
+    }
+
+    .quantity {
+        display: inline;
+        margin-left: 470px;
+    }
+
+    .icon_minus_alt2:hover {
+        cursor: pointer;
+    }
+
+    .icon_minus_alt2 {
+        margin-right: 20px;
+    }
+
+    .icon_plus_alt2:hover {
+        cursor: pointer;
+    }
+
+    .icon_plus_alt2 {
+        margin-left: 20px;
+    }
+</style>
+
 <body>
-    <!-- header -->
-    <header class="header_in clearfix">
-        <div class="container">
-            <div id="logo">
-                <a href="index.html">
-                    <img src="/img/logo_sticky.svg" width="140" height="35" alt="">
-                </a>
-            </div>
-            <ul id="top_menu">
-                <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
-            </ul>
-            <!-- /top_menu -->
-            <a href="#0" class="open_close">
-                <i class="icon_menu"></i><span>Menu</span>
-            </a>
-            <nav class="main-menu">
-                <div id="header_menu">
-                    <a href="#0" class="open_close">
-                        <i class="icon_close"></i><span>Menu</span>
-                    </a>
-                    <a href="index.html"><img src="/img/logo.svg" width="140" height="35" alt=""></a>
-                </div>
-                <ul>
-                    <li class="submenu">
-                        <a href="#0" class="show-submenu">Home</a>
-                        <ul>
-                            <li><a href="index.html">Default</a></li>
-                            <li class="third-level"><a href="#0">Sliders - Parallax <strong>New!</strong></a>
-                                <ul>
-                                    <li><a href="index-8.html">Revolution Slider 1</a></li>
-                                    <li><a href="index-9.html">Revolution Slider 2</a></li>
-                                    <li><a href="index-3.html">Owl Carousel</a></li>
-                                    <li><a href="index-10.html">Parallax Youtube</a></li>
-                                    <li><a href="index-11.html">Parallax Vimeo</a></li>
-                                    <li><a href="index-12.html">Parallax Mp4 Video</a></li>
-                                    <li><a href="index-13.html">Parallax Video Fullscreen</a></li>
-                                    <li><a href="index-14.html">Parallax Image</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="index-15.html">Text Rotator</a></li>
-                            <li><a href="index-5.html">Address Autocomplete</a></li>
-                            <li><a href="index-6.html">Search Version 2</a></li>
-                            <li><a href="index-7.html">Delivery/Takeaway version</a></li>
-                            <li><a href="modal-advertise.html">Modal Advertise</a></li>
-                            <li><a href="modal-newsletter.html">Modal Newsletter</a></li>
-                            <li><a href="index-2.html">Video Bg Fallback Mobile</a></li>
-                            <li><a href="index-4.html">GDPR Cookie Bar EU Law</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#0" class="show-submenu">Listing</a>
-                        <ul>
-                            <li class="third-level"><a href="#0">List pages</a>
-                                <ul>
-                                    <li><a href="grid-listing-filterscol.html">List default</a></li>
-                                    <li><a href="grid-listing-filterscol-map.html">List with map</a></li>
-                                    <li><a href="listing-map.html">List side map</a></li>
-                                    <li><a href="grid-listing-filterscol-full-width.html">List full width</a></li>
-                                    <li><a href="grid-listing-filterscol-full-masonry.html">List Masonry Filter</a></li>
-                                    <li><a href="grid-listing-filterscol-delivery.html">List Delivery/Takeaway</a></li>
-                                </ul>
-                            </li>
-                            <li class="third-level"><a href="#0">Detail pages</a>
-                                <ul>
-                                    <li><a href="detail-restaurant.html">Detail page 1</a></li>
-                                    <li><a href="detail-restaurant-2.html">Detail page 2</a></li>
-                                    <li><a href="detail-restaurant-3.html">Mobile Fixed Booking</a></li>
-                                    <li><a href="detail-restaurant-delivery.html">Delivery/Takeaway</a></li>
-                                    <li><a href="detail-restaurant-4.html">Detail Menu Thumbs</a></li>
-                                    <li><a href="detail-restaurant-5.html">Detail Contact Form</a></li>
-                                </ul>
-                            </li>
-                            <li class="third-level"><a href="#0">OpenStreetMap</a>
-                                <ul>
-                                    <li><a href="grid-listing-filterscol-map-openstreetmap.html">List with map</a></li>
-                                    <li><a href="listing-map-openstreetmap.html">List side map</a></li>
-                                    <li><a href="grid-listing-filterscol-full-width-openstreetmap.html">List full
-                                            width</a></li>
-                                    <li><a href="grid-listing-filterscol-full-masonry-openstreetmap.html">List Masonry
-                                            Filter</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="submit-restaurant.html">Submit Restaurant</a></li>
-                            <li><a href="submit-rider.html">Submit Rider</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="booking.html">Booking</a></li>
-                            <li><a href="confirm.html">Confirm Booking</a></li>
-                            <li><a href="confirm-delivery.html">Confirm Order</a></li>
-                            <li><a href="booking-delivery-2.html">Order Delivery/Takeaway</a></li>
-                            <li><a href="booking-delivery.html">Order Delivery/Takeaway 2</a></li>
-                            <li><a href="admin_section/index.html" target="_blank">Admin Section</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#0" class="show-submenu">Other Pages</a>
-                        <ul>
-                            <li><a href="404.html">404 Error</a></li>
-                            <li><a href="help.html">Help and Faq</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="leave-review.html">Leave a review</a></li>
-                            <li><a href="user-logged-1.html">User Logged 1</a></li>
-                            <li><a href="user-logged-2.html">User Logged 2</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="coming_soon/index.html">Coming Soon</a></li>
-                            <li><a href="account.html">Sign Up</a></li>
-                            <li><a href="icon-pack-1.html">Icon Pack 1</a></li>
-                            <li><a href="icon-pack-2.html">Icon Pack 2</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="submit-restaurant.html">Submit</a></li>
-                    <li><a href="#0">Buy this template</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <!-- /header -->
+    <%@ include file="../include/header.jsp" %>
+
 
     <!-- main -->
     <main>
-        <div class="hero_in detail_page background-image" data-background="url(img/restaurant_detail_hero.jpg)">
+        <div class="hero_in detail_page title_img_add"
+            style=" background-image: url('data:image/jpg;base64,${titleImg}');">
+            <!-- <img src="data:image/jpg;base64,${titleImg}">  -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
-
                 <div class="container">
                     <div class="main_info">
                         <div class="row">
@@ -170,10 +168,9 @@
                                 <div class="head">
                                     <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
                                 </div>
-                                <h1>Pizzeria da Alfredo</h1>
-                                ITALIAN - 27 Old Gloucester St, 4530 - <a
-                                    href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                                    target="blank">Get directions</a>
+                                <h1>${proBoard.title}</h1>
+                                ${master.storeAddress} ${master.storeDetailAddress}
+                                <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
                             <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
                                 <div class="buttons clearfix">
@@ -198,7 +195,6 @@
         <div class="container margin_detail">
             <div class="row">
                 <div class="col-lg-8">
-
                     <div class="tabs_detail">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
@@ -206,12 +202,18 @@
                                     role="tab">Information</a>
                             </li>
                             <li class="nav-item">
-                                <a id="tab-B" href="#pane-B" class="nav-link" data-bs-toggle="tab"
+                                <a id="tab-B" href="#pane-B" class="nav-link" data-bs-toggle="tab" role="tab">menu</a>
+                            </li>
+                            <li class="nav-item">
+                                <a id="tab-C" href="#pane-C" class="nav-link" data-bs-toggle="tab"
                                     role="tab">Reviews</a>
                             </li>
+                            <li class="nav-item">
+                                <a id="tab-D" href="#pane-D" class="nav-link" data-bs-toggle="tab" role="tab">Notice</a>
+                            </li>
                         </ul>
-
                         <div class="tab-content" role="tablist">
+                            <!-- A type -->
                             <div id="pane-A" class="card tab-pane fade show active" role="tabpanel"
                                 aria-labelledby="tab-A">
                                 <div class="card-header" role="tab" id="heading-A">
@@ -224,401 +226,176 @@
                                 </div>
                                 <div id="collapse-A" class="collapse" role="tabpanel" aria-labelledby="heading-A">
                                     <div class="card-body info_content">
-                                        <p>Mei at intellegat reprehendunt, te facilisis definiebas dissentiunt usu.
-                                            Choro delicata voluptatum cu vix. Sea error splendide at. Te sed facilisi
-                                            persequeris definitiones, ad per scriptorem instructior, vim latine
-                                            adipiscing no. Cu tacimates salutandi his, mel te dicant quodsi aperiri.
-                                            Unum timeam his eu.</p>
-                                        <p>An malorum ornatus nostrum vel, graece iracundia laboramus cu ius. No pro
-                                            mazim blandit instructior, sumo voluptaria has et, vide persecuti abhorreant
-                                            ne est.</p>
                                         <div class="add_bottom_25"></div>
-                                        <h2>Pictures from our users</h2>
+                                        <!-- detail photo -->
+                                        <h2>Detail Photos</h2>
                                         <div class="pictures magnific-gallery clearfix">
-                                            <figure><a href="/img/detail_gallery/detail_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/thumb_detail_placeholder.jpg"
-                                                        data-src="img/thumb_detail_1.jpg" class="lazy" alt=""></a>
-                                            </figure>
-                                            <figure><a href="/img/detail_gallery/detail_2.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/thumb_detail_placeholder.jpg"
-                                                        data-src="img/thumb_detail_2.jpg" class="lazy" alt=""></a>
-                                            </figure>
-                                            <figure><a href="/img/detail_gallery/detail_3.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/thumb_detail_placeholder.jpg"
-                                                        data-src="img/thumb_detail_3.jpg" class="lazy" alt=""></a>
-                                            </figure>
-                                            <figure><a href="/img/detail_gallery/detail_4.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/thumb_detail_placeholder.jpg"
-                                                        data-src="img/thumb_detail_4.jpg" class="lazy" alt=""></a>
-                                            </figure>
-                                            <figure><a href="/img/detail_gallery/detail_5.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><span
-                                                        class="d-flex align-items-center justify-content-center">+10</span><img
-                                                        src="/img/thumb_detail_placeholder.jpg"
-                                                        data-src="/img/thumb_detail_5.jpg" class="lazy" alt=""></a>
-                                            </figure>
+                                            <c:forEach var="detailImg" items="${detailImgList}" varStatus="status">
+                                                <figure><a title="Photo title" data-effect="mfp-zoom-in"><img
+                                                            src="data:image/jpg;base64,${detailImg}"
+                                                            data-src="data:image/jpg;base64,${detailImg}" class="lazy"
+                                                            alt=""></a>
+                                                </figure>
+                                            </c:forEach>
                                         </div>
-                                        <!-- /pictures -->
-                                        <h2>Da Alfredo Menu</h2>
-                                        <h3>Starters</h3>
-                                        <div class="menu-gallery">
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-1.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€9.90</em>
-                                                    <h4>Imported Salmon Steak</h4>
-                                                    <p>Base de arroz, aguacate, salmón noruego, semillas de sésamo,
-                                                        edamame, wakame</p>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-2.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€7.90</em>
-                                                    <h4>Poke bol</h4>
-                                                    <p>Queso de cabra light, dátiles, jamón serrano y rúcula</p>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_3.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-3.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€8.90</em>
-                                                    <h4>Ensalada cesar</h4>
-                                                    <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                        proteínico y salsa césar</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /menu-gallery -->
-                                        <hr>
-                                        <h3>Main Course</h3>
-                                        <div class="menu-gallery">
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-4.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€15.90</em>
-                                                    <h4>Oriental</h4>
-                                                    <p>Cama de tabule con taquitos de pollo a la mostaza light</p>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-5.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€11.90</em>
-                                                    <h4>Vegan Burguer</h4>
-                                                    <p>Medio pollo asado acompañado de arroz o patatas al toque masala
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_3.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-6.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€10.90</em>
-                                                    <h4>Indio Fit</h4>
-                                                    <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                        proteínico</p>
-                                                </div>
-                                            </div>
-                                            <div class="content_more">
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_4.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-7.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€15.90</em>
-                                                        <h4>Oriental</h4>
-                                                        <p>Cama de tabule con taquitos de pollo a la mostaza light</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-8.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€11.90</em>
-                                                        <h4>Vegan Burguer</h4>
-                                                        <p>Medio pollo asado acompañado de arroz o patatas al toque
-                                                            masala</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-9.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€10.90</em>
-                                                        <h4>Indio Fit</h4>
-                                                        <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                            proteínico</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /content_more -->
-                                            <a href="#0" class="show_hide" data-content="toggle-text">Read More</a>
-                                        </div>
-                                        <!-- /menu-gallery -->
-                                        <hr>
-                                        <h3>Dessert</h3>
-                                        <div class="menu-gallery">
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-10.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€15.90</em>
-                                                    <h4>Oriental</h4>
-                                                    <p>Cama de tabule con taquitos de pollo a la mostaza light</p>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-11.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€11.90</em>
-                                                    <h4>Vegan Burguer</h4>
-                                                    <p>Medio pollo asado acompañado de arroz o patatas al toque masala
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="menu_item thumbs">
-                                                <figure>
-                                                    <a href="/img/menu_item_large_3.jpg" title="Photo title"
-                                                        data-effect="mfp-zoom-in">
-                                                        <img src="/img/menu-thumb-placeholder.jpg"
-                                                            data-src="/img/menu-thumb-12.jpg" alt="" class="lazy">
-                                                    </a>
-                                                </figure>
-                                                <div>
-                                                    <em>€10.90</em>
-                                                    <h4>Indio Fit</h4>
-                                                    <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                        proteínico y salsa césar 0%</p>
-                                                </div>
-                                            </div>
-                                            <div class="content_more">
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_4.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-13.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€15.90</em>
-                                                        <h4>Oriental</h4>
-                                                        <p>Cama de tabule con taquitos de pollo a la mostaza light</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-14.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€11.90</em>
-                                                        <h4>Vegan Burguer</h4>
-                                                        <p>Medio pollo asado acompañado de arroz o patatas al toque
-                                                            masala</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-15.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€10.90</em>
-                                                        <h4>Indio Fit</h4>
-                                                        <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                            proteínico y salsa césar 0%</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /content_more -->
-                                            <a href="#0" class="show_hide" data-content="toggle-text">Read More</a>
-                                        </div>
-                                        <!-- /menu-gallery -->
-                                        <div class="add_bottom_45"></div>
-                                        <div class="special_offers add_bottom_45">
-                                            <h2>Special Offers</h2>
-                                            <div class="menu-gallery">
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_4.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-16.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€10.90</em>
-                                                        <h4>Indio Fit</h4>
-                                                        <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                            proteínico y salsa césar 0%</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_1.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-17.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€15.90</em>
-                                                        <h4>Oriental</h4>
-                                                        <p>Cama de tabule con taquitos de pollo a la mostaza light</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_2.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-18.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€11.90</em>
-                                                        <h4>Vegan Burguer</h4>
-                                                        <p>Medio pollo asado acompañado de arroz o patatas al toque
-                                                            masala</p>
-                                                    </div>
-                                                </div>
-                                                <div class="menu_item thumbs">
-                                                    <figure>
-                                                        <a href="/img/menu_item_large_3.jpg" title="Photo title"
-                                                            data-effect="mfp-zoom-in">
-                                                            <img src="/img/menu-thumb-placeholder.jpg"
-                                                                data-src="/img/menu-thumb-18.jpg" alt="" class="lazy">
-                                                        </a>
-                                                    </figure>
-                                                    <div>
-                                                        <em>€10.90</em>
-                                                        <h4>Indio Fit</h4>
-                                                        <p>lechuga, tomate, espinacas, pollo asado, picatostes, queso
-                                                            proteínico y salsa césar 0%</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- /special_offers -->
-                                        </div>
-                                        <!-- /menu-gallery -->
+                                        <!-- /detail photo -->
+                                        <!-- detail info -->
+                                        <section class="detail-section">
+                                            <div class="add_bottom_25"></div>
+                                            <h2 class="detailInfoTitle"> 기본 정보</h2>
+                                            <div class="info-detail">
+                                                <table class="info-table">
+                                                    <tbody>
+                                                        <tr class="only-desktop">
+                                                            <th>주소</th>
+                                                            <td>${master.storeAddress} ${master.storeDetailAddress}<br>
+                                                                <!-- ${address} -->
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="only-desktop">
+                                                            <th>전화번호</th>
+                                                            <td>${master.storeCallNumber}</td>
+                                                            <!-- ${storeCallNumber} -->
+                                                        </tr>
 
-                                        <div class="other_info">
-                                            <h2>How to get to Pizzeria Alfredo</h2>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <h3>Address</h3>
-                                                    <p>27 Old Gloucester St, 4530<br><a
-                                                            href="https://www.google.com/maps/dir//Assistance+%E2%80%93+H%C3%B4pitaux+De+Paris,+3+Avenue+Victoria,+75004+Paris,+Francia/@48.8606548,2.3348734,14z/data=!4m15!1m6!3m5!1s0x47e66e1de36f4147:0xb6615b4092e0351f!2sAssistance+Publique+-+H%C3%B4pitaux+de+Paris+(AP-HP)+-+Si%C3%A8ge!8m2!3d48.8568376!4d2.3504305!4m7!1m0!1m5!1m1!1s0x47e67031f8c20147:0xa6a9af76b1e2d899!2m2!1d2.3504327!2d48.8568361"
-                                                            target="blank"><strong>Get directions</strong></a></p>
-                                                    <strong>Follow Us</strong><br>
-                                                    <p class="follow_us_detail"><a href="#0"><i
-                                                                class="social_facebook_square"></i></a><a href="#0"><i
-                                                                class="social_instagram_square"></i></a><a href="#0"><i
-                                                                class="social_twitter_square"></i></a></p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h3>Opening Time</h3>
-                                                    <p><strong>Lunch</strong><br> Mon. to Sat. 11.00am - 3.00pm<p>
-                                                            <p><strong>Dinner</strong><br> Mon. to Sat. 6.00pm- 1.00am
-                                                            </p>
-                                                            <p><span class="loc_closed">Sunday Closed</span></p>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <h3>Services</h3>
-                                                    <p><strong>Credit Cards</strong><br> Mastercard, Visa, Amex</p>
-                                                    <p><strong>Other</strong><br> Wifi, Parking, Wheelchair Accessible
-                                                    </p>
-                                                </div>
+                                                        <!-- 메뉴 입력시 평균 표시  -->
+                                                        <!-- <tr>
+                                                            <th>가격대</th>
+                                                            <td>3만원-4만원</td> 
+                                                        </tr> -->
+
+                                                        <tr>
+                                                            <th style="vertical-align:top;">영업시간</th>
+                                                            <td>월-금: ${storeTime.weekdayOpenTime} -
+                                                                ${storeTime.weekdayCloseTime}
+                                                                <br> 토: ${storeTime.weekendOpenTime} -
+                                                                ${storeTime.weekendCloseTime}
+                                                                <br> 브레이크타임: ${storeTime.breakStartTime} -
+                                                                ${storeTime.breakEndTime}</td>
+                                                            <!-- ${StoreTime} -->
+                                                        </tr>
+                                                        <tr>
+                                                            <th>휴일</th>
+                                                            <td>${storeTime.closedDay}</td>
+                                                        </tr><!-- ${StoreTime} -->
+                                                    </tbody>
+                                                </table>
+                                                <p class="update_date">
+                                                    업데이트
+                                                    : ${proBoard.lastUpdated}
+                                                </p>
                                             </div>
-                                            <!-- /row -->
-                                        </div>
+                                            <div class="endLine"></div>
+                                            <!-- /detail info -->
+
+                                            <div class="add_bottom_25"></div>
+                                            <h2 class="detailInfoTitle"> 사장님이 작성한 글</h2>
+                                            <div class="content">
+                                                ${proBoard.content}
+                                            </div>
+                                            <div class="endLine"></div>
+
+                                            <div class="add_bottom_25"></div>
+                                            <h2 class="detailInfoTitle"> 장소</h2>
+                                            <div id="map" class="kakaoMap" style="width:100%;height:600px;"></div>
+                                        </section>
                                     </div>
                                 </div>
                             </div>
-                            <!-- /tab -->
+                            <!-- /A type -->
 
+
+
+
+
+
+                            <!-- B type -->
                             <div id="pane-B" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
                                 <div class="card-header" role="tab" id="heading-B">
+                                    <div class="card-header" role="tab" id="heading-B">
+                                        <h5>
+                                            <a class="collapsed" data-bs-toggle="collapse" href="#collapse-B"
+                                                aria-expanded="true" aria-controls="collapse-B">
+                                                Information
+                                            </a>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
+                                    <div class="card-body info_content menu-body">
+                                        <!-- /menu-gallery -->
+                                        <div class="special_offers add_bottom_45">
+                                            <h2>Menu</h2>
+                                        </div>
+                                        <div class="add_bottom_45"></div>
+                                        <div class="menu-gallery">
+                                            <!-- menu itmes -->
+                                            <c:forEach var="menu" items="${menuList}">
+                                                <div class="menu_item thumbs">
+                                                    <figure>
+                                                        <a title="Photo title" data-effect="mfp-zoom-in">
+                                                            <img src="data:image/jpg;base64,${menu.filePath}"
+                                                                data-src="data:image/jpg;base64,${menu.filePath}" alt=""
+                                                                class="lazy">
+                                                        </a>
+                                                    </figure>
+                                                    <div id="menu${menu.menuNo}" class="menuInfo">
+                                                        <h4 id="menu-name${menu.menuNo}">${menu.menuName}</h4>
+                                                        <em id="menu-price${menu.menuNo}">${menu.menuPrice}</em>
+                                                        <button id="${menu.menuNo}" class="menuAddBtn"
+                                                            type="button">방문포장</button>
+                                                    </div>
+                                                </div>
+                                            </c:forEach>
+                                            <!-- menu itmes -->
+                                        </div>
+                                        <!-- /menu-gallery -->
+                                        <div class="add_bottom_45"></div>
+                                    </div>
+                                    <div class="theiaStickySidebar">
+                                        <div class="box_booking">
+                                            <div class="head">
+                                                <h3>Order Summary</h3>
+                                                <div class="offer">Up to -40% off</div>
+                                            </div>
+                                            <!-- /head -->
+                                            <div class="main">
+                                                <ul id="async-order-list" class="clearfix click-target">
+
+                                                </ul>
+
+                                                <form action="#" method="get">
+                                                    <input hidden value="" type="text">
+                                                </form>
+
+                                                <ul class="clearfix">
+                                                    <li class="total">Total<span id="total">0</span></li>
+                                                </ul>
+
+                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
+                                                    Now</a>
+                                                <div class="text-center"><small>No money charged on this
+                                                        steps</small></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!-- /B type -->
+                            <!-- C type -->
+                            <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-C">
+                                <div class="card-header" role="tab" id="heading-C">
                                     <h5>
-                                        <a class="collapsed" data-bs-toggle="collapse" href="#collapse-B"
-                                            aria-expanded="false" aria-controls="collapse-B">
+                                        <a class="collapsed" data-bs-toggle="collapse" href="#collapse-C"
+                                            aria-expanded="false" aria-controls="collapse-C">
                                             Reviews
                                         </a>
                                     </h5>
                                 </div>
-                                <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
+                                <div id="collapse-C" class="collapse" role="tabpanel" aria-labelledby="heading-C">
                                     <div class="card-body reviews">
                                         <div class="row add_bottom_45 d-flex align-items-center">
                                             <div class="col-md-3">
@@ -640,7 +417,8 @@
                                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3"><strong>9.0</strong>
+                                                            <div class="col-xl-2 col-lg-3 col-3">
+                                                                <strong>9.0</strong>
                                                             </div>
                                                         </div>
                                                         <!-- /row -->
@@ -653,7 +431,8 @@
                                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3"><strong>9.5</strong>
+                                                            <div class="col-xl-2 col-lg-3 col-3">
+                                                                <strong>9.5</strong>
                                                             </div>
                                                         </div>
                                                         <!-- /row -->
@@ -668,7 +447,8 @@
                                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3"><strong>6.0</strong>
+                                                            <div class="col-xl-2 col-lg-3 col-3">
+                                                                <strong>6.0</strong>
                                                             </div>
                                                         </div>
                                                         <!-- /row -->
@@ -681,7 +461,8 @@
                                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3"><strong>6.0</strong>
+                                                            <div class="col-xl-2 col-lg-3 col-3">
+                                                                <strong>6.0</strong>
                                                             </div>
                                                         </div>
                                                         <!-- /row -->
@@ -700,14 +481,17 @@
                                                     </div>
                                                     <div class="col-md-10 review_content">
                                                         <div class="clearfix add_bottom_15">
-                                                            <span class="rating">8.5<small>/10</small> <strong>Rating
+                                                            <span class="rating">8.5<small>/10</small>
+                                                                <strong>Rating
                                                                     average</strong></span>
                                                             <em>Published 54 minutes ago</em>
                                                         </div>
                                                         <h4>"Great Location!!"</h4>
                                                         <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros
-                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus, sit
-                                                            commodo veritus te, erat legere fabulas has ut. Rebum laudem
+                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus,
+                                                            sit
+                                                            commodo veritus te, erat legere fabulas has ut. Rebum
+                                                            laudem
                                                             cum ea, ius essent fuisset ut. Viderer petentium cu his.
                                                             Tollit molestie suscipiantur his et.</p>
                                                         <ul>
@@ -732,14 +516,17 @@
                                                     </div>
                                                     <div class="col-md-10 review_content">
                                                         <div class="clearfix add_bottom_15">
-                                                            <span class="rating">8.5<small>/10</small> <strong>Rating
+                                                            <span class="rating">8.5<small>/10</small>
+                                                                <strong>Rating
                                                                     average</strong></span>
                                                             <em>Published 10 Oct. 2019</em>
                                                         </div>
                                                         <h4>"Awesome Experience"</h4>
                                                         <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros
-                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus, sit
-                                                            commodo veritus te, erat legere fabulas has ut. Rebum laudem
+                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus,
+                                                            sit
+                                                            commodo veritus te, erat legere fabulas has ut. Rebum
+                                                            laudem
                                                             cum ea, ius essent fuisset ut. Viderer petentium cu his.
                                                             Tollit molestie suscipiantur his et.</p>
                                                         <ul>
@@ -764,14 +551,17 @@
                                                     </div>
                                                     <div class="col-md-10 review_content">
                                                         <div class="clearfix add_bottom_15">
-                                                            <span class="rating">9.0<small>/10</small> <strong>Rating
+                                                            <span class="rating">9.0<small>/10</small>
+                                                                <strong>Rating
                                                                     average</strong></span>
                                                             <em>Published 11 Oct. 2019</em>
                                                         </div>
                                                         <h4>"Really great dinner!!"</h4>
                                                         <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros
-                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus, sit
-                                                            commodo veritus te, erat legere fabulas has ut. Rebum laudem
+                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus,
+                                                            sit
+                                                            commodo veritus te, erat legere fabulas has ut. Rebum
+                                                            laudem
                                                             cum ea, ius essent fuisset ut. Viderer petentium cu his.
                                                             Tollit molestie suscipiantur his et.</p>
                                                         <ul>
@@ -795,10 +585,14 @@
                                                             <strong>Reply from Foogra</strong>
                                                             <em>Published 3 minutes ago</em>
                                                             <p><br>Hi Monika,<br><br>Eos tollit ancillae ea, lorem
-                                                                consulatu qui ne, eu eros eirmod scaevola sea. Et nec
-                                                                tantas accusamus salutatus, sit commodo veritus te, erat
-                                                                legere fabulas has ut. Rebum laudem cum ea, ius essent
-                                                                fuisset ut. Viderer petentium cu his. Tollit molestie
+                                                                consulatu qui ne, eu eros eirmod scaevola sea. Et
+                                                                nec
+                                                                tantas accusamus salutatus, sit commodo veritus te,
+                                                                erat
+                                                                legere fabulas has ut. Rebum laudem cum ea, ius
+                                                                essent
+                                                                fuisset ut. Viderer petentium cu his. Tollit
+                                                                molestie
                                                                 suscipiantur his et.<br><br>Thanks</p>
                                                         </div>
                                                     </div>
@@ -813,64 +607,111 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- /C type -->
+                            <!-- D type -->
+                            <div id="pane-D" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-D">
+                                <div class="card-header" role="tab" id="heading-D">
+                                    <h5>
+                                        <a class="collapsed" data-bs-toggle="collapse" href="#collapse-D"
+                                            aria-expanded="true" aria-controls="collapse-D">
+                                            Notice
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapse-D" class="collapse" role="tabpanel" aria-labelledby="heading-D">
+                                    <div class="card-body info_content">
+                                        <div class="add_bottom_25"></div>
+                                        <!-- 공지사항  -->
+                                        <h2>공지사항</h2>
+                                        <div class="noticeBox">
+                                            <!-- <div class="header_box">
+                                                <div class="filter">
+                                                    <div class="styled-select short">
+                                                        <select name="orderby">
+                                                            <option value="Any time">Any time</option>
+                                                            <option value="Latest">Latest</option>
+                                                            <option value="Oldest">Oldest</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="list_general">
+                                                <ul>
+                                                    <li>
+                                                        <figure><img src="/img/item_1.jpg" alt=""></figure>
+                                                        <small>Pizza - Italian</small>
+                                                        <h4>La Monnalisa</h4>
+                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
+                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
+                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
+                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
+                                                            vocent ocurreret per....</p>
+                                                        <p><a href="#0" class="btn_1 gray"><i
+                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
+                                                        <ul class="buttons">
+                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
+                                                                        class="fa fa-fw fa-times-circle-o"></i>
+                                                                    Cancel</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <figure><img src="/img/item_2.jpg" alt=""></figure>
+                                                        <small>Pizza - Italian</small>
+                                                        <h4>Da Alfredo</h4>
+                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
+                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
+                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
+                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
+                                                            vocent ocurreret per....</p>
+                                                        <p><a href="#0" class="btn_1 gray"><i
+                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
+                                                        <ul class="buttons">
+                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
+                                                                        class="fa fa-fw fa-times-circle-o"></i>
+                                                                    Cancel</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <figure><img src="/img/item_3.jpg" alt=""></figure>
+                                                        <small>Japanese</small>
+                                                        <h4>Sushi Gold</h4>
+                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
+                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
+                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
+                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
+                                                            vocent ocurreret per....</p>
+                                                        <p><a href="#0" class="btn_1 gray"><i
+                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
+                                                        <ul class="buttons">
+                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
+                                                                        class="fa fa-fw fa-times-circle-o"></i>
+                                                                    Cancel</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- /공지사항 -->
+                                        <!-- detail info -->
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <!-- /tab-content -->
                     </div>
                     <!-- /tabs_detail -->
+
                 </div>
                 <!-- /col -->
 
-                <div class="col-lg-4" id="sidebar_fixed">
-                    <div class="box_booking mobile_fixed">
-                        <div class="head">
-                            <h3>Contact Us</h3>
-                            <small>Or Call us at 0434 3432245</small>
-                            <a href="#0" class="close_panel_mobile"><i class="icon_close"></i></a>
-                        </div>
-                        <!-- /head -->
-                        <div class="main">
-                            <div id="message-detail-contact"></div>
-                            <form method="post" action="assets/detail_contact.php" id="detail_contact"
-                                autocomplete="off">
-                                <input type="text" name="restaurant_name" id="restaurant_name"
-                                    value="Pizzeria Da Aldredo" hidden="hidden">
-                                <div class="form-group">
-                                    <input type="text" name="name_detail_contact" id="name_detail_contact"
-                                        class="form-control" placeholder="Name and Last Name">
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" name="email_detail_contact" id="email_detail_contact"
-                                        class="form-control" placeholder="Email address">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="telephone_detail_contact" id="telephone_detail_contact"
-                                        class="form-control" placeholder="Telephone">
-                                </div>
-                                <div class="form-group add_bottom_15">
-                                    <textarea class="form-control" name="message_detail" id="message_detail"
-                                        placeholder="Your message"></textarea>
-                                </div>
-                                <div class="btn_1_mobile" style="position: relative;">
-                                    <input class="btn_1 full-width" type="submit" value="Send message"
-                                        id="submit-message">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- /box_booking -->
-                    <div class="btn_reserve_fixed"><a href="#0" class="btn_1 full-width">Send message</a></div>
-                    <ul class="share-buttons">
-                        <li><a class="fb-share" href="#0"><i class="social_facebook"></i> Share</a></li>
-                        <li><a class="twitter-share" href="#0"><i class="social_twitter"></i> Share</a></li>
-                        <li><a class="gplus-share" href="#0"><i class="social_googleplus"></i> Share</a></li>
-                    </ul>
-                </div>
-
+                <!-- /row -->
             </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
 
+            <!-- /row -->
+
+            <!-- /container -->
+        </div>
     </main>
     <!-- /main -->
 
@@ -1047,6 +888,302 @@
     <script src="/js/sticky_sidebar.min.js"></script>
     <script src="/js/specific_detail.js"></script>
 
+    <!-- <script>
+        let positionAddress = '';
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3, // 지도의 확대 레벨
+            };
+
+        // 지도를 생성합니다    
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(`${master.storeAddress}`, function (result, status) {
+
+            // 정상적으로 검색이 완료됐으면 
+            if (status === kakao.maps.services.Status.OK) {
+
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+
+                // console.log(coords);
+                positionAddress = coords;
+                // console.log(positionAddress);
+
+                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: '<div style="width:150px;text-align:center;padding:6px 0;">${master.storeName}</div>'
+                });
+                infowindow.open(map, marker);
+
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+
+                // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+                var zoomControl = new kakao.maps.ZoomControl();
+                map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+            }
+
+        });
+
+        const $openKakaoMap = $(".openKaKaoMap");
+        $openKakaoMap.on("click", function () {
+
+            const area = "https://map.kakao.com/link/search/" + `${master.storeAddress}`;
+            $openKakaoMap.attr("href", area);
+        });
+    </script> -->
+    <!-- javascript -->
+
+
+    <!-- 메뉴 주문 자바 스크립트 -->
+    <script>
+        // 즉시 실행
+        (function () {
+
+            // 메뉴 추가 버튼 클릭 이벤트
+            menuAddClickEvent();
+
+            // 주문 버튼 클릭 이벤트
+            submitOrderClickEvent();
+
+        })();
+
+        // 메뉴 추가 버튼 클릭 이벤트
+        function menuAddClickEvent() {
+            const menuAddBtn = document.querySelector('.menu-gallery');
+            menuAddBtn.addEventListener('click', e => {
+                // console.log(e.target.classList);
+                if (e.target.classList.contains('menuAddBtn')) {
+                    // console.log('menuAddBtn clicked');
+                    addToOrder(e.target);
+                }
+            });
+        }
+
+        // ADD TO ORDER SUMMARY LIST
+        function addToOrder(target) {
+
+            // get menu info
+            const menuId = target.id;
+            const menuInfo = document.getElementById('menu' + menuId);
+            const menuName = document.getElementById('menu-name' + menuId).textContent;
+            const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+            var totalPrice = document.getElementById('total').textContent;
+            // console.log('totalPrice = ', totalPrice);
+            // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ", menuPrice);
+
+            // 이미 메뉴가 리스트에 들어있으면 quantity & price 정보 수정
+            if (document.getElementById('order-name' + menuId) !== null) {
+                // increase current quantity
+                const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                // console.log('current quantity - ', currQuantity);
+                document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
+
+                // increase menu price and total price
+                document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
+                    menuPrice);
+
+
+                // add minus button if more than one
+                const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                if (newQuantity > 1) {
+                    const minusBtn = document.getElementById('minus' + menuId);
+                    minusBtn.classList.add('icon_minus_alt2');
+
+                }
+            } else { // 리스트에 비동기로 정보 추가
+
+                let tag = '';
+                tag +=
+                    `   <li id="order-name` + menuId + `">` +
+                    `       <a class="removeMenu" href="#0">` + menuName + `</a>` +
+                    `       <div id="order-quantity` + menuId + `" class="quantity ` + menuId + `">` +
+                    `           <i id="minus` + menuId + `" class=""></i><strong class="order-quantity` +
+                    menuId +
+                    `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` + // maybe delete id
+                    `       </div>` +
+                    `       <span id="order-price` + menuId + `">` + menuPrice + `</span>` +
+                    `   </li>`;
+
+                document.getElementById('async-order-list').innerHTML += tag;
+
+                // 최종 가격 업데이트
+                document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+
+            }
+
+            // 주문 메뉴 개수 업다운 버튼 이벤트
+            upDownQuantityClickEvent();
+
+            // 주문 메뉴 삭제 이벤트
+            deleteMenuFromOrderClickEvent();
+        }
+
+        // 주문 메뉴 개수 업다운 버튼 이벤트
+        function upDownQuantityClickEvent() {
+            const targetBtn = document.querySelector('.click-target');
+
+            targetBtn.onclick = e => {
+                const menuId = e.target.parentElement.classList[1];
+                if (e.target.classList.contains('icon_plus_alt2')) {
+                    console.log('plus clicked ', menuId);
+
+                    // increase current quantity
+                    const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    // console.log('current quantity - ', currQuantity);
+                    document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
+
+                    // add minus button if more than one
+                    const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    if (newQuantity > 1) {
+                        const minusBtn = document.getElementById('minus' + menuId);
+                        minusBtn.classList.add('icon_minus_alt2');
+
+                    }
+
+                    // increase menu price and total price
+                    var totalPrice = document.getElementById('total').textContent;
+                    const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+                    document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                    var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                    document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
+                        menuPrice);
+
+                } else if (e.target.classList.contains('icon_minus_alt2')) {
+                    console.log('minus clicked', menuId);
+
+                    // increase current quantity
+                    const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    // console.log('current quantity - ', currQuantity);
+                    document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) - 1;
+
+                    // add minus button if less than or equal to one
+                    const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    if (newQuantity <= 1) {
+                        const minusBtn = document.getElementById('minus' + menuId);
+                        minusBtn.classList.remove('icon_minus_alt2');
+
+                    }
+
+                    // increase menu price and total price
+                    var totalPrice = document.getElementById('total').textContent;
+                    const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+                    document.getElementById('total').textContent = parseInt(totalPrice) - parseInt(menuPrice);
+                    var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                    document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) - parseInt(
+                        menuPrice);
+                }
+            }
+        }
+
+        // 주문 메뉴 삭제 이벤트
+        function deleteMenuFromOrderClickEvent() {
+            const targetBtn = document.querySelector('.click-target');
+            targetBtn.addEventListener('click', e => {
+                if (e.target.classList.contains('removeMenu')) {
+                    e.preventDefault();
+                    // remove menu2
+                    // console.log('remove clicked - ', e.target.parentElement);
+                    e.target.parentElement.remove();
+                    document.getElementById('total').textContent = 0;
+                }
+
+            });
+        }
+
+        // 주문 버튼 클릭 이벤트
+        function submitOrderClickEvent() {
+            document.getElementById('submit-order').onclick = e => {
+                e.preventDefault();
+                makeOrderInfo();
+            };
+        }
+
+        function makeOrderInfo() {
+            // console.log('make order list clicked');
+
+            // menu 정보를 담을 객체 리스트
+            const menuList = [];
+            const orderList = document.getElementById('async-order-list').children;
+
+            // console.log(orderList);
+            // console.log('business_no : ' + '${master.businessNo}');
+
+            for (let i = 0; i < orderList.length; i++) {
+                // console.log(orderList[i].innerText);
+                var orderArray = orderList[i].innerText.split(/\s+/);
+                // console.log('orderArray - ', orderArray);
+
+                var menuName = "";
+                for (let j = 0; j < orderArray.length - 2; j++) {
+                    menuName += orderArray[j] + ' ';
+                }
+
+                const businessNo = '${master.businessNo}';
+
+                const menu = {
+                    menuName: menuName,
+                    menuPrice: orderArray[orderArray.length - 1],
+                    quantity: orderArray[orderArray.length - 2],
+                    businessNo: businessNo
+                };
+
+                menuList[menuList.length] = menu;
+
+            }
+
+            submitOrder(menuList);
+        }
+
+
+
+        // 주문 정보 전송 메서드
+        function submitOrder(menuList) {
+
+            // POST요청을 위한 요청 정보 객체
+            const reqInfo = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(menuList)
+            };
+
+            // console.log(data);
+
+
+            fetch('/kakao/order/check', reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'order-success') {
+                        location.href = '/kakao/order/check';
+                    }
+                });
+        }
+    </script>
+
+
+
+
+
+
+
 </body>
+
+
+
 
 </html>

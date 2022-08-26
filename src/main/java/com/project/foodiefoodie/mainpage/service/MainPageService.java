@@ -79,12 +79,12 @@ public class MainPageService {
         return map;
     }
 
-    public Map<String, Object> findAllSearchService(Search search) {
+    public Map<String, Object> findAllSearchService(Search search, String sort) {
         log.info("findAll service start");
 
         Map<String, Object> findDataMap = new HashMap<>();
 
-        List<MainPage> searchList = mapper.findAllSearch(search);
+        List<MainPage> searchList = mapper.findAllSearch(search, sort);
 
         findDataMap.put("searchList", searchList);
         findDataMap.put("tc", mapper.getTotalCount(search));

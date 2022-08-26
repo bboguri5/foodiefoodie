@@ -29,7 +29,7 @@
     <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Plugin styles -->
     <link href="/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-    <link href="/vendor/dropzone.css" rel="stylesheet">
+    <!-- <link href="/vendor/dropzone.css" rel="stylesheet"> -->
     <link href="/css/date_picker.css" rel="stylesheet">
     <!-- Your custom styles -->
     <link href="/css/custom.css" rel="stylesheet">
@@ -39,6 +39,9 @@
     <!-- time picker : 시간/날짜 api -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+    <!-- dropzone -->
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 
     <style>
         /* detail info */
@@ -73,9 +76,9 @@
             justify-content: center;
         }
 
-        .menu-add-img {
-            width: 80px;
-            min-height: 80px;
+        .menu-add-img .form-group {
+            height: 100px;
+
         }
 
         /* add detail , title img  */
@@ -84,49 +87,9 @@
             border-bottom: 0;
         }
 
-        .add-Img {
-            min-height: 0;
-            width: 50%;
-            height: 100px;
-        }
-
-        .add-Img-row {
-            display: flex;
-            justify-content: space-between;
-            height: 300px;
-        }
-
         .save-btn {
             display: flex;
             justify-content: center;
-        }
-
-        .preview {
-            width: 100%;
-            display: none;
-        }
-
-        .detail-preview {
-            display: flex;
-            justify-content: space-evenly;
-        }
-
-        .preview-title-img {
-            width: 100%;
-            height: 150px;
-        }
-
-        .preview-detail-img {
-            width: 15%;
-            height: 150px;
-
-        }
-
-        .menu-preview {}
-
-        .preview-menu-img {
-            width: 50px;
-            height: 50px;
         }
 
         .c-red {
@@ -141,18 +104,122 @@
             padding: 5px;
             width: 80px;
         }
+
         select.form-control:not([size]):not([multiple]) {
-           height: calc(2.1rem + 2px);
+            height: calc(2.1rem + 2px);
         }
-        
+
         .form-group.dayBox {
-        display: flex;
-        justify-content: space-between;
+            display: flex;
+            justify-content: space-between;
         }
-        .day-delete{
+
+        .day-delete {
             background: red;
         }
+
+        .form-control.content {
+            min-height: 300px;
+        }
+
+        /* dropzone */
+
+        .dropzone {
+            border: 2px dotted gray;
+            min-height: 190px;
+        }
+
+        .add-Img-row .row {
+            justify-content: space-between;
+        }
+
+        .add-Img-row .form-group:nth-child(1) {
+            width: 25%;
+            margin-left: 20px;
+        }
+
+        .add-Img-row .form-group:nth-child(2) {
+            width: 70%;
+            margin-right: 20px;
+        }
+
+        #title-dropzone.dropzone .dz-preview .dz-image {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropzone .dz-remove {
+            position: absolute;
+            z-index: 100;
+            right: 10px;
+            top: 10px;
+            color: red;
+            font-weight: 700;
+        }
+
+        #title-dropzone.dropzone {
+            resize: both;
+            overflow: auto;
+        }
+
+        #detail-dropzone.dropzone {
+            display: flex;
+            justify-content: space-evenly;
+            resize: both;
+            overflow: auto;
+            position: relative;
+        }
+
+        #menu-dropzone.dropzone {
+            padding: 0;
+        }
+
+        #detail-dropzone .dz-default.dz-message {
+            position: absolute;
+            top: 50px;
+        }
+
+        #detail-dropzone.dropzone .dz-preview .dz-image {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+
+        #detail-dropzone.dropzone .dz-remove {
+            position: absolute;
+            z-index: 100;
+            right: 10px;
+            top: 10px;
+            color: red;
+        }
+
+        .dropzone .dz-preview .dz-details .dz-size {
+            font-size: 10px;
+        }
+
+        .dropzone .dz-preview .dz-details .dz-filename {
+            font-size: 10px;
+        }
+
+        .dropzone .dz-preview .dz-progress {
+            z-index: 0;
+        }
+
+        .dropzone#menu-dropzone {
+            min-height: 50px;
+        }
+
+        .menu-add-img .dz-preview.dz-image-preview {
+            min-height: 0;
+        }
+
+        .menu-add-img .dz-preview.dz-image-preview .dz-image {
+            width: 80px;
+            height: 80px;
+        }
     </style>
+
+
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
@@ -221,7 +288,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="content-label">CONTENT</label>
-                                <textarea name="content" class="form-control content" style="height: 150px;" placeholder="Message" id="message_contact" name="message_contact"></textarea>
+                                <textarea name="content" class="form-control content" style="height: 150px;"
+                                    placeholder="Message" id="message_contact" name="message_contact"></textarea>
                             </div>
                         </div>
                     </div>
@@ -231,228 +299,206 @@
                     <!-- add detail , title img row -->
                     <div class="box_general padding_bottom add-Img-row">
                         <div class="header_box version_2 add-Img">
-                            <h2><i class="fa fa-list"></i>Title Image Add</h2>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Photos</label>
-                                        <div>
-                                            <input type="file" id="title-img" class="title"
-                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
-                                        </div>
-                                        <div class="preview"><span>미리보기</span>
-                                            <div id="title-preview"></div>
-                                        </div>
-                                        <div id="hidden-title-box"></div>
-                                    </div>
-                                </div>
+                            <h2><i class="fa fa-list"></i>Title & Detail Image Add</h2>
+                        </div>
+                        <div class="row">
+                            <div class="form-group title-group">
+                                <label>Title</label>
+                                <div class="dropzone col-md-12" id="title-dropzone"></div>
+                                <input type="file" name="titleImgFile" class="dz-hidden-input hidden-title-img"
+                                    accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
+                                    style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
+                            </div>
+
+                            <div class="form-group detail-group">
+                                <label class="detail-img-label">Detail</label>
+                                <div class="dropzone" id="detail-dropzone"></div>
+                                <input type="file" name="detailImgFiles" class="dz-hidden-input hidden-detail-img"
+                                    multiple="multiple" accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
+                                    style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
                             </div>
                         </div>
-                        <div class="header_box version_2 add-Img">
-                            <h2><i class="fa fa-list"></i>Detail Image Add</h2>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Photos</label>
-                                        <div>
+                    </div>
+                </div>
 
-                                            <input type="file" id="detail-img" class="detail" multiple
-                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
+                <!-- add Menu List -->
+                <div class="box_general padding_bottom menuImg">
+                    <div class="header_box version_2">
+                        <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
+                    </div>
+                    <!-- add Menu List row -->
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <table id="pricing-list-container" style="width:100%;">
+                                <tr class="pricing-list-item">
+                                    <td>
+                                        <div class="row menu-row">
+                                            <div class="col-md-1">
+                                                <h6>plus menu</h6>
+                                            </div>
+                                            <div class="col-md-1 menu-add-img">
+                                                <div class="form-group">
+                                                    <div class="dropzone menu1" id="menu-dropzone"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="menuName" class="form-control menu-name"
+                                                        placeholder="메뉴명">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control menu-price" name="menuPrice"
+                                                        placeholder="price">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <div class="form-group delete-form">
+                                                    <a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="preview multiple"><span>미리보기</span>
-                                            <div id="detail-preview"></div>
-                                        </div>
-                                        <div id="hidden-detail-box"></div>
-                                    </div>
-                                </div>
-                            </div>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <input type="file" name="menuImgFiles" class="dz-hidden-input hidden-menu-img"
+                                multiple="multiple" accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
+                                style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
                         </div>
 
                     </div>
-                    <!-- /add detail , title img row -->
+                    <!-- /add Menu List row -->
 
-                    <!-- add Menu List -->
-                    <div class="box_general padding_bottom menuImg">
-                        <div class="header_box version_2">
-                            <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
-                        </div>
-                        <!-- add Menu List row -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h6>Item</h6>
-                                <table id="pricing-list-container" style="width:100%;">
-                                    <tr class="pricing-list-item">
-                                        <td>
-                                            <div class="row menu-row">
-                                                <div class="col-md-2 menu-add-img">
-                                                    <div class="form-group">
-                                                        <label>Menu-Photos</label>
-                                                        <div>
-                                                            <input type="file" class="menu"
-                                                                accept="image/gif, image/jpeg, image/png, image/bmp"></input>
-                                                        </div>
-                                                        <div class="preview"><span>미리보기</span>
-                                                            <div class="menu-preview">
-                                                                <img src="#" alt="#" class="preview-menu-img">
-                                                            </div>
-                                                        </div>
-                                                        <div class="hidden-menu-box">
-                                                            <input type="hidden" name="menuImg">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" name="menuName" class="form-control menu-name"
-                                                            placeholder="메뉴명">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control menu-price" name="menuPrice"
-                                                            placeholder="price">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <div class="form-group delete-form">
-                                                        <a class="delete" href="#"><i
-                                                                class="fa fa-fw fa-remove"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                        </div>
-                        <!-- /add Menu List row -->
-
-                        <div class="menu-add-btn">
-                            <a href="#0" class="btn_1 gray add-pricing-list-item"><i
-                                    class="fa fa-fw fa-plus-circle"></i>Add
-                                Item</a>
-                        </div>
-                        <div id="hidden-menu-box"></div>
-
+                    <div class="menu-add-btn">
+                        <a href="#0" class="btn_1 gray add-pricing-list-item"><i class="fa fa-fw fa-plus-circle"></i>Add
+                            Item</a>
                     </div>
-                    <!-- /add Menu List -->
+                    <div id="hidden-menu-box"></div>
+
+                </div>
+                <!-- /add Menu List -->
 
 
-                    <!-- store time -->
-                    <div class="box_general padding_bottom">
-                        <div class="header_box version_2">
-                            <h2><i class="fa fa-clock-o"></i>Store Time</h2>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h6>Item</h6>
-                                <table id="store-time" style="width:100%;">
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="평일"
-                                                            readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekdayOpenTime" type="text"
-                                                            class="form-control select-time weekday-openTime">
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekdayCloseTime" type="text"
-                                                            class="form-control select-time">
-                                                    </div>
-
+                <!-- store time -->
+                <div class="box_general padding_bottom">
+                    <div class="header_box version_2">
+                        <h2><i class="fa fa-clock-o"></i>Store Time</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h6>Item</h6>
+                            <table id="store-time" style="width:100%;">
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="평일" readonly>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="주말"
-                                                            readonly>
-                                                    </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekdayOpenTime" type="text"
+                                                        class="form-control select-time weekday-openTime">
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekendOpenTime" type="text"
-                                                            class="form-control select-time" placeholder="오픈시간입력">
-                                                    </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekdayCloseTime" type="text"
+                                                        class="form-control select-time">
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="weekendCloseTime" type="text"
-                                                            class="form-control select-time" placeholder="마감시간입력">
-                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="주말" readonly>
                                                 </div>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Break Time"
-                                                            readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="breakStartTime" type="text"
-                                                            class="form-control select-time" placeholder="시작시간">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input name="breakEndTime" type="text"
-                                                            class="form-control select-time" placeholder="종료시간">
-                                                    </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekendOpenTime" type="text"
+                                                        class="form-control select-time" placeholder="오픈시간입력">
                                                 </div>
                                             </div>
-                       
-                                        </td>
-                                    </tr>
-                                    <tr class="store-time-colurm">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="휴무" readonly="">
-                                                    </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="weekendCloseTime" type="text"
+                                                        class="form-control select-time" placeholder="마감시간입력">
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <input type="text" name="closedDay" class="form-control closedDay" placeholder="휴무 옵션 선택" readonly>
-                                                    </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Break Time"
+                                                        readonly>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group dayBox">
-                                                        <select type="text" class="form-control selectDay" placeholder="예시 : 화요일 (요일입력)">
-                                                            <option value="월">월</option>
-                                                            <option value="화">화</option>
-                                                            <option value="수">수</option>
-                                                            <option value="목">목</option>
-                                                            <option value="금">금</option>
-                                                            <option value="토">토</option>
-                                                            <option value="일">일</option>
-                                                            <option vlaue=null>없음</option>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="breakStartTime" type="text"
+                                                        class="form-control select-time" placeholder="시작시간">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input name="breakEndTime" type="text"
+                                                        class="form-control select-time" placeholder="종료시간">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                </tr>
+                                <tr class="store-time-colurm">
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="휴무"
+                                                        readonly="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="closedDay" class="form-control closedDay"
+                                                        placeholder="휴무 옵션 선택" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group dayBox">
+                                                    <select type="text" class="form-control selectDay"
+                                                        placeholder="예시 : 화요일 (요일입력)">
+                                                        <option value="월">월</option>
+                                                        <option value="화">화</option>
+                                                        <option value="수">수</option>
+                                                        <option value="목">목</option>
+                                                        <option value="금">금</option>
+                                                        <option value="토">토</option>
+                                                        <option value="일">일</option>
+                                                        <option vlaue=null selected>없음</option>
                                                     </select>
                                                     <button type="button" class="btn_1 day-delete">제거</button>
-                                                    </div>
+                                                </div>
                                             </div>
-                                        </td>
-                                    </tr>
+                                    </td>
+                                </tr>
                                 </tr>
                             </table>
                         </div>
@@ -472,46 +518,12 @@
                         </script>
                     </div>
                     <!-- /row-->
-                    </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="col-md-12 save-btn"><button type="button" class="btn_1 medium save">Save</button></div>
     </form>
-
-
-    <!-- /content-wrapper -->
-    <footer class="sticky-footer">
-        <div class="container">
-            <div class="text-center">
-                <small>Copyright © FOOGRA 2021</small>
-            </div>
-        </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="#0">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
@@ -526,7 +538,7 @@
     <!-- Custom scripts for all pages-->
     <script src="/js/admin.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="/vendor/dropzone.min.js"></script>
+    <!-- <script src="/vendor/dropzone.min.js"></script> -->
     <script src="/vendor/bootstrap-datepicker.js"></script>
     <script>
         $('input.date-pick').datepicker();
@@ -548,40 +560,35 @@
             height: 200
         });
     </script>
-
-    <script>
-
-    </script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
     <!-- jungah script -->
     <script>
-
         /* -------------------------------- 요일 선택,제거 -------------------------------- */
         const $selectDay = $('.selectDay');
         const $closedDay = $('.closedDay');
         let result = [];
-        $selectDay.on('change',function(){
+        $selectDay.on('change', function () {
             result.push($selectDay.val());
             $closedDay.val(result.join());
 
-            if($selectDay.val() === '없음')
-            {
+            if ($selectDay.val() === '없음') {
                 result = [];
                 $closedDay.val($selectDay.val());
             }
 
         });
 
-        $('.day-delete').on('click',function(){
-                result = [];
-                $closedDay.val('');
+        $('.day-delete').on('click', function () {
+            result = [];
+            $closedDay.val('');
         });
         /* -------------------------------- /요일 선택,제거 --------------------------------  */
 
 
         /* -------------------------------- save 시 검증 -------------------------------- */
         const $titleTag = $('.title');
-        const $hashTag_Tag = $('.hashTag');
+        const $hashTag = $('.hashTag');
         const $contentTag = $('.content');
         const checkArr = [false, false, false];
 
@@ -599,14 +606,14 @@
             }
         });
 
-        $hashTag_Tag.on('keyup', function () {
+        $hashTag.on('keyup', function () {
 
-            if ($hashTag_Tag.val().trim() === '') {
-                $hashTag_Tag.css('border-color', 'red');
+            if ($hashTag.val().trim() === '') {
+                $hashTag.css('border-color', 'red');
                 $('.hashTag-label').html('HASH TAG <b class="c-red hashTag-red">[ 해시태그는 필수정보입니다. ]</b>');
                 checkArr[1] = false;
             } else {
-                $hashTag_Tag.css('border-color', 'green');
+                $hashTag.css('border-color', 'green');
                 $('.hashTag-red').remove();
                 checkArr[1] = true;
             }
@@ -619,60 +626,76 @@
                 $('.content-label').html('CONTENT <b class="c-red content-red">[ 내용은 필수정보입니다. ]</b>');
                 checkArr[2] = false;
             } else {
-                console.log("??");
                 $('.content').css('border-color', 'green');
                 $('.content-red').remove();
                 checkArr[2] = true;
             }
         });
 
-
-        // ------------------ 저장 ---------------------
-
-        $('.save').on('click', e => {
-            if (!checkArr.includes(false)) {
-
-                /* 오픈시간,마감시간 0000 형식으로 변경  */
-                const $selectTimeList = document.querySelectorAll('.select-time');
-                $selectTimeList.forEach(element => {
-                    const replaceNotInt = /[^0-9]/gi;
-                    element.value = element.value.replace(replaceNotInt, '');
-                    console.log(element.value);
-                });
-              
-                $('#promotionWriteForm').submit();
-
-            } else {
-                alert("입력값을 확인해주세요.");
-
-            }
-        });
         /* -------------------------------- /save 시 검증 -------------------------------- */
 
         /* -------------------------------- menu add -------------------------------- */
-        
-        // 첫번재 삭제버튼은 표시 안함
-        const par = $('table#pricing-list-container').first().find('.delete').remove();
 
-        // 메뉴 추가 script
-        function newMenuItem() {
-            var newElem = $('form-group').first().clone(); // 첫번쨰 메뉴 복사 
-            newElem.find('input').val(''); // input 리셋 
-            newElem.appendTo('table#pricing-list-container'); // 추가 
+
+        let count = 1;
+        let menuFileList = []; // img file list
+
+        // default 이미지 없는 메뉴는 기본이미지으로 대체하기 위해 default으로 비어있는 파일. 
+        // 첫 menu item을 위해 push 
+        menuFileList.push(new File(["default"], "default", {
+            type: "image/png",
+            name: "foodie_default.PNG"
+        }));
+
+        const par = $('table#pricing-list-container').first().find('.delete').remove(); // menu x버튼 클릭 시 line 삭제 
+
+        function newMenuItem() { // menu 입력란 생성 
+            var newElem = $('form-group').first().clone(); // 첫 item 복사 
+            newElem.find('input').val('');
+            newElem.appendTo('table#pricing-list-container');
         }
 
-        if ($("table#pricing-list-container").is('*')) { // 
+        if ($("table#pricing-list-container").is('*')) {
             $('.add-pricing-list-item').on('click', function (e) {
+
+                ++count; // 추가된 menuItem 마다 번호 부여하여 구분 하기위함.
+
+                const $container = $('#pricing-list-container');
                 e.preventDefault();
                 newMenuItem();
 
-                // add한 영역 delete 생성  
                 $('.menu-row').last().find('.delete-form').append(
-                    '<a class="delete" href="#"><i class="fa fa-fw fa-remove"></i></a>')
-                $(this).css('border-colore', 'none');
-                priceInputOnlyInt(); // add 한 입력창 검증 
+                    '<a class="delete' + ' menuDelete' + count + '"' +
+                    ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
+                $(this).css('border-colore', 'none'); // 처음 menuItem 제외하고 추가 시 delete 버튼 생성 
+
+
+                priceInputOnlyInt(); // 추가된 menuItem에서 price 숫자검증 
+
+
+                // add menu item 이미지 리셋 
+                const $target = $('#pricing-list-container').last().find('.menu1').last();
+
+                $target.last().removeClass('dz-started');
+                $target.last().removeClass('dz-max-files-reached');
+                $target.last()[0].innerHTML = '';
+
+                $target.removeClass('menu1');
+                $target.addClass('menu' + count)
+
+
+                // 추가할 때마다 리스트에 비어있는 파일 추가 
+                menuFileList.push(new File(["default"], "default", {
+                    type: "image/png",
+                    name: "foodie_default.PNG"
+                }));
+                console.log("add : ", menuFileList);
+
+                addMenuImg(count); // menu item add imgs 
+
 
             });
+
             $(document).on("click", "#pricing-list-container .delete", function (e) {
                 e.preventDefault();
                 $(this).parent().parent().parent().parent().parent().remove();
@@ -684,51 +707,47 @@
 
         /* -------------------------------- /입력 검증 -------------------------------- */
 
-        
-        // ------------------ 메뉴 price 숫자만 입력 ---------------------
-        priceInputOnlyInt(); // 처음 입력창 검증 
 
-        // 메뉴 price 입력창 검증 함수 (숫자만 입력) 
+        // ------------------ 메뉴 price 숫자만 입력 ---------------------
+        priceInputOnlyInt();
+
         function priceInputOnlyInt() {
             var replaceNotInt = /[^0-9]/gi;
-            
+
             const $menuPrice = $('.menu-price');
 
             $menuPrice.on("keyup", function () {
-                console.log(replaceNotInt);
-                $(this).val($(this).val().replace(replaceNotInt, "")); // 입력값을 정규식으로 필터링
 
-                var x = $(this).val(); // 필터링 된 숫자값만 들어 있음. 
-                if (x.length > 0) { // 숫자값 길이가 0이상일 경우 
-                    $(this).css('border-color', 'green'); // 정상이기때문에 green 
-                    if (x.match(replaceNotInt)) { // 중간에 한글 쓸수도 있으니, 다시 매치 
-                        x = x.replace(replaceNotInt, ""); // 한글쓰면 지워짐 
+                $(this).val($(this).val().replace(replaceNotInt, ""));
+
+                var x = $(this).val();
+                if (x.length > 0) {
+                    $(this).css('border-color', 'green');
+                    if (x.match(replaceNotInt)) {
+                        x = x.replace(replaceNotInt, "");
                     }
-                    $(this).val(x); // 숫자 value값에 다시 담음
+                    $(this).val(x);
                 } else {
-                    $(this).css('border-color', 'red'); 
+                    $(this).css('border-color', 'red');
                 }
             });
         }
         // ------------------ /menu price 숫자만 입력 ---------------------
 
 
-       // ------- 해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
+        // ------- 해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
         let leng = 0;
-        const $hashTag = $('.hashTag');
 
         $hashTag.on("keyup", function () {
 
-            // 특수문자 정규식 변수(공백 미포함)
             var replaceChar = /[~!@\#$%^&*\()\-=+_'\;<>0-9\/.\`:\"\\,\[\]?|{}]/gi;
-            
-            // 완성형 아닌 한글 정규식
+
             var replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
-                        
-            const splitThisVal = $(this).val().split(" "); // 공백기준으로 단어 리스트 생성
-            // $(this).val($(this).val().replace(replaceChar,''));
+
+            const splitThisVal = $(this).val().split(" ");
 
             const cleanArr = splitThisVal.filter(Boolean);
+
             var x = $(this).val();
             if (x.length > 0) {
                 if (x.match(replaceChar) || x.match(replaceNotFullKorean)) {
@@ -736,313 +755,274 @@
                 }
                 $(this).val(x);
             }
-            if (cleanArr.length >= 11 && cleanArr.length) // 단어 10개 이상일 경우 
-            {
-                if (leng <= $hashTag.val().length + 1) // leng = 단어 10개 이하의 마지막 글자수가 현재 글자수보다 작으면  
-                {
-                    $hashTag.val($hashTag.val().substring(0, leng)); // 마지막 글자수를 다시 hashtag value에 담아줌 
-                    $(this).css('border-color', 'red'); // 공백 추가 시 빨간 경고 
+            if (cleanArr.length >= 11 && cleanArr.length) {
+                if (leng <= $hashTag.val().length + 1) {
+                    $hashTag.val($hashTag.val().substring(0, leng));
+                    $(this).css('border-color', 'red');
                 } else
                     $(this).css('border-color', 'green');
-            } else { // 단어 10개 이하는 
-                leng = $(this).val().length; // 전역변수에 마지막 글자수 저장 
+            } else {
+                leng = $(this).val().length;
             }
         });
-       // ------- /해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
-        
+        // ------- /해시태그 10개 제한 및 특수문자/불분명한 한글 제한 -------
     </script>
-    <!-- /jungah script -->
 
-
-
-
-    <!-- 이미지 파일 검증 및 미리보기 화면 출력하는 스크립트 영역 -->
     <script>
-        const $titleInput = document.getElementById('title-img');
-        const $detailInput = document.getElementById('detail-img');
-
-        // 메뉴는 좀 다르게 처리해야 함.. 같은 형식의 input 태그가 계속해서 생기기 때문!!
-
-
-        const $detailPreviewHidden = document.getElementById('detail-preview');
-        $detailPreviewHidden.nextElementSibling
-        const $hiddenTitleBox = document.getElementById('hidden-title-box');
-        const $hiddenDetailBox = document.getElementById('hidden-detail-box');
-        // const $hiddenMenuBox = document.getElementById('hidden-menu-box');
-
-
-        // 
-        function makeMenuPreviewDOM(nowInput, fileNames) {
-
-
-            for (let fileName of fileNames) {
-
-                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
-
-
-                // 비동기로 받아온 이미지 띄우는 로직
-                const $img = $(nowInput).parent().next().find('img');
-                $img.attr('src', '/loadFile?fileName=' + fileName);
-                $img.attr('alt', originFileName);
-
-
-                const $menuPreviewBox = $(nowInput).parent().next();
-                $menuPreviewBox.css('display', 'block');
-
-
-                // 히든 인풋 태그 value에 이미지 src값 넣어주기
-                const cloneSrcVal = $img.attr('src');
-                const hiddenMenuInput = $img.parent().parent().next().find('input');
-                hiddenMenuInput.val(cloneSrcVal);
-            }
-
-        }
-
-
-        // 메뉴 이미지 비동기 요청
-        function ajaxMenuPreview(nowInput) {
-            const formData = new FormData();
-
-            const input = $(nowInput);
-
-            for (let file of input[0].files) {
-                formData.append('files', file);
-            }
-
-
-            const reqObj = {
-                method: 'POST',
-                body: formData
-            };
-
-            fetch('/ajax-upload', reqObj)
-                .then(res => res.json())
-                .then(fileNames => {
-                    makeMenuPreviewDOM(input, fileNames);
-                });
-
-       
-        }
-
-
-
-        // 디테일 이미지 미리보기 화면 렌더링
-        function makeDetailPreviewDOM(fileNames) {
-
-
-            for (let fileName of fileNames) {
-
-                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
-
-
-                const newHiddenInput = document.createElement('input');
-                newHiddenInput.setAttribute('type', 'hidden');
-                newHiddenInput.setAttribute('value', fileName);
-                newHiddenInput.setAttribute('name', 'detailImg');
-                newHiddenInput.classList.add('hidden-detail-img');
-
-                // 삽입!
-                $hiddenDetailBox.appendChild(newHiddenInput);
-
-
-                const $img = document.createElement('img');
-                $img.classList.add('preview-detail-img');
-
-                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
-                $img.setAttribute('alt', originFileName);
-
-                // const $detailPreviewHidden = document.getElementById('detail-preview');
-
-                $detailPreviewHidden.parentElement.style.display = 'block';
-                $detailPreviewHidden.appendChild($img);
-            }
-        }
-
-
-        // 디테일 이미지 미리보기 비동기 요청
-        function ajaxDetailPreview() {
-            const formData = new FormData();
-
-            for (let file of $detailInput.files) {
-                formData.append('files', file);
-            }
-
-
-            const reqObj = {
-                method: 'POST',
-                body: formData
-            };
-
-
-            fetch('/ajax-upload', reqObj)
-                .then(res => res.json())
-                .then(fileNames => {
-                    // isExistDetailPreviewDOM();
-                    makeDetailPreviewDOM(fileNames);
-                });
-        }
-
-
-        // 디테일 이미지 파일 개수 제한 처리
-        function uploadingFileCountCheck(obj) {
-            // console.log($(obj)[0].files.length);
-
-            // 최대 업로드 가능 파일 개수
-            let maxFileCnt = 5;
-
-            const detailPreviewBox = document.querySelector('#detail-preview');
-
-            // console.log(detailPreviewBox.children.length);
-
-            if ($(obj)[0].files.length > maxFileCnt || [...detailPreviewBox.children].length >= maxFileCnt) {
-                $(obj).val('');
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-
-        function uploadingFileSizeCheck(obj) {
-            let maxFileSize = 10 * 1024 * 1024; // 파일 최대 용량 10MB
-
-            for (let file of $(obj)[0].files) {
-                if (file.size > maxFileSize) {
-                    $(obj).val('');
-                    return false;
-                } 
-            }
-
-            return true;
-        }
-
-
-        // 타이틀 이미지 미리보기 렌더링
-        function makeTitlePreviewDOM(fileNames) {
-
-            // 여기서 이미 들어간 히든 인풋을 지워주면 되나..?
-            if ($hiddenTitleBox.children.length > 0) {
-                for (let hiddenInput of [...$hiddenTitleBox.children]) {
-                    $hiddenTitleBox.removeChild(hiddenInput);
-                }
-            }
-
-
-
-            for (let fileName of fileNames) {
-
-                let originFileName = fileName.substring(fileName.lastIndexOf('_') + 1);
-
-                // 동기요청 처리시 hidden 타입인 input 창에 src = 풀경로, alt는 orgin파일명을 넣어줘서
-                // form 태그를 활용해 post 요청을 보낸다.
-                const $newHiddenInput = document.createElement('input');
-                $newHiddenInput.setAttribute('type', 'hidden');
-                $newHiddenInput.setAttribute('name', 'titleImg');
-                $newHiddenInput.setAttribute('value', fileName);
-                $newHiddenInput.classList.add('hidden-title-img');
-
-
-                // form 태그에 삽입
-                $hiddenTitleBox.appendChild($newHiddenInput);
-
-
-                // 비동기로 받아온 이미지 띄우는 로직
-                const $img = document.createElement('img');
-                $img.classList.add('preview-title-img');
-
-                $img.setAttribute('src', '/loadFile?fileName=' + fileName);
-                $img.setAttribute('alt', originFileName);
-
-                const $titlePreviewHidden = document.getElementById('title-preview');
-
-                if ($titlePreviewHidden.children.length > 0) {
-                    $titlePreviewHidden.removeChild($titlePreviewHidden.firstElementChild);
-                }
-
-                $titlePreviewHidden.parentElement.style.display = 'block';
-                $titlePreviewHidden.appendChild($img);
-            }
-        }
-
-
-        // 타이틀 이미지 미리보기 위한 비동기 요청
-        function ajaxTitlePreview() {
-            const formData = new FormData();
-
-            for (let file of $titleInput.files) {
-                formData.append('files', file);
-            }
-
-
-            const reqObj = {
-                method: 'POST',
-                body: formData
-            };
-
-            fetch('/ajax-upload', reqObj)
-                .then(res => res.json())
-                .then(fileNames => {
-                    makeTitlePreviewDOM(fileNames);
-                });
-        }
-
-
-
-        // 실행부
-        $(document).on("change", "input[type='file']", function () {
-
-            var file_path = $(this).val();
-
-            file_path = file_path.toLowerCase();
-
-            var reg = /(.*?)\.(jpg|bmp|jpeg|png|gif)$/;
-
-            // 허용되지 않은 확장자일 경우
-
-            if (file_path != "" && (file_path.match(reg) == null || reg.test(file_path) == false)) {
-
-                $(this).val("");
-
-                alert("이미지 파일만 업로드 가능합니다.");
-
-                $(this).parent().next().css('display', 'none');
-
-            } else {
-
-                // 정상적인 이미지 확장자 파일인 경우 : 여기서 비동기 처리가 들어가야 한다.
-                if (!uploadingFileSizeCheck($(this))) {
-                    alert('첨부파일 사이즈는 10MB 이내로 등록 가능합니다.');
-                    return;
-                }
-
-
-                // title 이미지 미리보기 비동기 처리
-                if ($(this).hasClass('title')) {
-                    ajaxTitlePreview();
-                }
-
-
-                // detail 이미지 미리보기 비동기 처리
-                if ($(this).hasClass('detail')) {
-                    // 파일 개수 검증이 들어가야 한다.
-                    if (uploadingFileCountCheck($(this))) { // 파일 개수 검증
-                            ajaxDetailPreview();
+        // -------------- fiel upload and file dropzone --------------
+
+        Dropzone.autoDiscover = false;
+
+        const titleDropzone = new Dropzone("#title-dropzone.dropzone", {
+            url: "/foodie/write",
+            method: 'post',
+            autoProcessQueue: false,
+            clickable: true,
+            createImageThumbnails: true,
+            thumbnailHeight: 120,
+            thumbnailWidth: 300,
+            maxFiles: 1,
+            maxFilesize: 10,
+            addRemoveLinks: true,
+            dictRemoveFile: 'X',
+            acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
+        });
+
+        let overlapSet = new Set();
+        const detailDropzone = new Dropzone("#detail-dropzone.dropzone", {
+            url: "/foodie/write",
+            method: 'post',
+            autoProcessQueue: false,
+            clickable: true,
+            createImageThumbnails: true,
+            thumbnailWidth: 100,
+            thumbnailHeight: 100,
+            maxFiles: 5,
+            maxFilesize: 10,
+            addRemoveLinks: true,
+            dictRemoveFile: 'X',
+            acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
+            parallelUploads: 5,
+            uploadMultiple: true,
+            init: function () {
+
+                let myDropzone = this;
+
+                // dorpzone은 파일을 올릴 때마다 기존 파일들은 삭제되고 새로운 file list가 생성 
+                this.on('addedfiles', function (files) { // detail - menu 추가시  
+                    let overResult = ''; // 중북된 파일 경고문구
+
+                    if (myDropzone.files.length > 5) { // detail - img 5개 제한 
+
+                        for (const file of files) {
+                            myDropzone.removeFile(file); // 5개 이상일 경우 자동 삭제 
                         }
-                    else {
-                        alert('최대 5개의 이미지 파일만을 업로드 하실 수 있습니다.');
+                        $('.detail-img-label').html(
+                            'detail <b class="c-red detail-red">[ 이미지는 5개까지만 가능합니다. ]</b>');
+                        setTimeout(function () {
+                            $('.detail-red').remove();
+                        }, 5000); // 5초동안만 경고문구 발생 
+                        return;
+
+                    } else {
+                        for (const setFile of overlapSet) { // 기존 file list  
+                            for (const file of files) { // 새 file list 
+                                if (setFile === file.name) {
+                                    overResult += file.name + ' ';
+                                    myDropzone.removeFile(file); // 중복 시 삭제
+                                }
+                            }
+                        }
+                    }
+
+                    if (overResult.length > 1) { // 중복된 파일 경우 
+                        $('.detail-img-label').html(
+                            'detail <b class="c-red detail-red">[ 중복된 파일은 ' + overResult +
+                            '입니다.]</b>');
+
+                        setTimeout(function () {
+                            $('.detail-red').remove();
+                        }, 5000);
+                        return;
+
+                    }
+
+                    // 5개 이상 X , 중복 X 경우 set List에 추가 
+                    for (const file of files) {
+                        overlapSet.add(file.name);
+                    }
+                });
+
+                myDropzone.on('removedfile', function (file) {
+                    const overlapArr = [];
+                    for (const dropFile of myDropzone.files) {
+                        overlapArr.push(dropFile.name);
+                    }
+                    overlapSet = new Set(overlapArr); // 삭제 후 남은 file list 다시 담음 
+                })
+            }
+        });
+
+        addMenuImg(1); // 첫번째 menu item dropzone 처리  
+
+        function addMenuImg(index) { // 추가된 menu item dropzone 처리 
+            let dropName = '.menu' + index;
+            let deleteName = '.menuDelete' + index;
+            const menuDropzone = new Dropzone(dropName, {
+                url: "/foodie/write",
+                method: 'post',
+                autoProcessQueue: false,
+                clickable: true,
+                createImageThumbnails: true,
+                thumbnailHeight: 80,
+                thumbnailWidth: 80,
+                maxFiles: 1,
+                maxFilesize: 10,
+                addRemoveLinks: true,
+                dictRemoveFile: 'X',
+                acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
+
+                init: function () {
+                    let myDropzone = this;
+                    this.on('addedfile', function (file) { // menu item 추가 시 
+                        menuFileList[index - 1] = file;
+                        console.log("add : ", menuFileList);
+                    });
+
+                    $(deleteName).on('click', function (e) { // menu item 삭제 시 
+                        delete menuFileList[index - 1];
+                        --index;
+                        console.log("delete : ", menuFileList);
+                    });
+
+                    myDropzone.on('removedfile', function (file) { // menu img 삭제 시 
+
+                        for (const menu of menuFileList) {
+                            if ((menu != null) && (menu.name === file.name)) {
+                                menuFileList[index - 1] = new File(["default"], "default", {
+                                    type: "image/png",
+                                    name: "foodie_default.PNG"
+                                });
+                                console.log("remove : ", menuFileList);
+                            }
+                        }
+                    })
+                }
+
+            });
+
+            return menuDropzone;
+        }
+
+        // -------------- // fiel upload and file dropzone --------------
+
+
+        // ---------------------------- submit -------------------------------
+
+        $('.save').on('click', e => {
+
+
+            // 이미지 file 변환 및 form 태그 내 input에 추가. 
+            const $detailHiddenTag = document.querySelector('.hidden-detail-img');
+            const $titleHiddenTag = document.querySelector('.hidden-title-img');
+            const $menuHiddenTag = document.querySelector('.hidden-menu-img');
+
+
+            // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
+            const detailDataTranster = new DataTransfer();
+            const titleDataTraster = new DataTransfer();
+            const menuDataTraster = new DataTransfer();
+
+            if (menuFileList.length > 0) {
+                for (const menuFile of menuFileList) {
+                    if (menuFile != null) {
+                        menuDataTraster.items.add(menuFile);
                     }
                 }
+                console.log("menuDataTraster : ", menuFileList);
 
+                $menuHiddenTag.files = menuDataTraster.files;
+            }
 
-                // menu 이미지 미리보기 비동기 처리
-                if ($(this).hasClass('menu')) {
-                    ajaxMenuPreview($(this));
+            if (titleDropzone.files.length > 0) {
+                titleDataTraster.items.add(titleDropzone.files[0]);
+                $titleHiddenTag.files = titleDataTraster.files;
+
+            }
+
+            if (detailDropzone.files.length > 0) {
+                for (const detailFile of detailDropzone.files) {
+                    detailDataTranster.items.add(detailFile);
                 }
-            
+                $detailHiddenTag.files = detailDataTranster.files;
+
+            }
+
+            // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
+            const $menuNameList = document.querySelectorAll(".menu-name");
+            const $menuPriceList = document.querySelectorAll(".menu-price");
+
+            for (let index = 0; index < $menuNameList.length; index++) {
+                if (($menuNameList.length === 1) && ($menuPriceList.length === 1)) {
+                    if ($menuNameList[index].value.length === 0 && $menuPriceList[index].value.length === 0)
+                        break;
+                }
+
+                if ($menuNameList[index].value.length > 0 && $menuPriceList[index].value.length === 0) {
+                    alert(" 메뉴 금액을 반드시 입력해주세요. ")
+                    return;
+                } else if ($menuPriceList[index].value.length > 0 && $menuNameList[index].value.leng === 0) {
+                    alert(" 메뉴명을 반드시 입력해주세요. ")
+                    return;
+                }
+            }
+
+
+            // 해시태그 중복 확인
+            const hashTagList = $hashTag.val().split(' ');
+            console.log(hashTagList);
+
+            for (let i = 0; i < hashTagList.length; i++) {
+                const tag = hashTagList[i];
+                for (let index = i + 1; index < hashTagList.length; index++) {
+                    console.log(tag, "vs", hashTagList[index]);
+                    if (tag === hashTagList[index]) {
+                        alert("해시태그에 중복된 단어가 있습니다. 다시 입력해주세요.")
+                        return;
+                    }
+                }
+            }
+
+
+            if (!checkArr.includes(false)) { // 필수 이력 완료시
+
+                // 시간 0000으로 변환 
+                const $selectTimeList = document.querySelectorAll('.select-time');
+                $selectTimeList.forEach(element => {
+
+                    console.log(element.value);
+                    if(element.value.includes("am"))
+                    {
+                        element.value = element.value.replace(' am', '');
+                    }
+                    else if(element.value.includes("pm"))
+                    {
+                        element.value = element.value.replace(' pm','');
+                    }
+                });
+
+                // 내용 \n -> <br>으로 치환
+                const content = $contentTag.val().replace(/\n/gi, "<br>");
+                $contentTag.val(content)
+
+                $('#promotionWriteForm').submit();
+
+            } else {
+                alert("입력값을 확인해주세요.");
+
             }
         });
     </script>
-
 </body>
 
 </html>

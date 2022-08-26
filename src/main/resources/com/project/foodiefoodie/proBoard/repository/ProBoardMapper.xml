@@ -4,64 +4,148 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.foodiefoodie.proBoard.repository.ProBoardMapper">
 
-    <insert id="proBoardSave">
-        insert into promotion_board VALUES (
+
+    <insert id="saveProBoard">
+        insert into promotion_board (
+        BUSINESS_NO
+        ,PROMOTION_BNO
+        ,CONTENT
+        ,LAST_UPDATED
+        ,TITLE
+        ,HASHTAG
+        )
+        VALUES (
         #{businessNo}
         ,seq_promotion_board.nextval
         ,#{content}
         ,sysdate
-        ,#{title})
+        ,#{title}
+        ,#{hashTag}
+        )
     </insert>
 
-    <insert id="storeTimeSave">
+    <insert id="saveProBoardStoreTime">
         insert into PROMOTION_STORE_TIME VALUES (
-        ,#{weekdayOpenTime}
-        ,#{weekdayCloseTime}
-        ,#[weekendOpenTime}
-        ,#{weekendCloseTime}
-        ,#{breakStartTime}
-        ,#{breakEndTime}
-        ,#{closedDay}
+        #{promotionBno}
+        ,#{storeTimeDTO.weekdayOpenTime}
+        ,#{storeTimeDTO.weekdayCloseTime}
+        ,#{storeTimeDTO.weekendOpenTime}
+        ,#{storeTimeDTO.weekendCloseTime}
+        ,#{storeTimeDTO.breakStartTime}
+        ,#{storeTimeDTO.breakEndTime}
+        ,#{storeTimeDTO.closedDay}
+        )
     </insert>
-
-<!--    <insert id="menuSave">-->
-<!--        insert into PROMOTION_FOOD_MENU VALUES (-->
-<!--        ,SEQ_PROMOTION_FOOD_MENU.nextval-->
-<!--        ,#{}-->
-<!--        )-->
-
-<!--    </insert>-->
-
-    <update id="modify">
-        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}
+    <insert id="saveProBoardMenu">
+        insert into PROMOTION_FOOD_MENU VALUES (
+        SEQ_PROMOTION_FOOD_MENU.nextval
+        ,#{promotionBno}
+        ,#{menuDTO.menuName}
+        ,#{menuDTO.menuPrice}
+        ,#{menuDTO.filePath}
+        ,#{menuDTO.fileName}
+        )
+    </insert>
+    <insert id="saveProBoardImage">
+        <if test="imageDTO.type=='title'">
+            insert into PROMOTION_UPLOAD_TITLE_IMG VALUES (
+            #{promotionBno}
+            ,#{imageDTO.filePath}
+            ,#{imageDTO.fileName}
+            )
+        </if>
+        <if test="imageDTO.type=='detail'">
+            insert into PROMOTION_UPLOAD_DETAIL_IMG VALUES (
+            #{promotionBno}
+            ,#{imageDTO.filePath}
+            ,#{imageDTO.fileName}
+            )
+        </if>
+    </insert>
+    <update id="saveProBoardTitleImg">
+        UPDATE promotion_board SET file_path = #{titleFilePath}, file_name = #{titleFileName} WHERE promotion_bno = #{promotionBno}
     </update>
 
-    <delete id="delete">
-        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}
-    </delete>
+    <!--&lt;!&ndash;    <insert id="menuSave">&ndash;&gt;-->
+    <!--&lt;!&ndash;        insert into PROMOTION_FOOD_MENU VALUES (&ndash;&gt;-->
+    <!--&lt;!&ndash;        ,SEQ_PROMOTION_FOOD_MENU.nextval&ndash;&gt;-->
+    <!--&lt;!&ndash;        ,#{}&ndash;&gt;-->
+    <!--&lt;!&ndash;        )&ndash;&gt;-->
 
-    <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">
-        <result property="businessNo" column="business_no"/>
-        <result property="promotionBno" column="promotion_bno"/>
-        <result property="lastUpdated" column="last_updated"/>
-    </resultMap>
+    <!--&lt;!&ndash;    </insert>&ndash;&gt;-->
 
-    <select id="selectOne" resultMap="proBoardMap">
-        SELECT *
-        FROM promotion_board
-        where promotion_bno = #{promotionBno}
+    <!--    <update id="modify">-->
+    <!--        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}-->
+    <!--    </update>-->
+
+    <!--    <delete id="delete">-->
+    <!--        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}-->
+    <!--    </delete>-->
+
+        <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">
+            <result property="businessNo" column="business_no"/>
+            <result property="promotionBno" column="promotion_bno"/>
+            <result property="lastUpdated" column="last_updated"/>
+            <result property="avgStarRate" column="AVG_STAR_RATE"/>
+            <result property="filePath" column="file_path"/>
+            <result property="fileName" column="file_name"/>
+        </resultMap>
+
+        <select id="selectOne" resultMap="proBoardMap">
+            SELECT *
+            FROM promotion_board
+            where promotion_bno = #{promotionBno}
+        </select>
+
+        <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
+            <result property="businessNo" column="BUSINESS_NO"/>
+            <result property="masterName" column="MASTER_NAME"/>
+            <result property="storeName" column="STORE_NAME"/>
+            <result property="storeAddress" column="STORE_ADDRESS"/>
+            <result property="hotDeal" column="HOT_DEAL"/>
+            <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
+        </resultMap>
+
+        <select id="selectMaster" resultMap="masterMap">
+            select * from master where BUSINESS_NO = #{businessNo}
+        </select>
+
+        <select id="selectPromotionBno" resultType="int">
+            select promotion_bno from PROMOTION_BOARD where business_no =  #{businessNo}
+        </select>
+
+        <select id="selectMenuNo" resultType="int">
+            select menu_no from promotion_food_menu where promotion_bno = #{promotion_bno} order by menu_no ASC
+        </select>
+
+    <resultMap id="StoreTimeMap" type="com.project.foodiefoodie.proBoard.dto.StoreTimeDTO"/>
+    <select id="selectStoreTime" resultMap="StoreTimeMap">
+        select * from PROMOTION_STORE_TIME where promotion_bno = #{promotionBno}
     </select>
 
-<!--  마스터 가져오기 임시 -->
-    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
-        <result property="businessNo" column="BUSINESS_NO"/>
-        <result property="masterName" column="MASTER_NAME"/>
-        <result property="storeName" column="STORE_NAME"/>
-        <result property="storeAddress" column="STORE_ADDRESS"/>
-        <result property="hotDeal" column="HOT_DEAL"/>
-        <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
+    <resultMap id="imageDTO" type="com.project.foodiefoodie.proBoard.dto.ImageDTO">
+        <result property="filePath" column="file_path"/>
+        <result property="fileName" column="file_name"/>
     </resultMap>
-    <select id="selectMaster" resultMap="masterMap">
-        select * from master where BUSINESS_NO = #{businessNo}
+
+    <select id="selectImages" resultMap="imageDTO">
+
+        <if test="type == 'title' ">
+            select file_path, file_name from promotion_board where promotion_bno = #{promotionBno}
+        </if>
+        <if test="type == 'detail'">
+            select file_path, file_name from PROMOTION_UPLOAD_DETAIL_IMG where promotion_bno = #{promotionBno}
+        </if>
+    </select>
+
+    <resultMap id="menuDTO" type="com.project.foodiefoodie.proBoard.dto.MenuDTO">
+        <result property="menuNo" column="menu_no"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuPrice" column="price"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileName" column="file_name"/>
+    </resultMap>
+    <select id="selectMenuInfo" resultMap="menuDTO">
+        select * from PROMOTION_FOOD_MENU where promotion_bno = #{promotionBno}
     </select>
 </mapper>

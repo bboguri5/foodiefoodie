@@ -24,6 +24,57 @@
     <!-- YOUR CUSTOM CSS -->
     <link href="/css/custom.css" rel="stylesheet">
 
+    <link href="/css/home.css" rel="stylesheet">
+
+    <style>
+        .col-lg-9 {
+            margin: auto;
+        }
+
+        .comment_write {
+            height: 150px;
+        }
+
+        /* 페이지 액티브 기능 */
+        .pagination .page-item.p-active a {
+            background: #589442 !important;
+            color: #fff !important;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .pagination .page-item:hover a {
+            background: #a6c09c !important;
+            color: #fff !important;
+        }
+
+        p {
+            overflow-wrap: break-word;
+        }
+
+        h1 {
+            margin-bottom: 15px;
+        }
+
+        .page_header .container .row form {
+            width: 75%;
+
+        }
+
+        .page_header .container .row .col-xl-8 {
+            width: 20%;
+        }
+
+        nav.main-menu {
+            height: 100%;
+            margin-right: 40px;
+        }
+
+        .submenu .show-submenu {
+            color: #589442;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -31,24 +82,19 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <main>
+
         <div class="page_header element_to_stick">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
-                        <div class="breadcrumbs blog">
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Category</a></li>
-                                <li>Page active</li>
-                            </ul>
+                    <form action="/review/search" method="get">
+                        <div class="col-xl-4 col-lg-5 col-md-5">
+                            <div class="search_bar_list">
+                                <input required value="${search}" name="search" type="text" class="form-control"
+                                    placeholder="Search in blog...">
+                                <input type="submit" value="Search">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-5 col-md-5">
-                        <div class="search_bar_list">
-                            <input type="text" class="form-control" placeholder="Search in blog...">
-                            <input type="submit" value="Search">
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <!-- /row -->
             </div>
@@ -64,268 +110,85 @@
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage"
                                         style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2488px;">
-                                        <div class="owl-item active" style="width: 829.325px;">
-                                            <div class="item">
-                                                <a href="/img/location_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img src="/img/detail_1.jpg" alt=""></a>
+                                        <c:forEach var="uploads" items="${uploads}">
+                                            <div class="owl-item active" style="width: 829.325px;">
+                                                <div class="item">
+                                                    <a href="${uploads.filePath}" title="Photo title"
+                                                        data-effect="mfp-zoom-in"><img src="${uploads.filePath}"
+                                                            alt=""></a>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="owl-item" style="width: 829.325px;">
-                                            <div class="item">
-                                                <a href="/img/location_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/lazy-placeholder-detail.png"
-                                                        data-src="/img/detail_2.jpg" class="owl-lazy" alt=""></a>
-                                            </div>
-                                        </div>
-                                        <div class="owl-item" style="width: 829.325px;">
-                                            <div class="item">
-                                                <a href="/img/location_1.jpg" title="Photo title"
-                                                    data-effect="mfp-zoom-in"><img
-                                                        src="/img/lazy-placeholder-detail.png"
-                                                        data-src="/img/detail_3.jpg" class="owl-lazy" alt=""></a>
-                                            </div>
-                                        </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
                                 <div class="owl-nav disabled"><button type="button" role="presentation"
                                         class="owl-prev"><span aria-label="Previous">‹</span></button><button
                                         type="button" role="presentation" class="owl-next"><span
                                             aria-label="Next">›</span></button></div>
-                                <!-- <div class="owl-dots"><button role="button"
-                                        class="owl-dot active"><span></span></button><button role="button"
-                                        class="owl-dot"><span></span></button><button role="button"
-                                        class="owl-dot"><span></span></button></div> -->
                             </div>
 
                         </figure>
                         <h1>${review.title}</h1>
                         <div class="postmeta">
                             <ul>
-                                <li><a href="#"><i class="icon_folder-alt"></i> Category</a></li>
+                                <!-- <li><a href="#"><i class="icon_folder-alt"></i> Category</a></li> -->
                                 <li><i class="icon_calendar"></i> ${review.lastUpdated}</li>
                                 <li><a href="#"><i class="icon_pencil-edit"></i> ${review.email}</a></li>
-                                <li><a href="#"><i class="icon_comment_alt"></i> (14) Comments</a></li>
+                                <li><a href="#section-comment"><i class="icon_comment_alt"></i> (${replyCount}) Comments</a></li>
+                                <li class="upCount"><a href="#"><i id="${review.reviewBno}"
+                                            class="icon_heart_alt"></i><span
+                                            id="heart${review.reviewBno}">${review.likeCnt}</span></a></li>
+
+
                             </ul>
                         </div>
                         <!-- /post meta -->
                         <div class="post-content">
-                            <div class="dropcaps">
-                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a
-                                    piece of classical Latin literature from 45 BC, making it over 2000 years old.
-                                    Richard
-                                    McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one
-                                    of
-                                    the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going
-                                    through
-                                    the cites of the word in classical literature, discovered the undoubtable source.
-                                    Lorem
-                                    Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum"
-                                    (The
-                                    Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on
-                                    the
-                                    theory of ethics, very popular during the Renaissance. The first line of Lorem
-                                    Ipsum,
-                                    "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
-                            </div>
-
+                            <p>식당 이름: <a href="#">${review.storeName}</a></p>
+                            <p>식당 주소: ${review.storeAddress}</p>
                             <p>${review.content}</p>
                         </div>
                         <!-- /post -->
                     </div>
                     <!-- /single-post -->
 
+                    <a name="section-comment"></a>
                     <div id="comments">
                         <h5>Comments</h5>
-                        <ul>
-                            <!-- <li>
-                                <div class="avatar">
-                                    <a href="#"><img src="/img/avatar1.jpg" alt="">
-                                    </a>
-                                </div>
-                                <div class="comment_right clearfix">
-                                    <div class="comment_info">
-                                        By <a href="#">Anna Smith</a><span>|</span>25/10/2019<span>|</span><a
-                                            href="#">Reply</a>
-                                    </div>
-                                    <p>
-                                        Nam cursus tellus quis magna porta adipiscing. Donec et eros leo, non
-                                        pellentesque arcu. Curabitur vitae mi enim, at vestibulum magna. Cum sociis
-                                        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed
-                                        sit amet sem a urna rutrumeger fringilla. Nam vel enim ipsum, et congue ante.
-                                    </p>
-                                </div>
-                                <ul class="replied-to">
-                                    <li>
-                                        <div class="avatar">
-                                            <a href="#"><img src="/img/avatar4.jpg" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="comment_right clearfix">
-                                            <div class="comment_info">
-                                                By <a href="#">Anna Smith</a><span>|</span>25/10/2019<span>|</span><a
-                                                    href="#">Reply</a>
-                                            </div>
-                                            <p>
-                                                Nam cursus tellus quis magna porta adipiscing. Donec et eros leo, non
-                                                pellentesque arcu. Curabitur vitae mi enim, at vestibulum magna. Cum
-                                                sociis natoque penatibus et magnis dis parturient montes, nascetur
-                                                ridiculus mus. Sed sit amet sem a urna rutrumeger fringilla. Nam vel
-                                                enim ipsum, et congue ante.
-                                            </p>
-                                            <p>
-                                                Aenean iaculis sodales dui, non hendrerit lorem rhoncus ut. Pellentesque
-                                                ullamcorper venenatis elit idaipiscingi Duis tellus neque, tincidunt
-                                                eget pulvinar sit amet, rutrum nec urna. Suspendisse pretium laoreet
-                                                elit vel ultricies. Maecenas ullamcorper ultricies rhoncus. Aliquam erat
-                                                volutpat.
-                                            </p>
-                                        </div>
-                                        <ul class="replied-to">
-                                            <li>
-                                                <div class="avatar">
-                                                    <a href="#"><img src="/img/avatar6.jpg" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="comment_right clearfix">
-                                                    <div class="comment_info">
-                                                        By <a href="#">Anna
-                                                            Smith</a><span>|</span>25/10/2019<span>|</span><a
-                                                            href="#">Reply</a>
-                                                    </div>
-                                                    <p>
-                                                        Nam cursus tellus quis magna porta adipiscing. Donec et eros
-                                                        leo, non pellentesque arcu. Curabitur vitae mi enim, at
-                                                        vestibulum magna. Cum sociis natoque penatibus et magnis dis
-                                                        parturient montes, nascetur ridiculus mus. Sed sit amet sem a
-                                                        urna rutrumeger fringilla. Nam vel enim ipsum, et congue ante.
-                                                    </p>
-                                                    <p>
-                                                        Aenean iaculis sodales dui, non hendrerit lorem rhoncus ut.
-                                                        Pellentesque ullamcorper venenatis elit idaipiscingi Duis tellus
-                                                        neque, tincidunt eget pulvinar sit amet, rutrum nec urna.
-                                                        Suspendisse pretium laoreet elit vel ultricies. Maecenas
-                                                        ullamcorper ultricies rhoncus. Aliquam erat volutpat.
-                                                    </p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li> -->
-                            <c:forEach var="rl" items="${replyList}">
-                                <li>
-                                    <div class="avatar">
-                                        <a href="#"><img src="/img/avatar1.jpg" alt="">
-                                        </a>
-                                    </div>
 
-                                    <div class="comment_right clearfix">
-                                        <div class="comment_info">
-                                            By <a
-                                                href="#">${rl.nickName}</a><span>|</span>${rl.lastUpdated}<span>|</span><a
-                                                href="#">Reply</a>
-                                        </div>
-                                        <p>
-                                            ${rl.content}
-                                        </p>
-                                    </div>
-                                </li>
-                            </c:forEach>
-                        </ul>
                     </div>
+
+                    <!-- 댓글 페이징 영역 -->
+                    <ul class="pagination justify-content-center">
+                        <!-- < JS로 댓글 페이징 DIV삽입 > -->
+                    </ul>
 
                     <hr>
 
                     <h5>Leave a comment</h5>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="form-group">
-                                <input type="text" name="name" id="name2" class="form-control" placeholder="Name">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <input readonly type="text" value="${loginUser.nickName}" name="name" id="name2"
+                                        class="form-control" placeholder="이름">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <input readonly type="text" value="${loginUser.email}" name="email" id="email2"
+                                        class="form-control" placeholder="이메일">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="form-group">
-                                <input type="text" name="email" id="email2" class="form-control" placeholder="Email">
-                            </div>
+                        <div class="form-group">
+                            <textarea class="form-control comment_write" name="comments" id="comments2" rows="6"
+                                placeholder="Comment"></textarea>
                         </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <input type="text" name="email" id="website3" class="form-control"
-                                    placeholder="Website">
-                            </div>
+                        <div id="replyAddBtn" class="form-group">
+                            <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" name="comments" id="comments2" rows="6"
-                            placeholder="Comment"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
-                    </div>
-
                 </div>
                 <!-- /col -->
-
-                <aside class="col-lg-3">
-                    <div class="widget">
-                        <div class="widget-title first">
-                            <h4>Latest Post</h4>
-                        </div>
-                        <ul class="comments-list">
-                            <li>
-                                <div class="alignleft">
-                                    <a href="#0"><img src="/img/blog-5.jpg" alt=""></a>
-                                </div>
-                                <small>Category - 11.08.2016</small>
-                                <h3><a href="#" title="">Verear qualisque ex minimum...</a></h3>
-                            </li>
-                            <li>
-                                <div class="alignleft">
-                                    <a href="#0"><img src="/img/blog-6.jpg" alt=""></a>
-                                </div>
-                                <small>Category - 11.08.2016</small>
-                                <h3><a href="#" title="">Verear qualisque ex minimum...</a></h3>
-                            </li>
-                            <li>
-                                <div class="alignleft">
-                                    <a href="#0"><img src="/img/blog-4.jpg" alt=""></a>
-                                </div>
-                                <small>Category - 11.08.2016</small>
-                                <h3><a href="#" title="">Verear qualisque ex minimum...</a></h3>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /widget -->
-                    <div class="widget">
-                        <div class="widget-title">
-                            <h4>Categories</h4>
-                        </div>
-                        <ul class="cats">
-                            <li><a href="#">Food <span>(12)</span></a></li>
-                            <li><a href="#">Places to visit <span>(21)</span></a></li>
-                            <li><a href="#">New Places <span>(44)</span></a></li>
-                            <li><a href="#">Suggestions and guides <span>(31)</span></a></li>
-                        </ul>
-                    </div>
-                    <!-- /widget -->
-                    <div class="widget">
-                        <div class="widget-title">
-                            <h4>Popular Tags</h4>
-                        </div>
-                        <div class="tags">
-                            <a href="#">Food</a>
-                            <a href="#">Bars</a>
-                            <a href="#">Cooktails</a>
-                            <a href="#">Shops</a>
-                            <a href="#">Best Offers</a>
-                            <a href="#">Transports</a>
-                            <a href="#">Restaurants</a>
-                        </div>
-                    </div>
-                    <!-- /widget -->
-                </aside>
-                <!-- /aside -->
             </div>
             <!-- /row -->
         </div>
@@ -339,6 +202,240 @@
     <script src="/js/specific_detail.js"></script>
     <script src="/js/datepicker_func_1.js"></script>
     <script src="/js/switcher.js"></script>
+
+    <script>
+        //원본 글 번호
+        const bno = '${review.reviewBno}';
+
+        // 메인 실행부
+        (function () {
+            // 초기 화면 렌더링시 댓글 1페이지 렌더링
+            showReplies();
+
+            // 댓글 페이지 버튼 클릭이벤트 처리
+            makePageButtonClickEvent();
+
+            // // 댓글 등록 버튼 클릭이벤트 처리
+            makeReplyRegisterClickEvent();
+
+            // 좋아요 비동기로 올려주는 이벤트 처리
+            upLikeCountEvent();
+
+            // // 댓글 수정 모달 오픈, 삭제 이벤트 처리
+            // openModifyModalAndRemoveEvent();
+
+            // // 댓글 수정 완료 버튼 이벤트 처리
+            // replyModifyEvent();
+        })();
+
+
+        // 댓글 목록을 서버로부터 비동기요청으로 불러오는 함수
+        function showReplies(pageNum = 1) {
+            fetch('/reply?reviewBno=' + bno + '&pageNum=' + pageNum)
+                .then(res => res.json())
+                .then(replyMap => {
+                    // console.log(replyMap.replyList);
+                    makeReplyDOM(replyMap);
+                });
+        }
+
+        // 댓글 목록 DOM을 생성하는 함수
+        function makeReplyDOM({
+            replyList,
+            count,
+            maker
+        }) {
+            // 각 댓글 하나의 태그
+            let tag = '';
+            if (replyList === null || replyList.length === 0) {
+                tag += "<div id='replyContent' class='card-body'>댓글이 아직 없습니다! ㅠㅠ</div>";
+            } else {
+                for (let rep of replyList) {
+
+                    tag += `<ul>` +
+                        `   <li>` +
+                        `       <div class="avatar">` +
+                        `           <a href="#"><img src="/img/avatar1.jpg" alt=""></a>` +
+                        `       </div>` +
+                        `       <div class="comment_right clearfix">` +
+                        `           <div class="comment_info">By <a href="#">` + rep.nickName + `</a><span>|</span>` +
+                        rep.lastUpdated + `<span>|</span><a href="#">Reply</a></div>` +
+                        `           <p>` + rep.content + `</p>` +
+                        `       </div>` +
+                        `   </li> ` +
+                        `</ul>`
+
+                }
+            }
+
+            // 댓글 목록에 생성된 DOM 추가
+            document.getElementById('comments').innerHTML = tag;
+
+            // 댓글 수 배치
+            // document.getElementById('replyCnt').textContent = count;
+
+            // 페이지 렌더링
+            makePageDOM(maker);
+        }
+
+        // 댓글 페이지 태그 생성 렌더링 함수
+        function makePageDOM(pageInfo) {
+            let tag = "";
+            const begin = pageInfo.beginPage;
+            const end = pageInfo.endPage;
+            //이전 버튼 만들기
+            if (pageInfo.prev) {
+                tag += "<li class='page-item'><a class='page-link page-active' href='" + (begin - 1) +
+                    "'>이전</a></li>";
+            }
+            //페이지 번호 리스트 만들기
+            for (let i = begin; i <= end; i++) {
+                let active = '';
+                if (pageInfo.page.pageNum === i) {
+                    active = 'p-active';
+                }
+                tag += "<li class='page-item " + active + "'><a class='page-link page-custom' href='" + i +
+                    "'>" + i + "</a></li>";
+            }
+            //다음 버튼 만들기
+            if (pageInfo.next) {
+                tag += "<li class='page-item'><a class='page-link page-active' href='" + (end + 1) +
+                    "'>다음</a></li>";
+            }
+
+            // 페이지태그 렌더링
+            const $pageUl = document.querySelector('.pagination');
+            $pageUl.innerHTML = tag;
+
+            // ul에 마지막페이지 번호 저장.
+            $pageUl.dataset.fp = pageInfo.finalPage;
+        }
+
+        // 페이지 버튼 클릭이벤트 등록 함수
+        function makePageButtonClickEvent() {
+            // 페이지 버튼 클릭이벤트 처리
+            const $pageUl = document.querySelector('.pagination');
+            $pageUl.onclick = e => {
+                if (!e.target.matches('.page-item a')) return;
+                e.preventDefault();
+                // 누른 페이지 번호 가져오기
+                const pageNum = e.target.getAttribute('href');
+                // 페이지 번호에 맞는 목록 비동기 요청
+                showReplies(pageNum);
+            };
+        }
+
+        // 댓글 등록 이벤트 처리 핸들러 등록 함수
+        function makeReplyRegisterClickEvent() {
+            const notLogged = document.querySelector('.comment_write');
+            if ('${loginUser}' === '') {
+                notLogged.setAttribute('disabled', 'true');
+                notLogged.setAttribute('placeholder', '로그인 후 사용해 주세요')
+            } else {
+                notLogged.removeAttribute('disabled');
+                notLogged.setAttribute('placeholder', 'Comment')
+            }
+
+            document.getElementById('replyAddBtn').onclick = makeReplyRegisterClickHandler;
+        }
+
+        // 댓글 등록 이벤트 처리 핸들러 함수
+        function makeReplyRegisterClickHandler(e) {
+            const $writerInput = document.getElementById('email2');
+            const $contentInput = document.getElementById('comments2');
+            // 서버로 전송할 데이터들
+            const replyData = {
+                email: $writerInput.value,
+                content: $contentInput.value,
+                reviewBno: bno,
+                nickName: '${loginUser.nickName}'
+            };
+            // POST요청을 위한 요청 정보 객체
+            const reqInfo = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(replyData)
+            };
+            fetch('/reply', reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'insert-success') {
+                        alert('댓글 등록 성공');
+                        // 댓글 입력창 리셋
+                        $contentInput.value = '';
+                        // 댓글 목록 재요청
+                        showReplies();
+                    } else {
+                        alert('댓글 등록 실패');
+                    }
+                });
+        }
+
+
+        function upLikeCountEvent() {
+
+
+            if ('${isLiked}' === "true" ) {
+                document.getElementById(bno).classList.add('icon_heart');
+                document.getElementById(bno).classList.remove('icon_heart_alt');
+            }
+
+            const upCount = document.querySelector('.upCount');
+            upCount.onclick = e => {
+                if ('${loginUser}' === '') {
+                    alert('로그인 후 사용 가능합니다');
+                } else {
+                    likeOrUnlike(e);
+                }
+            };
+        }
+
+        function likeOrUnlike() {
+            // 서버에 수정 비동기 요청 보내기
+            // console.log(rno);
+            const reqInfo = {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            };
+
+            const email = '${loginUser.email}';
+            fetch('/review/updownlike?reviewBno=' + bno + '&email=' + email, reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'up-success') {
+                        alert('upLike 성공!!');
+                        showUpLike(); // 좋아요 새로불러오기
+                    } else {
+                        alert('downLike 성공!!');
+                        showDownLike();
+                    }
+                });
+        }
+
+        function showUpLike() {
+            fetch('/review/getLike?reviewBno=' + bno)
+                .then(res => res.text())
+                .then(likeCnt => {
+                    document.getElementById(bno).classList.add('icon_heart');
+                    document.getElementById(bno).classList.remove('icon_heart_alt');
+                    document.getElementById("heart" + bno).innerHTML = likeCnt;
+                });
+        }
+
+        function showDownLike() {
+            fetch('/review/getLike?reviewBno=' + bno)
+                .then(res => res.text())
+                .then(likeCnt => {
+                    document.getElementById(bno).classList.remove('icon_heart');
+                    document.getElementById(bno).classList.add('icon_heart_alt');
+                    document.getElementById("heart" + bno).innerHTML = likeCnt;
+                });
+        }
+    </script>
 
 
 </body>

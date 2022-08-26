@@ -43,7 +43,7 @@
 							<div class="divider"><span>Or</span></div> -->
                             <h6>회원가입 당시의 계정 이메일, 성함, 전화번호, 생년월일을 입력하세요.</h6>
                             <br>
-                            <form id="find-pw-form" action="/find-pw" method="post">
+                            <form id="find-pw-form" action="/find/pw" method="post">
 
                                 <div>
                                     <span id="emailChk"></span>
@@ -146,12 +146,10 @@
                     $emailChk.text('잘못된 이메일 형식입니다.');
                     $emailChk.css('color', 'red');
                     checkArr[0] = false;
-                } 
-                
-                else {
+                } else {
                     // 정상적으로 입력한 경우
                     $emailInput.css('border-color', 'greenyellow');
-                    $emailChk.text('사용 가능한 이메일입니다');
+                    $emailChk.text('');
                     $emailChk.css('color', 'green');
                     checkArr[0] = true;
                 }
@@ -228,6 +226,33 @@
             const $phoneChk = $('#phoneChk');
 
             $phoneNumInput.on('keyup', e => {
+
+                // 아무 입력도 하지 않은 경우
+                if ($phoneNumInput.val().trim() === '') {
+                    $phoneNumInput.css('border-color', 'red');
+                    $phoneChk.text('필수 입력사항입니다.');
+                    $phoneChk.css('color', 'red');
+                    checkArr[3] = false;
+                }
+
+                // 입력값이 전화번호 정규표현식에 위배될 경우
+                else if (!getPhoneNum.test($phoneNumInput.val())) {
+                    $phoneNumInput.css('border-color', 'red');
+                    $phoneChk.text('올바른 전화번호 양식이 아닙니다. 입력을 확인해주세요. 예시: 010-1234-5678');
+                    $phoneChk.css('color', 'red');
+                    checkArr[3] = false;
+                }
+
+                // 정상 입력인 경우
+                else {
+                    $phoneNumInput.css('border-color', 'greenyellow');
+                    $phoneChk.text('');
+                    checkArr[3] = true;
+                }
+
+            });
+
+            $phoneNumInput.on('change', e => {
 
                 // 아무 입력도 하지 않은 경우
                 if ($phoneNumInput.val().trim() === '') {

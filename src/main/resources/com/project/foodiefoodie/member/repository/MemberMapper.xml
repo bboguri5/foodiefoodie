@@ -132,7 +132,7 @@
 
     <update id="changePw">
         UPDATE member
-        SET password = #{encodedPw}
+        SET password = #{newPw}
         WHERE email = #{email}
     </update>
 

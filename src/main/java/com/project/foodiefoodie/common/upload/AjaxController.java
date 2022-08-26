@@ -1,6 +1,6 @@
 package com.project.foodiefoodie.common.upload;
 
-import com.project.foodiefoodie.util.FileUtils;
+import com.project.foodiefoodie.util.FoodieFileUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +22,7 @@ import java.util.List;
 @Log4j2
 public class AjaxController {
 
-    public static final String UPLOAD_PATH = "E:\\foodiefoodie\\upload";
+    public static final String UPLOAD_PATH = "C:\\foodiefoodie\\upload";
 
 
     // 비동기 파일 업로딩 처리.
@@ -44,7 +44,7 @@ public class AjaxController {
                     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 }
 
-                String fullPath = FileUtils.uploadFile(file, UPLOAD_PATH);
+                String fullPath = FoodieFileUtils.uploadFile(file, UPLOAD_PATH);
 
                 fileNames.add(fullPath);
             }
@@ -76,10 +76,10 @@ public class AjaxController {
         try (FileInputStream fis = new FileInputStream(file)) {
 
             // 확장자 추출
-            String ext = FileUtils.getFileExtension(fileName);
+            String ext = FoodieFileUtils.getFileExtension(fileName);
 
             // 미디어 타입으로 변환 - 이미지가 아니라면 null 리턴
-            MediaType mediaType = FileUtils.getMediaType(ext);
+            MediaType mediaType = FoodieFileUtils.getMediaType(ext);
 
             HttpHeaders headers = new HttpHeaders();
 

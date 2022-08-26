@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE htll>
+<htll lang="en">
 
 <head>
 
@@ -29,38 +29,40 @@
 </head>
 
 <body>
-    
+
     <%@ include file="../include/detail-header.jsp" %>
 
 
     <main>
+
         <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
             <div class="row">
-                <c:forEach var="sl" items="${searchList}" varStatus="status">
+                <c:forEach var="ll" items="${locations}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <c:if test="${sl.hotDeal == 'Y'.charAt(0) && sl.endDate > todayDate}">
-									<span class="ribbon off">${sl.discountPrice}</span>
+                                <c:if test="${ll.hotDeal == 'Y'.charAt(0) && ll.endDate > todayDate}">
+									<span class="ribbon off">${ll.discountPrice}</span>
 								</c:if>
-                                <img src="${sl.filePath}" data-src="${sl.filePath}" class="img-fluid lazy"
+                                <img src="${ll.filePath}" data-src="${ll.filePath}" class="img-fluid lazy"
                                     alt="">
-                                <a href="detail-restaurant.html" class="strip_info">
-                                    <c:if test="${sl.hotDeal == 'Y'.charAt(0) && sl.endDate > todayDate}">
-                                        <small>기간: ${sl.endDate}</small>
+                                <a href="detail-restaurant.htll" class="strip_info">
+                                    <c:if test="${ll.hotDeal == 'Y'.charAt(0) && ll.endDate > todayDate}">
+                                        <small>기간: ${ll.endDate}</small>
                                     </c:if>
                                     <div class="item_title">
-                                        <h3>${sl.storeName}</h3>
+                                        <h3>${ll.storeName}</h3>
+                                        <small># : ${ll.hashTag}</small>
                                     </div>
                                 </a>
                             </figure>
                             <ul>
-                                <li><span>${sl.storeAddress}</span></li>
+                                <li><span>${ll.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>푸디푸디 추천 맛집<em>${sl.reviewCnt}개
-                                                리뷰</em></span><strong>${sl.avgStarRate}</strong></div>
+                                    <div class="score"><span>근처 맛집<em>${ll.reviewCnt}개
+                                                리뷰</em></span><strong>${ll.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>
@@ -77,29 +79,27 @@
 
                             <c:if test="${pm.prev}">
                                 <li class="page-item"><a class="page-link"
-                                        href="/list?pageNum=${pm.beginPage - 1}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">Prev</a>
+                                        href="/locationlist?storeAddress=${address}&pageNum=${pm.beginPage - 1}&amount=${pm.getPage().getAmount()}">Prev</a>
                                 </li>
                             </c:if>
 
                             <!-- step=1인 경우,, 생략 가능!! -->
                             <c:forEach var="n" begin="${pm.beginPage}" end="${pm.endPage}" step="1">
                                 <li data-page-num="${n}" class="page-item"><a class="page-link"
-                                        href="/list?pageNum=${n}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">${n}</a>
+                                        href="/locationlist?storeAddress=${address}&pageNum=${n}&amount=${pm.getPage().getAmount()}">${n}</a>
                                 </li>
                             </c:forEach>
 
 
                             <c:if test="${pm.next}">
                                 <li class="page-item"><a class="page-link"
-                                        href="/list?pageNum=${pm.endPage + 1}&amount=${pm.page.amount}&type=${s.type}&keyword=${s.keyword}">Next</a>
+                                        href="/locationlist?storeAddress=${address}&pageNum=${pm.endPage + 1}&amount=${pm.getPage().getAmount()}">Next</a>
                                 </li>
                             </c:if>
                         </ul>
                     </nav>
                 </div>
             </div>
-            <!-- /container -->
-
     </main>
     <!-- /main -->
 
@@ -107,4 +107,4 @@
 
 </body>
 
-</html>
+</htll>

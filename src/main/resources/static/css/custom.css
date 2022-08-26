@@ -6,8 +6,13 @@
     width: 83%;
   }
 
+  .page_header .container .row .search {
+    display: flex;
+  }
+
   .page_header .container .row .search form {
     display: flex;
+    width: 80%;
   }
 
   .page_header .container .row .search .form-select {
@@ -20,4 +25,22 @@
   .page_header .container .row .search .row {
     flex: 10;
   }
-  
+
+  .page_header .container .row .search .col-xl-8 {
+    width: 20%;
+  }
+
+  .page_header .container .row .search nav.main-menu {
+    height: 100%;
+    margin-right: 40px;
+
+}
+
+.page_header .container .row .search .submenu .show-submenu {
+    color: #589442;
+}
+
+  /* review */
+  .search-header {
+    width: 30%;
+  }

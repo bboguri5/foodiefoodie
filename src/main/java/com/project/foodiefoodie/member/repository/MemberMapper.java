@@ -55,11 +55,11 @@ public interface MemberMapper {
     boolean remove(String email);
 
 
-    String findEmail(FindEmailDTO dto);
+    List<String> findEmail(FindEmailDTO dto);
 
     int findPw(FindPwDTO dto);
 
-    boolean changePw(String email, String pw);
+    boolean changePw(String email, String newPw);
 
 
     // 비밀번호 가져오는 메서드 // 이걸로 비밀번호만 검증할것임 // 수정할때나 , 비밀번호 바꿀때

@@ -50,4 +50,21 @@ class ReviewBoardServiceTest {
             }
         }
     }
+
+    @Test
+    void insertTest() {
+        ReviewBoard rb = new ReviewBoard();
+        rb.setEmail("hwseo98@naver.com");
+        rb.setTitle("새로운 타이틀이야");
+        rb.setContent("내용이 겁나 길면 어케 되는거야!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~!!!!!!!!!!!!! 먀ㅐㅇ러내ㅑㅇ럼냐ㅐ러ㅑㅐㄴㄷ멀ㄴ댜ㅐㅓ랴ㅐㅁㄴ더랴ㅐㄴ더랴ㅐㄴ더래ㅑㅁ너래ㅑㄴ더랴ㅐㅁㄴ더랴ㅐㅁㄴ더래ㅓ" +
+                        "멍랴ㅐㅁ너랴ㅐㄴㄷ머랴ㅐㄴㅁ덜먀ㅐ더랴ㅐㄴ더랴ㅐㄷ너랴ㅐㄴ덜먀 만 ㅑ맨러내ㅑ더랴ㅐㅁㄴㄷ러ㅐㅁㄴㄷㄹ" +
+                        "ㄴ러냐ㅐ런댜ㅐ럼ㄴ댜ㅐ럳먀ㅐ럼ㄴ댜ㅐ러ㅑㅐㄷㄴ러ㅑㅐㄴㄷ멀ㄴ댜ㅐ럳냐ㅐ러ㅑㅐ멀댜ㅐㅓ랴매널먀ㅐㄷ너래 더ㅑ 너무 맛나" +
+                        "ㅁ랴ㅓㅁㄴ댜대러먀ㅐㅓ캬ㅐㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ" +
+                        "아주 ggggggggggggggggggggggggggggggggggggggggggggggggggasdfsdfsfkajwehfiushefiuhseiufiullllllllllllllllsfhsfjhwefhweiafasefwefewfwe" +
+                "재멍래ㅑㅈ더래ㅓ랮더랴ㅐ젇랴ㅐㅓ대ㅑㅁ렂대ㅑㅓㅐㅑ러");
+        rb.setBusinessNo("1234-2222-3333-1113" + 5);
+        rb.setStarRate(5);
+
+        service.saveService(rb);
+    }
 }

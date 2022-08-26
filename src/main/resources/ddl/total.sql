@@ -393,16 +393,45 @@ commit;
 
 
 ----------------------------------------------------------- 08 / 15
-create table PROMOTION_STORE_TIME
-(
-    promotion_bno number(10) NOT NULL
-    ,weekdayOpenTime number(8) NOT NULL
-    ,weekdayCloseTime number(8) NOT NULL
-    ,weekendOpenTime number(8) NOT NULL
-    ,weekendCloseTime number(8) NOT NULL
-    ,breakStartTime number(8) NOT NULL
-    ,breakEndTime number(8) NOT NULL
-    ,closedDay VARCHAR2(2)
-    , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
-    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-);
+
+ create table PROMOTION_STORE_TIME
+    (
+        promotion_bno number(10) NOT NULL
+        ,weekdayOpenTime number(8) NOT NULL
+        ,weekdayCloseTime number(8) NOT NULL
+        ,weekendOpenTime number(8) NOT NULL
+        ,weekendCloseTime number(8) NOT NULL
+        ,breakStartTime number(8) NOT NULL
+        ,breakEndTime number(8) NOT NULL
+        ,closedDay VARCHAR2(20)
+        , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
+        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+    );
+
+
+   ------------------------------------------------------------- 08 / 24
+
+alter table review_board modify star_rate NUMBER(2,1) DEFAULT 2.5;
+
+ALTER TABLE hot_deal DROP COLUMN start_date ;
+ALTER TABLE hot_deal DROP COLUMN end_date ;
+
+   CREATE TABLE order_list (
+       order_no NUMBER(8) PRIMARY KEY -- 주문 번호
+       , business_no VARCHAR2(50) NOT NULL -- 주문이 들어간 가게 사업자 번호
+       , CONSTRAINT fk_order_busi_no FOREIGN KEY (business_no)
+       REFERENCES MASTER (business_no) ON DELETE CASCADE
+       , email VARCHAR2(50) NOT NULL -- 주문한 사람 계정 이메일
+       , CONSTRAINT fk_order_email FOREIGN KEY (email)
+       REFERENCES member (email) ON DELETE CASCADE
+       , order_date DATE DEFAULT SYSDATE -- 주문 날짜
+   );
+
+   CREATE TABLE order_detail (
+       order_no NUMBER(8) NOT NULL -- 주문 번호
+       , CONSTRAINT fk_order_no FOREIGN KEY (order_no)
+       REFERENCES order_list (order_no) ON DELETE CASCADE
+       , order_menu VARCHAR2(50) NOT NULL -- 주문한 메뉴명
+       , menu_ea NUMBER(2) NOT NULL -- 주문 수량
+       , price NUMBER(10) NOT NULL -- 가격
+   );

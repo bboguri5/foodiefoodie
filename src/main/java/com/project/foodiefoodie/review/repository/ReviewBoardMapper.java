@@ -2,9 +2,9 @@ package com.project.foodiefoodie.review.repository;
 
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
-import com.project.foodiefoodie.review.dto.AvgStarDTO;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,11 +23,26 @@ public interface ReviewBoardMapper {
 //    // 해당 가게 리뷰 게시물 별점 총점 가져오기
 //    List<AvgStarDTO> avgStarRate();
 
-    List<ReviewBoardDTO> findAllReviews();
+    List<ReviewBoardDTO> findAllReviews(String sort);
 
     ReviewBoardDTO findOneReview(long reviewBno);
 
     List<ReviewUpload> findReviewUploads(long reviewBno);
 
     void reviewUpload(long reviewBno, String filePath, String fileName);
+
+    boolean upLike(long reviewBno);
+
+    int getLike(long reviewBno);
+
+    int isLiked(@Param("reviewBno") long reviewBno, @Param("email") String email);
+
+    boolean downLike(long reviewBno);
+
+    boolean saveReviewLike(long reviewBno, String email);
+
+    boolean deleteReviewLike(long reviewBno, String email);
+
+    List<ReviewBoardDTO> searchAllReview(@Param("search") String search, @Param("sort") String sort);
+
 }

@@ -5,34 +5,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Ansonika">
-    <title>FOOGRA - Admin dashboard</title>
 
-    <!-- Favicons-->
-    <link rel="shortcut icon" href="/mypage/img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="/mypage/img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
-        href="/mypage/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-        href="/mypage/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-        href="/mypage/img/apple-touch-icon-144x144-precomposed.png">
-
-    <!-- Bootstrap core CSS-->
-    <link href="/mypage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Main styles -->
-    <link href="/mypage/css/admin.css" rel="stylesheet">
-    <!-- Icon fonts-->
-    <link href="/mypage/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- Plugin styles -->
-    <link href="/mypage/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-    <link href="/mypage/vendor/dropzone.css" rel="stylesheet">
-    <!-- Your custom styles -->
-    <link href="/mypage/css/custom.css" rel="stylesheet">
+    <%@ include file="/WEB-INF/views/myPage/include/mypage-static-head.jsp" %>
 
     <style>
         .btnbox .btn {
@@ -258,7 +232,7 @@
 			</div>
 		</div> -->
         <!-- /row-->
-      
+
         <div class="btnbox">
             <button type="button" class="btn successModify btn-success">수정 완료 </button>
             <button type="button" class="btn return btn-primary">되돌아 가기</button>
@@ -268,50 +242,9 @@
     <!-- /.container-fluid-->
     </div>
     <!-- /.container-wrapper-->
-    <footer class="sticky-footer">
-        <div class="container">
-            <div class="text-center">
-                <small>Copyright © FOOGRA 2021</small>
-            </div>
-        </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="#0">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="/mypage/vendor/jquery/jquery.min.js"></script>
-    <script src="/mypage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="/mypage/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="/mypage/vendor/chart.js/Chart.min.js"></script>
-    <script src="/mypage/vendor/datatables/jquery.dataTables.js"></script>
-    <script src="/mypage/vendor/datatables/dataTables.bootstrap4.js"></script>
-    <script src="/mypage/vendor/jquery.magnific-popup.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="/mypage/js/admin.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="/mypage/vendor/dropzone.min.js"></script>
+
+
+    <%@ include file="/WEB-INF/views/myPage/include/mypage-footer.jsp" %>
 
 
     <!-- 게시글 상세보기 관련 script -->
@@ -325,15 +258,15 @@
             $successModiBtn.onclick = e => {
                 e.preventDefault();
                 console.log("수정완료버튼 눌렀다 ! / 수정되서 다시 내 프로필로 돌아가는거임 ");
-                // 클릭까지는 됨 서브밋이 안됨 
+                // 클릭까지는 됨 서브밋이 안됨
 
-                // 주소 검증 
+                // 주소 검증
                 const $addrApiInputList = $('.addr-api');
                 const $addressDiv = $('.addressDiv');
 
 
                 for (let addrInput of $addrApiInputList) {
-                    // 인풋창이 비어있는지 확인 
+                    // 인풋창이 비어있는지 확인
                     if (addrInput.value.trim() === '') {
                         addrInput.style.borderColor = 'red';
                         $addressDiv.text('필수 입력사항입니다. 원활한 서비스 이용을 위해 정확한 주소를 입력하세요.');
@@ -344,7 +277,7 @@
                     }
 
                 }
-                // 위에 과정을 거친거면 
+                // 위에 과정을 거친거면
                 $addressDiv.text('');
                 checkArr[2] = true;
                 for (let i of checkArr) {
@@ -361,7 +294,7 @@
         }
 
         if ($returnBtn !== null) {
-            // 되돌아가기!! 
+            // 되돌아가기!!
 
             $returnBtn.onclick = e => {
                 console.log("되돌이가기 , 수정안하고 그냥 뒤로가는기능 ");
@@ -444,18 +377,18 @@
             const getNickName = RegExp(/^[a-zA-Zㄱ-힣0-9]{2,12}$/);
             const getPhoneNum = RegExp(/^010-([0-9]{3,4})-([0-9]{4})$/);
 
-            // 닉네임 검증 // 
+            // 닉네임 검증 //
             const $nickInput = $('.nickInput');
             const $nickLabel = $('.nickLabel');
 
             const $nickChk = $('.nickSpan');
 
-            // 핸드폰 번호 검증 
+            // 핸드폰 번호 검증
             const $phoneNumInput = $('.phoneNumInput');
             const $phonLabel = $('.phonLabel');
             const $phoneChk = $('.phoneSpan');
 
-            // 주소 검증 
+            // 주소 검증
             const $addrApiInputList = $('.addr-api');
             const $addressDiv = document.querySelector('.addressDiv')
 
@@ -553,14 +486,14 @@
                 $successModiBtn.onclick = e => {
                     e.preventDefault();
                     console.log("수정완료버튼 눌렀다 ! / 수정되서 다시 내 프로필로 돌아가는거임 ");
-                    // 클릭까지는 됨 서브밋이 안됨 
+                    // 클릭까지는 됨 서브밋이 안됨
 
-                    // 주소 검증 
+                    // 주소 검증
                     const $addrApiInputList = $('.addr-api');
                     const $addressDiv = $('.addressDiv');
 
                     for (let addrInput of $addrApiInputList) {
-                        // 인풋창이 비어있는지 확인 
+                        // 인풋창이 비어있는지 확인
                         if (addrInput.value.trim() === '') {
                             addrInput.style.borderColor = 'red';
                             $addressDiv.text('필수 입력사항입니다. 원활한 서비스 이용을 위해 정확한 주소를 입력하세요.');
@@ -571,7 +504,7 @@
                         }
 
                     }
-                    // 위에 과정을 거친거면 
+                    // 위에 과정을 거친거면
                     $addressDiv.text('');
                     checkArr[2] = true;
                     for (let i of checkArr) {
@@ -588,7 +521,7 @@
             }
 
             if ($returnBtn !== null) {
-                // 되돌아가기!! 
+                // 되돌아가기!!
 
                 $returnBtn.onclick = e => {
                     console.log("되돌이가기 , 수정안하고 그냥 뒤로가는기능 ");

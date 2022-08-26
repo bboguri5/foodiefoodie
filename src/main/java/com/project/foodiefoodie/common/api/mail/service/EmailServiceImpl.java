@@ -32,16 +32,17 @@ public class EmailServiceImpl implements EmailService {
         message.addRecipients(RecipientType.TO, email); // 보내는 대상
         message.setSubject("foodie foodie 비밀번호 찾기용 이메일 인증"); // 제목
         String msgg="";
-        msgg+= "<div style='margin:100px;'>";
-        msgg+= "<h1> FoodieFoodie </h1>";
+        msgg+= "<div style='margin:100px;' align='center'>";
+        msgg+= "<img src='https://i.imgur.com/YpWDRkZ.png' alt='로고 이미지' style='width='250px'; height='250px';'>";
+//        msgg+= "<h1> FoodieFoodie </h1>";
         msgg+= "<br>";
-        msgg+= "<p>아래 코드를 인증코드 입력란에 입력해주세요.<p>";
+        msgg+= "<h1>아래 코드를 인증코드 입력란에 입력해주세요.<p>";
         msgg+= "<br>";
-        msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
+        msgg+= "<div style='font-family:verdana';>";
         msgg+= "<h3 style='color:blue;'>비밀번호 찾기용 인증 코드</h3>";
         msgg+= "<div style='font-size:130%'>";
         msgg+= "CODE : <strong>";
-        msgg+= authCode +"</strong><div><br/> ";
+        msgg+= authCode +"</strong></div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html"); // 내용
         message.setFrom(new InternetAddress("kdf556@naver.com","FoodieFoodie")); // 보내는 사람

@@ -152,10 +152,13 @@ public class FoodieFileUtils {
     }
 
     private static String convertBlobToBase64 (byte[] blob) {
+        log.info("여기서 안되는듯?");
         return new String(Base64.getEncoder().encode(blob));
     }
 
     private static  byte[] getImgByte(String fileFullPath){
+
+        log.info("getImgByte {}",fileFullPath);
 
         byte[] bytes;
         try {

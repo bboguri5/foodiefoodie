@@ -134,7 +134,7 @@
                                 <!-- <li><a href="#"><i class="icon_folder-alt"></i> Category</a></li> -->
                                 <li><i class="icon_calendar"></i> ${review.lastUpdated}</li>
                                 <li><a href="#"><i class="icon_pencil-edit"></i> ${review.email}</a></li>
-                                <li><a href="#"><i class="icon_comment_alt"></i> (${replyCount}) Comments</a></li>
+                                <li><a href="#section-comment"><i class="icon_comment_alt"></i> (${replyCount}) Comments</a></li>
                                 <li class="upCount"><a href="#"><i id="${review.reviewBno}"
                                             class="icon_heart_alt"></i><span
                                             id="heart${review.reviewBno}">${review.likeCnt}</span></a></li>
@@ -152,6 +152,7 @@
                     </div>
                     <!-- /single-post -->
 
+                    <a name="section-comment"></a>
                     <div id="comments">
                         <h5>Comments</h5>
 
@@ -164,10 +165,7 @@
 
                     <hr>
 
-                    <a name="section-comment"></a>
                     <h5>Leave a comment</h5>
-                    <c:if test="${empty loginUser}">로그인 후에 댓글을 달 수 있습니다.</c:if>
-                    <c:if test="${not empty loginUser}">
                         <div class="row">
                             <div class="col-md-4 col-sm-6">
                                 <div class="form-group">
@@ -189,7 +187,6 @@
                         <div id="replyAddBtn" class="form-group">
                             <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
                         </div>
-                    </c:if>
                 </div>
                 <!-- /col -->
             </div>
@@ -330,6 +327,15 @@
 
         // 댓글 등록 이벤트 처리 핸들러 등록 함수
         function makeReplyRegisterClickEvent() {
+            const notLogged = document.querySelector('.comment_write');
+            if ('${loginUser}' === '') {
+                notLogged.setAttribute('disabled', 'true');
+                notLogged.setAttribute('placeholder', '로그인 후 사용해 주세요')
+            } else {
+                notLogged.removeAttribute('disabled');
+                notLogged.setAttribute('placeholder', 'Comment')
+            }
+
             document.getElementById('replyAddBtn').onclick = makeReplyRegisterClickHandler;
         }
 
@@ -378,7 +384,7 @@
 
             const upCount = document.querySelector('.upCount');
             upCount.onclick = e => {
-                if ('${loginUser}' == null) {
+                if ('${loginUser}' === '') {
                     alert('로그인 후 사용 가능합니다');
                 } else {
                     likeOrUnlike(e);

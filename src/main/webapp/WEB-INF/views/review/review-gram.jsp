@@ -188,7 +188,7 @@
 		const upCount = document.querySelector('.upCount');
 		upCount.addEventListener('click', e => {
 			if (e.target.classList.contains('heartIcon')) {
-				if ('${loginUser}' == null) {
+				if ('${loginUser}' === '') {
 					alert('로그인 후 사용 가능합니다');
 				} else {
 					likeOrUnlike(e);

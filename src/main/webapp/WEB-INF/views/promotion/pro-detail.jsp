@@ -148,128 +148,32 @@
     .openWriteBtn {
         width: 50px;
         height: 50px;
+    .quantity {
+        display: inline;
+        margin-left: 470px;
+    }
+
+    .icon_minus_alt2:hover {
+        cursor: pointer;
+    }
+
+    .icon_minus_alt2 {
+        margin-right: 20px;
+    }
+
+    .icon_plus_alt2:hover {
+        cursor: pointer;
+    }
+
+    .icon_plus_alt2 {
+        margin-left: 20px;
     }
 </style>
 
 <body>
 
-    <!-- header -->
-    <header class="header_in clearfix">
-        <div class="container">
-            <div id="logo">
-                <a href="index.html">
-                    <img src="/img/logo_sticky.svg" width="140" height="35" alt="">
-                </a>
-            </div>
-            <ul id="top_menu">
-                <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
-            </ul>
-            <!-- /top_menu -->
-            <a href="#0" class="open_close">
-                <i class="icon_menu"></i><span>Menu</span>
-            </a>
-            <nav class="main-menu">
-                <div id="header_menu">
-                    <a href="#0" class="open_close">
-                        <i class="icon_close"></i><span>Menu</span>
-                    </a>
-                    <a href="index.html"><img src="/img/logo.svg" width="140" height="35" alt=""></a>
-                </div>
-                <ul>
-                    <li class="submenu">
-                        <a href="#0" class="show-submenu">Home</a>
-                        <ul>
-                            <li><a href="index.html">Default</a></li>
-                            <li class="third-level"><a href="#0">Sliders - Parallax <strong>New!</strong></a>
-                                <ul>
-                                    <li><a href="index-8.html">Revolution Slider 1</a></li>
-                                    <li><a href="index-9.html">Revolution Slider 2</a></li>
-                                    <li><a href="index-3.html">Owl Carousel</a></li>
-                                    <li><a href="index-10.html">Parallax Youtube</a></li>
-                                    <li><a href="index-11.html">Parallax Vimeo</a></li>
-                                    <li><a href="index-12.html">Parallax Mp4 Video</a></li>
-                                    <li><a href="index-13.html">Parallax Video Fullscreen</a></li>
-                                    <li><a href="index-14.html">Parallax Image</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="index-15.html">Text Rotator</a></li>
-                            <li><a href="index-5.html">Address Autocomplete</a></li>
-                            <li><a href="index-6.html">Search Version 2</a></li>
-                            <li><a href="index-7.html">Delivery/Takeaway version</a></li>
-                            <li><a href="modal-advertise.html">Modal Advertise</a></li>
-                            <li><a href="modal-newsletter.html">Modal Newsletter</a></li>
-                            <li><a href="index-2.html">Video Bg Fallback Mobile</a></li>
-                            <li><a href="index-4.html">GDPR Cookie Bar EU Law</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#0" class="show-submenu">Listing</a>
-                        <ul>
-                            <li class="third-level"><a href="#0">List pages</a>
-                                <ul>
-                                    <li><a href="grid-listing-filterscol.html">List default</a></li>
-                                    <li><a href="grid-listing-filterscol-map.html">List with map</a></li>
-                                    <li><a href="listing-map.html">List side map</a></li>
-                                    <li><a href="grid-listing-filterscol-full-width.html">List full width</a></li>
-                                    <li><a href="grid-listing-filterscol-full-masonry.html">List Masonry Filter</a></li>
-                                    <li><a href="grid-listing-filterscol-delivery.html">List Delivery/Takeaway</a></li>
-                                </ul>
-                            </li>
-                            <li class="third-level"><a href="#0">Detail pages</a>
-                                <ul>
-                                    <li><a href="detail-restaurant.html">Detail page 1</a></li>
-                                    <li><a href="detail-restaurant-2.html">Detail page 2</a></li>
-                                    <li><a href="detail-restaurant-3.html">Mobile Fixed Booking</a></li>
-                                    <li><a href="detail-restaurant-delivery.html">Delivery/Takeaway</a></li>
-                                    <li><a href="detail-restaurant-4.html">Detail Menu Thumbs</a></li>
-                                    <li><a href="detail-restaurant-5.html">Detail Contact Form</a></li>
-                                </ul>
-                            </li>
-                            <li class="third-level"><a href="#0">OpenStreetMap</a>
-                                <ul>
-                                    <li><a href="grid-listing-filterscol-map-openstreetmap.html">List with map</a></li>
-                                    <li><a href="listing-map-openstreetmap.html">List side map</a></li>
-                                    <li><a href="grid-listing-filterscol-full-width-openstreetmap.html">List full
-                                            width</a></li>
-                                    <li><a href="grid-listing-filterscol-full-masonry-openstreetmap.html">List Masonry
-                                            Filter</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="submit-restaurant.html">Submit Restaurant</a></li>
-                            <li><a href="submit-rider.html">Submit Rider</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="booking.html">Booking</a></li>
-                            <li><a href="confirm.html">Confirm Booking</a></li>
-                            <li><a href="confirm-delivery.html">Confirm Order</a></li>
-                            <li><a href="booking-delivery-2.html">Order Delivery/Takeaway</a></li>
-                            <li><a href="booking-delivery.html">Order Delivery/Takeaway 2</a></li>
-                            <li><a href="admin_section/index.html" target="_blank">Admin Section</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#0" class="show-submenu">Other Pages</a>
-                        <ul>
-                            <li><a href="404.html">404 Error</a></li>
-                            <li><a href="help.html">Help and Faq</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="leave-review.html">Leave a review</a></li>
-                            <li><a href="user-logged-1.html">User Logged 1</a></li>
-                            <li><a href="user-logged-2.html">User Logged 2</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="coming_soon/index.html">Coming Soon</a></li>
-                            <li><a href="account.html">Sign Up</a></li>
-                            <li><a href="icon-pack-1.html">Icon Pack 1</a></li>
-                            <li><a href="icon-pack-2.html">Icon Pack 2</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="submit-restaurant.html">Submit</a></li>
-                    <li><a href="#0">Buy this template</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <!-- /header -->
+    <%@ include file="../include/header.jsp" %>
+
 
     <!-- main -->
     <main>
@@ -422,6 +326,12 @@
                                 </div>
                             </div>
                             <!-- /A type -->
+
+
+
+
+
+
                             <!-- B type -->
                             <div id="pane-B" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
                                 <div class="card-header" role="tab" id="heading-B">
@@ -452,10 +362,11 @@
                                                                 class="lazy">
                                                         </a>
                                                     </figure>
-                                                    <div class="menuInfo">
-                                                        <h4>${menu.menuName}</h4>
-                                                        <em>${menu.menuPrice}</em>
-                                                        <button class="menuAddBtn" type="button">방문포장</button>
+                                                    <div id="menu${menu.menuNo}" class="menuInfo">
+                                                        <h4 id="menu-name${menu.menuNo}">${menu.menuName}</h4>
+                                                        <em id="menu-price${menu.menuNo}">${menu.menuPrice}</em>
+                                                        <button id="${menu.menuNo}" class="menuAddBtn"
+                                                            type="button">방문포장</button>
                                                     </div>
                                                 </div>
                                             </c:forEach>
@@ -472,149 +383,25 @@
                                             </div>
                                             <!-- /head -->
                                             <div class="main">
-                                                <ul class="clearfix">
-                                                    <li><a href="#0">1x Enchiladas</a><span>$11</span></li>
-                                                    <li><a href="#0">2x Burrito</a><span>$14</span></li>
-                                                    <li><a href="#0">1x Chicken</a><span>$18</span></li>
-                                                    <li><a href="#0">2x Corona Beer</a><span>$9</span></li>
-                                                    <li><a href="#0">2x Cheese Cake</a><span>$11</span></li>
+                                                <ul id="async-order-list" class="clearfix click-target">
+
                                                 </ul>
 
+                                                <form action="#" method="get">
+                                                    <input hidden value="" type="text">
+                                                </form>
+
                                                 <ul class="clearfix">
-                                                    <li>Subtotal<span>$56</span></li>
-                                                    <li>Delivery fee<span>$10</span></li>
-                                                    <li class="total">Total<span>$66</span></li>
+                                                    <li class="total">Total<span id="total">0</span></li>
                                                 </ul>
-                                                <div class="row opt_order">
-                                                    <div class="col-6">
-                                                        <label class="container_radio">Delivery
-                                                            <input type="radio" value="option1" name="opt_order"
-                                                                checked="">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <label class="container_radio">Take away
-                                                            <input type="radio" value="option1" name="opt_order">
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="dropdown day">
-                                                    <a href="#" data-bs-toggle="dropdown">Day <span
-                                                            id="selected_day"></span></a>
-                                                    <div class="dropdown-menu">
-                                                        <div class="dropdown-menu-content">
-                                                            <h4>Which day delivered?</h4>
-                                                            <div class="radio_select chose_day">
-                                                                <ul>
-                                                                    <li>
-                                                                        <input type="radio" id="day_1" name="day"
-                                                                            value="Today">
-                                                                        <label for="day_1">Today<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="day_2" name="day"
-                                                                            value="Tomorrow">
-                                                                        <label for="day_2">Tomorrow<em>-40%</em></label>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- /people_select -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /dropdown -->
-                                                <div class="dropdown time">
-                                                    <a href="#" data-bs-toggle="dropdown">Time <span
-                                                            id="selected_time"></span></a>
-                                                    <div class="dropdown-menu">
-                                                        <div class="dropdown-menu-content">
-                                                            <h4>Lunch</h4>
-                                                            <div class="radio_select add_bottom_15">
-                                                                <ul>
-                                                                    <li>
-                                                                        <input type="radio" id="time_1" name="time"
-                                                                            value="12.00am">
-                                                                        <label for="time_1">12.00<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_2" name="time"
-                                                                            value="08.30pm">
-                                                                        <label for="time_2">12.30<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_3" name="time"
-                                                                            value="09.00pm">
-                                                                        <label for="time_3">1.00<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_4" name="time"
-                                                                            value="09.30pm">
-                                                                        <label for="time_4">1.30<em>-40%</em></label>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- /time_select -->
-                                                            <h4>Dinner</h4>
-                                                            <div class="radio_select">
-                                                                <ul>
-                                                                    <li>
-                                                                        <input type="radio" id="time_5" name="time"
-                                                                            value="08.00pm">
-                                                                        <label for="time_1">20.00<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_6" name="time"
-                                                                            value="08.30pm">
-                                                                        <label for="time_2">20.30<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_7" name="time"
-                                                                            value="09.00pm">
-                                                                        <label for="time_3">21.00<em>-40%</em></label>
-                                                                    </li>
-                                                                    <li>
-                                                                        <input type="radio" id="time_8" name="time"
-                                                                            value="09.30pm">
-                                                                        <label for="time_4">21.30<em>-40%</em></label>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <!-- /time_select -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /dropdown -->
-                                                <a href="booking-delivery-2.html" class="btn_1 full-width mb_5">Order
+
+                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
                                                     Now</a>
                                                 <div class="text-center"><small>No money charged on this
                                                         steps</small></div>
                                             </div>
                                         </div>
-                                        <ul class="share-buttons">
-                                            <li><a class="fb-share" href="#0"><i class="social_facebook"></i>
-                                                    Share</a></li>
-                                            <li><a class="twitter-share" href="#0"><i class="social_twitter"></i>
-                                                    Share</a></li>
-                                            <li><a class="gplus-share" href="#0"><i class="social_googleplus"></i>
-                                                    Share</a></li>
-                                        </ul>
-                                        <div class="resize-sensor"
-                                            style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;">
-                                            <div class="resize-sensor-expand"
-                                                style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
-                                                <div
-                                                    style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 413px; height: 772px;">
-                                                </div>
-                                            </div>
-                                            <div class="resize-sensor-shrink"
-                                                style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
-                                                <div
-                                                    style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%">
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
 
                                 </div>
@@ -845,8 +632,8 @@
                             </div>
                             <!-- /C type -->
                             <!-- D type -->
-                            <div id="pane-D" class="card tab-pane fade show active" role="tabpanel"
-                                aria-labelledby="tab-D">
+
+                            <div id="pane-D" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-D">
                                 <div class="card-header" role="tab" id="heading-D">
                                     <h5>
                                         <a class="collapsed" data-bs-toggle="collapse" href="#collapse-D"
@@ -870,6 +657,7 @@
                                             <ul>
                                                 <!-- makeNoticeDom method -->
                                             </ul>
+
                                         </div>
                                         <!-- /공지사항 -->
                                         <!-- detail info -->
@@ -1287,5 +1075,243 @@
         })
     };
 </script>
+
+
+    <!-- 메뉴 주문 자바 스크립트 -->
+    <script>
+        // 즉시 실행
+        (function () {
+
+            // 메뉴 추가 버튼 클릭 이벤트
+            menuAddClickEvent();
+
+            // 주문 버튼 클릭 이벤트
+            submitOrderClickEvent();
+
+        })();
+
+        // 메뉴 추가 버튼 클릭 이벤트
+        function menuAddClickEvent() {
+            const menuAddBtn = document.querySelector('.menu-gallery');
+            menuAddBtn.addEventListener('click', e => {
+                // console.log(e.target.classList);
+                if (e.target.classList.contains('menuAddBtn')) {
+                    // console.log('menuAddBtn clicked');
+                    addToOrder(e.target);
+                }
+            });
+        }
+
+        // ADD TO ORDER SUMMARY LIST
+        function addToOrder(target) {
+
+            // get menu info
+            const menuId = target.id;
+            const menuInfo = document.getElementById('menu' + menuId);
+            const menuName = document.getElementById('menu-name' + menuId).textContent;
+            const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+            var totalPrice = document.getElementById('total').textContent;
+            // console.log('totalPrice = ', totalPrice);
+            // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ", menuPrice);
+
+            // 이미 메뉴가 리스트에 들어있으면 quantity & price 정보 수정
+            if (document.getElementById('order-name' + menuId) !== null) {
+                // increase current quantity
+                const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                // console.log('current quantity - ', currQuantity);
+                document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
+
+                // increase menu price and total price
+                document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
+                    menuPrice);
+
+
+                // add minus button if more than one
+                const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                if (newQuantity > 1) {
+                    const minusBtn = document.getElementById('minus' + menuId);
+                    minusBtn.classList.add('icon_minus_alt2');
+
+                }
+            } else { // 리스트에 비동기로 정보 추가
+
+                let tag = '';
+                tag +=
+                    `   <li id="order-name` + menuId + `">` +
+                    `       <a class="removeMenu" href="#0">` + menuName + `</a>` +
+                    `       <div id="order-quantity` + menuId + `" class="quantity ` + menuId + `">` +
+                    `           <i id="minus` + menuId + `" class=""></i><strong class="order-quantity` +
+                    menuId +
+                    `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` + // maybe delete id
+                    `       </div>` +
+                    `       <span id="order-price` + menuId + `">` + menuPrice + `</span>` +
+                    `   </li>`;
+
+                document.getElementById('async-order-list').innerHTML += tag;
+
+                // 최종 가격 업데이트
+                document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+
+            }
+
+            // 주문 메뉴 개수 업다운 버튼 이벤트
+            upDownQuantityClickEvent();
+
+            // 주문 메뉴 삭제 이벤트
+            deleteMenuFromOrderClickEvent();
+        }
+
+        // 주문 메뉴 개수 업다운 버튼 이벤트
+        function upDownQuantityClickEvent() {
+            const targetBtn = document.querySelector('.click-target');
+
+            targetBtn.onclick = e => {
+                const menuId = e.target.parentElement.classList[1];
+                if (e.target.classList.contains('icon_plus_alt2')) {
+                    console.log('plus clicked ', menuId);
+
+                    // increase current quantity
+                    const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    // console.log('current quantity - ', currQuantity);
+                    document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
+
+                    // add minus button if more than one
+                    const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    if (newQuantity > 1) {
+                        const minusBtn = document.getElementById('minus' + menuId);
+                        minusBtn.classList.add('icon_minus_alt2');
+
+                    }
+
+                    // increase menu price and total price
+                    var totalPrice = document.getElementById('total').textContent;
+                    const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+                    document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                    var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                    document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
+                        menuPrice);
+
+                } else if (e.target.classList.contains('icon_minus_alt2')) {
+                    console.log('minus clicked', menuId);
+
+                    // increase current quantity
+                    const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    // console.log('current quantity - ', currQuantity);
+                    document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) - 1;
+
+                    // add minus button if less than or equal to one
+                    const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    if (newQuantity <= 1) {
+                        const minusBtn = document.getElementById('minus' + menuId);
+                        minusBtn.classList.remove('icon_minus_alt2');
+
+                    }
+
+                    // increase menu price and total price
+                    var totalPrice = document.getElementById('total').textContent;
+                    const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+                    document.getElementById('total').textContent = parseInt(totalPrice) - parseInt(menuPrice);
+                    var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                    document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) - parseInt(
+                        menuPrice);
+                }
+            }
+        }
+
+        // 주문 메뉴 삭제 이벤트
+        function deleteMenuFromOrderClickEvent() {
+            const targetBtn = document.querySelector('.click-target');
+            targetBtn.addEventListener('click', e => {
+                if (e.target.classList.contains('removeMenu')) {
+                    e.preventDefault();
+                    // remove menu2
+                    // console.log('remove clicked - ', e.target.parentElement);
+                    e.target.parentElement.remove();
+                    document.getElementById('total').textContent = 0;
+                }
+
+            });
+        }
+
+        // 주문 버튼 클릭 이벤트
+        function submitOrderClickEvent() {
+            document.getElementById('submit-order').onclick = e => {
+                e.preventDefault();
+                makeOrderInfo();
+            };
+        }
+
+        function makeOrderInfo() {
+            // console.log('make order list clicked');
+
+            // menu 정보를 담을 객체 리스트
+            const menuList = [];
+            const orderList = document.getElementById('async-order-list').children;
+
+            // console.log(orderList);
+            // console.log('business_no : ' + '${master.businessNo}');
+
+            for (let i = 0; i < orderList.length; i++) {
+                // console.log(orderList[i].innerText);
+                var orderArray = orderList[i].innerText.split(/\s+/);
+                // console.log('orderArray - ', orderArray);
+
+                var menuName = "";
+                for (let j = 0; j < orderArray.length - 2; j++) {
+                    menuName += orderArray[j] + ' ';
+                }
+
+                const businessNo = '${master.businessNo}';
+
+                const menu = {
+                    menuName: menuName,
+                    menuPrice: orderArray[orderArray.length - 1],
+                    quantity: orderArray[orderArray.length - 2],
+                    businessNo: businessNo
+                };
+
+                menuList[menuList.length] = menu;
+
+            }
+
+            submitOrder(menuList);
+        }
+
+
+
+        // 주문 정보 전송 메서드
+        function submitOrder(menuList) {
+
+            // POST요청을 위한 요청 정보 객체
+            const reqInfo = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(menuList)
+            };
+
+            // console.log(data);
+
+
+            fetch('/kakao/order/check', reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'order-success') {
+                        location.href = '/kakao/order/check';
+                    }
+                });
+        }
+    </script>
+
+
+
+
+
+
+
+</body>
 
 </html>

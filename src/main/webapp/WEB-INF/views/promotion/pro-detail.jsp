@@ -360,7 +360,7 @@
                                             </div>
                                             <!-- /head -->
                                             <div class="main">
-                                                <ul id="async-order-list" class="clearfix">
+                                                <ul id="async-order-list" class="clearfix click-target">
 
                                                 </ul>
 
@@ -1004,11 +1004,11 @@
                 let tag = '';
                 tag +=
                     `   <li id="order-name` + menuId + `">` +
-                    `       <a id="removeMenu" href="#0">` + menuName + `</a>` +
-                    `       <div id="order-quantity` + menuId + `" class="quantity">` +
-                    `           <i id="minus` + menuId + `" class="icon_minus_alt2"></i><strong class="order-quantity` +
+                    `       <a class="removeMenu" href="#0">` + menuName + `</a>` +
+                    `       <div id="order-quantity` + menuId + `" class="quantity ` + menuId + `">` +
+                    `           <i id="minus` + menuId + `" class=""></i><strong class="order-quantity` +
                     menuId +
-                    `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` +
+                    `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` + // maybe delete id
                     `       </div>` +
                     `       <span id="order-price` + menuId + `">` + menuPrice + `</span>` +
                     `   </li>`;
@@ -1021,35 +1021,79 @@
             }
 
             // 주문 메뉴 개수 업다운 버튼 이벤트
-            upDownQuantityClickEvent(menuId);
+            upDownQuantityClickEvent();
 
             // 주문 메뉴 삭제 이벤트
             deleteMenuFromOrderClickEvent();
         }
 
-        function upDownQuantityClickEvent(menuId) {
-            const plusBtn = document.getElementById('plus' + menuId);
-            const minusBtn = document.getElementById('minus' + menuId);
+        // 주문 메뉴 개수 업다운 버튼 이벤트
+        function upDownQuantityClickEvent() {
+            const targetBtn = document.querySelector('.click-target');
 
-            // upMenu
-            plusBtn.addEventListener('click', e => {
-                console.log('plus clicked');
+            targetBtn.onclick = e => {
+                const menuId = e.target.parentElement.classList[1];
+                if (e.target.classList.contains('icon_plus_alt2')) {
+                    console.log('plus clicked ', menuId);
 
-            });
+                    // increase current quantity
+                    const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    // console.log('current quantity - ', currQuantity);
+                    document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
 
-            // downMenu
-            minusBtn.addEventListener('click', e => {
-                console.log('minus clicked');
+                    // add minus button if more than one
+                    const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    if (newQuantity > 1) {
+                        const minusBtn = document.getElementById('minus' + menuId);
+                        minusBtn.classList.add('icon_minus_alt2');
 
-            });
+                    }
+
+                    // increase menu price and total price
+                    var totalPrice = document.getElementById('total').textContent;
+                    const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+                    document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                    var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                    document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
+                        menuPrice);
+
+                } else if (e.target.classList.contains('icon_minus_alt2')) {
+                    console.log('minus clicked', menuId);
+
+                    // increase current quantity
+                    const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    // console.log('current quantity - ', currQuantity);
+                    document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) - 1;
+
+                    // add minus button if less than or equal to one
+                    const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                    if (newQuantity <= 1) {
+                        const minusBtn = document.getElementById('minus' + menuId);
+                        minusBtn.classList.remove('icon_minus_alt2');
+
+                    }
+
+                    // increase menu price and total price
+                    var totalPrice = document.getElementById('total').textContent;
+                    const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+                    document.getElementById('total').textContent = parseInt(totalPrice) - parseInt(menuPrice);
+                    var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                    document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) - parseInt(
+                        menuPrice);
+                }
+            }
         }
 
+        // 주문 메뉴 삭제 이벤트
         function deleteMenuFromOrderClickEvent() {
-            const removeMenuBtn = document.getElementById('removeMenu');
-            removeMenuBtn.addEventListener('click', e => {
-                // remove menu
-                console.log('remove clicked - ', e.target.parentElement);
-                e.target.parentElement.remove();
+            const targetBtn = document.querySelector('.click-target');
+            targetBtn.addEventListener('click', e => {
+                if (e.target.classList.contains('removeMenu')) {
+                    // remove menu2
+                    // console.log('remove clicked - ', e.target.parentElement);
+                    e.target.parentElement.remove();
+                    document.getElementById('total').textContent = 0;
+                }
 
             });
         }

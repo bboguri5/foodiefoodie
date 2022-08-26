@@ -952,9 +952,6 @@
 
 
     <script>
-        // 서버로 전송할 주문 리스트  객체
-        const orderList = [];
-
         // 즉시 실행
         (function () {
 
@@ -1006,7 +1003,7 @@
 
                 let tag = '';
                 tag +=
-                    `   <li class="` + menuId + `" id="order-name` + menuId + `">` +
+                    `   <li id="order-name` + menuId + `">` +
                     `       <a id="removeMenu" href="#0">` + menuName + `</a>` +
                     `       <div id="order-quantity` + menuId + `" class="quantity">` +
                     `           <i id="minus` + menuId + `" class="icon_minus_alt2"></i><strong class="order-quantity` +
@@ -1021,15 +1018,6 @@
                 // 최종 가격 업데이트
                 document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
 
-                // var menuQuantity = document.getElementById('order-quantity' + menuId).textContent;
-
-                // const menu = {
-                //     menuName: menuName,
-                //     menuPrice: menuPrice,
-                //     quantity: menuQuantity
-                // }
-
-                // menuList[menuList.length] = menu;
             }
 
             // 주문 메뉴 개수 업다운 버튼 이벤트
@@ -1037,33 +1025,6 @@
 
             // 주문 메뉴 삭제 이벤트
             deleteMenuFromOrderClickEvent();
-        }
-
-        // 주문 버튼 클릭 이벤트
-        function submitOrderClickEvent() {
-            document.getElementById('submit-order').onclick = e => {
-                e.preventDefault();
-                submitOrder();
-            };
-        }
-
-        // 주문 정보 전송 메서드
-        function submitOrder() {
-            // POST요청을 위한 요청 정보 객체
-            const reqInfo = {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(menuList) // add business_no
-            };
-
-            // console.log(JSON.stringify(menuList));
-
-            //  ?business_no=
-            fetch('/test', reqInfo)
-                .then(res => res.text())
-                .then(msg => console.log(msg));
         }
 
         function upDownQuantityClickEvent(menuId) {
@@ -1091,6 +1052,73 @@
                 e.target.parentElement.remove();
 
             });
+        }
+
+        // 주문 버튼 클릭 이벤트
+        function submitOrderClickEvent() {
+            document.getElementById('submit-order').onclick = e => {
+                e.preventDefault();
+                makeOrderInfo();
+            };
+        }
+
+        function makeOrderInfo() {
+            // console.log('make order list clicked');
+
+            // menu 정보를 담을 객체 리스트
+            const menuList = [];
+            const orderList = document.getElementById('async-order-list').children;
+            const businessNo = '${master.businessNo}';
+
+            // console.log(orderList);
+            // console.log('business_no : ' + '${master.businessNo}');
+
+            for (let i = 0; i < orderList.length; i++) {
+                // console.log(orderList[i].innerText);
+                var orderArray = orderList[i].innerText.split(/\s+/);
+                console.log('orderArray - ', orderArray);
+
+                var menuName = "";
+                for (let j = 0; j < orderArray.length - 2; j++) {
+                    menuName += orderArray[j] + ' ';
+                }
+
+                const menu = {
+                    menuName: menuName,
+                    menuPrice: orderArray[orderArray.length - 2],
+                    quantity: orderArray[orderArray.length - 1]
+                };
+
+                menuList[menuList.length] = menu;
+
+            }
+
+            // 서버로 전송할 주문 리스트  객체
+            const orderInfo = {
+                menuList: menuList,
+                businessNo: businessNo
+            };
+
+            submitOrder(orderInfo);
+
+        }
+
+        // 주문 정보 전송 메서드
+        function submitOrder(orderInfo) {
+            // POST요청을 위한 요청 정보 객체
+            const reqInfo = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: [JSON.stringify(orderInfo.menuList), JSON.stringify(orderInfo.businessNo)]
+            };
+
+            // console.log(JSON.stringify(orderInfo));
+
+            fetch('/test', reqInfo)
+                .then(res => res.text())
+                .then(msg => console.log(msg));
         }
     </script>
 

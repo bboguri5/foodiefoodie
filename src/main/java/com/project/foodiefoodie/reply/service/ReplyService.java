@@ -40,7 +40,7 @@ public class ReplyService {
         return mapper.findReplyCount(reviewBno);
     }
 
-    public Map<String, Object> getList(Long reviewBno, Page page) {
+    public Map<String, Object>  getList(Long reviewBno, Page page) {
         //댓글 목록 조회
         PageMaker maker = new PageMaker(page, getCount(reviewBno));
 

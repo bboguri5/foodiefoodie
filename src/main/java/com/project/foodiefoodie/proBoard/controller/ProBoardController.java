@@ -5,6 +5,7 @@ import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
+import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
@@ -36,25 +37,52 @@ public class ProBoardController {
         Master master = proBoardService.selectMaster(proBoard.getBusinessNo());
         StoreTimeDTO storeTimeDTO = proBoardService.selectStoreTime(promotionBno);
 
-        model.addAttribute("titleImg",proBoardService.selectTitleImg(promotionBno));
-        model.addAttribute("detailImgList",proBoardService.selectDetailImgList(proBoard.getPromotionBno()));
-        List<MenuDTO> menuDTOS = proBoardService.selectMenuInfo(promotionBno);
-        model.addAttribute("menuList",menuDTOS);
-        log.info("{}",menuDTOS);
         model.addAttribute("master", master);
         model.addAttribute("proBoard", proBoard);
         model.addAttribute("storeTime", storeTimeDTO);
+        model.addAttribute("menuList",proBoardService.selectMenuInfo(promotionBno));
+        model.addAttribute("titleImg",proBoardService.selectTitleImg(promotionBno));
+        model.addAttribute("detailImgList",proBoardService.selectDetailImgList(promotionBno));
 
-        log.info("{}", storeTimeDTO);
+        model.addAttribute("noticeDTOS",proBoardService.selectNotice(promotionBno));
         return "promotion/pro-detail";
     }
+
+
+    @GetMapping ("/detail/noticeShow/{promotionBno}")
+    @ResponseBody
+    public List<NoticeDTO> showAgainDetailNotice(@PathVariable int promotionBno)
+    {
+        List<NoticeDTO> noticeDTOS = proBoardService.selectNotice(promotionBno);
+        log.info("showAgainDetailNotice noticeDOTS - {} ",noticeDTOS);
+        return noticeDTOS;
+    }
+
+    @PostMapping ("/detail/noticeSave")
+    @ResponseBody
+    public String saveDetailNotice(@RequestBody NoticeDTO noticeDTO)
+    {
+        log.info("saveDetailNotice controller RequestBody {}",noticeDTO);
+        boolean result = proBoardService.saveNotice(noticeDTO);
+        return result ? "insert-success" : "insert-failed";
+    }
+
+
+    @DeleteMapping ("/detail/noticeDelete/{noticeNo}")
+    @ResponseBody
+    public String deleteDetailNotice(@PathVariable int noticeNo)
+    {
+        log.info("/detail/noticeDelete/{} controller RequestBody ", noticeNo);
+        boolean result = proBoardService.deleteNotice(noticeNo);
+        return result ? "delete-success" : "delete-failed";
+    }
+
+
 
     @GetMapping("/write/{businessNo}")
     public String write(Model model, @PathVariable String businessNo) {
         log.info("foodie/write Get - ! {} ", businessNo);
-        Master master = proBoardService.selectMaster(businessNo);
-        log.info(master);
-        model.addAttribute("master", master);
+        model.addAttribute("master", proBoardService.selectMaster(businessNo));
         return "promotion/pro-write";
     }
 
@@ -76,7 +104,6 @@ public class ProBoardController {
 
         List<String[]> menuList = new ArrayList<>(Arrays.asList(menuNames, menuPrices));
 
-
         Map<String, List<MultipartFile>> fileMap = new HashMap<>() {{
             put("title", titleImgFile);
             put("detail", detailImgFiles);
@@ -91,7 +118,6 @@ public class ProBoardController {
 
         return "";
     }
-
 
 
 

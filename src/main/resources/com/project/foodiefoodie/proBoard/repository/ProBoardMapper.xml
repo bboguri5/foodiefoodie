@@ -62,6 +62,17 @@
             )
         </if>
     </insert>
+
+    <insert id="saveNotice">
+        insert into promotion_notice
+        (notice_no, promotion_bno, content)
+        values(
+        seq_promotion_notice.nextval
+        ,#{promotionBno}
+        ,#{content}
+        )
+    </insert>
+
     <update id="saveProBoardTitleImg">
         UPDATE promotion_board SET file_path = #{titleFilePath}, file_name = #{titleFileName} WHERE promotion_bno = #{promotionBno}
     </update>
@@ -148,4 +159,19 @@
     <select id="selectMenuInfo" resultMap="menuDTO">
         select * from PROMOTION_FOOD_MENU where promotion_bno = #{promotionBno}
     </select>
+
+    <resultMap id="noticeDTO" type="com.project.foodiefoodie.proBoard.dto.NoticeDTO">
+        <result property="noticeNo" column="notice_no"></result>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <select id="selectNotice" resultMap="noticeDTO">
+        select * from promotion_notice where promotion_bno = #{promotionBno} order by notice_no desc
+    </select>
+
+
+    <delete id="deleteNotice">
+        delete from promotion_notice where notice_no = #{noticeNo}
+    </delete>
+
+
 </mapper>

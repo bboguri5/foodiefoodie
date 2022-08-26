@@ -129,129 +129,31 @@
         color: #fff !important;
     }
 
-    #quantity {
-        margin-left: 420px;
+    .quantity {
+        display: inline;
+        margin-left: 470px;
+    }
+
+    .icon_minus_alt2:hover {
+        cursor: pointer;
+    }
+
+    .icon_minus_alt2 {
+        margin-right: 20px;
+    }
+
+    .icon_plus_alt2:hover {
+        cursor: pointer;
+    }
+
+    .icon_plus_alt2 {
+        margin-left: 20px;
     }
 </style>
 
 <body>
-    <!-- header -->
-    <header class="header_in clearfix">
-        <div class="container">
-            <div id="logo">
-                <a href="/">
-                    <img src="/img/logo_sticky.svg" width="140" height="35" alt="">
-                </a>
-            </div>
-            <ul id="top_menu">
-                <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
-            </ul>
-            <!-- /top_menu -->
-            <a href="#0" class="open_close">
-                <i class="icon_menu"></i><span>Menu</span>
-            </a>
-            <nav class="main-menu">
-                <div id="header_menu">
-                    <a href="#0" class="open_close">
-                        <i class="icon_close"></i><span>Menu</span>
-                    </a>
-                    <a href="index.html"><img src="/img/logo.svg" width="140" height="35" alt=""></a>
-                </div>
-                <ul>
-                    <li class="submenu">
-                        <a href="#0" class="show-submenu">Home</a>
-                        <ul>
-                            <li><a href="index.html">Default</a></li>
-                            <li class="third-level"><a href="#0">Sliders - Parallax <strong>New!</strong></a>
-                                <ul>
-                                    <li><a href="index-8.html">Revolution Slider 1</a></li>
-                                    <li><a href="index-9.html">Revolution Slider 2</a></li>
-                                    <li><a href="index-3.html">Owl Carousel</a></li>
-                                    <li><a href="index-10.html">Parallax Youtube</a></li>
-                                    <li><a href="index-11.html">Parallax Vimeo</a></li>
-                                    <li><a href="index-12.html">Parallax Mp4 Video</a></li>
-                                    <li><a href="index-13.html">Parallax Video Fullscreen</a></li>
-                                    <li><a href="index-14.html">Parallax Image</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="index-15.html">Text Rotator</a></li>
-                            <li><a href="index-5.html">Address Autocomplete</a></li>
-                            <li><a href="index-6.html">Search Version 2</a></li>
-                            <li><a href="index-7.html">Delivery/Takeaway version</a></li>
-                            <li><a href="modal-advertise.html">Modal Advertise</a></li>
-                            <li><a href="modal-newsletter.html">Modal Newsletter</a></li>
-                            <li><a href="index-2.html">Video Bg Fallback Mobile</a></li>
-                            <li><a href="index-4.html">GDPR Cookie Bar EU Law</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#0" class="show-submenu">Listing</a>
-                        <ul>
-                            <li class="third-level"><a href="#0">List pages</a>
-                                <ul>
-                                    <li><a href="grid-listing-filterscol.html">List default</a></li>
-                                    <li><a href="grid-listing-filterscol-map.html">List with map</a></li>
-                                    <li><a href="listing-map.html">List side map</a></li>
-                                    <li><a href="grid-listing-filterscol-full-width.html">List full width</a></li>
-                                    <li><a href="grid-listing-filterscol-full-masonry.html">List Masonry Filter</a></li>
-                                    <li><a href="grid-listing-filterscol-delivery.html">List Delivery/Takeaway</a></li>
-                                </ul>
-                            </li>
-                            <li class="third-level"><a href="#0">Detail pages</a>
-                                <ul>
-                                    <li><a href="detail-restaurant.html">Detail page 1</a></li>
-                                    <li><a href="detail-restaurant-2.html">Detail page 2</a></li>
-                                    <li><a href="detail-restaurant-3.html">Mobile Fixed Booking</a></li>
-                                    <li><a href="detail-restaurant-delivery.html">Delivery/Takeaway</a></li>
-                                    <li><a href="detail-restaurant-4.html">Detail Menu Thumbs</a></li>
-                                    <li><a href="detail-restaurant-5.html">Detail Contact Form</a></li>
-                                </ul>
-                            </li>
-                            <li class="third-level"><a href="#0">OpenStreetMap</a>
-                                <ul>
-                                    <li><a href="grid-listing-filterscol-map-openstreetmap.html">List with map</a></li>
-                                    <li><a href="listing-map-openstreetmap.html">List side map</a></li>
-                                    <li><a href="grid-listing-filterscol-full-width-openstreetmap.html">List full
-                                            width</a></li>
-                                    <li><a href="grid-listing-filterscol-full-masonry-openstreetmap.html">List Masonry
-                                            Filter</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="submit-restaurant.html">Submit Restaurant</a></li>
-                            <li><a href="submit-rider.html">Submit Rider</a></li>
-                            <li><a href="wishlist.html">Wishlist</a></li>
-                            <li><a href="booking.html">Booking</a></li>
-                            <li><a href="confirm.html">Confirm Booking</a></li>
-                            <li><a href="confirm-delivery.html">Confirm Order</a></li>
-                            <li><a href="booking-delivery-2.html">Order Delivery/Takeaway</a></li>
-                            <li><a href="booking-delivery.html">Order Delivery/Takeaway 2</a></li>
-                            <li><a href="admin_section/index.html" target="_blank">Admin Section</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
-                        <a href="#0" class="show-submenu">Other Pages</a>
-                        <ul>
-                            <li><a href="404.html">404 Error</a></li>
-                            <li><a href="help.html">Help and Faq</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="leave-review.html">Leave a review</a></li>
-                            <li><a href="user-logged-1.html">User Logged 1</a></li>
-                            <li><a href="user-logged-2.html">User Logged 2</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                            <li><a href="coming_soon/index.html">Coming Soon</a></li>
-                            <li><a href="account.html">Sign Up</a></li>
-                            <li><a href="icon-pack-1.html">Icon Pack 1</a></li>
-                            <li><a href="icon-pack-2.html">Icon Pack 2</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="submit-restaurant.html">Submit</a></li>
-                    <li><a href="#0">Buy this template</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-    <!-- /header -->
+    <%@ include file="../include/header.jsp" %>
+
 
     <!-- main -->
     <main>
@@ -438,8 +340,8 @@
                                                         </a>
                                                     </figure>
                                                     <div id="menu${menu.menuNo}" class="menuInfo">
-                                                        <h4 id="menu-name">${menu.menuName}</h4>
-                                                        <em id="menu-price">${menu.menuPrice}</em>
+                                                        <h4 id="menu-name${menu.menuNo}">${menu.menuName}</h4>
+                                                        <em id="menu-price${menu.menuNo}">${menu.menuPrice}</em>
                                                         <button id="${menu.menuNo}" class="menuAddBtn"
                                                             type="button">방문포장</button>
                                                     </div>
@@ -467,7 +369,7 @@
                                                 </form>
 
                                                 <ul class="clearfix">
-                                                    <li class="total">Total<span>$66</span></li>
+                                                    <li class="total">Total<span id="total">0</span></li>
                                                 </ul>
 
                                                 <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
@@ -1050,12 +952,21 @@
 
 
     <script>
+        // 서버로 전송할 주문 리스트  객체
+        const orderList = [];
+
+        // 즉시 실행
         (function () {
+
+            // 메뉴 추가 버튼 클릭 이벤트
             menuAddClickEvent();
+
+            // 주문 버튼 클릭 이벤트
             submitOrderClickEvent();
+
         })();
 
-
+        // 메뉴 추가 버튼 클릭 이벤트
         function menuAddClickEvent() {
             const menuAddBtn = document.querySelector('.menu-gallery');
             menuAddBtn.addEventListener('click', e => {
@@ -1067,40 +978,68 @@
             });
         }
 
-        const menuList = [];
-        // console.log("0 : " ,menuList.length);
-
-
+        // ADD TO ORDER SUMMARY LIST
         function addToOrder(target) {
-            const menuInfo = document.getElementById('menu' + target.id);
-            console.log(menuInfo);
 
-            const menuName = document.getElementById('menu-name').innerHTML;
-            const menuPrice = document.getElementById('menu-price').innerHTML;
+            // get menu info
+            const menuId = target.id;
+            const menuInfo = document.getElementById('menu' + menuId);
+            const menuName = document.getElementById('menu-name' + menuId).textContent;
+            const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+            var totalPrice = document.getElementById('total').textContent;
+            // console.log('totalPrice = ', totalPrice);
 
-            let tag = '';
+            // 이미 메뉴가 리스트에 들어있으면 quantity & price 정보 수정
+            if (document.getElementById('order-name' + menuId) !== null) {
 
+                // increase current quantity
+                const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                // console.log('current quantity - ', currQuantity);
+                document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
 
-            tag += `<li><a href="#0">` + menuName + `</a><input id="quantity" type="number" value="1"></input><span>` +
-                menuPrice + `</span></li>`;
+                // increase menu price and total price
+                document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
+                    menuPrice);
+            } else { // 리스트에 비동기로 정보 추가
 
-            document.getElementById('async-order-list').innerHTML += tag;
+                let tag = '';
+                tag +=
+                    `   <li class="` + menuId + `" id="order-name` + menuId + `">` +
+                    `       <a id="removeMenu" href="#0">` + menuName + `</a>` +
+                    `       <div id="order-quantity` + menuId + `" class="quantity">` +
+                    `           <i id="minus` + menuId + `" class="icon_minus_alt2"></i><strong class="order-quantity` +
+                    menuId +
+                    `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` +
+                    `       </div>` +
+                    `       <span id="order-price` + menuId + `">` + menuPrice + `</span>` +
+                    `   </li>`;
 
-            const menu = {
-                menuName: menuName,
-                menuPrice: menuPrice
-            // business_no
-            // quantity
+                document.getElementById('async-order-list').innerHTML += tag;
+
+                // 최종 가격 업데이트
+                document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+
+                // var menuQuantity = document.getElementById('order-quantity' + menuId).textContent;
+
+                // const menu = {
+                //     menuName: menuName,
+                //     menuPrice: menuPrice,
+                //     quantity: menuQuantity
+                // }
+
+                // menuList[menuList.length] = menu;
             }
 
-            menuList[menuList.length] = menu;
+            // 주문 메뉴 개수 업다운 버튼 이벤트
+            upDownQuantityClickEvent(menuId);
 
-
-            // console.log("1 : " ,menuList.length);
-            console.log(menuList);
-
+            // 주문 메뉴 삭제 이벤트
+            deleteMenuFromOrderClickEvent();
         }
 
+        // 주문 버튼 클릭 이벤트
         function submitOrderClickEvent() {
             document.getElementById('submit-order').onclick = e => {
                 e.preventDefault();
@@ -1108,6 +1047,7 @@
             };
         }
 
+        // 주문 정보 전송 메서드
         function submitOrder() {
             // POST요청을 위한 요청 정보 객체
             const reqInfo = {
@@ -1115,15 +1055,42 @@
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify(menuList)
+                body: JSON.stringify(menuList) // add business_no
             };
 
-            console.log(JSON.stringify(menuList));
+            // console.log(JSON.stringify(menuList));
 
             //  ?business_no=
             fetch('/test', reqInfo)
                 .then(res => res.text())
                 .then(msg => console.log(msg));
+        }
+
+        function upDownQuantityClickEvent(menuId) {
+            const plusBtn = document.getElementById('plus' + menuId);
+            const minusBtn = document.getElementById('minus' + menuId);
+
+            // upMenu
+            plusBtn.addEventListener('click', e => {
+                console.log('plus clicked');
+
+            });
+
+            // downMenu
+            minusBtn.addEventListener('click', e => {
+                console.log('minus clicked');
+
+            });
+        }
+
+        function deleteMenuFromOrderClickEvent() {
+            const removeMenuBtn = document.getElementById('removeMenu');
+            removeMenuBtn.addEventListener('click', e => {
+                // remove menu
+                console.log('remove clicked - ', e.target.parentElement);
+                e.target.parentElement.remove();
+
+            });
         }
     </script>
 

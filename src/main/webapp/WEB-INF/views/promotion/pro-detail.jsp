@@ -1122,7 +1122,8 @@
 
             // console.log(data);
 
-            fetch('/test', reqInfo)
+
+            fetch('/kakao/order/check', reqInfo)
                 .then(res => res.text())
                 .then(msg => console.log(msg));
         }

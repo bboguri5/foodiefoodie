@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.project.foodiefoodie.common.api.KakaoMyApp;
+import com.project.foodiefoodie.common.api.payment.dto.OrderInfo;
 import com.project.foodiefoodie.common.api.payment.dto.OrderInfoDTO;
 import com.project.foodiefoodie.common.api.payment.repository.PaymentMapper;
 import com.project.foodiefoodie.member.domain.Member;
@@ -124,7 +125,7 @@ public class KakaoService {
                     .append("&item_name=" + orderInfo.getMenu().get(0)); // 복수의 품명은 어케..?
                                                                 // 콤마 나열 또는 ~~외 식으로 표기해야할듯??
             if (orderInfo.getMenu().size() > 2) {
-                queryParam.append(" 외");
+                queryParam.append(" 외" + (orderInfo.getMenu().size() -1));
             } else {
                 queryParam.append(orderInfo.getMenu().toString());
             }
@@ -155,9 +156,9 @@ public class KakaoService {
     // DB에 주문 정보를 기록하기 위해 거치는 중간 처리
     public boolean insertOrderInfoToDB(HttpSession session, String businessNo) {
 
-        List<String> menuList = (List<String>) session.getAttribute("menuList");
-        List<Integer> quantityList = (List<Integer>) session.getAttribute("quantityList");
-        List<Integer> priceList = (List<Integer>) session.getAttribute("priceList");
+//        List<String> menuList = (List<String>) session.getAttribute("menuList");
+//        List<Integer> quantityList = (List<Integer>) session.getAttribute("quantityList");
+//        List<Integer> priceList = (List<Integer>) session.getAttribute("priceList");
 
 
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
@@ -172,19 +173,20 @@ public class KakaoService {
         int orderNo = paymentMapper.findCurrentOrderNo(email, businessNo);
 
 
-        for (int i = 0; i < menuList.size(); i++) {
-            String menu = menuList.get(i);
-            int quantity = quantityList.get(i);
-            int price = priceList.get(i);
+        List<OrderInfo> orderInfoList = (List<OrderInfo>) session.getAttribute("orderInfoList");
+//        orderInfoList.get(0).
+
+        for (int i = 0; i < orderInfoList.size(); i++) {
+            String menu = orderInfoList.get(i).getMenuName();
+            int quantity = orderInfoList.get(i).getQuantity();
+            int price = orderInfoList.get(i).getMenuPrice();
 
             paymentMapper.insertOrderDetail(orderNo, menu, quantity, price);
         }
 
 
         // 세션에서 정보를 지워줘야 이후 다른 주문을 또 시도하고자 할 때 문제가 발생하지 않는다.
-        session.removeAttribute("menuList");
-        session.removeAttribute("quantityList");
-        session.removeAttribute("priceList");
+        session.removeAttribute("orderInfoList");
 
         return true;
     }

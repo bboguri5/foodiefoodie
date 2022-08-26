@@ -9,7 +9,9 @@ import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
+import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 
@@ -80,7 +83,14 @@ public class ProBoardController {
 
 
     @GetMapping("/write/{businessNo}")
-    public String write(Model model, @PathVariable String businessNo) {
+    public String write(HttpSession session, Model model, @PathVariable String businessNo) {
+
+//        로그인 X , 관리자 X 일 경우 접근 불가.
+//        if(!(LoginUtils.isLogin(session) && LoginUtils.getCurrentMemberAuth(session) == "MASTER"))
+//        {
+//            return "redirect:/login";
+//        }
+
         log.info("foodie/write Get - ! {} ", businessNo);
         model.addAttribute("master", proBoardService.selectMaster(businessNo));
         return "promotion/pro-write";

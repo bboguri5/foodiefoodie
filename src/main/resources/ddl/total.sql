@@ -438,6 +438,7 @@ ALTER TABLE hot_deal DROP COLUMN end_date ;
 
    ----------------------------------------------------------- 08/25
      drop table promotion_notice;
+     drop sequence seq_promotion_notice;
      create SEQUENCE seq_promotion_notice;
       create table promotion_notice
       (
@@ -460,3 +461,32 @@ ALTER TABLE hot_deal DROP COLUMN end_date ;
    add store_detail_address VARCHAR2(50) NULL;
    ALTER TABLE review_board
    add store_extra_address VARCHAR2(50) NULL;
+
+   ALTER TABLE review_board
+   add store_name VARCHAR2(50);
+
+
+CREATE SEQUENCE seq_order_no;
+
+   ----------------------------------------------------- 08/26
+   drop table review_upload;
+   drop table profile_upload;
+   -- 리뷰 파일 업로드
+   CREATE TABLE review_upload(
+       review_bno NUMBER(10) NOT NULL
+       , file_path clob not null
+       , file_name VARCHAR2(100) NOT NULL
+       , CONSTRAINT fk_rev_upload FOREIGN KEY (review_bno)
+       REFERENCES review_board (review_bno) ON DELETE CASCADE
+   );
+
+
+   -- 프로필이미지 파일 업로드
+   CREATE TABLE profile_upload(
+       email VARCHAR2(50) PRIMARY KEY
+       , file_path clob not null
+       , file_name VARCHAR2(100) NOT NULL
+       , CONSTRAINT fk_profile_upload FOREIGN KEY (email)
+       REFERENCES member (email) ON DELETE CASCADE
+   );
+   commit;

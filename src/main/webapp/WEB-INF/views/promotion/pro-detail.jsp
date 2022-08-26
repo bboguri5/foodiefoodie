@@ -995,6 +995,15 @@
                 var currentPrice = document.getElementById('order-price' + menuId).textContent;
                 document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
                     menuPrice);
+
+
+                // add minus button if more than one
+                const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                if (newQuantity > 1) {
+                    const minusBtn = document.getElementById('minus' + menuId);
+                    minusBtn.classList.add('icon_minus_alt2');
+
+                }
             } else { // 리스트에 비동기로 정보 추가
 
                 let tag = '';
@@ -1101,6 +1110,42 @@
                 e.preventDefault();
                 makeOrderInfo();
             };
+        }
+
+        function makeOrderInfo() {
+            // console.log('make order list clicked');
+
+            // menu 정보를 담을 객체 리스트
+            const menuList = [];
+            const orderList = document.getElementById('async-order-list').children;
+
+            // console.log(orderList);
+            // console.log('business_no : ' + '${master.businessNo}');
+
+            for (let i = 0; i < orderList.length; i++) {
+                // console.log(orderList[i].innerText);
+                var orderArray = orderList[i].innerText.split(/\s+/);
+                // console.log('orderArray - ', orderArray);
+
+                var menuName = "";
+                for (let j = 0; j < orderArray.length - 2; j++) {
+                    menuName += orderArray[j] + ' ';
+                }
+
+                const businessNo = '${master.businessNo}';
+
+                const menu = {
+                    menuName: menuName,
+                    menuPrice: orderArray[orderArray.length - 1],
+                    quantity: orderArray[orderArray.length - 2],
+                    businessNo: businessNo
+                };
+
+                menuList[menuList.length] = menu;
+
+            }
+
+            submitOrder(menuList);
         }
 
 

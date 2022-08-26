@@ -54,6 +54,7 @@ public class KakaoPaymentController {
 
         // 결제 성공 url을 받아왔다면 db에 반영해줘야 함.
         String paymentFlag = pcRedirectUrl.substring(pcRedirectUrl.lastIndexOf("/"));
+        log.info("paymentFlag : {}", paymentFlag);
 
         if (paymentFlag.equals("success-order")) {
             kakaoService.insertOrderInfoToDB(session, orderInfoDTO.getBusinessNo());

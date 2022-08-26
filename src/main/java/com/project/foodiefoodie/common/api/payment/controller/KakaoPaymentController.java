@@ -39,8 +39,12 @@ public class KakaoPaymentController {
         return "payment/check-order"; // -> 확인창에서 최종 주문 요청을 하게 되면 KakaoController에서 작업 수행.
     }
 
+    @GetMapping("/hey")
+    public String hey() {
+        return "payment/check-order";
+    }
 
-//    @GetMapping("/kakao/payment-test")
+    //    @GetMapping("/kakao/payment-test")
     @PostMapping("/kakao/order/request")
     public String test(HttpSession session, OrderInfoDTO orderInfoDTO, Model model) throws IOException {
 

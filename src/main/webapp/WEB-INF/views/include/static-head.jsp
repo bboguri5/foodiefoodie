@@ -25,7 +25,6 @@
 
 <!-- SPECIFIC CSS -->
 <link href="/css/booking-sign_up.css" rel="stylesheet">
-<link href="/css/detail-page-delivery.css" rel="stylesheet">
 
 
 <!-- YOUR CUSTOM CSS -->

@@ -2,6 +2,7 @@ package com.project.foodiefoodie.member.controller;
 
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
+import com.project.foodiefoodie.member.dto.NewModifyMemberDTO;
 import com.project.foodiefoodie.member.dto.find.EmailCodeDTO;
 import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
 import com.project.foodiefoodie.member.dto.find.FindPwDTO;
@@ -199,7 +200,6 @@ public class MemberController {
 
         boolean flag = memberService.changePw(email, pw);
 
-
         return "member/find/change-pw-success";
     }
 
@@ -219,25 +219,15 @@ public class MemberController {
         return "/myPage/myPage-modify";
     }
 
+    // 로그인 안할사람
     @PostMapping("/modifyMember")
-    public String PostModifyMember(HttpSession session , ModifyDTO modifyDTO ){
-        log.info("modifyDTO : {}" , modifyDTO);
-        memberService.modifyMemberService(modifyDTO);
+        public String PostModifyMember(HttpSession session , NewModifyMemberDTO newModifyMemberDTO){
+            log.info("modifyDTO : {}" , newModifyMemberDTO);
+            memberService.modifyMemberService(newModifyMemberDTO);
         log.info("go service ");
         return "redirect:/myPage-profile";
     }
 
-//
-//    @GetMapping("/myReview")
-//    public String getChangePassword(){
-//
-//        return "/myPage/myPage-myReview";
-//    }
-//
-//    @PostMapping("/changePassword")
-//    public String postChangePassword(String word){
-//        return "/myPage/myPage-changePassword";
-//    }
 
     @PostMapping("/trueAndFalsePassword")
     @ResponseBody

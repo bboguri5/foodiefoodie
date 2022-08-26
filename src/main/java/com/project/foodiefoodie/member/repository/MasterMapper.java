@@ -3,6 +3,7 @@ package com.project.foodiefoodie.member.repository;
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.dto.AuthDTO;
+import com.project.foodiefoodie.member.dto.MasterModifyDTO;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -37,5 +38,14 @@ public interface MasterMapper {
 
     // 해당 마스터만 삭제
     // boolean removeMaster(String businessNo);
+
+  List<Master> callMaster(String email);
+
+    int masterCount(String email);
+
+    boolean masterModi(MasterModifyDTO masterModifyDTO);
+
+
+
 
 }

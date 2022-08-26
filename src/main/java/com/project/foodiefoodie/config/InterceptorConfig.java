@@ -1,9 +1,6 @@
 package com.project.foodiefoodie.config;
 
-import com.project.foodiefoodie.member.interceptor.AdminInterceptor;
-import com.project.foodiefoodie.member.interceptor.AfterLoginInterceptor;
-import com.project.foodiefoodie.member.interceptor.AutoLoginInterceptor;
-import com.project.foodiefoodie.member.interceptor.UnLoginInterceptor;
+import com.project.foodiefoodie.member.interceptor.*;
 import com.project.foodiefoodie.member.repository.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +17,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
     private final AfterLoginInterceptor afterLoginInterceptor;
     private final AdminInterceptor adminInterceptor;
     private final UnLoginInterceptor unLoginInterceptor;
+
+    private final MemberInterceptor memberInterceptor;
+
+    private final MasterInterceptor masterInterceptor;
 
 
     // 인터셉터 설정 추가 메서드
@@ -42,5 +43,14 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns("/admin/*");
+
+        registry.addInterceptor(memberInterceptor)
+                .addPathPatterns("/myPage");
+
+        // 아직 경로가 정해지지 않아서 일단 주석처리 합니다.
+        // registry.addInterceptor(masterInterceptor)
+//                 .addPathPatterns("/myPage/masterPage");
+
+
     }
 }

@@ -9,7 +9,7 @@
         <result column="re_faq_no" property="reFaqNo" />
         <result column="review_bno" property="reviewBno" />
         <result column="writer_email" property="writerEmail" />
-        <result column="review_writer_email" property="reviewWriterEmail" />
+<!--        <result column="review_writer_email" property="reviewWriterEmail" />-->
     </resultMap>
 
     <resultMap id="replyReportMap" type="com.project.foodiefoodie.myPage.dto.ReplyReportDTO">
@@ -17,9 +17,23 @@
         <result column="reply_no" property="replyNo"/>
         <result column="writer_email" property="writerEmail"/>
         <result column="reply_faq_content" property="replyFaqContent"/>
-        <result column="reply_writer_email" property="replyWriterEmail"/>
     </resultMap>
 
+    <resultMap id="reviewReportMap2" type="com.project.foodiefoodie.myPage.dto.ReviewReportDTO2">
+        <result column="re_faq_no" property="reFaqNo" />
+        <result column="review_bno" property="reviewBno" />
+        <result column="title" property="reviewTitle" />
+        <result column="content" property="reviewFaqContent" />
+<!--        <result column="review_writer_email" property="reviewWriterEmail" />-->
+    </resultMap>
+
+    <resultMap id="replyReportMap2" type="com.project.foodiefoodie.myPage.dto.ReplyReportDTO2">
+        <result column="reply_faq_no" property="replyFaqNo"/>
+        <result column="reply_no" property="replyNo"/>
+        <result column="content" property="replyContent"/>
+        <result column="reply_faq_content" property="replyFaqContent"/>
+<!--        <result column="reply_writer_email" property="replyWriterEmail"/>-->
+    </resultMap>
 
     <select id="reviewReportDTOList" resultMap="reviewReportMap">
         SELECT re_faq_no, review_bno, writer_email, content
@@ -35,6 +49,42 @@
         and faq_complete = 't'
     </select>
 
+    <select id="reviewReportDTO2List" resultMap="reviewReportMap2">
+        SELECT review_faq.re_faq_no , review_board.review_bno ,review_board.title , review_faq.content
+        from review_faq
+        INNER JOIN review_board
+        ON review_faq.review_bno = review_board.review_bno
+        WHERE review_writer_email = #{reviewWriterEmail}
+        and faq_complete = 't'
+    </select>
+
+    <select id="replyReportDTO2List"  resultMap="replyReportMap2">
+        SELECT reply_faq.reply_faq_no , reply_faq.reply_no , reply.content , reply_faq.reply_faq_content
+        from reply_faq
+        INNER JOIN reply
+        ON reply_faq.reply_no = reply.reply_no
+        WHERE reply_writer_email = #{replyWriterEmail}
+        and faq_complete = 't'
+    </select>
+
+    <resultMap id="promotionReportMap" type="com.project.foodiefoodie.myPage.dto.PromotionReportDTO">
+        <result column="pr_faq_no" property="prFaqNo"/>
+        <result column="promotion_bno" property="promotionBno"/>
+        <result column="business_no" property="businessNo"/>
+        <result column="store_name" property="storeName"/>
+    </resultMap>
+
+    <select id="promotionReportList" resultMap="promotionReportMap">
+        SELECT a.pr_faq_no , c.store_name ,b.promotion_bno ,b.title , a.content
+        from promotion_faq a
+        INNER JOIN promotion_board b
+        ON a.promotion_bno = b.promotion_bno
+        JOIN MASTER c
+        ON b.business_no= c.business_no
+        WHERE a.promotion_writer_email = #{email}
+        and a.faq_complete = 'T'
+        and c.business_no = #{businessNo}
+    </select>
 
 
 

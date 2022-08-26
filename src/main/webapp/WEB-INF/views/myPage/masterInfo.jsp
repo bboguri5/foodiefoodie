@@ -105,7 +105,7 @@
 <body class="fixed-nav sticky-footer" id="page-top">
 
     <%@ include file="../include/myPage-nav.jsp" %>
-
+    
     <!-- /Navigation-->
     <!-- 프로필 쓰는 공간 !! ==================================================================================================== -->
     <div class="content-wrapper">
@@ -113,13 +113,13 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">여기에 뭘 적을까 </a>
+                    <a href="#">여긴 마스터 정보~ </a>
                 </li>
                 <li class="breadcrumb-item active">${loginUser.nickName}님의 프로필 </li>
             </ol>
             <div class="box_general padding_bottom">
                 <div class="header_box version_2">
-                    <h2><i class="fa fa-user"></i>프로필 상세정보</h2>
+                    <h2><i class="fa fa-user"></i>${master.storeName} </h2>
                 </div>
                 <div class="row">
                     <!-- <div class="col-md-4">
@@ -133,75 +133,73 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>email 아이디 </label>
-                                    <input type="text" class="form-control" placeholder="${member.email}" readonly>
+                                    <label>사업자 번호 </label>
+                                    <input type="text" class="form-control" placeholder="${master.businessNo}" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>nick Name 닉네임</label>
-                                    <input type="text" class="form-control" placeholder="${member.nickName}" readonly>
+                                    <label>email</label>
+                                    <input type="text" class="form-control" placeholder="${master.email}" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>phoneNumber 핸드폰번호 </label>
-                                    <input type="text" class="form-control" placeholder="${member.phoneNumber}"
+                                    <label>master_name 사업자 이름 </label>
+                                    <input type="text" class="form-control" placeholder="${master.masterName}"
                                         readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>birth 생년월일 8자 </label>
-                                    <input type="email" class="form-control" placeholder="${member.birth}" readonly>
+                                    <label>store_name 가게이름 </label>
+                                    <input type="email" class="form-control" placeholder="${master.storeName}" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>address 주소</label>
-                                    <input type="text" class="form-control"
-                                        placeholder="${member.address} ${member.extraAddress} ${member.detailAddress} "
-                                        readonly>
+                                    <label>store_address 가게 주소</label>
+                                    <input type="text" class="form-control" placeholder="${master.storeAddress}" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>realName 진짜 이름 </label>
-                                    <input type="email" class="form-control" placeholder="${member.name}" readonly>
+                                    <label>STORE_REG_DATE 가게 시작날짜 </label>
+                                    <input type="email" class="form-control" placeholder="${master.storeRegDate}" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Gender /성별/(M/F)</label>
-                                    <input type="text" class="form-control" placeholder="${member.gender}" readonly>
+                                    <label>hot_deal 핫딜 승인 여부 (기본값 : N 대기중 : T 승인됨 : F)</label>
+                                    <input type="text" class="form-control" placeholder="${master.hotDeal}" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>your Auth</label>
-                                    <input type="email" class="form-control" placeholder="${member.auth}" readonly>
+                                    <label>store_call_number 가게 전화번호</label>
+                                    <input type="email" class="form-control" placeholder="${master.storeCallNumber}" readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>가입일자</label>
-                                    <input type="text" class="form-control" placeholder="${member.regDate}" readonly>
+                                    <label>store_detail_address 상세주소 </label>
+                                    <input type="text" class="form-control" placeholder="${master.storeDetailAddress}" readonly>
                                 </div>
                             </div>
-                            <!-- <div class="col-md-6">
+                            <div class="col-md-6">
 							<div class="form-group">
-								<label>최근 로그인 한 시간 (있어도 되고 없어도되고 )</label>
-								<input type="email" class="form-control" placeholder="Your last time " readonly>
+								<label>store_extra_address 나머지 주소</label>
+								<input type="email" class="form-control" placeholder="${master.storeExtraAddress}" readonly>
 							</div>
-						</div> -->
+						</div>
                         </div>
                         <!-- /row-->
                         <!-- <div class="row">
@@ -268,9 +266,8 @@
                 <div class="passwordModal">
                     <h5 class="passwordModal-title">비밀번호를 입력하세요</h5>
                     <h5 class="falseh5">[비밀번호가 틀렸습니다.]</h5>
-
-                    <input type="password" name="password" class="passwordInput"> <button type="button"
-                        class="passwordBtn">누르세요</button>
+            
+                    <input type="password" name="password" class="passwordInput"> <button type="button" class="passwordBtn">누르세요</button>
                 </div>
                 <div class="returnBtn">X</div>
 
@@ -279,9 +276,8 @@
             <!-- ----------------------------------------------------------------------------------------------------------------- -->
             <div class="btnbox">
                 <button type="button" class="btn modiBtn btn-success">수정하기</button>
-                <button type="button" class="btn masterRegistBtn btn-primary">사업자 권한 요청</button>
-                <button type="button" class="btn btn-info changePW">비밀번호 바꾸기</button>
-                <button type="button" class="btn deleteBtn btn-danger">탈퇴하기</button>
+                <!-- <button type="button" class="btn masterRegistBtn btn-primary">가게 등록 하기</button> -->
+                <button type="button" class="btn deleteBtn btn-danger">가게 없애기</button>
             </div>
         </div>
         <!-- /.container-fluid-->
@@ -344,13 +340,11 @@
 
         const $body = document.body;
 
-        const $changePW = document.querySelector('.changePW');
-
         // 비동기 
         const $falseh5 = document.querySelector('.falseh5');
         const $brLabel = document.querySelector('.brLabel');
         const $passwordBtn = document.querySelector('.passwordBtn');
-
+    
 
 
         // $body.onclick = e => {
@@ -392,8 +386,8 @@
             const $passwordInput = document.querySelector('.passwordInput')
             $returnBtn.onclick = e => {
                 console.log("빨간색 x 버튼 눌렀다");
-                $falseh5.style.display = "none";
-
+                $falseh5.style.display = "none";   
+               
                 $modalBox.style.display = "none";
                 // location.href = '/myPage-modify';
             };
@@ -410,39 +404,13 @@
             };
         }
 
-
-
-        if ($changePW !== null) {
-
-            // 비밀번호 바꾸는 경로 
-            $changePW.onclick = e => {
-                if (!confirm('비밀번호 바꾸러 갑니다')) {
-                    return;
-                }
-                location.href = '/change/pw';
-            };
-        }
-
-        if ($masterBtn !== null) {
-
-            // 사업자 권한 등록 요청
-            $masterBtn.onclick = e => {
-                if (!confirm('사업자 권한 등록 요청')) {
-                    return;
-                }
-                location.href = '/master/register';
-            };
-        }
-
-
-
-        if ($passwordBtn !== null) {
-            $passwordBtn.onclick = e => {
+        if($passwordBtn !== null){
+            $passwordBtn.onclick = e =>{
                 console.log('click password');
                 trueAndFalsePassword();
             }
         }
-
+        
 
         // 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드 
         function trueAndFalsePassword(e) {
@@ -469,7 +437,7 @@
                     console.log('aanjseqpw oqwf[ojqwo[fn [qownf'); // 여기까지온다 
                     if (msg === 'password-success') {
                         alert("비밀번호가 맞았습니다. 수정화면으로 이동합니다.");
-                        location.href = '/myPage-modify';
+                        location.href = '/masterInfoModi/${masterNum}';
                     } else if (msg === 'password-false') {
                         console.log(123123123123123123);
                         $falseh5.style.display = "block";

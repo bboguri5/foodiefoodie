@@ -12,21 +12,21 @@
     <meta name="author" content="Ansonika">
     <title>FOOGRA - Admin dashboard</title>
     <!-- Favicons-->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="img/apple-touch-icon-144x144-precomposed.png">
+    <link rel="shortcut icon" href="/mypage/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="/mypage/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/mypage/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/mypage/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/mypage/img/apple-touch-icon-144x144-precomposed.png">
     <!-- Bootstrap core CSS-->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/mypage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Main styles -->
-    <link href="css/admin.css" rel="stylesheet">
+    <link href="/mypage/css/admin.css" rel="stylesheet">
     <!-- Icon fonts-->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/mypage/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Plugin styles -->
-    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="/mypage/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Your custom styles -->
-    <link href="css/custom.css" rel="stylesheet">
+    <link href="/mypage/css/custom.css" rel="stylesheet">
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
@@ -40,9 +40,9 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">게시글 신고</a>
+                    <a href="#">프로모션 신고</a>
                 </li>
-                <li class="breadcrumb-item active">게시글 신고한사람~</li>
+                <li class="breadcrumb-item active">프로모션 신고한사람~</li>
             </ol>
             <!-- Example DataTables Card-->
             <div class="card mb-3">
@@ -54,27 +54,30 @@
                             <thead>
                                 <tr>
                                     <th>신고 번호</th>
-                                    <th>리뷰 번호</th>
-                                    <th>리뷰 제목</th>
+                                    <th>가게 이름</th>
+                                    <th>프로모션 번호</th>
+                                    <th>프로모션 제목</th>
                                     <th>신고 내역</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th>신고 번호</th>
-                                    <th>리뷰 번호</th>
-                                    <th>리뷰 제목</th>
+                                    <th>가게 이름</th>
+                                    <th>프로모션 번호</th>
+                                    <th>프로모션 제목</th>
                                     <th>신고 내역</th>
                                 </tr>
                             </tfoot>
                             <!-- ==================================================== -->
                             <tbody>
-                                <c:forEach var="reviewReport" items="${reviewReports}">
+                                <c:forEach var="proReport" items="${proReportList}">
                                     <tr>
-                                        <td>${reviewReport.reFaqNo}</td>
-                                        <td>${reviewReport.reviewBno}</td>
-                                        <td>${reviewReport.reviewTitle}</td>
-                                        <td>${reviewReport.reviewFaqContent}</td>
+                                        <td>${proReport.prFaqNo}</td>
+                                        <td>${proReport.storeName}</td>
+                                        <td>${proReport.promotionBno}</td>
+                                        <td>${proReport.title}</td>
+                                        <td>${proReport.content}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -122,19 +125,19 @@
     </div>
     
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/mypage/vendor/jquery/jquery.min.js"></script>
+    <script src="/mypage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/mypage/vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Page level plugin JavaScript-->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <script src="vendor/jquery.magnific-popup.min.js"></script>
+    <script src="/mypage/vendor/chart.js/Chart.min.js"></script>
+    <script src="/mypage/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="/mypage/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <script src="/mypage/vendor/jquery.magnific-popup.min.js"></script>
     <!-- Custom scripts for all pages-->
-    <script src="js/admin.js"></script>
+    <script src="/mypage/js/admin.js"></script>
     <!-- Custom scripts for this page-->
-    <script src="js/admin-datatables.js"></script>
+    <script src="/mypage/js/admin-datatables.js"></script>
 </body>
 
 </html>

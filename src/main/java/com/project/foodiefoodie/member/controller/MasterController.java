@@ -1,7 +1,10 @@
 package com.project.foodiefoodie.member.controller;
 
 import com.project.foodiefoodie.member.domain.Master;
+import com.project.foodiefoodie.member.domain.Member;
+import com.project.foodiefoodie.member.dto.MasterModifyDTO;
 import com.project.foodiefoodie.member.service.MasterService;
+import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -9,11 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -58,4 +64,64 @@ public class MasterController {
 
         return "redirect:/request-auth";
     }
+
+
+    @GetMapping("/masterInfo/{masterNum}")
+    public String masterInfo(@PathVariable int masterNum , HttpSession session , Model model){
+        Member loginUser = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
+        String email = loginUser.getEmail();
+        log.info("welcome /masterInfo -loginUser-Auth :?? {}",loginUser.getAuth());
+        List<Master> masters = masterService.allMaster(email);
+        Master master = masters.get(masterNum);
+        model.addAttribute("masterNum",masterNum);
+        model.addAttribute("master",master);
+        return "/myPage/masterInfo";
+    }
+
+
+
+    @GetMapping("/masterInfoModi/{masterNum}")
+    public String masterInfoModi(@PathVariable int masterNum, HttpSession session ,Model model){
+
+        Member loginUser = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
+        String email = loginUser.getEmail();
+
+
+        log.info("welcome /masterInfoModi -loginUser-Auth :?? {}",loginUser.getAuth());
+
+
+        List<Master> masters = masterService.allMaster(email);
+        for (Master master : masters) {
+            log.info(master);
+
+        }
+
+        Master master = masters.get(masterNum);
+        log.info(master);
+
+        model.addAttribute("master",master);
+        model.addAttribute("masterNum",masterNum);
+
+        return "/myPage/masterInfoModi";
+    }
+
+    @PostMapping("/masterModiPost/{masterNum}")
+    public String masterSuccessModi(@PathVariable int masterNum ,HttpSession session,MasterModifyDTO masterModifyDTO){
+        Member loginUser = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
+        String email = loginUser.getEmail();// 이메일 찾기
+        boolean b = masterService.masterModiService(masterModifyDTO);
+
+        //
+        List<Master> masterList = (List<Master>) session.getAttribute("masterList");
+        Master master = masterList.get(masterNum);
+        master.setStoreName(masterModifyDTO.getStoreName());
+
+
+
+
+
+//        return "/masterInfo/"+masterNum;
+        return "redirect:/masterInfo/"+masterNum;
+    }
+
 }

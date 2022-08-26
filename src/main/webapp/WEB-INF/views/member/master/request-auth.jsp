@@ -142,7 +142,7 @@
 
 
             const $reqMasterInputList = document.querySelectorAll('.master');
-            const $reqAuthBtn = document.getElementById('req-auth-btn');
+            const $reqAuthBtn = document.getElementById('req-auth-btn'); // 권한 요청하는 버튼 
             const $reqAuthForm = document.getElementById('req-auth-form');
 
 

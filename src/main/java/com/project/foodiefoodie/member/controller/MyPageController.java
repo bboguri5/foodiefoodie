@@ -59,8 +59,7 @@ public class MyPageController {
             MyReviewDTO myReviewDTO = new MyReviewDTO();
             List<MyReviewTitleDTO> titleListService1 = myPageService.findTitleListService(email);
             MyReviewTitleDTO titleDTO = titleListService1.get(i);
-            log.info("==========================================");
-            log.info(" titleDTO : {}" ,titleDTO);
+
             myReviewDTO.setTitle(titleDTO.getTitle());
 
             myReviewDTO.setContent(titleDTO.getContent());
@@ -78,10 +77,15 @@ public class MyPageController {
             log.info("==========================================");
         }
         ProfileDTO profileDTO = myPageService.selectProfile(email);
+        log.info("==========================================");
+        log.info(profileDTO);
+        log.info(myReviewDTOS);
+        log.info("==========================================");
 
         model.addAttribute("profile",profileDTO);
 
         model.addAttribute("reviewInfo",myReviewDTOS);
+
         return "/myPage/myPage-myReview";
     }
 

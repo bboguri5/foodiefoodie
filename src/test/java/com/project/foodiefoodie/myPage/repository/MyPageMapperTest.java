@@ -1,7 +1,6 @@
 package com.project.foodiefoodie.myPage.repository;
 
-import com.project.foodiefoodie.myPage.dto.ReplyReportDTO;
-import com.project.foodiefoodie.myPage.dto.ReviewReportDTO;
+import com.project.foodiefoodie.myPage.dto.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +43,45 @@ class MyPageMapperTest {
 
     }
 
+    @Test
+    @DisplayName("이메일 넣으면 내용 잘 나오는지 보자구 ")
+    void reviewFaqList(){
+        String email = "soslimso@nate.com";
+        List<ReviewReportDTO2> reviewReportDTO2s = myPageMapper.reviewReportDTO2List(email);
+        System.out.println("\n\n\n ============================\n\n\n");
+        for (ReviewReportDTO2 reviewReportDTO2 : reviewReportDTO2s) {
+            System.out.println(reviewReportDTO2);
+        }
+        System.out.println("\n\n\n ============================\n\n\n");
+    }
+    @Test
+    @DisplayName("이메일 넣으면 내용 잘 나오는지 보자구 ")
+    void replyFaqList(){
+        String email = "soslimso@nate.com";
+        List<ReplyReportDTO2> replyReportDTO2s = myPageMapper.replyReportDTO2List(email);
+        System.out.println("\n\n\n ============================\n\n\n");
+        for (ReplyReportDTO2 replyReportDTO2 : replyReportDTO2s) {
+            System.out.println(replyReportDTO2);
+        }
+        System.out.println("\n\n\n ============================\n\n\n");
+    }
+    
+    @Test
+    @DisplayName("이메일 넣으면 내 프로모션 신고 내역 나옴 ")
+    void promotionReportListTest(){
+        String email = "soslimso@nate.com";
+        String businessNo = "1234-2222-3333-1125";
+        PromotionInputDTO promotionInputDTO = new PromotionInputDTO();
+        promotionInputDTO.setEmail(email);
+        promotionInputDTO.setBusinessNo(businessNo);
+        List<PromotionReportDTO> promotionReportDTOS = myPageMapper.promotionReportList(promotionInputDTO);
+        System.out.println("\n\n\n ============================\n\n\n");
+        for (PromotionReportDTO promotionReportDTO : promotionReportDTOS) {
+            System.out.println(promotionReportDTO);
+        }
+        System.out.println("\n\n\n ============================\n\n\n");
+        
 
 
+    }
 }

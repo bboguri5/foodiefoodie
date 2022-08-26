@@ -1,7 +1,6 @@
 package com.project.foodiefoodie.myPage.service;
 
-import com.project.foodiefoodie.myPage.dto.ReplyReportDTO;
-import com.project.foodiefoodie.myPage.dto.ReviewReportDTO;
+import com.project.foodiefoodie.myPage.dto.*;
 import com.project.foodiefoodie.myPage.repository.MyPageMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -41,11 +40,49 @@ public class MyReportService {
             String substring = writerEmail.substring(0, i);
             replyReportDTO.setWriterEmail("ID : " + substring);
             String replyFaqContent = replyReportDTO.getReplyFaqContent();
-            if (replyFaqContent.length()>=10){
-                replyReportDTO.setReplyFaqContent(replyFaqContent.substring(0,7)+"....");
+            if (replyFaqContent.length() >= 10) {
+                replyReportDTO.setReplyFaqContent(replyFaqContent.substring(0, 7) + "....");
             }
         }
         return replyReportDTOS;
+    }
+
+    // 신규 !!! !
+    public List<ReviewReportDTO2> reviewReportDTOListService2(String email) {
+        List<ReviewReportDTO2> reviewReportDTO2s = myPageMapper.reviewReportDTO2List(email);
+        for (ReviewReportDTO2 reviewReportDTO2 : reviewReportDTO2s) {
+            String reviewTitle = reviewReportDTO2.getReviewTitle();
+            String reviewFaqContent = reviewReportDTO2.getReviewFaqContent();
+            if (reviewTitle.length() > 4) {
+                reviewReportDTO2.setReviewTitle(reviewTitle.substring(0, 5) + "...");
+            }
+            if (reviewFaqContent.length() > 4) {
+                reviewReportDTO2.setReviewFaqContent(reviewFaqContent.substring(0, 5) + "...");
+
+            }
+        }
+        return reviewReportDTO2s;
+    }
+
+    public List<ReplyReportDTO2> replyReportDTOListService2(String email) {
+        List<ReplyReportDTO2> replyReportDTO2s = myPageMapper.replyReportDTO2List(email);
+        for (ReplyReportDTO2 replyReportDTO2 : replyReportDTO2s) {
+            String replyContent = replyReportDTO2.getReplyContent();
+            String replyFaqContent = replyReportDTO2.getReplyFaqContent();
+            if (replyContent.length() > 4) {
+                replyReportDTO2.setReplyContent(replyContent.substring(0, 5) + "...");
+            }
+            if (replyFaqContent.length() > 4) {
+                replyReportDTO2.setReplyFaqContent(replyFaqContent.substring(0, 5) + "...");
+            }
+        }
+        return replyReportDTO2s;
+    }
+
+    // 가게 신고 내역
+    public List<PromotionReportDTO> promotionReportDTOListService(PromotionInputDTO promotionInputDTO){
+        List<PromotionReportDTO> promotionReportDTOS = myPageMapper.promotionReportList(promotionInputDTO);
+        return promotionReportDTOS;
     }
 
 

@@ -1,8 +1,10 @@
 package com.project.foodiefoodie.member.service;
 
 import com.project.foodiefoodie.common.api.mail.service.EmailServiceImpl;
+import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.ModifyDTO;
+import com.project.foodiefoodie.member.dto.NewModifyMemberDTO;
 import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
 import com.project.foodiefoodie.member.dto.find.FindPwDTO;
 import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
@@ -32,7 +34,7 @@ public class MemberService {
     private final EmailServiceImpl emailService;
 
     private final BCryptPasswordEncoder encoder;
-
+    private final MasterService masterService;
 
 
     // 회원가입 중간처리
@@ -47,7 +49,6 @@ public class MemberService {
     }
 
 
-
     // 이메일, 닉네임 중복확인 중간처리
     public boolean checkDuplicate(DuplicateDTO dto) {
 
@@ -58,17 +59,15 @@ public class MemberService {
     }
 
 
-
     // 개별 회원 조회 중간처리
     public Member findMember(String email) {
         return memberMapper.findMember(email);
     }
 
 
-
     // 회원 탈퇴 중간처리
+
     /**
-     *
      * @param dto - email : 마이페이지에서 그대로 들고올 회원 이메일 // password : 삭제하기 위해 입력한 비밀번호
      * @return db에 등록된 해당 이메일의 비밀번호를 디코딩했을 때 dto 속 pw 값과 일치하면 삭제처리 후 true
      */
@@ -85,15 +84,13 @@ public class MemberService {
     }
 
 
-
-    // 회원 수정 중간처리 (만들어야 함)
-    public boolean modifyMemberService(ModifyDTO modifyDTO ) {
-        log.info("go mapper modi {}", modifyDTO);
-        modifyDTO.setEmail(modifyDTO.getEmail().trim());
-        boolean b = memberMapper.modifyMember(modifyDTO);
+    // 회원 수정 중간처리 수정됨 // NewModifyMemberDTO
+    public boolean modifyMemberService(NewModifyMemberDTO newModifyMemberDTO) {
+        log.info("go mapper modi {}", newModifyMemberDTO);
+        newModifyMemberDTO.setEmail(newModifyMemberDTO.getEmail().trim());
+        boolean b = memberMapper.newMemberModi(newModifyMemberDTO);
         return b;
     }
-
 
 
     public LoginFlag loginService(LoginDTO inputData, HttpSession session, HttpServletResponse response) {
@@ -102,15 +99,27 @@ public class MemberService {
 
         Member foundMember = memberMapper.findMember(email);
 
+
         // 존재하는 회원이라면
         if (foundMember != null) {
 
             // 비밀 번호 일치 여부 확인
             if (encoder.matches(inputData.getPassword(), foundMember.getPassword())) {
                 // 로그인 성공한 경우,
+
+
                 session.setAttribute(LoginUtils.LOGIN_FLAG, foundMember);
                 session.setMaxInactiveInterval(60 * 60);
 
+                // 마스터들 정보 불러오기
+                List<Master> masters = masterService.allMaster(email);
+                int i = masterService.masterCountService(email);
+                // 세션에 마스터 정보 넣기
+                if (i > 0) { // 마스터가 아닐수도 있으니까
+
+                    session.setAttribute("masterList", masters);
+                    session.setAttribute("masterCount", i);
+                }
 
                 // 자동로그인을 체크한 경우라면,
                 if (inputData.isAutoLogin()) {
@@ -198,6 +207,7 @@ public class MemberService {
         Member member = memberMapper.findOneCommon(email);
         return member;
     }
+
     // 회원 탈퇴
     public boolean removeService(String email) {
         boolean flag = memberMapper.remove(email);
@@ -206,16 +216,14 @@ public class MemberService {
 
 
     // 비밀번호 검증 메서드
-    public boolean findPasswordService(String email ,String password){ // 정상작동함
+    public boolean findPasswordService(String email, String password) { // 정상작동함
         String dbPassword = memberMapper.findPassword(email);
-        if(encoder.matches(password ,dbPassword)){
+        if (encoder.matches(password, dbPassword)) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
-
-
 
 
     // 계정(이메일) 찾기
@@ -223,7 +231,6 @@ public class MemberService {
         String foundEmail = memberMapper.findEmail(dto);
         return foundEmail;
     }
-
 
 
     // 비번 변경용 회원 존재 유무 찾기

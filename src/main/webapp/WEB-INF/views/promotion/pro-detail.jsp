@@ -360,7 +360,7 @@
                                             </div>
                                             <!-- /head -->
                                             <div class="main">
-                                                <ul id="async-order-list" class="clearfix">
+                                                <ul id="async-order-list" class="clearfix click-target">
 
                                                 </ul>
 
@@ -883,7 +883,6 @@
     <script src="/js/common_scripts.min.js"></script>
     <script src="/js/common_func.js"></script>
     <script src="/js/validate.js"></script>
-    <script src="/js/takeout-order.js"></script>
 
     <!-- SPECIFIC SCRIPTS -->
     <script src="/js/sticky_sidebar.min.js"></script>
@@ -947,179 +946,9 @@
     <!-- javascript -->
 
 
+    <!-- 메뉴 주문 자바 스크립트 -->
+    <script src="/js/takeout-order.js"></script>
 
-
-
-
-    <script>
-        // 즉시 실행
-        (function () {
-
-            // 메뉴 추가 버튼 클릭 이벤트
-            menuAddClickEvent();
-
-            // 주문 버튼 클릭 이벤트
-            submitOrderClickEvent();
-
-        })();
-
-        // 메뉴 추가 버튼 클릭 이벤트
-        function menuAddClickEvent() {
-            const menuAddBtn = document.querySelector('.menu-gallery');
-            menuAddBtn.addEventListener('click', e => {
-                // console.log(e.target.classList);
-                if (e.target.classList.contains('menuAddBtn')) {
-                    // console.log('menuAddBtn clicked');
-                    addToOrder(e.target);
-                }
-            });
-        }
-
-        // ADD TO ORDER SUMMARY LIST
-        function addToOrder(target) {
-
-            // get menu info
-            const menuId = target.id;
-            const menuInfo = document.getElementById('menu' + menuId);
-            const menuName = document.getElementById('menu-name' + menuId).textContent;
-            const menuPrice = document.getElementById('menu-price' + menuId).textContent;
-            var totalPrice = document.getElementById('total').textContent;
-            // console.log('totalPrice = ', totalPrice);
-
-            // 이미 메뉴가 리스트에 들어있으면 quantity & price 정보 수정
-            if (document.getElementById('order-name' + menuId) !== null) {
-
-                // increase current quantity
-                const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
-                // console.log('current quantity - ', currQuantity);
-                document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
-
-                // increase menu price and total price
-                document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
-                var currentPrice = document.getElementById('order-price' + menuId).textContent;
-                document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
-                    menuPrice);
-            } else { // 리스트에 비동기로 정보 추가
-
-                let tag = '';
-                tag +=
-                    `   <li id="order-name` + menuId + `">` +
-                    `       <a id="removeMenu" href="#0">` + menuName + `</a>` +
-                    `       <div id="order-quantity` + menuId + `" class="quantity">` +
-                    `           <i id="minus` + menuId + `" class="icon_minus_alt2"></i><strong class="order-quantity` +
-                    menuId +
-                    `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` +
-                    `       </div>` +
-                    `       <span id="order-price` + menuId + `">` + menuPrice + `</span>` +
-                    `   </li>`;
-
-                document.getElementById('async-order-list').innerHTML += tag;
-
-                // 최종 가격 업데이트
-                document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
-
-            }
-
-            // 주문 메뉴 개수 업다운 버튼 이벤트
-            upDownQuantityClickEvent(menuId);
-
-            // 주문 메뉴 삭제 이벤트
-            deleteMenuFromOrderClickEvent();
-        }
-
-        function upDownQuantityClickEvent(menuId) {
-            const plusBtn = document.getElementById('plus' + menuId);
-            const minusBtn = document.getElementById('minus' + menuId);
-
-            // upMenu
-            plusBtn.addEventListener('click', e => {
-                console.log('plus clicked');
-
-            });
-
-            // downMenu
-            minusBtn.addEventListener('click', e => {
-                console.log('minus clicked');
-
-            });
-        }
-
-        function deleteMenuFromOrderClickEvent() {
-            const removeMenuBtn = document.getElementById('removeMenu');
-            removeMenuBtn.addEventListener('click', e => {
-                // remove menu
-                console.log('remove clicked - ', e.target.parentElement);
-                e.target.parentElement.remove();
-
-            });
-        }
-
-        // 주문 버튼 클릭 이벤트
-        function submitOrderClickEvent() {
-            document.getElementById('submit-order').onclick = e => {
-                e.preventDefault();
-                makeOrderInfo();
-            };
-        }
-
-        function makeOrderInfo() {
-            // console.log('make order list clicked');
-
-            // menu 정보를 담을 객체 리스트
-            const menuList = [];
-            const orderList = document.getElementById('async-order-list').children;
-
-            // console.log(orderList);
-            // console.log('business_no : ' + '${master.businessNo}');
-
-            for (let i = 0; i < orderList.length; i++) {
-                // console.log(orderList[i].innerText);
-                var orderArray = orderList[i].innerText.split(/\s+/);
-                // console.log('orderArray - ', orderArray);
-
-                var menuName = "";
-                for (let j = 0; j < orderArray.length - 2; j++) {
-                    menuName += orderArray[j] + ' ';
-                }
-
-                const businessNo = '${master.businessNo}';
-
-                const menu = {
-                    menuName: menuName,
-                    menuPrice: orderArray[orderArray.length - 1],
-                    quantity: orderArray[orderArray.length - 2],
-                    businessNo: businessNo
-                };
-
-                menuList[menuList.length] = menu;
-
-            }
-
-            submitOrder(menuList);
-            // console.log(menuList);
-
-        }
-
-        // 주문 정보 전송 메서드
-        function submitOrder(menuList) {
-
-            // POST요청을 위한 요청 정보 객체
-            const reqInfo = {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(menuList)
-            };
-
-            // console.log(data);
-
-
-            fetch('/kakao/order/check', reqInfo)
-                .then(res => res.text())
-                .then(msg => console.log(msg));
-        }
-    </script>
 
 
 

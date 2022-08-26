@@ -19,9 +19,13 @@
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
 
-<!-- SPECIFIC CSS -->   
+<!-- SPECIFIC CSS -->
 <link href="/css/listing.css" rel="stylesheet">
 <link href="/css/blog.css" rel="stylesheet">
+
+<!-- SPECIFIC CSS -->
+<link href="/css/booking-sign_up.css" rel="stylesheet">
+<link href="/css/detail-page-delivery.css" rel="stylesheet">
 
 
 <!-- YOUR CUSTOM CSS -->

@@ -1076,7 +1076,7 @@
             for (let i = 0; i < orderList.length; i++) {
                 // console.log(orderList[i].innerText);
                 var orderArray = orderList[i].innerText.split(/\s+/);
-                console.log('orderArray - ', orderArray);
+                // console.log('orderArray - ', orderArray);
 
                 var menuName = "";
                 for (let j = 0; j < orderArray.length - 2; j++) {
@@ -1105,16 +1105,22 @@
 
         // 주문 정보 전송 메서드
         function submitOrder(orderInfo) {
+
+            var data = new FormData();
+            data.append("menuList", JSON.stringify(orderInfo.menuList));
+            data.append("businessNo", JSON.stringify(orderInfo.businessNo));
+
+
             // POST요청을 위한 요청 정보 객체
             const reqInfo = {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: [JSON.stringify(orderInfo.menuList), JSON.stringify(orderInfo.businessNo)]
+                body: data
             };
 
-            // console.log(JSON.stringify(orderInfo));
+            // console.log(data);
 
             fetch('/test', reqInfo)
                 .then(res => res.text())

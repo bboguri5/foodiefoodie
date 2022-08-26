@@ -46,7 +46,7 @@ public class ReviewAPIController {
 
 
     @PostMapping("/test")
-    public void test(@RequestBody List<OrderInfo> test) {
-        log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!! - {}", test);
+    public void test(@RequestBody List<OrderInfo> test, @RequestBody String businessNo) {
+        log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!! - {}, {}", test, businessNo);
     }
 }

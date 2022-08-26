@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderInfo {
 
-    private String businessNo; // 주문이 들어가는 가게의 사업자 번호
+//    private String businessNo; // 주문이 들어가는 가게의 사업자 번호
     private String menuName; // 메뉴 이름
     private int quantity; // 주문 수량
     private int menuPrice; // 주문 금액

@@ -65,9 +65,10 @@
 
     <insert id="saveNotice">
         insert into promotion_notice
-        (promotion_bno, content)
+        (notice_no, promotion_bno, content)
         values(
-        #{promotionBno}
+        seq_promotion_notice.nextval
+        ,#{promotionBno}
         ,#{content}
         )
     </insert>
@@ -160,12 +161,17 @@
     </select>
 
     <resultMap id="noticeDTO" type="com.project.foodiefoodie.proBoard.dto.NoticeDTO">
+        <result property="noticeNo" column="notice_no"></result>
         <result property="updateDate" column="update_date"/>
     </resultMap>
     <select id="selectNotice" resultMap="noticeDTO">
-        select * from promotion_notice where promotion_bno = #{promotionBno} order by update_date desc
+        select * from promotion_notice where promotion_bno = #{promotionBno} order by notice_no desc
     </select>
 
+
+    <delete id="deleteNotice">
+        delete from promotion_notice where notice_no = #{noticeNo}
+    </delete>
 
 
 </mapper>

@@ -33,6 +33,8 @@ public interface ProBoardMapper {
 
     boolean delete(int promotionBno);
 
+    boolean deleteNotice(int noticeNo);
+
     ProBoard selectOne(int promotionBno);
 
     int selectPromotionBno(String businessNo);

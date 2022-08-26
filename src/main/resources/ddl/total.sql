@@ -437,15 +437,17 @@ ALTER TABLE hot_deal DROP COLUMN end_date ;
    );
 
    ----------------------------------------------------------- 08/25
-   drop table promotion_notice;
-   create table promotion_notice
-   (
-       promotion_bno NUMBER(10),
-       content varchar2(300) NOT NULL,
-       update_date date DEFAULT SYSDATE NOT NULL,
-        CONSTRAINT fk_promotion_bno_notice FOREIGN KEY (promotion_bno)
-           REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-   );
+     drop table promotion_notice;
+     create SEQUENCE seq_promotion_notice;
+      create table promotion_notice
+      (
+          promotion_bno NUMBER(10),
+          notice_no NUMBER(10) PRIMARY KEY,
+          content varchar2(300) NOT NULL,
+          update_date date DEFAULT SYSDATE NOT NULL,
+           CONSTRAINT fk_promotion_bno_notice FOREIGN KEY (promotion_bno)
+              REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+      );
 
    select * from promotion_notice;
 

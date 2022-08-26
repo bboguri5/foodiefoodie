@@ -15,15 +15,18 @@ import java.util.Date;
 public class NoticeDTO {
 
     private int promotionBno;
+    private int noticeNo;
     private String content;
-
     @Setter(AccessLevel.NONE) // setter 따로 사용하기 위함
     private Date updateDate;
-
     private String updateAFewDaysAgo;
+    private boolean newUpdateFlag;
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
         this.updateAFewDaysAgo = DateFormatUtils.makeFewDaysAgo(updateDate);
+
+        if(DateFormatUtils.checkNewUpdate(updateDate))
+            this.newUpdateFlag = true;
     }
 }

@@ -221,6 +221,7 @@
 
 
 </head>
+<img class="newIcon" src="zz.jpg" alt="zz.jpg" width="100" height="100">
 
 <body class="fixed-nav sticky-footer" id="page-top">
     <form id="promotionWriteForm" action="/foodie/write" method="post" enctype="multipart/form-data">
@@ -908,7 +909,6 @@
                         }
                     })
                 }
-
             });
 
             return menuDropzone;

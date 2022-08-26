@@ -44,11 +44,19 @@ public class ProBoardController {
         model.addAttribute("titleImg",proBoardService.selectTitleImg(promotionBno));
         model.addAttribute("detailImgList",proBoardService.selectDetailImgList(promotionBno));
 
-        model.addAttribute("noticeList",proBoardService.selectNotice(promotionBno));
-
+        model.addAttribute("noticeDTOS",proBoardService.selectNotice(promotionBno));
         return "promotion/pro-detail";
     }
 
+
+    @GetMapping ("/detail/noticeShow/{promotionBno}")
+    @ResponseBody
+    public List<NoticeDTO> showAgainDetailNotice(@PathVariable int promotionBno)
+    {
+        List<NoticeDTO> noticeDTOS = proBoardService.selectNotice(promotionBno);
+        log.info("showAgainDetailNotice noticeDOTS - {} ",noticeDTOS);
+        return noticeDTOS;
+    }
 
     @PostMapping ("/detail/noticeSave")
     @ResponseBody
@@ -59,21 +67,22 @@ public class ProBoardController {
         return result ? "insert-success" : "insert-failed";
     }
 
-    @GetMapping ("/detail/noticeShow")
-    public List<NoticeDTO> showAgainDetailNotice(int promotionBno)
+
+    @DeleteMapping ("/detail/noticeDelete/{noticeNo}")
+    @ResponseBody
+    public String deleteDetailNotice(@PathVariable int noticeNo)
     {
-        List<NoticeDTO> noticeDTOS = proBoardService.selectNotice(promotionBno);
-        log.info("showAgainDetailNotice noticeDOTS - {} ",noticeDTOS);
-        return noticeDTOS;
+        log.info("/detail/noticeDelete/{} controller RequestBody ", noticeNo);
+        boolean result = proBoardService.deleteNotice(noticeNo);
+        return result ? "delete-success" : "delete-failed";
     }
+
 
 
     @GetMapping("/write/{businessNo}")
     public String write(Model model, @PathVariable String businessNo) {
         log.info("foodie/write Get - ! {} ", businessNo);
-        Master master = proBoardService.selectMaster(businessNo);
-        log.info(master);
-        model.addAttribute("master", master);
+        model.addAttribute("master", proBoardService.selectMaster(businessNo));
         return "promotion/pro-write";
     }
 
@@ -94,7 +103,6 @@ public class ProBoardController {
         String[] menuPrices = request.getParameterValues("menuPrice");
 
         List<String[]> menuList = new ArrayList<>(Arrays.asList(menuNames, menuPrices));
-
 
         Map<String, List<MultipartFile>> fileMap = new HashMap<>() {{
             put("title", titleImgFile);

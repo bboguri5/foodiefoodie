@@ -72,7 +72,8 @@
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
     </script>
 
-
+    <!-- icon link -->
+    <script src="https://kit.fontawesome.com/de04e07342.js" crossorigin="anonymous"></script>
 </head>
 
 <style>
@@ -148,14 +149,10 @@
         width: 50px;
         height: 50px;
     }
-
-    button.mfp-close {
-        background-color: black;
-        color: #fff;
-    }
 </style>
 
 <body>
+
     <!-- header -->
     <header class="header_in clearfix">
         <div class="container">
@@ -317,7 +314,7 @@
                     <div class="tabs_detail">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a id="tab-A" href="#pane-A" class="nav-link " data-bs-toggle="tab"
+                                <a id="tab-A" href="#pane-A" class="nav-link active" data-bs-toggle="tab"
                                     role="tab">Information</a>
                             </li>
                             <li class="nav-item">
@@ -328,13 +325,16 @@
                                     role="tab">Reviews</a>
                             </li>
                             <li class="nav-item">
-                                <a id="tab-D" href="#pane-D" class="nav-link active" data-bs-toggle="tab"
-                                    role="tab">Notice</a>
+                                <a id="tab-D" href="#pane-D" class="nav-link  newNotice" data-bs-toggle="tab"
+                                    role="tab">Notice
+
+                                </a>
                             </li>
                         </ul>
+
                         <div class="tab-content" role="tablist">
                             <!-- A type -->
-                            <div id="pane-A" class="card tab-pane fade show " role="tabpanel" aria-labelledby="tab-A">
+                            <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
                                 <div class="card-header" role="tab" id="heading-A">
                                     <h5>
                                         <a class="collapsed" data-bs-toggle="collapse" href="#collapse-A"
@@ -861,35 +861,14 @@
                                         <!-- 공지사항  -->
                                         <h2>공지사항</h2>
                                         <div class="add_bottom_25 openWriteBox">
-                                            <p class="inline-popups">
-                                                <a href="#modal-reply" data-effect="mfp-zoom-in"
-                                                    class="btn_1 noticeWrite">
+                                            <p class="inline-popups noticeWrite">
+                                                <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
                                                     <i class="fa fa-fw fa-reply"></i>글쓰기</a>
                                             </p>
                                         </div>
                                         <div class="list_general notices">
                                             <ul>
-                                                <!-- <li>
-                                                    <span>June 15 2019</span>
-                                                    <span class="rating"><strong>Rate: 8.5</strong></span>
-                                                    <figure><img src="img/item_1.jpg" alt=""></figure>
-                                                    <h4>La Monnalisa <small>by M.Twain</small></h4>
-                                                    <p>Lorem ipsum dolor sit amet, dolores mandamus moderatius ea ius, sed civibus vivendum imperdiet ei, amet tritani sea id. Ut veri diceret fierent mei, qui facilisi suavitate euripidis ad. In vim mucius menandri convenire, an brute zril vis. Ancillae delectus necessitatibus no eam, at porro solet veniam mel, ad everti nostrud vim. Eam no menandri pertinacia deterruisset.</p>
-                                                    <p class="inline-popups"><a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1 gray"><i class="fa fa-fw fa-reply"></i> Reply to this review</a></p>
-                                                </li> -->
-                                                <c:forEach var="notice" items="${noticeList}">
-                                                    <li>
-                                                        <p>${notice.content}</p>
-                                                        <ul class="buttons">
-                                                            <li><a class="btn_1 gray delete "><i
-                                                                        class="fa fa-fw fa-times-circle-o"></i>
-                                                                    삭제</a></li>
-                                                        </ul>
-                                                        <p class="update_date">
-                                                            업데이트 : ${notice.updateAFewDaysAgo}
-                                                        </p>
-                                                    </li>
-                                                </c:forEach>
+                                                <!-- makeNoticeDom method -->
                                             </ul>
                                         </div>
                                         <!-- /공지사항 -->
@@ -1114,14 +1093,13 @@
 </body>
 
 <script>
+    showKaKao(); // information map  
 
-     
+    clickEventOpenKakao(); // open kakao map 
 
-
-    showKaKao();
-    clickEventOpenKakao();
-    makeNoticeWriteStyle();
-    clickEventSaveNotice();
+    showNotice(); // notice
+    makeNoticeWriteStyle(); // notice popup style
+    clickEventSaveNotice(); // notice save 
 
     function showKaKao() {
         let positionAddress = '';
@@ -1169,7 +1147,13 @@
                 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
             }
 
+            $("#tab-A").on('click', function () {
+                console.log("map relayout");
+                map.relayout();
+            })
+
         });
+
 
 
     }
@@ -1195,7 +1179,6 @@
 
     }
 
-
     function clickEventSaveNotice() {
         const $noticeSubmit = $('.noticeSubmit');
         $noticeSubmit.on('click', function (e) {
@@ -1205,85 +1188,104 @@
 
     function saveNoticeWriteText(e) {
 
-        const $noticeContent = $('.noticeContent');
-
-        const noticeContent = $noticeContent.val().replace(/\n/gi, "<br>");
-        console.log(noticeContent);
-        console.log(${promotionBno});
+        const $noticeContent = document.querySelector('.noticeContent');
+        if ($noticeContent.value.length > 300) {
+            alert(" 300자 이내 입력 부탁드립니다.");
+            return;
+        }
+        const noticeContent = $noticeContent.value.replace(/\n/gi, "<br>");
 
         const noticeData = {
-            promotionBno : `${promotionBno}`,
-            content : noticeContent
+            promotionBno: `${promotionBno}`,
+            content: noticeContent
         }
 
         const reqInfo = {
-            method : 'POST',
+            method: 'POST',
             headers: {
-                'content-type':'application/json'
+                'content-type': 'application/json'
             },
-            body : JSON.stringify(noticeData)
+            body: JSON.stringify(noticeData)
         };
 
-        fetch('/foodie/detail/noticeSave',reqInfo)
-        .then(res => res.text())
-        .then(msg => {
-            console.log(msg);
-            if(msg === 'insert-success'){
-                alert("공지사항 등록 성공");
-                $noticeContent.val('');
-                $('.mfp-close').click();
-                
-                fetch('/foodie/detail/noticeShow',${promotionBno})
-                .then(res => json())
-                .then(noticeL =>{
-                    console.log(noticeL);
-                })
-            }else{
-                alert("공지사항 등록 실패");
-            }
-        });
+
+        fetch('/foodie/detail/noticeSave', reqInfo)
+            .then(res => res.text())
+            .then(result => {
+                console.log(result);
+                if (result === 'insert-success') {
+                    alert("공지사항 등록 성공");
+                    $noticeContent.value = '';
+                    $('.mfp-close').click();
+                    showNotice();
+                } else {
+                    alert("공지사항 등록 실패");
+                }
+            });
     }
 
-    
+    function showNotice() {
+        console.log("showNotice");
+        fetch('/foodie/detail/noticeShow/' + `${promotionBno}`)
+            .then(res => res.json())
+            .then(noticeDTOS => {
+                console.log(noticeDTOS);
+                makeNoticeDom(noticeDTOS);
+            })
+    }
 
-    // function showReplies(pageNum = 1) {
-    //         fetch('/reply?reviewBno=' + bno + '&pageNum=' + pageNum)
-    //             .then(res => res.json())
-    //             .then(replyMap => {
-    //                 // console.log(replyMap.replyList);
-    //                 makeReplyDOM(replyMap);
-    //             });
-    //     }
+    function makeNoticeDom(noticeDTOS) {
 
+        let tag = '';
+        let newUpdateArr = [];
 
-    //     function makeReplyDOM({
-    //         replyList,
-    //         count,
-    //         maker
-    //     }) {
-    //         // 각 댓글 하나의 태그
-    //         let tag = '';
-    //         if (replyList === null || replyList.length === 0) {
-    //             tag += "<div id='replyContent' class='card-body'>댓글이 아직 없습니다! ㅠㅠ</div>";
-    //         } else {
-    //             for (let rep of replyList) {
+        console.log("makeNoticeDom 진입");
+        for (const notice of noticeDTOS) {
 
-    //                 tag += `<ul>` +
-    //                     `   <li>` +
-    //                     `       <div class="avatar">` +
-    //                     `           <a href="#"><img src="/img/avatar1.jpg" alt=""></a>` +
-    //                     `       </div>` +
-    //                     `       <div class="comment_right clearfix">` +
-    //                     `           <div class="comment_info">By <a href="#">` + rep.nickName + `</a><span>|</span>` +
-    //                     rep.lastUpdated + `<span>|</span><a href="#">Reply</a></div>` +
-    //                     `           <p>` + rep.content + `</p>` +
-    //                     `       </div>` +
-    //                     `   </li> ` +
-    //                     `</ul>`
+            tag += `<li>` +
+                `<input type="hidden" class="noticeNo" value="` + notice.noticeNo + `">` +
+                `<p>` + notice.content + `</p>` +
+                `<ul class="buttons deleteNoticeWrite">` +
+                `<li>` +
+                `<a class="btn_1 gray delete">` +
+                `<i class="fa fa-fw fa-times-circle-o"></i>` +
+                `삭제 </a>` +
+                `</li>` +
+                `</ul>` +
+                `<p class="update_date"> 업데이트 : ` + notice.updateAFewDaysAgo + `</p>` +
+                `</li>`;
 
-    //             }
-    //         }
-    //     }
+            newUpdateArr.push(notice.newUpdateFlag);
+        }
+
+        if (newUpdateArr.includes(true)) {
+            document.querySelector('.newNotice').innerHTML = 'NOTICE    <span style="color : red "> [ new! ] </span>';
+        }
+
+        document.querySelector('.list_general.notices ul').innerHTML = tag;
+        clickEventDeleteNotice();
+
+    }
+
+    function clickEventDeleteNotice() {
+        const $deleteNotice = $('.deleteNoticeWrite');
+        $deleteNotice.on('click', function () {
+            const noticeNo = this.parentElement.firstElementChild.value;
+            fetch('/foodie/detail/noticeDelete/' + noticeNo, {
+                    method: 'DELETE'
+                })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === 'delete-success') {
+                        alert("삭제 완료");
+                        showNotice();
+
+                    } else {
+                        alert("삭제 실패");
+                    }
+                })
+        })
+    };
 </script>
 
 </html>

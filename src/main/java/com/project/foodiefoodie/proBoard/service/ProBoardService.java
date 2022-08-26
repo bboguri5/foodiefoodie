@@ -53,6 +53,8 @@ public class ProBoardService {
         return proBoardMapper.delete(promotionBno);
     }
 
+    public boolean deleteNotice(int noticeNo){return  proBoardMapper.deleteNotice(noticeNo);}
+
     public ProBoard selectOne(int promotionBno) {
         return proBoardMapper.selectOne(promotionBno);
     }

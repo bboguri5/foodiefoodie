@@ -16,6 +16,8 @@ public class DateFormatUtils {
         long regTime = date.getTime();
         long diffTime = (curTime - regTime) / 1000;
 
+        System.out.println(regTime);
+        System.out.println(diffTime);
         String ruesult = null;
 
         if (diffTime < SEC) {
@@ -39,4 +41,10 @@ public class DateFormatUtils {
         return ruesult;
     }
 
+    public static boolean checkNewUpdate(Date date) {
+        long curTime = System.currentTimeMillis();
+        long regTime = date.getTime();
+        long diffTime = (curTime - regTime) / 1000;
+        return diffTime < 60*60*24*3;
+    }
 }

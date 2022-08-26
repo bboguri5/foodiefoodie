@@ -1068,7 +1068,6 @@
             // menu 정보를 담을 객체 리스트
             const menuList = [];
             const orderList = document.getElementById('async-order-list').children;
-            const businessNo = '${master.businessNo}';
 
             // console.log(orderList);
             // console.log('business_no : ' + '${master.businessNo}');
@@ -1083,33 +1082,26 @@
                     menuName += orderArray[j] + ' ';
                 }
 
+                const businessNo = '${master.businessNo}';
+
                 const menu = {
                     menuName: menuName,
-                    menuPrice: orderArray[orderArray.length - 2],
-                    quantity: orderArray[orderArray.length - 1]
+                    menuPrice: orderArray[orderArray.length - 1],
+                    quantity: orderArray[orderArray.length - 2],
+                    businessNo: businessNo
                 };
 
                 menuList[menuList.length] = menu;
 
             }
 
-            // 서버로 전송할 주문 리스트  객체
-            const orderInfo = {
-                menuList: menuList,
-                businessNo: businessNo
-            };
-
-            submitOrder(orderInfo);
+            submitOrder(menuList);
+            // console.log(menuList);
 
         }
 
         // 주문 정보 전송 메서드
-        function submitOrder(orderInfo) {
-
-            var data = new FormData();
-            data.append("menuList", JSON.stringify(orderInfo.menuList));
-            data.append("businessNo", JSON.stringify(orderInfo.businessNo));
-
+        function submitOrder(menuList) {
 
             // POST요청을 위한 요청 정보 객체
             const reqInfo = {
@@ -1117,7 +1109,7 @@
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: data
+                body: JSON.stringify(menuList)
             };
 
             // console.log(data);

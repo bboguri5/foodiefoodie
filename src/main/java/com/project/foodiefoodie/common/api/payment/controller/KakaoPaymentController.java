@@ -32,7 +32,7 @@ public class KakaoPaymentController {
     // 주문 데이터를 들고 주문 확인창으로 이동 요청 처리
     @PostMapping("/kakao/order/check")
     public String orderRequest(@RequestBody List<OrderInfo> orderInfoList, HttpSession session) {
-        log.info("/order/check GET!! - {}", orderInfoList.get(0).toString());
+        log.info("/order/check GET!! - {}", orderInfoList);
 
 
         session.setAttribute("orderInfoList", orderInfoList);

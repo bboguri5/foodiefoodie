@@ -883,7 +883,6 @@
     <script src="/js/common_scripts.min.js"></script>
     <script src="/js/common_func.js"></script>
     <script src="/js/validate.js"></script>
-    <script src="/js/takeout-order.js"></script>
 
     <!-- SPECIFIC SCRIPTS -->
     <script src="/js/sticky_sidebar.min.js"></script>

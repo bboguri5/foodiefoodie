@@ -31,10 +31,10 @@ function addToOrder(target) {
     const menuPrice = document.getElementById('menu-price' + menuId).textContent;
     var totalPrice = document.getElementById('total').textContent;
     // console.log('totalPrice = ', totalPrice);
+    // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ", menuPrice);
 
     // 이미 메뉴가 리스트에 들어있으면 quantity & price 정보 수정
     if (document.getElementById('order-name' + menuId) !== null) {
-
         // increase current quantity
         const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
         // console.log('current quantity - ', currQuantity);
@@ -54,7 +54,7 @@ function addToOrder(target) {
             `       <div id="order-quantity` + menuId + `" class="quantity ` + menuId + `">` +
             `           <i id="minus` + menuId + `" class=""></i><strong class="order-quantity` +
             menuId +
-            `">0</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` + // maybe delete id
+            `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` + // maybe delete id
             `       </div>` +
             `       <span id="order-price` + menuId + `">` + menuPrice + `</span>` +
             `   </li>`;
@@ -135,6 +135,7 @@ function deleteMenuFromOrderClickEvent() {
     const targetBtn = document.querySelector('.click-target');
     targetBtn.addEventListener('click', e => {
         if (e.target.classList.contains('removeMenu')) {
+            e.preventDefault();
             // remove menu2
             // console.log('remove clicked - ', e.target.parentElement);
             e.target.parentElement.remove();

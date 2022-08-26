@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -31,16 +33,20 @@ public class KakaoPaymentController {
 
     // 주문 데이터를 들고 주문 확인창으로 이동 요청 처리
     @PostMapping("/kakao/order/check")
+    @ResponseBody
     public String orderRequest(@RequestBody List<OrderInfo> orderInfoList, HttpSession session) {
         log.info("/order/check GET!! - {}", orderInfoList);
 
 
         session.setAttribute("orderInfoList", orderInfoList);
-        return "payment/check-order"; // -> 확인창에서 최종 주문 요청을 하게 되면 KakaoController에서 작업 수행.
+
+
+        return "order-success"; // -> 확인창에서 최종 주문 요청을 하게 되면 KakaoController에서 작업 수행.
     }
 
-    @GetMapping("/hey")
+    @GetMapping("/kakao/order/check")
     public String hey() {
+        log.info("/kakao/order/check GET!!");
         return "payment/check-order";
     }
 

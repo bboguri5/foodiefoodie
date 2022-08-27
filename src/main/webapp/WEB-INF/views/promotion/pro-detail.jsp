@@ -916,7 +916,7 @@
         };
 
 
-        fetch('/foodie/detail/noticeSave', reqInfo)
+        fetch('/foodie/detail/notice/save', reqInfo)
             .then(res => res.text())
             .then(result => {
                 console.log(result);
@@ -933,7 +933,7 @@
 
     function showNotice() {
         console.log("showNotice");
-        fetch('/foodie/detail/noticeShow/' + `${promotionBno}`)
+        fetch('/foodie/detail/notice/show/' + `${promotionBno}`)
             .then(res => res.json())
             .then(noticeDTOS => {
                 console.log(noticeDTOS);
@@ -978,7 +978,7 @@
         const $deleteNotice = $('.deleteNoticeWrite');
         $deleteNotice.on('click', function () {
             const noticeNo = this.parentElement.firstElementChild.value;
-            fetch('/foodie/detail/noticeDelete/' + noticeNo, {
+            fetch('/foodie/detail/notice/delete/' + noticeNo, {
                     method: 'DELETE'
                 })
                 .then(res => res.text())

@@ -4,14 +4,11 @@ package com.project.foodiefoodie.proBoard.controller;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 
-import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
-import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.stereotype.Controller;
@@ -32,9 +29,10 @@ public class ProBoardController {
 
     private final ProBoardService proBoardService;
 
+
     @GetMapping("/detail/{promotionBno}")
     public String detail(Model model, @PathVariable int promotionBno)  {
-        log.info(" foodie/detail Get - !  {} ", promotionBno);
+        log.info(" ProBoardController /detail/{} Get - ! ", promotionBno);
 
         ProBoard proBoard = proBoardService.selectOne(promotionBno);
         Master master = proBoardService.selectMaster(proBoard.getBusinessNo());
@@ -52,26 +50,26 @@ public class ProBoardController {
     }
 
 
-    @GetMapping ("/detail/noticeShow/{promotionBno}")
+    @GetMapping ("/detail/notice/show/{promotionBno}")
     @ResponseBody
     public List<NoticeDTO> showAgainDetailNotice(@PathVariable int promotionBno)
     {
         List<NoticeDTO> noticeDTOS = proBoardService.selectNotice(promotionBno);
-        log.info("showAgainDetailNotice noticeDOTS - {} ",noticeDTOS);
+        log.info("ProBoardController /detail/noticeShow/{} Get - ! noticeDOTS : {} ", promotionBno,noticeDTOS);
         return noticeDTOS;
     }
 
-    @PostMapping ("/detail/noticeSave")
+
+    @PostMapping ("/detail/notice/save")
     @ResponseBody
     public String saveDetailNotice(@RequestBody NoticeDTO noticeDTO)
     {
-        log.info("saveDetailNotice controller RequestBody {}",noticeDTO);
+        log.info("ProBoardController /detail/noticeSave POST - ! {}",noticeDTO);
         boolean result = proBoardService.saveNotice(noticeDTO);
         return result ? "insert-success" : "insert-failed";
     }
 
-
-    @DeleteMapping ("/detail/noticeDelete/{noticeNo}")
+    @DeleteMapping ("/detail/notice/delete/{noticeNo}")
     @ResponseBody
     public String deleteDetailNotice(@PathVariable int noticeNo)
     {
@@ -80,8 +78,7 @@ public class ProBoardController {
         return result ? "delete-success" : "delete-failed";
     }
 
-
-
+    //    ---------------------------------------- write ----------------------------------------
     @GetMapping("/write/{businessNo}")
     public String write(HttpSession session, Model model, @PathVariable String businessNo) {
 
@@ -120,12 +117,7 @@ public class ProBoardController {
             put("menu", menuImgFiles);
         }};
 
-        log.info("foodie/write POST!! - fileMap : {}", fileMap);
-
         boolean proBoardSaveResult = proBoardService.saveProBoard(proBoard, storeTimeDTO, menuList, fileMap);
-
-        log.info("foodie/write POST - proBoardSaveResult {}", proBoardSaveResult);
-
         return "";
     }
 

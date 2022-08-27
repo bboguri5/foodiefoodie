@@ -118,8 +118,6 @@
             justify-content: center;
         }
 
-        button.btn_1.medium.cancel {}
-
         .c-red {
             color: red;
         }

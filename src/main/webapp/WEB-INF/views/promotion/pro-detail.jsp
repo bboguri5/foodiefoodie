@@ -1,5 +1,7 @@
 <%@ page contentType='text/html; charset=UTF-8' language='java' %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -9,15 +11,6 @@
     <meta name="description" content="Foogra - Discover & Book the best restaurants at the best price">
     <meta name="author" content="Ansonika">
     <title>Foogra - Discover & Book the best restaurants at the best price</title>
-
-    <!-- Favicons-->
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-        href="/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-        href="/img/apple-touch-icon-144x144-precomposed.png">
 
     <!-- jquery -->
     <script src="/js/jquery-3.3.1.min.js"></script>
@@ -34,19 +27,7 @@
     <!-- SPECIFIC CSS -->
     <link href="/css/detail-page.css" rel="stylesheet">
 
-    <!-- YOUR CUSTOM CSS -->
-    <link href="/css/custom.css" rel="stylesheet">
-
     <link href="/css/detail-page-delivery.css" rel="stylesheet">
-
-    <!-- menu -->
-    <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-        href="/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-        href="/img/apple-touch-icon-144x144-precomposed.png">
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 
     <!-- notice -->
     <link href="/vendor/magnific-popup.css" rel="stylesheet">
@@ -57,8 +38,6 @@
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <!-- bootstrap css -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-
 
     <style id="theia-sticky-sidebar-stylesheet-TSS">
         .theiaStickySidebar:after {
@@ -90,6 +69,10 @@
         width: 100%;
         padding-left: 25%;
         padding-right: 25%;
+    }
+    .menu_item.thumbs figure img.defaultImg
+    {
+        width: 50px;
     }
 
     .endLine {
@@ -149,6 +132,7 @@
         width: 50px;
         height: 50px;
     }
+
     .quantity {
         display: inline;
         margin-left: 470px;
@@ -173,74 +157,74 @@
 
     /* review */
     #locationList {
-			display: flex;
-			justify-content: space-between;
-		}
+        display: flex;
+        justify-content: space-between;
+    }
 
-		#locationList .item {
-			width: 16%;
-		}
+    #locationList .item {
+        width: 16%;
+    }
 
-		.search form {
-			display: flex;
-		}
+    .search form {
+        display: flex;
+    }
 
-		.search .form-select {
-			flex: 1;
-			margin-top: 8px;
-			border-radius: 10px;
-		}
+    .search .form-select {
+        flex: 1;
+        margin-top: 8px;
+        border-radius: 10px;
+    }
 
-		.search .row {
-			flex: 10;
-		}
+    .search .row {
+        flex: 10;
+    }
 
-		.col-lg-9 {
-			margin: auto;
-			width: 60%;
-		}
+    .col-lg-9 {
+        margin: auto;
+        width: 60%;
+    }
 
-		article.blog .post_info {
-			padding: 20px 17px 30px 17px;
-		}
+    article.blog .post_info {
+        padding: 20px 17px 30px 17px;
+    }
 
-		.post_info h2 {
-			margin: 20px 0;
-		}
+    .post_info h2 {
+        margin: 20px 0;
+    }
 
-		.post_info li i {
-			margin-left: 10px;
-		}
+    .post_info li i {
+        margin-left: 10px;
+    }
 
-		.heartIcon:hover {
-			cursor: pointer;
-		}
+    .heartIcon:hover {
+        cursor: pointer;
+    }
 
-		.icon_comment_alt {
-			cursor: pointer;
-		}
+    .icon_comment_alt {
+        cursor: pointer;
+    }
 
-		p {
-			overflow-wrap: break-word;
-		}
+    p {
+        overflow-wrap: break-word;
+    }
 
-		.page_header .container .row form {
-			width: 75%;
+    .page_header .container .row form {
+        width: 75%;
 
-		}
+    }
 
-		.page_header .container .row .col-xl-8 {
-			width: 20%;
-		}
+    .page_header .container .row .col-xl-8 {
+        width: 20%;
+    }
 
-		nav.main-menu {
-			height: 100%;
-			margin-right: 40px;
-		}
+    nav.main-menu {
+        height: 100%;
+        margin-right: 40px;
+    }
 
-		.submenu .show-submenu {
-			color: #589442;
-		}
+    .submenu .show-submenu {
+        color: #589442;
+    }
 </style>
 
 <body>
@@ -311,7 +295,8 @@
 
                         <div class="tab-content" role="tablist">
                             <!-- A type -->
-                            <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+                            <div id="pane-A" class="card tab-pane fade show active" role="tabpanel"
+                                aria-labelledby="tab-A">
                                 <div class="card-header" role="tab" id="heading-A">
                                     <h5>
                                         <a class="collapsed" data-bs-toggle="collapse" href="#collapse-A"
@@ -430,13 +415,20 @@
                                                 <div class="menu_item thumbs">
                                                     <figure>
                                                         <a title="Photo title" data-effect="mfp-zoom-in">
-                                                            <img src="data:image/jpg;base64,${menu.filePath}"
-                                                                data-src="data:image/jpg;base64,${menu.filePath}" alt=""
-                                                                class="lazy">
+                                                            <c:set var="filePath" value="${menu.filePath}"/>
+                                                                <c:if test="${fn:contains(filePath,'foodie_default.PNG')}">
+                                                                    <img src="${menu.filePath}" data-src="${menu.filePath}" alt="" class="defaultImg">
+                                                                </c:if>
+                                                                <c:if test="${not fn:contains(filePath,'foodie_default.PNG')}">
+                                                                    <img src="data:image/jpg;base64,${menu.filePath}"
+                                                                        data-src="data:image/jpg;base64,${menu.filePath}"
+                                                                        alt="" class="lazy">
+                                                                </c:if>
                                                         </a>
                                                     </figure>
                                                     <div id="menu${menu.menuNo}" class="menuInfo">
-                                                        <h4 id="menu-name${menu.menuNo}">${menu.menuName}</h4>
+                                                        <h4 id="menu-name${menu.menuNo}">${menu.menuName}
+                                                        </h4>
                                                         <em id="menu-price${menu.menuNo}">${menu.menuPrice}</em>
                                                         <button id="${menu.menuNo}" class="menuAddBtn"
                                                             type="button">방문포장</button>
@@ -482,7 +474,7 @@
                             </div>
                             <!-- /B type -->
 
-                            
+
                             <!-- C type -->
                             <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-C">
                                 <div class="card-header" role="tab" id="heading-C">
@@ -508,32 +500,39 @@
                                                     <!-- <div class="col-md-6"> -->
                                                     <article class="blog">
                                                         <figure>
-                                                            <a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}"><img
+                                                            <a
+                                                                href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}"><img
                                                                     src="${uploads[status.index].filePath}" alt="">
                                                                 <div class="preview"><span>Read more</span></div>
                                                             </a>
                                                         </figure>
                                                         <div class="post_info">
                                                             <small>Last Updated - ${rl.lastUpdated}
-                                                                <fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
-                                                            <h2><a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a></h2>
-                        
+                                                                <fmt:formatDate type="both" value="${rl.lastUpdated}" />
+                                                            </small>
+                                                            <h2><a
+                                                                    href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a>
+                                                            </h2>
+
                                                             <p>식당 이름: <a href="#">${rl.storeName}</a></p>
                                                             <p>식당 주소: ${rl.storeAddress}</p>
                                                             <p>${rl.content}
                                                                 <ul>
                                                                     <li>
-                                                                        <div class="thumb"><img src="/img/avatar.jpg" alt=""></div>
+                                                                        <div class="thumb"><img src="/img/avatar.jpg"
+                                                                                alt=""></div>
                                                                         ${rl.email}
                                                                     </li>
                                                                     <li>
-                                                                        <i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i><span
+                                                                        <i id="${rl.reviewBno}"
+                                                                            class="heartIcon icon_heart_alt"></i><span
                                                                             id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-                                                                        <a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}#section-comment"><i
+                                                                        <a
+                                                                            href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}#section-comment"><i
                                                                                 id="${rl.reviewBno}"
                                                                                 class="icon_comment_alt"></i>${replyCount[status.index]}</a>
                                                                     </li>
-                        
+
                                                                 </ul>
                                                         </div>
                                                     </article>
@@ -996,56 +995,105 @@
 </script>
 
 
-    <!-- 메뉴 주문 자바 스크립트 -->
-    <script>
-        // 즉시 실행
-        (function () {
-
-            // 메뉴 추가 버튼 클릭 이벤트
-            menuAddClickEvent();
-
-            // 주문 버튼 클릭 이벤트
-            submitOrderClickEvent();
-
-        })();
+<!-- 메뉴 주문 자바 스크립트 -->
+<script>
+    // 즉시 실행
+    (function () {
 
         // 메뉴 추가 버튼 클릭 이벤트
-        function menuAddClickEvent() {
-            const menuAddBtn = document.querySelector('.menu-gallery');
-            menuAddBtn.addEventListener('click', e => {
-                // console.log(e.target.classList);
-                if (e.target.classList.contains('menuAddBtn')) {
-                    // console.log('menuAddBtn clicked');
-                    addToOrder(e.target);
-                }
-            });
+        menuAddClickEvent();
+
+        // 주문 버튼 클릭 이벤트
+        submitOrderClickEvent();
+
+    })();
+
+    // 메뉴 추가 버튼 클릭 이벤트
+    function menuAddClickEvent() {
+        const menuAddBtn = document.querySelector('.menu-gallery');
+        menuAddBtn.addEventListener('click', e => {
+            // console.log(e.target.classList);
+            if (e.target.classList.contains('menuAddBtn')) {
+                // console.log('menuAddBtn clicked');
+                addToOrder(e.target);
+            }
+        });
+    }
+
+    // ADD TO ORDER SUMMARY LIST
+    function addToOrder(target) {
+
+        // get menu info
+        const menuId = target.id;
+        const menuInfo = document.getElementById('menu' + menuId);
+        const menuName = document.getElementById('menu-name' + menuId).textContent;
+        const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+        var totalPrice = document.getElementById('total').textContent;
+        // console.log('totalPrice = ', totalPrice);
+        // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ", menuPrice);
+
+        // 이미 메뉴가 리스트에 들어있으면 quantity & price 정보 수정
+        if (document.getElementById('order-name' + menuId) !== null) {
+            // increase current quantity
+            const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+            // console.log('current quantity - ', currQuantity);
+            document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
+
+            // increase menu price and total price
+            document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+            var currentPrice = document.getElementById('order-price' + menuId).textContent;
+            document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
+                menuPrice);
+
+
+            // add minus button if more than one
+            const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+            if (newQuantity > 1) {
+                const minusBtn = document.getElementById('minus' + menuId);
+                minusBtn.classList.add('icon_minus_alt2');
+
+            }
+        } else { // 리스트에 비동기로 정보 추가
+
+            let tag = '';
+            tag +=
+                `   <li id="order-name` + menuId + `">` +
+                `       <a class="removeMenu" href="#0">` + menuName + `</a>` +
+                `       <div id="order-quantity` + menuId + `" class="quantity ` + menuId + `">` +
+                `           <i id="minus` + menuId + `" class=""></i><strong class="order-quantity` +
+                menuId +
+                `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` + // maybe delete id
+                `       </div>` +
+                `       <span id="order-price` + menuId + `">` + menuPrice + `</span>` +
+                `   </li>`;
+
+            document.getElementById('async-order-list').innerHTML += tag;
+
+            // 최종 가격 업데이트
+            document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+
         }
 
-        // ADD TO ORDER SUMMARY LIST
-        function addToOrder(target) {
+        // 주문 메뉴 개수 업다운 버튼 이벤트
+        upDownQuantityClickEvent();
 
-            // get menu info
-            const menuId = target.id;
-            const menuInfo = document.getElementById('menu' + menuId);
-            const menuName = document.getElementById('menu-name' + menuId).textContent;
-            const menuPrice = document.getElementById('menu-price' + menuId).textContent;
-            var totalPrice = document.getElementById('total').textContent;
-            // console.log('totalPrice = ', totalPrice);
-            // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ", menuPrice);
+        // 주문 메뉴 삭제 이벤트
+        deleteMenuFromOrderClickEvent();
+    }
 
-            // 이미 메뉴가 리스트에 들어있으면 quantity & price 정보 수정
-            if (document.getElementById('order-name' + menuId) !== null) {
+    // 주문 메뉴 개수 업다운 버튼 이벤트
+    function upDownQuantityClickEvent() {
+        const targetBtn = document.querySelector('.click-target');
+
+        targetBtn.onclick = e => {
+            const menuId = e.target.parentElement.classList[1];
+            if (e.target.classList.contains('icon_plus_alt2')) {
+                console.log('plus clicked ', menuId);
+
                 // increase current quantity
                 const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
                 // console.log('current quantity - ', currQuantity);
                 document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
-
-                // increase menu price and total price
-                document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
-                var currentPrice = document.getElementById('order-price' + menuId).textContent;
-                document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
-                    menuPrice);
-
 
                 // add minus button if more than one
                 const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
@@ -1054,176 +1102,127 @@
                     minusBtn.classList.add('icon_minus_alt2');
 
                 }
-            } else { // 리스트에 비동기로 정보 추가
 
-                let tag = '';
-                tag +=
-                    `   <li id="order-name` + menuId + `">` +
-                    `       <a class="removeMenu" href="#0">` + menuName + `</a>` +
-                    `       <div id="order-quantity` + menuId + `" class="quantity ` + menuId + `">` +
-                    `           <i id="minus` + menuId + `" class=""></i><strong class="order-quantity` +
-                    menuId +
-                    `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` + // maybe delete id
-                    `       </div>` +
-                    `       <span id="order-price` + menuId + `">` + menuPrice + `</span>` +
-                    `   </li>`;
-
-                document.getElementById('async-order-list').innerHTML += tag;
-
-                // 최종 가격 업데이트
+                // increase menu price and total price
+                var totalPrice = document.getElementById('total').textContent;
+                const menuPrice = document.getElementById('menu-price' + menuId).textContent;
                 document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
+                    menuPrice);
 
-            }
+            } else if (e.target.classList.contains('icon_minus_alt2')) {
+                console.log('minus clicked', menuId);
 
-            // 주문 메뉴 개수 업다운 버튼 이벤트
-            upDownQuantityClickEvent();
+                // increase current quantity
+                const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                // console.log('current quantity - ', currQuantity);
+                document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) - 1;
 
-            // 주문 메뉴 삭제 이벤트
-            deleteMenuFromOrderClickEvent();
-        }
+                // add minus button if less than or equal to one
+                const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                if (newQuantity <= 1) {
+                    const minusBtn = document.getElementById('minus' + menuId);
+                    minusBtn.classList.remove('icon_minus_alt2');
 
-        // 주문 메뉴 개수 업다운 버튼 이벤트
-        function upDownQuantityClickEvent() {
-            const targetBtn = document.querySelector('.click-target');
-
-            targetBtn.onclick = e => {
-                const menuId = e.target.parentElement.classList[1];
-                if (e.target.classList.contains('icon_plus_alt2')) {
-                    console.log('plus clicked ', menuId);
-
-                    // increase current quantity
-                    const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
-                    // console.log('current quantity - ', currQuantity);
-                    document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
-
-                    // add minus button if more than one
-                    const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
-                    if (newQuantity > 1) {
-                        const minusBtn = document.getElementById('minus' + menuId);
-                        minusBtn.classList.add('icon_minus_alt2');
-
-                    }
-
-                    // increase menu price and total price
-                    var totalPrice = document.getElementById('total').textContent;
-                    const menuPrice = document.getElementById('menu-price' + menuId).textContent;
-                    document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
-                    var currentPrice = document.getElementById('order-price' + menuId).textContent;
-                    document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
-                        menuPrice);
-
-                } else if (e.target.classList.contains('icon_minus_alt2')) {
-                    console.log('minus clicked', menuId);
-
-                    // increase current quantity
-                    const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
-                    // console.log('current quantity - ', currQuantity);
-                    document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) - 1;
-
-                    // add minus button if less than or equal to one
-                    const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
-                    if (newQuantity <= 1) {
-                        const minusBtn = document.getElementById('minus' + menuId);
-                        minusBtn.classList.remove('icon_minus_alt2');
-
-                    }
-
-                    // increase menu price and total price
-                    var totalPrice = document.getElementById('total').textContent;
-                    const menuPrice = document.getElementById('menu-price' + menuId).textContent;
-                    document.getElementById('total').textContent = parseInt(totalPrice) - parseInt(menuPrice);
-                    var currentPrice = document.getElementById('order-price' + menuId).textContent;
-                    document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) - parseInt(
-                        menuPrice);
-                }
-            }
-        }
-
-        // 주문 메뉴 삭제 이벤트
-        function deleteMenuFromOrderClickEvent() {
-            const targetBtn = document.querySelector('.click-target');
-            targetBtn.addEventListener('click', e => {
-                if (e.target.classList.contains('removeMenu')) {
-                    e.preventDefault();
-                    // remove menu2
-                    // console.log('remove clicked - ', e.target.parentElement);
-                    e.target.parentElement.remove();
-                    document.getElementById('total').textContent = 0;
                 }
 
-            });
+                // increase menu price and total price
+                var totalPrice = document.getElementById('total').textContent;
+                const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+                document.getElementById('total').textContent = parseInt(totalPrice) - parseInt(menuPrice);
+                var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) - parseInt(
+                    menuPrice);
+            }
         }
+    }
 
-        // 주문 버튼 클릭 이벤트
-        function submitOrderClickEvent() {
-            document.getElementById('submit-order').onclick = e => {
+    // 주문 메뉴 삭제 이벤트
+    function deleteMenuFromOrderClickEvent() {
+        const targetBtn = document.querySelector('.click-target');
+        targetBtn.addEventListener('click', e => {
+            if (e.target.classList.contains('removeMenu')) {
                 e.preventDefault();
-                makeOrderInfo();
-            };
-        }
-
-        function makeOrderInfo() {
-            // console.log('make order list clicked');
-
-            // menu 정보를 담을 객체 리스트
-            const menuList = [];
-            const orderList = document.getElementById('async-order-list').children;
-
-            // console.log(orderList);
-            // console.log('business_no : ' + '${master.businessNo}');
-
-            for (let i = 0; i < orderList.length; i++) {
-                // console.log(orderList[i].innerText);
-                var orderArray = orderList[i].innerText.split(/\s+/);
-                // console.log('orderArray - ', orderArray);
-
-                var menuName = "";
-                for (let j = 0; j < orderArray.length - 2; j++) {
-                    menuName += orderArray[j] + ' ';
-                }
-
-                const businessNo = '${master.businessNo}';
-
-                const menu = {
-                    menuName: menuName,
-                    menuPrice: orderArray[orderArray.length - 1],
-                    quantity: orderArray[orderArray.length - 2],
-                    businessNo: businessNo
-                };
-
-                menuList[menuList.length] = menu;
-
+                // remove menu2
+                // console.log('remove clicked - ', e.target.parentElement);
+                e.target.parentElement.remove();
+                document.getElementById('total').textContent = 0;
             }
 
-            submitOrder(menuList);
-        }
+        });
+    }
 
+    // 주문 버튼 클릭 이벤트
+    function submitOrderClickEvent() {
+        document.getElementById('submit-order').onclick = e => {
+            e.preventDefault();
+            makeOrderInfo();
+        };
+    }
 
+    function makeOrderInfo() {
+        // console.log('make order list clicked');
 
-        // 주문 정보 전송 메서드
-        function submitOrder(menuList) {
+        // menu 정보를 담을 객체 리스트
+        const menuList = [];
+        const orderList = document.getElementById('async-order-list').children;
 
-            // POST요청을 위한 요청 정보 객체
-            const reqInfo = {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(menuList)
+        // console.log(orderList);
+        // console.log('business_no : ' + '${master.businessNo}');
+
+        for (let i = 0; i < orderList.length; i++) {
+            // console.log(orderList[i].innerText);
+            var orderArray = orderList[i].innerText.split(/\s+/);
+            // console.log('orderArray - ', orderArray);
+
+            var menuName = "";
+            for (let j = 0; j < orderArray.length - 2; j++) {
+                menuName += orderArray[j] + ' ';
+            }
+
+            const businessNo = '${master.businessNo}';
+
+            const menu = {
+                menuName: menuName,
+                menuPrice: orderArray[orderArray.length - 1],
+                quantity: orderArray[orderArray.length - 2],
+                businessNo: businessNo
             };
 
-            // console.log(data);
+            menuList[menuList.length] = menu;
 
-
-            fetch('/kakao/order/check', reqInfo)
-                .then(res => res.text())
-                .then(msg => {
-                    if (msg === 'order-success') {
-                        location.href = '/kakao/order/check';
-                    }
-                });
         }
-    </script>
+
+        submitOrder(menuList);
+    }
+
+
+
+    // 주문 정보 전송 메서드
+    function submitOrder(menuList) {
+
+        // POST요청을 위한 요청 정보 객체
+        const reqInfo = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(menuList)
+        };
+
+        // console.log(data);
+
+
+        fetch('/kakao/order/check', reqInfo)
+            .then(res => res.text())
+            .then(msg => {
+                if (msg === 'order-success') {
+                    location.href = '/kakao/order/check';
+                }
+            });
+    }
+</script>
 
 
 

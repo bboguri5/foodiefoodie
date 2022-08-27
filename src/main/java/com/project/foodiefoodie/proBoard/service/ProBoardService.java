@@ -161,8 +161,13 @@ public class ProBoardService {
     public List<MenuDTO> selectMenuInfo(int promotionBno) {
         List<MenuDTO> menuDTOS = proBoardMapper.selectMenuInfo(promotionBno);
         for (MenuDTO menuDTO : menuDTOS) {
-            menuDTO.setFilePath(FoodieFileUtils.getFileContent(menuDTO.getFilePath() + "//" + menuDTO.getFileName()));
-            
+            if(menuDTO.getFileName().equals("foodie_default.PNG"))
+            {
+                menuDTO.setFilePath(menuDTO.getFilePath() + "\\" + menuDTO.getFileName());
+            }
+            else {
+                menuDTO.setFilePath(FoodieFileUtils.getFileContent(menuDTO.getFilePath() + "//" + menuDTO.getFileName()));
+            }
         }
         return menuDTOS;
     }

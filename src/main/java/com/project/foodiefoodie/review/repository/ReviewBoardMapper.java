@@ -2,7 +2,6 @@ package com.project.foodiefoodie.review.repository;
 
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
-import com.project.foodiefoodie.review.dto.AvgStarDTO;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -29,10 +28,12 @@ public interface ReviewBoardMapper {
 
     List<ReviewUpload> findReviewUploads(long reviewBno);
 
-    void reviewUpload(long reviewBno, String filePath, String fileName);
+    boolean reviewUpload(long reviewBno, String filePath, String fileName);
+
 
     boolean upLike(long reviewBno);
 
     int getLike(long reviewBno);
 
+    Long findNewReviewNo();
 }

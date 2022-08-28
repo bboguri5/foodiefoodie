@@ -74,7 +74,7 @@
 							<article class="blog">
 								<figure>
 									<a href="/review/detail?reviewBno=${rl.reviewBno}"><img
-											src="${uploads[status.index].filePath}" alt="">
+											src="data:image/png;base64, ${uploads[status.index].filePath}" alt="${uploads[status.index].fileName}">
 										<div class="preview"><span>Read more</span></div>
 									</a>
 								</figure>

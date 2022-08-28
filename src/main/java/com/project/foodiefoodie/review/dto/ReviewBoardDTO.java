@@ -17,6 +17,10 @@ public class ReviewBoardDTO {
     private Date lastUpdated;
     private long likeCnt;
     private int starRate;
+    private String storeName;
+    private String storeAddress;
+    private String storeDetailAddress;
+    private String storeExtraAddress;
 
     // private String filePath;
     // private int replyCount;

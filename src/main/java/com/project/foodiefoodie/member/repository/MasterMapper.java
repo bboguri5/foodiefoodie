@@ -39,4 +39,6 @@ public interface MasterMapper {
 
     // boolean removeMaster(String businessNo);
 
+    Master findOneMasterForBusinessNo(String businessNo);
+
 }

@@ -49,7 +49,7 @@
                                         <th><a href="#0" data-toggle="modal" data-target=".edit_booking"
                                             data-businessno="${al.businessNo}" data-email="${al.email}"
                                             data-mastername="${al.masterName}" data-storename="${al.storeName}"
-                                            data-storeaddress="${al.storeAddress}" data-storedetailaddress="${storeDetailAddress}"
+                                            data-storeaddress="${al.storeAddress}" data-storedetailaddress="${al.storeDetailAddress}"
                                             data-storecallnumber="${al.storeCallNumber}">
                                                 ${al.businessNo}</a>
                                         </th>
@@ -158,13 +158,15 @@
     <script>
         (function () {
             const $targetNo = document.querySelector('.target-no');
-            console.log($targetNo);
+            // console.log($targetNo);
+            
             $targetNo.addEventListener('click', e => {
                 document.querySelector('.modal-business-no').value = e.target.dataset.businessno;
                 document.querySelector('.modal-email').value = e.target.dataset.email;
                 document.querySelector('.modal-master-name').value = e.target.dataset.mastername;
                 document.querySelector('.modal-store-name').value = e.target.dataset.storename;
                 document.querySelector('.modal-store-address').value = e.target.dataset.storeaddress;
+                console.log(e.target.dataset.storedetailaddress);
                 document.querySelector('.modal-store-detail-address').value = e.target.dataset.storedetailaddress;
                 document.querySelector('.modal-store-call-number').value = e.target.dataset.storecallnumber;
             })

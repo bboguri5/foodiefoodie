@@ -266,7 +266,6 @@
 											<small># : ${hd.hashTag}</small>
 											<ul>
 												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
-												<li>기간: ${hd.endDate}</li>
 											</ul>
 										</a>
 									</li>
@@ -289,7 +288,6 @@
 											<small># : ${hd.hashTag}</small>
 											<ul>
 												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
-												<li>기간: ${hd.endDate}</li>
 											</ul>
 										</a>
 									</li>

@@ -12,6 +12,11 @@
         <result property="likeCnt" column="like_cnt"/>
         <result property="starRate" column="star_rate"/>
         <result property="isPrivate" column="private"/>
+        <result property="reportCnt" column="report_cnt"/>
+        <result property="storeName" column="store_name"/>
+        <result property="storeAddress" column="store_address"/>
+        <result property="storeDetailAddress" column="store_detail_address"/>
+        <result property="storeExtraAddress" column="store_extra_address"/>
     </resultMap>
 
     <resultMap id="rbDTOMap" type="com.project.foodiefoodie.review.dto.ReviewBoardDTO">
@@ -19,6 +24,9 @@
         <result property="lastUpdated" column="last_updated"/>
         <result property="likeCnt" column="like_cnt"/>
         <result property="starRate" column="star_rate"/>
+        <result property="storeAddress" column="store_address"/>
+        <result property="storeDetailAddress" column="store_detail_address"/>
+        <result property="storeExtraAddress" column="store_extra_address"/>
     </resultMap>
 
     <resultMap id="ruMap" type="com.project.foodiefoodie.review.domain.ReviewUpload">
@@ -29,8 +37,10 @@
 
 
     <insert id="save">
-        INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate)
-        VALUES (#{email}, #{title}, #{content}, seq_review_board.nextval, #{businessNo},#{starRate})
+        INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate
+        , private, store_name, store_address, store_detail_address, store_extra_address)
+        VALUES (#{email}, #{title}, #{content}, seq_review_board.nextval, #{businessNo},#{starRate}
+        , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress})
     </insert>
 
     <!--  해당 가게 평균 평점 구하기  -->
@@ -48,7 +58,7 @@
     </select>
 
     <select id="findAllReviews" resultMap="rbDTOMap">
-        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt
+        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, store_name, store_detail_address, store_extra_address
         FROM review_board
         WHERE private = 'F'
         ORDER BY last_updated DESC
@@ -60,13 +70,13 @@
         WHERE review_bno = #{reviewBno}
     </select>
 
-    <select id="reviewUpload" resultMap="ruMap">
+    <insert id="reviewUpload">
         INSERT INTO review_upload
         VALUES (#{reviewBno}, #{filePath}, #{fileName})
-    </select>
+    </insert>
 
     <select id="findReviewUploads" resultMap="ruMap">
-        SELECT review_bno, file_path
+        SELECT review_bno, file_path, file_name
         FROM review_upload
         WHERE review_bno = #{reviewBno}
     </select>
@@ -81,6 +91,12 @@
         SELECT like_cnt
         FROM review_board
         WHERE review_bno = #{reviewBno}
+    </select>
+
+    <select id="findNewReviewNo" resultType="long">
+        select review_bno
+        from (select * from review_board order by review_bno desc)
+        where rownum = 1
     </select>
 
 </mapper>

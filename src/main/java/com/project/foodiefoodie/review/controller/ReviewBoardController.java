@@ -1,7 +1,14 @@
 package com.project.foodiefoodie.review.controller;
 
+import com.project.foodiefoodie.member.domain.Master;
+import com.project.foodiefoodie.member.domain.MasterAndMember;
+import com.project.foodiefoodie.member.domain.Member;
+import com.project.foodiefoodie.member.service.MasterAndMemberService;
+import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
+import com.project.foodiefoodie.review.domain.Review;
+import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
@@ -10,7 +17,11 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +32,7 @@ public class ReviewBoardController {
 
     private final ReviewBoardService reviewBoardService;
     private final ReplyService replyService;
-
+    private final MasterService masterService;
     @GetMapping("/review")
     public String review(Model model) {
         log.info("review started - list");
@@ -32,6 +43,9 @@ public class ReviewBoardController {
 
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
+        log.info("reviewUploads - {}", reviewUploads);
+        log.info("replyCount - {}", replyCount);
+        log.info("reviewList - {}", reviewList);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
@@ -73,6 +87,43 @@ public class ReviewBoardController {
     public String upLike(long reviewBno) {
         log.info("uplike started - {}", reviewBno);
         reviewBoardService.upLikeService(reviewBno);
+        return "redirect:/review";
+    }
+
+
+    @GetMapping("/review/write")
+    public String reviewWrite(Model model) {
+//        log.info("review/write GET! - ");
+
+        return "review/review-write";
+    }
+
+    @GetMapping("/review/write/{businessNo}")
+    public String reviewWriteForBusinessNo(Model model, @PathVariable String businessNo, HttpSession session) {
+//        log.info("review/write/{} GET! - ", businessNo);
+
+        Master master = masterService.findOneForBusinessNoService(businessNo);
+        Member loginUser = (Member) session.getAttribute("loginUser");
+
+        model.addAttribute("master", master);
+        model.addAttribute("loginUser", loginUser);
+//        log.info("loginUser - {}", loginUser);
+//        log.info(master);
+
+        return "review/review-write";
+    }
+
+
+    @PostMapping("/review/write")
+    public String reviewWriteUpload(ReviewBoard review, List<MultipartFile> reviewImgFile) {
+
+        log.info("/review/write POST! - {}", review);
+        log.info("/review/write POST! reviewImgFile - {}", reviewImgFile);
+        log.info("/review/write POST! reviewImgFileName - {}", reviewImgFile.get(0).getOriginalFilename());
+        boolean result = reviewBoardService.saveService(review, reviewImgFile);
+
+        log.info("result - {}", result);
+
         return "redirect:/review";
     }
 

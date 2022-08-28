@@ -266,7 +266,7 @@
                     <div class="box_general padding_bottom">
                         <div class="header_box version_2">
                             <h2><i class="fa fa-list"></i>
-                                사장님 홍보글 작성 </h2>
+                                사장님 홍보글 수정 </h2>
                         </div>
 
                         <!-- detail info -->
@@ -301,13 +301,14 @@
                                     <label class="title-label">Title
                                     </label>
                                     <input type="text" class="form-control title" name="title"
-                                        value="${master.storeName}" style="border-color:green">
+                                        value="${proBoard.title}" style="border-color:green">
                                 </div>
                                 <div class="form-group detail-Info">
                                     <div class="form-group">
                                         <label class="hashTag-label">HASH TAG</label>
-                                        <input type="text" class="form-control hashTag" name="hashTag"
-                                            placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다.">
+                                        <input type="text" class="form-control hashTag" name="hashTag" value="${proBoard.hashTag}"
+                                            placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다." style="border-color:green">
+                                            
                                     </div>
                                 </div>
                             </div>
@@ -318,10 +319,10 @@
                         <!-- CONTENT editor -->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
+                                <div class="form-group " >
                                     <label class="content-label">CONTENT</label>
-                                    <textarea name="content" class="form-control content" style="height: 150px;"
-                                        placeholder="Message" id="message_contact" name="message_contact"></textarea>
+                                    <textarea style="border-color:green" name="content" class="form-control content" style="height: 150px;"
+                                        placeholder="Message" id="content" >${proBoard.content}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -418,7 +419,6 @@
                     </div>
                     <!-- /add Menu List -->
 
-
                     <!-- store time -->
                     <div class="box_general padding_bottom">
                         <div class="header_box version_2">
@@ -439,15 +439,15 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekdayOpenTime" type="text"
-                                                            class="form-control select-time weekday-openTime">
+                                                        <input name="weekdayOpenTime" type="text" value="${storeTime.weekdayOpenTime}"
+                                                        autocomplete='off' class="form-control select-time weekday-openTime">
                                                     </div>
 
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekdayCloseTime" type="text"
-                                                            class="form-control select-time">
+                                                        <input name="weekdayCloseTime" type="text" value="${storeTime.weekdayCloseTime}"
+                                                        autocomplete='off' class="form-control select-time weekday-closeTime">
                                                     </div>
 
                                                 </div>
@@ -465,14 +465,14 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekendOpenTime" type="text"
-                                                            class="form-control select-time" placeholder="오픈시간입력">
+                                                        <input name="weekendOpenTime" type="text" value="${storeTime.weekendOpenTime}"
+                                                        autocomplete='off'  class="form-control select-time weekend-openTime" placeholder="오픈시간입력">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekendCloseTime" type="text"
-                                                            class="form-control select-time" placeholder="마감시간입력">
+                                                        <input name="weekendCloseTime" type="text" value="${storeTime.weekendCloseTime}"
+                                                        autocomplete='off'  class="form-control select-time weekend-closeTime" placeholder="마감시간입력">
                                                     </div>
                                                 </div>
                                             </div>
@@ -489,14 +489,14 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="breakStartTime" type="text"
-                                                            class="form-control select-time" placeholder="시작시간">
+                                                        <input name="breakStartTime" type="text" value="${storeTime.breakStartTime}"
+                                                        autocomplete='off'  class="form-control select-time break-startTime" placeholder="시작시간">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="breakEndTime" type="text"
-                                                            class="form-control select-time" placeholder="종료시간">
+                                                        <input name="breakEndTime" type="text" value="${storeTime.breakEndTime}"
+                                                        autocomplete='off' class="form-control select-time break-endTime" placeholder="종료시간">
                                                     </div>
                                                 </div>
                                             </div>
@@ -514,8 +514,8 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input type="text" name="closedDay"
-                                                            class="form-control closedDay" placeholder="휴무 옵션 선택"
+                                                        <input type="text" name="closedDay" value="${storeTime.closedDay}"
+                                                            class="form-control closed-day" placeholder="휴무 옵션 선택"
                                                             readonly>
                                                     </div>
                                                 </div>
@@ -535,6 +535,8 @@
                                                         <button type="button" class="btn_1 day-delete">제거</button>
                                                     </div>
                                                 </div>
+                                                
+                                                <input type="file" value="${file}">
                                         </td>
                                     </tr>
                                     </tr>
@@ -553,8 +555,16 @@
                 <button type="button" class="btn_1 medium cancel">Cancel</button></div>
         </form>
     </main>
-
     <script>
+
+        $('.weekday-openTime').timepicker({defaultTime: '${store.weekdayOpenTime}'});
+        $('.weekday-closeTime').timepicker({defaultTime: '${store.weekdayCloseTime}'});
+        $('.weekend-openTime').timepicker({defaultTime: '${store.weekendOpenTime}'});
+        $('.weekend-closeTime').timepicker({defaultTime: '${store.weekendCloseTime}'});
+        $('.break-startTime').timepicker({defaultTime: '${store.breakStartTime}'});
+        $('.break-endTime').timepicker({defaultTime: '${store.breakEndTime}'});
+        $('.closed-day').timepicker({defaultTime: '${store.corsedDay}'});
+        
         // select time 
         $(".select-time").timepicker({
             timeFormat: 'HH:mm a',
@@ -617,6 +627,10 @@
         const $titleTag = $('.title');
         const $hashTag = $('.hashTag');
         const $contentTag = $('.content');
+
+        
+        $contentTag.text(`${proBoard.content}`.replace(/<br>/gi, "\n"));
+
 
         // title , hashTag , content , menu , hashTag overlap , time  
         const checkArr = [false, false, false];
@@ -848,9 +862,13 @@
 
 
 
-        // -------------- fiel upload and file dropzone --------------
-        
 
+
+
+
+
+
+        // -------------- fiel upload and file dropzone --------------
 
         const titleDropzone = new Dropzone("#title-dropzone.dropzone", {
             url: "/foodie/write",
@@ -867,10 +885,22 @@
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
         });
 
-        titleDropzone.uploadMultiple(${file});
+        const newFile = new File ([`${fileByte}`],`${filename}`,{
+            type : `${type}`, 
+            size : `${size}`,
+            dataUrl : `${fileByte}`
+        });
+
+        
+        // console.log(${file});
+        titleDropzone.addFile(newFile);
+        titleDropzone.emit("thumbnail", newFile,"data:image/png;base64,${fileByte}");
+
+        console.log(titleDropzone.filse);
+
 
         let overlapSet = new Set();
-
+        
         const detailDropzone = new Dropzone("#detail-dropzone.dropzone", {
             url: "/foodie/write",
             method: 'post',
@@ -887,6 +917,8 @@
             parallelUploads: 5,
             uploadMultiple: true,
             init: function () {
+
+                
 
                 let myDropzone = this;
 

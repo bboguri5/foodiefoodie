@@ -70,8 +70,8 @@
         padding-left: 25%;
         padding-right: 25%;
     }
-    .menu_item.thumbs figure img.defaultImg
-    {
+
+    .menu_item.thumbs figure img.defaultImg {
         width: 50px;
     }
 
@@ -278,9 +278,14 @@
                                 <a id="tab-A" href="#pane-A" class="nav-link active" data-bs-toggle="tab"
                                     role="tab">Information</a>
                             </li>
-                            <li class="nav-item">
-                                <a id="tab-B" href="#pane-B" class="nav-link" data-bs-toggle="tab" role="tab">menu</a>
-                            </li>
+                            <c:set var="menuList" value="${menuList}"/>
+                            <c:if test="${fn:length(menuList) > 0}">
+                                <li class="nav-item">
+                                    <a id="tab-B" href="#pane-B" class="nav-link" data-bs-toggle="tab"
+                                        role="tab">menu</a>
+                                </li>
+                            </c:if>
+
                             <li class="nav-item">
                                 <a id="tab-C" href="#pane-C" class="nav-link" data-bs-toggle="tab"
                                     role="tab">Reviews</a>
@@ -415,15 +420,17 @@
                                                 <div class="menu_item thumbs">
                                                     <figure>
                                                         <a title="Photo title" data-effect="mfp-zoom-in">
-                                                            <c:set var="filePath" value="${menu.filePath}"/>
-                                                                <c:if test="${fn:contains(filePath,'foodie_default.PNG')}">
-                                                                    <img src="${menu.filePath}" data-src="${menu.filePath}" alt="" class="defaultImg">
-                                                                </c:if>
-                                                                <c:if test="${not fn:contains(filePath,'foodie_default.PNG')}">
-                                                                    <img src="data:image/jpg;base64,${menu.filePath}"
-                                                                        data-src="data:image/jpg;base64,${menu.filePath}"
-                                                                        alt="" class="lazy">
-                                                                </c:if>
+                                                            <c:set var="filePath" value="${menu.filePath}" />
+                                                            <c:if test="${fn:contains(filePath,'foodie_default.PNG')}">
+                                                                <img src="${menu.filePath}" data-src="${menu.filePath}"
+                                                                    alt="" class="defaultImg">
+                                                            </c:if>
+                                                            <c:if
+                                                                test="${not fn:contains(filePath,'foodie_default.PNG')}">
+                                                                <img src="data:image/jpg;base64,${menu.filePath}"
+                                                                    data-src="data:image/jpg;base64,${menu.filePath}"
+                                                                    alt="" class="lazy">
+                                                            </c:if>
                                                         </a>
                                                     </figure>
                                                     <div id="menu${menu.menuNo}" class="menuInfo">

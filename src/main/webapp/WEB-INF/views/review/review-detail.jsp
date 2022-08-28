@@ -24,6 +24,8 @@
     <!-- YOUR CUSTOM CSS -->
     <link href="/css/custom.css" rel="stylesheet">
 
+    <link href="/css/home.css" rel="stylesheet">
+
     <style>
         .col-lg-9 {
             margin: auto;
@@ -35,16 +37,42 @@
 
         /* 페이지 액티브 기능 */
         .pagination .page-item.p-active a {
-            background: #333 !important;
+            background: #589442 !important;
             color: #fff !important;
             cursor: default;
             pointer-events: none;
         }
+
         .pagination .page-item:hover a {
-            background: #888 !important;
+            background: #a6c09c !important;
             color: #fff !important;
         }
 
+        p {
+            overflow-wrap: break-word;
+        }
+
+        h1 {
+            margin-bottom: 15px;
+        }
+
+        .page_header .container .row form {
+            width: 75%;
+
+        }
+
+        .page_header .container .row .col-xl-8 {
+            width: 20%;
+        }
+
+        nav.main-menu {
+            height: 100%;
+            margin-right: 40px;
+        }
+
+        .submenu .show-submenu {
+            color: #589442;
+        }
     </style>
 
 </head>
@@ -54,24 +82,19 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <main>
+
         <div class="page_header element_to_stick">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
-                        <div class="breadcrumbs blog">
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Category</a></li>
-                                <li>Page active</li>
-                            </ul>
+                    <form action="/review/search" method="get">
+                        <div class="col-xl-4 col-lg-5 col-md-5">
+                            <div class="search_bar_list">
+                                <input required value="${search}" name="search" type="text" class="form-control"
+                                    placeholder="Search in blog...">
+                                <input type="submit" value="Search">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-5 col-md-5">
-                        <div class="search_bar_list">
-                            <input type="text" class="form-control" placeholder="Search in blog...">
-                            <input type="submit" value="Search">
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <!-- /row -->
             </div>
@@ -102,10 +125,6 @@
                                         class="owl-prev"><span aria-label="Previous">‹</span></button><button
                                         type="button" role="presentation" class="owl-next"><span
                                             aria-label="Next">›</span></button></div>
-                                <!-- <div class="owl-dots"><button role="button"
-                                        class="owl-dot active"><span></span></button><button role="button"
-                                        class="owl-dot"><span></span></button><button role="button"
-                                        class="owl-dot"><span></span></button></div> -->
                             </div>
 
                         </figure>
@@ -115,22 +134,25 @@
                                 <!-- <li><a href="#"><i class="icon_folder-alt"></i> Category</a></li> -->
                                 <li><i class="icon_calendar"></i> ${review.lastUpdated}</li>
                                 <li><a href="#"><i class="icon_pencil-edit"></i> ${review.email}</a></li>
-                                <li><a href="#"><i class="icon_comment_alt"></i> (${replyCount}) Comments</a></li>
-                                <li><a href="#"><i id="${rl.reviewBno}" class="icon_heart_alt"></i><span
-                                            id="heart">${review.likeCnt}</span></a></li>
+                                <li><a href="#section-comment"><i class="icon_comment_alt"></i> (${replyCount}) Comments</a></li>
+                                <li class="upCount"><a href="#"><i id="${review.reviewBno}"
+                                            class="icon_heart_alt"></i><span
+                                            id="heart${review.reviewBno}">${review.likeCnt}</span></a></li>
 
 
                             </ul>
                         </div>
                         <!-- /post meta -->
                         <div class="post-content">
-
+                            <p>식당 이름: <a href="#">${review.storeName}</a></p>
+                            <p>식당 주소: ${review.storeAddress}</p>
                             <p>${review.content}</p>
                         </div>
                         <!-- /post -->
                     </div>
                     <!-- /single-post -->
 
+                    <a name="section-comment"></a>
                     <div id="comments">
                         <h5>Comments</h5>
 
@@ -144,26 +166,27 @@
                     <hr>
 
                     <h5>Leave a comment</h5>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="form-group">
-                                <input readonly type="text" value="${loginUser.nickName}" name="name" id="name2" class="form-control" placeholder="이름">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <input readonly type="text" value="${loginUser.nickName}" name="name" id="name2"
+                                        class="form-control" placeholder="이름">
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="form-group">
+                                    <input readonly type="text" value="${loginUser.email}" name="email" id="email2"
+                                        class="form-control" placeholder="이메일">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="form-group">
-                                <input readonly type="text" value="${loginUser.email}" name="email" id="email2" class="form-control" placeholder="이메일">
-                            </div>
+                        <div class="form-group">
+                            <textarea class="form-control comment_write" name="comments" id="comments2" rows="6"
+                                placeholder="Comment"></textarea>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control comment_write" name="comments" id="comments2" rows="6"
-                            placeholder="Comment"></textarea>
-                    </div>
-                    <div id="replyAddBtn" class="form-group">
-                        <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
-                    </div>
-
+                        <div id="replyAddBtn" class="form-group">
+                            <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
+                        </div>
                 </div>
                 <!-- /col -->
             </div>
@@ -194,6 +217,9 @@
 
             // // 댓글 등록 버튼 클릭이벤트 처리
             makeReplyRegisterClickEvent();
+
+            // 좋아요 비동기로 올려주는 이벤트 처리
+            upLikeCountEvent();
 
             // // 댓글 수정 모달 오픈, 삭제 이벤트 처리
             // openModifyModalAndRemoveEvent();
@@ -299,8 +325,17 @@
             };
         }
 
-         // 댓글 등록 이벤트 처리 핸들러 등록 함수
-         function makeReplyRegisterClickEvent() {
+        // 댓글 등록 이벤트 처리 핸들러 등록 함수
+        function makeReplyRegisterClickEvent() {
+            const notLogged = document.querySelector('.comment_write');
+            if ('${loginUser}' === '') {
+                notLogged.setAttribute('disabled', 'true');
+                notLogged.setAttribute('placeholder', '로그인 후 사용해 주세요')
+            } else {
+                notLogged.removeAttribute('disabled');
+                notLogged.setAttribute('placeholder', 'Comment')
+            }
+
             document.getElementById('replyAddBtn').onclick = makeReplyRegisterClickHandler;
         }
 
@@ -310,10 +345,9 @@
             const $contentInput = document.getElementById('comments2');
             // 서버로 전송할 데이터들
             const replyData = {
-                replyWriter: $writerInput.value,
-                replyText: $contentInput.value,
+                email: $writerInput.value,
+                content: $contentInput.value,
                 reviewBno: bno,
-                email: '${loginUser.email}',
                 nickName: '${loginUser.nickName}'
             };
             // POST요청을 위한 요청 정보 객체
@@ -332,10 +366,73 @@
                         // 댓글 입력창 리셋
                         $contentInput.value = '';
                         // 댓글 목록 재요청
-                        showReplies(document.querySelector('.pagination').dataset.fp);
+                        showReplies();
                     } else {
                         alert('댓글 등록 실패');
                     }
+                });
+        }
+
+
+        function upLikeCountEvent() {
+
+
+            if ('${isLiked}' === "true" ) {
+                document.getElementById(bno).classList.add('icon_heart');
+                document.getElementById(bno).classList.remove('icon_heart_alt');
+            }
+
+            const upCount = document.querySelector('.upCount');
+            upCount.onclick = e => {
+                if ('${loginUser}' === '') {
+                    alert('로그인 후 사용 가능합니다');
+                } else {
+                    likeOrUnlike(e);
+                }
+            };
+        }
+
+        function likeOrUnlike() {
+            // 서버에 수정 비동기 요청 보내기
+            // console.log(rno);
+            const reqInfo = {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                }
+            };
+
+            const email = '${loginUser.email}';
+            fetch('/review/updownlike?reviewBno=' + bno + '&email=' + email, reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'up-success') {
+                        alert('upLike 성공!!');
+                        showUpLike(); // 좋아요 새로불러오기
+                    } else {
+                        alert('downLike 성공!!');
+                        showDownLike();
+                    }
+                });
+        }
+
+        function showUpLike() {
+            fetch('/review/getLike?reviewBno=' + bno)
+                .then(res => res.text())
+                .then(likeCnt => {
+                    document.getElementById(bno).classList.add('icon_heart');
+                    document.getElementById(bno).classList.remove('icon_heart_alt');
+                    document.getElementById("heart" + bno).innerHTML = likeCnt;
+                });
+        }
+
+        function showDownLike() {
+            fetch('/review/getLike?reviewBno=' + bno)
+                .then(res => res.text())
+                .then(likeCnt => {
+                    document.getElementById(bno).classList.remove('icon_heart');
+                    document.getElementById(bno).classList.add('icon_heart_alt');
+                    document.getElementById("heart" + bno).innerHTML = likeCnt;
                 });
         }
     </script>

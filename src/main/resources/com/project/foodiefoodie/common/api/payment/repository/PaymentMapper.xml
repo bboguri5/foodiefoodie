@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.foodiefoodie.common.api.payment.repository.PaymentMapper">
+
+    <insert id="insertOrderList">
+        INSERT INTO order_list
+            (order_no, email, business_no)
+        VALUES
+            (seq_order_no.nextval, #{email}, #{businessNo})
+    </insert>
+
+
+    <select id="findCurrentOrderNo" resultType="int">
+        SELECT order_no
+        FROM order_list
+        WHERE order_date = (SELECT MAX(order_date)
+                            FROM order_list
+                            WHERE email = #{email} AND business_no = #{businessNo})
+    </select>
+
+
+    <insert id="insertOrderDetail">
+        INSERT INTO order_detail
+        VALUES
+            (#{orderNo}, #{menu}, #{quantity}, #{price})
+    </insert>
+
+</mapper>

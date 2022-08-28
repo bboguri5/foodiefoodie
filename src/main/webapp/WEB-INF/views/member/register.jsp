@@ -127,6 +127,17 @@
     <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 
 
+    <!-- 연락처 입력시 자동으로 하이픈 작성을 해주는 스크립트 영역 -->
+    <script>
+        $(document).on("keyup", ".phoneNumber", function () {
+
+            $(this).val($(this).val().replace(/[^0-9]/g, "").replace(
+                /(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/, "$1-$2-$3").replace("--", "-"));
+
+        });
+    </script>
+
+
     <!-- 회원가입 입력 항목별 검증 및 비동기 요청 중복 확인 -->
     <script>
         $(document).ready(function () {
@@ -357,7 +368,7 @@
             const $phoneNumInput = $('#phone-num');
             const $phoneChk = $('#phoneChk');
 
-            $phoneNumInput.on('keyup', e => {
+            $phoneNumInput.on('keydown', e => {
 
                 // 아무 입력도 하지 않은 경우
                 if ($phoneNumInput.val().trim() === '') {
@@ -382,6 +393,31 @@
                     checkArr[5] = true;
                 }
 
+            }); 
+
+            $phoneNumInput.on('change', e => {
+                // 아무 입력도 하지 않은 경우
+                if ($phoneNumInput.val().trim() === '') {
+                    $phoneNumInput.css('border-color', 'red');
+                    $phoneChk.text('필수 입력사항입니다.');
+                    $phoneChk.css('color', 'red');
+                    checkArr[5] = false;
+                }
+
+                // 입력값이 전화번호 정규표현식에 위배될 경우
+                else if (!getPhoneNum.test($phoneNumInput.val())) {
+                    $phoneNumInput.css('border-color', 'red');
+                    $phoneChk.text('올바른 전화번호 양식이 아닙니다. 입력을 확인해주세요. 예시: 010-1234-5678');
+                    $phoneChk.css('color', 'red');
+                    checkArr[5] = false;
+                }
+
+                // 정상 입력인 경우
+                else {
+                    $phoneNumInput.css('border-color', 'greenyellow');
+                    $phoneChk.text('');
+                    checkArr[5] = true;
+                }
             }); // end 전화번호 검증 로직
 
 
@@ -494,15 +530,7 @@
     </script>
 
 
-    <!-- 연락처 입력시 자동으로 하이픈 작성을 해주는 스크립트 영역 -->
-    <script>
-        $(document).on("keyup", ".phoneNumber", function () {
-
-            $(this).val($(this).val().replace(/[^0-9]/g, "").replace(
-                /(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/, "$1-$2-$3").replace("--", "-"));
-
-        });
-    </script>
+    
 
 </body>
 

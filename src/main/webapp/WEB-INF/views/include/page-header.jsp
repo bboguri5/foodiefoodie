@@ -5,17 +5,12 @@
     <div class="container">
         <div class="row">
             <div class="search">
-                <form action="/list" method="get">
-                    <select class="form-select" name="type" id="search-type">
-                        <option value="location">지역</option>
-                        <option value="restaurant">식당</option>
-                        <option value="food">음식</option>
-                    </select>
+                <form action="/list?sort=star" method="get">
                     <div class="row g-0 custom-search-input">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input class="form-control no_border_r" type="text"
-                                    placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
+                                <input required class="form-control no_border_r" type="text" placeholder="지역, 식당, 또는 음식"
+                                    name="keyword" value="${s.keyword}">
                                 <i class="icon_pin_alt"></i>
                             </div>
                         </div>
@@ -25,9 +20,12 @@
                     </div>
                 </form>
             </div>
+
+
         </div>
-        <!-- /row -->
     </div>
+    <!-- /row -->
+</div>
 </div>
 <!-- /page_header -->
 

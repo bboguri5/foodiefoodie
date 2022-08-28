@@ -14,7 +14,7 @@
 		}
 
 		#locationList .item {
-			width: 16%;
+			width: 19%;
 		}
 
 		.search form {
@@ -41,7 +41,7 @@
 	<main>
 		<div class="hero_single version_2">
 			<div class="opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.6)"
-				style="background: url('img/main_background.jpg') no-repeat fixed 90% / cover">
+				style="background: url('/img/main_background.jpg') no-repeat fixed 90% / cover">
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-xl-9 col-lg-10 col-md-8">
@@ -49,16 +49,11 @@
 							<p>Foodies Welcome Here</p>
 
 							<div class="search">
-								<form action="/list" method="get">
-									<select class="form-select" name="type" id="search-type">
-										<option value="location">지역</option>
-										<option value="restaurant">식당</option>
-										<option value="food">음식</option>
-									</select>
+								<form action="/list?sort=star" method="get">
 									<div class="row g-0 custom-search-input">
 										<div class="col-lg-6">
 											<div class="form-group">
-												<input class="form-control no_border_r" type="text"
+												<input required class="form-control no_border_r" type="text"
 													placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
 												<i class="icon_pin_alt"></i>
 											</div>
@@ -151,7 +146,7 @@
 								<c:if test="${topToday.hotDeal == 'Y'.charAt(0) && topToday.endDate > todayDate}">
 									<span class="ribbon off">${topToday.discountPrice}</span>
 								</c:if>
-								<img src="${topToday.filePath}" data-src="${topToday.filePath}" class="owl-lazy" alt="">
+								<img src="${topToday.filePath}"  data-src="${topToday.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
 									<div class="item_title">
 										<h3>${topToday.storeName}</h3>
@@ -232,7 +227,7 @@
 						<small>Foodie Foodie</small>
 						<h3>직접 먹어본 사람들만의 솔직한 리뷰</h3>
 						<p>많은 후기를 보고 맛집을 찾아보세요!</p>
-						<a href="/review" class="btn_1">맛집 리뷰 보러가기</a>
+						<a href="/review?sort=latest" class="btn_1">맛집 리뷰 보러가기</a>
 					</div>
 				</div>
 				<!-- /wrapper -->
@@ -335,7 +330,7 @@
 		// 로그인 한 사람만 사업자 등록 할수있음
 		document.querySelector('.addMaster').onclick = e => {
 			if ('${loginUser}' != '') {
-				location.href = '/request-auth';
+				location.href = '/master/register';
 			} else {
 				alert('로그인 해주세요');
 			}
@@ -430,7 +425,7 @@
 							`       <ul>` +
 							`			<li><span>` +locationList[i].storeAddress + `</span></li>` +
 							`           <li>` +
-							`               <div class="score"><span>근처 맛집<em>` + locationList[i].reviewCnt +
+							`               <div class="score"><span>주변 맛집<em>` + locationList[i].reviewCnt +
 							`개 리뷰</em></span><strong>` + locationList[i].avgStarRate + `</strong></div>` +
 							`           </li>` +
 							`       </ul>` +

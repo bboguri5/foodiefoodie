@@ -34,10 +34,10 @@ public class ReviewBoardController {
     private final ReplyService replyService;
     private final MasterService masterService;
     @GetMapping("/review")
-    public String review(Model model) {
+    public String review(String sort, Model model) {
         log.info("review started - list");
 
-        List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService();
+        List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService(sort);
         List<ReviewUpload> reviewUploads = new ArrayList<>();
         List<Integer> replyCount = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class ReviewBoardController {
     }
 
     @GetMapping("/review/detail")
-    public String reviewDetail(long reviewBno, Model model) {
+    public String reviewDetail(long reviewBno, String email, Model model) {
         ReviewBoardDTO review = reviewBoardService.findOneReviewService(reviewBno);
         List<ReviewUpload> reviewUploads = reviewBoardService.findReviewUploadsService(reviewBno);
         List<Reply> replyList = replyService.findAllRepliesService(reviewBno);
@@ -80,14 +80,23 @@ public class ReviewBoardController {
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyList", replyList);
         model.addAttribute("replyCount", replyService.findReplyCountService(reviewBno));
+        model.addAttribute("isLiked", reviewBoardService.isLikedService(reviewBno, email));
         return "review/review-detail";
     }
 
-    @GetMapping("/review/uplike")
-    public String upLike(long reviewBno) {
-        log.info("uplike started - {}", reviewBno);
-        reviewBoardService.upLikeService(reviewBno);
-        return "redirect:/review";
+    @GetMapping("/review/search")
+    public String searchReview(String search, String sort, Model model) {
+        List<ReviewBoardDTO> searchList = reviewBoardService.searchAllReviewService(search, sort);
+        List<ReviewUpload> reviewUploads = new ArrayList<>();
+        List<Integer> replyCount = new ArrayList<>();
+
+        // 첫번째 리뷰 사진 리스트 모아오기
+        getUploads(reviewUploads, replyCount, searchList);
+        model.addAttribute("reviewList", searchList);
+        model.addAttribute("uploads", reviewUploads);
+        model.addAttribute("replyCount", replyCount);
+        model.addAttribute("search", search);
+        return "review/review-gram";
     }
 
 

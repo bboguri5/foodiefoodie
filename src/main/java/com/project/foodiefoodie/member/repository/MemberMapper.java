@@ -54,7 +54,7 @@ public interface MemberMapper {
     boolean remove(String email);
 
 
-    String findEmail(FindEmailDTO dto);
+    List<String> findEmail(FindEmailDTO dto);
 
     int findPw(FindPwDTO dto);
 

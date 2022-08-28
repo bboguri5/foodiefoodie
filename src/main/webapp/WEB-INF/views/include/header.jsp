@@ -13,8 +13,7 @@
 
         <c:if test="${loginUser == null}">
             <ul id="top_menu">
-                <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
+                <li><a href="#sign-in-dialog" id="sign-in" class="login"><span style="display: block;">Login</span></a></li>
             </ul>
         </c:if>
 
@@ -49,7 +48,7 @@
                             <div class="dropdown-menu">
                                 <div class="dropdown-menu-content">
                                     <ul>
-                                        <li><a href="/myPage-profile"><i class="icon_cog"></i>MyPage</a></li>
+                                        <li><a href="/myPage/profile"><i class="icon_cog"></i>MyPage</a></li>
                                         <li><a href="#0"><i class="icon_document"></i>Bookings</a></li>
                                         <li><a href="#0"><i class="icon_heart"></i>Wish List</a></li>
                                         <li><a href="/sign-out"><i class="icon_key"></i>Log out</a></li>
@@ -82,7 +81,7 @@
                     <a href="/foodlist" class="show-submenu">맛집 리스트</a>
                 </li>
                 <li class="submenu">
-                    <a href="/review" class="show-submenu">리뷰 리스트</a>
+                    <a href="/review?sort=latest" class="show-submenu">리뷰 리스트</a>
                 </li>
 
             </ul>

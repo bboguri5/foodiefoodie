@@ -22,7 +22,6 @@ public class ReplyAPIController {
     @GetMapping("")
     public Map<String, Object> list(Long reviewBno, Page page) {
         Map<String, Object> replies = service.getList(reviewBno, page);
-//        log.info("replies : {}", replies);
         return replies;
     }
 
@@ -30,7 +29,7 @@ public class ReplyAPIController {
     @PostMapping("")
     public String create(@RequestBody Reply reply, HttpSession session) {
 //        reply.setEmail(LoginUtils.getCurrentMemberAccount(session));
-        log.info("/api/v1/replies POST! - {}", reply);
+//        log.info("/reply POST! - {}", reply);
         boolean flag = service.write(reply);
         return flag ? "insert-success" : "insert-fail";
     }

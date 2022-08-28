@@ -15,6 +15,7 @@ DROP TABLE reply;
 DROP TABLE favorite_store;
 DROP TABLE hot_deal;
 DROP TABLE review_board;
+drop table PROMOTION_STORE_TIME;
 DROP TABLE premiume_promotion_board;
 DROP TABLE promotion_food_menu;
 DROP TABLE promotion_board;
@@ -393,39 +394,69 @@ commit;
 
 
 ----------------------------------------------------------- 08 / 15
-
+drop table PROMOTION_STORE_TIME;
  create table PROMOTION_STORE_TIME
     (
         promotion_bno number(10) NOT NULL
-        ,weekdayOpenTime number(8) NOT NULL
-        ,weekdayCloseTime number(8) NOT NULL
-        ,weekendOpenTime number(8) NOT NULL
-        ,weekendCloseTime number(8) NOT NULL
-        ,breakStartTime number(8) NOT NULL
-        ,breakEndTime number(8) NOT NULL
+        ,weekdayOpenTime varchar2(10) NOT NULL
+        ,weekdayCloseTime varchar2(10) NOT NULL
+        ,weekendOpenTime varchar2(10) NOT NULL
+        ,weekendCloseTime varchar2(10) NOT NULL
+        ,breakStartTime varchar2(10) NOT NULL
+        ,breakEndTime varchar2(10) NOT NULL
         ,closedDay VARCHAR2(20)
         , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
         REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
     );
 
-    alter table promotion_board modify FILE_NAME null;
-    alter table promotion_board modify file_path null;
+   ------------------------------------------------------------- 08 / 24
 
-    ------------------------------------------------------ 08 / 22
+alter table review_board modify star_rate NUMBER(2,1) DEFAULT 2.5;
 
-ALTER TABLE reply_faq RENAME COLUMN content TO reply_faq_content;
+ALTER TABLE hot_deal DROP COLUMN start_date ;
+ALTER TABLE hot_deal DROP COLUMN end_date ;
 
-    DROP TABLE promotion_upload_menu_img;
-    DROP TABLE promotion_food_menu;
+   CREATE TABLE order_list (
+       order_no NUMBER(8) PRIMARY KEY -- 주문 번호
+       , business_no VARCHAR2(50) NOT NULL -- 주문이 들어간 가게 사업자 번호
+       , CONSTRAINT fk_order_busi_no FOREIGN KEY (business_no)
+       REFERENCES MASTER (business_no) ON DELETE CASCADE
+       , email VARCHAR2(50) NOT NULL -- 주문한 사람 계정 이메일
+       , CONSTRAINT fk_order_email FOREIGN KEY (email)
+       REFERENCES member (email) ON DELETE CASCADE
+       , order_date DATE DEFAULT SYSDATE -- 주문 날짜
+   );
 
- -- 음식 메뉴 및 업로드
-    CREATE TABLE promotion_food_menu(
-        menu_no NUMBER(5)primary key
-        , promotion_bno NUMBER(10) NOT NULL
-        , menu_name VARCHAR2(20) NOT NULL
-        , price NUMBER(6) NOT NULL
-        , file_path clob
-        , file_name VARCHAR2(100)
-        , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
-        REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-    );
+   CREATE TABLE order_detail (
+       order_no NUMBER(8) NOT NULL -- 주문 번호
+       , CONSTRAINT fk_order_no FOREIGN KEY (order_no)
+       REFERENCES order_list (order_no) ON DELETE CASCADE
+       , order_menu VARCHAR2(50) NOT NULL -- 주문한 메뉴명
+       , menu_ea NUMBER(2) NOT NULL -- 주문 수량
+       , price NUMBER(10) NOT NULL -- 가격
+   );
+
+   ----------------------------------------------------------- 08/25
+     drop table promotion_notice;
+     create SEQUENCE seq_promotion_notice;
+      create table promotion_notice
+      (
+          promotion_bno NUMBER(10),
+          notice_no NUMBER(10) PRIMARY KEY,
+          content varchar2(300) NOT NULL,
+          update_date date DEFAULT SYSDATE NOT NULL,
+           CONSTRAINT fk_promotion_bno_notice FOREIGN KEY (promotion_bno)
+              REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+      );
+
+   select * from promotion_notice;
+
+   alter table review_board
+   modify store_name VARCHAR2(50) NOT NULL;
+
+   ALTER TABLE review_board
+   add store_address VARCHAR2(150) NOT NULL;
+   ALTER TABLE review_board
+   add store_detail_address VARCHAR2(50) NULL;
+   ALTER TABLE review_board
+   add store_extra_address VARCHAR2(50) NULL;

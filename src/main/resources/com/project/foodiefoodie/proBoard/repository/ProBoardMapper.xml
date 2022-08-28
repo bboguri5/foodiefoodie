@@ -62,6 +62,17 @@
             )
         </if>
     </insert>
+
+    <insert id="saveNotice">
+        insert into promotion_notice
+        (notice_no, promotion_bno, content)
+        values(
+        seq_promotion_notice.nextval
+        ,#{promotionBno}
+        ,#{content}
+        )
+    </insert>
+
     <update id="saveProBoardTitleImg">
         UPDATE promotion_board SET file_path = #{titleFilePath}, file_name = #{titleFileName} WHERE promotion_bno = #{promotionBno}
     </update>
@@ -82,17 +93,20 @@
     <!--        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}-->
     <!--    </delete>-->
 
-    <!--    <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">-->
-    <!--        <result property="businessNo" column="business_no"/>-->
-    <!--        <result property="promotionBno" column="promotion_bno"/>-->
-    <!--        <result property="lastUpdated" column="last_updated"/>-->
-    <!--    </resultMap>-->
+        <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">
+            <result property="businessNo" column="business_no"/>
+            <result property="promotionBno" column="promotion_bno"/>
+            <result property="lastUpdated" column="last_updated"/>
+            <result property="avgStarRate" column="AVG_STAR_RATE"/>
+            <result property="filePath" column="file_path"/>
+            <result property="fileName" column="file_name"/>
+        </resultMap>
 
-    <!--    <select id="selectOne" resultMap="proBoardMap">-->
-    <!--        SELECT *-->
-    <!--        FROM promotion_board-->
-    <!--        where promotion_bno = #{promotionBno}-->
-    <!--    </select>-->
+        <select id="selectOne" resultMap="proBoardMap">
+            SELECT *
+            FROM promotion_board
+            where promotion_bno = #{promotionBno}
+        </select>
 
         <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
             <result property="businessNo" column="BUSINESS_NO"/>
@@ -111,8 +125,53 @@
             select promotion_bno from PROMOTION_BOARD where business_no =  #{businessNo}
         </select>
 
-
         <select id="selectMenuNo" resultType="int">
             select menu_no from promotion_food_menu where promotion_bno = #{promotion_bno} order by menu_no ASC
         </select>
+
+    <resultMap id="StoreTimeMap" type="com.project.foodiefoodie.proBoard.dto.StoreTimeDTO"/>
+    <select id="selectStoreTime" resultMap="StoreTimeMap">
+        select * from PROMOTION_STORE_TIME where promotion_bno = #{promotionBno}
+    </select>
+
+    <resultMap id="imageDTO" type="com.project.foodiefoodie.proBoard.dto.ImageDTO">
+        <result property="filePath" column="file_path"/>
+        <result property="fileName" column="file_name"/>
+    </resultMap>
+
+    <select id="selectImages" resultMap="imageDTO">
+
+        <if test="type == 'title' ">
+            select file_path, file_name from promotion_board where promotion_bno = #{promotionBno}
+        </if>
+        <if test="type == 'detail'">
+            select file_path, file_name from PROMOTION_UPLOAD_DETAIL_IMG where promotion_bno = #{promotionBno}
+        </if>
+    </select>
+
+    <resultMap id="menuDTO" type="com.project.foodiefoodie.proBoard.dto.MenuDTO">
+        <result property="menuNo" column="menu_no"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuPrice" column="price"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileName" column="file_name"/>
+    </resultMap>
+    <select id="selectMenuInfo" resultMap="menuDTO">
+        select * from PROMOTION_FOOD_MENU where promotion_bno = #{promotionBno}
+    </select>
+
+    <resultMap id="noticeDTO" type="com.project.foodiefoodie.proBoard.dto.NoticeDTO">
+        <result property="noticeNo" column="notice_no"></result>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <select id="selectNotice" resultMap="noticeDTO">
+        select * from promotion_notice where promotion_bno = #{promotionBno} order by notice_no desc
+    </select>
+
+
+    <delete id="deleteNotice">
+        delete from promotion_notice where notice_no = #{noticeNo}
+    </delete>
+
+
 </mapper>

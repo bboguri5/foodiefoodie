@@ -24,7 +24,7 @@ public class MasterController {
 
 
     // 사업자 등록 화면 요청 처리
-    @GetMapping("/request-auth")
+    @GetMapping("/master/register")
     public String requestAuthMaster() {
         return "/member/master/request-auth";
     }

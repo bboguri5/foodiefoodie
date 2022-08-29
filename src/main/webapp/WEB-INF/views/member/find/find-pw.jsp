@@ -9,7 +9,7 @@
 
     <style>
         main {
-            height: 65vh;
+            height: 70vh;
         }
 
         .sign_up {
@@ -33,18 +33,13 @@
                         <div class="head">
                             <div class="title">
                                 <h3>비밀변호 변경하기</h3>
-                                <br>
                             </div>
                         </div>
                         <!-- /head -->
                         <div class="main">
-                            <!-- <a href="#0" class="social_bt facebook">Sign up with Facebook</a>
-							<a href="#0" class="social_bt google">Sign up with Google</a>
-							<div class="divider"><span>Or</span></div> -->
-                            <h6>회원가입 당시의 계정 이메일, 성함, 전화번호, 생년월일을 입력하세요.</h6>
-                            <br>
+                            <h6>가입한 계정 이메일, 성함, 전화번호, 생년월일을 입력하세요.</h6>
                             <form id="find-pw-form" action="/find/pw" method="post">
-
+                                <br>
                                 <div>
                                     <span id="emailChk"></span>
                                 </div>

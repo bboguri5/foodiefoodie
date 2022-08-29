@@ -132,7 +132,7 @@ public class MainPageController {
         log.info("controller request /board/list GET! - search: {}", search);
 
         Map<String, Object> boardMap = mainPageService.findAllSearchService(search, sort);
-        log.info("return data - {}", boardMap.get("bList"));
+//        log.info("return data - {}", boardMap.get("searchList"));
 
         // 페이지 정보 생성
         PageMaker pm = new PageMaker(
@@ -146,10 +146,4 @@ public class MainPageController {
 
         return "main/search-list";
     }
-
-//    @GetMapping("/test")
-//    public String test() {
-//        return "html/test";
-//    }
-
 }

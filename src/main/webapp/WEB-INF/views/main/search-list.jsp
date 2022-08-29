@@ -37,32 +37,30 @@
 
 
     <main>
-<div class="page_header element_to_stick">
-			<div class="container">
-				<div class="row">
-					<form action="/list?sort=star" method="get">
-						<div class="col-xl-4 col-lg-5 col-md-5">
-							<div class="search_bar_list">
-                                <input required class="form-control no_border_r" type="text"
-                                placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
-								<input type="submit" value="Search">
-							</div>
-						</div>
-					</form>
+        <div class="page_header element_to_stick">
+            <div class="container">
+                <div class="row">
+                    <form action="/list?sort=star" method="get">
+                        <div class="col-xl-4 col-lg-5 col-md-5">
+                            <div class="search_bar_list">
+                                <input required class="form-control no_border_r" type="text" placeholder="지역, 식당, 또는 음식"
+                                    name="keyword" value="${s.keyword}">
+                                <input type="submit" value="Search">
+                            </div>
+                        </div>
+                    </form>
                     <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
                         <nav class="main-menu">
                             <ul>
                                 <li class="submenu">
                                     <a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
                                     <ul>
-                                        <c:if test="${not empty search}">
-                                            <li><a href="/review/search?search=${search}&sort=like">추천순</a></li>
-                                            <li><a href="/review/search?search=${search}&sort=latest">최신순</a></li>
-                                        </c:if>
-                                        <c:if test="${empty search}">
-                                            <li><a href="/review?sort=like">추천순</a></li>
-                                            <li><a href="/review?sort=latest">최신순</a></li>
-                                        </c:if>
+                                        <li><a href="/list?keyword=${search.keyword}&sort=star">추천순</a></li>
+                                        <li><a href="/list?keyword=${search.keyword}&sort=latest">최신순</a></li>
+                                        <!-- <c:if test="${empty search}">
+                                            <li><a href="/list?sort=like">추천순</a></li>
+                                            <li><a href="/list?sort=latest">최신순</a></li>
+                                        </c:if> -->
                                     </ul>
                                 </li>
                             </ul>
@@ -76,8 +74,8 @@
 
         <div class="container margin_30_40">
             <c:if test="${empty searchList}">
-				<p>일치하는 검색 결과가 없습니다.</p>
-			</c:if>
+                <p>일치하는 검색 결과가 없습니다.</p>
+            </c:if>
             <div class="row">
                 <c:forEach var="sl" items="${searchList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">

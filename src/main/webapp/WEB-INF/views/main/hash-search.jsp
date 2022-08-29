@@ -10,19 +10,22 @@
 
     
     <style>
-        .search form {
-			display: flex;
+		.page_header .container .row form {
+			width: 75%;
+
 		}
 
-		.search .form-select {
-			flex: 1;
-			margin-top: 8px;
-			border-radius: 10px;
+		.page_header .container .row .col-xl-8 {
+			width: 20%;
 		}
 
+		nav.main-menu {
+			height: 100%;
+			margin-right: 40px;
+		}
 
-		.search .row {
-			flex: 10;
+		.submenu .show-submenu {
+			color: #589442;
 		}
     </style>
 
@@ -34,8 +37,42 @@
 
 
     <main>
-        <%@ include file="../include/page-header.jsp" %>
-
+        <div class="page_header element_to_stick">
+			<div class="container">
+				<div class="row">
+					<form action="/review/search" method="get">
+						<div class="col-xl-4 col-lg-5 col-md-5">
+							<div class="search_bar_list">
+								<input required value="${search}" name="search" type="text" class="form-control"
+									placeholder="Search in blog...">
+								<input type="submit" value="Search">
+							</div>
+						</div>
+					</form>
+					<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
+						<nav class="main-menu">
+							<ul>
+								<li class="submenu">
+									<a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
+									<ul>
+										<c:if test="${not empty search}">
+											<li><a href="/review/search?search=${search}&sort=like">추천순</a></li>
+											<li><a href="/review/search?search=${search}&sort=latest">최신순</a></li>
+										</c:if>
+										<c:if test="${empty search}">
+											<li><a href="/review?sort=like">추천순</a></li>
+											<li><a href="/review?sort=latest">최신순</a></li>
+										</c:if>
+									</ul>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+		</div>
+		<!-- /page_header -->
         <div class="container margin_30_40">
             <div class="row">
                 <c:forEach var="ht" items="${hashTagList}" varStatus="status">

@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.review.controller;
 
+import com.project.foodiefoodie.member.dto.find.EmailCodeDTO;
 import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
@@ -23,18 +24,19 @@ public class ReviewBoardController {
     private final ReplyService replyService;
 
     @GetMapping("/review")
-    public String review(String sort, Model model) {
+    public String review(String sort, String email, Model model) {
         log.info("review started - list");
 
         List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService(sort);
         List<ReviewUpload> reviewUploads = new ArrayList<>();
         List<Integer> replyCount = new ArrayList<>();
-
+        List<Long> isLikedList = reviewBoardService.getLikedListService(email);
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
+        model.addAttribute("isLikedList", isLikedList);
 
         return "review/review-gram";
     }

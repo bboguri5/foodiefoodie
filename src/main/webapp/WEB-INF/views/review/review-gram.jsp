@@ -143,7 +143,9 @@
 								<div class="post_info">
 									<small>Last Updated - ${rl.lastUpdated}
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
-									<h2><a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a></h2>
+									<h2><a
+											href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a>
+									</h2>
 
 									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
 									<p>식당 주소: ${rl.storeAddress}</p>
@@ -154,9 +156,25 @@
 												${rl.email}
 											</li>
 											<li>
-												<i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i><span
-													id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-												<a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}#section-comment"><i
+
+												<c:set var="contains" value="false" />
+												<c:forEach var="item" items="${isLikedList}">
+													<c:if test="${item eq rl.reviewBno}">
+														<c:set var="contains" value="true" />
+													</c:if>
+												</c:forEach>
+												<c:choose>
+													<c:when test="${contains}">
+														<i id="${rl.reviewBno}" class="heartIcon icon_heart"></i>
+													</c:when>
+													<c:otherwise>
+														<i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i>
+													</c:otherwise>
+												</c:choose>
+
+												<span id="heart${rl.reviewBno}">${rl.likeCnt}</span>
+												<a
+													href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}#section-comment"><i
 														id="${rl.reviewBno}"
 														class="icon_comment_alt"></i>${replyCount[status.index]}</a>
 											</li>
@@ -185,18 +203,25 @@
 	<%@ include file="../include/footer.jsp" %>
 
 	<script>
-		const upCount = document.querySelector('.upCount');
-		upCount.addEventListener('click', e => {
-			if (e.target.classList.contains('heartIcon')) {
-				if ('${loginUser}' === '') {
-					alert('로그인 후 사용 가능합니다');
-				} else {
-					likeOrUnlike(e);
+		(function () {
+			likeUnlikeEvent();
+		})();
+
+		function likeUnlikeEvent() {
+			const upCount = document.querySelector('.upCount');
+			upCount.addEventListener('click', e => {
+				if (e.target.classList.contains('heartIcon')) {
+					if ('${loginUser}' === '') {
+						alert('로그인 후 사용 가능합니다');
+					} else {
+						likeOrUnlike(e);
+					}
+				} else if (e.target.className.classList.contains('icon_comment_alt')) {
+					location.href = '/review/detail?email=${loginUser.email}&reviewBno=' + e.target.id +
+						'#section-comment';
 				}
-			} else if (e.target.className.classList.contains('icon_comment_alt')) {
-				location.href = '/review/detail?email=${loginUser.email}&reviewBno=' + e.target.id + '#section-comment';
-			}
-		});
+			});
+		}
 
 		function likeOrUnlike(e) {
 			// 서버에 수정 비동기 요청 보내기

@@ -61,4 +61,12 @@ public class ReplyService {
     public boolean write(Reply reply) {
         return mapper.save(reply);
     }
+
+    public boolean remove(Long rno) {
+        return mapper.remove(rno);
+    }
+
+    public boolean modify(Reply reply) {
+        return mapper.modify(reply);
+    }
 }

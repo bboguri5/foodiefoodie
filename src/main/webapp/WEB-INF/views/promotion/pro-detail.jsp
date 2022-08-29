@@ -49,16 +49,8 @@
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 
     <!-- notice -->
-    <link href="/vendor/magnific-popup.css" rel="stylesheet">
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css/admin.css" rel="stylesheet">
-
-    <!-- jquery -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <!-- bootstrap js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
-    <!-- bootstrap css -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-
 
     <style id="theia-sticky-sidebar-stylesheet-TSS">
         .theiaStickySidebar:after {
@@ -72,8 +64,7 @@
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
     </script>
 
-    <!-- icon link -->
-    <script src="https://kit.fontawesome.com/de04e07342.js" crossorigin="anonymous"></script>
+
 </head>
 
 <style>
@@ -138,16 +129,6 @@
         color: #fff !important;
     }
 
-    .openWriteBox {
-        display: flex;
-        justify-content: end;
-
-
-    }
-
-    .openWriteBtn {
-        width: 50px;
-        height: 50px;
     .quantity {
         display: inline;
         margin-left: 470px;
@@ -171,7 +152,6 @@
 </style>
 
 <body>
-
     <%@ include file="../include/header.jsp" %>
 
 
@@ -179,7 +159,7 @@
     <main>
         <div class="hero_in detail_page title_img_add"
             style=" background-image: url('data:image/jpg;base64,${titleImg}');">
-            <!-- <img src="data:image/jpg;base64,${titleImg}">  -->
+            <!-- <img src="data:image/jpg;base64,${titleImg}">   -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                 <div class="container">
                     <div class="main_info">
@@ -229,16 +209,13 @@
                                     role="tab">Reviews</a>
                             </li>
                             <li class="nav-item">
-                                <a id="tab-D" href="#pane-D" class="nav-link  newNotice" data-bs-toggle="tab"
-                                    role="tab">Notice
-
-                                </a>
+                                <a id="tab-D" href="#pane-D" class="nav-link" data-bs-toggle="tab" role="tab">Notice</a>
                             </li>
                         </ul>
-
                         <div class="tab-content" role="tablist">
                             <!-- A type -->
-                            <div id="pane-A" class="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+                            <div id="pane-A" class="card tab-pane fade show active" role="tabpanel"
+                                aria-labelledby="tab-A">
                                 <div class="card-header" role="tab" id="heading-A">
                                     <h5>
                                         <a class="collapsed" data-bs-toggle="collapse" href="#collapse-A"
@@ -632,7 +609,6 @@
                             </div>
                             <!-- /C type -->
                             <!-- D type -->
-
                             <div id="pane-D" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-D">
                                 <div class="card-header" role="tab" id="heading-D">
                                     <h5>
@@ -647,17 +623,73 @@
                                         <div class="add_bottom_25"></div>
                                         <!-- 공지사항  -->
                                         <h2>공지사항</h2>
-                                        <div class="add_bottom_25 openWriteBox">
-                                            <p class="inline-popups noticeWrite">
-                                                <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
-                                                    <i class="fa fa-fw fa-reply"></i>글쓰기</a>
-                                            </p>
-                                        </div>
-                                        <div class="list_general notices">
-                                            <ul>
-                                                <!-- makeNoticeDom method -->
-                                            </ul>
-
+                                        <div class="noticeBox">
+                                            <!-- <div class="header_box">
+                                                <div class="filter">
+                                                    <div class="styled-select short">
+                                                        <select name="orderby">
+                                                            <option value="Any time">Any time</option>
+                                                            <option value="Latest">Latest</option>
+                                                            <option value="Oldest">Oldest</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="list_general">
+                                                <ul>
+                                                    <li>
+                                                        <figure><img src="/img/item_1.jpg" alt=""></figure>
+                                                        <small>Pizza - Italian</small>
+                                                        <h4>La Monnalisa</h4>
+                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
+                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
+                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
+                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
+                                                            vocent ocurreret per....</p>
+                                                        <p><a href="#0" class="btn_1 gray"><i
+                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
+                                                        <ul class="buttons">
+                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
+                                                                        class="fa fa-fw fa-times-circle-o"></i>
+                                                                    Cancel</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <figure><img src="/img/item_2.jpg" alt=""></figure>
+                                                        <small>Pizza - Italian</small>
+                                                        <h4>Da Alfredo</h4>
+                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
+                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
+                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
+                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
+                                                            vocent ocurreret per....</p>
+                                                        <p><a href="#0" class="btn_1 gray"><i
+                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
+                                                        <ul class="buttons">
+                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
+                                                                        class="fa fa-fw fa-times-circle-o"></i>
+                                                                    Cancel</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li>
+                                                        <figure><img src="/img/item_3.jpg" alt=""></figure>
+                                                        <small>Japanese</small>
+                                                        <h4>Sushi Gold</h4>
+                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
+                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
+                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
+                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
+                                                            vocent ocurreret per....</p>
+                                                        <p><a href="#0" class="btn_1 gray"><i
+                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
+                                                        <ul class="buttons">
+                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
+                                                                        class="fa fa-fw fa-times-circle-o"></i>
+                                                                    Cancel</a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <!-- /공지사항 -->
                                         <!-- detail info -->
@@ -680,8 +712,6 @@
 
             <!-- /container -->
         </div>
-
-
     </main>
     <!-- /main -->
 
@@ -757,7 +787,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- /row-->
             <hr>
             <div class="row add_bottom_25">
@@ -850,20 +879,6 @@
     </div>
     <!-- /Sign In Modal -->
 
-    <!-- notice modal to review popup -->
-    <div id="modal-reply" class="white-popup mfp-with-anim mfp-hide">
-        <div class="small-dialog-header">
-            <h3>공지사항 내용</h3>
-        </div>
-        <div class="message-reply margin-top-0">
-            <div class="form-group">
-                <textarea cols="40" rows="3" class="form-control noticeContent" placeholder="300자 이내"></textarea>
-            </div>
-            <button class="btn_1 noticeSubmit">입력</button>
-        </div>
-    </div>
-
-
     <!-- COMMON SCRIPTS -->
     <script src="/js/common_scripts.min.js"></script>
     <script src="/js/common_func.js"></script>
@@ -873,23 +888,7 @@
     <script src="/js/sticky_sidebar.min.js"></script>
     <script src="/js/specific_detail.js"></script>
 
-    <script src="/vendor/jquery.magnific-popup.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="/js/admin.js"></script>
-
-</body>
-
-<script>
-    showKaKao(); // information map  
-
-    clickEventOpenKakao(); // open kakao map 
-
-    showNotice(); // notice
-    makeNoticeWriteStyle(); // notice popup style
-    clickEventSaveNotice(); // notice save 
-
-    function showKaKao() {
+    <!-- <script>
         let positionAddress = '';
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = {
@@ -935,146 +934,16 @@
                 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
             }
 
-            $("#tab-A").on('click', function () {
-                console.log("map relayout");
-                map.relayout();
-            })
-
         });
 
-
-
-    }
-
-    function clickEventOpenKakao() {
         const $openKakaoMap = $(".openKaKaoMap");
         $openKakaoMap.on("click", function () {
 
-            const serach = "https://map.kakao.com/link/search/" + `${master.storeAddress}`;
-            $openKakaoMap.attr("href", serach);
+            const area = "https://map.kakao.com/link/search/" + `${master.storeAddress}`;
+            $openKakaoMap.attr("href", area);
         });
-    }
-
-    function makeNoticeWriteStyle() {
-        $('.noticeWrite').on('click', function () {
-            console.log($('textarea.form-control'));
-            $('textarea.form-control').width(430);
-            $('textarea.form-control').height(200);
-            $('.btn_1.noticeSubmit').css('margin-left', '180px');
-            $('button.mfp-close').css('top', '5px');
-            $('button.mfp-close').css('right', '10px');
-        });
-
-    }
-
-    function clickEventSaveNotice() {
-        const $noticeSubmit = $('.noticeSubmit');
-        $noticeSubmit.on('click', function (e) {
-            saveNoticeWriteText(e);
-        });
-    }
-
-    function saveNoticeWriteText(e) {
-
-        const $noticeContent = document.querySelector('.noticeContent');
-        if ($noticeContent.value.length > 300) {
-            alert(" 300자 이내 입력 부탁드립니다.");
-            return;
-        }
-        const noticeContent = $noticeContent.value.replace(/\n/gi, "<br>");
-
-        const noticeData = {
-            promotionBno: `${promotionBno}`,
-            content: noticeContent
-        }
-
-        const reqInfo = {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(noticeData)
-        };
-
-
-        fetch('/foodie/detail/noticeSave', reqInfo)
-            .then(res => res.text())
-            .then(result => {
-                console.log(result);
-                if (result === 'insert-success') {
-                    alert("공지사항 등록 성공");
-                    $noticeContent.value = '';
-                    $('.mfp-close').click();
-                    showNotice();
-                } else {
-                    alert("공지사항 등록 실패");
-                }
-            });
-    }
-
-    function showNotice() {
-        console.log("showNotice");
-        fetch('/foodie/detail/noticeShow/' + `${promotionBno}`)
-            .then(res => res.json())
-            .then(noticeDTOS => {
-                console.log(noticeDTOS);
-                makeNoticeDom(noticeDTOS);
-            })
-    }
-
-    function makeNoticeDom(noticeDTOS) {
-
-        let tag = '';
-        let newUpdateArr = [];
-
-        console.log("makeNoticeDom 진입");
-        for (const notice of noticeDTOS) {
-
-            tag += `<li>` +
-                `<input type="hidden" class="noticeNo" value="` + notice.noticeNo + `">` +
-                `<p>` + notice.content + `</p>` +
-                `<ul class="buttons deleteNoticeWrite">` +
-                `<li>` +
-                `<a class="btn_1 gray delete">` +
-                `<i class="fa fa-fw fa-times-circle-o"></i>` +
-                `삭제 </a>` +
-                `</li>` +
-                `</ul>` +
-                `<p class="update_date"> 업데이트 : ` + notice.updateAFewDaysAgo + `</p>` +
-                `</li>`;
-
-            newUpdateArr.push(notice.newUpdateFlag);
-        }
-
-        if (newUpdateArr.includes(true)) {
-            document.querySelector('.newNotice').innerHTML = 'NOTICE    <span style="color : red "> [ new! ] </span>';
-        }
-
-        document.querySelector('.list_general.notices ul').innerHTML = tag;
-        clickEventDeleteNotice();
-
-    }
-
-    function clickEventDeleteNotice() {
-        const $deleteNotice = $('.deleteNoticeWrite');
-        $deleteNotice.on('click', function () {
-            const noticeNo = this.parentElement.firstElementChild.value;
-            fetch('/foodie/detail/noticeDelete/' + noticeNo, {
-                    method: 'DELETE'
-                })
-                .then(res => res.text())
-                .then(result => {
-                    if (result === 'delete-success') {
-                        alert("삭제 완료");
-                        showNotice();
-
-                    } else {
-                        alert("삭제 실패");
-                    }
-                })
-        })
-    };
-</script>
+    </script> -->
+    <!-- javascript -->
 
 
     <!-- 메뉴 주문 자바 스크립트 -->
@@ -1298,11 +1167,7 @@
 
             fetch('/kakao/order/check', reqInfo)
                 .then(res => res.text())
-                .then(msg => {
-                    if (msg === 'order-success') {
-                        location.href = '/kakao/order/check';
-                    }
-                });
+                .then(msg => console.log(msg));
         }
     </script>
 
@@ -1313,5 +1178,8 @@
 
 
 </body>
+
+
+
 
 </html>

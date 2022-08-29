@@ -17,19 +17,21 @@
 			width: 19%;
 		}
 
-		.search form {
+
+		.search {
+			width: 80%;
+			margin: auto;
+		}
+		.search .row {
 			display: flex;
 		}
 
-		.search .form-select {
-			flex: 1;
-			margin-top: 8px;
-			border-radius: 10px;
+		.search .row .col-lg-6 {
+			flex: 8;
 		}
 
-
-		.search .row {
-			flex: 10;
+		.search .row .col-lg-2 {
+			flex: 2;
 		}
 	</style>
 </head>
@@ -55,7 +57,6 @@
 											<div class="form-group">
 												<input required class="form-control no_border_r" type="text"
 													placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
-												<i class="icon_pin_alt"></i>
 											</div>
 										</div>
 										<div class="col-lg-2">
@@ -227,7 +228,7 @@
 						<small>Foodie Foodie</small>
 						<h3>직접 먹어본 사람들만의 솔직한 리뷰</h3>
 						<p>많은 후기를 보고 맛집을 찾아보세요!</p>
-						<a href="/review?sort=latest" class="btn_1">맛집 리뷰 보러가기</a>
+						<a href="/review?sort=latest&email=${loginUser.email}" class="btn_1">맛집 리뷰 보러가기</a>
 					</div>
 				</div>
 				<!-- /wrapper -->

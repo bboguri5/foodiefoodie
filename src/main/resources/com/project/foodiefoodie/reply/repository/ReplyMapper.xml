@@ -56,4 +56,11 @@
         VALUES (#{reviewBno}, seq_reply.nextval, #{email}, #{content}, #{nickName}, SYSDATE)
     </insert>
 
+    <!--  댓글 수정  -->
+    <update id="modify">
+        UPDATE reply
+        SET content = #{content}
+        WHERE reply_no = #{replyNo}
+    </update>
+
 </mapper>

@@ -37,18 +37,18 @@
 
 
     <main>
-        <div class="page_header element_to_stick">
-            <div class="container">
-                <div class="row">
-                    <form action="/review/search" method="get">
-                        <div class="col-xl-4 col-lg-5 col-md-5">
-                            <div class="search_bar_list">
-                                <input required value="${search}" name="search" type="text" class="form-control"
-                                    placeholder="Search in blog...">
-                                <input type="submit" value="Search">
-                            </div>
-                        </div>
-                    </form>
+<div class="page_header element_to_stick">
+			<div class="container">
+				<div class="row">
+					<form action="/list?sort=star" method="get">
+						<div class="col-xl-4 col-lg-5 col-md-5">
+							<div class="search_bar_list">
+                                <input required class="form-control no_border_r" type="text"
+                                placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
+								<input type="submit" value="Search">
+							</div>
+						</div>
+					</form>
                     <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
                         <nav class="main-menu">
                             <ul>
@@ -75,6 +75,9 @@
         <!-- /page_header -->
 
         <div class="container margin_30_40">
+            <c:if test="${empty searchList}">
+				<p>일치하는 검색 결과가 없습니다.</p>
+			</c:if>
             <div class="row">
                 <c:forEach var="sl" items="${searchList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">

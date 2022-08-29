@@ -142,6 +142,7 @@ public class MainPageController {
         model.addAttribute("searchList", boardMap.get("searchList"));
         model.addAttribute("pm", pm);
         model.addAttribute("todayDate", getTodayDate());
+        model.addAttribute("search", search);
 
         return "main/search-list";
     }

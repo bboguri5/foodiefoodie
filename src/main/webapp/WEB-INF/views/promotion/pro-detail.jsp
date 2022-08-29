@@ -1168,6 +1168,7 @@
             fetch('/kakao/order/check', reqInfo)
                 .then(res => res.text())
                 .then(msg => {
+
                     if (msg === 'order-success') {
                         location.href = '/kakao/order/check';
                     }

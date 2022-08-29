@@ -145,6 +145,7 @@
                         </div>
                         <!-- /post meta -->
                         <div class="post-content">
+                            <p>내 평점: ${review.starRate}점</p>
                             <p>식당 이름: <a href="#">${review.storeName}</a></p>
                             <p>식당 주소: ${review.storeAddress}</p>
                             <p>${review.content}</p>

@@ -9,9 +9,8 @@
                     <div class="row g-0 custom-search-input">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input required class="form-control no_border_r" type="text" placeholder="지역, 식당, 또는 음식"
-                                    name="keyword" value="${s.keyword}">
-                                <i class="icon_pin_alt"></i>
+                                <input required class="form-control no_border_r" type="text"
+                                    placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
                             </div>
                         </div>
                         <div class="col-lg-2">
@@ -20,7 +19,6 @@
                     </div>
                 </form>
             </div>
-
 
         </div>
     </div>

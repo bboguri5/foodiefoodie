@@ -6,21 +6,53 @@
 
 
     <insert id="saveProBoard">
+        <if test=" type == 'title' ">
+            PROMOTION_UPLOAD_TITLE_IMG (
+            BUSINESS_NO
+            ,PROMOTION_BNO
+            ,CONTENT
+            ,LAST_UPDATED
+            ,TITLE
+            ,HASHTAG
+            ,FILE_NAME
+            ,FILE_PATH
+            ,FILE_BYTE
+            ,FILE_SIZE
+            ,FILE_MEDIATYPE
+            )
+            VALUES (
+            #{businessNo}
+            ,seq_promotion_board.nextval
+            ,#{content}
+            ,sysdate
+            ,#{title}
+            ,#{hashTag}
+            ,#{fileName}
+            ,#{filePath}
+            ,#{fileMediaType};
+            ,#{fileSize};
+            ,#{fileByte};
+            )
+        </if>
+
+    </insert>
+    <insert id="saveTitleImg">
         insert into promotion_board (
         BUSINESS_NO
         ,PROMOTION_BNO
-        ,CONTENT
-        ,LAST_UPDATED
-        ,TITLE
-        ,HASHTAG
+        ,FILE_NAME
+        ,FILE_PATH
+        ,FILE_BYTE
+        ,FILE_SIZE
+        ,FILE_MEDIATYPE
         )
         VALUES (
         #{businessNo}
-        ,seq_promotion_board.nextval
-        ,#{content}
-        ,sysdate
-        ,#{title}
-        ,#{hashTag}
+        ,#{fileName}
+        ,#{filePath}
+        ,#{fileMediaType};
+        ,#{fileSize};
+        ,#{fileByte};
         )
     </insert>
 

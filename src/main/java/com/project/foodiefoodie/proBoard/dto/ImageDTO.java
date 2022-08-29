@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Getter @Setter @ToString
 @NoArgsConstructor @AllArgsConstructor
-public class ImageDTO {
+public class ImageDTO extends FileDTO{
 
     private String fileName;
     private String filePath;

@@ -3,6 +3,7 @@ package com.project.foodiefoodie.proBoard.controller;
 
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
+import com.project.foodiefoodie.proBoard.dto.FileDTO;
 import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
@@ -13,6 +14,7 @@ import lombok.extern.log4j.Log4j2;
 
 import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 
@@ -109,10 +112,10 @@ public class ProBoardController {
         log.info("foodie/write POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
         log.info("foodie/write POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
 
-        String[] menuNames = request.getParameterValues("menuName");
-        String[] menuPrices = request.getParameterValues("menuPrice");
-
-        List<String[]> menuList = new ArrayList<>(Arrays.asList(menuNames, menuPrices));
+        List<String[]> menuList = new ArrayList<>(Arrays.asList(
+                    request.getParameterValues("menuName"),
+                    request.getParameterValues("menuPrice")
+        ));
 
         Map<String, List<MultipartFile>> fileMap = new HashMap<>() {{
             put("title", titleImgFile);
@@ -144,6 +147,22 @@ public class ProBoardController {
         model.addAttribute("titleImg", proBoardService.selectTitleImg(promotionBno));
         model.addAttribute("detailImgList", proBoardService.selectDetailImgList(promotionBno));
 
+
+        File file = new File("C:\\foodie_default.png");
+        String fileType ;
+        String fileName = file.getName();
+        long fileSize = file.length();
+        try {
+            fileType = Files.probeContentType(file.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        FileDTO fileDTO = new FileDTO(file);
+//        log.info("{},{},{},{}",fileDTO.getFileName(),fileDTO.getFileType(),fileDTO.getFileByte(),fileDTO.getFileSize());
+        System.out.println(file.getPath());
+
+
 //        DiskFileItem fileItem ;
 //        File file = new File("C:\\foodie_default.png");
 //        try {
@@ -152,23 +171,24 @@ public class ProBoardController {
 //            InputStream input = new FileInputStream(file);
 //            OutputStream os = fileItem.getOutputStream();
 //            IOUtils.copy(input,os);
-//
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
 //        MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
+//        System.out.println(multipartFile);
 //        model.addAttribute("file",multipartFile);
 
-        String fileByte = FoodieFileUtils.getFileContent("C:\\foodie_default.png");
-        String title = "title";
-        String filename = "foodie_default.png";
-        String type = "image/png";
-        int size = 1337;
-        model.addAttribute("fileByte",fileByte);
-        model.addAttribute("title",title);
-        model.addAttribute("filename",filename);
-        model.addAttribute("type",type);
-        model.addAttribute("size",size);
+//        String fileByte = FoodieFileUtils.getFileContent("C:\\foodie_default.png");
+////        String fileByte = "C:\\foodie_default.png";
+//        String title = "title";
+//        String filename = "foodie_default.png";
+//        String type = "image/png";
+//        int size = 1337;
+//        model.addAttribute("fileByte",fileByte);
+//        model.addAttribute("title",title);
+//        model.addAttribute("filename",filename);
+//        model.addAttribute("type",type);
+//        model.addAttribute("size",size);
         return "promotion/pro-modify";
     }
 }

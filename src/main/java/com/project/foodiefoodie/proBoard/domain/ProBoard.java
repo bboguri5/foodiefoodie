@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.proBoard.domain;
 
+import com.project.foodiefoodie.proBoard.dto.FileDTO;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +14,7 @@ import java.util.Map;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProBoard {
+public class ProBoard extends FileDTO {
 
     private String businessNo;
     private int promotionBno;
@@ -24,7 +25,5 @@ public class ProBoard {
     private int avgStarRate;
     private int review_cnt;
     private int report_cnt;
-    private String filePath;
-    private String fileName;
 
 }

@@ -33,7 +33,7 @@ public class ProBoardService {
         if (result) {
             int promotionBno = proBoardMapper.selectPromotionBno(proBoard.getBusinessNo());
             proBoardMapper.saveProBoardStoreTime(promotionBno, storeTime); // storeTime 저장
-            uploadMasterFile(fileMap, proBoard, promotionBno, menuList); // imgFile , path 저장
+//            uploadMasterFile(promotionBno,menuList,fileMap); // imgFile , path 저장
         }
 
         return result;
@@ -82,8 +82,14 @@ public class ProBoardService {
         return newUploadPath;
     }
 
-    // 서버 내 파일 저장 함수
-    public boolean uploadMasterFile(Map<String, List<MultipartFile>> fileMap, ProBoard proBoard, int promotionBno, List<String[]> menuList) {
+    public boolean uploadTitleFile(int promotionBno, List<String[]> menuList,  List<MultipartFile> fileMap) {
+
+        log.info(" uploadTitleFile service - init {}", promotionBno);
+        return false;
+    }
+
+        // 서버 내 파일 저장 함수
+    public boolean uploadMasterFile(int promotionBno, List<String[]> menuList,  Map<String, List<MultipartFile>> fileMap) {
 
         log.info(" uploadMasterFile service - init {}", promotionBno);
         String[] args = {"title", "detail", "menu"};

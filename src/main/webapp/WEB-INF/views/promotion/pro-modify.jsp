@@ -883,24 +883,26 @@
             addRemoveLinks: true,
             dictRemoveFile: 'X',
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
+
+        
         });
 
-        const newFile = new File ([`${fileByte}`],`${filename}`,{
+        const newFile = new File (['file'],`${filename}`,{
             type : `${type}`, 
             size : `${size}`,
-            dataUrl : `${fileByte}`
+            status: titleDropzone.ADDED,
+            accepted: true      
         });
 
         
-        // console.log(${file});
-        titleDropzone.addFile(newFile);
-        titleDropzone.emit("thumbnail", newFile,"data:image/png;base64,${fileByte}");
+        titleDropzone.emit("addedfile",`${file}`);
+        titleDropzone.emit("thumbnail", `${file}`,"data:${type};base64,${fileByte}");
+        titleDropzone.emit("complete", `${file}`);
+        titleDropzone.files.push(`${file}`);
 
         console.log(titleDropzone.filse);
 
-
         let overlapSet = new Set();
-        
         const detailDropzone = new Dropzone("#detail-dropzone.dropzone", {
             url: "/foodie/write",
             method: 'post',

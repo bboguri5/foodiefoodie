@@ -906,6 +906,7 @@
             alert(" 300자 이내 입력 부탁드립니다.");
             return;
         }
+        
         const noticeContent = $noticeContent.value.replace(/\n/gi, "<br>");
 
         const noticeData = {

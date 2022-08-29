@@ -227,7 +227,6 @@
         OR store_name LIKE '%' || #{s.keyword} || '%'
         OR hashTag LIKE '%' || #{s.keyword} || '%'
         <if test="sort == 'star'">ORDER BY avg_star_rate DESC </if>
-        <if test="sort == 'review'">ORDER BY review_cnt </if>
         <if test="sort == 'latest'">ORDER BY P.last_updated </if>
         ) t_pb)
         WHERE rn BETWEEN (#{s.pageNum} - 1) * #{s.amount} + 1 AND (#{s.pageNum} * #{s.amount})

@@ -77,8 +77,7 @@
 			<div class="container margin_60_40">
 				<div class="main_title center">
 					<span><em></em></span>
-					<h2>무엇이 먹고싶으신가요? ㅋㅋ</h2>
-					<p>카테고리 골라골라</p>
+					<h2>카테고리 모아보기</h2>
 				</div>
 				<!-- /main_title -->
 				<div class="owl-carousel owl-theme categories_carousel">
@@ -135,7 +134,7 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2>오늘의 맛집</h2>
-				<p>실시간 탑 맛집 이에용~</p>
+				<p>평점이 높은 인기 식당</p>
 				<a href="/foodlist">View All</a>
 			</div>
 
@@ -173,7 +172,7 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2>푸디푸디 추천 맛집</h2>
-				<p>돈 받았어용~ 헿</p>
+				<p>푸디푸디 광고 맛집</p>
 				<a href="/premiumlist">View All</a>
 			</div>
 
@@ -212,7 +211,7 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2 id="locationHeader"></h2>
-				<p>근처 맛집을 찾아보세용~</p>
+				<p>근처 맛집을 찾아보기</p>
 				<a id="viewAll" href="#0">View All</a>
 			</div>
 
@@ -239,8 +238,8 @@
 				<div class="col-12">
 					<div class="main_title version_2">
 						<span><em></em></span>
-						<h2>핫딜</h2>
-						<p>오늘의 핫딜 놓치지 마세요!</p>
+						<h2>핫딜 진행중인 식당</h2>
+						<p>오늘의 핫딜 놓치지 마세요!!</p>
 						<a href="/hotdeals">더보기</a>
 					</div>
 				</div>
@@ -308,10 +307,10 @@
 			<div class="container clearfix">
 				<div class="col-lg-5 col-md-6 float-end wow">
 					<div class="box_1">
-						<h3>사장님이신가용?</h3>
-						<p>Join Us to increase your online visibility. You'll have access to even more
-							customers who are
-							looking to enjoy your tasty dishes at home.</p>
+						<h3>사장님이신가요?</h3>
+						<p>
+							온라인 가시성을 높이려면 저희와 함께하세요! 맛있는 요리를 즐기려는 더 많은 고객에게 접근할 수 있습니다.
+							</p>
 
 						<div class="btn_1 addMaster">사업자 등록하기</div>
 					</div>

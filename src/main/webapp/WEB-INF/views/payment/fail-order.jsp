@@ -15,9 +15,6 @@
 			margin-top: 70px;
 		}
 
-		.title {
-			margin-bottom: 0;
-		}
 	</style>
 </head>
 

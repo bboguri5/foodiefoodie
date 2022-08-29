@@ -8,27 +8,31 @@
 
     <%@ include file="../include/static-head.jsp" %>
 
-    
+
     <style>
-        .search form {
-			display: flex;
-		}
+        .page_header .container .row form {
+            width: 75%;
 
-		.search .form-select {
-			flex: 1;
-			margin-top: 8px;
-			border-radius: 10px;
-		}
+        }
 
-		.search .row {
-			flex: 10;
-		}
+        .page_header .container .row .col-xl-8 {
+            width: 20%;
+        }
+
+        nav.main-menu {
+            height: 100%;
+            margin-right: 40px;
+        }
+
+        .submenu .show-submenu {
+            color: #589442;
+        }
     </style>
 
 </head>
 
 <body>
-    
+
     <%@ include file="../include/detail-header.jsp" %>
 
 
@@ -36,42 +40,37 @@
         <div class="page_header element_to_stick">
             <div class="container">
                 <div class="row">
-                    <div class="search">
-                        <form action="/list" method="get">
-                            <div class="row g-0 custom-search-input">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <input required class="form-control no_border_r" type="text" placeholder="지역, 식당, 또는 음식"
-                                            name="keyword" value="${s.keyword}">
-                                        <i class="icon_pin_alt"></i>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <input type="submit" value="Search">
-                                </div>
+                    <form action="/review/search" method="get">
+                        <div class="col-xl-4 col-lg-5 col-md-5">
+                            <div class="search_bar_list">
+                                <input required value="${search}" name="search" type="text" class="form-control"
+                                    placeholder="Search in blog...">
+                                <input type="submit" value="Search">
                             </div>
-                        </form>
-                        <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
-                            <nav class="main-menu">
-                                <ul>
-                                    <li class="submenu">
-                                        <a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
-                                        <ul>
-                                            <li><a href="/list?sort=star&keyword=${s.keyword}">평점순</a></li>
-                                            <li><a href="/list?sort=review&keyword=${s.keyword}">리뷰 많은순</a></li>
-                                            <li><a href="/list?sort=latest&keyword=${s.keyword}">최신순</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </nav>
                         </div>
+                    </form>
+                    <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
+                        <nav class="main-menu">
+                            <ul>
+                                <li class="submenu">
+                                    <a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
+                                    <ul>
+                                        <c:if test="${not empty search}">
+                                            <li><a href="/review/search?search=${search}&sort=like">추천순</a></li>
+                                            <li><a href="/review/search?search=${search}&sort=latest">최신순</a></li>
+                                        </c:if>
+                                        <c:if test="${empty search}">
+                                            <li><a href="/review?sort=like">추천순</a></li>
+                                            <li><a href="/review?sort=latest">최신순</a></li>
+                                        </c:if>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-        
-        
                 </div>
+                <!-- /row -->
             </div>
-            <!-- /row -->
-        </div>
         </div>
         <!-- /page_header -->
 
@@ -82,10 +81,9 @@
                         <div class="strip">
                             <figure>
                                 <c:if test="${sl.hotDeal == 'Y'.charAt(0) && sl.endDate > todayDate}">
-									<span class="ribbon off">${sl.discountPrice}</span>
-								</c:if>
-                                <img src="${sl.filePath}" data-src="${sl.filePath}" class="img-fluid lazy"
-                                    alt="">
+                                    <span class="ribbon off">${sl.discountPrice}</span>
+                                </c:if>
+                                <img src="${sl.filePath}" data-src="${sl.filePath}" class="img-fluid lazy" alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <c:if test="${sl.hotDeal == 'Y'.charAt(0) && sl.endDate > todayDate}">
                                         <small>기간: ${sl.endDate}</small>

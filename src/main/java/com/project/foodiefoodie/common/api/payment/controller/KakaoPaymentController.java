@@ -26,10 +26,6 @@ public class KakaoPaymentController {
 
     private final KakaoService kakaoService;
 
-    @GetMapping("/kakao-test")
-    public String test() {
-        return "payment/kakao-payment-test";
-    }
 
 
     // 주문 데이터를 들고 주문 확인창으로 이동 요청 처리
@@ -59,6 +55,7 @@ public class KakaoPaymentController {
         return "order-success"; // -> 확인창에서 최종 주문 요청을 하게 되면 KakaoController에서 작업 수행.
     }
 
+
     @GetMapping("/kakao/order/check")
     public String hey(HttpSession session) {
         List<OrderInfo> orderInfoList = (List<OrderInfo>) session.getAttribute("orderInfoList");
@@ -66,7 +63,7 @@ public class KakaoPaymentController {
         return "payment/check-order";
     }
 
-    //    @GetMapping("/kakao/payment-test")
+
     @PostMapping("/kakao/order/request")
     public String test(HttpSession session, OrderInfoDTO orderInfoDTO, Model model) throws IOException {
 

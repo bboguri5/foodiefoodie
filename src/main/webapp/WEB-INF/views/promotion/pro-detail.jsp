@@ -159,7 +159,7 @@
     <main>
         <div class="hero_in detail_page title_img_add"
             style=" background-image: url('data:image/jpg;base64,${titleImg}');">
-            <!-- <img src="data:image/jpg;base64,${titleImg}">   -->
+            <!-- <img src="data:image/jpg;base64,${titleImg}">  -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                 <div class="container">
                     <div class="main_info">
@@ -1168,7 +1168,8 @@
             fetch('/kakao/order/check', reqInfo)
                 .then(res => res.text())
                 .then(msg => {
-                    if (msg == 'order-success') {
+
+                    if (msg === 'order-success') {
                         location.href = '/kakao/order/check';
                     }
                 });

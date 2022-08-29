@@ -17,19 +17,21 @@
 			width: 19%;
 		}
 
-		.search form {
+
+		.search {
+			width: 80%;
+			margin: auto;
+		}
+		.search .row {
 			display: flex;
 		}
 
-		.search .form-select {
-			flex: 1;
-			margin-top: 8px;
-			border-radius: 10px;
+		.search .row .col-lg-6 {
+			flex: 8;
 		}
 
-
-		.search .row {
-			flex: 10;
+		.search .row .col-lg-2 {
+			flex: 2;
 		}
 	</style>
 </head>
@@ -55,7 +57,6 @@
 											<div class="form-group">
 												<input required class="form-control no_border_r" type="text"
 													placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
-												<i class="icon_pin_alt"></i>
 											</div>
 										</div>
 										<div class="col-lg-2">

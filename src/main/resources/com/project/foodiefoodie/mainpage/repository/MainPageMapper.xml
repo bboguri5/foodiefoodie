@@ -207,6 +207,7 @@
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
         WHERE hashTag LIKE '%' || #{hashTag} || '%'
+        ORDER BY avg_star_rate DESC
         ) t_pb)
         WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
     </select>

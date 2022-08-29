@@ -227,7 +227,7 @@
 						<small>Foodie Foodie</small>
 						<h3>직접 먹어본 사람들만의 솔직한 리뷰</h3>
 						<p>많은 후기를 보고 맛집을 찾아보세요!</p>
-						<a href="/review?sort=latest" class="btn_1">맛집 리뷰 보러가기</a>
+						<a href="/review?sort=latest&email=${loginUser.email}" class="btn_1">맛집 리뷰 보러가기</a>
 					</div>
 				</div>
 				<!-- /wrapper -->

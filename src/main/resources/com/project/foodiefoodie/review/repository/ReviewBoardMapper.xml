@@ -132,5 +132,9 @@
         SELECT COUNT(*) FROM review_like WHERE email=#{email} AND review_bno=#{reviewBno}
     </select>
 
+    <select id="getLikedList" resultType="long">
+        SELECT review_bno FROM review_like WHERE email=#{email}
+    </select>
+
 
 </mapper>

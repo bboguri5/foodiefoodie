@@ -86,4 +86,9 @@ public class ReviewBoardService {
     public boolean deleteReviewLikeService(long reviewBno, String email) {
         return rbMapper.deleteReviewLike(reviewBno, email);
     }
+
+    public List<Long> getLikedListService(String email) {
+        log.info("liked list - {}", rbMapper.getLikedList(email));
+        return rbMapper.getLikedList(email);
+    }
 }

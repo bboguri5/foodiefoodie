@@ -10,7 +10,7 @@
 
     
     <style>
-        .search form {
+        /* .search form {
 			display: flex;
 		}
 
@@ -23,7 +23,7 @@
 
 		.search .row {
 			flex: 10;
-		}
+		} */
     </style>
 
 </head>
@@ -33,7 +33,7 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <main>
-        <%@ include file="../include/page-header.jsp" %>
+        <!-- <%@ include file="../include/page-header.jsp" %> -->
 
         <div class="container margin_30_40">
             <div class="row">

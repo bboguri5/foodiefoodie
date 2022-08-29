@@ -21,7 +21,7 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/include/headear.jsp" %>
+    <%@ include file="/WEB-INF/views/include/header.jsp" %>
 
 
     <main class="bg_gray pattern">

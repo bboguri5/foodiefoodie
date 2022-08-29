@@ -30,11 +30,13 @@
                 <div class="col-lg-5">
                     <div class="sign_up">
                         <div class="head">
-                            <h3>Sign In</h3>
+                            <div class="title">
+                                <h3>Log In</h3>
+                            </div>
                         </div>
-                        <div class="sign-in-wrapper2">
+                        <div class="main">
                             <div class="form-group">
-                                <label>email</label>
+                                <label>Email</label>
                                 <input type="email" class="form-control" name="email" id="login-email2">
                             </div>
                             <div class="clearfix add_bottom_15">
@@ -43,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>password</label>
+                                <label>Password</label>
                                 <input type="password" class="form-control" name="password" id="login-pw2">
                             </div>
                             <div class="clearfix add_bottom_15">

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -34,19 +35,34 @@ public class KakaoPaymentController {
     // 주문 데이터를 들고 주문 확인창으로 이동 요청 처리
     @PostMapping("/kakao/order/check")
     @ResponseBody
-    public String orderRequest(@RequestBody List<OrderInfo> orderInfoList, HttpSession session) {
+    public String orderRequest(@RequestBody List<OrderInfo> orderInfoList, HttpServletRequest request) {
         log.info("/order/check GET!! - {}", orderInfoList);
 
+        HttpSession session = request.getSession();
 
         session.setAttribute("orderInfoList", orderInfoList);
+
+        int totalQuantity = 0;
+        int totalPrice = 0;
+
+        if (orderInfoList != null) {
+            for (OrderInfo orderInfo : orderInfoList) {
+                totalPrice += orderInfo.getMenuPrice();
+                totalQuantity += orderInfo.getQuantity();
+            }
+        }
+
+        session.setAttribute("totalPrice", totalPrice);
+        session.setAttribute("totalQuantity", totalQuantity);
 
 
         return "order-success"; // -> 확인창에서 최종 주문 요청을 하게 되면 KakaoController에서 작업 수행.
     }
 
     @GetMapping("/kakao/order/check")
-    public String hey() {
-        log.info("/kakao/order/check GET!!");
+    public String hey(HttpSession session) {
+        List<OrderInfo> orderInfoList = (List<OrderInfo>) session.getAttribute("orderInfoList");
+        log.info("/kakao/order/check GET!! - {}", orderInfoList);
         return "payment/check-order";
     }
 
@@ -62,7 +78,7 @@ public class KakaoPaymentController {
         String pcRedirectUrl = readyForPaymentMap.get("pcRedirectUrl");
 
 
-        // 결제 성공 url을 받아왔다면 db에 반영해줘야 함.
+        // 결제 성공 url을 받아왔다면 db에 반영해줘야 함. 현재 작동 안함.
         String paymentFlag = pcRedirectUrl.substring(pcRedirectUrl.lastIndexOf("/"));
         log.info("paymentFlag : {}", paymentFlag);
 
@@ -72,7 +88,7 @@ public class KakaoPaymentController {
 
         model.addAttribute("pcUrl", pcRedirectUrl);
 
-        return "payment/test-result";
+        return "payment/check-order";
     }
 
 
@@ -80,6 +96,19 @@ public class KakaoPaymentController {
     @GetMapping("/success-order")
     public String success() {
         return "payment/success-order";
+    }
+
+
+    // 결제 성공 안내 페이지에서 보낼 db반영 비동기 요청
+    @GetMapping("/insertDB")
+    @ResponseBody
+    public String insertDB (HttpSession session) {
+        log.info("/insertDB ajax GET!! ");
+
+        List<OrderInfo> orderInfoList = (List<OrderInfo>) session.getAttribute("orderInfoList");
+
+        kakaoService.insertOrderInfoToDB(session, orderInfoList.get(0).getBusinessNo());
+        return "insert-success";
     }
 
 

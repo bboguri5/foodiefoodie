@@ -22,4 +22,7 @@ public interface ReplyMapper {
     int findReplyCount(long reviewBno);
 
     boolean save(Reply reply);
+
+    boolean modify(Reply reply);
+
 }

@@ -49,6 +49,7 @@
                                 <img src="${pl.filePath}" data-src="${pl.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
+                                    <small>${pl.isOpen}</small>
                                     <c:if test="${pl.hotDeal == 'Y'.charAt(0)}">
                                     </c:if>
                                     <div class="item_title">

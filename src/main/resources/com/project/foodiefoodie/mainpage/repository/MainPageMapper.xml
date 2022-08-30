@@ -233,7 +233,7 @@
 
     <select id="isOpen" resultType="String">
         <![CDATA[
-       SELECT
+        SELECT
         CASE
         WHEN (SELECT TO_CHAR(SYSDATE,'DY') FROM dual) IN (SELECT closedday FROM promotion_store_time) THEN 'not open'
         WHEN breakstarttime < (SELECT TO_CHAR
@@ -245,7 +245,7 @@
         ELSE 'closed'
         END AS StoreTimeText
         FROM promotion_store_time
-        WHERE promotion_bno = 48
+        WHERE promotion_bno = #{promotionBno}
         ]]>
     </select>
 

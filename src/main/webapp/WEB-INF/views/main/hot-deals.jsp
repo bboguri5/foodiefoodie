@@ -30,6 +30,7 @@
                                 <img src="${hd.filePath}" data-src="${hd.filePath}" class="img-fluid lazy"
                                     alt="">
                                     <a href="detail-restaurant.html" class="strip_info">
+                                        <small>${hd.isOpen}</small>
                                     <div class="item_title">
                                         <h3>${hd.storeName}</h3>
                                         <small># : ${hd.hashTag}</small>

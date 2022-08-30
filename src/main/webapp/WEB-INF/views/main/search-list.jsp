@@ -86,6 +86,7 @@
                                 </c:if>
                                 <img src="${sl.filePath}" data-src="${sl.filePath}" class="img-fluid lazy" alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
+                                    <small>${sl.isOpen}</small>
                                     <c:if test="${sl.hotDeal == 'Y'.charAt(0)}">
                                     </c:if>
                                     <div class="item_title">

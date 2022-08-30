@@ -1,11 +1,13 @@
 package com.project.foodiefoodie.member.interceptor;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+@Configuration
 public class UnCheckedOrderInterceptor implements HandlerInterceptor {
 
     @Override
@@ -17,7 +19,7 @@ public class UnCheckedOrderInterceptor implements HandlerInterceptor {
             if (referer != null) {
                 response.sendRedirect(referer);
             } else {
-                response.sendRedirect("");
+                response.sendRedirect("/");
             }
         }
 

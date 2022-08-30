@@ -31,9 +31,11 @@ public class KakaoPaymentController {
     // 주문 데이터를 들고 주문 확인창으로 이동 요청 처리
     @PostMapping("/kakao/order/check")
     @ResponseBody
-    public String orderRequest(@RequestBody List<OrderInfo> orderInfoList, HttpServletRequest request) {
-        log.info("/order/check GET!! - {}", orderInfoList);
-
+    public String orderRequest(@RequestBody Map<String, Object> orderMap, HttpServletRequest request) {
+        String businessNo = (String) orderMap.get("businessNo");
+        String discount = (String) orderMap.get("discount");
+        List<OrderInfo> orderInfoList = (List<OrderInfo>) orderMap.get("menuList");
+        log.info("/order/check GET!! - {}, {}, {}", businessNo, discount, orderInfoList);
         HttpSession session = request.getSession();
 
         session.setAttribute("orderInfoList", orderInfoList);
@@ -116,7 +118,7 @@ public class KakaoPaymentController {
 
         List<OrderInfo> orderInfoList = (List<OrderInfo>) session.getAttribute("orderInfoList");
 
-        kakaoService.insertOrderInfoToDB(session, orderInfoList.get(0).getBusinessNo());
+       // kakaoService.insertOrderInfoToDB(session, orderInfoList.get(0).getBusinessNo());
         return "insert-success";
     }
 

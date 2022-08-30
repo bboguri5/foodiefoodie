@@ -117,7 +117,10 @@
             <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
         </resultMap>
 
-        <select id="selectMaster" resultMap="masterMap">
+    <resultMap id="hotMap" type="com.project.foodiefoodie.hotdeal.domain.HotDeal">
+        <result property="businessNo" column="business_no"/>
+    </resultMap>
+    <select id="selectMaster" resultMap="masterMap">
             select * from master where BUSINESS_NO = #{businessNo}
         </select>
 
@@ -173,5 +176,8 @@
         delete from promotion_notice where notice_no = #{noticeNo}
     </delete>
 
+    <select id="isHotDeal" resultType="Integer">
+        SELECT discount_price FROM hot_deal WHERE business_no = #{businessNo}
+    </select>
 
 </mapper>

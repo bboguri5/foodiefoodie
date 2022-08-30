@@ -36,9 +36,11 @@ public class ProBoardController {
         ProBoard proBoard = proBoardService.selectOne(promotionBno);
         Master master = proBoardService.selectMaster(proBoard.getBusinessNo());
         StoreTimeDTO storeTimeDTO = proBoardService.selectStoreTime(promotionBno);
+        Integer isHotDeal = proBoardService.isHotDealService(master.getBusinessNo());
 
         model.addAttribute("master", master);
         model.addAttribute("proBoard", proBoard);
+        model.addAttribute("isHotDeal", isHotDeal);
         model.addAttribute("storeTime", storeTimeDTO);
         model.addAttribute("menuList",proBoardService.selectMenuInfo(promotionBno));
         model.addAttribute("titleImg",proBoardService.selectTitleImg(promotionBno));

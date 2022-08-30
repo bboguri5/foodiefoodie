@@ -132,7 +132,7 @@
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
         WHERE store_address LIKE '%' || #{storeAddress}|| '%'
-        ORDER BY DBMS_RANDOM.RANDOM
+        ORDER avg_star_rate
         ) sub)
         WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
     </select>

@@ -356,7 +356,7 @@
                                         <div class="box_booking">
                                             <div class="head">
                                                 <h3>Order Summary</h3>
-                                                <div class="offer">Up to -40% off</div>
+                                                <div class="offer">10% 할인</div>
                                             </div>
                                             <!-- /head -->
                                             <div class="main">
@@ -368,8 +368,10 @@
                                                     <input hidden value="" type="text">
                                                 </form>
 
-                                                <ul class="clearfix">
-                                                    <li class="total">Total<span id="total">0</span></li>
+                                                <ul class="clearfix after-discount">
+                                                    <!-- 핫딜이면 -->
+                                                    <li class="total">Total<span id="total"
+                                                            class="line-through">0</span></li>
                                                 </ul>
 
                                                 <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
@@ -951,6 +953,13 @@
         // 즉시 실행
         (function () {
 
+            // hot deal 이 true 일 경우
+            if (true) {
+                document.querySelector('.after-discount').innerHTML = document.querySelector('.after-discount')
+                    .innerHTML += '<li class="total"><span id="discount">0</span></li>';
+                document.querySelector('.line-through').style.textDecoration = 'line-through';
+            }
+
             // 메뉴 추가 버튼 클릭 이벤트
             menuAddClickEvent();
 
@@ -992,6 +1001,11 @@
 
                 // increase menu price and total price
                 document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                if (true) {
+                    document.getElementById('discount').textContent = parseInt(document.getElementById('total')
+                        .textContent) - parseInt(document.getElementById('total').textContent) * (
+                        10 / 100);
+                }
                 var currentPrice = document.getElementById('order-price' + menuId).textContent;
                 document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
                     menuPrice);
@@ -1022,7 +1036,11 @@
 
                 // 최종 가격 업데이트
                 document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
-
+                if (true) {
+                    document.getElementById('discount').textContent = parseInt(document.getElementById('total')
+                        .textContent) - parseInt(document.getElementById('total').textContent) * (
+                        10 / 100);
+                }
             }
 
             // 주문 메뉴 개수 업다운 버튼 이벤트
@@ -1034,6 +1052,7 @@
 
         // 주문 메뉴 개수 업다운 버튼 이벤트
         function upDownQuantityClickEvent() {
+
             const targetBtn = document.querySelector('.click-target');
 
             targetBtn.onclick = e => {
@@ -1058,6 +1077,11 @@
                     var totalPrice = document.getElementById('total').textContent;
                     const menuPrice = document.getElementById('menu-price' + menuId).textContent;
                     document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                    if (true) {
+                        document.getElementById('discount').textContent = parseInt(document.getElementById('total')
+                            .textContent) - parseInt(document.getElementById('total').textContent) * (
+                            10 / 100);
+                    }
                     var currentPrice = document.getElementById('order-price' + menuId).textContent;
                     document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
                         menuPrice);
@@ -1082,6 +1106,11 @@
                     var totalPrice = document.getElementById('total').textContent;
                     const menuPrice = document.getElementById('menu-price' + menuId).textContent;
                     document.getElementById('total').textContent = parseInt(totalPrice) - parseInt(menuPrice);
+                    if (true) {
+                        document.getElementById('discount').textContent = parseInt(document.getElementById('total')
+                            .textContent) - parseInt(document.getElementById('total').textContent) * (
+                            10 / 100);
+                    }
                     var currentPrice = document.getElementById('order-price' + menuId).textContent;
                     document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) - parseInt(
                         menuPrice);

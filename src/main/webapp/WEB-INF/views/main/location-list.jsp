@@ -24,6 +24,7 @@
 		.search .row {
 			flex: 10;
 		}
+
     </style>
 
 </head>
@@ -48,7 +49,7 @@
 								</c:if>
                                 <img src="${ll.filePath}" data-src="${ll.filePath}" class="img-fluid lazy"
                                     alt="">
-                                <a href="detail-restaurant.htll" class="strip_info">
+                                <a href="detail-restaurant.html" class="strip_info">
                                     <c:if test="${ll.hotDeal == 'Y'.charAt(0)}">
                                     </c:if>
                                     <div class="item_title">
@@ -60,8 +61,7 @@
                             <ul>
                                 <li><span>${ll.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>근처 맛집<em>${ll.reviewCnt}개
-                                                리뷰</em></span><strong>${ll.avgStarRate}</strong></div>
+                                    <div class="score"><span>근처 맛집<em>${ll.reviewCnt}개 리뷰</em></span><strong>${ll.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>

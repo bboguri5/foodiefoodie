@@ -140,7 +140,7 @@
 
 			<div class="owl-carousel owl-theme carousel_4">
 				<c:forEach var="topToday" items="${topToday}" varStatus="status">
-					<div class="item">
+					<div class="item">	
 						<div class="strip">
 							<figure>
 								<c:if test="${topToday.hotDeal == 'Y'.charAt(0)}">

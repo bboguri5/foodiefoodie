@@ -90,6 +90,7 @@
                                     </c:if>
                                     <div class="item_title">
                                         <h3>${sl.storeName}</h3>
+                                        <small># : ${sl.hashTag}</small>
                                     </div>
                                 </a>
                             </figure>

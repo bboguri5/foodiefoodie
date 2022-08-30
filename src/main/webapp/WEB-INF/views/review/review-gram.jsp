@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -108,8 +110,8 @@
 											<li><a href="/review/search?search=${search}&sort=latest">최신순</a></li>
 										</c:if>
 										<c:if test="${empty search}">
-											<li><a href="/review?sort=like">추천순</a></li>
-											<li><a href="/review?sort=latest">최신순</a></li>
+											<li><a href="/review?sort=like&email=${loginUser.email}">추천순</a></li>
+											<li><a href="/review?sort=latest&email=${loginUser.email}">최신순</a></li>
 										</c:if>
 									</ul>
 								</li>
@@ -141,7 +143,7 @@
 									</a>
 								</figure>
 								<div class="post_info">
-									<small>Last Updated - ${rl.lastUpdated}
+									<small>Last Updated - 
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
 									<h2><a
 											href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a>

@@ -83,7 +83,7 @@ public class ReviewBoardController {
         model.addAttribute("reviewList", searchList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
-        model.addAttribute("search", search);
+            model.addAttribute("search", search);
         return "review/review-gram";
     }
 

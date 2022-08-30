@@ -14,6 +14,4 @@ public class HotDeal {
 
     private String businessNo;
     private int discountPrice;
-    private Long endDate;
-    private Long startDate;
 }

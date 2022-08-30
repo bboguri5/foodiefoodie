@@ -148,6 +148,7 @@
 								</c:if>
 								<img src="${topToday.filePath}"  data-src="${topToday.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
+									<small>${topToday.isOpen}</small>
 									<div class="item_title">
 										<h3>${topToday.storeName}</h3>
 										<small># : ${topToday.hashTag}</small>

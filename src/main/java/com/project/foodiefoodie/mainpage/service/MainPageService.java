@@ -21,7 +21,9 @@ public class MainPageService {
 
     // 메인 페이지에 평점 높은 7개 가게 정보 요청 중간 처리
     public List<MainPage> findTopTodayService() {
-        return mapper.findTopToday();
+        List<MainPage> topToday = mapper.findTopToday();
+        isOpenService(topToday);
+        return topToday;
     }
 
     // 평점순 정렬된 오늘의 맛집 정보 요청 중간 처리
@@ -111,5 +113,13 @@ public class MainPageService {
         hashTags.put("bar", mapper.findHashTagCount("술집"));
         hashTags.put("cafe", mapper.findHashTagCount("카페"));
         return hashTags;
+    }
+
+    private void isOpenService(List<MainPage> list) {
+        for (MainPage o : list) {
+            String isOpen = mapper.isOpen(o.getPromotionBno());
+            log.info("isOpen - {}", isOpen);
+            o.setIsOpen(isOpen);
+        }
     }
 }

@@ -80,7 +80,7 @@
 				.then(res => res.text())
 				.then(referer => {
 					location.href = referer;
-				})
+				});
 			// window.history.back();
 		});
 

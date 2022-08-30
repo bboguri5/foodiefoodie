@@ -3,7 +3,7 @@ package com.project.foodiefoodie.common.api.payment.service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.project.foodiefoodie.common.api.KakaoTeamApp;
+import com.project.foodiefoodie.common.api.KakaoMyApp;
 import com.project.foodiefoodie.common.api.payment.dto.OrderInfo;
 import com.project.foodiefoodie.common.api.payment.dto.OrderInfoDTO;
 import com.project.foodiefoodie.common.api.payment.repository.PaymentMapper;
@@ -48,7 +48,7 @@ public class KakaoService {
         connection.setRequestMethod("POST");
 
         // 4-1. 요청 헤더 설정
-        String authValue = "KakaoAK " + KakaoTeamApp.KAKAO_ADMIN_KEY;
+        String authValue = "KakaoAK " + KakaoMyApp.KAKAO_ADMIN_KEY;
         log.info("authval: {}", authValue);
         connection.setRequestProperty("Authorization", authValue);
 //        connection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");

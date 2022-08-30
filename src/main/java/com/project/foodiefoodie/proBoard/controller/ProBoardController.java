@@ -147,21 +147,17 @@ public class ProBoardController {
         model.addAttribute("titleImg", proBoardService.selectTitleImg(promotionBno));
         model.addAttribute("detailImgList", proBoardService.selectDetailImgList(promotionBno));
 
-
-        File file = new File("C:\\foodie_default.png");
-        String fileType ;
-        String fileName = file.getName();
-        long fileSize = file.length();
-        try {
-            fileType = Files.probeContentType(file.toPath());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        FileDTO fileDTO = new FileDTO(file);
-//        log.info("{},{},{},{}",fileDTO.getFileName(),fileDTO.getFileType(),fileDTO.getFileByte(),fileDTO.getFileSize());
-        System.out.println(file.getPath());
-
+//
+//        File file = new File("C:\\foodie_default.png");
+//        String fileType ;
+//        String fileName = file.getName();
+//        long fileSize = file.length();
+//        try {
+//            fileType = Files.probeContentType(file.toPath());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
 
 //        DiskFileItem fileItem ;
 //        File file = new File("C:\\foodie_default.png");

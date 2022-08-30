@@ -9,4 +9,6 @@ import java.io.File;
 public interface ProBoardFileMapper {
 
     boolean saveFileTitle(FileDTO fileDTO);
+    boolean saveFileDetail(FileDTO fileDTO);
+    boolean saveFileMenu(FileDTO fileDTO);
 }

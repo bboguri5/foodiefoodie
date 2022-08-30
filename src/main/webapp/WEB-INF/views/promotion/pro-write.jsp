@@ -617,6 +617,9 @@
         const $titleTag = $('.title');
         const $hashTag = $('.hashTag');
         const $contentTag = $('.content');
+        const menuItem = document.querySelectorAll('.row.menu-row');
+        const $menuNameList = document.querySelectorAll(".menu-name");
+        const $menuPriceList = document.querySelectorAll(".menu-price");
 
         // title , hashTag , content , menu , hashTag overlap , time  
         const checkArr = [false, false, false];
@@ -849,7 +852,7 @@
 
 
         // -------------- fiel upload and file dropzone --------------
-        
+
 
 
         const titleDropzone = new Dropzone("#title-dropzone.dropzone", {
@@ -866,8 +869,6 @@
             dictRemoveFile: 'X',
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
         });
-
-        titleDropzone.uploadMultiple(${file});
 
         let overlapSet = new Set();
 
@@ -1001,15 +1002,16 @@
             AddFileList();
             if (!checkArr.includes(false)) { // title , hashTag , content 필수 입력 
 
-                let checkSave = [false, false, false];
+                // let checkSave = [false, false, false];
+                let checkSave = [false, false];
 
                 checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
                 checkSave[1] = checkOverlapHashTag(); // 해시태그 중복 검증 
-                checkSave[2] = checkInputTime(); // 시간 입력 검증 
+                // checkSave[2] = checkInputTime(); // 시간 입력 검증 
 
                 console.log("checkSave : ", checkSave);
                 if (!checkSave.includes(false)) {
-                    changeFormatTime(); // 시간 00:00으로 변환
+                    // changeFormatTime(); // 시간 00:00으로 변환
                     changeFormatContent() // 내용 \n -> <br>으로 치환
 
                     $('#promotionWriteForm').submit();
@@ -1023,15 +1025,20 @@
 
         function AddFileList() {
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
+            // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
+
             const $detailHiddenTag = document.querySelector('.hidden-detail-img');
             const $titleHiddenTag = document.querySelector('.hidden-title-img');
             const $menuHiddenTag = document.querySelector('.hidden-menu-img');
 
-
-            // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
             const detailDataTranster = new DataTransfer();
             const titleDataTraster = new DataTransfer();
             const menuDataTraster = new DataTransfer();
+
+
+            if ($menuPriceList[0].value.length === 0 || $menuNameList[0].value.leng === 0) {
+                menuFileList = [];
+            }
 
             if (menuFileList.length > 0) {
                 for (const menuFile of menuFileList) {
@@ -1063,8 +1070,6 @@
 
         // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
         function checkMenuInput() {
-            const $menuNameList = document.querySelectorAll(".menu-name");
-            const $menuPriceList = document.querySelectorAll(".menu-price");
 
             /* 
             1. menu item 1개 
@@ -1076,15 +1081,14 @@
             2. menu item 2개 이상
                 - input값 없으면 = false
             */
-            const menuItem = document.querySelectorAll('.row.menu-row');
             if (menuItem.length === 1) {
 
                 if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
-                    if (menuFileList[0].name != 'default') {
+                    if (menuFileList.length > 0 && menuFileList[0].name != 'default') {
                         alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
                         return false;
                     }
-                    
+
                     return true;
                 }
 

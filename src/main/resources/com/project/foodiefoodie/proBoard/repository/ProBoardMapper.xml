@@ -6,19 +6,13 @@
 
 
     <insert id="saveProBoard">
-        <if test=" type == 'title' ">
-            PROMOTION_UPLOAD_TITLE_IMG (
+        insert into PROMOTION_BOARD (
             BUSINESS_NO
             ,PROMOTION_BNO
             ,CONTENT
             ,LAST_UPDATED
             ,TITLE
             ,HASHTAG
-            ,FILE_NAME
-            ,FILE_PATH
-            ,FILE_BYTE
-            ,FILE_SIZE
-            ,FILE_MEDIATYPE
             )
             VALUES (
             #{businessNo}
@@ -27,34 +21,27 @@
             ,sysdate
             ,#{title}
             ,#{hashTag}
-            ,#{fileName}
-            ,#{filePath}
-            ,#{fileMediaType};
-            ,#{fileSize};
-            ,#{fileByte};
             )
-        </if>
-
     </insert>
-    <insert id="saveTitleImg">
-        insert into promotion_board (
-        BUSINESS_NO
-        ,PROMOTION_BNO
-        ,FILE_NAME
-        ,FILE_PATH
-        ,FILE_BYTE
-        ,FILE_SIZE
-        ,FILE_MEDIATYPE
-        )
-        VALUES (
-        #{businessNo}
-        ,#{fileName}
-        ,#{filePath}
-        ,#{fileMediaType};
-        ,#{fileSize};
-        ,#{fileByte};
-        )
-    </insert>
+<!--    <insert id="saveTitleImg">-->
+<!--        insert into promotion_board (-->
+<!--        BUSINESS_NO-->
+<!--        ,PROMOTION_BNO-->
+<!--        ,FILE_NAME-->
+<!--        ,FILE_PATH-->
+<!--        ,FILE_BYTE-->
+<!--        ,FILE_SIZE-->
+<!--        ,FILE_MEDIATYPE-->
+<!--        )-->
+<!--        VALUES (-->
+<!--        #{businessNo}-->
+<!--        ,#{fileName}-->
+<!--        ,#{filePath}-->
+<!--        ,#{fileMediaType};-->
+<!--        ,#{fileSize};-->
+<!--        ,#{fileByte};-->
+<!--        )-->
+<!--    </insert>-->
 
     <insert id="saveProBoardStoreTime">
         insert into PROMOTION_STORE_TIME VALUES (
@@ -72,28 +59,26 @@
         insert into PROMOTION_FOOD_MENU VALUES (
         SEQ_PROMOTION_FOOD_MENU.nextval
         ,#{promotionBno}
-        ,#{menuDTO.menuName}
-        ,#{menuDTO.menuPrice}
-        ,#{menuDTO.filePath}
-        ,#{menuDTO.fileName}
+        ,#{menuName}
+        ,#{menuPrice}
         )
     </insert>
-    <insert id="saveProBoardImage">
-        <if test="imageDTO.type=='title'">
-            insert into PROMOTION_UPLOAD_TITLE_IMG VALUES (
-            #{promotionBno}
-            ,#{imageDTO.filePath}
-            ,#{imageDTO.fileName}
-            )
-        </if>
-        <if test="imageDTO.type=='detail'">
-            insert into PROMOTION_UPLOAD_DETAIL_IMG VALUES (
-            #{promotionBno}
-            ,#{imageDTO.filePath}
-            ,#{imageDTO.fileName}
-            )
-        </if>
-    </insert>
+<!--    <insert id="saveProBoardImage">-->
+<!--        <if test="imageDTO.type=='title'">-->
+<!--            insert into PROMOTION_UPLOAD_TITLE_IMG VALUES (-->
+<!--            #{promotionBno}-->
+<!--            ,#{imageDTO.filePath}-->
+<!--            ,#{imageDTO.fileName}-->
+<!--            )-->
+<!--        </if>-->
+<!--        <if test="imageDTO.type=='detail'">-->
+<!--            insert into PROMOTION_UPLOAD_DETAIL_IMG VALUES (-->
+<!--            #{promotionBno}-->
+<!--            ,#{imageDTO.filePath}-->
+<!--            ,#{imageDTO.fileName}-->
+<!--            )-->
+<!--        </if>-->
+<!--    </insert>-->
 
     <insert id="saveNotice">
         insert into promotion_notice
@@ -105,9 +90,9 @@
         )
     </insert>
 
-    <update id="saveProBoardTitleImg">
-        UPDATE promotion_board SET file_path = #{titleFilePath}, file_name = #{titleFileName} WHERE promotion_bno = #{promotionBno}
-    </update>
+<!--    <update id="saveProBoardTitleImg">-->
+<!--        UPDATE promotion_board SET file_path = #{titleFilePath}, file_name = #{titleFileName} WHERE promotion_bno = #{promotionBno}-->
+<!--    </update>-->
 
     <!--&lt;!&ndash;    <insert id="menuSave">&ndash;&gt;-->
     <!--&lt;!&ndash;        insert into PROMOTION_FOOD_MENU VALUES (&ndash;&gt;-->
@@ -130,7 +115,7 @@
             <result property="promotionBno" column="promotion_bno"/>
             <result property="lastUpdated" column="last_updated"/>
             <result property="avgStarRate" column="AVG_STAR_RATE"/>
-            <result property="filePath" column="file_path"/>
+<!--            <result property="filePath" column="file_path"/>-->
             <result property="fileName" column="file_name"/>
         </resultMap>
 
@@ -166,27 +151,25 @@
         select * from PROMOTION_STORE_TIME where promotion_bno = #{promotionBno}
     </select>
 
-    <resultMap id="imageDTO" type="com.project.foodiefoodie.proBoard.dto.ImageDTO">
-        <result property="filePath" column="file_path"/>
-        <result property="fileName" column="file_name"/>
-    </resultMap>
+<!--    <resultMap id="imageDTO" type="com.project.foodiefoodie.proBoard.dto.ImageDTO">-->
+<!--        <result property="filePath" column="file_path"/>-->
+<!--        <result property="fileName" column="file_name"/>-->
+<!--    </resultMap>-->
 
-    <select id="selectImages" resultMap="imageDTO">
+<!--    <select id="selectImages" resultMap="imageDTO">-->
 
-        <if test="type == 'title' ">
-            select file_path, file_name from promotion_board where promotion_bno = #{promotionBno}
-        </if>
-        <if test="type == 'detail'">
-            select file_path, file_name from PROMOTION_UPLOAD_DETAIL_IMG where promotion_bno = #{promotionBno}
-        </if>
-    </select>
+<!--        <if test="type == 'title' ">-->
+<!--            select file_path, file_name from promotion_board where promotion_bno = #{promotionBno}-->
+<!--        </if>-->
+<!--        <if test="type == 'detail'">-->
+<!--            select file_path, file_name from PROMOTION_UPLOAD_DETAIL_IMG where promotion_bno = #{promotionBno}-->
+<!--        </if>-->
+<!--    </select>-->
 
     <resultMap id="menuDTO" type="com.project.foodiefoodie.proBoard.dto.MenuDTO">
         <result property="menuNo" column="menu_no"/>
         <result property="menuName" column="menu_name"/>
         <result property="menuPrice" column="price"/>
-        <result property="filePath" column="file_path"/>
-        <result property="fileName" column="file_name"/>
     </resultMap>
     <select id="selectMenuInfo" resultMap="menuDTO">
         select * from PROMOTION_FOOD_MENU where promotion_bno = #{promotionBno}

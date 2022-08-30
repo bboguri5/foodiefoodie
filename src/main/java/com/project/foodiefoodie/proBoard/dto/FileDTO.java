@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,24 +26,23 @@ public class FileDTO {
     private String fileMediaType;
     private Long fileSize;
     private String fileByte;
-
-    private String type;
+    private String fileData;
 
 
     // 입력
-    public FileDTO(int promotionBno , String filePath, String fileName , String type) {
+    public FileDTO(int promotionBno , MultipartFile multipartFile , String filePath) {
 
         this.promotionBno = promotionBno;
         this.filePath = filePath;
-        this.fileName = fileName;
+        this.fileName = multipartFile.getOriginalFilename();
+        System.out.println(" filename : " + multipartFile.getOriginalFilename());
+        System.out.println(filePath + " " + fileName);
+        this.fileMediaType = multipartFile.getContentType();
+        this.fileByte = FoodieFileUtils.getFileContent(filePath + File.separator + this.fileName);
+        this.fileSize = multipartFile.getSize();
+        this.fileData = String.format("data:%s;base64,%s",fileMediaType,fileByte);
 
-        File file = new File(filePath, fileName);
-        try {
-            this.fileMediaType = Files.probeContentType(file.toPath());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        this.fileSize = file.length();
-        this.fileByte = FoodieFileUtils.getFileContent(file.getPath());
+        System.out.println(fileMediaType + " " + fileSize+ " " + fileByte);
+
     }
 }

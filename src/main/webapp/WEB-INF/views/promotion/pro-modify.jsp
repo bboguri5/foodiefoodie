@@ -894,7 +894,6 @@
             accepted: true      
         });
 
-        
         titleDropzone.emit("addedfile",`${file}`);
         titleDropzone.emit("thumbnail", `${file}`,"data:${type};base64,${fileByte}");
         titleDropzone.emit("complete", `${file}`);

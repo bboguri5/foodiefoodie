@@ -19,7 +19,7 @@ public interface ProBoardMapper {
 
     boolean saveProBoardStoreTime(int promotionBno, StoreTimeDTO storeTimeDTO);
 
-    boolean saveProBoardMenu(int promotionBno,MenuDTO menuDTO);
+    boolean saveProBoardMenu(int promotionBno,String menuName, int menuPrice);
 
     boolean saveProBoardImage(int promotionBno, ImageDTO imageDTO);
 

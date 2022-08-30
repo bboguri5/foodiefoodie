@@ -1170,7 +1170,7 @@
                 .then(msg => {
 
                     if (msg === 'order-success') {
-                        location.href = '/kakao/order/check';
+                        location.href = '/kakao/order/check/request';
                     }
                 });
         }

@@ -56,7 +56,7 @@ public class KakaoPaymentController {
     }
 
 
-    @GetMapping("/kakao/order/check")
+    @GetMapping("/kakao/order/check/request")
     public String hey(HttpSession session) {
         List<OrderInfo> orderInfoList = (List<OrderInfo>) session.getAttribute("orderInfoList");
         log.info("/kakao/order/check GET!! - {}", orderInfoList);

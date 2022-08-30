@@ -78,34 +78,27 @@
         .content-wrapper {
             margin-left: 0%;
         }
-
         .content-wrapper label {
             font-weight: 700;
         }
-
         .mg-wrap {
             margin-left: 2%;
             margin-right: 2%;
         }
-
         body.fixed-nav {
             padding-top: 0;
         }
-
         .container-fluid {
             margin-bottom: 100px;
         }
-
         .save-buttons {
             padding-left: 40%;
         }
-
         .star {
             position: relative;
             font-size: 2rem;
             color: #ddd;
         }
-
         .star input {
             width: 100%;
             height: 100%;
@@ -114,7 +107,6 @@
             opacity: 0;
             cursor: pointer;
         }
-
         .star span {
             width: 0;
             position: absolute;
@@ -123,33 +115,26 @@
             overflow: hidden;
             pointer-events: none;
         }
-
         /* dropzone */
-
         .dropzone {
             border: 2px dotted gray;
             min-height: 190px;
         }
-
         .add-Img-row .row {
             justify-content: space-between;
         }
-
         .add-Img-row .form-group:nth-child(1) {
             width: 45%;
             margin-left: 20px;
         }
-
         .add-Img-row .form-group:nth-child(2) {
             width: 45%;
             margin-right: 20px;
         }
-
         #title-dropzone.dropzone .dz-preview .dz-image {
             position: relative;
             width: 100%;
         }
-
         .dropzone .dz-remove {
             position: absolute;
             z-index: 100;
@@ -158,12 +143,10 @@
             color: red;
             font-weight: 700;
         }
-
         #title-dropzone.dropzone {
             resize: both;
             overflow: auto;
         }
-
         #detail-dropzone.dropzone {
             display: flex;
             justify-content: space-evenly;
@@ -171,18 +154,15 @@
             overflow: auto;
             position: relative;
         }
-
         #detail-dropzone .dz-default.dz-message {
             position: absolute;
             top: 50px;
         }
-
         #detail-dropzone.dropzone .dz-preview .dz-image {
             width: 100px;
             height: 100px;
             position: relative;
         }
-
         #detail-dropzone.dropzone .dz-remove {
             position: absolute;
             z-index: 100;
@@ -190,19 +170,15 @@
             top: 10px;
             color: red;
         }
-
         .dropzone .dz-preview .dz-details .dz-size {
             font-size: 10px;
         }
-
         .dropzone .dz-preview .dz-details .dz-filename {
             font-size: 10px;
         }
-
         .dropzone .dz-preview .dz-progress {
             z-index: 0;
         }
-
         .dropzone .dz-message .dz-button {
             margin-top: 50px;
         }
@@ -395,16 +371,13 @@
     <script>
         //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
         function sample4_execDaumPostcode() {
-
             new daum.Postcode({
                 oncomplete: function (data) {
                     // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
                     // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
                     // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
                     var roadAddr = data.roadAddress; // 도로명 주소 변수
                     var extraRoadAddr = ''; // 참고 항목 변수
-
                     // 법정동명이 있을 경우 추가한다. (법정리는 제외)
                     // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
                     if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
@@ -419,7 +392,6 @@
                     if (extraRoadAddr !== '') {
                         extraRoadAddr = ' (' + extraRoadAddr + ')';
                     }
-
                     // 우편번호와 주소 정보를 해당 필드에 넣는다.
                     document.getElementById('sample4_postcode').value = data
                         .zonecode;
@@ -427,7 +399,6 @@
                         roadAddr;
                     document.getElementById("sample4_jibunAddress").value = data
                         .jibunAddress;
-
                     // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
                     if (roadAddr !== '') {
                         document.getElementById("sample4_extraAddress").value =
@@ -436,7 +407,6 @@
                         document.getElementById("sample4_extraAddress").value =
                             '';
                     }
-
                     var guideTextBox = document.getElementById("guide");
                     // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
                     if (data.autoRoadAddress) {
@@ -444,7 +414,6 @@
                         guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr +
                             ')';
                         guideTextBox.style.display = 'block';
-
                     } else if (data.autoJibunAddress) {
                         var expJibunAddr = data.autoJibunAddress;
                         guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr +
@@ -466,10 +435,8 @@
         const $storeNameTag = $('.store-name');
         const $contentTag = $('.content');
         const checkArr = [false, false, false];
-
         // ------------------ 필수정보 --------------------
         $titleTag.on('keyup', function () {
-
             if ($titleTag.val().trim() === '') {
                 $titleTag.css('border-color', 'red');
                 $('.title-label').html('리뷰 제목 <b class="c-red title-red">[ 제목은 필수정보입니다. ]</b>');
@@ -480,9 +447,7 @@
                 checkArr[0] = true;
             }
         });
-
         $storeNameTag.on('keyup', function () {
-
             if ($storeNameTag.val().trim() === '') {
                 $storeNameTag.css('border-color', 'red');
                 $('.store-name-label').html('가게 이름 <b class="c-red store-name-red">[가게이름은 필수정보입니다. ]</b>');
@@ -493,10 +458,7 @@
                 checkArr[1] = true;
             }
         });
-
-
         $contentTag.on('keyup', function () {
-
             if ($contentTag.val().trim() === '') {
                 $('.content').css('border-color', 'red');
                 $('.content-label').html('내용 <b class="c-red content-red">[ 내용은 필수정보입니다. ]</b>');
@@ -507,10 +469,7 @@
                 checkArr[2] = true;
             }
         });
-
         /* -------------------------------- /save 시 검증 -------------------------------- */
-
-
         /* -------------------------------- /입력 검증 -------------------------------- */
     </script>
 
@@ -518,9 +477,7 @@
 
     <script>
         // -------------- fiel upload and file dropzone --------------
-
         Dropzone.autoDiscover = false;
-
         const receiptDropzone = new Dropzone("#receipt-dropzone.dropzone", {
             url: "#",
             method: 'post',
@@ -535,9 +492,6 @@
             dictRemoveFile: 'X',
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
         });
-
-
-
         let overlapSet = new Set();
         const reviewDropzone = new Dropzone("#review-dropzone.dropzone", {
             url: "/review/write",
@@ -555,15 +509,11 @@
             parallelUploads: 5,
             uploadMultiple: true,
             init: function () {
-
                 let myDropzone = this;
-
                 // dorpzone은 파일을 올릴 때마다 기존 파일들은 삭제되고 새로운 file list가 생성 
                 this.on('addedfiles', function (files) { // detail - menu 추가시  
                     let overResult = ''; // 중북된 파일 경고문구
-
                     if (myDropzone.files.length > 5) { // detail - img 5개 제한 
-
                         for (const file of files) {
                             myDropzone.removeFile(file); // 5개 이상일 경우 자동 삭제 
                         }
@@ -573,7 +523,6 @@
                             $('.detail-red').remove();
                         }, 5000); // 5초동안만 경고문구 발생 
                         return;
-
                     } else {
                         for (const setFile of overlapSet) { // 기존 file list  
                             for (const file of files) { // 새 file list 
@@ -584,25 +533,20 @@
                             }
                         }
                     }
-
                     if (overResult.length > 1) { // 중복된 파일 경우 
                         $('.review-img-label').html(
                             '리뷰 사진 <b class="c-red detail-red">[ 중복된 파일은 ' + overResult +
                             '입니다.]</b>');
-
                         setTimeout(function () {
                             $('.detail-red').remove();
                         }, 5000);
                         return;
-
                     }
-
                     // 5개 이상 X , 중복 X 경우 set List에 추가 
                     for (const file of files) {
                         overlapSet.add(file.name);
                     }
                 });
-
                 myDropzone.on('removedfile', function (file) {
                     const overlapArr = [];
                     for (const dropFile of myDropzone.files) {
@@ -613,42 +557,27 @@
             }
         });
         // -------------- // fiel upload and file dropzone --------------
-
-
         // ---------------------------- submit -------------------------------
-
         $('.save').on('click', e => {
-
             e.preventDefault();
-
             console.log(e.target);
-
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
             const $reviewHiddenTag = document.querySelector('.hidden-review-img');
-
-
             // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
             const reviewDataTranster = new DataTransfer();
-
             if (reviewDropzone.files.length == 0) {
                 alert('리뷰 사진은 필수입니다.');
                 return; 
             }
-
-
             if (reviewDropzone.files.length > 0) {
                 for (const reviewFile of reviewDropzone.files) {
                     reviewDataTranster.items.add(reviewFile);
                 }
                 $reviewHiddenTag.files = reviewDataTranster.files;
-
             }
-
-
             // 주소
             const $addrApiInputList = $('.addr-api');
             const $addrChk = $('#addrChk');
-
             for (let addrInput of $addrApiInputList) {
                 if (addrInput.value.trim() === '') {
                     addrInput.style.borderColor = 'red';
@@ -659,28 +588,21 @@
                     addrInput.style.borderColor = 'yellowgreen';
                 }
             }
-
             $addrChk.text('');
             checkArr[6] = true;
-
             for (let c of checkArr) {
                 if (c === false) {
                     return;
                 }
             }
-
             if (!checkArr.includes(false)) {
-
                 // 내용 \n -> <br>으로 치환
                 const content = $contentTag.val().replace(/\n/gi, "<br>");
                 $contentTag.val(content)
-
                 $('#review-write-form').submit();
             } else {
                 alert("입력값을 확인해주세요.");
             }
-
-
         });
     </script>
 

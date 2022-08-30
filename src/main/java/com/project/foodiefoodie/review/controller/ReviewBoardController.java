@@ -50,7 +50,7 @@ public class ReviewBoardController {
         List<Long> isLikedList = reviewBoardService.getLikedListService(email);
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
-//        log.info("reviewUploads - {}", reviewUploads);
+        log.info("reviewUploads - {}", reviewUploads);
 //        log.info("replyCount - {}", replyCount);
 //        log.info("reviewList - {}", reviewList);
         model.addAttribute("reviewList", reviewList);
@@ -132,14 +132,17 @@ public class ReviewBoardController {
 
 
     @PostMapping("/review/write")
-    public String reviewWriteUpload(ReviewBoard review, List<MultipartFile> reviewImgFile) {
+    public String reviewWriteUpload(ReviewBoard review, List<MultipartFile> reviewImgFile, HttpSession session) {
 
         log.info("review - {}", review);
         boolean result = reviewBoardService.saveService(review, reviewImgFile);
 
+        log.info("result - {}", result);
+
+        Member loginUser = (Member) session.getAttribute("loginUser");
 
 
-        return "redirect:/review";
+        return "redirect:/review?sort=latest&email=" + loginUser.getEmail();
     }
 
     // 수정 - 정보
@@ -182,6 +185,7 @@ public class ReviewBoardController {
         log.info("/review/modify POST! - {}", reviewBoard);
 
         Member loginUser = (Member) session.getAttribute("loginUser");
+
         boolean flag = reviewBoardService.modifyReview(reviewBoard, reviewImgFile);
 
         return "redirect:/review/detail?email="+ loginUser.getEmail() + "&reviewBno=" + reviewBoard.getReviewBno();

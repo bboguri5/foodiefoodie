@@ -79,6 +79,10 @@
 		.submenu .show-submenu {
 			color: #589442;
 		}
+
+		.review-write-btn .review-write-text {
+			color: #589442;
+		}
 	</style>
 </head>
 
@@ -102,6 +106,10 @@
 					<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
 						<nav class="main-menu">
 							<ul>
+								<li class="review-write-btn">
+									<a class="review-write-text" href="/review/write">리뷰 작성</a>
+								</li>
+
 								<li class="submenu">
 									<a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
 									<ul>
@@ -138,7 +146,7 @@
 							<article class="blog">
 								<figure>
 									<a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}"><img
-											src="${uploads[status.index].filePath}" alt="">
+											src="data:image/png;base64, ${uploads[status.index]}" alt="">
 										<div class="preview"><span>Read more</span></div>
 									</a>
 								</figure>

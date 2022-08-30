@@ -19,10 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @Log4j2
@@ -54,9 +51,9 @@ public class ReviewBoardService {
 
             // 리뷰, 이미지 저장이 잘 되었으면 가게 평점 & 리뷰 개수 업데이트 해주기
             String businessNo = reviewBoard.getBusinessNo();
-            log.info("save businessNo - {}", businessNo);
+//            log.info("save businessNo - {}", businessNo);
             if (!Objects.equals(businessNo, "")) {
-                log.info("!!!!!!!!!!!");
+//                log.info("!!!!!!!!!!!");
                 double avgStarRate = rbMapper.getStarRate(businessNo);
                 Long reviewCnt = rbMapper.getReviewCnt(businessNo);
 
@@ -85,6 +82,7 @@ public class ReviewBoardService {
 
     public List<String> findReviewUploadsForByteService(long reviewBno) {
         List<ReviewUpload> reviewUploads = rbMapper.findReviewUploads(reviewBno);
+
 
         List<String> reviewStrImg = new ArrayList<>();
 
@@ -130,7 +128,7 @@ public class ReviewBoardService {
             if (file == null) break;
 
             newUploadPath = getReviewNewUploadPath(reviewBno);
-            newFileName = 1 + file.getOriginalFilename();
+            newFileName = file.getOriginalFilename();
             fileFullPath = newUploadPath + File.separator + newFileName;
 
 
@@ -149,18 +147,18 @@ public class ReviewBoardService {
 //                log.info("fileFullPath - {}", fileFullPath);
                 String fileContent = FoodieFileUtils.getFileContent(fileFullPath);
                 byte[] filebyte = FoodieFileUtils.getImgByte(fileFullPath);
-                log.info("fileContent - {}", fileContent);
+//                log.info("fileContent - {}", fileContent);
                 reviewFileDTO.setFileByte(fileContent);
 //                log.info("fileType - {}", file.getContentType());
                 String contentType = file.getContentType();
 
                 reviewFileDTO.setFileType(file.getContentType());
-                log.info("type - {}", file.getContentType());
+//                log.info("type - {}", file.getContentType());
 
                 String fileData = "data:" + file.getContentType() + ";base64," + fileContent;
 //                log.info("fileData - {}", fileData);
                 reviewFileDTO.setFileData(fileData);
-// 여기서 리스트 길이 같이 넘겨줘도 사용이 안되겠져? 어디다가 사용해용?
+
                 saveReviewImagePath(reviewFileDTO); // 서버 이미지 경로 DB 저장
 
 
@@ -199,7 +197,7 @@ public class ReviewBoardService {
 
     public boolean isLikedService(long reviewBno, String email) {
         int liked = rbMapper.isLiked(reviewBno, email);
-        log.info("liked returned int - {}", liked >= 1);
+//        log.info("liked returned int - {}", liked >= 1);
         return liked >= 1;
     }
 
@@ -217,29 +215,13 @@ public class ReviewBoardService {
 
     public boolean modifyReview(ReviewBoard reviewBoard, List<MultipartFile> reviewImg) {
 
-        log.info("reviewBoard - {}", reviewBoard);
-        for (MultipartFile file : reviewImg) {
-            log.info("img name - {}", file.getOriginalFilename());
-            log.info("img size- {}", file.getSize());
-            log.info("img conten - {}", file.getContentType());
-        }
-        log.info("");
-        boolean flag = rbMapper.modifyReview(reviewBoard);
+
+        boolean flag = modifyReviewFile(reviewImg, reviewBoard, reviewBoard.getReviewBno());
+
 
         if (flag) {
 
-            deleteFile(reviewBoard.getReviewBno());
-//             기존 이미지 DB에서 삭제
-            boolean result = deleteReviewFileList(reviewBoard.getReviewBno());
-
-            if (result) {
-                // 이미지 등록
-                long newReviewNo = rbMapper.findNewReviewNo();
-                uploadReviewFile(reviewImg, reviewBoard, newReviewNo);
-
-
-
-                // 리뷰, 이미지 저장이 잘 되었으면 가게 평점 & 리뷰 개수 업데이트 해주기
+//              리뷰, 이미지 저장이 잘 되었으면 가게 평점 & 리뷰 개수 업데이트 해주기
                 String businessNo = reviewBoard.getBusinessNo();
                 log.info("save businessNo - {}", businessNo);
                 if (!Objects.equals(businessNo, "")) {
@@ -252,15 +234,9 @@ public class ReviewBoardService {
                 }
             }
 
-        }
-
         return flag;
     }
 
-    // db 이미지 정보 삭제
-    public boolean deleteReviewFileList(Long reviewBno) {
-        return rbMapper.deleteReviewFileList(reviewBno);
-    }
 
     // 서버 이미지 삭제
     public void deleteFile(Long reviewBno) {
@@ -288,10 +264,96 @@ public class ReviewBoardService {
 
     }
 
+    public boolean modifyReviewFile(List<MultipartFile> reviewImg, ReviewBoard reviewBoard, long reviewBno) {
+
+        /*
+            reviewImg : post 요청으로 넘어온 이미지 리스트
+            reviewImg 리스트로 넘어온 파일 이름과 해당 리뷰글 서버경로에 저장되어 있는 파일 이름을 비교해서
+            같다면 처리 x / 서버에는 있지만 reviewImg 리스트에는 없다면 삭제 / reviewImg 리스트에는 있지만 서버에는 없다면 추가
+         */
+
+
+        String originReviewImgPath = "C:\\foodiefoodie\\reviewBoard\\" + reviewBno;
+        File folder = new File(originReviewImgPath);
+        try {
+            if (folder.exists()) { // 해당 폴더가 존재 유무 확인
+                File[] folder_list = folder.listFiles(); //파일리스트 얻어오기
+
+                String newUploadPath = "";
+                String newFileName = "";
+                String fileFullPath = "";
+
+                // 리스트에 이미지 이름만 저장
+                List<String> imgNameList = new ArrayList<>();
+                for (MultipartFile file : reviewImg) {
+                    imgNameList.add(file.getOriginalFilename());
+                }
+//                log.info("imgName - {}", imgName);
+
+                List<String> fileNameList = new ArrayList<>();
+                for (File file : folder_list) {
+                    fileNameList.add(file.getName());
+                }
+
+                // 수정시 삭제 되어야 하는것
+                for (File file : folder_list) {
+                    String fileName = file.getName();
+                    if (!imgNameList.contains(fileName)) {
+                        file.delete();
+                        rbMapper.deleteReviewFileList(reviewBno, fileName);
+                    }
+
+                }
+
+                // 수정시 등록되어야 하는것
+                for (MultipartFile files : reviewImg) {
+                    String originalFilename = files.getOriginalFilename();
+                    if (!fileNameList.contains(originalFilename)) {
+                        newUploadPath = getReviewNewUploadPath(reviewBno);
+                        newFileName = files.getOriginalFilename();
+                        fileFullPath = newUploadPath + File.separator + newFileName;
+
+                        File f = new File(newUploadPath, newFileName); // 파일 객체 생성
+
+                        try {
+                            ReviewFileDTO reviewFileDTO = new ReviewFileDTO();
+                            reviewFileDTO.setFilePath(fileFullPath);
+                            reviewFileDTO.setFileName(newFileName);
+                            reviewFileDTO.setReviewBno(reviewBno);
+                            reviewFileDTO.setFileSize(files.getSize());
+
+                            files.transferTo(f);
+
+                            String fileContent = FoodieFileUtils.getFileContent(fileFullPath);
+                            byte[] filebyte = FoodieFileUtils.getImgByte(fileFullPath);
+                            reviewFileDTO.setFileByte(fileContent);
+                            String contentType = files.getContentType();
+
+                            reviewFileDTO.setFileType(files.getContentType());
+
+                            String fileData = "data:" + files.getContentType() + ";base64," + fileContent;
+                            reviewFileDTO.setFileData(fileData);
+
+                            saveReviewImagePath(reviewFileDTO); // 서버 이미지 경로 DB 저장
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
     public List<Long> getLikedListService(String email) {
-        log.info("liked list - {}", rbMapper.getLikedList(email));
+//        log.info("liked list - {}", rbMapper.getLikedList(email));
         return rbMapper.getLikedList(email);
     }
 }

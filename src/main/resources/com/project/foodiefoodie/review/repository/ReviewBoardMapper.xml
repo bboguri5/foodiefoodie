@@ -49,7 +49,7 @@
     <insert id="save">
         INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate
         , private, store_name, store_address, store_detail_address, store_extra_address)
-        VALUES (#{email}, #{title}, #{content}, seq_review_board.nextval, #{businessNo},#{starRate}
+        VALUES (#{email}, #{title}, #{content}, seq_review_board.nextval, #{businessNo}, #{starRate}
         , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress})
     </insert>
 
@@ -167,6 +167,7 @@
     <delete id="deleteReviewFileList">
         delete from review_upload
         where review_bno = #{reviewBno}
+        and file_name = #{fileName}
     </delete>
 
 </mapper>

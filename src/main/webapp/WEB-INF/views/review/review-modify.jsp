@@ -241,8 +241,8 @@
                             <div class="form-group">
                                 <label>작성자</label>
                                 <input type="text" class="form-control" placeholder="abc1234@naver.com"
-                                    value="${loginUser.name}" disabled>
-                                <input type="hidden" name="email" value="${loginUser.email}">
+                                    value="${review.email}" disabled>
+                                <input type="hidden" name="email" value="${review.email}">
                             </div>
                         </div>
                         <div class="col-md-4">

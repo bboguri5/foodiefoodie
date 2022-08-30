@@ -5,6 +5,7 @@ import com.project.foodiefoodie.member.domain.MasterAndMember;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.service.MasterAndMemberService;
 import com.project.foodiefoodie.member.service.MasterService;
+import com.project.foodiefoodie.member.dto.find.EmailCodeDTO;
 import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.review.domain.Review;
@@ -40,13 +41,13 @@ public class ReviewBoardController {
     private final ReplyService replyService;
     private final MasterService masterService;
     @GetMapping("/review")
-    public String review(String sort, Model model) {
+    public String review(String sort, String email, Model model) {
         log.info("review started - list");
 
         List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService(sort);
         List<String> reviewUploads = new ArrayList<>();
         List<Integer> replyCount = new ArrayList<>();
-
+        List<Long> isLikedList = reviewBoardService.getLikedListService(email);
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
 //        log.info("reviewUploads - {}", reviewUploads);
@@ -55,6 +56,7 @@ public class ReviewBoardController {
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
+        model.addAttribute("isLikedList", isLikedList);
 
         return "review/review-gram";
     }
@@ -101,7 +103,7 @@ public class ReviewBoardController {
         model.addAttribute("reviewList", searchList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
-        model.addAttribute("search", search);
+            model.addAttribute("search", search);
         return "review/review-gram";
     }
 

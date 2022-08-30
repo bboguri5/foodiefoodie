@@ -18,6 +18,4 @@ public class MainPagePremiumDTO {
     private char hotDeal;
     private String filePath;
     private int discountPrice;
-    private Long startDate;
-    private Long endDate;
 }

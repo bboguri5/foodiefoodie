@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MainPage {
+    private long promotionBno;
     private String businessNo;
     private String storeName;
     private String storeAddress;
@@ -18,6 +19,5 @@ public class MainPage {
     private char hotDeal;
     private String filePath;
     private int discountPrice;
-    private Long startDate;
-    private Long endDate;
+    private String isOpen;
 }

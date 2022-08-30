@@ -6,6 +6,7 @@
 <mapper namespace="com.project.foodiefoodie.mainpage.repository.MainPageMapper">
 
     <resultMap id="mpMap" type="com.project.foodiefoodie.mainpage.domain.MainPage">
+        <result property="promotionBno" column="promotion_bno"/>
         <result property="businessNo" column="business_no"/>
         <result property="storeName" column="store_name"/>
         <result property="storeAddress" column="store_address"/>
@@ -14,8 +15,6 @@
         <result property="hotDeal" column="hot_deal"/>
         <result property="filePath" column="file_path"/>
         <result property="discountPrice" column="discount_price"/>
-        <result property="startDate" column="start_date"/>
-        <result property="endDate" column="end_date"/>
     </resultMap>
 
     <resultMap id="ppMap" type="com.project.foodiefoodie.mainpage.dto.MainPagePremiumDTO">
@@ -28,13 +27,11 @@
         <result property="hotDeal" column="hot_deal"/>
         <result property="filePath" column="file_path"/>
         <result property="discountPrice" column="discount_price"/>
-        <result property="startDate" column="start_date"/>
-        <result property="endDate" column="end_date"/>
     </resultMap>
 
     <!-- 메인 페이지에 평점 높은 7개 가게 불러오기 -->
     <select id="findTopToday" resultMap="mpMap">
-        SELECT business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT promotion_bno, business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
         discount_price, hashTag
         FROM ( SELECT *
         FROM promotion_board P JOIN master M
@@ -48,7 +45,7 @@
 
     <!-- 오늘의 맛집 평점 순으로 전체 불러오기 -->
     <select id="findTopTodayAll" resultMap="mpMap">
-        SELECT business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT promotion_bno, business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
         discount_price, hashTag
         FROM (SELECT ROWNUM rn, sub.*
         FROM ( SELECT *
@@ -70,13 +67,14 @@
     <!-- 기한이 지나지 않은 월정액 가게 랜덤으로 메인 페이지에 7개 불러오기 -->
     <select id="findRandPremium" resultMap="ppMap">
         SELECT * FROM (
-        SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, hashTag
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        discount_price, start_date, end_date, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
-        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board )
+        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
+        (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL))
         ORDER BY DBMS_RANDOM.RANDOM ) sub
         WHERE ROWNUM BETWEEN 1 AND 7
     </select>
@@ -86,28 +84,31 @@
         SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
-        SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, hashTag
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        discount_price, start_date, end_date, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
-        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE )
-        sub)
+        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
+        (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL))
+        ORDER BY end_date
+        ) sub)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
     </select>
 
     <!-- 프리미엄 가게 개수 계산 -->
     <select id="getPremiumCnt" resultType="int">
         SELECT COUNT(*)
-        FROM premiume_promotion_board
+        FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
+        (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
     </select>
 
     <!-- 현재 위치에 있는 랜덤 6개 가게 불러오기  -->
     <select id="findLocationRand" resultMap="mpMap">
         SELECT *
         FROM (
-        SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
         discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
@@ -124,14 +125,14 @@
         SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
-        SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
         discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
         WHERE store_address LIKE '%' || #{storeAddress}|| '%'
-        ORDER BY DBMS_RANDOM.RANDOM
+        ORDER avg_star_rate
         ) sub)
         WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
     </select>
@@ -147,7 +148,7 @@
     <!-- hot deal 랜덤 6개 목록 요청-->
     <select id="findRandHotDeal" resultMap="mpMap">
         SELECT * FROM (
-        SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
         discount_price, hashTag
         FROM promotion_board P JOIN hot_deal H
         ON P.business_no = H.business_no
@@ -161,13 +162,12 @@
         SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
-        SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
         discount_price, hashTag
         FROM promotion_board P JOIN hot_deal H
         ON P.business_no = H.business_no
         JOIN master M
-        ON H.business_no = M.business_no
-        ) sub)
+        ON H.business_no = M.business_no ) sub)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
     </select>
 
@@ -175,7 +175,6 @@
     <select id="getHotDealCnt" resultType="int">
         SELECT COUNT(*)
         FROM hot_deal
-
     </select>
 
     <!-- 해당 해쉬태그 개수 구하기 -->
@@ -190,13 +189,14 @@
         SELECT *
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
-        SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
         discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
         WHERE hashTag LIKE '%' || #{hashTag} || '%'
+        ORDER BY avg_star_rate DESC
         ) t_pb)
         WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
     </select>
@@ -206,7 +206,7 @@
         SELECT *
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
-        SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
         discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
@@ -215,9 +215,8 @@
         WHERE store_address LIKE '%' || #{s.keyword} || '%'
         OR store_name LIKE '%' || #{s.keyword} || '%'
         OR hashTag LIKE '%' || #{s.keyword} || '%'
-        <if test="sort == 'star'">ORDER BY avg_star_rate DESC </if>
-        <if test="sort == 'review'">ORDER BY review_cnt </if>
-        <if test="sort == 'latest'">ORDER BY P.last_updated </if>
+        <if test="sort == 'star'">ORDER BY avg_star_rate DESC</if>
+        <if test="sort == 'latest'">ORDER BY P.last_updated</if>
         ) t_pb)
         WHERE rn BETWEEN (#{s.pageNum} - 1) * #{s.amount} + 1 AND (#{s.pageNum} * #{s.amount})
     </select>
@@ -232,5 +231,22 @@
         OR hashTag LIKE '%' || #{keyword} || '%'
     </select>
 
-</mapper>
+    <select id="isOpen" resultType="String">
+        <![CDATA[
+        SELECT
+        CASE
+        WHEN (SELECT TO_CHAR(SYSDATE,'DY') FROM dual) IN (SELECT closedday FROM promotion_store_time) THEN 'not open'
+        WHEN breakstarttime <= (SELECT TO_CHAR
+        (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) AND breakendtime >= (SELECT TO_CHAR
+        (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) THEN 'break time'
+        WHEN weekdayclosetime >= (SELECT TO_CHAR
+        (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) AND weekdayopentime <= (SELECT TO_CHAR
+        (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) THEN 'open'
+        ELSE 'closed'
+        END AS StoreTimeText
+        FROM promotion_store_time
+        WHERE promotion_bno = #{promotionBno}
+        ]]>
+    </select>
 
+</mapper>

@@ -122,10 +122,10 @@ public class KakaoService {
                     .append("cid=TC0ONETIME")
                     .append("&partner_order_id=" + orderInfo.getBusinessNo()) // 가맹점 사업자 번호.
                     .append("&partner_user_id=" + member.getEmail())
-                    .append("&item_name=" + orderInfo.getMenu().get(0)); // 복수의 품명은 어케..?
+                    .append("&item_name="); // 복수의 품명은 어케..?
                                                                 // 콤마 나열 또는 ~~외 식으로 표기해야할듯??
             if (orderInfo.getMenu().size() > 2) {
-                queryParam.append(" 외" + (orderInfo.getMenu().size() -1));
+                queryParam.append(orderInfo.getMenu().get(0) + " 외 " + (orderInfo.getMenu().size() -1) + "개");
             } else {
                 queryParam.append(orderInfo.getMenu().toString());
             }
@@ -187,6 +187,8 @@ public class KakaoService {
 
         // 세션에서 정보를 지워줘야 이후 다른 주문을 또 시도하고자 할 때 문제가 발생하지 않는다.
         session.removeAttribute("orderInfoList");
+        session.removeAttribute("totalPrice");
+        session.removeAttribute("totalQuantity");
 
         return true;
     }

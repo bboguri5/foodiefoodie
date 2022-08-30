@@ -15,9 +15,6 @@
 			margin-top: 70px;
 		}
 
-		.title {
-			margin-bottom: 70px;
-		}
 	</style>
 </head>
 
@@ -58,6 +55,15 @@
 
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+
+	<script>
+
+		sessionStorage.removeItem('orderInfoList');
+		sessionStorage.removeItem('totalPrice');
+		sessionStorage.removeItem('totalQuantity');
+
+	</script>
+
 
 </body>
 

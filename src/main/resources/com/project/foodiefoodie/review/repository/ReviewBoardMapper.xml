@@ -111,7 +111,7 @@
     </select>
 
 
-    
+
     <update id="upLike">
         UPDATE review_board
         SET like_cnt = (SELECT like_cnt FROM review_board WHERE review_bno = #{reviewBno}) + 1
@@ -147,6 +147,10 @@
 
     <select id="isLiked" resultType="int">
         SELECT COUNT(*) FROM review_like WHERE email=#{email} AND review_bno=#{reviewBno}
+    </select>
+
+    <select id="getLikedList" resultType="long">
+        SELECT review_bno FROM review_like WHERE email=#{email}
     </select>
 
     <insert id="saveReviewFileList">

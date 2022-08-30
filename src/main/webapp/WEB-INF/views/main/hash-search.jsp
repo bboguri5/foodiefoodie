@@ -10,20 +10,7 @@
 
     
     <style>
-        .search form {
-			display: flex;
-		}
 
-		.search .form-select {
-			flex: 1;
-			margin-top: 8px;
-			border-radius: 10px;
-		}
-
-
-		.search .row {
-			flex: 10;
-		}
     </style>
 
 </head>
@@ -43,14 +30,14 @@
                         <div class="strip">
                             <figure>
 
-                                <c:if test="${ht.hotDeal == 'Y'.charAt(0) && ht.endDate > todayDate}">
-									<span class="ribbon off">${ht.discountPrice}</span>
+                                <c:if test="${ht.hotDeal == 'Y'.charAt(0)}">
+									<span class="ribbon off">${ht.discountPrice}%</span>
 								</c:if>
                                 <img src="${ht.filePath}" data-src="${ht.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
-                                    <c:if test="${ht.hotDeal == 'Y'.charAt(0) && ht.endDate > todayDate}">
-                                        <small>기간: ${ht.endDate}</small>
+                                    <small>${ht.isOpen}</small>
+                                    <c:if test="${ht.hotDeal == 'Y'.charAt(0)}">
                                     </c:if>
                                     <div class="item_title">
                                         <h3>${ht.storeName}</h3>

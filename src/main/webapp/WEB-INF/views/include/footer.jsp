@@ -9,11 +9,9 @@
                 <div class="collapse dont-collapse-sm links" id="collapse_1">
                     <ul>
                         <li><a href="submit-rider.html">Become a Rider</a></li>
-                        <li><a href="submit-restaurant.html">Add your restaurant</a></li>
+                        <li><a href="/master/register">Add your restaurant</a></li>
                         <li><a href="help.html">Help</a></li>
-                        <li><a href="account.html">My account</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="contacts.html">Contacts</a></li>
+                        <li><a href="/myPage/profile">My Page</a></li>
                     </ul>
                 </div>
             </div>
@@ -32,9 +30,9 @@
                 <h3 data-bs-target="#collapse_3">Contacts</h3>
                 <div class="collapse dont-collapse-sm contacts" id="collapse_3">
                     <ul>
-                        <li><i class="icon_house_alt"></i>97845 Baker st. 567<br>Los Angeles - US</li>
-                        <li><i class="icon_mobile"></i>+94 423-23-221</li>
-                        <li><i class="icon_mail_alt"></i><a href="#0">info@domain.com</a></li>
+                        <li><i class="icon_house_alt"></i>서울특별시 금천구 디지털로 130 남성프라자 1007호<br>South Korea</li>
+                        <li><i class="icon_mobile"></i>+82 010-1234-5678</li>
+                        <li><i class="icon_mail_alt"></i><a href="#0">FoodieFoodie@naver.com</a></li>
                     </ul>
                 </div>
             </div>
@@ -56,16 +54,16 @@
                         <ul>
                             <li><a href="#0"><img
                                         src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                        data-src="img/twitter_icon.svg" alt="" class="lazy"></a></li>
+                                        data-src="/img/twitter_icon.svg" alt="" class="lazy"></a></li>
                             <li><a href="#0"><img
                                         src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                        data-src="img/facebook_icon.svg" alt="" class="lazy"></a></li>
+                                        data-src="/img/facebook_icon.svg" alt="" class="lazy"></a></li>
                             <li><a href="#0"><img
                                         src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                        data-src="img/instagram_icon.svg" alt="" class="lazy"></a></li>
+                                        data-src="/img/instagram_icon.svg" alt="" class="lazy"></a></li>
                             <li><a href="#0"><img
                                         src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                                        data-src="img/youtube_icon.svg" alt="" class="lazy"></a></li>
+                                        data-src="/img/youtube_icon.svg" alt="" class="lazy"></a></li>
                         </ul>
                     </div>
                 </div>
@@ -80,9 +78,9 @@
                         <div class="styled-select lang-selector">
                             <select>
                                 <option value="English" selected>English</option>
-                                <option value="French">French</option>
+                                <option value="Korean">Korean</option>
                                 <option value="Spanish">Spanish</option>
-                                <option value="Russian">Russian</option>
+                                <option value="French">French</option>
                             </select>
                         </div>
                     </li>
@@ -90,19 +88,20 @@
                         <div class="styled-select currency-selector">
                             <select>
                                 <option value="US Dollars" selected>US Dollars</option>
+                                <option value="Won">KR Won</option>
                                 <option value="Euro">Euro</option>
                             </select>
                         </div>
                     </li>
                     <li><img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-                            data-src="img/cards_all.svg" alt="" width="198" height="30" class="lazy"></li>
+                            data-src="/img/cards_all.svg" alt="" width="198" height="30" class="lazy"></li>
                 </ul>
             </div>
             <div class="col-lg-6">
                 <ul class="additional_links">
                     <li><a href="#0">Terms and conditions</a></li>
                     <li><a href="#0">Privacy</a></li>
-                    <li><span>© Foogra</span></li>
+                    <li><span>© FoodieFoodie</span></li>
                 </ul>
             </div>
         </div>
@@ -117,14 +116,14 @@
 <!-- Sign In Modal -->
 <div id="sign-in-dialog" class="zoom-anim-dialog mfp-hide">
     <div class="modal_header">
-        <h3>Sign In</h3>
+        <h3>Log In</h3>
     </div>
     <div class="sign-in-wrapper">
         <!-- <a href="#0" class="social_bt facebook">Login with Facebook</a>
             <a href="#0" class="social_bt google">Login with Google</a>
             <div class="divider"><span>Or</span></div> -->
         <div class="form-group">
-            <label>email</label>
+            <label>Email</label>
             <input type="email" class="form-control" name="email" id="login-email">
             <i class="icon_mail_alt"></i>
         </div>
@@ -132,7 +131,7 @@
             <div class="float-end"><a id="forgot-email" href="javascript:void(0);">Forgot Email?</a></div>
         </div>
         <div class="form-group">
-            <label>password</label>
+            <label>Password</label>
             <input type="password" class="form-control" name="password" id="login-pw">
             <i class="icon_lock_alt"></i>
         </div>

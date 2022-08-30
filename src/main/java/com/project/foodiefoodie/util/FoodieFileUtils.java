@@ -152,7 +152,7 @@ public class FoodieFileUtils {
     }
 
     private static String convertBlobToBase64 (byte[] blob) {
-        log.info("여기서 안되는듯?");
+//        log.info("여기서 안되는듯?");
         return new String(Base64.getEncoder().encode(blob));
     }
 

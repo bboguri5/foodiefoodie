@@ -45,4 +45,6 @@ public interface ProBoardMapper {
     List<MenuDTO> selectMenuInfo(int promotionBno);
     List<NoticeDTO> selectNotice(int promotionBno);
 
+    Integer isHotDeal(String businessNo);
+
 }

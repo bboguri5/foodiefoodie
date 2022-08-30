@@ -132,7 +132,7 @@
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
         WHERE store_address LIKE '%' || #{storeAddress}|| '%'
-        ORDER BY DBMS_RANDOM.RANDOM
+        ORDER avg_star_rate
         ) sub)
         WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
     </select>
@@ -236,12 +236,12 @@
         SELECT
         CASE
         WHEN (SELECT TO_CHAR(SYSDATE,'DY') FROM dual) IN (SELECT closedday FROM promotion_store_time) THEN 'not open'
-        WHEN breakstarttime < (SELECT TO_CHAR
-        (SYSDATE, 'HH:mm') "NOW" FROM DUAL) AND breakendtime > (SELECT TO_CHAR
-        (SYSDATE, 'HH:mm') "NOW" FROM DUAL) THEN 'break time'
-        WHEN weekdayclosetime > (SELECT TO_CHAR
-        (SYSDATE, 'HH:mm') "NOW" FROM DUAL) AND weekdayopentime < (SELECT TO_CHAR
-        (SYSDATE, 'HH:mm') "NOW" FROM DUAL) THEN 'open'
+        WHEN breakstarttime <= (SELECT TO_CHAR
+        (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) AND breakendtime >= (SELECT TO_CHAR
+        (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) THEN 'break time'
+        WHEN weekdayclosetime >= (SELECT TO_CHAR
+        (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) AND weekdayopentime <= (SELECT TO_CHAR
+        (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) THEN 'open'
         ELSE 'closed'
         END AS StoreTimeText
         FROM promotion_store_time

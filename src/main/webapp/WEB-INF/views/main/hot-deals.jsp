@@ -26,7 +26,7 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <span class="ribbon off">${hd.discountPrice}원</span>
+                                <span class="ribbon off">${hd.discountPrice}%</span>
                                 <img src="${hd.filePath}" data-src="${hd.filePath}" class="img-fluid lazy"
                                     alt="">
                                     <a href="detail-restaurant.html" class="strip_info">

@@ -82,7 +82,7 @@
                         <div class="strip">
                             <figure>
                                 <c:if test="${sl.hotDeal == 'Y'.charAt(0)}">
-                                    <span class="ribbon off">${sl.discountPrice}</span>
+                                    <span class="ribbon off">${sl.discountPrice}%</span>
                                 </c:if>
                                 <img src="${sl.filePath}" data-src="${sl.filePath}" class="img-fluid lazy" alt="">
                                 <a href="detail-restaurant.html" class="strip_info">

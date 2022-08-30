@@ -129,7 +129,7 @@ public class MainPageService {
     private void isOpenService(List<MainPage> list) {
         for (MainPage o : list) {
             String isOpen = mapper.isOpen(o.getPromotionBno());
-            log.info("{} isOpen - {}, {}", o, isOpen, o.getPromotionBno());
+//            log.info("{} isOpen - {}, {}", o, isOpen, o.getPromotionBno());
             o.setIsOpen(isOpen);
         }
     }

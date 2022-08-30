@@ -356,7 +356,7 @@
                                         <div class="box_booking">
                                             <div class="head">
                                                 <h3>Order Summary</h3>
-                                                <div class="offer">Up to -40% off</div>
+                                                <div class="offer">${isHotDeal}% 할인</div>
                                             </div>
                                             <!-- /head -->
                                             <div class="main">
@@ -368,8 +368,10 @@
                                                     <input hidden value="" type="text">
                                                 </form>
 
-                                                <ul class="clearfix">
-                                                    <li class="total">Total<span id="total">0</span></li>
+                                                <ul class="clearfix after-discount">
+                                                    <!-- 핫딜이면 -->
+                                                    <li class="total">Total<span id="total"
+                                                            class="line-through">0</span></li>
                                                 </ul>
 
                                                 <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
@@ -948,9 +950,20 @@
 
     <!-- 메뉴 주문 자바 스크립트 -->
     <script>
+        const isHotDeal = "${isHotDeal != null}";
+        const deal  = "${isHotDeal}";
+
         // 즉시 실행
         (function () {
 
+            console.log("isHotDeal - ", typeof isHotDeal);
+
+            // hot deal 이 true 일 경우
+            if (isHotDeal === 'true') {
+                document.querySelector('.after-discount').innerHTML = document.querySelector('.after-discount')
+                    .innerHTML += '<li class="total"><span id="discount">0</span></li>';
+                document.querySelector('.line-through').style.textDecoration = 'line-through';
+            }
             // 메뉴 추가 버튼 클릭 이벤트
             menuAddClickEvent();
 
@@ -992,6 +1005,11 @@
 
                 // increase menu price and total price
                 document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                if (isHotDeal === 'true') {
+                    document.getElementById('discount').textContent = parseInt(document.getElementById('total')
+                        .textContent) - parseInt(document.getElementById('total').textContent) * (
+                        deal / 100);
+                }
                 var currentPrice = document.getElementById('order-price' + menuId).textContent;
                 document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
                     menuPrice);
@@ -1022,7 +1040,11 @@
 
                 // 최종 가격 업데이트
                 document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
-
+                if (isHotDeal === 'true') {
+                    document.getElementById('discount').textContent = parseInt(document.getElementById('total')
+                        .textContent) - parseInt(document.getElementById('total').textContent) * (
+                        deal / 100);
+                }
             }
 
             // 주문 메뉴 개수 업다운 버튼 이벤트
@@ -1034,6 +1056,7 @@
 
         // 주문 메뉴 개수 업다운 버튼 이벤트
         function upDownQuantityClickEvent() {
+
             const targetBtn = document.querySelector('.click-target');
 
             targetBtn.onclick = e => {
@@ -1058,6 +1081,11 @@
                     var totalPrice = document.getElementById('total').textContent;
                     const menuPrice = document.getElementById('menu-price' + menuId).textContent;
                     document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                    if (isHotDeal === 'true') {
+                        document.getElementById('discount').textContent = parseInt(document.getElementById('total')
+                            .textContent) - parseInt(document.getElementById('total').textContent) * (
+                            deal / 100);
+                    }
                     var currentPrice = document.getElementById('order-price' + menuId).textContent;
                     document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
                         menuPrice);
@@ -1082,6 +1110,11 @@
                     var totalPrice = document.getElementById('total').textContent;
                     const menuPrice = document.getElementById('menu-price' + menuId).textContent;
                     document.getElementById('total').textContent = parseInt(totalPrice) - parseInt(menuPrice);
+                    if (isHotDeal === 'true') {
+                        document.getElementById('discount').textContent = parseInt(document.getElementById('total')
+                            .textContent) - parseInt(document.getElementById('total').textContent) * (
+                            deal / 100);
+                    }
                     var currentPrice = document.getElementById('order-price' + menuId).textContent;
                     document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) - parseInt(
                         menuPrice);
@@ -1132,26 +1165,34 @@
                     menuName += orderArray[j] + ' ';
                 }
 
-                const businessNo = '${master.businessNo}';
-
+                
                 const menu = {
                     menuName: menuName,
                     menuPrice: orderArray[orderArray.length - 1],
                     quantity: orderArray[orderArray.length - 2],
-                    businessNo: businessNo
+                    // businessNo: businessNo,
+                    // discount: 10
                 };
-
+                
                 menuList[menuList.length] = menu;
+                
+            }
+            
+            const businessNo = '${master.businessNo}';
 
+            const obj = {
+                businessNo: businessNo
+                , discount: deal
+                , menuList: menuList
             }
 
-            submitOrder(menuList);
+            submitOrder(obj);
         }
 
 
 
         // 주문 정보 전송 메서드
-        function submitOrder(menuList) {
+        function submitOrder(obj) {
 
             // POST요청을 위한 요청 정보 객체
             const reqInfo = {
@@ -1159,7 +1200,7 @@
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify(menuList)
+                body: JSON.stringify(obj)
             };
 
             // console.log(data);
@@ -1168,8 +1209,7 @@
             fetch('/kakao/order/check', reqInfo)
                 .then(res => res.text())
                 .then(msg => {
-
-                    if (msg === 'order-success') {
+                        if (msg === 'order-success') {
                         location.href = '/kakao/order/check/request';
                     }
                 });

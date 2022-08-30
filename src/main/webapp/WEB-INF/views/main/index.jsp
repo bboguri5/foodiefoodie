@@ -144,7 +144,7 @@
 						<div class="strip">
 							<figure>
 								<c:if test="${topToday.hotDeal == 'Y'.charAt(0)}">
-									<span class="ribbon off">${topToday.discountPrice}</span>
+									<span class="ribbon off">${topToday.discountPrice}%</span>
 								</c:if>
 								<img src="${topToday.filePath}"  data-src="${topToday.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
@@ -183,7 +183,7 @@
 						<div class="strip">
 							<figure>
 								<c:if test="${pl.hotDeal == 'Y'.charAt(0)}">
-									<span class="ribbon off">${pl.discountPrice}</span>
+									<span class="ribbon off">${pl.discountPrice}%</span>
 								</c:if>
 								<img src="${pl.filePath}" data-src="${pl.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
@@ -263,7 +263,7 @@
 											<h3>${hd.storeName}</h3>
 											<small># : ${hd.hashTag}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
+												<li><span class="ribbon off">${hd.discountPrice}%</span></li>
 											</ul>
 										</a>
 									</li>
@@ -286,7 +286,7 @@
 											<h3>${hd.storeName}</h3>
 											<small># : ${hd.hashTag}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
+												<li><span class="ribbon off">${hd.discountPrice}%</span></li>
 											</ul>
 										</a>
 									</li>
@@ -416,7 +416,7 @@
 							`   <div class="strip">` +
 							`       <figure>` +
 							`			<c:if test="` + locationList[i] + ` == 'Y'.charAt(0)}">` +
-							`				<span class="ribbon off">` + locationList[i].discountPrice + `</span>` +
+							`				<span class="ribbon off">` + locationList[i].discountPrice + `%</span>` +
 							`			</c:if>` +
 							`           <img src="` + locationList[i].filePath + `" data-src="` + locationList[i].filePath + `" class="owl-lazy" alt="">` +
 							`           <a href="detail-restaurant.html" class="strip_info">` +

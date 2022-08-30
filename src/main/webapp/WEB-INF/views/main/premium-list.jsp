@@ -44,7 +44,7 @@
                         <div class="strip">
                             <figure>
                                 <c:if test="${pl.hotDeal == 'Y'.charAt(0)}">
-									<span class="ribbon off">${pl.discountPrice}</span>
+									<span class="ribbon off">${pl.discountPrice}%</span>
 								</c:if>
                                 <img src="${pl.filePath}" data-src="${pl.filePath}" class="img-fluid lazy"
                                     alt="">

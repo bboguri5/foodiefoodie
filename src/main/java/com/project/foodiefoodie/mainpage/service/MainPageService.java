@@ -29,6 +29,7 @@ public class MainPageService {
     // 평점순 정렬된 오늘의 맛집 정보 요청 중간 처리
     public Map<String, Object> findTopTodayAllService(Page page) {
         List<MainPage> topTodayAll = mapper.findTopTodayAll(page);
+        isOpenService(topTodayAll);
         int totalCnt = mapper.getTotalCnt();
         Map<String, Object> map = new HashMap<>();
         map.put("topTodayAll", topTodayAll);
@@ -38,12 +39,15 @@ public class MainPageService {
 
     // 월정액 가게 랜덤으로 메인 페이지에 7개 요청 중간 처리
     public List<MainPage> findRandPremiumService() {
-        return mapper.findRandPremium();
+        List<MainPage> randPremium = mapper.findRandPremium();
+        isOpenService(randPremium);
+        return randPremium;
     }
 
     // 월정액 가게 전체 불러오기 중간 처리
     public Map<String, Object> findAllPremiumService(Page page) {
         List<MainPage> premiumList = mapper.findAllPremium(page);
+        isOpenService(premiumList);
         int totalCnt = mapper.getPremiumCnt();
         Map<String, Object> map = new HashMap<>();
         map.put("premiumList", premiumList);
@@ -53,12 +57,15 @@ public class MainPageService {
 
     // 현재 위치에 있는 랜덤 6개 가게 불러오기 중간 처리
     public List<MainPage> findLocationRandService(String storeAddress) {
-        return mapper.findLocationRand(storeAddress);
+        List<MainPage> locationRand = mapper.findLocationRand(storeAddress);
+        isOpenService(locationRand);
+        return locationRand;
     }
 
     // 현재 위치에 있는 가게 전체 불러오기 중간 처리
     public Map<String, Object> findAllInLocationService(String storeAddress, Page page) {
         List<MainPage> locationList = mapper.findAllInLocation(storeAddress, page);
+        isOpenService(locationList);
         int totalCnt = mapper.getLocationCnt(storeAddress);
         Map<String, Object> map = new HashMap<>();
         map.put("locationList", locationList);
@@ -68,12 +75,15 @@ public class MainPageService {
 
     // hot deal 랜덤 6개 목록 요청 중간 처리
     public List<MainPage> findRandHotDealService() {
-        return mapper.findRandHotDeal();
+        List<MainPage> randHotDeal = mapper.findRandHotDeal();
+        isOpenService(randHotDeal);
+        return randHotDeal;
     }
 
     // hot deal 목록 요청 중간 처리
     public Map<String, Object> findAllHotDealService(Page page) {
         List<MainPage> hotDeals = mapper.findAllHotDeal(page);
+        isOpenService(hotDeals);
         int totalCnt = mapper.getHotDealCnt();
         Map<String, Object> map = new HashMap<>();
         map.put("hotDeals", hotDeals);
@@ -87,7 +97,7 @@ public class MainPageService {
         Map<String, Object> findDataMap = new HashMap<>();
 
         List<MainPage> searchList = mapper.findAllSearch(search, sort);
-
+        isOpenService(searchList);
         findDataMap.put("searchList", searchList);
         findDataMap.put("tc", mapper.getTotalCount(search));
 
@@ -100,6 +110,7 @@ public class MainPageService {
         Map<String, Object> findDataMap = new HashMap<>();
 
         List<MainPage> hashTagList = mapper.findHashTag(tag, page);
+        isOpenService(hashTagList);
         findDataMap.put("hashTagList", hashTagList);
         findDataMap.put("tc", mapper.findHashTagCount(tag));
         return findDataMap;
@@ -118,7 +129,7 @@ public class MainPageService {
     private void isOpenService(List<MainPage> list) {
         for (MainPage o : list) {
             String isOpen = mapper.isOpen(o.getPromotionBno());
-            log.info("isOpen - {}", isOpen);
+            log.info("{} isOpen - {}, {}", o, isOpen, o.getPromotionBno());
             o.setIsOpen(isOpen);
         }
     }

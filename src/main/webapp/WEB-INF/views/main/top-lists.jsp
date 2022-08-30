@@ -47,6 +47,7 @@
                                 <img src="${topTodayAll.filePath}" data-src="${topTodayAll.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
+                                    <small>${topTodayAll.isOpen}</small>
                                     <c:if test="${topTodayAll.hotDeal == 'Y'.charAt(0)}">
                                     </c:if>
                                     <div class="item_title">

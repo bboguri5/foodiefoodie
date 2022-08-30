@@ -187,6 +187,7 @@
 								</c:if>
 								<img src="${pl.filePath}" data-src="${pl.filePath}" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
+									<small>${pl.isOpen}</small>
 									<div class="item_title">
 										<h3>${pl.storeName}</h3>
 										<small># : ${pl.hashTag}</small>
@@ -253,6 +254,7 @@
 								<ul>
 									<li>
 										<a href="detail-restaurant.html">
+											<small>${hd.isOpen}</small>
 											<figure>
 												<img src="${hd.filePath}" data-src="${hd.filePath}" alt="" class="lazy">
 											</figure>
@@ -275,6 +277,7 @@
 								<ul>
 									<li>
 										<a href="detail-restaurant.html">
+											<small>${hd.isOpen}</small>
 											<figure>
 												<img src="${hd.filePath}" data-src="${hd.filePath}" alt="" class="lazy">
 											</figure>
@@ -417,6 +420,7 @@
 							`			</c:if>` +
 							`           <img src="` + locationList[i].filePath + `" data-src="` + locationList[i].filePath + `" class="owl-lazy" alt="">` +
 							`           <a href="detail-restaurant.html" class="strip_info">` +
+							`				<small>` + locationList[i].isOpen + `</small>` +
 							`               <div class="item_title">` +
 							`                   <h3>` + locationList[i].storeName + `</h3>` +
 							`                   <small># : ` + locationList[i].hashTag + `</small>` +

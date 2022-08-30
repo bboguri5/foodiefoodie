@@ -259,7 +259,7 @@
     <%@ include file="../include/header.jsp" %>
 
     <main>
-        <form id="promotionWriteForm" action="/foodie/write" method="post" enctype="multipart/form-data">
+        <form id="promotionWriteForm" action="/proBoard/write" method="post" enctype="multipart/form-data">
             <div class="content-wrapper">
                 <div class="container-fluid">
                     <!-- write title -->
@@ -856,7 +856,7 @@
 
 
         const titleDropzone = new Dropzone("#title-dropzone.dropzone", {
-            url: "/foodie/write",
+            url: "/proBoard/write",
             method: 'post',
             autoProcessQueue: false,
             clickable: true,
@@ -870,10 +870,11 @@
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
         });
 
+
         let overlapSet = new Set();
 
         const detailDropzone = new Dropzone("#detail-dropzone.dropzone", {
-            url: "/foodie/write",
+            url: "/proBoard/write",
             method: 'post',
             autoProcessQueue: false,
             clickable: true,
@@ -950,7 +951,7 @@
             let dropName = '.menu' + index;
             let deleteName = '.menuDelete' + index;
             const menuDropzone = new Dropzone(dropName, {
-                url: "/foodie/write",
+                url: "/proBoard/write",
                 method: 'post',
                 autoProcessQueue: false,
                 clickable: true,
@@ -998,20 +999,20 @@
 
 
         $('.save').on('click', e => {
+            let checkSave = [false, false];
+            checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
 
             AddFileList();
             if (!checkArr.includes(false)) { // title , hashTag , content 필수 입력 
 
                 // let checkSave = [false, false, false];
-                let checkSave = [false, false];
 
-                checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
                 checkSave[1] = checkOverlapHashTag(); // 해시태그 중복 검증 
                 // checkSave[2] = checkInputTime(); // 시간 입력 검증 
 
                 console.log("checkSave : ", checkSave);
                 if (!checkSave.includes(false)) {
-                    // changeFormatTime(); // 시간 00:00으로 변환
+                    changeFormatTime(); // 시간 00:00으로 변환
                     changeFormatContent() // 내용 \n -> <br>으로 치환
 
                     $('#promotionWriteForm').submit();
@@ -1026,19 +1027,15 @@
         function AddFileList() {
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
             // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
-
             const $detailHiddenTag = document.querySelector('.hidden-detail-img');
             const $titleHiddenTag = document.querySelector('.hidden-title-img');
             const $menuHiddenTag = document.querySelector('.hidden-menu-img');
 
+
+            // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
             const detailDataTranster = new DataTransfer();
             const titleDataTraster = new DataTransfer();
             const menuDataTraster = new DataTransfer();
-
-
-            if ($menuPriceList[0].value.length === 0 || $menuNameList[0].value.leng === 0) {
-                menuFileList = [];
-            }
 
             if (menuFileList.length > 0) {
                 for (const menuFile of menuFileList) {
@@ -1085,11 +1082,13 @@
 
                 if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
                     if (menuFileList.length > 0 && menuFileList[0].name != 'default') {
+                        console.log(" 사진 등록 ? ");
                         alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
                         return false;
+                    } else {
+                        menuFileList = [];
+                        return true;
                     }
-
-                    return true;
                 }
 
                 if ($menuNameList[0].value.length === 0 || $menuPriceList[0].value.length === 0) {

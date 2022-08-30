@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.proBoard.dto;
 
 
+import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreTimeDTO {
+public class StoreTimeDTO extends Master {
 
     private String weekdayOpenTime;
     private String weekdayCloseTime;
@@ -20,4 +21,5 @@ public class StoreTimeDTO {
     private String breakStartTime;
     private String breakEndTime;
     private String closedDay;
+
 }

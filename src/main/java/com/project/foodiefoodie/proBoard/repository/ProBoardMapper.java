@@ -3,10 +3,7 @@ package com.project.foodiefoodie.proBoard.repository;
 
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
-import com.project.foodiefoodie.proBoard.dto.ImageDTO;
-import com.project.foodiefoodie.proBoard.dto.MenuDTO;
-import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
-import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
+import com.project.foodiefoodie.proBoard.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,32 +14,33 @@ public interface ProBoardMapper {
 
     boolean saveProBoard(ProBoard proBoard);
 
-    boolean saveProBoardStoreTime(int promotionBno, StoreTimeDTO storeTimeDTO);
+    boolean saveStoreTime(ProBoard proBoard);
 
-    boolean saveProBoardMenu(int promotionBno,String menuName, int menuPrice);
+    boolean saveFiles(FileDTO fileDTO);
 
-    boolean saveProBoardImage(int promotionBno, ImageDTO imageDTO);
-
-
-    boolean saveProBoardTitleImg(int promotionBno, String titleFilePath, String titleFileName);
-
-    boolean saveNotice(NoticeDTO noticeDTO);
-
-    StoreTimeDTO selectStoreTime(int promotionBno);
     boolean modify(ProBoard proBoard);
 
     boolean delete(int promotionBno);
 
-    boolean deleteNotice(int noticeNo);
-
-    ProBoard selectOne(int promotionBno);
+    Master selectMaster(String businessNo);
 
     int selectPromotionBno(String businessNo);
 
-    Master selectMaster(String businessNo);
+    ProBoard selectProBoard(int promotionBno);
 
-    List<ImageDTO> selectImages(int promotionBno,String type);
+    List<FileDTO> selectDetailFiles(int promotionBno);
+
+    /* ============================= menu =============================== */
+    boolean saveMenu(int promotionBno, String menuName, int menuPrice);
+
     List<MenuDTO> selectMenuInfo(int promotionBno);
+
+    /* ============================= notice =============================== */
+    boolean saveNotice(NoticeDTO noticeDTO);
+
     List<NoticeDTO> selectNotice(int promotionBno);
+
+    boolean deleteNotice(int noticeNo);
+
 
 }

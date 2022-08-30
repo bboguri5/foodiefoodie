@@ -489,4 +489,91 @@ CREATE SEQUENCE seq_order_no;
        , CONSTRAINT fk_profile_upload FOREIGN KEY (email)
        REFERENCES member (email) ON DELETE CASCADE
    );
-   commit;
+
+
+
+
+
+
+
+
+
+   ---------------------------------------------------------------- 08/30
+
+alter table review_upload
+add file_size number(20);
+
+alter table review_upload
+add file_type varchar2(10);
+
+alter table review_upload
+add file_byte clob;
+
+alter table review_upload
+add file_data clob;
+
+
+
+
+drop SEQUENCE seq_promotion_menu_img;
+drop SEQUENCE SEQ_PROMOTION_FOOD_MENU;
+
+CREATE SEQUENCE seq_promotion_menu_img;
+CREATE SEQUENCE SEQ_PROMOTION_FOOD_MENU;
+
+drop table PROMOTION_UPLOAD_MENU_IMG;
+create table PROMOTION_UPLOAD_MENU_IMG (
+        promotion_bno number(10)
+        ,menu_no
+        ,file_path clob
+        ,file_name varchar2(100)
+        ,file_mediatype varchar2(20)
+        ,file_size number(20)
+        ,file_byte clob
+        ,file_data clob
+        ,CONSTRAINT fk_promotion_bno_menu_img FOREIGN KEY (promotion_bno)
+              REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+        ,CONSTRAINT fk_menu_no_menu_img FOREIGN KEY (menu_no)
+              REFERENCES PROMOTION_FOOD_MENU (menu_no) ON DELETE CASCADE
+);
+
+
+alter table promotion_board drop column FILE_NAME ;
+alter table promotion_board drop column FILE_PATH ;
+
+
+
+alter table PROMOTION_UPLOAD_DETAIL_IMG
+add file_mediatype varchar2(10);
+
+alter table PROMOTION_UPLOAD_DETAIL_IMG
+add file_size number(20);
+
+alter table PROMOTION_UPLOAD_DETAIL_IMG
+add file_byte clob;
+
+alter table PROMOTION_UPLOAD_DETAIL_IMG
+add file_data clob;
+---------------------------------------------
+
+
+alter table PROMOTION_UPLOAD_TITLE_IMG
+add file_mediatype varchar2(10);
+
+alter table PROMOTION_UPLOAD_TITLE_IMG
+add file_size number(20);
+
+alter table PROMOTION_UPLOAD_TITLE_IMG
+add file_byte clob;
+
+alter table PROMOTION_UPLOAD_TITLE_IMG
+add file_data clob;
+
+commit;
+
+select* from PROMOTION_UPLOAD_MENU_IMG ;
+
+
+
+
+

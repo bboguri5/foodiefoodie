@@ -12,9 +12,9 @@ import java.util.Map;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
-public class ProBoard extends FileDTO {
+@NoArgsConstructor
+public class ProBoard extends FileDTO{
 
     private String businessNo;
     private int promotionBno;
@@ -25,5 +25,4 @@ public class ProBoard extends FileDTO {
     private int avgStarRate;
     private int review_cnt;
     private int report_cnt;
-
 }

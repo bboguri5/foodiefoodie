@@ -278,24 +278,24 @@
                                     <div class="form-group detail-Info">
                                         <label>STORE NAME
                                         </label>
-                                        <input type="text" class="form-control" value="${master.storeName}" readonly>
+                                        <input type="text" class="form-control" value="${proBoard.storeName}" readonly>
                                     </div>
                                     <div class="form-group detail-Info">
                                         <label>STORE MASTER NAME
                                         </label>
-                                        <input type="text" class="form-control" value="${master.masterName}" readonly>
+                                        <input type="text" class="form-control" value="${proBoard.masterName}" readonly>
                                     </div>
                                     <div class="form-group detail-Info">
                                         <label>STORE CALL NUMBER
                                         </label>
-                                        <input type="text" class="form-control" value="${master.storeCallNumber}"
+                                        <input type="text" class="form-control" value="${proBoard.storeCallNumber}"
                                             readonly>
                                     </div>
                                 </div>
                                 <div class="form-group detail-Info detail-address">
                                     <label>STORE ADDRESS
                                     </label>
-                                    <input type="text" class="form-control" value="${master.storeAddress}" readonly>
+                                    <input type="text" class="form-control" value="${proBoard.storeAddress}" readonly>
                                 </div>
                                 <div class="form-group detail-Info">
                                     <label class="title-label">Title
@@ -439,14 +439,14 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekdayOpenTime" type="text" value="${storeTime.weekdayOpenTime}"
+                                                        <input name="weekdayOpenTime" type="text" value="${proBoard.weekdayOpenTime}"
                                                         autocomplete='off' class="form-control select-time weekday-openTime">
                                                     </div>
 
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekdayCloseTime" type="text" value="${storeTime.weekdayCloseTime}"
+                                                        <input name="weekdayCloseTime" type="text" value="${proBoard.weekdayCloseTime}"
                                                         autocomplete='off' class="form-control select-time weekday-closeTime">
                                                     </div>
 
@@ -465,13 +465,13 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekendOpenTime" type="text" value="${storeTime.weekendOpenTime}"
+                                                        <input name="weekendOpenTime" type="text" value="${proBoard.weekendOpenTime}"
                                                         autocomplete='off'  class="form-control select-time weekend-openTime" placeholder="오픈시간입력">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekendCloseTime" type="text" value="${storeTime.weekendCloseTime}"
+                                                        <input name="weekendCloseTime" type="text" value="${proBoard.weekendCloseTime}"
                                                         autocomplete='off'  class="form-control select-time weekend-closeTime" placeholder="마감시간입력">
                                                     </div>
                                                 </div>
@@ -489,13 +489,13 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="breakStartTime" type="text" value="${storeTime.breakStartTime}"
+                                                        <input name="breakStartTime" type="text" value="${proBoard.breakStartTime}"
                                                         autocomplete='off'  class="form-control select-time break-startTime" placeholder="시작시간">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="breakEndTime" type="text" value="${storeTime.breakEndTime}"
+                                                        <input name="breakEndTime" type="text" value="${proBoard.breakEndTime}"
                                                         autocomplete='off' class="form-control select-time break-endTime" placeholder="종료시간">
                                                     </div>
                                                 </div>
@@ -514,7 +514,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input type="text" name="closedDay" value="${storeTime.closedDay}"
+                                                        <input type="text" name="closedDay" value="${proBoard.closedDay}"
                                                             class="form-control closed-day" placeholder="휴무 옵션 선택"
                                                             readonly>
                                                     </div>
@@ -535,8 +535,6 @@
                                                         <button type="button" class="btn_1 day-delete">제거</button>
                                                     </div>
                                                 </div>
-                                                
-                                                <input type="file" value="${file}">
                                         </td>
                                     </tr>
                                     </tr>
@@ -557,13 +555,12 @@
     </main>
     <script>
 
-        $('.weekday-openTime').timepicker({defaultTime: '${store.weekdayOpenTime}'});
-        $('.weekday-closeTime').timepicker({defaultTime: '${store.weekdayCloseTime}'});
-        $('.weekend-openTime').timepicker({defaultTime: '${store.weekendOpenTime}'});
-        $('.weekend-closeTime').timepicker({defaultTime: '${store.weekendCloseTime}'});
-        $('.break-startTime').timepicker({defaultTime: '${store.breakStartTime}'});
-        $('.break-endTime').timepicker({defaultTime: '${store.breakEndTime}'});
-        $('.closed-day').timepicker({defaultTime: '${store.corsedDay}'});
+        $('.weekday-openTime').timepicker({defaultTime: '${proBoard.weekdayOpenTime}'});
+        $('.weekday-closeTime').timepicker({defaultTime: '${proBoard.weekdayCloseTime}'});
+        $('.weekend-openTime').timepicker({defaultTime: '${proBoard.weekendOpenTime}'});
+        $('.weekend-closeTime').timepicker({defaultTime: '${proBoard.weekendCloseTime}'});
+        $('.break-startTime').timepicker({defaultTime: '${proBoard.breakStartTime}'});
+        $('.break-endTime').timepicker({defaultTime: '${proBoard.breakEndTime}'});
         
         // select time 
         $(".select-time").timepicker({
@@ -887,19 +884,19 @@
         
         });
 
-        const newFile = new File (['file'],`${filename}`,{
-            type : `${type}`, 
-            size : `${size}`,
-            status: titleDropzone.ADDED,
-            accepted: true      
-        });
+        // const newFile = new File (['file'],`${filename}`,{
+        //     type : `${type}`, 
+        //     size : `${size}`,
+        //     status: titleDropzone.ADDED,
+        //     accepted: true      
+        // });
 
-        titleDropzone.emit("addedfile",`${file}`);
-        titleDropzone.emit("thumbnail", `${file}`,"data:${type};base64,${fileByte}");
-        titleDropzone.emit("complete", `${file}`);
-        titleDropzone.files.push(`${file}`);
+        // titleDropzone.emit("addedfile",`${file}`);
+        // titleDropzone.emit("thumbnail", `${file}`,"data:${type};base64,${fileByte}");
+        // titleDropzone.emit("complete", `${file}`);
+        // titleDropzone.files.push(`${file}`);
 
-        console.log(titleDropzone.filse);
+        // console.log(titleDropzone.filse);
 
         let overlapSet = new Set();
         const detailDropzone = new Dropzone("#detail-dropzone.dropzone", {

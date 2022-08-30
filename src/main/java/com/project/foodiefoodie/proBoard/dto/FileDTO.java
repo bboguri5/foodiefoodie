@@ -2,22 +2,20 @@ package com.project.foodiefoodie.proBoard.dto;
 
 
 import com.project.foodiefoodie.util.FoodieFileUtils;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.*;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
+@Log4j2
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class FileDTO {
+public class FileDTO extends StoreTimeDTO {
 
     private int promotionBno;
     private String filePath;
@@ -28,21 +26,23 @@ public class FileDTO {
     private String fileByte;
     private String fileData;
 
-
     // 입력
-    public FileDTO(int promotionBno , MultipartFile multipartFile , String filePath) {
-
+    public FileDTO(int promotionBno, File file) {
+        System.out.println(" File DTO init ");
         this.promotionBno = promotionBno;
-        this.filePath = filePath;
-        this.fileName = multipartFile.getOriginalFilename();
-        System.out.println(" filename : " + multipartFile.getOriginalFilename());
-        System.out.println(filePath + " " + fileName);
-        this.fileMediaType = multipartFile.getContentType();
-        this.fileByte = FoodieFileUtils.getFileContent(filePath + File.separator + this.fileName);
-        this.fileSize = multipartFile.getSize();
-        this.fileData = String.format("data:%s;base64,%s",fileMediaType,fileByte);
+        this.filePath = file.toPath().getParent().toString();
+        this.fileName = file.getName();
 
-        System.out.println(fileMediaType + " " + fileSize+ " " + fileByte);
+        try {
+            this.fileMediaType = Files.probeContentType(file.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        this.fileByte = FoodieFileUtils.getFileContent(file.getPath());
+        this.fileSize = file.length();
+        this.fileData = String.format("data:%s;base64,%s", fileMediaType, fileByte);
+
+        log.info(" object FileDTO : {}", this.toString());
     }
 }

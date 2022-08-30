@@ -234,8 +234,8 @@
 
     <!-- main -->
     <main>
-        <div class="hero_in detail_page title_img_add"
-            style=" background-image: url('data:image/jpg;base64,${titleImg}');">
+
+        <div class="hero_in detail_page title_img_add" style=" background-image: url(${proBoard.fileData});">
             <!-- <img src="data:image/jpg;base64,${titleImg}">  -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                 <div class="container">
@@ -246,7 +246,7 @@
                                     <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
                                 </div>
                                 <h1>${proBoard.title}</h1>
-                                ${master.storeAddress} ${master.storeDetailAddress}
+                                ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
                             <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
@@ -278,7 +278,7 @@
                                 <a id="tab-A" href="#pane-A" class="nav-link active" data-bs-toggle="tab"
                                     role="tab">Information</a>
                             </li>
-                            <c:set var="menuList" value="${menuList}"/>
+                            <c:set var="menuList" value="${menuList}" />
                             <c:if test="${fn:length(menuList) > 0}">
                                 <li class="nav-item">
                                     <a id="tab-B" href="#pane-B" class="nav-link" data-bs-toggle="tab"
@@ -316,11 +316,10 @@
                                         <!-- detail photo -->
                                         <h2>Detail Photos</h2>
                                         <div class="pictures magnific-gallery clearfix">
-                                            <c:forEach var="detailImg" items="${detailImgList}" varStatus="status">
+                                            <c:forEach var="detailImg" items="${fileMap['detail']}" varStatus="status">
                                                 <figure><a title="Photo title" data-effect="mfp-zoom-in"><img
-                                                            src="data:image/jpg;base64,${detailImg}"
-                                                            data-src="data:image/jpg;base64,${detailImg}" class="lazy"
-                                                            alt=""></a>
+                                                            src="${detailImg.fileData}" data-src="${detailImg.fileData}"
+                                                            class="lazy" alt=""></a>
                                                 </figure>
                                             </c:forEach>
                                         </div>
@@ -334,13 +333,13 @@
                                                     <tbody>
                                                         <tr class="only-desktop">
                                                             <th>주소</th>
-                                                            <td>${master.storeAddress} ${master.storeDetailAddress}<br>
+                                                            <td>${proBoard.storeAddress} ${proBoard.storeDetailAddress}<br>
                                                                 <!-- ${address} -->
                                                             </td>
                                                         </tr>
                                                         <tr class="only-desktop">
                                                             <th>전화번호</th>
-                                                            <td>${master.storeCallNumber}</td>
+                                                            <td>${proBoard.storeCallNumber}</td>
                                                             <!-- ${storeCallNumber} -->
                                                         </tr>
 
@@ -352,17 +351,17 @@
 
                                                         <tr>
                                                             <th style="vertical-align:top;">영업시간</th>
-                                                            <td>월-금: ${storeTime.weekdayOpenTime} -
-                                                                ${storeTime.weekdayCloseTime}
-                                                                <br> 토: ${storeTime.weekendOpenTime} -
-                                                                ${storeTime.weekendCloseTime}
-                                                                <br> 브레이크타임: ${storeTime.breakStartTime} -
-                                                                ${storeTime.breakEndTime}</td>
+                                                            <td>월-금: ${proBoard.weekdayOpenTime} -
+                                                                ${proBoard.weekdayCloseTime}
+                                                                <br> 토: ${proBoard.weekendOpenTime} -
+                                                                ${proBoard.weekendCloseTime}
+                                                                <br> 브레이크타임: ${proBoard.breakStartTime} -
+                                                                ${proBoard.breakEndTime}</td>
                                                             <!-- ${StoreTime} -->
                                                         </tr>
                                                         <tr>
                                                             <th>휴일</th>
-                                                            <td>${storeTime.closedDay}</td>
+                                                            <td>${proBoard.closedDay}</td>
                                                         </tr><!-- ${StoreTime} -->
                                                     </tbody>
                                                 </table>
@@ -417,31 +416,32 @@
                                         <div class="menu-gallery">
                                             <!-- menu itmes -->
                                             <c:forEach var="menu" items="${menuList}">
-                                                <div class="menu_item thumbs">
+
+                                            <div class="menu_item thumbs">
                                                     <figure>
                                                         <a title="Photo title" data-effect="mfp-zoom-in">
                                                             <c:set var="filePath" value="${menu.filePath}" />
                                                             <c:if test="${fn:contains(filePath,'foodie_default.PNG')}">
                                                                 <img src="${menu.filePath}" data-src="${menu.filePath}"
-                                                                    alt="" class="defaultImg">
+                                                                    alt="${menu.fileName}" class="defaultImg">
                                                             </c:if>
                                                             <c:if
                                                                 test="${not fn:contains(filePath,'foodie_default.PNG')}">
-                                                                <img src="data:image/jpg;base64,${menu.filePath}"
-                                                                    data-src="data:image/jpg;base64,${menu.filePath}"
-                                                                    alt="" class="lazy">
+                                                                <img src="${menu.fileData}" data-src="${menu.fileData}"
+                                                                    alt="${menu.fileName}" class="lazy">
                                                             </c:if>
                                                         </a>
                                                     </figure>
-                                                    <div id="menu${menu.menuNo}" class="menuInfo">
-                                                        <h4 id="menu-name${menu.menuNo}">${menu.menuName}
-                                                        </h4>
-                                                        <em id="menu-price${menu.menuNo}">${menu.menuPrice}</em>
-                                                        <button id="${menu.menuNo}" class="menuAddBtn"
-                                                            type="button">방문포장</button>
-                                                    </div>
+                                                <div id="menu${menu.menuNo}" class="menuInfo">
+                                                    <h4 id="menu-name${menu.menuNo}">${menu.menuName}
+                                                    </h4>
+                                                    <em id="menu-price${menu.menuNo}">${menu.menuPrice}</em>
+                                                    <button id="${menu.menuNo}" class="menuAddBtn"
+                                                        type="button">방문포장</button>
                                                 </div>
-                                            </c:forEach>
+                                            </div>
+                                        </c:forEach>
+
                                             <!-- menu itmes -->
                                         </div>
                                         <!-- /menu-gallery -->
@@ -829,7 +829,7 @@
         var geocoder = new kakao.maps.services.Geocoder();
 
         // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(`${master.storeAddress}`, function (result, status) {
+        geocoder.addressSearch(`${proBoard.storeAddress}`, function (result, status) {
 
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
@@ -848,7 +848,7 @@
 
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 var infowindow = new kakao.maps.InfoWindow({
-                    content: '<div style="width:150px;text-align:center;padding:6px 0;">${master.storeName}</div>'
+                    content: '<div style="width:150px;text-align:center;padding:6px 0;">${proBoard.storeName}</div>'
                 });
                 infowindow.open(map, marker);
 
@@ -875,7 +875,7 @@
         const $openKakaoMap = $(".openKaKaoMap");
         $openKakaoMap.on("click", function () {
 
-            const serach = "https://map.kakao.com/link/search/" + `${master.storeAddress}`;
+            const serach = "https://map.kakao.com/link/search/" + `${proBoard.storeAddress}`;
             $openKakaoMap.attr("href", serach);
         });
     }
@@ -906,7 +906,7 @@
             alert(" 300자 이내 입력 부탁드립니다.");
             return;
         }
-        
+
         const noticeContent = $noticeContent.value.replace(/\n/gi, "<br>");
 
         const noticeData = {
@@ -1177,7 +1177,7 @@
         const orderList = document.getElementById('async-order-list').children;
 
         // console.log(orderList);
-        // console.log('business_no : ' + '${master.businessNo}');
+        // console.log('business_no : ' + '${proBoard.businessNo}');
 
         for (let i = 0; i < orderList.length; i++) {
             // console.log(orderList[i].innerText);
@@ -1189,7 +1189,7 @@
                 menuName += orderArray[j] + ' ';
             }
 
-            const businessNo = '${master.businessNo}';
+            const businessNo = '${proBoard.businessNo}';
 
             const menu = {
                 menuName: menuName,

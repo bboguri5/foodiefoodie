@@ -76,12 +76,7 @@
 			sessionStorage.removeItem('orderInfoList');
 			sessionStorage.removeItem('totalPrice');
 			sessionStorage.removeItem('totalQuantity');
-			fetch('/reOrder')
-				.then(res => res.text())
-				.then(referer => {
-					location.href = referer;
-				})
-			// window.history.back();
+			window.history.back();
 		});
 
 

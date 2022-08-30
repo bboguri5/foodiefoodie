@@ -89,18 +89,6 @@ public class KakaoPaymentController {
     }
 
 
-    // 재주문하기 누른 경우 이전 화면으로 돌려줄 비동기 요청 처리
-    @GetMapping("/reOrder")
-    @ResponseBody
-    public String reOrder(HttpServletRequest request) {
-        String referer = request.getHeader("Referer");
-        if (referer == null) {
-            return "/";
-        }
-        return referer;
-    }
-
-
     // 결제 성공시 api에서 보낼 요청
     @GetMapping("/success-order")
     public String success() {

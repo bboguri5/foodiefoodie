@@ -148,6 +148,8 @@
     .openWriteBtn {
         width: 50px;
         height: 50px;
+    }
+    
     .quantity {
         display: inline;
         margin-left: 470px;

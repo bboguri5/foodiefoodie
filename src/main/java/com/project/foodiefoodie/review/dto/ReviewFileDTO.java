@@ -1,14 +1,14 @@
-package com.project.foodiefoodie.review.domain;
+package com.project.foodiefoodie.review.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewUpload {
-
+public class ReviewFileDTO {
     long reviewBno;
     String filePath;
     String fileName;
@@ -16,6 +16,7 @@ public class ReviewUpload {
     long fileSize;
     String fileData;
     String fileType;
-    byte[] fileByteArray;
+
+
 
 }

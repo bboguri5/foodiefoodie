@@ -3,6 +3,7 @@ package com.project.foodiefoodie.review.repository;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
+import com.project.foodiefoodie.review.dto.ReviewFileDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -47,4 +48,13 @@ public interface ReviewBoardMapper {
     List<ReviewBoardDTO> searchAllReview(@Param("search") String search, @Param("sort") String sort);
 
     Long findNewReviewNo();
+
+    boolean saveReviewFileList(ReviewFileDTO reviewFileDTO);
+
+    boolean modifyReview(ReviewBoard reviewBoard);
+
+    boolean deleteReviewFileList(Long reviewBno);
+
+
+
 }

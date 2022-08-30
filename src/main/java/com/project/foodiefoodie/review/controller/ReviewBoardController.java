@@ -14,14 +14,20 @@ import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,14 +44,14 @@ public class ReviewBoardController {
         log.info("review started - list");
 
         List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService(sort);
-        List<ReviewUpload> reviewUploads = new ArrayList<>();
+        List<String> reviewUploads = new ArrayList<>();
         List<Integer> replyCount = new ArrayList<>();
 
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
-        log.info("reviewUploads - {}", reviewUploads);
-        log.info("replyCount - {}", replyCount);
-        log.info("reviewList - {}", reviewList);
+//        log.info("reviewUploads - {}", reviewUploads);
+//        log.info("replyCount - {}", replyCount);
+//        log.info("reviewList - {}", reviewList);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
@@ -53,10 +59,10 @@ public class ReviewBoardController {
         return "review/review-gram";
     }
 
-    private void getUploads(List<ReviewUpload> reviewUploads, List<Integer> replyCount, List<ReviewBoardDTO> reviewList) {
+    private void getUploads(List<String> reviewUploads, List<Integer> replyCount, List<ReviewBoardDTO> reviewList) {
         for (int i = 0; i < reviewList.size(); i++) {
             long reviewBno = reviewList.get(i).getReviewBno();
-            List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUploadsService(reviewBno);
+            List<String> reviewUpload = reviewBoardService.findReviewUploadsForByteService(reviewBno);
             int count = replyService.findReplyCountService(reviewBno);
 
             if (!reviewUpload.isEmpty()) {
@@ -72,9 +78,9 @@ public class ReviewBoardController {
     @GetMapping("/review/detail")
     public String reviewDetail(long reviewBno, String email, Model model) {
         ReviewBoardDTO review = reviewBoardService.findOneReviewService(reviewBno);
-        List<ReviewUpload> reviewUploads = reviewBoardService.findReviewUploadsService(reviewBno);
+        List<String> reviewUploads = reviewBoardService.findReviewUploadsForByteService(reviewBno);
         List<Reply> replyList = replyService.findAllRepliesService(reviewBno);
-
+        log.info("review - {}", review);
 
         model.addAttribute("review", review);
         model.addAttribute("uploads", reviewUploads);
@@ -87,7 +93,7 @@ public class ReviewBoardController {
     @GetMapping("/review/search")
     public String searchReview(String search, String sort, Model model) {
         List<ReviewBoardDTO> searchList = reviewBoardService.searchAllReviewService(search, sort);
-        List<ReviewUpload> reviewUploads = new ArrayList<>();
+        List<String> reviewUploads = new ArrayList<>();
         List<Integer> replyCount = new ArrayList<>();
 
         // 첫번째 리뷰 사진 리스트 모아오기
@@ -126,14 +132,59 @@ public class ReviewBoardController {
     @PostMapping("/review/write")
     public String reviewWriteUpload(ReviewBoard review, List<MultipartFile> reviewImgFile) {
 
-        log.info("/review/write POST! - {}", review);
-        log.info("/review/write POST! reviewImgFile - {}", reviewImgFile);
-        log.info("/review/write POST! reviewImgFileName - {}", reviewImgFile.get(0).getOriginalFilename());
+        log.info("review - {}", review);
         boolean result = reviewBoardService.saveService(review, reviewImgFile);
 
-        log.info("result - {}", result);
+
 
         return "redirect:/review";
     }
+
+    // 수정 - 정보
+    @GetMapping("/review/modify/{reviewBno}")
+    public String reviewModify(@PathVariable Long reviewBno, Model model) {
+
+        log.info("/review/modify GET! - {}", reviewBno);
+
+        ReviewBoardDTO reviewBoard = reviewBoardService.findOneReviewService(reviewBno);
+//        log.info("reviewBoard - {}", reviewBoard);
+        model.addAttribute("review", reviewBoard);
+//        List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUpload(reviewBno);
+//        ReviewUpload reviewUpload1 = reviewUpload.get(0);
+//        log.info("reviewUpload - {}", reviewUpload);
+//        log.info("size - {}", reviewUpload.size());
+//        model.addAttribute("reviewFile", reviewUpload);
+//        model.addAttribute("reviewUpload1", reviewUpload1);
+
+
+        return "review/review-modify";
+    }
+    // 수정 - 파일
+    @GetMapping("/review/modify/page/fileImg/{reviewBno}")
+    @ResponseBody
+    public List<ReviewUpload> modifyPageFileImg(@PathVariable Long reviewBno, Model model) {
+
+        log.info("/review/modify GET! - {}", reviewBno);
+
+        List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUpload(reviewBno);
+
+
+
+        return reviewUpload;
+    }
+
+
+    @PostMapping("/review/modify")
+    public String reviewModifyData(ReviewBoard reviewBoard, List<MultipartFile> reviewImgFile, HttpSession session) {
+
+        log.info("/review/modify POST! - {}", reviewBoard);
+
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        boolean flag = reviewBoardService.modifyReview(reviewBoard, reviewImgFile);
+
+        return "redirect:/review/detail?email="+ loginUser.getEmail() + "&reviewBno=" + reviewBoard.getReviewBno();
+    }
+
+
 
 }

@@ -18,7 +18,7 @@ public class Review {
     private String businessNo;
     private Date lastUpdated;
     private long likeCnt;
-    private double starRate;
+    private int starRate;
     private String isPrivate;
     private int reportCnt;
 

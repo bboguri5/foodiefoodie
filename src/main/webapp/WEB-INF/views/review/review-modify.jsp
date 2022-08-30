@@ -206,6 +206,10 @@
         .dropzone .dz-message .dz-button {
             margin-top: 50px;
         }
+        .dz-image img {
+            width: 150px;
+            height: 150px;
+        }
     </style>
 
 
@@ -217,18 +221,20 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <div class="content-wrapper">
-        <form id="review-write-form" action="/review/write" class="review-form" method="post" enctype="multipart/form-data">
+        <form id="review-modify-form" action="/review/modify" class="review-form" method="post"
+            enctype="multipart/form-data">
             <div class="container-fluid">
                 <div class="box_general padding_bottom mg-wrap">
                     <div class="header_box version_2">
-                        <h2><i class="fa fa-file"></i>리뷰 작성</h2>
+                        <h2><i class="fa fa-file"></i>리뷰 수정</h2>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="title-label">리뷰 제목</label>
                                 <input type="text" class="form-control title" placeholder="가산 고기 맛집!" maxlength="40"
-                                    name="title">
+                                    name="title" value="${review.title}">
+                                <input type="hidden" name="reviewBno" value="${review.reviewBno}">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -241,10 +247,10 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="store-name-label" >가게이름</label>
+                                <label class="store-name-label">가게이름</label>
                                 <input type="text" class="form-control store-name" placeholder="파리바게뜨"
-                                    value="${master.storeName}" name="storeName">
-                                <input type="hidden" name="businessNo" value="${master.businessNo}">
+                                    value="${review.storeName}" name="storeName">
+                                <input type="hidden" name="businessNo" value="${review.businessNo}">
                             </div>
                         </div>
                     </div>
@@ -260,14 +266,14 @@
                                 <input class="form-group" type="button" onclick="sample4_execDaumPostcode()"
                                     value="우편번호 찾기"><br>
                                 <input class="form-group addr-api store-address" type="text" id="sample4_roadAddress"
-                                    placeholder="도로명주소" name="storeAddress" value="${master.storeAddress}">
+                                    placeholder="도로명주소" name="storeAddress" value="${review.storeAddress}">
                                 <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소">
                                 <span id=" guide" style="color:#999;display:none"></span>
                                 <input class="form-group addr-api store-detail-address" type="text"
                                     id="sample4_detailAddress" placeholder="상세주소" name="storeDetailAddress"
-                                    value="${master.storeDetailAddress}">
+                                    value="${review.storeDetailAddress}">
                                 <input class="form-group store-extra-address" type="text" id="sample4_extraAddress"
-                                    placeholder="참고항목" name="storeExtraAddress" value="${master.storeExtraAddress}">
+                                    placeholder="참고항목" name="storeExtraAddress" value="${review.storeExtraAddress}">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -277,7 +283,7 @@
                                 <span class="star">
                                     ★★★★★
                                     <span>★★★★★</span>
-                                    <input type="range" oninput="drawStar(this)" value="1" step="1" min="0" max="10"
+                                    <input type="range" oninput="drawStar(this)" value="" step="1" min="0" max="10"
                                         name="starRate">
                                 </span>
                             </div>
@@ -336,6 +342,8 @@
                 <p class="save-buttons"><button type="button" class="btn_1 medium save">저장</button> <a href="/"
                         class="btn_1 medium gray">취소</a>
                 </p>
+
+                <input type="file">
         </form>
     </div>
 
@@ -380,6 +388,9 @@
 
 
     <script>
+        const starRate = document.querySelector('.star span');
+        starRate.style.width = (`${review.starRate}` * 10) + '%';
+
         const drawStar = (target) => {
             console.log(target.value);
             console.log(target.value * 10);
@@ -467,6 +478,9 @@
         const $contentTag = $('.content');
         const checkArr = [false, false, false];
 
+        $contentTag.text(`${review.content}`.replace(/<br>/gi, "\n"));
+
+
         // ------------------ 필수정보 --------------------
         $titleTag.on('keyup', function () {
 
@@ -536,7 +550,7 @@
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
         });
 
-
+        console.log("??2");
 
         let overlapSet = new Set();
         const reviewDropzone = new Dropzone("#review-dropzone.dropzone", {
@@ -548,7 +562,7 @@
             thumbnailWidth: 100,
             thumbnailHeight: 100,
             maxFiles: 5,
-            maxFilesize: 10,
+            maxFilesize: 10000000,
             addRemoveLinks: true,
             dictRemoveFile: 'X',
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
@@ -556,6 +570,7 @@
             uploadMultiple: true,
             init: function () {
 
+                console.log("?");
                 let myDropzone = this;
 
                 // dorpzone은 파일을 올릴 때마다 기존 파일들은 삭제되고 새로운 file list가 생성 
@@ -612,6 +627,148 @@
                 })
             }
         });
+
+
+        fetch("/review/modify/page/fileImg/"+${reviewBno})
+        .then(res=>res.json())
+        .then(list=>{
+
+         for (let index = 0; index < list.length; index++) {
+            // console.log("!!!!! ", list[index]);
+            console.log(list[index].fileSize);
+            console.log(list[index].fileByte.length);
+            const newFile = new File([list[index].fileByteArray], list[index].fileName, {
+                type: list[index].fileType,
+                size: list[index].fileSize,
+                status: reviewDropzone.ADDED,
+                accepted: true
+            });
+            
+            // let mockFile = {name : list[index].fileName , size : list[index].fileSize};
+
+            // reviewDropzone.displayExistingFile(mockFile,list[index].fileData)
+
+            // console.log("!! ",list[index].fileByte);
+            reviewDropzone.emit("addedfile", newFile);
+            // console.log(list[index].filedata);
+            reviewDropzone.emit("thumbnail", newFile, list[index].fileData);
+            reviewDropzone.emit("complete", newFile);
+            reviewDropzone.files.push(newFile);
+           
+            //  filessss = new File([list[index].fileByte],list[index].fileName,{
+            //     type : list[index].fileType,
+            //     size : list[index].fileSize
+            //     });
+
+        }
+
+        });
+
+
+        // const list = new Array();
+        // <c:forEach items="${reviewFile}" var="it">
+
+        //     list.push("${it}");
+            
+        // </c:forEach>
+        // console.log(list);
+
+        // console.log("size : ", list.length);
+        // console.log("name : ", list[0].length);
+        
+
+        // for (let index = 0; index < list.length; index++) {
+        //     // console.log("!!!!! ", list[index]);
+        //     const newFile = new File(['file'], list[index].fileName, {
+        //         type: list[index].fileType,
+        //         size: list[index].fileSize,
+        //         status: reviewDropzone.ADDED,
+        //         accepted: true
+        //     });
+            
+        //     // console.log("!! ",list[index].fileByte);
+        //     reviewDropzone.emit("addedfile", newFile);
+        //     // console.log(list[index].filedata);
+        //     reviewDropzone.emit("thumbnail", newFile, list[index].fileData);
+        //     reviewDropzone.emit("complete", newFile);
+        //     reviewDropzone.files.push(newFile);
+
+        //     console.log("?? ",reviewDropzone.files);
+        // }
+
+        // for (const iterator in list) {
+        //     console.log("!!!!! ", iterator.fileName);
+        //     const newFile = new File(['file'], iterator.fileName, {
+        //         type: iterator.fileType,
+        //         size: iterator.fileSize,
+        //         status: reviewDropzone.ADDED,
+        //         accepted: true
+        //     });
+            
+        //     console.log("!! ",iterator.fileByte);
+        //     reviewDropzone.emit("addedfile", newFile);
+        //     console.log(iterator.filedata);
+        //     reviewDropzone.emit("thumbnail", newFile, iterator.fileByte);
+        //     reviewDropzone.emit("complete", newFile);
+        //     reviewDropzone.files.push(newFile);
+
+        //     console.log("?? ",reviewDropzone.files);
+        // }
+
+        // console.log(list);
+        // console.log(list.length);
+    
+
+        // const list = ${reviewFile};
+        // const lllist = [];
+        // // lllist = list;
+        // for (let index = 0; index < list.length; index++) {
+        //         console.log(list[index].fileName);
+        // }
+
+        // const list = "${reviewFile}".length;
+
+        // console.log("${reviewFile[0].filePath}");
+        // console.log(list);
+        // for (let i = 0; i = "${reviewFile}".length; i++) {
+        //     console.log("??3");
+        //     const newFile = new File(['file'], "${rf.fileName}", {
+        //         type: "${rf.fileType}",
+        //         size: "${rf.fileSize}",
+        //         status: reviewDropzone.ADDED,
+        //         accepted: true
+        //     });
+            
+        //     console.log("!! ",newFile);
+        //     reviewDropzone.emit("addedfile", newFile);
+        //     reviewDropzone.emit("thumbnail", newFile, "${rf.fileData}");
+        //     reviewDropzone.emit("complete", newFile);
+        //     reviewDropzone.files.push(newFile);
+
+        //     console.log("?? ",reviewDropzone.files);
+
+        // }
+
+        // const newFile = new File(['file'], "${reviewUpload1.fileName}", {
+        //         type: "${reviewUpload1.fileType}",
+        //         size: "${reviewUpload1.fileSize}",
+        //         status: reviewDropzone.ADDED,
+        //         accepted: true
+        //     });
+            
+        //     console.log("!! ",newFile);
+        //     reviewDropzone.emit("addedfile", newFile);
+        //     reviewDropzone.emit("thumbnail", newFile, "${reviewUpload1.fileData}");
+        //     reviewDropzone.emit("complete", newFile);
+        //     reviewDropzone.files.push(newFile);
+
+        //     console.log("?? ",reviewDropzone.files);
+
+
+
+
+
+
         // -------------- // fiel upload and file dropzone --------------
 
 
@@ -632,13 +789,14 @@
 
             if (reviewDropzone.files.length == 0) {
                 alert('리뷰 사진은 필수입니다.');
-                return; 
+                return;
             }
 
+            console.log("dkdk", reviewDropzone.files);
 
             if (reviewDropzone.files.length > 0) {
-                for (const reviewFile of reviewDropzone.files) {
-                    reviewDataTranster.items.add(reviewFile);
+                for (const reviewF of reviewDropzone.files) {
+                    reviewDataTranster.items.add(reviewF);
                 }
                 $reviewHiddenTag.files = reviewDataTranster.files;
 
@@ -675,7 +833,7 @@
                 const content = $contentTag.val().replace(/\n/gi, "<br>");
                 $contentTag.val(content)
 
-                $('#review-write-form').submit();
+                $('#review-modify-form').submit();
             } else {
                 alert("입력값을 확인해주세요.");
             }

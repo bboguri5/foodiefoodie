@@ -24,6 +24,7 @@
         <result property="lastUpdated" column="last_updated"/>
         <result property="likeCnt" column="like_cnt"/>
         <result property="starRate" column="star_rate"/>
+        <result property="storeName" column="store_name"/>
         <result property="storeAddress" column="store_address"/>
         <result property="storeDetailAddress" column="store_detail_address"/>
         <result property="storeExtraAddress" column="store_extra_address"/>
@@ -34,6 +35,10 @@
         <result property="reviewBno" column="review_bno"/>
         <result property="filePath" column="file_path"/>
         <result property="fileName" column="file_name"/>
+        <result property="fileData" column="file_data"/>
+        <result property="fileByte" column="file_byte"/>
+        <result property="fileType" column="file_type"/>
+        <result property="fileSize" column="file_size"/>
     </resultMap>
 
     <resultMap id="likeMap" type="com.project.foodiefoodie.review.domain.ReviewLike">
@@ -63,22 +68,18 @@
     </select>
 
     <select id="findAllReviews" resultMap="rbDTOMap">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no,
-        m.store_name, m.store_address
+        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
+        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address
         FROM review_board rb
-        JOIN master m
-        ON rb.business_no = m.business_no
         WHERE private = 'F'
         <if test="sort == 'latest'">ORDER BY rb.last_updated DESC</if>
         <if test="sort == 'like'">ORDER BY rb.like_cnt DESC</if>
     </select>
 
     <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no,
-        m.store_name, m.store_address
+        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
+        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address
         FROM review_board rb
-        JOIN master m
-        ON rb.business_no = m.business_no
         WHERE rb.review_bno = #{reviewBno}
     </select>
 
@@ -104,11 +105,13 @@
     </insert>
 
     <select id="findReviewUploads" resultMap="ruMap">
-        SELECT review_bno, file_path, file_name
+        SELECT review_bno, file_path, file_name, file_data, file_byte, file_type, file_size
         FROM review_upload
         WHERE review_bno = #{reviewBno}
     </select>
 
+
+    
     <update id="upLike">
         UPDATE review_board
         SET like_cnt = (SELECT like_cnt FROM review_board WHERE review_bno = #{reviewBno}) + 1
@@ -146,5 +149,20 @@
         SELECT COUNT(*) FROM review_like WHERE email=#{email} AND review_bno=#{reviewBno}
     </select>
 
+    <insert id="saveReviewFileList">
+        INSERT INTO review_upload (review_bno, file_path, file_name, file_size, file_type, file_byte, file_data)
+        values (#{reviewBno}, #{filePath}, #{fileName}, #{fileSize}, #{fileType}, #{fileByte}, #{fileData})
+    </insert>
+
+    <update id="modifyReview">
+        update review_board set title = #{title}, content = #{content}, private = #{isPrivate}, last_updated = sysdate, store_name = #{storeName}
+        , store_address = #{storeAddress}, store_detail_address = #{storeDetailAddress}, store_extra_address = #{storeExtraAddress}, star_rate = #{starRate}
+        where review_bno = #{reviewBno}
+    </update>
+
+    <delete id="deleteReviewFileList">
+        delete from review_upload
+        where review_bno = #{reviewBno}
+    </delete>
 
 </mapper>

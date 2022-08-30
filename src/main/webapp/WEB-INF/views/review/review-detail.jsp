@@ -73,6 +73,25 @@
         .submenu .show-submenu {
             color: #589442;
         }
+
+        .content-wrap {
+            margin-top: 40px;
+            background: rgb(222, 220, 220);
+            padding: 40px;
+            margin-bottom: 40px;
+            border-radius: 1%;
+        }
+
+        .content-wrap .content-title {
+            font-weight: 700;
+        }
+
+        .review-img-css {
+            object-fit: fill;
+            width: 100%;
+            height: 100%;
+            /* display: block; */
+        }
     </style>
 
 </head>
@@ -105,36 +124,15 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="singlepost">
-                        <figure>
-                            <div class="owl-carousel owl-theme carousel_1 magnific-gallery owl-loaded owl-drag">
-                                <div class="owl-stage-outer">
-                                    <div class="owl-stage"
-                                        style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2488px;">
-                                        <c:forEach var="uploads" items="${uploads}">
-                                            <div class="owl-item active" style="width: 829.325px;">
-                                                <div class="item">
-                                                    <a href="${uploads.filePath}" title="Photo title"
-                                                        data-effect="mfp-zoom-in"><img src="${uploads.filePath}"
-                                                            alt=""></a>
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                </div>
-                                <div class="owl-nav disabled"><button type="button" role="presentation"
-                                        class="owl-prev"><span aria-label="Previous">‹</span></button><button
-                                        type="button" role="presentation" class="owl-next"><span
-                                            aria-label="Next">›</span></button></div>
-                            </div>
-
-                        </figure>
-                        <h1>${review.title}</h1>
+                        <h1 style="display: inline;">${review.title}</h1>
+                        <a style="margin-left: 550px;" href="/review/modify/${review.reviewBno}">수정</a>
                         <div class="postmeta">
                             <ul>
                                 <!-- <li><a href="#"><i class="icon_folder-alt"></i> Category</a></li> -->
                                 <li><i class="icon_calendar"></i> ${review.lastUpdated}</li>
                                 <li><a href="#"><i class="icon_pencil-edit"></i> ${review.email}</a></li>
-                                <li><a href="#section-comment"><i class="icon_comment_alt"></i> (${replyCount}) Comments</a></li>
+                                <li><a href="#section-comment"><i class="icon_comment_alt"></i> (${replyCount})
+                                        Comments</a></li>
                                 <li class="upCount"><a href="#"><i id="${review.reviewBno}"
                                             class="icon_heart_alt"></i><span
                                             id="heart${review.reviewBno}">${review.likeCnt}</span></a></li>
@@ -145,9 +143,39 @@
                         <!-- /post meta -->
                         <div class="post-content">
                             <p>식당 이름: <a href="#">${review.storeName}</a></p>
-                            <p>식당 주소: ${review.storeAddress}</p>
-                            <p>${review.content}</p>
+                            <span>식당 주소: ${review.storeAddress} --> </span>
+                            <a class="openKaKaoMap" target="_blank">주소 지도로 보기</a>
                         </div>
+                        <figure>
+                            <div class="owl-carousel owl-theme carousel_1 magnific-gallery owl-loaded owl-drag">
+                                <div class="owl-stage-outer">
+                                    <div class="owl-stage"
+                                        style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2488px; ">
+                                        <c:forEach var="uploads" items="${uploads}" varStatus="status">
+                                            <div class="owl-item active" style="width: 829.325px; height: 600px;">
+                                                <div class="item">
+                                                    <a href="data:image/png;base64, ${uploads}" title="Photo title"
+                                                        data-effect="mfp-zoom-in">
+                                                        <div style="max-width: 100%; max-height: 100%;">
+                                                            <img class="review-img-css"
+                                                                src="data:image/png;base64, ${uploads}" alt="">
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                                <div class="owl-nav disabled"><button type="button" role="presentation"
+                                        class="owl-prev"><span aria-label="Previous">‹</span></button>
+                                        <button type="button" role="presentation" class="owl-next"><span
+                                            aria-label="Next">›</span></button></div>
+                            </div>
+                        </figure>
+                        <div class="content-wrap">
+                            <p class="content">${review.content}</p>
+                        </div>
+
                         <!-- /post -->
                     </div>
                     <!-- /single-post -->
@@ -166,27 +194,27 @@
                     <hr>
 
                     <h5>Leave a comment</h5>
-                        <div class="row">
-                            <div class="col-md-4 col-sm-6">
-                                <div class="form-group">
-                                    <input readonly type="text" value="${loginUser.nickName}" name="name" id="name2"
-                                        class="form-control" placeholder="이름">
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <div class="form-group">
-                                    <input readonly type="text" value="${loginUser.email}" name="email" id="email2"
-                                        class="form-control" placeholder="이메일">
-                                </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-group">
+                                <input readonly type="text" value="${loginUser.nickName}" name="name" id="name2"
+                                    class="form-control" placeholder="이름">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <textarea class="form-control comment_write" name="comments" id="comments2" rows="6"
-                                placeholder="Comment"></textarea>
+                        <div class="col-md-4 col-sm-6">
+                            <div class="form-group">
+                                <input readonly type="text" value="${loginUser.email}" name="email" id="email2"
+                                    class="form-control" placeholder="이메일">
+                            </div>
                         </div>
-                        <div id="replyAddBtn" class="form-group">
-                            <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
-                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control comment_write" name="comments" id="comments2" rows="6"
+                            placeholder="Comment"></textarea>
+                    </div>
+                    <div id="replyAddBtn" class="form-group">
+                        <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
+                    </div>
                 </div>
                 <!-- /col -->
             </div>
@@ -202,6 +230,24 @@
     <script src="/js/specific_detail.js"></script>
     <script src="/js/datepicker_func_1.js"></script>
     <script src="/js/switcher.js"></script>
+
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	5360d35d1bee01640aec82cf5cd7e275&libraries=services,clusterer,drawing">
+    </script>
+
+    <script>
+        function clickEventOpenKakao() {
+            const $openKakaoMap = $(".openKaKaoMap");
+            $openKakaoMap.on("click", function () {
+                console.log("zzz");
+
+                const serach = "https://map.kakao.com/link/search/" + `${review.storeAddress}`;
+                $openKakaoMap.attr("href", serach);
+            });
+        }
+    </script>
+
+
 
     <script>
         //원본 글 번호
@@ -226,6 +272,7 @@
 
             // // 댓글 수정 완료 버튼 이벤트 처리
             // replyModifyEvent();
+            clickEventOpenKakao();
         })();
 
 
@@ -377,7 +424,7 @@
         function upLikeCountEvent() {
 
 
-            if ('${isLiked}' === "true" ) {
+            if ('${isLiked}' === "true") {
                 document.getElementById(bno).classList.add('icon_heart');
                 document.getElementById(bno).classList.remove('icon_heart_alt');
             }

@@ -42,7 +42,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns("/admin/*");
 
-        registry.addInterceptor(unCheckedOrderInterceptor)
-                .addPathPatterns("/kakao/order/check");
+//        registry.addInterceptor(unCheckedOrderInterceptor)
+//                .addPathPatterns("/kakao/order/check/request");
     }
 }

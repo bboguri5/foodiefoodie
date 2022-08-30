@@ -43,14 +43,13 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <c:if test="${ll.hotDeal == 'Y'.charAt(0) && ll.endDate > todayDate}">
+                                <c:if test="${ll.hotDeal == 'Y'.charAt(0)}">
 									<span class="ribbon off">${ll.discountPrice}</span>
 								</c:if>
                                 <img src="${ll.filePath}" data-src="${ll.filePath}" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.htll" class="strip_info">
-                                    <c:if test="${ll.hotDeal == 'Y'.charAt(0) && ll.endDate > todayDate}">
-                                        <small>기간: ${ll.endDate}</small>
+                                    <c:if test="${ll.hotDeal == 'Y'.charAt(0)}">
                                     </c:if>
                                     <div class="item_title">
                                         <h3>${ll.storeName}</h3>

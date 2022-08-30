@@ -14,8 +14,6 @@
         <result property="hotDeal" column="hot_deal"/>
         <result property="filePath" column="file_path"/>
         <result property="discountPrice" column="discount_price"/>
-        <result property="startDate" column="start_date"/>
-        <result property="endDate" column="end_date"/>
     </resultMap>
 
     <resultMap id="ppMap" type="com.project.foodiefoodie.mainpage.dto.MainPagePremiumDTO">
@@ -28,14 +26,12 @@
         <result property="hotDeal" column="hot_deal"/>
         <result property="filePath" column="file_path"/>
         <result property="discountPrice" column="discount_price"/>
-        <result property="startDate" column="start_date"/>
-        <result property="endDate" column="end_date"/>
     </resultMap>
 
     <!-- 메인 페이지에 평점 높은 7개 가게 불러오기 -->
     <select id="findTopToday" resultMap="mpMap">
         SELECT business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, start_date, end_date, hashTag
+        discount_price, hashTag
         FROM ( SELECT *
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
@@ -49,7 +45,7 @@
     <!-- 오늘의 맛집 평점 순으로 전체 불러오기 -->
     <select id="findTopTodayAll" resultMap="mpMap">
         SELECT business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, start_date, end_date, hashTag
+        discount_price, hashTag
         FROM (SELECT ROWNUM rn, sub.*
         FROM ( SELECT *
         FROM promotion_board P JOIN master M
@@ -112,7 +108,7 @@
         SELECT *
         FROM (
         SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, start_date, end_date, hashTag
+        discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
@@ -129,7 +125,7 @@
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
         SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, start_date, end_date, hashTag
+        discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
@@ -152,14 +148,11 @@
     <select id="findRandHotDeal" resultMap="mpMap">
         SELECT * FROM (
         SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, start_date, end_date, hashTag
+        discount_price, hashTag
         FROM promotion_board P JOIN hot_deal H
         ON P.business_no = H.business_no
         JOIN master M
-        ON H.business_no = M.business_no
-        WHERE end_date >= (SELECT TO_CHAR
-        (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
-        ORDER BY end_date ) sub
+        ON H.business_no = M.business_no ) sub
         WHERE ROWNUM BETWEEN 1 AND 6
     </select>
 
@@ -169,14 +162,11 @@
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
         SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, start_date, end_date, hashTag
+        discount_price, hashTag
         FROM promotion_board P JOIN hot_deal H
         ON P.business_no = H.business_no
         JOIN master M
-        ON H.business_no = M.business_no
-        WHERE end_date >= (SELECT TO_CHAR
-        (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
-        ORDER BY end_date ) sub)
+        ON H.business_no = M.business_no ) sub)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
     </select>
 
@@ -184,8 +174,6 @@
     <select id="getHotDealCnt" resultType="int">
         SELECT COUNT(*)
         FROM hot_deal
-        WHERE end_date >=
-        ( SELECT TO_CHAR (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
     </select>
 
     <!-- 해당 해쉬태그 개수 구하기 -->
@@ -201,7 +189,7 @@
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
         SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, start_date, end_date, hashTag
+        discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
@@ -218,7 +206,7 @@
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
         SELECT P.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, start_date, end_date, hashTag
+        discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H

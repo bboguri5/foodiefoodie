@@ -143,7 +143,7 @@
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<c:if test="${topToday.hotDeal == 'Y'.charAt(0) && topToday.endDate > todayDate}">
+								<c:if test="${topToday.hotDeal == 'Y'.charAt(0)}">
 									<span class="ribbon off">${topToday.discountPrice}</span>
 								</c:if>
 								<img src="${topToday.filePath}"  data-src="${topToday.filePath}" class="owl-lazy" alt="">
@@ -181,7 +181,7 @@
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<c:if test="${pl.hotDeal == 'Y'.charAt(0) && pl.endDate > todayDate}">
+								<c:if test="${pl.hotDeal == 'Y'.charAt(0)}">
 									<span class="ribbon off">${pl.discountPrice}</span>
 								</c:if>
 								<img src="${pl.filePath}" data-src="${pl.filePath}" class="owl-lazy" alt="">
@@ -261,7 +261,6 @@
 											<small># : ${hd.hashTag}</small>
 											<ul>
 												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
-												<li>기간: ${hd.endDate}</li>
 											</ul>
 										</a>
 									</li>
@@ -284,7 +283,6 @@
 											<small># : ${hd.hashTag}</small>
 											<ul>
 												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
-												<li>기간: ${hd.endDate}</li>
 											</ul>
 										</a>
 									</li>
@@ -413,7 +411,7 @@
 							`<div class="item">` +
 							`   <div class="strip">` +
 							`       <figure>` +
-							`			<c:if test="` + locationList[i] + ` == 'Y'.charAt(0) && ` + locationList[i].endDate `>` + todayDate + `}">` +
+							`			<c:if test="` + locationList[i] + ` == 'Y'.charAt(0)}">` +
 							`				<span class="ribbon off">` + locationList[i].discountPrice + `</span>` +
 							`			</c:if>` +
 							`           <img src="` + locationList[i].filePath + `" data-src="` + locationList[i].filePath + `" class="owl-lazy" alt="">` +

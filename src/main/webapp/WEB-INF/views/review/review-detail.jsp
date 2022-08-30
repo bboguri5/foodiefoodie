@@ -204,9 +204,9 @@
                 <div class="modal-content">
 
                     <!-- Modal Header -->
-                    <div class="modal-header" style="background: #343A40; color: white;">
-                        <h4 class="modal-title">댓글 수정하기</h4>
-                        <button type="button" class="close text-white" data-bs-dismiss="modal">X</button>
+                    <div class="modal-header" style="background: #589442;">
+                        <h4 class="modal-title" style="color: white">댓글 수정하기</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
 
                     <!-- Modal body -->
@@ -221,8 +221,9 @@
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button id="replyModBtn2" type="button" class="btn btn-dark">수정</button>
-                        <button id="modal-close" type="button" class="btn btn-danger"
+                        <button id="replyModBtn2" type="button" class="btn btn-success"
+                            style="background: #589442;">수정</button>
+                        <button id="modal-close" type="button" class="btn btn-secondary"
                             data-bs-dismiss="modal">닫기</button>
                     </div>
                 </div>
@@ -309,8 +310,8 @@
 
                     if (loginEmail === rep.email) {
                         tag +=
-                            `<span>|</span><a id='replyModBtn' class='btn btn-sm btn-outline-dark' data-bs-toggle='modal' data-bs-target='#replyModifyModal'>수정</a>` +
-                            `<span>|</span><a id='replyDelBtn' class='btn btn-sm btn-outline-dark' href='#'>Remove</a>`;
+                            `<span>|</span><a id='replyModBtn' class='btn btn-sm btn-outline-secondary' data-bs-toggle='modal' data-bs-target='#replyModifyModal'>수정</a>` +
+                            `<span>|</span><a id='replyDelBtn' class='btn btn-sm btn-outline-secondary' href='#'>Remove</a>`;
                     }
 
                     tag +=
@@ -492,36 +493,42 @@
 
         // 댓글 등록 이벤트 처리 핸들러 함수
         function makeReplyRegisterClickHandler(e) {
-            const $writerInput = document.getElementById('email2');
-            const $contentInput = document.getElementById('comments2');
-            // 서버로 전송할 데이터들
-            const replyData = {
-                email: $writerInput.value,
-                content: $contentInput.value,
-                reviewBno: bno,
-                nickName: '${loginUser.nickName}'
-            };
-            // POST요청을 위한 요청 정보 객체
-            const reqInfo = {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(replyData)
-            };
-            fetch('/reply', reqInfo)
-                .then(res => res.text())
-                .then(msg => {
-                    if (msg === 'insert-success') {
-                        alert('댓글 등록 성공');
-                        // 댓글 입력창 리셋
-                        $contentInput.value = '';
-                        // 댓글 목록 재요청
-                        showReplies();
-                    } else {
-                        alert('댓글 등록 실패');
-                    }
-                });
+
+            if (document.querySelector('.comment_write').value.trim() === '') {
+                alert('댓글을 작성해 주세요!');
+            } else {
+
+                const $writerInput = document.getElementById('email2');
+                const $contentInput = document.getElementById('comments2');
+                // 서버로 전송할 데이터들
+                const replyData = {
+                    email: $writerInput.value,
+                    content: $contentInput.value,
+                    reviewBno: bno,
+                    nickName: '${loginUser.nickName}'
+                };
+                // POST요청을 위한 요청 정보 객체
+                const reqInfo = {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(replyData)
+                };
+                fetch('/reply', reqInfo)
+                    .then(res => res.text())
+                    .then(msg => {
+                        if (msg === 'insert-success') {
+                            alert('댓글 등록 성공');
+                            // 댓글 입력창 리셋
+                            $contentInput.value = '';
+                            // 댓글 목록 재요청
+                            showReplies();
+                        } else {
+                            alert('댓글 등록 실패');
+                        }
+                    });
+            }
         }
 
 

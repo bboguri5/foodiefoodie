@@ -63,7 +63,7 @@
         FROM member a
         LEFT OUTER JOIN master b
         ON a.email = b.email
-        WHERE auth = 'COMMON' AND b.email is not null
+        WHERE b.promotion_auth = 'COMMON'
     </select>
 
 

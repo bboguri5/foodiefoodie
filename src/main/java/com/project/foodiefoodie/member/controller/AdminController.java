@@ -101,7 +101,8 @@ public class AdminController {
         log.info("/admin/approve POST! - {}, {}", masterAndMember, approveType);
 
         if (approveType.equals("approve")) {
-            if (mbs.findMember(masterAndMember.getEmail()).getAuth().equals("COMMON")) {
+            Member member = mbs.findMember(masterAndMember.getEmail());
+            if (member.getAuth().toString().equals("COMMON")) {
                 AuthDTO authDTO = new AuthDTO();
                 authDTO.setEmail(masterAndMember.getEmail());
                 authDTO.setAuth("MASTER");

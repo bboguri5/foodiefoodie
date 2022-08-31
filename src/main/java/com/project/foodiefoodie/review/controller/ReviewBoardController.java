@@ -41,13 +41,15 @@ public class ReviewBoardController {
     private final ReplyService replyService;
     private final MasterService masterService;
     @GetMapping("/review")
-    public String review(String sort, String email, Model model) {
+    public String review(String sort, String email, Model model,  HttpSession session) {
         log.info("review started - list");
 
         List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService(sort);
         List<String> reviewUploads = new ArrayList<>();
         List<Integer> replyCount = new ArrayList<>();
-        List<Long> isLikedList = reviewBoardService.getLikedListService(email);
+
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        List<Long> isLikedList = reviewBoardService.getLikedListService(loginUser.getEmail());
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
         log.info("reviewUploads - {}", reviewUploads);

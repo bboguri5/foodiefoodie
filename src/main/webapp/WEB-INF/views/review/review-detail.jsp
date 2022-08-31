@@ -338,7 +338,7 @@
                 tag += "<div id='replyContent' class='card-body'>댓글이 아직 없습니다! ㅠㅠ</div>";
             } else {
 
-                const loginEmail = "${loginUser.email}";
+                // const loginEmail = "${loginUser.email}";
                 // console.log("login email - ", typeof log inEmail);
 
                 
@@ -605,7 +605,7 @@
             };
 
             const email = '${loginUser.email}';
-            fetch('/review/updownlike?reviewBno=' + bno + '&email=' + email, reqInfo)
+            fetch('/review/updownlike?reviewBno=' + bno, reqInfo)
                 .then(res => res.text())
                 .then(msg => {
                     if (msg === 'up-success') {

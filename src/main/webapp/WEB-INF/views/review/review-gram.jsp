@@ -94,8 +94,8 @@
 						<div class="col-xl-4 col-lg-5 col-md-5">
 							<div class="search_bar_list">
 								<input required value="${search}" name="search" type="text" class="form-control"
-									placeholder="Search in blog...">
-								<input type="submit" value="Search">
+									placeholder="리뷰 검색...">
+								<input type="submit" value="검색">
 							</div>
 						</div>
 					</form>
@@ -103,7 +103,7 @@
 						<nav class="main-menu">
 							<ul>
 								<li class="submenu">
-									<a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
+									<a href="#0" class="show-submenu">정렬<i class="arrow_carrot-down"></i></a>
 									<ul>
 										<c:if test="${not empty search}">
 											<li><a href="/review/search?search=${search}&sort=like">추천순</a></li>

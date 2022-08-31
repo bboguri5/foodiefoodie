@@ -45,7 +45,7 @@
                             <div class="search_bar_list">
                                 <input required class="form-control no_border_r" type="text" placeholder="지역, 식당, 또는 음식"
                                     name="keyword" value="${s.keyword}">
-                                <input type="submit" value="Search">
+                                <input type="submit" value="검색">
                             </div>
                         </div>
                     </form>
@@ -53,7 +53,7 @@
                         <nav class="main-menu">
                             <ul>
                                 <li class="submenu">
-                                    <a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
+                                    <a href="#0" class="show-submenu">정렬<i class="arrow_carrot-down"></i></a>
                                     <ul>
                                         <li><a href="/list?keyword=${search.keyword}&sort=star">추천순</a></li>
                                         <li><a href="/list?keyword=${search.keyword}&sort=latest">최신순</a></li>

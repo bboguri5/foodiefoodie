@@ -338,8 +338,8 @@
                 tag += "<div id='replyContent' class='card-body'>댓글이 아직 없습니다! ㅠㅠ</div>";
             } else {
 
-                // const loginEmail = "${loginUser.email}";
-                // console.log("login email - ", typeof log inEmail);
+                const loginEmail = "${loginUser.email}";
+                // console.log("login email - ", typeof loginEmail);
 
                 
                 for (let rep of replyList) {
@@ -370,6 +370,8 @@
 
             // 댓글 목록에 생성된 DOM 추가
             document.getElementById('replyData').innerHTML = tag;
+
+            // console.log(document.getElementById('replyData').innerHTML);
 
             // 댓글 수 배치
             // document.getElementById('replyCnt').textContent = count;

@@ -82,7 +82,7 @@ public class ReviewBoardController {
         ReviewBoardDTO review = reviewBoardService.findOneReviewService(reviewBno);
         List<String> reviewUploads = reviewBoardService.findReviewUploadsForByteService(reviewBno);
         List<Reply> replyList = replyService.findAllRepliesService(reviewBno);
-        log.info("review - {}", review);
+//        log.info("review - {}", review);
 
         Member loginUser = (Member) session.getAttribute("loginUser");
 
@@ -142,10 +142,10 @@ public class ReviewBoardController {
     @PostMapping("/review/write")
     public String reviewWriteUpload(ReviewBoard review, List<MultipartFile> reviewImgFile, HttpSession session) {
 
-        log.info("review - {}", review);
+//        log.info("review - {}", review);
         boolean result = reviewBoardService.saveService(review, reviewImgFile);
 
-        log.info("result - {}", result);
+//        log.info("result - {}", result);
 
         Member loginUser = (Member) session.getAttribute("loginUser");
 
@@ -157,7 +157,7 @@ public class ReviewBoardController {
     @GetMapping("/review/modify/{reviewBno}")
     public String reviewModify(@PathVariable Long reviewBno, Model model) {
 
-        log.info("/review/modify GET! - {}", reviewBno);
+//        log.info("/review/modify GET! - {}", reviewBno);
 
         ReviewBoardDTO reviewBoard = reviewBoardService.findOneReviewService(reviewBno);
 //        log.info("reviewBoard - {}", reviewBoard);
@@ -177,7 +177,7 @@ public class ReviewBoardController {
     @ResponseBody
     public List<ReviewUpload> modifyPageFileImg(@PathVariable Long reviewBno, Model model) {
 
-        log.info("/review/modify GET! - {}", reviewBno);
+//        log.info("/review/modify GET! - {}", reviewBno);
 
         List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUpload(reviewBno);
 
@@ -190,7 +190,7 @@ public class ReviewBoardController {
     @PostMapping("/review/modify")
     public String reviewModifyData(ReviewBoard reviewBoard, List<MultipartFile> reviewImgFile, HttpSession session) {
 
-        log.info("/review/modify POST! - {}", reviewBoard);
+//        log.info("/review/modify POST! - {}", reviewBoard);
 
         Member loginUser = (Member) session.getAttribute("loginUser");
 

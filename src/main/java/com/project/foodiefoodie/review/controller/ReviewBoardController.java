@@ -40,7 +40,14 @@ public class ReviewBoardController {
         List<Integer> replyCount = new ArrayList<>();
 
         Member loginUser = (Member) session.getAttribute("loginUser");
-        List<Long> isLikedList = reviewBoardService.getLikedListService(loginUser.getEmail());
+
+        String email = "";
+        if (loginUser != null) {
+            email = loginUser.getEmail();
+        }
+
+
+        List<Long> isLikedList = reviewBoardService.getLikedListService(email);
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
         log.info("reviewUploads - {}", reviewUploads);
@@ -79,12 +86,17 @@ public class ReviewBoardController {
 
         Member loginUser = (Member) session.getAttribute("loginUser");
 
+        String email = "";
+        if (loginUser != null) {
+            email = loginUser.getEmail();
+        }
+
 
         model.addAttribute("review", review);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyList", replyList);
         model.addAttribute("replyCount", replyService.findReplyCountService(reviewBno));
-        model.addAttribute("isLiked", reviewBoardService.isLikedService(reviewBno, loginUser.getEmail()));
+        model.addAttribute("isLiked", reviewBoardService.isLikedService(reviewBno, email));
         return "review/review-detail";
     }
 

@@ -118,8 +118,8 @@
 											<li><a href="/review/search?search=${search}&sort=latest">최신순</a></li>
 										</c:if>
 										<c:if test="${empty search}">
-											<li><a href="/review?sort=like&email=${loginUser.email}">추천순</a></li>
-											<li><a href="/review?sort=latest&email=${loginUser.email}">최신순</a></li>
+											<li><a href="/review?sort=like">추천순</a></li>
+											<li><a href="/review?sort=latest">최신순</a></li>
 										</c:if>
 									</ul>
 								</li>
@@ -145,7 +145,7 @@
 							<!-- <div class="col-md-6"> -->
 							<article class="blog">
 								<figure>
-									<a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}"><img
+									<a href="/review/detail?reviewBno=${rl.reviewBno}"><img
 											src="data:image/png;base64, ${uploads[status.index]}" alt="">
 										<div class="preview"><span>Read more</span></div>
 									</a>
@@ -154,7 +154,7 @@
 									<small>Last Updated - 
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
 									<h2><a
-											href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a>
+											href="/review/detail?reviewBno=${rl.reviewBno}">${rl.title}</a>
 									</h2>
 
 									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
@@ -184,7 +184,7 @@
 
 												<span id="heart${rl.reviewBno}">${rl.likeCnt}</span>
 												<a
-													href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}#section-comment"><i
+													href="/review/detail?reviewBno=${rl.reviewBno}#section-comment"><i
 														id="${rl.reviewBno}"
 														class="icon_comment_alt"></i>${replyCount[status.index]}</a>
 											</li>
@@ -227,7 +227,7 @@
 						likeOrUnlike(e);
 					}
 				} else if (e.target.className.classList.contains('icon_comment_alt')) {
-					location.href = '/review/detail?email=${loginUser.email}&reviewBno=' + e.target.id +
+					location.href = '/review/detail?reviewBno=' + e.target.id +
 						'#section-comment';
 				}
 			});
@@ -244,8 +244,8 @@
 				}
 			};
 
-			const email = '${loginUser.email}';
-			fetch('/review/updownlike?reviewBno=' + bno + '&email=' + email, reqInfo)
+			// const email = '${loginUser.email}';
+			fetch('/review/updownlike?reviewBno=' + bno, reqInfo)
 				.then(res => res.text())
 				.then(msg => {
 					if (msg === 'up-success') {

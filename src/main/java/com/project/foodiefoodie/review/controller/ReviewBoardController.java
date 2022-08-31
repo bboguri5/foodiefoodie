@@ -1,22 +1,16 @@
 package com.project.foodiefoodie.review.controller;
 
 import com.project.foodiefoodie.member.domain.Master;
-import com.project.foodiefoodie.member.domain.MasterAndMember;
 import com.project.foodiefoodie.member.domain.Member;
-import com.project.foodiefoodie.member.service.MasterAndMemberService;
 import com.project.foodiefoodie.member.service.MasterService;
-import com.project.foodiefoodie.member.dto.find.EmailCodeDTO;
 import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
-import com.project.foodiefoodie.review.domain.Review;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,11 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.*;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +32,7 @@ public class ReviewBoardController {
     private final ReplyService replyService;
     private final MasterService masterService;
     @GetMapping("/review")
-    public String review(String sort, String email, Model model,  HttpSession session) {
+    public String review(String sort, Model model,  HttpSession session) {
         log.info("review started - list");
 
         List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService(sort);
@@ -80,17 +71,20 @@ public class ReviewBoardController {
     }
 
     @GetMapping("/review/detail")
-    public String reviewDetail(long reviewBno, String email, Model model) {
+    public String reviewDetail(long reviewBno, Model model, HttpSession session) {
         ReviewBoardDTO review = reviewBoardService.findOneReviewService(reviewBno);
         List<String> reviewUploads = reviewBoardService.findReviewUploadsForByteService(reviewBno);
         List<Reply> replyList = replyService.findAllRepliesService(reviewBno);
         log.info("review - {}", review);
 
+        Member loginUser = (Member) session.getAttribute("loginUser");
+
+
         model.addAttribute("review", review);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyList", replyList);
         model.addAttribute("replyCount", replyService.findReplyCountService(reviewBno));
-        model.addAttribute("isLiked", reviewBoardService.isLikedService(reviewBno, email));
+        model.addAttribute("isLiked", reviewBoardService.isLikedService(reviewBno, loginUser.getEmail()));
         return "review/review-detail";
     }
 
@@ -144,7 +138,7 @@ public class ReviewBoardController {
         Member loginUser = (Member) session.getAttribute("loginUser");
 
 
-        return "redirect:/review?sort=latest&email=" + loginUser.getEmail();
+        return "redirect:/review?sort=latest";
     }
 
     // 수정 - 정보
@@ -190,7 +184,7 @@ public class ReviewBoardController {
 
         boolean flag = reviewBoardService.modifyReview(reviewBoard, reviewImgFile);
 
-        return "redirect:/review/detail?email="+ loginUser.getEmail() + "&reviewBno=" + reviewBoard.getReviewBno();
+        return "redirect:/review/detail?reviewBno=" + reviewBoard.getReviewBno();
     }
 
 

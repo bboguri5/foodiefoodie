@@ -90,6 +90,11 @@
             margin-left: 5px;
         }
 
+        .form-group.title-group .dz-image img {
+            width: 300px;
+            height: 200px;
+        }
+
 
         /* menu add  */
         .menu-row {
@@ -155,6 +160,8 @@
             min-height: 190px;
         }
 
+
+
         .add-Img-row .row {
             justify-content: space-between;
         }
@@ -167,11 +174,6 @@
         .add-Img-row .form-group:nth-child(2) {
             width: 60%;
             margin-right: 20px;
-        }
-
-        #title-dropzone.dropzone .dz-preview .dz-image {
-            position: relative;
-            width: 100%;
         }
 
         .dropzone .dz-remove {
@@ -196,6 +198,22 @@
             position: relative;
         }
 
+        #detail-dropzone.dropzone .dz-image img {
+            width: 100px;
+            height: 100px;
+        }
+
+        #title-dropzone.dropzone .dz-image img {
+            width: 300px;
+            height: 100px
+        }
+
+        #menu-dropzone.dropzone .dz-image img {
+            width: 100px;
+            height: 100px;
+
+        }
+
         #menu-dropzone.dropzone {
             padding: 0;
         }
@@ -205,9 +223,12 @@
             top: 50px;
         }
 
-        #detail-dropzone.dropzone .dz-preview .dz-image {
-            width: 100px;
+        .dropzone .dz-preview .dz-image {
+            width: 100%;
             height: 100px;
+        }
+
+        #detail-dropzone.dropzone .dz-preview .dz-image {
             position: relative;
         }
 
@@ -248,6 +269,14 @@
         .ui-timepicker-standard {
             font-family: none;
         }
+
+        .menuHidden {
+            display: none;
+        }
+
+        .menuActive {
+            display: block;
+        }
     </style>
 
 
@@ -259,7 +288,7 @@
     <%@ include file="../include/header.jsp" %>
 
     <main>
-        <form id="promotionWriteForm" action="/foodie/write" method="post" enctype="multipart/form-data">
+        <form id="promotionWriteForm" action="/proBoard/write" method="post" enctype="multipart/form-data">
             <div class="content-wrapper">
                 <div class="container-fluid">
                     <!-- write title -->
@@ -274,7 +303,7 @@
                             <div class="col-md-6 master-detail">
                                 <input type="text" class="" hidden>
                                 <div class="row-form">
-                                    <input type="text" name="businessNo" value="${businessNo}" hidden>
+                                    <input type="text" name="businessNo" value="${proBoard.businessNo}" hidden>
                                     <div class="form-group detail-Info">
                                         <label>STORE NAME
                                         </label>
@@ -300,15 +329,16 @@
                                 <div class="form-group detail-Info">
                                     <label class="title-label">Title
                                     </label>
-                                    <input type="text" class="form-control title" name="title"
-                                        value="${proBoard.title}" style="border-color:green">
+                                    <input type="text" class="form-control title" name="title" value="${proBoard.title}"
+                                        style="border-color:green">
                                 </div>
                                 <div class="form-group detail-Info">
                                     <div class="form-group">
                                         <label class="hashTag-label">HASH TAG</label>
-                                        <input type="text" class="form-control hashTag" name="hashTag" value="${proBoard.hashTag}"
-                                            placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다." style="border-color:green">
-                                            
+                                        <input type="text" class="form-control hashTag" name="hashTag"
+                                            value="${proBoard.hashTag}" placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다."
+                                            style="border-color:green">
+
                                     </div>
                                 </div>
                             </div>
@@ -319,10 +349,11 @@
                         <!-- CONTENT editor -->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group " >
+                                <div class="form-group ">
                                     <label class="content-label">CONTENT</label>
-                                    <textarea style="border-color:green" name="content" class="form-control content" style="height: 150px;"
-                                        placeholder="Message" id="content" >${proBoard.content}</textarea>
+                                    <textarea style="border-color:green" name="content" class="form-control content"
+                                        style="height: 150px;" placeholder="Message"
+                                        id="content">${proBoard.content}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -439,15 +470,17 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekdayOpenTime" type="text" value="${proBoard.weekdayOpenTime}"
-                                                        autocomplete='off' class="form-control select-time weekday-openTime">
+                                                        <input name="weekdayOpenTime" type="text"
+                                                            value="${proBoard.weekdayOpenTime}" autocomplete='off'
+                                                            class="form-control select-time weekday-openTime">
                                                     </div>
 
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekdayCloseTime" type="text" value="${proBoard.weekdayCloseTime}"
-                                                        autocomplete='off' class="form-control select-time weekday-closeTime">
+                                                        <input name="weekdayCloseTime" type="text"
+                                                            value="${proBoard.weekdayCloseTime}" autocomplete='off'
+                                                            class="form-control select-time weekday-closeTime">
                                                     </div>
 
                                                 </div>
@@ -465,14 +498,18 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekendOpenTime" type="text" value="${proBoard.weekendOpenTime}"
-                                                        autocomplete='off'  class="form-control select-time weekend-openTime" placeholder="오픈시간입력">
+                                                        <input name="weekendOpenTime" type="text"
+                                                            value="${proBoard.weekendOpenTime}" autocomplete='off'
+                                                            class="form-control select-time weekend-openTime"
+                                                            placeholder="오픈시간입력">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="weekendCloseTime" type="text" value="${proBoard.weekendCloseTime}"
-                                                        autocomplete='off'  class="form-control select-time weekend-closeTime" placeholder="마감시간입력">
+                                                        <input name="weekendCloseTime" type="text"
+                                                            value="${proBoard.weekendCloseTime}" autocomplete='off'
+                                                            class="form-control select-time weekend-closeTime"
+                                                            placeholder="마감시간입력">
                                                     </div>
                                                 </div>
                                             </div>
@@ -489,14 +526,18 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="breakStartTime" type="text" value="${proBoard.breakStartTime}"
-                                                        autocomplete='off'  class="form-control select-time break-startTime" placeholder="시작시간">
+                                                        <input name="breakStartTime" type="text"
+                                                            value="${proBoard.breakStartTime}" autocomplete='off'
+                                                            class="form-control select-time break-startTime"
+                                                            placeholder="시작시간">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input name="breakEndTime" type="text" value="${proBoard.breakEndTime}"
-                                                        autocomplete='off' class="form-control select-time break-endTime" placeholder="종료시간">
+                                                        <input name="breakEndTime" type="text"
+                                                            value="${proBoard.breakEndTime}" autocomplete='off'
+                                                            class="form-control select-time break-endTime"
+                                                            placeholder="종료시간">
                                                     </div>
                                                 </div>
                                             </div>
@@ -514,7 +555,8 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input type="text" name="closedDay" value="${proBoard.closedDay}"
+                                                        <input type="text" name="closedDay"
+                                                            value="${proBoard.closedDay}"
                                                             class="form-control closed-day" placeholder="휴무 옵션 선택"
                                                             readonly>
                                                     </div>
@@ -554,14 +596,25 @@
         </form>
     </main>
     <script>
+        $('.weekday-openTime').timepicker({
+            defaultTime: '${proBoard.weekdayOpenTime}'
+        });
+        $('.weekday-closeTime').timepicker({
+            defaultTime: '${proBoard.weekdayCloseTime}'
+        });
+        $('.weekend-openTime').timepicker({
+            defaultTime: '${proBoard.weekendOpenTime}'
+        });
+        $('.weekend-closeTime').timepicker({
+            defaultTime: '${proBoard.weekendCloseTime}'
+        });
+        $('.break-startTime').timepicker({
+            defaultTime: '${proBoard.breakStartTime}'
+        });
+        $('.break-endTime').timepicker({
+            defaultTime: '${proBoard.breakEndTime}'
+        });
 
-        $('.weekday-openTime').timepicker({defaultTime: '${proBoard.weekdayOpenTime}'});
-        $('.weekday-closeTime').timepicker({defaultTime: '${proBoard.weekdayCloseTime}'});
-        $('.weekend-openTime').timepicker({defaultTime: '${proBoard.weekendOpenTime}'});
-        $('.weekend-closeTime').timepicker({defaultTime: '${proBoard.weekendCloseTime}'});
-        $('.break-startTime').timepicker({defaultTime: '${proBoard.breakStartTime}'});
-        $('.break-endTime').timepicker({defaultTime: '${proBoard.breakEndTime}'});
-        
         // select time 
         $(".select-time").timepicker({
             timeFormat: 'HH:mm a',
@@ -625,7 +678,7 @@
         const $hashTag = $('.hashTag');
         const $contentTag = $('.content');
 
-        
+
         $contentTag.text(`${proBoard.content}`.replace(/<br>/gi, "\n"));
 
 
@@ -642,7 +695,7 @@
             checkSaveData(); // title , content , hashTag 
         });
 
-        addMenuImg(1); // first menu item dropzone 처리
+        // addMenuImg(1); // first menu item dropzone 처리
         addMenuItem();
 
 
@@ -724,12 +777,16 @@
             });
         }
 
+        let count = 1;
 
-        /* add menu item dom */
+        // /* add menu item dom */
         function makeNewMenuItemDom() {
-            var newElem = $('form-group').first().clone(); // 첫 item 복사 
+            var newElem = $('.pricing-list-item').first().clone(); // 첫 item 복사 
             newElem.find('input').val('');
-            newElem.appendTo('table#pricing-list-container');
+            newElem.css('display','block');
+            newElem.appendTo('table#pricing-list-container tbody');
+
+            console.log("newElem " , newElem);
         }
 
         /* add menu item delete */
@@ -740,9 +797,26 @@
             });
         }
 
+        function createAddMenuItem() {
+            ++count;
+
+            console.log("creat 진입");
+            makeNewMenuItemDom();
+            $('.menu-row').last().find('.delete-form').append(
+                '<a class="delete' + ' menuDelete' + count + '"' +
+                ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
+            $(this).css('border-colore', 'none'); // 처음 menuItem 제외하고 추가 시 delete 버튼 생성 
+            const $target = $('#pricing-list-container').last().find('.menu1').last();
+            $target.removeClass('menu1');
+            $target.addClass('menu' + count);
+
+
+            inputOnlyIntType(); // 추가된 menuItem에서 price 숫자검증 
+            deleteMenuItem();
+        }
+
         /* add menu item */
         function addMenuItem() {
-            let count = 1;
 
             // default 이미지 없는 메뉴는 기본이미지으로 대체하기 위해 default으로 비어있는 파일. 
             // 첫 menu item을 위해 push 
@@ -761,7 +835,7 @@
 
                     const $container = $('#pricing-list-container');
                     e.preventDefault();
-                    makeNewMenuItemDom();
+                    // makeNewMenuItemDom();
 
                     $('.menu-row').last().find('.delete-form').append(
                         '<a class="delete' + ' menuDelete' + count + '"' +
@@ -868,7 +942,7 @@
         // -------------- fiel upload and file dropzone --------------
 
         const titleDropzone = new Dropzone("#title-dropzone.dropzone", {
-            url: "/foodie/write",
+            url: "/proBoard/write",
             method: 'post',
             autoProcessQueue: false,
             clickable: true,
@@ -881,26 +955,110 @@
             dictRemoveFile: 'X',
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
 
-        
+
         });
 
-        // const newFile = new File (['file'],`${filename}`,{
-        //     type : `${type}`, 
-        //     size : `${size}`,
-        //     status: titleDropzone.ADDED,
-        //     accepted: true      
-        // });
 
-        // titleDropzone.emit("addedfile",`${file}`);
-        // titleDropzone.emit("thumbnail", `${file}`,"data:${type};base64,${fileByte}");
-        // titleDropzone.emit("complete", `${file}`);
-        // titleDropzone.files.push(`${file}`);
+        console.log(`${promotionBno}`);
+        fetch('/proBoard/modify/files/' + ${promotionBno})
+            .then(res => res.json())
+            .then(fileMap => {
+                const title = fileMap.title[0];
+                const details = fileMap.detail;
+                const menuList = fileMap.menuList;
+                console.log("title : ", title);
+                console.log("details : ", details);
+                console.log("menu : ", menuList);
 
-        // console.log(titleDropzone.filse);
+
+                const newTitleFile = new File([title.fileByte], title.fileName, {
+                    type: title.fileMediaType,
+                    size: title.fileSize,
+                    status: titleDropzone.ADDED,
+                    accepted: true
+                });
+
+                titleDropzone.emit("addedfile", newTitleFile);
+                titleDropzone.emit("thumbnail", newTitleFile, title.fileData);
+                titleDropzone.emit("complete", newTitleFile);
+                titleDropzone.files.push(newTitleFile);
+
+                for (const detail of details) {
+                    const newDetailFile = new File([detail.fileByte], detail.fileName, {
+                        type: detail.fileMediaType,
+                        size: detail.fileSize,
+                        status: titleDropzone.ADDED,
+                        accepted: true
+                    });
+
+                    detailDropzone.emit("addedfile", newDetailFile);
+                    detailDropzone.emit("thumbnail", newDetailFile, detail.fileData);
+                    detailDropzone.emit("complete", newDetailFile);
+                    detailDropzone.files.push(newDetailFile);
+                }
+
+
+
+                console.log(menuList);
+                if (menuList.length > 0) {
+
+                    const itemBox = $("#pricing-list-container tbody");
+
+                    const firstItem = itemBox.first().children();
+                        firstItem.css("display","none");
+
+
+                    // menuHidden
+                    for (const menu of menuList) {
+
+                        createAddMenuItem();
+                        let menuDropzone = addMenuImg(count);
+
+                        console.log(menuDropzone);
+
+                        const newMenuFile = new File([menu.fileByte], menu.fileName, {
+                            type: menu.fileMediaType,
+                            size: menu.fileSize,
+                            status: titleDropzone.ADDED,
+                            accepted: true
+                        });
+
+                        menuDropzone.emit("addedfile", newMenuFile);
+                        menuDropzone.emit("thumbnail", newMenuFile, menu.fileData);
+                        menuDropzone.emit("complete", newMenuFile);
+                        menuDropzone.files.push(newMenuFile);
+
+
+                        // const lastItem = itemBox.last().children();
+                        // lastItem.css("display","block")
+
+                    };
+
+                }
+
+
+                //     const menuFile = new File([menu.fileByte], menu.fileName, {
+                //         type: menu.fileMediaType,
+                //         size: menu.fileSize,
+                //         status: menuDropzone.ADDED,
+                //         accepted: true
+                //     });
+
+                //     menuDropzone.emit("addedfile", menuFile);
+                //     menuDropzone.emit("thumbnail", menuFile, menu.fileData);
+                //     menuDropzone.emit("complete", menuFile);
+                //     menuDropzone.files.push(menuFile);
+                // }
+
+
+            });
+
+
+        console.log(titleDropzone.filse);
 
         let overlapSet = new Set();
         const detailDropzone = new Dropzone("#detail-dropzone.dropzone", {
-            url: "/foodie/write",
+            url: "/proBoard/write",
             method: 'post',
             autoProcessQueue: false,
             clickable: true,
@@ -916,7 +1074,7 @@
             uploadMultiple: true,
             init: function () {
 
-                
+
 
                 let myDropzone = this;
 
@@ -979,7 +1137,7 @@
             let dropName = '.menu' + index;
             let deleteName = '.menuDelete' + index;
             const menuDropzone = new Dropzone(dropName, {
-                url: "/foodie/write",
+                url: "/proBoard/write",
                 method: 'post',
                 autoProcessQueue: false,
                 clickable: true,
@@ -993,7 +1151,10 @@
                 acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
 
                 init: function () {
+
                     let myDropzone = this;
+
+
                     this.on('addedfile', function (file) { // menu item 추가 시 
                         menuFileList[index - 1] = file;
                         console.log("add : ", menuFileList);
@@ -1114,7 +1275,7 @@
                         alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
                         return false;
                     }
-                    
+
                     return true;
                 }
 

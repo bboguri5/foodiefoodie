@@ -15,7 +15,7 @@ import java.nio.file.Files;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class FileDTO extends StoreTimeDTO {
+public class FileDTO  {
 
     private int promotionBno;
     private String filePath;

@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
 
 @Service
 @Log4j2
@@ -120,18 +119,7 @@ public class ProBoardService {
         return !resultList.contains(false);
     }
 
-    public List<FileDTO> selectDetailFiles(int promotionBno) {return proBoardMapper.selectDetailFiles(promotionBno);}
-
-//    public Map<String, List<FileDTO>> selectFiles(int promotionBno) {
-//        String[] selectFileTypeList = {"title", "detail", "menu"};
-//        Map<String, List<FileDTO>> selectFileMap = new HashMap<>();
-//        for (String type : selectFileTypeList) {
-//            selectFileMap.put(type, proBoardMapper.selectFiles(promotionBno, type));
-//        }
-//
-//        return selectFileMap;
-//    }
-
+    public List<FileDTO> selectFiles(int promotionBno , String type) {return proBoardMapper.selectFiles(promotionBno,type);}
 
     /* ===================================== notice ===================================== */
 

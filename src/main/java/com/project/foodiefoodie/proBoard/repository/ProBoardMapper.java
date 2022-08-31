@@ -5,9 +5,9 @@ import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.*;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+
 
 @Mapper
 public interface ProBoardMapper {
@@ -28,7 +28,7 @@ public interface ProBoardMapper {
 
     ProBoard selectProBoard(int promotionBno);
 
-    List<FileDTO> selectDetailFiles(int promotionBno);
+    List<FileDTO> selectFiles(int promotionBno, String type);
 
     /* ============================= menu =============================== */
     boolean saveMenu(int promotionBno, String menuName, int menuPrice);

@@ -87,20 +87,22 @@
         <result property="hotDeal" column="HOT_DEAL"/>
         <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
 
-        <result property="fileName" column="FILE_NAME"/>
-        <result property="fileMediaType" column="FILE_MEDIATYPE"/>
-        <result property="fileSize" column="FILE_SIZE"/>
-        <result property="fileData" column="FILE_DATA"/>
+<!--        <result property="filePath" column="FILE_PATH"/>-->
+<!--        <result property="fileName" column="FILE_NAME"/>-->
+<!--        <result property="fileMediaType" column="FILE_MEDIATYPE"/>-->
+<!--        <result property="fileSize" column="FILE_SIZE"/>-->
+<!--        <result property="fileData" column="FILE_DATA"/>-->
     </resultMap>
 
     <select id="selectProBoard" resultMap="proBoardMap">
 
         select * from master master
             RIGHT join promotion_board board
-                on master.business_no = board.business_no
-            LEFT join promotion_upload_title_img imgs
-                on board.promotion_bno = imgs.promotion_bno
-        where board.promotion_bno = #{promotionBno} and board.promotion_bno = imgs.promotion_bno
+        on master.business_no = board.business_no
+            LEFT join promotion_store_time time
+        on board.promotion_bno = time.promotion_bno
+            where board.promotion_bno = #{promotionBno}
+            and board.promotion_bno = time.promotion_bno
 
     </select>
 
@@ -115,11 +117,12 @@
         <result property="menuName" column="menu_name"/>
         <result property="menuPrice" column="price"/>
 
+        <result property="filePath" column="FILE_PATH"/>
         <result property="fileName" column="FILE_NAME"/>
         <result property="fileMediaType" column="FILE_MEDIATYPE"/>
         <result property="fileSize" column="FILE_SIZE"/>
+        <result property="fileByte" column="FILE_BYTE"/>
         <result property="fileData" column="FILE_DATA"/>
-        <result property="filePath" column="FILE_PATH"/>
     </resultMap>
 
     <select id="selectMenuInfo" resultMap="menuDTO">
@@ -127,7 +130,7 @@
         select
             menu.menu_no, menu.menu_name , menu.price ,
             imgs.file_name , imgs.file_mediatype , imgs.file_size ,
-            imgs.file_data , imgs.file_path
+            imgs.file_data , imgs.file_path , imgs.file_byte
         from promotion_food_menu menu
             LEFT JOIN promotion_upload_menu_img imgs
             ON  menu.menu_no = imgs.menu_no
@@ -187,11 +190,22 @@
             <result property="fileName" column="FILE_NAME"/>
             <result property="fileMediaType" column="FILE_MEDIATYPE"/>
             <result property="fileSize" column="FILE_SIZE"/>
+            <result property="fileByte" column="FILE_BYTE"/>
             <result property="fileData" column="FILE_DATA"/>
         </resultMap>
 
-        <select id="selectDetailFiles" resultType="FileDTO">
-              select * PROMOTION_UPLOAD_DETAIL_IMG where promotion_bno = #{promotionBno}
+        <select id="selectFiles" resultMap="FileDTO">
+              select * from
+            <if test="type == 'title'">
+                PROMOTION_UPLOAD_TITLE_IMG
+            </if>
+            <if test="type == 'detail'">
+                PROMOTION_UPLOAD_DETAIL_IMG
+            </if>
+            <if test="type == 'menu'">
+                PROMOTION_UPLOAD_MENU_IMG
+            </if>
+             where promotion_bno = #{promotionBno}
         </select>
 
 </mapper>

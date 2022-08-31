@@ -2,6 +2,8 @@ package com.project.foodiefoodie.proBoard.controller;
 
 
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
+import com.project.foodiefoodie.proBoard.dto.FileDTO;
+import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
@@ -34,7 +36,8 @@ public class ProBoardController {
 
         model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
         model.addAttribute("menuList", proBoardService.selectMenuInfo(promotionBno));
-        model.addAttribute("detailFiles",proBoardService.selectDetailFiles(promotionBno));
+        model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
+        model.addAttribute("title",proBoardService.selectFiles(promotionBno,"title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
         return "promotion/pro-detail";
     }
@@ -118,11 +121,30 @@ public class ProBoardController {
 //        }
 
         model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
-        model.addAttribute("menuList", proBoardService.selectMenuInfo(promotionBno));
-        model.addAttribute("detailFiles",proBoardService.selectDetailFiles(promotionBno));
-        model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
-
 
         return "promotion/pro-modify";
     }
+
+    @GetMapping("/modify/files/{promotionBno}")
+    @ResponseBody
+    public Map<String,Object> modifyFiles(@PathVariable int promotionBno)
+    {
+        String[] fileType = {"title","detail"};
+        Map<String,Object> infoMap = new HashMap<>();
+        for(String type : fileType)
+        {
+            infoMap.put(type,proBoardService.selectFiles(promotionBno,type));
+        }
+
+        infoMap.put("menuList",proBoardService.selectMenuInfo(promotionBno));
+
+        return infoMap;
+    }
+
+//    @GetMapping("/modify/menuList/{promotionBno}")
+//    @ResponseBody
+//    public List<MenuDTO> modifyMenuList(@PathVariable int promotionBno)
+//    {
+//    }
+
 }

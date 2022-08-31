@@ -235,7 +235,7 @@
     <!-- main -->
     <main>
 
-        <div class="hero_in detail_page title_img_add" style=" background-image: url(${proBoard.fileData});">
+        <div class="hero_in detail_page title_img_add" style=" background-image: url(${title.fileData});">
             <!-- <img src="data:image/jpg;base64,${titleImg}">  -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                 <div class="container">
@@ -316,7 +316,7 @@
                                         <!-- detail photo -->
                                         <h2>Detail Photos</h2>
                                         <div class="pictures magnific-gallery clearfix">
-                                            <c:forEach var="detailImg" items="${fileMap['detail']}" varStatus="status">
+                                            <c:forEach var="detailImg" items="${detailFiles}" varStatus="status">
                                                 <figure><a title="Photo title" data-effect="mfp-zoom-in"><img
                                                             src="${detailImg.fileData}" data-src="${detailImg.fileData}"
                                                             class="lazy" alt=""></a>

@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.proBoard.domain;
 
 import com.project.foodiefoodie.proBoard.dto.FileDTO;
+import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -14,7 +15,7 @@ import java.util.Map;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProBoard extends FileDTO{
+public class ProBoard extends StoreTimeDTO {
 
     private String businessNo;
     private int promotionBno;

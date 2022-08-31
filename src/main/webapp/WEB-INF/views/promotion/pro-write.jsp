@@ -1071,6 +1071,7 @@
             /* 
             1. menu item 1개 
                 - input값 없으면 = true
+                - input값 둘 다 있으면 = true;
                 - name만 입력하면 = false
                 - price만 입력하면 = false
                 - 사진만 있으면 = false

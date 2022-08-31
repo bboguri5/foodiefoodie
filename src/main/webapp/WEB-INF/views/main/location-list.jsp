@@ -50,7 +50,7 @@
                                 <c:if test="${ll.hotDeal == 'Y'.charAt(0)}">
 									<span class="ribbon off">${ll.discountPrice}%</span>
 								</c:if>
-                                <img src="${ll.filePath}" data-src="${ll.filePath}" class="img-fluid lazy"
+                                <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <small>${ll.isOpen}</small>

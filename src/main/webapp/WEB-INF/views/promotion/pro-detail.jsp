@@ -355,7 +355,7 @@
                                     <div class="theiaStickySidebar">
                                         <div class="box_booking">
                                             <div class="head">
-                                                <h3>Order Summary</h3>
+                                                <h3>주문 정보</h3>
                                                 <div class="offer">${isHotDeal}% 할인</div>
                                             </div>
                                             <!-- /head -->
@@ -374,10 +374,7 @@
                                                             class="line-through">0</span></li>
                                                 </ul>
 
-                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
-                                                    Now</a>
-                                                <div class="text-center"><small>No money charged on this
-                                                        steps</small></div>
+                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">주문하기</a>
                                             </div>
                                         </div>
 

@@ -52,6 +52,7 @@
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <small>${topTodayAll.isOpen}</small>
                                     <c:if test="${topTodayAll.hotDeal == 'Y'.charAt(0)}">
+                                        <span class="ribbon off">${topTodayAll.discountPrice}%</span>
                                     </c:if>
                                     <div class="item_title">
                                         <h3>${topTodayAll.storeName}</h3>

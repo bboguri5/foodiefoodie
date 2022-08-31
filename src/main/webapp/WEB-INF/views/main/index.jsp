@@ -60,7 +60,7 @@
 											</div>
 										</div>
 										<div class="col-lg-2">
-											<input type="submit" value="Search">
+											<input type="submit" value="검색">
 										</div>
 									</div>
 								</form>
@@ -413,11 +413,15 @@
 					tag += "<div id='locationList'>주변에 식당이 없습니다! ㅠㅠ</div>";
 				} else {
 					for (let i = 0; i < locationList.length; i++) {
+
+						console.log("typeof locationList[i].hotDeal", typeof locationList[i].hotDeal);
+						console.log("locationList[i].hotDeal", locationList[i].hotDeal);
+
 						tag +=
 							`<div class="item">` +
 							`   <div class="strip">` +
 							`       <figure>` +
-							`			<c:if test="` + locationList[i] + ` == 'Y'.charAt(0)}">` +
+							`			<c:if test="` + locationList[i].hotDeal + ` == 'Y'.charAt(0)}">` +
 							`				<span class="ribbon off">` + locationList[i].discountPrice + `%</span>` +
 							`			</c:if>` +
 							`           <img src="` + locationList[i].filePath + `" data-src="` + locationList[i].filePath + `" class="owl-lazy" alt="">` +

@@ -41,6 +41,7 @@
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <small>${ht.isOpen}</small>
                                     <c:if test="${ht.hotDeal == 'Y'.charAt(0)}">
+                                        <span class="ribbon off">${ht.discountPrice}%</span>
                                     </c:if>
                                     <div class="item_title">
                                         <h3>${ht.storeName}</h3>

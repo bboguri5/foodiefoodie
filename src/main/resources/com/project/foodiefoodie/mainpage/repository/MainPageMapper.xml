@@ -13,7 +13,6 @@
         <result property="avgStarRate" column="avg_star_rate"/>
         <result property="reviewCnt" column="review_cnt"/>
         <result property="hotDeal" column="hot_deal"/>
-<!--        <result property="filePath" column="file_path"/>-->
         <result property="discountPrice" column="discount_price"/>
     </resultMap>
 
@@ -25,13 +24,12 @@
         <result property="avgStarRate" column="avg_star_rate"/>
         <result property="reviewCnt" column="review_cnt"/>
         <result property="hotDeal" column="hot_deal"/>
-<!--        <result property="filePath" column="file_path"/>-->
         <result property="discountPrice" column="discount_price"/>
     </resultMap>
 
     <!-- 메인 페이지에 평점 높은 7개 가게 불러오기 -->
     <select id="findTopToday" resultMap="mpMap">
-        SELECT promotion_bno, business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT promotion_bno, business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag
         FROM ( SELECT *
         FROM promotion_board P JOIN master M
@@ -45,7 +43,7 @@
 
     <!-- 오늘의 맛집 평점 순으로 전체 불러오기 -->
     <select id="findTopTodayAll" resultMap="mpMap">
-        SELECT promotion_bno, business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT promotion_bno, business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag
         FROM (SELECT ROWNUM rn, sub.*
         FROM ( SELECT *
@@ -67,7 +65,7 @@
     <!-- 기한이 지나지 않은 월정액 가게 랜덤으로 메인 페이지에 7개 불러오기 -->
     <select id="findRandPremium" resultMap="ppMap">
         SELECT * FROM (
-        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
@@ -84,7 +82,7 @@
         SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
-        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
@@ -108,7 +106,7 @@
     <select id="findLocationRand" resultMap="mpMap">
         SELECT *
         FROM (
-        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
@@ -125,7 +123,7 @@
         SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
-        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
@@ -148,7 +146,7 @@
     <!-- hot deal 랜덤 6개 목록 요청-->
     <select id="findRandHotDeal" resultMap="mpMap">
         SELECT * FROM (
-        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag
         FROM promotion_board P JOIN hot_deal H
         ON P.business_no = H.business_no
@@ -162,7 +160,7 @@
         SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
-        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag
         FROM promotion_board P JOIN hot_deal H
         ON P.business_no = H.business_no
@@ -189,7 +187,7 @@
         SELECT *
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
-        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
@@ -206,7 +204,7 @@
         SELECT *
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
-        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
+        SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no

@@ -47,7 +47,7 @@
                                 <c:if test="${topTodayAll.hotDeal == 'Y'.charAt(0)}">
 									<span class="ribbon off">${topTodayAll.discountPrice}%</span>
 								</c:if>
-                                <img src="${topTodayAll.filePath}" data-src="${topTodayAll.filePath}" class="img-fluid lazy"
+                                <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <small>${topTodayAll.isOpen}</small>

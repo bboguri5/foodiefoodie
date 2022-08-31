@@ -109,9 +109,9 @@
                     <form action="/review/search" method="get">
                         <div class="col-xl-4 col-lg-5 col-md-5">
                             <div class="search_bar_list">
-                                <input required value="${search}" name="search" type="text" class="form-control"
-                                    placeholder="Search in blog...">
-                                <input type="submit" value="Search">
+								<input required value="${search}" name="search" type="text" class="form-control"
+									placeholder="리뷰 검색...">
+								<input type="submit" value="검색">
                             </div>
                         </div>
                     </form>
@@ -185,7 +185,7 @@
 
                     <a name="section-comment"></a>
                     <div id="comments">
-                        <h5>Comments</h5>
+                        <h5>댓글</h5>
                         <ul id="replyData"></ul>
 
                     </div>
@@ -197,7 +197,7 @@
 
                     <hr>
 
-                    <h5>Leave a comment</h5>
+                    <h5>댓글 작성</h5>
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
                             <div class="form-group">
@@ -350,12 +350,12 @@
                         `           <a href="#"><img src="/img/avatar1.jpg" alt=""></a>` +
                         `       </div>` +
                         `       <div class="comment_right clearfix">` +
-                        `           <div class="comment_info">By <a href="#">` + rep.nickName + `</a><span>|</span>`  + new Date(rep.lastUpdated).toLocaleString();
+                        `           <div class="comment_info">작성 : <a href="#">` + rep.nickName + `</a><span>|</span>`  + new Date(rep.lastUpdated).toLocaleString();
 
                     if (loginEmail === rep.email) {
                         tag +=
                             `<span>|</span><a id='replyModBtn' class='btn btn-sm btn-outline-secondary' data-bs-toggle='modal' data-bs-target='#replyModifyModal'>수정</a>` +
-                            `<span>|</span><a id='replyDelBtn' class='btn btn-sm btn-outline-secondary' href='#'>Remove</a>`;
+                            `<span>|</span><a id='replyDelBtn' class='btn btn-sm btn-outline-secondary' href='#'>삭제</a>`;
                     }
 
                     tag +=

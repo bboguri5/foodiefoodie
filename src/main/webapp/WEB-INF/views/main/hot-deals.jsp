@@ -30,7 +30,7 @@
                         <div class="strip">
                             <figure>
                                 <span class="ribbon off">${hd.discountPrice}%</span>
-                                <img src="${hd.filePath}" data-src="${hd.filePath}" class="img-fluid lazy"
+                                <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                     <a href="detail-restaurant.html" class="strip_info">
                                         <small>${hd.isOpen}</small>

@@ -17,7 +17,6 @@ public class MainPage {
     private double avgStarRate;
     private Long reviewCnt;
     private char hotDeal;
-    private String filePath;
     private int discountPrice;
     private String isOpen;
 }

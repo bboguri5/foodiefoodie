@@ -38,6 +38,9 @@
         <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
+            <c:if test="${empty premiumList}">
+                <p>광고 진행중인 맛집이 없습니다.</p>
+            </c:if>
             <div class="row">
                 <c:forEach var="pl" items="${premiumList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">

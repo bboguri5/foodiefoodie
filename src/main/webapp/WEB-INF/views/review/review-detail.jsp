@@ -295,11 +295,8 @@
                 const loginEmail = "${loginUser.email}";
                 // console.log("login email - ", typeof log inEmail);
 
+                
                 for (let rep of replyList) {
-
-                    // if (loginEmail === rep.email) {
-                    //     console.log("it works bitch")
-                    // }
 
                     tag +=
                         `   <li id="` + rep.replyNo + `">` +
@@ -307,8 +304,7 @@
                         `           <a href="#"><img src="/img/avatar1.jpg" alt=""></a>` +
                         `       </div>` +
                         `       <div class="comment_right clearfix">` +
-                        `           <div class="comment_info">By <a href="#">` + rep.nickName + `</a><span>|</span>` +
-                        rep.lastUpdated;
+                        `           <div class="comment_info">By <a href="#">` + rep.nickName + `</a><span>|</span>`  + new Date(rep.lastUpdated).toLocaleString();
 
                     if (loginEmail === rep.email) {
                         tag +=

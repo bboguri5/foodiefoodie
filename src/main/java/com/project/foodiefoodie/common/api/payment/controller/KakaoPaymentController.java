@@ -33,33 +33,48 @@ public class KakaoPaymentController {
     public String orderRequest(@RequestBody Map<String, Object> orderMap, HttpServletRequest request) {
         String businessNo = (String) orderMap.get("businessNo");
         int discount;
+            // 핫딜이 적용된 가게가 아니라면
         if (orderMap.get("discount").equals("")) {
             discount = 0;
-        } else {
+        }
+        // 핫딜 진행 중인 가게라면
+        else {
             discount = Integer.parseInt(String.valueOf(orderMap.get("discount")));
         }
 
         log.info("orderMap.getDiscount!! - {}", discount);
         log.info("orderMap!! - {}", orderMap);
 
+
         ObjectMapper objectMapper = new ObjectMapper();
-        List<MenuInfo> menuInfos = objectMapper.convertValue(orderMap.get("menuList"), new TypeReference<List<MenuInfo>>() {
-        });
-        log.info("orderMap.get!! menuInfos : {}", menuInfos);
+
+
+        // js에서 비동기처리로 받은 json데이터들이 다 자바 객체 형태로 데이터가 존재하지만 엄밀히는 문자열이다.
+        // 그래서 그 문자열을 파싱해서 사용해야 하는데.. 그걸 스프링에서는 잭슨 라이브러리가 해준다.
+            // 자바에 들어온 json 데이터를 변환할 때도! 어떤 비동기 처리에 의한 데이터를 json 형태로 보낼 때도!! 잭슨 라이브러리는 열일한다.
+        // js에서 맵에 여러 데이터들을 받는 와중에 list를 받았는데!
+        // 그걸 기본형(int, String, double..)이 아닌,, 커스텀 객체 (List< ~~DTO>) 형태로 받고자 한다면..
+        // 원활히 변환이 이루어지지 않고 에러가 발생한다. 그 때는 잭슨 라이브러리에게 해당 데이터를 이런 식으로 변환해달라는 요청을 따로 보내야 한다!
+        // ObjectMapper 객체 생성 이후 convertValue 메서드 활용!!
+        // 매개변수는 2개를 사용하고 첫번째 매개변수에는 내가 js에서 받아온 데이터! 즉, 커스텀 제네릭 타입을 사용하고자 하는 부분!
+        // 2번째 매개변수에는 new TypeReference< 여기에 어떤 형태로 받을 것인지를 적는다. > () {}
+        // 아래 코드 참조!
+        List<MenuInfo> menuInfoList = objectMapper.convertValue(orderMap.get("menuList"), new TypeReference<List<MenuInfo>>() {});
+        log.info("orderMap.get!! menuInfoList : {}", menuInfoList);
 
         HttpSession session = request.getSession();
 
-        session.setAttribute("menuInfoList", menuInfos);
+        session.setAttribute("menuInfoList", menuInfoList);
         session.setAttribute("businessNo", businessNo);
         session.setAttribute("discount", discount);
 
         int totalQuantity = 0;
         int totalPrice = 0;
 
-        if (menuInfos != null) {
-            for (int i = 0; i < menuInfos.size(); i++) {
-                log.info("menuInfos.get(i) - {}", menuInfos.get(i));
-                MenuInfo menuInfo = menuInfos.get(i);
+        if (menuInfoList != null) {
+            for (int i = 0; i < menuInfoList.size(); i++) {
+                log.info("menuInfos.get(i) - {}", menuInfoList.get(i));
+                MenuInfo menuInfo = menuInfoList.get(i);
                 totalPrice += menuInfo.getMenuPrice();
                 totalQuantity += menuInfo.getQuantity();
             }

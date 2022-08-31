@@ -5,6 +5,9 @@ import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.*;
 import com.project.foodiefoodie.proBoard.repository.ProBoardMapper;
+import com.project.foodiefoodie.review.domain.ReviewBoard;
+import com.project.foodiefoodie.review.dto.ReviewFileDTO;
+import com.project.foodiefoodie.util.FoodieFileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -22,13 +25,24 @@ public class ProBoardService {
     private final ProBoardMapper proBoardMapper;
 
 
-    public boolean modify(ProBoard proBoard) {
-        return proBoardMapper.modify(proBoard);
+    @Transactional
+    public boolean modifyProBoard(ProBoard proBoard, List<String[]> menuList, Map<String, List<MultipartFile>> fileMap) {
+        log.info( " service modifyProBoard {} ",proBoard.getPromotionBno());
+        int promotionBno = proBoard.getPromotionBno();
+
+        proBoardMapper.modifyProBoard(proBoard);
+        proBoardMapper.modifyStoreTime(proBoard);
+        return modifyMenu(promotionBno,menuList);
+
+//        for(String key : fileMap.keySet())
+//        {
+//            System.out.println(key);
+//        }
     }
 
-    public boolean delete(int promotionBno) {
-        return proBoardMapper.delete(promotionBno);
-    }
+//    public boolean delete(int promotionBno) {
+//        return proBoardMapper.delete(promotionBno);
+//    }
 
     @Transactional
     public boolean saveProBoard(ProBoard proBoard, List<String[]> menuList, Map<String, List<MultipartFile>> fileMap) {
@@ -98,8 +112,10 @@ public class ProBoardService {
             try {
                 String newPath = getNewUploadPath(folderName, proBoard.getBusinessNo());
                 File file = new File(newPath, Objects.requireNonNull(imgFile.getOriginalFilename()));
-                imgFile.transferTo(file);
 
+                if(file.exists())
+                    continue;
+                imgFile.transferTo(file);
                 fileDTOList.add(new FileDTO(proBoard.getPromotionBno(), file));
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -149,6 +165,106 @@ public class ProBoardService {
         }
         return !resultList.contains(false);
     }
+
+    private boolean modifyMenu(int promotionBno, List<String[]> menuList) {
+        List<Boolean> resultList = new ArrayList<>();
+        for (int i = 0; i < menuList.get(0).length; i++) {
+            if (menuList.get(0)[i].isEmpty() && menuList.get(1)[i].isEmpty()) return false;
+            resultList.add(proBoardMapper.modifyMenu(
+                    promotionBno, menuList.get(0)[i]
+                    , Integer.parseInt(menuList.get(1)[i]))
+            );
+        }
+        return !resultList.contains(false);
+    }
+
+//    public boolean modifyReviewFile(List<MultipartFile> reviewImg, ReviewBoard reviewBoard, long reviewBno) {
+//
+//        /*
+//            reviewImg : post 요청으로 넘어온 이미지 리스트
+//            reviewImg 리스트로 넘어온 파일 이름과 해당 리뷰글 서버경로에 저장되어 있는 파일 이름을 비교해서
+//            같다면 처리 x / 서버에는 있지만 reviewImg 리스트에는 없다면 삭제 / reviewImg 리스트에는 있지만 서버에는 없다면 추가
+//         */
+//
+//
+//        String originReviewImgPath = "C:\\foodiefoodie\\reviewBoard\\" + reviewBno;
+//        File folder = new File(originReviewImgPath);
+//        try {
+//            if (folder.exists()) { // 해당 폴더가 존재 유무 확인
+//                File[] folder_list = folder.listFiles(); //파일리스트 얻어오기
+//
+//                String newUploadPath = "";
+//                String newFileName = "";
+//                String fileFullPath = "";
+//
+//                // 리스트에 이미지 이름만 저장
+//                List<String> imgNameList = new ArrayList<>();
+//                for (MultipartFile file : reviewImg) {
+//                    imgNameList.add(file.getOriginalFilename());
+//                }
+////                log.info("imgName - {}", imgName);
+//
+//                List<String> fileNameList = new ArrayList<>();
+//                for (File file : folder_list) {
+//                    fileNameList.add(file.getName());
+//                }
+//
+//                // 수정시 삭제 되어야 하는것
+//                for (File file : folder_list) {
+//                    String fileName = file.getName();
+//                    if (!imgNameList.contains(fileName)) {
+//                        file.delete();
+//                        rbMapper.deleteReviewFileList(reviewBno, fileName);
+//                    }
+//
+//                }
+//
+//                // 수정시 등록되어야 하는것
+//                for (MultipartFile files : reviewImg) {
+//                    String originalFilename = files.getOriginalFilename();
+//                    if (!fileNameList.contains(originalFilename)) {
+//                        newUploadPath = getReviewNewUploadPath(reviewBno);
+//                        newFileName = files.getOriginalFilename();
+//                        fileFullPath = newUploadPath + File.separator + newFileName;
+//
+//                        File f = new File(newUploadPath, newFileName); // 파일 객체 생성
+//
+//                        try {
+//                            ReviewFileDTO reviewFileDTO = new ReviewFileDTO();
+//                            reviewFileDTO.setFilePath(fileFullPath);
+//                            reviewFileDTO.setFileName(newFileName);
+//                            reviewFileDTO.setReviewBno(reviewBno);
+//                            reviewFileDTO.setFileSize(files.getSize());
+//
+//                            files.transferTo(f);
+//
+//                            String fileContent = FoodieFileUtils.getFileContent(fileFullPath);
+//                            byte[] filebyte = FoodieFileUtils.getImgByte(fileFullPath);
+//                            reviewFileDTO.setFileByte(fileContent);
+//                            String contentType = files.getContentType();
+//
+//                            reviewFileDTO.setFileType(files.getContentType());
+//
+//                            String fileData = "data:" + files.getContentType() + ";base64," + fileContent;
+//                            reviewFileDTO.setFileData(fileData);
+//
+//                            saveReviewImagePath(reviewFileDTO); // 서버 이미지 경로 DB 저장
+//
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//                return true;
+//            }
+//            return false;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
+
+
 
 
     public Integer isHotDealService(String businessNo) {

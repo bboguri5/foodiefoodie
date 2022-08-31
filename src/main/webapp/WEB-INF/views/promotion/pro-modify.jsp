@@ -265,17 +265,17 @@
             height: 80px;
         }
 
-        /* picker */
-        .ui-timepicker-standard {
-            font-family: none;
-        }
-
         .menuHidden {
             display: none;
         }
 
-        .menuActive {
-            display: block;
+        .col-md-1.menu-add-img {
+            width: 140px;
+        }
+
+        /* picker */
+        .ui-timepicker-standard {
+            font-family: none;
         }
     </style>
 
@@ -288,7 +288,7 @@
     <%@ include file="../include/header.jsp" %>
 
     <main>
-        <form id="promotionWriteForm" action="/proBoard/write" method="post" enctype="multipart/form-data">
+        <form id="promotionWriteForm" action="/proBoard/modify" method="post" enctype="multipart/form-data">
             <div class="content-wrapper">
                 <div class="container-fluid">
                     <!-- write title -->
@@ -301,7 +301,7 @@
                         <!-- detail info -->
                         <div class="row">
                             <div class="col-md-6 master-detail">
-                                <input type="text" class="" hidden>
+                                <input type="text" name="promotionBno" value="${proBoard.promotionBno}" hidden>
                                 <div class="row-form">
                                     <input type="text" name="businessNo" value="${proBoard.businessNo}" hidden>
                                     <div class="form-group detail-Info">
@@ -694,8 +694,9 @@
             limitHashTag(); // hash tag 글자수/단어 제한 
             checkSaveData(); // title , content , hashTag 
         });
+        let count = 1;
 
-        // addMenuImg(1); // first menu item dropzone 처리
+        addMenuImg(1); // first menu item dropzone 처리
         addMenuItem();
 
 
@@ -777,16 +778,23 @@
             });
         }
 
-        let count = 1;
 
         // /* add menu item dom */
         function makeNewMenuItemDom() {
+
             var newElem = $('.pricing-list-item').first().clone(); // 첫 item 복사 
             newElem.find('input').val('');
-            newElem.css('display','block');
+            console.log("how count ? " , count);
+            if(count === 1){
+                newElem.addClass('menuHidden');
+            }if(count > 1) {
+                console.log( "else if : " , count);
+                newElem.removeClass('menuHidden');
+            }
+
             newElem.appendTo('table#pricing-list-container tbody');
 
-            console.log("newElem " , newElem);
+            console.log("newElem ", newElem);
         }
 
         /* add menu item delete */
@@ -800,12 +808,15 @@
         function createAddMenuItem() {
             ++count;
 
-            console.log("creat 진입");
             makeNewMenuItemDom();
-            $('.menu-row').last().find('.delete-form').append(
+
+            if(count > 2)
+            {
+                $('.menu-row').last().find('.delete-form').append(
                 '<a class="delete' + ' menuDelete' + count + '"' +
                 ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
-            $(this).css('border-colore', 'none'); // 처음 menuItem 제외하고 추가 시 delete 버튼 생성 
+            }
+
             const $target = $('#pricing-list-container').last().find('.menu1').last();
             $target.removeClass('menu1');
             $target.addClass('menu' + count);
@@ -820,6 +831,7 @@
 
             // default 이미지 없는 메뉴는 기본이미지으로 대체하기 위해 default으로 비어있는 파일. 
             // 첫 menu item을 위해 push 
+
             menuFileList.push(new File(["default"], "default", {
                 type: "image/png",
                 name: "foodie_default.PNG"
@@ -835,7 +847,7 @@
 
                     const $container = $('#pricing-list-container');
                     e.preventDefault();
-                    // makeNewMenuItemDom();
+                    makeNewMenuItemDom();
 
                     $('.menu-row').last().find('.delete-form').append(
                         '<a class="delete' + ' menuDelete' + count + '"' +
@@ -997,17 +1009,16 @@
                     detailDropzone.files.push(newDetailFile);
                 }
 
-
-
                 console.log(menuList);
+
                 if (menuList.length > 0) {
 
                     const itemBox = $("#pricing-list-container tbody");
 
+
                     const firstItem = itemBox.first().children();
-                        firstItem.css("display","none");
-
-
+                    firstItem.addClass('menuHidden');
+                
                     // menuHidden
                     for (const menu of menuList) {
 
@@ -1028,9 +1039,12 @@
                         menuDropzone.emit("complete", newMenuFile);
                         menuDropzone.files.push(newMenuFile);
 
-
-                        // const lastItem = itemBox.last().children();
-                        // lastItem.css("display","block")
+                        const nameTarget = menuDropzone.element.parentElement.parentElement.nextElementSibling.children[0].children[0];
+                        const priceTarget = menuDropzone.element.parentElement.parentElement.nextElementSibling.nextElementSibling.children[0].children[0];
+                        nameTarget.value = menu.menuName;
+                        priceTarget.value = menu.menuPrice;
+                        console.log(nameTarget); 
+                        
 
                     };
 
@@ -1192,11 +1206,12 @@
             AddFileList();
             if (!checkArr.includes(false)) { // title , hashTag , content 필수 입력 
 
-                let checkSave = [false, false, false];
+                let checkSave = [false, false, false, false];
 
                 checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
                 checkSave[1] = checkOverlapHashTag(); // 해시태그 중복 검증 
                 checkSave[2] = checkInputTime(); // 시간 입력 검증 
+                checkSave[3] = checkValue();
 
                 console.log("checkSave : ", checkSave);
                 if (!checkSave.includes(false)) {
@@ -1212,6 +1227,17 @@
             }
         });
 
+        function checkValue()
+        {
+            if(!($contentTag.val().length > 0 && $titleTag.val().length > 0 && $hashTag.val().length > 0))
+            {
+                alert("입력란을 확인해주세요.");
+                return false;
+            }
+            
+            return true;
+        }
+
         function AddFileList() {
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
             const $detailHiddenTag = document.querySelector('.hidden-detail-img');
@@ -1224,15 +1250,10 @@
             const titleDataTraster = new DataTransfer();
             const menuDataTraster = new DataTransfer();
 
-            if (menuFileList.length > 0) {
-                for (const menuFile of menuFileList) {
-                    if (menuFile != null) {
-                        menuDataTraster.items.add(menuFile);
-                    }
-                }
-                console.log("menuDataTraster : ", menuFileList);
-                $menuHiddenTag.files = menuDataTraster.files;
-            }
+
+
+            console.log($menuHiddenTag);
+          
 
             if (titleDropzone.files.length > 0) {
                 titleDataTraster.items.add(titleDropzone.files[0]);
@@ -1242,6 +1263,8 @@
                 alert("title 이미지는 필수입니다.");
                 return;
             }
+            
+            console.log("titleHiddenTag 결론 : ", $titleHiddenTag.files);
 
             if (detailDropzone.files.length > 0) {
                 for (const detailFile of detailDropzone.files) {
@@ -1250,56 +1273,79 @@
                 $detailHiddenTag.files = detailDataTranster.files;
 
             }
+
+            console.log("detailHiddenTag 결론 : ", $detailHiddenTag.files);
+
+
+            if (menuFileList.length > 0) {
+                for (let index = 1; index < menuFileList.length; index++) {
+                    console.log(menuFileList[1].name);
+                    if(menuFileList[1].name === "default")
+                        continue;
+                    if (menuFileList[index] != null) {
+                        menuDataTraster.items.add(menuFileList[index]);
+                    }
+
+
+                }
+
+                const $menuNameList = document.querySelectorAll(".menu-name");
+                const $menuPriceList = document.querySelectorAll(".menu-price");
+
+                if ($menuNameList[1].value.length === 0 && $menuPriceList[1].value.length === 0) {
+                    return;
+                }
+                
+                $menuHiddenTag.files = menuDataTraster.files;
+                
+                /* console.log("menuDataTraster : ", menuFileList);
+                $menuHiddenTag.files = menuDataTraster.files;
+                */
+                console.log("menuHiddenTag 결론 : ", $menuHiddenTag.files);
+            }
         }
+
 
         // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
         function checkMenuInput() {
+            
             const $menuNameList = document.querySelectorAll(".menu-name");
             const $menuPriceList = document.querySelectorAll(".menu-price");
 
-            /* 
-            1. menu item 1개 
-                - input값 없으면 = true
-                - name만 입력하면 = false
-                - price만 입력하면 = false
-                - 사진만 있으면 = false
-
-            2. menu item 2개 이상
-                - input값 없으면 = false
-            */
             const menuItem = document.querySelectorAll('.row.menu-row');
-            if (menuItem.length === 1) {
+            if (menuItem.length > 1) {
 
-                if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
-                    if (menuFileList[0].name != 'default') {
+                if ($menuNameList[1].value.length === 0 && $menuPriceList[1].value.length === 0) {
+                    if (menuFileList[1].name != 'default') {
                         alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
                         return false;
                     }
 
+                    
                     return true;
                 }
 
-                if ($menuNameList[0].value.length === 0 || $menuPriceList[0].value.length === 0) {
+                if ($menuNameList[1].value.length === 0 || $menuPriceList[1].value.length === 0) {
                     alert("메뉴 입력란을 확인해주세요.");
                     return false;
                 }
 
                 return true;
             }
-
+            
 
             if (menuItem.length > 1) {
                 for (let index = 0; index < $menuNameList.length; index++) {
 
-                    if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.leng === 0) {
+                    if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.length === 0) {
                         alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
                         return false;
                     }
 
-                    if ($menuNameList[0].value.length === 0 || $menuPriceList[0].value.length === 0) {
-                        alert("메뉴 입력란을 확인해주세요.");
-                        return false;
-                    }
+                    // if ($menuNameList[0].value.length === 0 || $menuPriceList[0].value.length === 0) {
+                    //     alert("메뉴 입력란을 확인해주세요.");
+                    //     return false;
+                    // }
                 }
                 return true;
             }

@@ -47,6 +47,37 @@
         )
     </insert>
 
+
+<!--  modify   -->
+
+    <update id="modifyProBoard">
+        UPDATE PROMOTION_BOARD SET
+        CONTENT = #{content} , LAST_UPDATED = sysdate ,TITLE = #{title} ,HASHTAG = #{hashTag}
+        where promotion_bno = #{promotionBno}
+
+    </update>
+
+    <update id="modifyStoreTime">
+
+        UPDATE PROMOTION_STORE_TIME SET
+        WEEKDAYOPENTIME = #{weekdayOpenTime}
+        ,WEEKDAYCLOSETIME = #{weekdayCloseTime}
+        ,WEEKENDOPENTIME = #{weekendOpenTime}
+        ,WEEKENDCLOSETIME = #{weekendCloseTime}
+        ,BREAKSTARTTIME = #{breakStartTime}
+        ,BREAKENDTIME = #{breakEndTime}
+        ,CLOSEDDAY = #{closedDay}
+        where promotion_bno = #{promotionBno}
+    </update>
+
+    <update id="modifyMenu">
+
+        update PROMOTION_FOOD_MENU set
+        menuName = #{menuName}
+        menuPrice = #{menuPrice}
+        where promotion_bno = #{promotionBno}
+
+    </update>
     <!--    <update id="modify">-->
     <!--        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}-->
     <!--    </update>-->
@@ -184,6 +215,23 @@
             ,#{fileSize} ,#{fileByte} ,#{fileData}
             )
         </insert>
+
+    <insert id="modifyFiles">
+
+        <if test="filePath.contains('title')">
+            update PROMOTION_UPLOAD_TITLE_IMG set
+        </if>
+
+        <if test="filePath.contains('detail')">
+            update PROMOTION_UPLOAD_DETAIL_IMG set
+        </if>
+
+        <if test="filePath.contains('menu')">
+            update PROMOTION_UPLOAD_MENU_IMG set
+        </if>
+        ,FILE_PATH = #{filePath} ,FILE_NAME = #{fileName} ,FILE_MEDIATYPE = #{fileMediaType}
+        ,FILE_SIZE = #{fileSize} ,FILE_BYTE = #{fileByte} ,FILE_DATA = #{fileData}
+    </insert>
 
         <resultMap id="FileDTO" type="com.project.foodiefoodie.proBoard.dto.FileDTO">
             <result property="promotionBno" column="PROMOTION_BNO"/>

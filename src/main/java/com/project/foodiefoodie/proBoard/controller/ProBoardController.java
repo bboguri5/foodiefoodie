@@ -141,4 +141,31 @@ public class ProBoardController {
         return infoMap;
     }
 
+
+    @PostMapping("/modify")
+    public String modify(HttpServletRequest request, ProBoard proBoard,
+                        List<MultipartFile> titleImgFile,
+                        List<MultipartFile> detailImgFiles,
+                        List<MultipartFile> menuImgFiles) {
+
+
+        System.out.println("진입");
+        log.info("foodie/write POST - ! {}", proBoard);
+        log.info("foodie/write POST!! - titleImgFile : {}", titleImgFile.get(0).getOriginalFilename());
+        log.info("foodie/write POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
+        log.info("foodie/write POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
+
+        List<String[]> menuList = new ArrayList<>(Arrays.asList(
+                request.getParameterValues("menuName"),
+                request.getParameterValues("menuPrice")
+        ));
+        Map<String, List<MultipartFile>> fileMap = new HashMap<>() {{
+            put("title", titleImgFile);
+            put("detail", detailImgFiles);
+            put("menu", menuImgFiles);
+        }};
+
+        boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, menuList, fileMap);
+        return "";
+    }
 }

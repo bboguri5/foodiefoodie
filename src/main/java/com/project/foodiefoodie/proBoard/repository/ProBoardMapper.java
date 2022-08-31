@@ -18,7 +18,9 @@ public interface ProBoardMapper {
 
     boolean saveFiles(FileDTO fileDTO);
 
-    boolean modify(ProBoard proBoard);
+    boolean modifyProBoard(ProBoard proBoard);
+    boolean modifyStoreTime(ProBoard proBoard );
+    boolean modifyMenu(int promotionBno , String menuName, int menuPrice);
 
     boolean delete(int promotionBno);
 

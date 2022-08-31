@@ -22,6 +22,7 @@ public class ReplyAPIController {
     @GetMapping("")
     public Map<String, Object> list(Long reviewBno, Page page) {
         Map<String, Object> replies = service.getList(reviewBno, page);
+        log.info("replies - {}", replies);
         return replies;
     }
 

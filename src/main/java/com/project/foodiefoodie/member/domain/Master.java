@@ -24,4 +24,5 @@ public class Master {
     private Date storeRegDate;
     private char hotDeal;
     private String storeCallNumber;
+
 }

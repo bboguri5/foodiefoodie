@@ -42,5 +42,6 @@ public interface ProBoardMapper {
 
     boolean deleteNotice(int noticeNo);
 
+    Integer isHotDeal(String businessNo);
 
 }

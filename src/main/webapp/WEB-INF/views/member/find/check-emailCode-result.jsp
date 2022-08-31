@@ -9,16 +9,13 @@
 
     <style>
         main {
-            height: 65vh;
+            height: 70vh;
         }
 
         .box_booking_2 {
             margin-top: 70px;
         }
 
-        .title {
-            margin-bottom: 70px;
-        }
     </style>
 
 </head>
@@ -36,22 +33,12 @@
                         <div class="box_booking_2">
                             <div class="head">
                                 <div class="title">
-                                    <div class="icon icon--order-success svg add_bottom_15">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72">
-                                            <g fill="none" stroke="#8EC343" stroke-width="2">
-                                                <circle cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;"></circle>
-                                                <path d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;"></path>
-                                            </g>
-                                        </svg>
-                                    </div>
                                     <h3>이메일 인증 성공!</h3>
                                 </div>
                             </div>
                             <!-- /head -->
                             <div class="main">
                                 <div id="confirm">
-                                    <h3>비밀번호 변경하기</h3>
-                                    <br>
                                     <form action="/change/pw" method="post" id="change-pw-form">
                                         <c:if test="${loginUser == null}">
                                             <input type="hidden" name="email" value="${email}">
@@ -79,21 +66,19 @@
                         <div class="box_booking_2">
                             <div class="head">
                                 <div class="title">
-                                    <h3>이메일 인증에 실패했습니다.</h3>
+                                    <h3>이메일 인증 실패</h3>
                                 </div>
                             </div>
                             <!-- /head -->
                             <div class="main">
                                 <div id="confirm">
-                                    <h3>이메일 인증코드가 일치하지 않습니다. 다시 시도하세요.</h3>
+                                    <p>이메일 인증코드가 일치하지 않습니다. 다시 시도하세요.</p>
                                     <c:if test="${loginUser == null}">
-                                        <br>
                                         <a href="/find/pw">비밀번호 다시 찾기</a>
                                         <br>
                                         <a href="/register">회원가입</a>
                                     </c:if>
                                     <c:if test="${loginUser != null}">
-                                        <br>
                                         <a href="/change/pw">처음부터 다시 시도하기</a>
                                     </c:if>
                                 </div>

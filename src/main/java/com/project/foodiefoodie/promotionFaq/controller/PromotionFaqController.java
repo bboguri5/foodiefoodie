@@ -2,6 +2,8 @@ package com.project.foodiefoodie.promotionFaq.controller;
 
 import com.project.foodiefoodie.blackList.service.BlackListMasterService;
 import com.project.foodiefoodie.blackList.service.BlackListService;
+import com.project.foodiefoodie.member.service.MasterService;
+import com.project.foodiefoodie.member.service.MemberService;
 import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import com.project.foodiefoodie.promotion.service.PromotionService;
 import com.project.foodiefoodie.promotionFaq.domain.PromotionFaq;
@@ -26,6 +28,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class PromotionFaqController {
 
+    private final MasterService ms;
     private final PromotionFaqService pros;
     private final ReportMasterService rms;
     private final PromotionBoardService ps;
@@ -76,7 +79,9 @@ public class PromotionFaqController {
 
             // 홍보글에 카운트 추가
             int reportCnt = ps.checkReportCnt(promotionFaq.getBusinessNo());
-            ps.reportCntModifyService(reportCnt + 1, promotionFaq.getBusinessNo());
+            if (ms.findOneForBusinessNoService(promotionFaq.getBusinessNo()) != null) {
+                ps.reportCntModifyService(reportCnt + 1, promotionFaq.getBusinessNo());
+            }
         }
 
         return "redirect:/admin/promotionFaq";

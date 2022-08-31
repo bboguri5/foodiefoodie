@@ -35,4 +35,8 @@ public class MasterService {
     public boolean removeMasterService(String businessNo) {
         return mapper.removeMaster(businessNo);
     }
+
+    public Master findOneForBusinessNoService(String businessNo) {
+        return mapper.findOneMasterForBusinessNo(businessNo);
+    }
 }

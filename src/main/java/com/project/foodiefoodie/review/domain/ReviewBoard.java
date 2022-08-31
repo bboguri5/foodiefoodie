@@ -20,4 +20,9 @@ public class ReviewBoard {
     private Long likeCnt;
     private int starRate;
     private char isPrivate;
+    private int reportCnt;
+    private String storeName;
+    private String storeAddress;
+    private String storeDetailAddress;
+    private String storeExtraAddress;
 }

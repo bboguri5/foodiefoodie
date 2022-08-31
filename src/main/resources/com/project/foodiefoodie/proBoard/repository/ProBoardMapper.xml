@@ -55,8 +55,6 @@
     <!--        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}-->
     <!--    </delete>-->
 
-
-
     <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
         <result property="businessNo" column="BUSINESS_NO"/>
         <result property="masterName" column="MASTER_NAME"/>
@@ -151,6 +149,9 @@
         delete from promotion_notice where notice_no = #{noticeNo}
     </delete>
 
+    <select id="isHotDeal" resultType="Integer">
+        SELECT discount_price FROM hot_deal WHERE business_no = #{businessNo}
+    </select>
 
     <!--  ==================================  files ==================================  -->
 

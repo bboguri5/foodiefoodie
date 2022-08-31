@@ -3,12 +3,14 @@ package com.project.foodiefoodie.review.domain;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Getter @Setter @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
+
     private String email;
     private String title;
     private String content;
@@ -19,4 +21,5 @@ public class Review {
     private int starRate;
     private String isPrivate;
     private int reportCnt;
+
 }

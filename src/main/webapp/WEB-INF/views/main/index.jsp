@@ -6,6 +6,7 @@
 
 <head>
 	<%@ include file="../include/static-head.jsp" %>
+	<link href="/css/help.css" rel="stylesheet">
 
 	<style>
 		#locationList {
@@ -17,19 +18,10 @@
 			width: 19%;
 		}
 
-		.search form {
-			display: flex;
-		}
 
-		.search .form-select {
-			flex: 1;
-			margin-top: 8px;
-			border-radius: 10px;
-		}
-
-
-		.search .row {
-			flex: 10;
+		form {
+			width: 80%;
+			margin: auto;
 		}
 	</style>
 </head>
@@ -48,22 +40,28 @@
 							<h1>푸디푸디</h1>
 							<p>Foodies Welcome Here</p>
 
-							<div class="search">
-								<form action="/list?sort=star" method="get">
+							<!-- <div class="search"> -->
+							<!-- <form action="/list?sort=star" method="get">
 									<div class="row g-0 custom-search-input">
 										<div class="col-lg-6">
 											<div class="form-group">
 												<input required class="form-control no_border_r" type="text"
 													placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
-												<i class="icon_pin_alt"></i>
 											</div>
 										</div>
 										<div class="col-lg-2">
-											<input type="submit" value="Search">
+											<input type="submit" value="검색">
 										</div>
 									</div>
-								</form>
-							</div>
+								</form> -->
+							<form action="/list?sort=star" method="get">
+								<div class="search_bar">
+									<input required type="text" class="form-control" placeholder="지역, 식당, 또는 음식"
+										name="keyword" value="${s.keyword}">
+									<input type="submit" value="Search">
+								</div>
+							</form>
+							<!-- </div> -->
 						</div>
 					</div>
 					<!-- /row -->
@@ -76,8 +74,7 @@
 			<div class="container margin_60_40">
 				<div class="main_title center">
 					<span><em></em></span>
-					<h2>무엇이 먹고싶으신가요? ㅋㅋ</h2>
-					<p>카테고리 골라골라</p>
+					<h2>카테고리 모아보기</h2>
 				</div>
 				<!-- /main_title -->
 				<div class="owl-carousel owl-theme categories_carousel">
@@ -134,20 +131,22 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2>오늘의 맛집</h2>
-				<p>실시간 탑 맛집 이에용~</p>
+				<p>평점이 높은 인기 식당</p>
 				<a href="/foodlist">View All</a>
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
+				<c:if test="${empty topToday}">등록된 맛집이 없습니다.</c:if>
 				<c:forEach var="topToday" items="${topToday}" varStatus="status">
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<c:if test="${topToday.hotDeal == 'Y'.charAt(0) && topToday.endDate > todayDate}">
-									<span class="ribbon off">${topToday.discountPrice}</span>
+								<c:if test="${topToday.hotDeal == 'Y'.charAt(0)}">
+									<span class="ribbon off">${topToday.discountPrice}%</span>
 								</c:if>
-								<img src="${topToday.filePath}"  data-src="${topToday.filePath}" class="owl-lazy" alt="">
+								<img src="" data-src="" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
+									<small>${topToday.isOpen}</small>
 									<div class="item_title">
 										<h3>${topToday.storeName}</h3>
 										<small># : ${topToday.hashTag}</small>
@@ -172,20 +171,22 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2>푸디푸디 추천 맛집</h2>
-				<p>돈 받았어용~ 헿</p>
+				<p>푸디푸디 광고 맛집</p>
 				<a href="/premiumlist">View All</a>
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
+				<c:if test="${empty premiumList}">광고 진행중인 맛집이 없습니다.</c:if>
 				<c:forEach var="pl" items="${premiumList}" varStatus="status">
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<c:if test="${pl.hotDeal == 'Y'.charAt(0) && pl.endDate > todayDate}">
-									<span class="ribbon off">${pl.discountPrice}</span>
+								<c:if test="${pl.hotDeal == 'Y'.charAt(0)}">
+									<span class="ribbon off">${pl.discountPrice}%</span>
 								</c:if>
-								<img src="${pl.filePath}" data-src="${pl.filePath}" class="owl-lazy" alt="">
+								<img src="" data-src="" class="owl-lazy" alt="">
 								<a href="detail-restaurant.html" class="strip_info">
+									<small>${pl.isOpen}</small>
 									<div class="item_title">
 										<h3>${pl.storeName}</h3>
 										<small># : ${pl.hashTag}</small>
@@ -211,12 +212,12 @@
 			<div class="main_title">
 				<span><em></em></span>
 				<h2 id="locationHeader"></h2>
-				<p>근처 맛집을 찾아보세용~</p>
+				<p>근처 맛집을 찾아보기</p>
 				<a id="viewAll" href="#0">View All</a>
 			</div>
 
 			<div id="locationList" class="owl-carousel owl-theme carousel_4">
-				
+
 			</div>
 			<!-- /carousel -->
 
@@ -238,13 +239,13 @@
 				<div class="col-12">
 					<div class="main_title version_2">
 						<span><em></em></span>
-						<h2>핫딜</h2>
-						<p>오늘의 핫딜 놓치지 마세요!</p>
+						<h2>핫딜 진행중인 식당</h2>
+						<p>오늘의 핫딜 놓치지 마세요!!</p>
 						<a href="/hotdeals">더보기</a>
 					</div>
 				</div>
 
-
+				<c:if test="${empty hotDeals}">핫딜 진행중인 맛집이 없습니다.</c:if>
 				<c:forEach var="hd" items="${hotDeals}" varStatus="status">
 					<c:if test="${hotDeals.indexOf(hd) gt 2}">
 						<div class="col-md-6">
@@ -252,16 +253,16 @@
 								<ul>
 									<li>
 										<a href="detail-restaurant.html">
+											<small>${hd.isOpen}</small>
 											<figure>
-												<img src="${hd.filePath}" data-src="${hd.filePath}" alt="" class="lazy">
+												<img src="" data-src="" alt="" class="lazy">
 											</figure>
 											<div class="score"><strong>${hd.avgStarRate}</strong></div>
 											<em>${hd.storeAddress}</em>
 											<h3>${hd.storeName}</h3>
 											<small># : ${hd.hashTag}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
-												<li>기간: ${hd.endDate}</li>
+												<li><span class="ribbon off">${hd.discountPrice}%</span></li>
 											</ul>
 										</a>
 									</li>
@@ -275,16 +276,16 @@
 								<ul>
 									<li>
 										<a href="detail-restaurant.html">
+											<small>${hd.isOpen}</small>
 											<figure>
-												<img src="${hd.filePath}" data-src="${hd.filePath}" alt="" class="lazy">
+												<img src="" data-src="" alt="" class="lazy">
 											</figure>
 											<div class="score"><strong>${hd.avgStarRate}</strong></div>
 											<em>${hd.storeAddress}</em>
 											<h3>${hd.storeName}</h3>
 											<small># : ${hd.hashTag}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}원</span></li>
-												<li>기간: ${hd.endDate}</li>
+												<li><span class="ribbon off">${hd.discountPrice}%</span></li>
 											</ul>
 										</a>
 									</li>
@@ -307,10 +308,10 @@
 			<div class="container clearfix">
 				<div class="col-lg-5 col-md-6 float-end wow">
 					<div class="box_1">
-						<h3>사장님이신가용?</h3>
-						<p>Join Us to increase your online visibility. You'll have access to even more
-							customers who are
-							looking to enjoy your tasty dishes at home.</p>
+						<h3>사장님이신가요?</h3>
+						<p>
+							온라인 가시성을 높이려면 저희와 함께하세요! 맛있는 요리를 즐기려는 더 많은 고객에게 접근할 수 있습니다.
+						</p>
 
 						<div class="btn_1 addMaster">사업자 등록하기</div>
 					</div>
@@ -328,7 +329,6 @@
 
 	<script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
-
 		// 로그인 한 사람만 사업자 등록 할수있음
 		document.querySelector('.addMaster').onclick = e => {
 			if ('${loginUser}' != '') {
@@ -399,7 +399,7 @@
 			}, address) {
 				console.log(locationList);
 
-				document.getElementById('locationHeader').innerHTML = address + ' 지역 맛집'; 
+				document.getElementById('locationHeader').innerHTML = address + ' 지역 맛집';
 
 				// 각 리스트 하나의 태그
 				let tag = '';
@@ -409,15 +409,20 @@
 					tag += "<div id='locationList'>주변에 식당이 없습니다! ㅠㅠ</div>";
 				} else {
 					for (let i = 0; i < locationList.length; i++) {
+
+						console.log("typeof locationList[i].hotDeal", typeof locationList[i].hotDeal);
+						console.log("locationList[i].hotDeal", locationList[i].hotDeal);
+
 						tag +=
 							`<div class="item">` +
 							`   <div class="strip">` +
 							`       <figure>` +
-							`			<c:if test="` + locationList[i] + ` == 'Y'.charAt(0) && ` + locationList[i].endDate `>` + todayDate + `}">` +
-							`				<span class="ribbon off">` + locationList[i].discountPrice + `</span>` +
+							`			<c:if test="` + locationList[i].hotDeal + ` == 'Y'.charAt(0)}">` +
+							`				<span class="ribbon off">` + locationList[i].discountPrice + `%</span>` +
 							`			</c:if>` +
-							`           <img src="` + locationList[i].filePath + `" data-src="` + locationList[i].filePath + `" class="owl-lazy" alt="">` +
+							`           <img src="" data-src="" class="owl-lazy" alt="">` +
 							`           <a href="detail-restaurant.html" class="strip_info">` +
+							`				<small>` + locationList[i].isOpen + `</small>` +
 							`               <div class="item_title">` +
 							`                   <h3>` + locationList[i].storeName + `</h3>` +
 							`                   <small># : ` + locationList[i].hashTag + `</small>` +
@@ -425,7 +430,7 @@
 							`           </a>` +
 							`       </figure>` +
 							`       <ul>` +
-							`			<li><span>` +locationList[i].storeAddress + `</span></li>` +
+							`			<li><span>` + locationList[i].storeAddress + `</span></li>` +
 							`           <li>` +
 							`               <div class="score"><span>주변 맛집<em>` + locationList[i].reviewCnt +
 							`개 리뷰</em></span><strong>` + locationList[i].avgStarRate + `</strong></div>` +

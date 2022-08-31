@@ -33,4 +33,21 @@ public class ReplyAPIController {
         boolean flag = service.write(reply);
         return flag ? "insert-success" : "insert-fail";
     }
+
+    // 댓글 수정 요청
+    @PutMapping("/{rno}")
+    public String modify(@PathVariable Long rno, @RequestBody Reply reply) {
+        reply.setReplyNo(rno);
+        log.info("/reply PUT! - {}", reply);
+        boolean flag = service.modify(reply);
+        return flag ? "mod-success" : "mod-fail";
+    }
+
+    // 댓글 삭제 요청
+    @DeleteMapping("/{rno}")
+    public String delete(@PathVariable Long rno) {
+        log.info("/api/v1/replies DELETE! - {}", rno);
+        boolean flag = service.remove(rno);
+        return flag ? "del-success" : "del-fail";
+    }
 }

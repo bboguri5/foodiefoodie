@@ -4,6 +4,7 @@ import com.project.foodiefoodie.member.domain.Auth;
 import com.project.foodiefoodie.member.domain.MasterAndMember;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.AuthDTO;
+import com.project.foodiefoodie.member.dto.PromotionAuthDTO;
 import com.project.foodiefoodie.member.service.AdminService;
 import com.project.foodiefoodie.member.service.MasterAndMemberService;
 import com.project.foodiefoodie.member.service.MasterService;
@@ -51,7 +52,7 @@ public class AdminController {
 
         mbs.removeService(email);
 
-        return "redirect:/admin/member-management";
+        return "redirect:/admin/member";
     }
 
     // 사업자 탈퇴 처리
@@ -62,7 +63,7 @@ public class AdminController {
 
         ms.removeMasterService(businessNo);
 
-        return "redirect:/admin/member-management";
+        return "redirect:/admin/member";
     }
 
 
@@ -86,7 +87,7 @@ public class AdminController {
 //        log.info("/admin/approveMaster GET! - ");
 
         List<MasterAndMember> approveList = mms.approveMasterService();
-//        log.info("approveList - {}", approveList);
+        log.info("approveList - {}", approveList);
 
         model.addAttribute("approveList", approveList);
 
@@ -100,10 +101,18 @@ public class AdminController {
         log.info("/admin/approve POST! - {}, {}", masterAndMember, approveType);
 
         if (approveType.equals("approve")) {
-            AuthDTO authDTO = new AuthDTO();
-            authDTO.setEmail(masterAndMember.getEmail());
-            authDTO.setAuth("MASTER");
-            ads.authChangeService(authDTO);
+            Member member = mbs.findMember(masterAndMember.getEmail());
+            if (member.getAuth().toString().equals("COMMON")) {
+                AuthDTO authDTO = new AuthDTO();
+                authDTO.setEmail(masterAndMember.getEmail());
+                authDTO.setAuth("MASTER");
+                ads.authChangeService(authDTO);
+            }
+            PromotionAuthDTO promotionAuthDTO = new PromotionAuthDTO();
+            promotionAuthDTO.setAuth("MASTER");
+            promotionAuthDTO.setBusinessNo(masterAndMember.getBusinessNo());
+            ads.promotionAuthChangeService(promotionAuthDTO);
+
         } else if (approveType.equals("disapprove")) {
             ms.removeMasterService(masterAndMember.getBusinessNo());
         }

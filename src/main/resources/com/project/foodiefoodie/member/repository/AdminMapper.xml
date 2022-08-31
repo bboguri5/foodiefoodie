@@ -11,4 +11,9 @@
         WHERE email = #{email}
     </update>
 
+    <update id="promotionAuthChange">
+        UPDATE master
+        SET promotion_auth = #{auth}
+        WHERE business_no = #{businessNo}
+    </update>
 </mapper>

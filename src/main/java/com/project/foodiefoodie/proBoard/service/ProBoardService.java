@@ -151,4 +151,8 @@ public class ProBoardService {
     }
 
 
+    public Integer isHotDealService(String businessNo) {
+        log.info("isHotDeal - {}", proBoardMapper.isHotDeal(businessNo));
+        return proBoardMapper.isHotDeal(businessNo);
+    }
 }

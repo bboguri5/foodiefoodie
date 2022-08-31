@@ -1,7 +1,8 @@
 package com.project.foodiefoodie.common.api.payment.controller;
 
-import com.project.foodiefoodie.common.api.payment.dto.OrderInfo;
-import com.project.foodiefoodie.common.api.payment.dto.OrderInfoDTO;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.foodiefoodie.common.api.payment.dto.MenuInfo;
 import com.project.foodiefoodie.common.api.payment.service.KakaoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -11,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -25,74 +26,133 @@ public class KakaoPaymentController {
 
     private final KakaoService kakaoService;
 
-    @GetMapping("/kakao-test")
-    public String test() {
-        return "payment/kakao-payment-test";
-    }
-
 
     // 주문 데이터를 들고 주문 확인창으로 이동 요청 처리
     @PostMapping("/kakao/order/check")
     @ResponseBody
-    public String orderRequest(@RequestBody List<OrderInfo> orderInfoList, HttpSession session) {
-        log.info("/order/check GET!! - {}", orderInfoList);
+    public String orderRequest(@RequestBody Map<String, Object> orderMap, HttpServletRequest request) {
+        String businessNo = (String) orderMap.get("businessNo");
+        int discount;
+            // 핫딜이 적용된 가게가 아니라면
+        if (orderMap.get("discount").equals("")) {
+            discount = 0;
+        }
+        // 핫딜 진행 중인 가게라면
+        else {
+            discount = Integer.parseInt(String.valueOf(orderMap.get("discount")));
+        }
+
+        log.info("orderMap.getDiscount!! - {}", discount);
+        log.info("orderMap!! - {}", orderMap);
 
 
-        session.setAttribute("orderInfoList", orderInfoList);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+
+        // js에서 비동기처리로 받은 json데이터들이 다 자바 객체 형태로 데이터가 존재하지만 엄밀히는 문자열이다.
+        // 그래서 그 문자열을 파싱해서 사용해야 하는데.. 그걸 스프링에서는 잭슨 라이브러리가 해준다.
+            // 자바에 들어온 json 데이터를 변환할 때도! 어떤 비동기 처리에 의한 데이터를 json 형태로 보낼 때도!! 잭슨 라이브러리는 열일한다.
+        // js에서 맵에 여러 데이터들을 받는 와중에 list를 받았는데!
+        // 그걸 기본형(int, String, double..)이 아닌,, 커스텀 객체 (List< ~~DTO>) 형태로 받고자 한다면..
+        // 원활히 변환이 이루어지지 않고 에러가 발생한다. 그 때는 잭슨 라이브러리에게 해당 데이터를 이런 식으로 변환해달라는 요청을 따로 보내야 한다!
+        // ObjectMapper 객체 생성 이후 convertValue 메서드 활용!!
+        // 매개변수는 2개를 사용하고 첫번째 매개변수에는 내가 js에서 받아온 데이터! 즉, 커스텀 제네릭 타입을 사용하고자 하는 부분!
+        // 2번째 매개변수에는 new TypeReference< 여기에 어떤 형태로 받을 것인지를 적는다. > () {}
+        // 아래 코드 참조!
+        List<MenuInfo> menuInfoList = objectMapper.convertValue(orderMap.get("menuList"), new TypeReference<List<MenuInfo>>() {});
+        log.info("orderMap.get!! menuInfoList : {}", menuInfoList);
+
+        HttpSession session = request.getSession();
+
+        session.setAttribute("menuInfoList", menuInfoList);
+        session.setAttribute("businessNo", businessNo);
+        session.setAttribute("discount", discount);
+
+        int totalQuantity = 0;
+        int totalPrice = 0;
+
+        if (menuInfoList != null) {
+            for (int i = 0; i < menuInfoList.size(); i++) {
+                log.info("menuInfos.get(i) - {}", menuInfoList.get(i));
+                MenuInfo menuInfo = menuInfoList.get(i);
+                totalPrice += menuInfo.getMenuPrice();
+                totalQuantity += menuInfo.getQuantity();
+            }
+        }
+
+        session.setAttribute("totalPrice", totalPrice);
+        session.setAttribute("totalQuantity", totalQuantity);
 
 
         return "order-success"; // -> 확인창에서 최종 주문 요청을 하게 되면 KakaoController에서 작업 수행.
     }
 
-    @GetMapping("/kakao/order/check")
-    public String hey() {
-        log.info("/kakao/order/check GET!!");
+
+    @GetMapping("/kakao/order/check/request")
+    public String hey(HttpSession session) {
+        List<MenuInfo> menuInfoList = (List<MenuInfo>) session.getAttribute("menuInfoList");
+        log.info("/kakao/order/check GET!! - {}", menuInfoList);
         return "payment/check-order";
     }
 
-    //    @GetMapping("/kakao/payment-test")
-    @PostMapping("/kakao/order/request")
-    public String test(HttpSession session, OrderInfoDTO orderInfoDTO, Model model) throws IOException {
 
-        log.info("/kakao/order/request POST!! - {}", orderInfoDTO);
+    @PostMapping("/kakao/order/request")
+    public String test(HttpSession session, Model model) throws IOException {
+
+        log.info("/kakao/order/request POST!!");
 
         // 결제 준비를 위해 Post 요청이 수행되어야 함.
-        Map<String, String> readyForPaymentMap = kakaoService.readyForPayment(session, orderInfoDTO);
+        Map<String, String> readyForPaymentMap = kakaoService.readyForPayment(session);
 
         String pcRedirectUrl = readyForPaymentMap.get("pcRedirectUrl");
 
 
-        // 결제 성공 url을 받아왔다면 db에 반영해줘야 함.
-        String paymentFlag = pcRedirectUrl.substring(pcRedirectUrl.lastIndexOf("/"));
-        log.info("paymentFlag : {}", paymentFlag);
-
-        if (paymentFlag.equals("success-order")) {
-            kakaoService.insertOrderInfoToDB(session, orderInfoDTO.getBusinessNo());
-        }
-
         model.addAttribute("pcUrl", pcRedirectUrl);
 
-        return "payment/test-result";
+        return "payment/check-order";
+    }
+
+
+    // 재주문하기 누른 경우 이전 화면으로 돌려줄 비동기 요청 처리
+    @GetMapping("/reOrder")
+    @ResponseBody
+    public String reOrder(HttpServletRequest request) {
+        String referer = request.getHeader("Referer");
+        if (referer == null) {
+            return "/";
+        }
+        return referer;
     }
 
 
     // 결제 성공시 api에서 보낼 요청
     @GetMapping("/success-order")
-    public String success() {
+    public String success(HttpSession session) {
+        kakaoService.insertOrderInfoToDB(session);
         return "payment/success-order";
     }
 
 
-    // 결제 취소시 api에서 보낼 요청 
+    // 결제 취소시 api에서 보낼 요청
     @GetMapping("/cancel-order")
-    public String cancel() {
+    public String cancel(HttpSession session) {
+        session.removeAttribute("menuInfoList");
+        session.removeAttribute("totalPrice");
+        session.removeAttribute("businessNo");
+        session.removeAttribute("totalQuantity");
+        session.removeAttribute("discount");
         return "payment/cancel-order";
     }
 
 
     // 결제 실패시 api에서 보낼 요청
     @GetMapping("/fail-order")
-    public String fail() {
+    public String fail(HttpSession session) {
+        session.removeAttribute("menuInfoList");
+        session.removeAttribute("totalPrice");
+        session.removeAttribute("businessNo");
+        session.removeAttribute("totalQuantity");
+        session.removeAttribute("discount");
         return "payment/fail-order";
     }
 }

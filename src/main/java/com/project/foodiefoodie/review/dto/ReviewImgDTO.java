@@ -7,9 +7,10 @@ import lombok.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class AvgStarDTO {
+public class ReviewImgDTO {
 
-    private String businessNo;
-    private int reviewCount;
-    private int sr;
+    long review_bno;
+    String filePath;
+    String fileName;
+
 }

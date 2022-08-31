@@ -141,10 +141,4 @@ public class ProBoardController {
         return infoMap;
     }
 
-//    @GetMapping("/modify/menuList/{promotionBno}")
-//    @ResponseBody
-//    public List<MenuDTO> modifyMenuList(@PathVariable int promotionBno)
-//    {
-//    }
-
 }

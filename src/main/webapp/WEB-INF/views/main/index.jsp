@@ -139,6 +139,7 @@
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
+				<c:if test="${empty topToday}">등록된 맛집이 없습니다.</c:if>
 				<c:forEach var="topToday" items="${topToday}" varStatus="status">
 					<div class="item">	
 						<div class="strip">
@@ -178,6 +179,7 @@
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
+				<c:if test="${empty premiumList}">광고 진행중인 맛집이 없습니다.</c:if>
 				<c:forEach var="pl" items="${premiumList}" varStatus="status">
 					<div class="item">
 						<div class="strip">
@@ -246,7 +248,7 @@
 					</div>
 				</div>
 
-
+				<c:if test="${empty hotDeals}">핫딜 진행중인 맛집이 없습니다.</c:if>
 				<c:forEach var="hd" items="${hotDeals}" varStatus="status">
 					<c:if test="${hotDeals.indexOf(hd) gt 2}">
 						<div class="col-md-6">

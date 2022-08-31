@@ -24,6 +24,9 @@
         <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
+            <c:if test="${empty hashTagList}">
+                <p>해당 카테고리 맛집이 없습니다.</p>
+            </c:if>
             <div class="row">
                 <c:forEach var="ht" items="${hashTagList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">

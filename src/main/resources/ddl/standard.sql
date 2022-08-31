@@ -99,11 +99,10 @@ CREATE TABLE MASTER (
     , store_call_number VARCHAR2(20) NOT NULL
     , store_detail_address VARCHAR2(50) NULL
     , store_extra_address VARCHAR2(50) NULL
-    , auth varchar2(20) default 'COMMON'
+    , promotion_auth varchar2(20) default 'COMMON'
     , CONSTRAINT fk_master_email
     FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE
 );
-
 
 
 -- 홍보글

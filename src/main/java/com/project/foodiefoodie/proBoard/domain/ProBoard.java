@@ -24,7 +24,7 @@ public class ProBoard {
     private int avgStarRate;
     private int review_cnt;
     private int report_cnt;
-    private String filePath;
-    private String fileName;
+//    private String filePath;
+//    private String fileName;
 
 }

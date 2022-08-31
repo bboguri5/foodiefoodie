@@ -13,7 +13,7 @@
         <result property="avgStarRate" column="avg_star_rate"/>
         <result property="reviewCnt" column="review_cnt"/>
         <result property="hotDeal" column="hot_deal"/>
-        <result property="filePath" column="file_path"/>
+<!--        <result property="filePath" column="file_path"/>-->
         <result property="discountPrice" column="discount_price"/>
     </resultMap>
 
@@ -25,7 +25,7 @@
         <result property="avgStarRate" column="avg_star_rate"/>
         <result property="reviewCnt" column="review_cnt"/>
         <result property="hotDeal" column="hot_deal"/>
-        <result property="filePath" column="file_path"/>
+<!--        <result property="filePath" column="file_path"/>-->
         <result property="discountPrice" column="discount_price"/>
     </resultMap>
 

@@ -14,5 +14,5 @@ public interface PaymentMapper {
 
 
     // 위에서 찾은 현재 주문 번호로 사용자가 주문한 메뉴, 수량, 가격에 대한 정보를 DB에 저장.
-    void insertOrderDetail(int orderNo, String menu, int quantity, int price);
+    void insertOrderDetail(int orderNo, String menu, int quantity, int price, int discount);
 }

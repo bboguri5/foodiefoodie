@@ -1,7 +1,6 @@
 package com.project.foodiefoodie.common.api.payment.controller;
 
-import com.project.foodiefoodie.common.api.payment.dto.OrderInfo;
-import com.project.foodiefoodie.common.api.payment.dto.OrderInfoDTO;
+import com.project.foodiefoodie.common.api.payment.dto.MenuInfo;
 import com.project.foodiefoodie.common.api.payment.service.KakaoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,20 +31,26 @@ public class KakaoPaymentController {
     @ResponseBody
     public String orderRequest(@RequestBody Map<String, Object> orderMap, HttpServletRequest request) {
         String businessNo = (String) orderMap.get("businessNo");
-        String discount = (String) orderMap.get("discount");
-        List<OrderInfo> orderInfoList = (List<OrderInfo>) orderMap.get("menuList");
-        log.info("/order/check GET!! - {}, {}, {}", businessNo, discount, orderInfoList);
+        int discount = (int) orderMap.get("discount");
+
+        log.info("orderMap.getDiscount!! - {}", discount);
+
+        List<MenuInfo> menuInfoList = (List<MenuInfo>) orderMap.get("menuList");
+        log.info("orderMap.get!! menuInfoList : {}", menuInfoList);
+
         HttpSession session = request.getSession();
 
-        session.setAttribute("orderInfoList", orderInfoList);
+        session.setAttribute("menuInfoList", menuInfoList);
+        session.setAttribute("businessNo", businessNo);
+        session.setAttribute("discount", discount);
 
         int totalQuantity = 0;
         int totalPrice = 0;
 
-        if (orderInfoList != null) {
-            for (OrderInfo orderInfo : orderInfoList) {
-                totalPrice += orderInfo.getMenuPrice();
-                totalQuantity += orderInfo.getQuantity();
+        if (menuInfoList != null) {
+            for (MenuInfo menuInfo : menuInfoList) {
+                totalPrice += menuInfo.getMenuPrice();
+                totalQuantity += menuInfo.getQuantity();
             }
         }
 
@@ -60,30 +64,23 @@ public class KakaoPaymentController {
 
     @GetMapping("/kakao/order/check/request")
     public String hey(HttpSession session) {
-        List<OrderInfo> orderInfoList = (List<OrderInfo>) session.getAttribute("orderInfoList");
-        log.info("/kakao/order/check GET!! - {}", orderInfoList);
+        List<MenuInfo> menuInfoList = (List<MenuInfo>) session.getAttribute("menuInfoList");
+        log.info("/kakao/order/check GET!! - {}", menuInfoList);
         return "payment/check-order";
     }
 
 
     @PostMapping("/kakao/order/request")
-    public String test(HttpSession session, OrderInfoDTO orderInfoDTO, Model model) throws IOException {
+    public String test(HttpSession session, Model model) throws IOException {
 
-        log.info("/kakao/order/request POST!! - {}", orderInfoDTO);
+        log.info("/kakao/order/request POST!!");
 
         // 결제 준비를 위해 Post 요청이 수행되어야 함.
-        Map<String, String> readyForPaymentMap = kakaoService.readyForPayment(session, orderInfoDTO);
+        Map<String, String> readyForPaymentMap = kakaoService.readyForPayment(session);
 
         String pcRedirectUrl = readyForPaymentMap.get("pcRedirectUrl");
 
 
-        // 결제 성공 url을 받아왔다면 db에 반영해줘야 함. 현재 작동 안함.
-        String paymentFlag = pcRedirectUrl.substring(pcRedirectUrl.lastIndexOf("/"));
-        log.info("paymentFlag : {}", paymentFlag);
-
-        if (paymentFlag.equals("success-order")) {
-            kakaoService.insertOrderInfoToDB(session, orderInfoDTO.getBusinessNo());
-        }
 
         model.addAttribute("pcUrl", pcRedirectUrl);
 
@@ -105,34 +102,33 @@ public class KakaoPaymentController {
 
     // 결제 성공시 api에서 보낼 요청
     @GetMapping("/success-order")
-    public String success() {
+    public String success(HttpSession session) {
+        kakaoService.insertOrderInfoToDB(session);
         return "payment/success-order";
     }
 
 
-    // 결제 성공 안내 페이지에서 보낼 db반영 비동기 요청
-    @GetMapping("/insertDB")
-    @ResponseBody
-    public String insertDB (HttpSession session) {
-        log.info("/insertDB ajax GET!! ");
-
-        List<OrderInfo> orderInfoList = (List<OrderInfo>) session.getAttribute("orderInfoList");
-
-       // kakaoService.insertOrderInfoToDB(session, orderInfoList.get(0).getBusinessNo());
-        return "insert-success";
-    }
-
 
     // 결제 취소시 api에서 보낼 요청 
     @GetMapping("/cancel-order")
-    public String cancel() {
+    public String cancel(HttpSession session) {
+        session.removeAttribute("menuInfoList");
+        session.removeAttribute("totalPrice");
+        session.removeAttribute("businessNo");
+        session.removeAttribute("totalQuantity");
+        session.removeAttribute("discount");
         return "payment/cancel-order";
     }
 
 
     // 결제 실패시 api에서 보낼 요청
     @GetMapping("/fail-order")
-    public String fail() {
+    public String fail(HttpSession session) {
+        session.removeAttribute("menuInfoList");
+        session.removeAttribute("totalPrice");
+        session.removeAttribute("businessNo");
+        session.removeAttribute("totalQuantity");
+        session.removeAttribute("discount");
         return "payment/fail-order";
     }
 }

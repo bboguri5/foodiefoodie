@@ -1,5 +1,7 @@
 package com.project.foodiefoodie.common.api.payment.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.foodiefoodie.common.api.payment.dto.MenuInfo;
 import com.project.foodiefoodie.common.api.payment.service.KakaoService;
 import lombok.RequiredArgsConstructor;
@@ -25,30 +27,39 @@ public class KakaoPaymentController {
     private final KakaoService kakaoService;
 
 
-
     // 주문 데이터를 들고 주문 확인창으로 이동 요청 처리
     @PostMapping("/kakao/order/check")
     @ResponseBody
     public String orderRequest(@RequestBody Map<String, Object> orderMap, HttpServletRequest request) {
         String businessNo = (String) orderMap.get("businessNo");
-        int discount = (int) orderMap.get("discount");
+        int discount;
+        if (orderMap.get("discount").equals("")) {
+            discount = 0;
+        } else {
+            discount = Integer.parseInt(String.valueOf(orderMap.get("discount")));
+        }
 
         log.info("orderMap.getDiscount!! - {}", discount);
+        log.info("orderMap!! - {}", orderMap);
 
-        List<MenuInfo> menuInfoList = (List<MenuInfo>) orderMap.get("menuList");
-        log.info("orderMap.get!! menuInfoList : {}", menuInfoList);
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<MenuInfo> menuInfos = objectMapper.convertValue(orderMap.get("menuList"), new TypeReference<List<MenuInfo>>() {
+        });
+        log.info("orderMap.get!! menuInfos : {}", menuInfos);
 
         HttpSession session = request.getSession();
 
-        session.setAttribute("menuInfoList", menuInfoList);
+        session.setAttribute("menuInfoList", menuInfos);
         session.setAttribute("businessNo", businessNo);
         session.setAttribute("discount", discount);
 
         int totalQuantity = 0;
         int totalPrice = 0;
 
-        if (menuInfoList != null) {
-            for (MenuInfo menuInfo : menuInfoList) {
+        if (menuInfos != null) {
+            for (int i = 0; i < menuInfos.size(); i++) {
+                log.info("menuInfos.get(i) - {}", menuInfos.get(i));
+                MenuInfo menuInfo = menuInfos.get(i);
                 totalPrice += menuInfo.getMenuPrice();
                 totalQuantity += menuInfo.getQuantity();
             }
@@ -81,7 +92,6 @@ public class KakaoPaymentController {
         String pcRedirectUrl = readyForPaymentMap.get("pcRedirectUrl");
 
 
-
         model.addAttribute("pcUrl", pcRedirectUrl);
 
         return "payment/check-order";
@@ -108,8 +118,7 @@ public class KakaoPaymentController {
     }
 
 
-
-    // 결제 취소시 api에서 보낼 요청 
+    // 결제 취소시 api에서 보낼 요청
     @GetMapping("/cancel-order")
     public String cancel(HttpSession session) {
         session.removeAttribute("menuInfoList");

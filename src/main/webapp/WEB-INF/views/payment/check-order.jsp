@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -44,8 +46,11 @@
 									<c:if test="${discount == 0}">
 										<li class="total">Total<span id="total">${totalPrice}</span></li>
 									</c:if>
-									<c:if test="${discount != 0}"> 
-										<li class="total">Total<span id="total">${totalPrice - (totalPrice * (discount * 100))}</span></li>
+									<c:if test="${discount != 0}">
+										<li class="total">Total<span id="total">
+												<fmt:parseNumber var="i" type="number"
+													value="${totalPrice - (totalPrice * (discount / 100))}" /><c:out value = "${i}" />
+											</span></li>
 										<p>핫딜 할인이 적용된 가격입니다.</p>
 									</c:if>
 							</ul>
@@ -94,12 +99,11 @@
 		$reqOrderBtn.on('click', e => {
 			$reqOrderForm.submit();
 		});
-		
+
 
 		if ('${pcUrl}' != '') {
-			location.href ='${pcUrl}';
+			location.href = '${pcUrl}';
 		}
-
 	</script>
 
 

@@ -36,6 +36,9 @@
         <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
+            <c:if test="${empty topTodayAll}">
+                <p>등록된 맛집이 없습니다.</p>
+            </c:if>
             <div class="row">
                 <c:forEach var="topTodayAll" items="${topTodayAll}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
@@ -49,6 +52,7 @@
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <small>${topTodayAll.isOpen}</small>
                                     <c:if test="${topTodayAll.hotDeal == 'Y'.charAt(0)}">
+                                        <span class="ribbon off">${topTodayAll.discountPrice}%</span>
                                     </c:if>
                                     <div class="item_title">
                                         <h3>${topTodayAll.storeName}</h3>

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -35,17 +37,22 @@
 							<h6>주문 정보</h6>
 							<ul>
 								<form action="/kakao/order/request" id="reqOrderForm" method="post">
-									<c:if test="${orderInfoList != null}">
-										<input type="hidden" name="businessNo" value="${orderInfoList[0].businessNo}">
-										<c:forEach var="orderInfo" items="${orderInfoList}">
-											<li>${orderInfo.menuName} *
-												${orderInfo.quantity}<span>${orderInfo.menuPrice}</span></li>
-											<input type="hidden" name="menu" value="${orderInfo.menuName}">
+									<c:if test="${menuInfoList != null}">
+										<c:forEach var="menuInfo" items="${menuInfoList}">
+											<li>${menuInfo.menuName} *
+												${menuInfo.quantity}<span>${menuInfo.menuPrice}</span></li>
 										</c:forEach>
 									</c:if>
-									<li class="total">Total<span id="total">${totalPrice}</span></li>
-									<input type="hidden" name="totalQuantity" value="${totalQuantity}">
-									<input type="hidden" name="totalPrice" value="${totalPrice}">
+									<c:if test="${discount == 0}">
+										<li class="total">Total<span id="total">${totalPrice}</span></li>
+									</c:if>
+									<c:if test="${discount != 0}">
+										<li class="total">Total<span id="total">
+												<fmt:parseNumber var="i" type="number"
+													value="${totalPrice - (totalPrice * (discount / 100))}" /><c:out value = "${i}" />
+											</span></li>
+										<p>핫딜 할인이 적용된 가격입니다.</p>
+									</c:if>
 							</ul>
 							<a href="#" class="btn_1 full-width outline mb_5" id="reOrder">다시 주문하기</a>
 							<hr>
@@ -73,9 +80,11 @@
 
 		$reOrderBtn.on('click', e => {
 			e.preventDefault();
-			sessionStorage.removeItem('orderInfoList');
+			sessionStorage.removeItem('menuInfoList');
 			sessionStorage.removeItem('totalPrice');
 			sessionStorage.removeItem('totalQuantity');
+			sessionStorage.removeItem('discount');
+			sessionStorage.removeItem('businessNo');
 			fetch('/reOrder')
 				.then(res => res.text())
 				.then(referer => {
@@ -90,12 +99,11 @@
 		$reqOrderBtn.on('click', e => {
 			$reqOrderForm.submit();
 		});
-		
+
 
 		if ('${pcUrl}' != '') {
-			location.href ='${pcUrl}';
+			location.href = '${pcUrl}';
 		}
-
 	</script>
 
 

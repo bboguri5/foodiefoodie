@@ -60,7 +60,7 @@
 											</div>
 										</div>
 										<div class="col-lg-2">
-											<input type="submit" value="Search">
+											<input type="submit" value="검색">
 										</div>
 									</div>
 								</form>
@@ -139,6 +139,7 @@
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
+				<c:if test="${empty topToday}">등록된 맛집이 없습니다.</c:if>
 				<c:forEach var="topToday" items="${topToday}" varStatus="status">
 					<div class="item">	
 						<div class="strip">
@@ -178,6 +179,7 @@
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
+				<c:if test="${empty premiumList}">광고 진행중인 맛집이 없습니다.</c:if>
 				<c:forEach var="pl" items="${premiumList}" varStatus="status">
 					<div class="item">
 						<div class="strip">
@@ -246,7 +248,7 @@
 					</div>
 				</div>
 
-
+				<c:if test="${empty hotDeals}">핫딜 진행중인 맛집이 없습니다.</c:if>
 				<c:forEach var="hd" items="${hotDeals}" varStatus="status">
 					<c:if test="${hotDeals.indexOf(hd) gt 2}">
 						<div class="col-md-6">
@@ -411,11 +413,15 @@
 					tag += "<div id='locationList'>주변에 식당이 없습니다! ㅠㅠ</div>";
 				} else {
 					for (let i = 0; i < locationList.length; i++) {
+
+						console.log("typeof locationList[i].hotDeal", typeof locationList[i].hotDeal);
+						console.log("locationList[i].hotDeal", locationList[i].hotDeal);
+
 						tag +=
 							`<div class="item">` +
 							`   <div class="strip">` +
 							`       <figure>` +
-							`			<c:if test="` + locationList[i] + ` == 'Y'.charAt(0)}">` +
+							`			<c:if test="` + locationList[i].hotDeal + ` == 'Y'.charAt(0)}">` +
 							`				<span class="ribbon off">` + locationList[i].discountPrice + `%</span>` +
 							`			</c:if>` +
 							`           <img src="` + locationList[i].filePath + `" data-src="` + locationList[i].filePath + `" class="owl-lazy" alt="">` +

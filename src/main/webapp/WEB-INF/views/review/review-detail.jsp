@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -129,7 +130,8 @@
                         <div class="postmeta">
                             <ul>
                                 <!-- <li><a href="#"><i class="icon_folder-alt"></i> Category</a></li> -->
-                                <li><i class="icon_calendar"></i> ${review.lastUpdated}</li>
+                                <li><i class="icon_calendar"></i><fmt:formatDate type="both" value="${review.lastUpdated}" /></li>
+
                                 <li><a href="#"><i class="icon_pencil-edit"></i> ${review.email}</a></li>
                                 <li><a href="#section-comment"><i class="icon_comment_alt"></i> (${replyCount})
                                         Comments</a></li>
@@ -339,11 +341,8 @@
                 const loginEmail = "${loginUser.email}";
                 // console.log("login email - ", typeof log inEmail);
 
+                
                 for (let rep of replyList) {
-
-                    // if (loginEmail === rep.email) {
-                    //     console.log("it works bitch")
-                    // }
 
                     tag +=
                         `   <li id="` + rep.replyNo + `">` +
@@ -351,8 +350,7 @@
                         `           <a href="#"><img src="/img/avatar1.jpg" alt=""></a>` +
                         `       </div>` +
                         `       <div class="comment_right clearfix">` +
-                        `           <div class="comment_info">By <a href="#">` + rep.nickName + `</a><span>|</span>` +
-                        rep.lastUpdated;
+                        `           <div class="comment_info">By <a href="#">` + rep.nickName + `</a><span>|</span>`  + new Date(rep.lastUpdated).toLocaleString();
 
                     if (loginEmail === rep.email) {
                         tag +=

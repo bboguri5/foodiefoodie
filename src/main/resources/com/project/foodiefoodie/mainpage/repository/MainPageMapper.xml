@@ -68,7 +68,7 @@
     <select id="findRandPremium" resultMap="ppMap">
         SELECT * FROM (
         SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, start_date, end_date, hashTag
+        discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
@@ -85,14 +85,14 @@
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
         SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal, file_path,
-        discount_price, start_date, end_date, hashTag
+        discount_price, hashTag
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
         WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
         (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL))
-        ORDER BY end_date
+        ORDER BY DBMS_RANDOM.RANDOM
         ) sub)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
     </select>
@@ -132,7 +132,7 @@
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
         WHERE store_address LIKE '%' || #{storeAddress}|| '%'
-        ORDER avg_star_rate
+        ORDER BY avg_star_rate
         ) sub)
         WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
     </select>

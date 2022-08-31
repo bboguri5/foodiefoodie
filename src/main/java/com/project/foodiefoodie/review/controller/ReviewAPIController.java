@@ -1,6 +1,6 @@
 package com.project.foodiefoodie.review.controller;
 
-import com.project.foodiefoodie.common.api.payment.dto.OrderInfo;
+import com.project.foodiefoodie.common.api.payment.dto.MenuInfo;
 import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +46,7 @@ public class ReviewAPIController {
 
 
     @PostMapping("/test")
-    public void test(@RequestBody List<OrderInfo> test, @RequestBody String businessNo) {
+    public void test(@RequestBody List<MenuInfo> test, @RequestBody String businessNo) {
         log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!! - {}, {}", test, businessNo);
     }
 }

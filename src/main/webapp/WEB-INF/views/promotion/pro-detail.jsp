@@ -355,8 +355,11 @@
                                     <div class="theiaStickySidebar">
                                         <div class="box_booking">
                                             <div class="head">
+
                                                 <h3>Order Summary</h3>
-                                                <div class="offer">${isHotDeal}% 할인</div>
+                                                <c:if test="${not empty isHotDeal}">
+                                                    <div class="offer">${isHotDeal}% 할인</div>
+                                                </c:if>
                                             </div>
                                             <!-- /head -->
                                             <div class="main">
@@ -374,10 +377,7 @@
                                                             class="line-through">0</span></li>
                                                 </ul>
 
-                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
-                                                    Now</a>
-                                                <div class="text-center"><small>No money charged on this
-                                                        steps</small></div>
+                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">주문하기</a>
                                             </div>
                                         </div>
 
@@ -951,7 +951,7 @@
     <!-- 메뉴 주문 자바 스크립트 -->
     <script>
         const isHotDeal = "${isHotDeal != null}";
-        const deal  = "${isHotDeal}";
+        const deal = "${isHotDeal}";
 
         // 즉시 실행
         (function () {
@@ -1165,7 +1165,7 @@
                     menuName += orderArray[j] + ' ';
                 }
 
-                
+
                 const menu = {
                     menuName: menuName,
                     menuPrice: orderArray[orderArray.length - 1],
@@ -1173,17 +1173,17 @@
                     // businessNo: businessNo,
                     // discount: 10
                 };
-                
+
                 menuList[menuList.length] = menu;
-                
+
             }
-            
+
             const businessNo = '${master.businessNo}';
 
             const obj = {
-                businessNo: businessNo
-                , discount: deal
-                , menuList: menuList
+                businessNo: businessNo,
+                discount: deal,
+                menuList: menuList
             }
 
             submitOrder(obj);
@@ -1209,7 +1209,7 @@
             fetch('/kakao/order/check', reqInfo)
                 .then(res => res.text())
                 .then(msg => {
-                        if (msg === 'order-success') {
+                    if (msg === 'order-success') {
                         location.href = '/kakao/order/check/request';
                     }
                 });

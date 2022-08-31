@@ -81,7 +81,7 @@
                     <a href="/foodlist" class="show-submenu">맛집 리스트</a>
                 </li>
                 <li class="submenu">
-                    <a href="/review?sort=latest&email=${loginUser.email}" class="show-submenu">리뷰 리스트</a>
+                    <a href="/review?sort=latest" class="show-submenu">리뷰 리스트</a>
                 </li>
 
             </ul>

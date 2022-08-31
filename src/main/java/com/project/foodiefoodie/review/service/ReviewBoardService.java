@@ -1,7 +1,5 @@
 package com.project.foodiefoodie.review.service;
 
-import com.project.foodiefoodie.proBoard.dto.ImageDTO;
-import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
@@ -11,14 +9,12 @@ import com.project.foodiefoodie.review.repository.ReviewBoardMapper;
 import com.project.foodiefoodie.util.FoodieFileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service

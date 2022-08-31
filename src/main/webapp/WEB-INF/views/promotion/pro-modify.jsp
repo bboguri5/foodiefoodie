@@ -90,6 +90,11 @@
             margin-left: 5px;
         }
 
+        .form-group.title-group .dz-image img {
+            width: 300px;
+            height: 200px;
+        }
+
 
         /* menu add  */
         .menu-row {
@@ -155,6 +160,8 @@
             min-height: 190px;
         }
 
+
+
         .add-Img-row .row {
             justify-content: space-between;
         }
@@ -167,11 +174,6 @@
         .add-Img-row .form-group:nth-child(2) {
             width: 60%;
             margin-right: 20px;
-        }
-
-        #title-dropzone.dropzone .dz-preview .dz-image {
-            position: relative;
-            width: 100%;
         }
 
         .dropzone .dz-remove {
@@ -196,6 +198,22 @@
             position: relative;
         }
 
+        #detail-dropzone.dropzone .dz-image img {
+            width: 100px;
+            height: 100px;
+        }
+
+        #title-dropzone.dropzone .dz-image img {
+            width: 300px;
+            height: 100px
+        }
+
+        #menu-dropzone.dropzone .dz-image img {
+            width: 100px;
+            height: 100px;
+
+        }
+
         #menu-dropzone.dropzone {
             padding: 0;
         }
@@ -205,9 +223,12 @@
             top: 50px;
         }
 
-        #detail-dropzone.dropzone .dz-preview .dz-image {
-            width: 100px;
+        .dropzone .dz-preview .dz-image {
+            width: 100%;
             height: 100px;
+        }
+
+        #detail-dropzone.dropzone .dz-preview .dz-image {
             position: relative;
         }
 
@@ -248,6 +269,14 @@
         .ui-timepicker-standard {
             font-family: none;
         }
+
+        .menuHidden {
+            display: none;
+        }
+
+        .menuActive {
+            display: block;
+        }
     </style>
 
 
@@ -266,7 +295,7 @@
                     <div class="box_general padding_bottom">
                         <div class="header_box version_2">
                             <h2><i class="fa fa-list"></i>
-                                사장님 홍보글 작성 </h2>
+                                사장님 홍보글 수정 </h2>
                         </div>
 
                         <!-- detail info -->
@@ -274,40 +303,42 @@
                             <div class="col-md-6 master-detail">
                                 <input type="text" class="" hidden>
                                 <div class="row-form">
-                                    <input type="text" name="businessNo" value="${businessNo}" hidden>
+                                    <input type="text" name="businessNo" value="${proBoard.businessNo}" hidden>
                                     <div class="form-group detail-Info">
                                         <label>STORE NAME
                                         </label>
-                                        <input type="text" class="form-control" value="${master.storeName}" readonly>
+                                        <input type="text" class="form-control" value="${proBoard.storeName}" readonly>
                                     </div>
                                     <div class="form-group detail-Info">
                                         <label>STORE MASTER NAME
                                         </label>
-                                        <input type="text" class="form-control" value="${master.masterName}" readonly>
+                                        <input type="text" class="form-control" value="${proBoard.masterName}" readonly>
                                     </div>
                                     <div class="form-group detail-Info">
                                         <label>STORE CALL NUMBER
                                         </label>
-                                        <input type="text" class="form-control" value="${master.storeCallNumber}"
+                                        <input type="text" class="form-control" value="${proBoard.storeCallNumber}"
                                             readonly>
                                     </div>
                                 </div>
                                 <div class="form-group detail-Info detail-address">
                                     <label>STORE ADDRESS
                                     </label>
-                                    <input type="text" class="form-control" value="${master.storeAddress}" readonly>
+                                    <input type="text" class="form-control" value="${proBoard.storeAddress}" readonly>
                                 </div>
                                 <div class="form-group detail-Info">
                                     <label class="title-label">Title
                                     </label>
-                                    <input type="text" class="form-control title" name="title"
-                                        value="${master.storeName}" style="border-color:green">
+                                    <input type="text" class="form-control title" name="title" value="${proBoard.title}"
+                                        style="border-color:green">
                                 </div>
                                 <div class="form-group detail-Info">
                                     <div class="form-group">
                                         <label class="hashTag-label">HASH TAG</label>
                                         <input type="text" class="form-control hashTag" name="hashTag"
-                                            placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다.">
+                                            value="${proBoard.hashTag}" placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다."
+                                            style="border-color:green">
+
                                     </div>
                                 </div>
                             </div>
@@ -318,10 +349,11 @@
                         <!-- CONTENT editor -->
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="form-group">
+                                <div class="form-group ">
                                     <label class="content-label">CONTENT</label>
-                                    <textarea name="content" class="form-control content" style="height: 150px;"
-                                        placeholder="Message" id="message_contact" name="message_contact"></textarea>
+                                    <textarea style="border-color:green" name="content" class="form-control content"
+                                        style="height: 150px;" placeholder="Message"
+                                        id="content">${proBoard.content}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -418,7 +450,6 @@
                     </div>
                     <!-- /add Menu List -->
 
-
                     <!-- store time -->
                     <div class="box_general padding_bottom">
                         <div class="header_box version_2">
@@ -440,6 +471,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <input name="weekdayOpenTime" type="text"
+                                                            value="${proBoard.weekdayOpenTime}" autocomplete='off'
                                                             class="form-control select-time weekday-openTime">
                                                     </div>
 
@@ -447,7 +479,8 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <input name="weekdayCloseTime" type="text"
-                                                            class="form-control select-time">
+                                                            value="${proBoard.weekdayCloseTime}" autocomplete='off'
+                                                            class="form-control select-time weekday-closeTime">
                                                     </div>
 
                                                 </div>
@@ -466,13 +499,17 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <input name="weekendOpenTime" type="text"
-                                                            class="form-control select-time" placeholder="오픈시간입력">
+                                                            value="${proBoard.weekendOpenTime}" autocomplete='off'
+                                                            class="form-control select-time weekend-openTime"
+                                                            placeholder="오픈시간입력">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <input name="weekendCloseTime" type="text"
-                                                            class="form-control select-time" placeholder="마감시간입력">
+                                                            value="${proBoard.weekendCloseTime}" autocomplete='off'
+                                                            class="form-control select-time weekend-closeTime"
+                                                            placeholder="마감시간입력">
                                                     </div>
                                                 </div>
                                             </div>
@@ -490,13 +527,17 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <input name="breakStartTime" type="text"
-                                                            class="form-control select-time" placeholder="시작시간">
+                                                            value="${proBoard.breakStartTime}" autocomplete='off'
+                                                            class="form-control select-time break-startTime"
+                                                            placeholder="시작시간">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <input name="breakEndTime" type="text"
-                                                            class="form-control select-time" placeholder="종료시간">
+                                                            value="${proBoard.breakEndTime}" autocomplete='off'
+                                                            class="form-control select-time break-endTime"
+                                                            placeholder="종료시간">
                                                     </div>
                                                 </div>
                                             </div>
@@ -515,7 +556,8 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <input type="text" name="closedDay"
-                                                            class="form-control closedDay" placeholder="휴무 옵션 선택"
+                                                            value="${proBoard.closedDay}"
+                                                            class="form-control closed-day" placeholder="휴무 옵션 선택"
                                                             readonly>
                                                     </div>
                                                 </div>
@@ -553,8 +595,26 @@
                 <button type="button" class="btn_1 medium cancel">Cancel</button></div>
         </form>
     </main>
-
     <script>
+        $('.weekday-openTime').timepicker({
+            defaultTime: '${proBoard.weekdayOpenTime}'
+        });
+        $('.weekday-closeTime').timepicker({
+            defaultTime: '${proBoard.weekdayCloseTime}'
+        });
+        $('.weekend-openTime').timepicker({
+            defaultTime: '${proBoard.weekendOpenTime}'
+        });
+        $('.weekend-closeTime').timepicker({
+            defaultTime: '${proBoard.weekendCloseTime}'
+        });
+        $('.break-startTime').timepicker({
+            defaultTime: '${proBoard.breakStartTime}'
+        });
+        $('.break-endTime').timepicker({
+            defaultTime: '${proBoard.breakEndTime}'
+        });
+
         // select time 
         $(".select-time").timepicker({
             timeFormat: 'HH:mm a',
@@ -617,9 +677,10 @@
         const $titleTag = $('.title');
         const $hashTag = $('.hashTag');
         const $contentTag = $('.content');
-        const menuItem = document.querySelectorAll('.row.menu-row');
-        const $menuNameList = document.querySelectorAll(".menu-name");
-        const $menuPriceList = document.querySelectorAll(".menu-price");
+
+
+        $contentTag.text(`${proBoard.content}`.replace(/<br>/gi, "\n"));
+
 
         // title , hashTag , content , menu , hashTag overlap , time  
         const checkArr = [false, false, false];
@@ -634,7 +695,7 @@
             checkSaveData(); // title , content , hashTag 
         });
 
-        addMenuImg(1); // first menu item dropzone 처리
+        // addMenuImg(1); // first menu item dropzone 처리
         addMenuItem();
 
 
@@ -716,12 +777,16 @@
             });
         }
 
+        let count = 1;
 
-        /* add menu item dom */
+        // /* add menu item dom */
         function makeNewMenuItemDom() {
-            var newElem = $('form-group').first().clone(); // 첫 item 복사 
+            var newElem = $('.pricing-list-item').first().clone(); // 첫 item 복사 
             newElem.find('input').val('');
-            newElem.appendTo('table#pricing-list-container');
+            newElem.css('display','block');
+            newElem.appendTo('table#pricing-list-container tbody');
+
+            console.log("newElem " , newElem);
         }
 
         /* add menu item delete */
@@ -732,9 +797,26 @@
             });
         }
 
+        function createAddMenuItem() {
+            ++count;
+
+            console.log("creat 진입");
+            makeNewMenuItemDom();
+            $('.menu-row').last().find('.delete-form').append(
+                '<a class="delete' + ' menuDelete' + count + '"' +
+                ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
+            $(this).css('border-colore', 'none'); // 처음 menuItem 제외하고 추가 시 delete 버튼 생성 
+            const $target = $('#pricing-list-container').last().find('.menu1').last();
+            $target.removeClass('menu1');
+            $target.addClass('menu' + count);
+
+
+            inputOnlyIntType(); // 추가된 menuItem에서 price 숫자검증 
+            deleteMenuItem();
+        }
+
         /* add menu item */
         function addMenuItem() {
-            let count = 1;
 
             // default 이미지 없는 메뉴는 기본이미지으로 대체하기 위해 default으로 비어있는 파일. 
             // 첫 menu item을 위해 push 
@@ -753,7 +835,7 @@
 
                     const $container = $('#pricing-list-container');
                     e.preventDefault();
-                    makeNewMenuItemDom();
+                    // makeNewMenuItemDom();
 
                     $('.menu-row').last().find('.delete-form').append(
                         '<a class="delete' + ' menuDelete' + count + '"' +
@@ -851,9 +933,13 @@
 
 
 
+
+
+
+
+
+
         // -------------- fiel upload and file dropzone --------------
-
-
 
         const titleDropzone = new Dropzone("#title-dropzone.dropzone", {
             url: "/proBoard/write",
@@ -868,11 +954,109 @@
             addRemoveLinks: true,
             dictRemoveFile: 'X',
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
+
+
         });
 
 
-        let overlapSet = new Set();
+        console.log(`${promotionBno}`);
+        fetch('/proBoard/modify/files/' + ${promotionBno})
+            .then(res => res.json())
+            .then(fileMap => {
+                const title = fileMap.title[0];
+                const details = fileMap.detail;
+                const menuList = fileMap.menuList;
+                console.log("title : ", title);
+                console.log("details : ", details);
+                console.log("menu : ", menuList);
 
+
+                const newTitleFile = new File([title.fileByte], title.fileName, {
+                    type: title.fileMediaType,
+                    size: title.fileSize,
+                    status: titleDropzone.ADDED,
+                    accepted: true
+                });
+
+                titleDropzone.emit("addedfile", newTitleFile);
+                titleDropzone.emit("thumbnail", newTitleFile, title.fileData);
+                titleDropzone.emit("complete", newTitleFile);
+                titleDropzone.files.push(newTitleFile);
+
+                for (const detail of details) {
+                    const newDetailFile = new File([detail.fileByte], detail.fileName, {
+                        type: detail.fileMediaType,
+                        size: detail.fileSize,
+                        status: titleDropzone.ADDED,
+                        accepted: true
+                    });
+
+                    detailDropzone.emit("addedfile", newDetailFile);
+                    detailDropzone.emit("thumbnail", newDetailFile, detail.fileData);
+                    detailDropzone.emit("complete", newDetailFile);
+                    detailDropzone.files.push(newDetailFile);
+                }
+
+
+
+                console.log(menuList);
+                if (menuList.length > 0) {
+
+                    const itemBox = $("#pricing-list-container tbody");
+
+                    const firstItem = itemBox.first().children();
+                        firstItem.css("display","none");
+
+
+                    // menuHidden
+                    for (const menu of menuList) {
+
+                        createAddMenuItem();
+                        let menuDropzone = addMenuImg(count);
+
+                        console.log(menuDropzone);
+
+                        const newMenuFile = new File([menu.fileByte], menu.fileName, {
+                            type: menu.fileMediaType,
+                            size: menu.fileSize,
+                            status: titleDropzone.ADDED,
+                            accepted: true
+                        });
+
+                        menuDropzone.emit("addedfile", newMenuFile);
+                        menuDropzone.emit("thumbnail", newMenuFile, menu.fileData);
+                        menuDropzone.emit("complete", newMenuFile);
+                        menuDropzone.files.push(newMenuFile);
+
+
+                        // const lastItem = itemBox.last().children();
+                        // lastItem.css("display","block")
+
+                    };
+
+                }
+
+
+                //     const menuFile = new File([menu.fileByte], menu.fileName, {
+                //         type: menu.fileMediaType,
+                //         size: menu.fileSize,
+                //         status: menuDropzone.ADDED,
+                //         accepted: true
+                //     });
+
+                //     menuDropzone.emit("addedfile", menuFile);
+                //     menuDropzone.emit("thumbnail", menuFile, menu.fileData);
+                //     menuDropzone.emit("complete", menuFile);
+                //     menuDropzone.files.push(menuFile);
+                // }
+
+
+            });
+
+
+        console.log(titleDropzone.filse);
+
+        let overlapSet = new Set();
         const detailDropzone = new Dropzone("#detail-dropzone.dropzone", {
             url: "/proBoard/write",
             method: 'post',
@@ -889,6 +1073,8 @@
             parallelUploads: 5,
             uploadMultiple: true,
             init: function () {
+
+
 
                 let myDropzone = this;
 
@@ -965,7 +1151,10 @@
                 acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
 
                 init: function () {
+
                     let myDropzone = this;
+
+
                     this.on('addedfile', function (file) { // menu item 추가 시 
                         menuFileList[index - 1] = file;
                         console.log("add : ", menuFileList);
@@ -999,16 +1188,15 @@
 
 
         $('.save').on('click', e => {
-            let checkSave = [false, false];
-            checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
 
             AddFileList();
             if (!checkArr.includes(false)) { // title , hashTag , content 필수 입력 
 
-                // let checkSave = [false, false, false];
+                let checkSave = [false, false, false];
 
+                checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
                 checkSave[1] = checkOverlapHashTag(); // 해시태그 중복 검증 
-                // checkSave[2] = checkInputTime(); // 시간 입력 검증 
+                checkSave[2] = checkInputTime(); // 시간 입력 검증 
 
                 console.log("checkSave : ", checkSave);
                 if (!checkSave.includes(false)) {
@@ -1026,7 +1214,6 @@
 
         function AddFileList() {
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
-            // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
             const $detailHiddenTag = document.querySelector('.hidden-detail-img');
             const $titleHiddenTag = document.querySelector('.hidden-title-img');
             const $menuHiddenTag = document.querySelector('.hidden-menu-img');
@@ -1067,11 +1254,12 @@
 
         // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
         function checkMenuInput() {
+            const $menuNameList = document.querySelectorAll(".menu-name");
+            const $menuPriceList = document.querySelectorAll(".menu-price");
 
             /* 
             1. menu item 1개 
                 - input값 없으면 = true
-                - input값 둘 다 있으면 = true;
                 - name만 입력하면 = false
                 - price만 입력하면 = false
                 - 사진만 있으면 = false
@@ -1079,17 +1267,16 @@
             2. menu item 2개 이상
                 - input값 없으면 = false
             */
+            const menuItem = document.querySelectorAll('.row.menu-row');
             if (menuItem.length === 1) {
 
                 if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
-                    if (menuFileList.length > 0 && menuFileList[0].name != 'default') {
-                        console.log(" 사진 등록 ? ");
+                    if (menuFileList[0].name != 'default') {
                         alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
                         return false;
-                    } else {
-                        menuFileList = [];
-                        return true;
                     }
+
+                    return true;
                 }
 
                 if ($menuNameList[0].value.length === 0 || $menuPriceList[0].value.length === 0) {

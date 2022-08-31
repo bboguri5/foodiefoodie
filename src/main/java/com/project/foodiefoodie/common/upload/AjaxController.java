@@ -66,7 +66,6 @@ public class AjaxController {
         // 해당 경로 + 파일명을 파일 객체로 포장.
         File file = new File(UPLOAD_PATH + fileName);
 
-
         // 해당 경로 + 파일명이 실제로 서버내 존재하지 않는 경우
         if (!file.exists()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

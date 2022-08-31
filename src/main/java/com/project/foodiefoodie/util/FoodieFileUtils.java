@@ -142,8 +142,6 @@ public class FoodieFileUtils {
         return fileName.substring(fileName.lastIndexOf(".") + 1);
     }
 
-
-
     // file 경로 byte으로 변환 후 base64으로 string type으로 return;
     // 로컬경로의 이미지는 보안문제로 적용되지 않기때문에 변환하여 전달
     public static String getFileContent (String filePath) {
@@ -153,7 +151,6 @@ public class FoodieFileUtils {
     }
 
     private static String convertBlobToBase64 (byte[] blob) {
-//        log.info("여기서 안되는듯?");
         return new String(Base64.getEncoder().encode(blob));
     }
 

@@ -11,12 +11,9 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MenuDTO{
+public class MenuDTO extends FileDTO{
 
    private int menuNo;
    private String menuName;
    private int menuPrice;
-   private String filePath;
-   private String fileName;
-
 }

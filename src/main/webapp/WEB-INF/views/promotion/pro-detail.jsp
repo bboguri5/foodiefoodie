@@ -1,5 +1,7 @@
 <%@ page contentType='text/html; charset=UTF-8' language='java' %>
 <%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -9,15 +11,6 @@
     <meta name="description" content="Foogra - Discover & Book the best restaurants at the best price">
     <meta name="author" content="Ansonika">
     <title>Foogra - Discover & Book the best restaurants at the best price</title>
-
-    <!-- Favicons-->
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-        href="/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-        href="/img/apple-touch-icon-144x144-precomposed.png">
 
     <!-- jquery -->
     <script src="/js/jquery-3.3.1.min.js"></script>
@@ -34,23 +27,17 @@
     <!-- SPECIFIC CSS -->
     <link href="/css/detail-page.css" rel="stylesheet">
 
-    <!-- YOUR CUSTOM CSS -->
-    <link href="/css/custom.css" rel="stylesheet">
-
     <link href="/css/detail-page-delivery.css" rel="stylesheet">
-
-    <!-- menu -->
-    <link rel="apple-touch-icon" type="image/x-icon" href="/img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-        href="/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-        href="/img/apple-touch-icon-144x144-precomposed.png">
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
 
     <!-- notice -->
     <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css/admin.css" rel="stylesheet">
+
+    <!-- jquery -->
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- bootstrap css -->
 
     <style id="theia-sticky-sidebar-stylesheet-TSS">
         .theiaStickySidebar:after {
@@ -81,6 +68,10 @@
         width: 100%;
         padding-left: 25%;
         padding-right: 25%;
+    }
+
+    .menu_item.thumbs figure img.defaultImg {
+        width: 50px;
     }
 
     .endLine {
@@ -129,6 +120,18 @@
         color: #fff !important;
     }
 
+    .openWriteBox {
+        display: flex;
+        justify-content: end;
+
+
+    }
+
+    .openWriteBtn {
+        width: 50px;
+        height: 50px;
+    }
+
     .quantity {
         display: inline;
         margin-left: 470px;
@@ -149,6 +152,78 @@
     .icon_plus_alt2 {
         margin-left: 20px;
     }
+
+
+    /* review */
+    #locationList {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #locationList .item {
+        width: 16%;
+    }
+
+    .search form {
+        display: flex;
+    }
+
+    .search .form-select {
+        flex: 1;
+        margin-top: 8px;
+        border-radius: 10px;
+    }
+
+    .search .row {
+        flex: 10;
+    }
+
+    .col-lg-9 {
+        margin: auto;
+        width: 60%;
+    }
+
+    article.blog .post_info {
+        padding: 20px 17px 30px 17px;
+    }
+
+    .post_info h2 {
+        margin: 20px 0;
+    }
+
+    .post_info li i {
+        margin-left: 10px;
+    }
+
+    .heartIcon:hover {
+        cursor: pointer;
+    }
+
+    .icon_comment_alt {
+        cursor: pointer;
+    }
+
+    p {
+        overflow-wrap: break-word;
+    }
+
+    .page_header .container .row form {
+        width: 75%;
+
+    }
+
+    .page_header .container .row .col-xl-8 {
+        width: 20%;
+    }
+
+    nav.main-menu {
+        height: 100%;
+        margin-right: 40px;
+    }
+
+    .submenu .show-submenu {
+        color: #589442;
+    }
 </style>
 
 <body>
@@ -157,8 +232,8 @@
 
     <!-- main -->
     <main>
-        <div class="hero_in detail_page title_img_add"
-            style=" background-image: url('data:image/jpg;base64,${titleImg}');">
+
+        <div class="hero_in detail_page title_img_add" style=" background-image: url(${title.fileData});">
             <!-- <img src="data:image/jpg;base64,${titleImg}">  -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                 <div class="container">
@@ -169,7 +244,7 @@
                                     <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
                                 </div>
                                 <h1>${proBoard.title}</h1>
-                                ${master.storeAddress} ${master.storeDetailAddress}
+                                ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
                             <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
@@ -201,9 +276,14 @@
                                 <a id="tab-A" href="#pane-A" class="nav-link active" data-bs-toggle="tab"
                                     role="tab">Information</a>
                             </li>
-                            <li class="nav-item">
-                                <a id="tab-B" href="#pane-B" class="nav-link" data-bs-toggle="tab" role="tab">menu</a>
-                            </li>
+                            <c:set var="menuList" value="${menuList}" />
+                            <c:if test="${fn:length(menuList) > 0}">
+                                <li class="nav-item">
+                                    <a id="tab-B" href="#pane-B" class="nav-link" data-bs-toggle="tab"
+                                        role="tab">menu</a>
+                                </li>
+                            </c:if>
+
                             <li class="nav-item">
                                 <a id="tab-C" href="#pane-C" class="nav-link" data-bs-toggle="tab"
                                     role="tab">Reviews</a>
@@ -230,11 +310,10 @@
                                         <!-- detail photo -->
                                         <h2>Detail Photos</h2>
                                         <div class="pictures magnific-gallery clearfix">
-                                            <c:forEach var="detailImg" items="${detailImgList}" varStatus="status">
+                                            <c:forEach var="detailImg" items="${detailFiles}" varStatus="status">
                                                 <figure><a title="Photo title" data-effect="mfp-zoom-in"><img
-                                                            src="data:image/jpg;base64,${detailImg}"
-                                                            data-src="data:image/jpg;base64,${detailImg}" class="lazy"
-                                                            alt=""></a>
+                                                            src="${detailImg.fileData}" data-src="${detailImg.fileData}"
+                                                            class="lazy" alt=""></a>
                                                 </figure>
                                             </c:forEach>
                                         </div>
@@ -248,13 +327,13 @@
                                                     <tbody>
                                                         <tr class="only-desktop">
                                                             <th>주소</th>
-                                                            <td>${master.storeAddress} ${master.storeDetailAddress}<br>
+                                                            <td>${proBoard.storeAddress} ${proBoard.storeDetailAddress}<br>
                                                                 <!-- ${address} -->
                                                             </td>
                                                         </tr>
                                                         <tr class="only-desktop">
                                                             <th>전화번호</th>
-                                                            <td>${master.storeCallNumber}</td>
+                                                            <td>${proBoard.storeCallNumber}</td>
                                                             <!-- ${storeCallNumber} -->
                                                         </tr>
 
@@ -266,17 +345,17 @@
 
                                                         <tr>
                                                             <th style="vertical-align:top;">영업시간</th>
-                                                            <td>월-금: ${storeTime.weekdayOpenTime} -
-                                                                ${storeTime.weekdayCloseTime}
-                                                                <br> 토: ${storeTime.weekendOpenTime} -
-                                                                ${storeTime.weekendCloseTime}
-                                                                <br> 브레이크타임: ${storeTime.breakStartTime} -
-                                                                ${storeTime.breakEndTime}</td>
+                                                            <td>월-금: ${proBoard.weekdayOpenTime} -
+                                                                ${proBoard.weekdayCloseTime}
+                                                                <br> 토: ${proBoard.weekendOpenTime} -
+                                                                ${proBoard.weekendCloseTime}
+                                                                <br> 브레이크타임: ${proBoard.breakStartTime} -
+                                                                ${proBoard.breakEndTime}</td>
                                                             <!-- ${StoreTime} -->
                                                         </tr>
                                                         <tr>
                                                             <th>휴일</th>
-                                                            <td>${storeTime.closedDay}</td>
+                                                            <td>${proBoard.closedDay}</td>
                                                         </tr><!-- ${StoreTime} -->
                                                     </tbody>
                                                 </table>
@@ -331,22 +410,32 @@
                                         <div class="menu-gallery">
                                             <!-- menu itmes -->
                                             <c:forEach var="menu" items="${menuList}">
-                                                <div class="menu_item thumbs">
+
+                                            <div class="menu_item thumbs">
                                                     <figure>
                                                         <a title="Photo title" data-effect="mfp-zoom-in">
-                                                            <img src="data:image/jpg;base64,${menu.filePath}"
-                                                                data-src="data:image/jpg;base64,${menu.filePath}" alt=""
-                                                                class="lazy">
+                                                            <c:set var="filePath" value="${menu.filePath}" />
+                                                            <c:if test="${fn:contains(filePath,'foodie_default.PNG')}">
+                                                                <img src="${menu.filePath}" data-src="${menu.filePath}"
+                                                                    alt="${menu.fileName}" class="defaultImg">
+                                                            </c:if>
+                                                            <c:if
+                                                                test="${not fn:contains(filePath,'foodie_default.PNG')}">
+                                                                <img src="${menu.fileData}" data-src="${menu.fileData}"
+                                                                    alt="${menu.fileName}" class="lazy">
+                                                            </c:if>
                                                         </a>
                                                     </figure>
-                                                    <div id="menu${menu.menuNo}" class="menuInfo">
-                                                        <h4 id="menu-name${menu.menuNo}">${menu.menuName}</h4>
-                                                        <em id="menu-price${menu.menuNo}">${menu.menuPrice}</em>
-                                                        <button id="${menu.menuNo}" class="menuAddBtn"
-                                                            type="button">방문포장</button>
-                                                    </div>
+                                                <div id="menu${menu.menuNo}" class="menuInfo">
+                                                    <h4 id="menu-name${menu.menuNo}">${menu.menuName}
+                                                    </h4>
+                                                    <em id="menu-price${menu.menuNo}">${menu.menuPrice}</em>
+                                                    <button id="${menu.menuNo}" class="menuAddBtn"
+                                                        type="button">방문포장</button>
                                                 </div>
-                                            </c:forEach>
+                                            </div>
+                                        </c:forEach>
+
                                             <!-- menu itmes -->
                                         </div>
                                         <!-- /menu-gallery -->
@@ -387,6 +476,8 @@
 
                             </div>
                             <!-- /B type -->
+
+
                             <!-- C type -->
                             <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-C">
                                 <div class="card-header" role="tab" id="heading-C">
@@ -408,198 +499,49 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-9 reviews_sum_details">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h6>Food Quality</h6>
-                                                        <div class="row">
-                                                            <div class="col-xl-10 col-lg-9 col-9">
-                                                                <div class="progress">
-                                                                    <div class="progress-bar" role="progressbar"
-                                                                        style="width: 90%" aria-valuenow="90"
-                                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3">
-                                                                <strong>9.0</strong>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /row -->
-                                                        <h6>Service</h6>
-                                                        <div class="row">
-                                                            <div class="col-xl-10 col-lg-9 col-9">
-                                                                <div class="progress">
-                                                                    <div class="progress-bar" role="progressbar"
-                                                                        style="width: 95%" aria-valuenow="95"
-                                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3">
-                                                                <strong>9.5</strong>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /row -->
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <h6>Location</h6>
-                                                        <div class="row">
-                                                            <div class="col-xl-10 col-lg-9 col-9">
-                                                                <div class="progress">
-                                                                    <div class="progress-bar" role="progressbar"
-                                                                        style="width: 60%" aria-valuenow="60"
-                                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3">
-                                                                <strong>6.0</strong>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /row -->
-                                                        <h6>Price</h6>
-                                                        <div class="row">
-                                                            <div class="col-xl-10 col-lg-9 col-9">
-                                                                <div class="progress">
-                                                                    <div class="progress-bar" role="progressbar"
-                                                                        style="width: 60%" aria-valuenow="60"
-                                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-2 col-lg-3 col-3">
-                                                                <strong>6.0</strong>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /row -->
-                                                    </div>
-                                                </div>
-                                                <!-- /row -->
-                                            </div>
-                                        </div>
+                                                <c:forEach var="rl" items="${reviewList}" varStatus="status">
+                                                    <!-- <div class="col-md-6"> -->
+                                                    <article class="blog">
+                                                        <figure>
+                                                            <a
+                                                                href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}"><img
+                                                                    src="${uploads[status.index].filePath}" alt="">
+                                                                <div class="preview"><span>Read more</span></div>
+                                                            </a>
+                                                        </figure>
+                                                        <div class="post_info">
+                                                            <small>Last Updated - ${rl.lastUpdated}
+                                                                <fmt:formatDate type="both" value="${rl.lastUpdated}" />
+                                                            </small>
+                                                            <h2><a
+                                                                    href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a>
+                                                            </h2>
 
-                                        <div id="reviews">
-                                            <div class="review_card">
-                                                <div class="row">
-                                                    <div class="col-md-2 user_info">
-                                                        <figure><img src="/img/avatar4.jpg" alt=""></figure>
-                                                        <h5>Lukas</h5>
-                                                    </div>
-                                                    <div class="col-md-10 review_content">
-                                                        <div class="clearfix add_bottom_15">
-                                                            <span class="rating">8.5<small>/10</small>
-                                                                <strong>Rating
-                                                                    average</strong></span>
-                                                            <em>Published 54 minutes ago</em>
+                                                            <p>식당 이름: <a href="#">${rl.storeName}</a></p>
+                                                            <p>식당 주소: ${rl.storeAddress}</p>
+                                                            <p>${rl.content}
+                                                                <ul>
+                                                                    <li>
+                                                                        <div class="thumb"><img src="/img/avatar.jpg"
+                                                                                alt=""></div>
+                                                                        ${rl.email}
+                                                                    </li>
+                                                                    <li>
+                                                                        <i id="${rl.reviewBno}"
+                                                                            class="heartIcon icon_heart_alt"></i><span
+                                                                            id="heart${rl.reviewBno}">${rl.likeCnt}</span>
+                                                                        <a
+                                                                            href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}#section-comment"><i
+                                                                                id="${rl.reviewBno}"
+                                                                                class="icon_comment_alt"></i>${replyCount[status.index]}</a>
+                                                                    </li>
+
+                                                                </ul>
                                                         </div>
-                                                        <h4>"Great Location!!"</h4>
-                                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros
-                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus,
-                                                            sit
-                                                            commodo veritus te, erat legere fabulas has ut. Rebum
-                                                            laudem
-                                                            cum ea, ius essent fuisset ut. Viderer petentium cu his.
-                                                            Tollit molestie suscipiantur his et.</p>
-                                                        <ul>
-                                                            <li><a href="#0"><i
-                                                                        class="icon_like"></i><span>Useful</span></a>
-                                                            </li>
-                                                            <li><a href="#0"><i class="icon_dislike"></i><span>Not
-                                                                        useful</span></a></li>
-                                                            <li><a href="#0"><i class="arrow_back"></i>
-                                                                    <span>Reply</span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <!-- /row -->
-                                            </div>
-                                            <!-- /review_card -->
-                                            <div class="review_card">
-                                                <div class="row">
-                                                    <div class="col-md-2 user_info">
-                                                        <figure><img src="/img/avatar6.jpg" alt=""></figure>
-                                                        <h5>Lukas</h5>
-                                                    </div>
-                                                    <div class="col-md-10 review_content">
-                                                        <div class="clearfix add_bottom_15">
-                                                            <span class="rating">8.5<small>/10</small>
-                                                                <strong>Rating
-                                                                    average</strong></span>
-                                                            <em>Published 10 Oct. 2019</em>
-                                                        </div>
-                                                        <h4>"Awesome Experience"</h4>
-                                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros
-                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus,
-                                                            sit
-                                                            commodo veritus te, erat legere fabulas has ut. Rebum
-                                                            laudem
-                                                            cum ea, ius essent fuisset ut. Viderer petentium cu his.
-                                                            Tollit molestie suscipiantur his et.</p>
-                                                        <ul>
-                                                            <li><a href="#0"><i
-                                                                        class="icon_like"></i><span>Useful</span></a>
-                                                            </li>
-                                                            <li><a href="#0"><i class="icon_dislike"></i><span>Not
-                                                                        useful</span></a></li>
-                                                            <li><a href="#0"><i class="arrow_back"></i>
-                                                                    <span>Reply</span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <!-- /row -->
-                                            </div>
-                                            <!-- /review_card -->
-                                            <div class="review_card">
-                                                <div class="row">
-                                                    <div class="col-md-2 user_info">
-                                                        <figure><img src="/img/avatar1.jpg" alt=""></figure>
-                                                        <h5>Marika</h5>
-                                                    </div>
-                                                    <div class="col-md-10 review_content">
-                                                        <div class="clearfix add_bottom_15">
-                                                            <span class="rating">9.0<small>/10</small>
-                                                                <strong>Rating
-                                                                    average</strong></span>
-                                                            <em>Published 11 Oct. 2019</em>
-                                                        </div>
-                                                        <h4>"Really great dinner!!"</h4>
-                                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros
-                                                            eirmod scaevola sea. Et nec tantas accusamus salutatus,
-                                                            sit
-                                                            commodo veritus te, erat legere fabulas has ut. Rebum
-                                                            laudem
-                                                            cum ea, ius essent fuisset ut. Viderer petentium cu his.
-                                                            Tollit molestie suscipiantur his et.</p>
-                                                        <ul>
-                                                            <li><a href="#0"><i
-                                                                        class="icon_like"></i><span>Useful</span></a>
-                                                            </li>
-                                                            <li><a href="#0"><i class="icon_dislike"></i><span>Not
-                                                                        useful</span></a></li>
-                                                            <li><a href="#0"><i class="arrow_back"></i>
-                                                                    <span>Reply</span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <!-- /row -->
-                                                <div class="row reply">
-                                                    <div class="col-md-2 user_info">
-                                                        <figure><img src="/img/avatar.jpg" alt=""></figure>
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <div class="review_content">
-                                                            <strong>Reply from Foogra</strong>
-                                                            <em>Published 3 minutes ago</em>
-                                                            <p><br>Hi Monika,<br><br>Eos tollit ancillae ea, lorem
-                                                                consulatu qui ne, eu eros eirmod scaevola sea. Et
-                                                                nec
-                                                                tantas accusamus salutatus, sit commodo veritus te,
-                                                                erat
-                                                                legere fabulas has ut. Rebum laudem cum ea, ius
-                                                                essent
-                                                                fuisset ut. Viderer petentium cu his. Tollit
-                                                                molestie
-                                                                suscipiantur his et.<br><br>Thanks</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /reply -->
+                                                    </article>
+                                                    <!-- /article -->
+                                                    <!-- </div> -->
+                                                </c:forEach>
                                             </div>
                                             <!-- /review_card -->
                                         </div>
@@ -890,7 +832,22 @@
     <script src="/js/sticky_sidebar.min.js"></script>
     <script src="/js/specific_detail.js"></script>
 
-    <!-- <script>
+    <script src="/vendor/jquery.magnific-popup.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/js/admin.js"></script>
+
+</body>
+
+<script>
+    showKaKao(); // information map  
+    clickEventOpenKakao(); // open kakao map 
+    showNotice(); // notice
+    makeNoticeWriteStyle(); // notice popup style
+    clickEventSaveNotice(); // notice save 
+
+    function showKaKao() {
+
         let positionAddress = '';
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = {
@@ -905,7 +862,7 @@
         var geocoder = new kakao.maps.services.Geocoder();
 
         // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(`${master.storeAddress}`, function (result, status) {
+        geocoder.addressSearch(`${proBoard.storeAddress}`, function (result, status) {
 
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
@@ -924,7 +881,7 @@
 
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 var infowindow = new kakao.maps.InfoWindow({
-                    content: '<div style="width:150px;text-align:center;padding:6px 0;">${master.storeName}</div>'
+                    content: '<div style="width:150px;text-align:center;padding:6px 0;">${proBoard.storeName}</div>'
                 });
                 infowindow.open(map, marker);
 
@@ -941,12 +898,134 @@
         const $openKakaoMap = $(".openKaKaoMap");
         $openKakaoMap.on("click", function () {
 
-            const area = "https://map.kakao.com/link/search/" + `${master.storeAddress}`;
-            $openKakaoMap.attr("href", area);
+            const serach = "https://map.kakao.com/link/search/" + `${proBoard.storeAddress}`;
+            $openKakaoMap.attr("href", serach);
         });
-    </script> -->
-    <!-- javascript -->
+    }
 
+    function makeNoticeWriteStyle() {
+        $('.noticeWrite').on('click', function () {
+            console.log($('textarea.form-control'));
+            $('textarea.form-control').width(430);
+            $('textarea.form-control').height(200);
+            $('.btn_1.noticeSubmit').css('margin-left', '180px');
+            $('button.mfp-close').css('top', '5px');
+            $('button.mfp-close').css('right', '10px');
+        });
+
+    }
+
+    function clickEventSaveNotice() {
+        const $noticeSubmit = $('.noticeSubmit');
+        $noticeSubmit.on('click', function (e) {
+            saveNoticeWriteText(e);
+        });
+    }
+
+    function saveNoticeWriteText(e) {
+
+        const $noticeContent = document.querySelector('.noticeContent');
+        if ($noticeContent.value.length > 300) {
+            alert(" 300자 이내 입력 부탁드립니다.");
+            return;
+        }
+
+        const noticeContent = $noticeContent.value.replace(/\n/gi, "<br>");
+
+        const noticeData = {
+            promotionBno: `${promotionBno}`,
+            content: noticeContent
+        }
+
+        const reqInfo = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(noticeData)
+        };
+
+
+        fetch('/foodie/detail/notice/save', reqInfo)
+            .then(res => res.text())
+            .then(result => {
+                console.log(result);
+                if (result === 'insert-success') {
+                    alert("공지사항 등록 성공");
+                    $noticeContent.value = '';
+                    $('.mfp-close').click();
+                    showNotice();
+                } else {
+                    alert("공지사항 등록 실패");
+                }
+            });
+    }
+
+    function showNotice() {
+        console.log("showNotice");
+        fetch('/foodie/detail/notice/show/' + `${promotionBno}`)
+            .then(res => res.json())
+            .then(noticeDTOS => {
+                console.log(noticeDTOS);
+                makeNoticeDom(noticeDTOS);
+            })
+    }
+
+    function makeNoticeDom(noticeDTOS) {
+
+        let tag = '';
+        let newUpdateArr = [];
+
+        console.log("makeNoticeDom 진입");
+        for (const notice of noticeDTOS) {
+
+            tag += `<li>` +
+                `<input type="hidden" class="noticeNo" value="` + notice.noticeNo + `">` +
+                `<p>` + notice.content + `</p>` +
+                `<ul class="buttons deleteNoticeWrite">` +
+                `<li>` +
+                `<a class="btn_1 gray delete">` +
+                `<i class="fa fa-fw fa-times-circle-o"></i>` +
+                `삭제 </a>` +
+                `</li>` +
+                `</ul>` +
+                `<p class="update_date"> 업데이트 : ` + notice.updateAFewDaysAgo + `</p>` +
+                `</li>`;
+
+            newUpdateArr.push(notice.newUpdateFlag);
+        }
+
+        if (newUpdateArr.includes(true)) {
+            document.querySelector('.newNotice').innerHTML = 'NOTICE    <span style="color : red "> [ new! ] </span>';
+        }
+
+        document.querySelector('.list_general.notices ul').innerHTML = tag;
+        clickEventDeleteNotice();
+
+    }
+
+    function clickEventDeleteNotice() {
+        const $deleteNotice = $('.deleteNoticeWrite');
+        $deleteNotice.on('click', function () {
+            const noticeNo = this.parentElement.firstElementChild.value;
+            fetch('/foodie/detail/notice/delete/' + noticeNo, {
+                    method: 'DELETE'
+                })
+                .then(res => res.text())
+                .then(result => {
+                    if (result === 'delete-success') {
+                        alert("삭제 완료");
+                        showNotice();
+
+                    } else {
+                        alert("삭제 실패");
+                    }
+                })
+        })
+    };
+</script>
+
+    <!-- javascript -->
 
     <!-- 메뉴 주문 자바 스크립트 -->
     <script>
@@ -1153,7 +1232,8 @@
             const orderList = document.getElementById('async-order-list').children;
 
             // console.log(orderList);
-            // console.log('business_no : ' + '${master.businessNo}');
+            // console.log('business_no : ' + '
+            .businessNo}');
 
             for (let i = 0; i < orderList.length; i++) {
                 // console.log(orderList[i].innerText);
@@ -1178,7 +1258,7 @@
 
             }
 
-            const businessNo = '${master.businessNo}';
+            const businessNo = '${proBoard.businessNo}';
 
             const obj = {
                 businessNo: businessNo,

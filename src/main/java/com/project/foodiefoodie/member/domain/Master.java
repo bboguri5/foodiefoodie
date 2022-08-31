@@ -1,13 +1,15 @@
 
 package com.project.foodiefoodie.member.domain;
 
+import com.project.foodiefoodie.proBoard.domain.ProBoard;
+import com.project.foodiefoodie.proBoard.dto.FileDTO;
+import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import lombok.*;
 
 import java.util.Date;
 
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Master {

@@ -1,18 +1,7 @@
 package com.project.foodiefoodie.proBoard.repository;
 
-import com.project.foodiefoodie.proBoard.domain.ProBoard;
-import com.project.foodiefoodie.proBoard.dto.ImageDTO;
-import com.project.foodiefoodie.proBoard.dto.MenuDTO;
-import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
-import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
-import com.project.foodiefoodie.util.DateFormatUtils;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.*;
 
 @SpringBootTest
 class ProBoardMapperTest {
@@ -20,73 +9,76 @@ class ProBoardMapperTest {
     @Autowired
     ProBoardMapper proMapper;
 
-    @Test
-    @DisplayName("proboard 정보가 저장되어야 한다.")
-    void saveTest() {
-        ProBoard proBoard = new ProBoard();
-        proBoard.setBusinessNo("1234-12-12345");
-        proBoard.setTitle("황고기");
-        proBoard.setContent("맛있다.");
-        proBoard.setHashTag("중국");
-        proBoard.setFilePath("파일경로");
-        proBoard.setFileName("파일이름");
-        System.out.println(proBoard);
-        proMapper.saveProBoard(proBoard);
 
-    }
 
-    @Test
-    @DisplayName("시간나와")
-    void selectStoreTimeTest()
-    {
-        StoreTimeDTO storeTimeDTO = proMapper.selectStoreTime(6);
-        System.out.println("나온거야? " + storeTimeDTO);
-    }
-
-    @Test
-    @DisplayName("히히 구냥 해봄 ")
-    void selectImagesTest()
-    {
-        Map<String,List<ImageDTO>> imageMap = Map.of(
-                "title",proMapper.selectImages(9,"title"),
-               "detail",proMapper.selectImages(9,"detail")
-        );
-        System.out.println(imageMap.get("detail"));
-    }
-
-    @Test
-    @DisplayName("메뉴 info 가져오기")
-    void selectMenuInfoTest()
-    {
-        List<MenuDTO> menuDTOS = proMapper.selectMenuInfo(9);
-        for(MenuDTO menuDTO: menuDTOS)
-        {
-            System.out.println(menuDTO);
-        }
-    }
-
-    @Test
-    @DisplayName("공지사항 가져오기")
-    void selectNoticeTest()
-    {
-        List<NoticeDTO> noticeDTOS = proMapper.selectNotice(10);
-        for(NoticeDTO notice : noticeDTOS)
-        {
-            System.out.println(notice);
-        }
-    }
-
-    @Test
-    @DisplayName("시간")
-    void timeForTodayTest()
-    {
-        List<NoticeDTO> noticeDTOS = proMapper.selectNotice(16);
-        for(NoticeDTO noticeDTO : noticeDTOS)
-        {
-            String s = DateFormatUtils.makeFewDaysAgo(noticeDTO.getUpdateDate());
-            System.out.println(s);
-        }
-    }
+//
+//    @Test
+//    @DisplayName("proboard 정보가 저장되어야 한다.")
+//    void saveTest() {
+//        ProBoard proBoard = new ProBoard();
+//        proBoard.setBusinessNo("1234-12-12345");
+//        proBoard.setTitle("황고기");
+//        proBoard.setContent("맛있다.");
+//        proBoard.setHashTag("중국");
+//        proBoard.setFilePath("파일경로");
+//        proBoard.setFileName("파일이름");
+//        System.out.println(proBoard);
+//        proMapper.saveProBoard(proBoard);
+//
+//    }
+//
+//    @Test
+//    @DisplayName("시간나와")
+//    void selectStoreTimeTest()
+//    {
+//        StoreTimeDTO storeTimeDTO = proMapper.selectStoreTime(6);
+//        System.out.println("나온거야? " + storeTimeDTO);
+//    }
+//
+//    @Test
+//    @DisplayName("히히 구냥 해봄 ")
+//    void selectImagesTest()
+//    {
+//        Map<String,List<ImageDTO>> imageMap = Map.of(
+//                "title",proMapper.selectImages(9,"title"),
+//               "detail",proMapper.selectImages(9,"detail")
+//        );
+//        System.out.println(imageMap.get("detail"));
+//    }
+//
+//    @Test
+//    @DisplayName("메뉴 info 가져오기")
+//    void selectMenuInfoTest()
+//    {
+//        List<MenuDTO> menuDTOS = proMapper.selectMenuInfo(9);
+//        for(MenuDTO menuDTO: menuDTOS)
+//        {
+//            System.out.println(menuDTO);
+//        }
+//    }
+//
+//    @Test
+//    @DisplayName("공지사항 가져오기")
+//    void selectNoticeTest()
+//    {
+//        List<NoticeDTO> noticeDTOS = proMapper.selectNotice(10);
+//        for(NoticeDTO notice : noticeDTOS)
+//        {
+//            System.out.println(notice);
+//        }
+//    }
+//
+//    @Test
+//    @DisplayName("시간")
+//    void timeForTodayTest()
+//    {
+//        List<NoticeDTO> noticeDTOS = proMapper.selectNotice(16);
+//        for(NoticeDTO noticeDTO : noticeDTOS)
+//        {
+//            String s = DateFormatUtils.makeFewDaysAgo(noticeDTO.getUpdateDate());
+//            System.out.println(s);
+//        }
+//    }
 
 //
 //    @Test

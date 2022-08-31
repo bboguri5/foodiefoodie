@@ -117,6 +117,12 @@ public class KakaoService {
         int totalQuantity = (int) session.getAttribute("totalQuantity");
         List<MenuInfo> menuInfoList = (List<MenuInfo>) session.getAttribute("menuInfoList");
 
+
+//        log.info("totalPrice KakaoService - {}", totalPrice instanceof Integer);
+        double resultPrice = totalPrice - (totalPrice * (discount / 100.0));
+        log.info("resultPrice KakaoService - {}", resultPrice);
+
+
         // 4-2. 요청 파라미터 추가
         try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()))) {
 
@@ -135,7 +141,7 @@ public class KakaoService {
                 queryParam.append(menuInfoList.get(0).getMenuName() + ", " + menuInfoList.get(1).getMenuName());
             }
             queryParam.append("&quantity=" + totalQuantity) // 총 주문 수량
-                    .append("&total_amount=" + (totalPrice - totalPrice * (discount / 100))) // 총 결제금액
+                    .append("&total_amount=" + (int) resultPrice) // 총 결제금액
                     .append("&tax_free_amount=" + 0) // 면세액이 얼만지 적는 항목 같음..
                     .append("&approval_url=" + "http://localhost:8186/success-order") // 결제 성공시 redirect_url 지정
                     .append("&cancel_url=" + "http://localhost:8186/cancel-order") // 결제 취소시 redirect_url 지정

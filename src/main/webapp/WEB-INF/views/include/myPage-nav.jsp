@@ -14,7 +14,7 @@
 
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
-                <a class="nav-link" href="/myPage-profile">
+                <a class="nav-link" href="/myPage/profile">
                     <i class="fa fa-fw fa-user"></i>
                     <span class="nav-link-text">내 정보 / 수정/ 탈퇴</span>
                 </a>
@@ -49,6 +49,21 @@
                     </ul>
                 </li>
             </c:if>
+            <c:if test="${loginUser.auth == 'MASTER'}">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#masterOrderList">
+                        <i class="fa fa-fw fa-list"></i>
+                        <span class="nav-link-text">가게 별 주문 내역</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="masterOrderList">
+                            <c:forEach var="n" begin="0" end="${masterCount}" step="1">
+                                <li>
+                                    <a href="/masterOrderList/${n}">${masterList[n].storeName}<span class="badge badge-pill badge-primary"></span></a>
+                                </li>
+                            </c:forEach>
+                    </ul>
+                </li>
+            </c:if>
 
 
 
@@ -66,9 +81,9 @@
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                <a class="nav-link" href="messages.html">
+                <a class="nav-link" href="/userOrderList">
                     <i class="fa fa-fw fa-envelope-open"></i>
-                    <span class="nav-link-text"> 결제 내역 </span>
+                    <span class="nav-link-text"> 주문 내역 </span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">

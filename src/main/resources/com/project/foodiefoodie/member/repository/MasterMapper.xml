@@ -91,6 +91,17 @@
         WHERE business_no= #{businessNo}
     </update>
 
+    <resultMap id="businessMap" type="com.project.foodiefoodie.member.dto.BusinessNoAndPromotionNoDTO">
+        <result property="businessNo" column="business_no"/>
+        <result property="promotionBno" column="promotion_bno"/>
+    </resultMap>
+
+    <select id="findPromotionBno" resultMap="businessMap">
+        SELECT business_no,promotion_bno
+        FROM promotion_board
+        WHERE business_no = #{businessNo}
+    </select>
+
 
 
 </mapper>

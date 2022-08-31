@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.foodiefoodie.myPage.repository.OrderMapper">
+    <!--맵퍼 경로 맞음    -->
+
+    <resultMap id="OrdersMap" type="com.project.foodiefoodie.myPage.domain.Orders">
+        <result column="order_no" property="orderNo" />
+        <result column="business_no" property="businessNo" />
+        <result column="order_date" property="orderDate" />
+        <!-- 이메일도 있음 -->
+    </resultMap>
+
+    <resultMap id="OrderDetailMap" type="com.project.foodiefoodie.myPage.domain.OrderDetail">
+        <result column="order_no" property="orderNo"/>
+        <result column="order_menu" property="orderMenu"/>
+        <result column="menu_ea" property="menuEa"/>
+            <!-- price 도 있음        -->
+    </resultMap>
+
+    <resultMap id="menuAndEa" type="com.project.foodiefoodie.myPage.dto.MenuAndEaDTO">
+        <result column="order_menu" property="orderMenu"/>
+        <result column="menu_ea" property="menuEa"/>
+        <!-- price 도 있음        -->
+    </resultMap>
+
+    <select id="findOrderList" resultMap="OrdersMap">
+        select * from order_list
+        where business_no = #{businessNo}
+    </select>
+
+    <select id="listCount" resultType="int">
+        select count(*) from order_list
+        where business_no = #{businessNo}
+    </select>
+
+    <select id="findOrderDetailList" resultMap="OrderDetailMap">
+        select * from order_detail
+        where order_no = #{order_no}
+    </select>
+
+    <select id="orderSum" resultType="int">
+        select sum(price)
+        from order_detail
+        where order_no = #{order_no}
+    </select>
+
+    <select id="findMenuAndEaDTO" resultMap="menuAndEa">
+        SELECT order_menu,menu_ea
+        FROM order_detail
+        where order_no = #{order_no}
+    </select>
+
+
+    <resultMap id="ordersDTOMap" type="com.project.foodiefoodie.myPage.dto.OrdersDTO">
+        <result column="order_no" property="orderNo"/>
+        <result column="order_date" property="orderDate" />
+        <!-- price 도 있음        -->
+    </resultMap>
+
+    <select id="findOrderNeedList" resultMap="ordersDTOMap">
+        select * from order_list
+        where business_no = #{businessNo}
+    </select>
+
+
+    <resultMap id="OrderNoAndStoreNameDTOMap" type="com.project.foodiefoodie.myPage.dto.OrderNoAndStoreNameDTO">
+        <result column="order_no" property="orderNo"/>
+        <result column="store_name" property="storeName" />
+        <result column="order_date" property="orderDate" />
+        <!-- price 도 있음        -->
+    </resultMap>
+
+    <select id="OrderNoAndStoreNameDTOList" resultMap="OrderNoAndStoreNameDTOMap">
+        SELECT a.order_no , b.store_name , a.order_date
+        FROM order_list a
+        INNER JOIN master b ON  a.business_no = b.business_no
+        where a.email = #{email}
+    </select>
+
+
+</mapper>
+
+

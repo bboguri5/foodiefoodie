@@ -78,7 +78,7 @@
 
 <body class="fixed-nav sticky-footer" id="page-top">
 
-    <%@ include file="/WEB-INF/views/myPage/include/mypage-nav.jsp" %>
+    <%@ include file="/WEB-INF/views/myPage/include/myPage-nav.jsp" %>
 
     <!-- 프로필 쓰는 공간 !! ==================================================================================================== -->
     <div class="content-wrapper">

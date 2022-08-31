@@ -51,7 +51,7 @@ public class AdminController {
 
         mbs.removeService(email);
 
-        return "redirect:/admin/member-management";
+        return "redirect:/admin/member";
     }
 
     // 사업자 탈퇴 처리
@@ -62,7 +62,7 @@ public class AdminController {
 
         ms.removeMasterService(businessNo);
 
-        return "redirect:/admin/member-management";
+        return "redirect:/admin/member";
     }
 
 

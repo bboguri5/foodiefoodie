@@ -51,24 +51,33 @@ public class MyPageController {
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = member.getEmail();
         // 이메일 을 가져오고
+
         ArrayList<MyReviewDTO> myReviewDTOS = new ArrayList<>(); // 최종적으로 모델에 들어갈 값
+        // 여기안에는 title , content , filePath ,fileName 이 들어가야한다
+
         List<MyReviewTitleDTO> titleListService = myPageService.findTitleListService(email);
+        // title content reviewBno 들어있는 리스트 // 안에 내용물 있음
+               // reviewBno 이걸로 파일 경로 , 파일 이름을 넣을 것 이다
         int size = titleListService.size();
+
 
         for (int i = 0; i <size ; i++) {
             MyReviewDTO myReviewDTO = new MyReviewDTO();
-            List<MyReviewTitleDTO> titleListService1 = myPageService.findTitleListService(email);
-            MyReviewTitleDTO titleDTO = titleListService1.get(i);
+//            List<MyReviewTitleDTO> titleListService1 = myPageService.findTitleListService(email);
+            MyReviewTitleDTO titleDTO = titleListService.get(i);
 
             myReviewDTO.setTitle(titleDTO.getTitle());
 
             myReviewDTO.setContent(titleDTO.getContent());
 
-            log.info("==========================================");
+            log.info("========1================1==================1");
             // 여기까지는 잘 나온거임..
             HashMap<Integer, MyReviewPathDTO> pathListService = myPageService.findPathListService(email);
+            log.info("\n====2=======\n");
             MyReviewPathDTO pathDTO = pathListService.get(titleListService.get(i).getReviewBno());
+            log.info("\n======3=====\n");
             log.info("pathDTO : {}",pathDTO);
+            log.info("\n=====잘 받아와 졌는지 확인======\n");
             myReviewDTO.setFilePath(pathDTO.getFilePath());
 
             myReviewDTO.setFileName(pathDTO.getFileName());

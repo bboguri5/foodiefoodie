@@ -1,6 +1,8 @@
 package com.project.foodiefoodie.member.repository;
 
 import com.project.foodiefoodie.member.domain.Master;
+import com.project.foodiefoodie.member.domain.MasterAndMember;
+import com.project.foodiefoodie.member.dto.BusinessNoAndPromotionNoDTO;
 import com.project.foodiefoodie.member.dto.MasterModifyDTO;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
@@ -70,5 +72,15 @@ class MasterMapperTest {
 
     }
 
+    @Test
+    @DisplayName("사업자 번호 넣으면 , 사업자가쓴 프로모션 번호가 나와야 함 ")
+    void findProBnoTest(){ // 성공
+        String buBno ="1234-2222-3333-1124";
+        BusinessNoAndPromotionNoDTO promotionBno = masterMapper.findPromotionBno(buBno);
+        System.out.println("\n\n======================\n\n");
+        System.out.println(promotionBno);
+        System.out.println("\n\n======================\n\n");
+
+    }
 
 }

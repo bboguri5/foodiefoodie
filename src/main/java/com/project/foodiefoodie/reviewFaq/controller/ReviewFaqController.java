@@ -58,12 +58,14 @@ public class ReviewFaqController {
             rvfs.updateService(reviewFaq.getReFaqNo(), "T");
 
             ReportMember reportMember = rms.findOneService(reviewFaq.getReviewWriterEmail());
+            log.info("reportMember - {}", reportMember);
             // 불량이용자 목록에 있는지 확인
             // 목록에 없을때
             if (reportMember == null) {
                 // 목록에 추가
                 rms.saveService(reviewFaq.getReviewWriterEmail());
             } else { // 목록에 있을 때
+                log.info("reportCnt - {}", reportMember.getReportCnt());
                 if (reportMember.getReportCnt() >= 5) {
                     return "redirect:/admin/reviewFaq";
                 }

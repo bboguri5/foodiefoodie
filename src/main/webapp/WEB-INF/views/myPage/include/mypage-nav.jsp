@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/"><img src="/img/foodie_logo.png" alt="로고" width="120" height="50"></a>
+    <a class="navbar-brand" href="/"><img src="/myPage/img/logo.svg" alt="" width="142" height="36"></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -19,6 +19,55 @@
                     <span class="nav-link-text">내 정보 / 수정/ 탈퇴</span>
                 </a>
             </li>
+            <c:if test="${loginUser.auth == 'MASTER'}">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#storeInfo">
+                        <i class="fa fa-fw fa-list"></i>
+                        <span class="nav-link-text">가게 정보 현황 </span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="storeInfo">
+                            <c:forEach var="n" begin="0" end="${masterCount}" step="1">
+                                <li>
+                                    <a href="/masterInfo/${n}">${masterList[n].storeName}<span class="badge badge-pill badge-primary"></span></a>
+                                </li>
+                            </c:forEach>
+                    </ul>
+                </li>
+            </c:if>
+            <c:if test="${loginUser.auth == 'MASTER'}">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#f123123">
+                        <i class="fa fa-fw fa-list"></i>
+                        <span class="nav-link-text">가게 별 신고 내역</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="f123123">
+                            <c:forEach var="n" begin="0" end="${masterCount}" step="1">
+                                <li>
+                                    <a href="/promotionReport/${n}&${masterList[n].businessNo}">${masterList[n].storeName}<span class="badge badge-pill badge-primary"></span></a>
+                                </li>
+                            </c:forEach>
+                    </ul>
+                </li>
+            </c:if>
+            <c:if test="${loginUser.auth == 'MASTER'}">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#masterOrderList">
+                        <i class="fa fa-fw fa-list"></i>
+                        <span class="nav-link-text">가게 별 주문 내역</span>
+                    </a>
+                    <ul class="sidenav-second-level collapse" id="masterOrderList">
+                            <c:forEach var="n" begin="0" end="${masterCount}" step="1">
+                                <li>
+                                    <a href="/masterOrderList/${n}">${masterList[n].storeName}<span class="badge badge-pill badge-primary"></span></a>
+                                </li>
+                            </c:forEach>
+                    </ul>
+                </li>
+            </c:if>
+
+
+
+
 
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
                 <a class="nav-link" href="/myReview">
@@ -34,28 +83,35 @@
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                <a class="nav-link" href="messages.html">
+                <a class="nav-link" href="/userOrderList">
                     <i class="fa fa-fw fa-envelope-open"></i>
-                    <span class="nav-link-text"> 결제 내역 </span>
+                    <span class="nav-link-text"> 주문 내역 </span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                <a class="nav-link" href="/reviewReport">
-                    <i class="fa fa-fw fa-envelope-open"></i>
-                    <span class="nav-link-text"> 게시글 신고 내역 </span>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#t123123">
+                    <i class="fa fa-fw fa-list"></i>
+                    <span class="nav-link-text">신고 내역</span>
                 </a>
+                <ul class="sidenav-second-level collapse" id="t123123">
+                    <li>
+                        <a href="/replyReport">댓글 신고내역<span class="badge badge-pill badge-primary"></span></a>
+                    </li>
+                    <li>
+                        <a href="/reviewReport">리뷰글 신고내역<span class="badge badge-pill badge-success"></span></a>
+                    </li>
+                   
+                </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                <a class="nav-link" href="/replyReport">
-                    <i class="fa fa-fw fa-envelope-open"></i>
-                    <span class="nav-link-text">댓글 신고 내역 </span>
-                </a>
-            </li>
+
+
         </ul>
 
         <!-- 옆라인 끝 ================================================================== -->
 
-        <!--  옆에 메뉴 끝 라인   -->
+
+
+
         <ul class="navbar-nav sidenav-toggler">
             <li class="nav-item">
                 <a class="nav-link text-center" id="sidenavToggler">
@@ -64,92 +120,7 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-fw fa-envelope"></i>
-                    <span class="d-lg-none">Messages
-                        <span class="badge badge-pill badge-primary">12 New</span>
-                    </span>
-                    <span class="indicator text-primary d-none d-lg-block">
-                        <i class="fa fa-fw fa-circle"></i>
-                    </span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-                    <h6 class="dropdown-header">New Messages:</h6>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <strong>David Miller</strong>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty
-                            awesome! These messages clip off when they reach the end of the box so they don't
-                            overflow over to the sides!</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <strong>Jane Smith</strong>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">I was wondering if you could meet for an appointment at
-                            3:00 instead of 4:00. Thanks!</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <strong>John Doe</strong>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">I've sent the final files over to you for review. When
-                            you're able to sign off of them let me know and we can discuss distribution.</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item small" href="#">View all messages</a>
-                </div>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-fw fa-bell"></i>
-                    <span class="d-lg-none">Alerts
-                        <span class="badge badge-pill badge-warning">6 New</span>
-                    </span>
-                    <span class="indicator text-warning d-none d-lg-block">
-                        <i class="fa fa-fw fa-circle"></i>
-                    </span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-                    <h6 class="dropdown-header">New Alerts:</h6>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <span class="text-success">
-                            <strong>
-                                <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-                        </span>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">This is an automated server response message. All
-                            systems are online.</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <span class="text-danger">
-                            <strong>
-                                <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
-                        </span>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">This is an automated server response message. All
-                            systems are online.</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <span class="text-success">
-                            <strong>
-                                <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-                        </span>
-                        <span class="small float-right text-muted">11:21 AM</span>
-                        <div class="dropdown-message small">This is an automated server response message. All
-                            systems are online.</div>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item small" href="#">View all alerts</a>
-                </div>
-            </li>
+
             <li class="nav-item">
                 <form class="form-inline my-2 my-lg-0 mr-lg-2">
                     <div class="input-group">
@@ -169,4 +140,3 @@
         </ul>
     </div>
 </nav>
-<!-- /Navigation-->

@@ -105,7 +105,7 @@
 <body class="fixed-nav sticky-footer" id="page-top">
 
     <%@ include file="../include/myPage-nav.jsp" %>
-    
+
     <!-- /Navigation-->
     <!-- 프로필 쓰는 공간 !! ==================================================================================================== -->
     <div class="content-wrapper">
@@ -148,8 +148,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>master_name 사업자 이름 </label>
-                                    <input type="text" class="form-control" placeholder="${master.masterName}"
-                                        readonly>
+                                    <input type="text" class="form-control" placeholder="${master.masterName}" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -163,27 +162,31 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>store_address 가게 주소</label>
-                                    <input type="text" class="form-control" placeholder="${master.storeAddress}" readonly>
+                                    <input type="text" class="form-control" placeholder="${master.storeAddress}"
+                                        readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>STORE_REG_DATE 가게 시작날짜 </label>
-                                    <input type="email" class="form-control" placeholder="${master.storeRegDate}" readonly>
+                                    <input type="email" class="form-control" placeholder="${master.storeRegDate}"
+                                        readonly>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>hot_deal 핫딜 승인 여부 (기본값 : N 대기중 : T 승인됨 : F)</label>
+                                    <label><a href="#0" data-toggle="modal" data-target=".hotDeal">핫딜 ON/OFF
+                                            Button</a></label>
                                     <input type="text" class="form-control" placeholder="${master.hotDeal}" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>store_call_number 가게 전화번호</label>
-                                    <input type="email" class="form-control" placeholder="${master.storeCallNumber}" readonly>
+                                    <input type="email" class="form-control" placeholder="${master.storeCallNumber}"
+                                        readonly>
                                 </div>
                             </div>
                         </div>
@@ -191,15 +194,17 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>store_detail_address 상세주소 </label>
-                                    <input type="text" class="form-control" placeholder="${master.storeDetailAddress}" readonly>
+                                    <input type="text" class="form-control" placeholder="${master.storeDetailAddress}"
+                                        readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
-							<div class="form-group">
-								<label>store_extra_address 나머지 주소</label>
-								<input type="email" class="form-control" placeholder="${master.storeExtraAddress}" readonly>
-							</div>
-						</div>
+                                <div class="form-group">
+                                    <label>store_extra_address 나머지 주소</label>
+                                    <input type="email" class="form-control" placeholder="${master.storeExtraAddress}"
+                                        readonly>
+                                </div>
+                            </div>
                         </div>
                         <!-- /row-->
                         <!-- <div class="row">
@@ -266,8 +271,9 @@
                 <div class="passwordModal">
                     <h5 class="passwordModal-title">비밀번호를 입력하세요</h5>
                     <h5 class="falseh5">[비밀번호가 틀렸습니다.]</h5>
-            
-                    <input type="password" name="password" class="passwordInput"> <button type="button" class="passwordBtn">누르세요</button>
+
+                    <input type="password" name="password" class="passwordInput"> <button type="button"
+                        class="passwordBtn">누르세요</button>
                 </div>
                 <div class="returnBtn">X</div>
 
@@ -313,6 +319,50 @@
             </div>
         </div>
     </div>
+
+
+    <!-- hotDeal Modal -->
+    <form action="/admin/promotion-completeFaq" method="post" class="promotion-modal-form">
+        <div class="modal fade hotDeal" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="edit_bookingLabel">핫 딜 ON/OFF</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="checkbox" name="hotDealOn" id="hotDealOn"> ON <input type="checkbox"
+                            name="hotDealOff" id="hotDealOff"> OFF
+
+                        <!-- <div class="form-group">
+                            <label>할인율</label>
+                            <input type="text" class="form-control promotion-modal-report-no" name="hotdealPercent">
+                        </div> -->
+                        <select name="hotdealPercent" class="hotdealPercent">
+                            <option value="0">0%</option>
+                            <option value="5">5%</option>
+                            <option value="10">10%</option>
+                            <option value="15">15%</option>
+                            <option value="20">20%</option>
+                            <option value="25">25%</option>
+                            <option value="30">30%</option>
+                            <option value="35">35%</option>
+                            <option value="40">40%</option>
+                            <option value="45">45%</option>
+                            <option value="50">50%</option>
+                        </select>
+                        <!-- /Row -->
+                    </div>
+                    <div class="modal-footer btn-wrap">
+                        <button class="btn btn-primary del-btn promotion-complete-n" type="button">신고 취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
     <!-- Bootstrap core JavaScript-->
     <script src="/mypage/vendor/jquery/jquery.min.js"></script>
     <script src="/mypage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -344,7 +394,7 @@
         const $falseh5 = document.querySelector('.falseh5');
         const $brLabel = document.querySelector('.brLabel');
         const $passwordBtn = document.querySelector('.passwordBtn');
-    
+
 
 
         // $body.onclick = e => {
@@ -386,8 +436,8 @@
             const $passwordInput = document.querySelector('.passwordInput')
             $returnBtn.onclick = e => {
                 console.log("빨간색 x 버튼 눌렀다");
-                $falseh5.style.display = "none";   
-               
+                $falseh5.style.display = "none";
+
                 $modalBox.style.display = "none";
                 // location.href = '/myPage-modify';
             };
@@ -404,13 +454,13 @@
             };
         }
 
-        if($passwordBtn !== null){
-            $passwordBtn.onclick = e =>{
+        if ($passwordBtn !== null) {
+            $passwordBtn.onclick = e => {
                 console.log('click password');
                 trueAndFalsePassword();
             }
         }
-        
+
 
         // 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드 
         function trueAndFalsePassword(e) {
@@ -446,17 +496,27 @@
                     }
                 });
         }
-
-        // 메인 실행부
-        (function () {
-
-            // // 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드 
-            // trueAndFalsePassword();
-
-
-
-        })();
     </script>
+
+    <script>
+        $(document).ready(function () {
+
+            const $onCheckBox = document.getElementById("hotDealOn");
+            console.log($onCheckBox);
+            const $offCheckBox = document.getElementById("hotDealOff");
+            console.log($offCheckBox);
+
+            const $checkArray = [$onCheckBox,$offCheckBox];
+
+            if()
+
+
+
+        });
+    </script>
+
+
+
 
 </body>
 

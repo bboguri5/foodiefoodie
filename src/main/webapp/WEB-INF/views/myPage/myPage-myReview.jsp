@@ -132,14 +132,14 @@
 
         .myReview-allWrap .reviewPictureWrapper {
             width: 100%;
-            background: purple;
+            /* background: purple; */
             height: 100vh;
             position: relative;
             
         }
 
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox {
-            background: gray;
+            /* background: gray; */
             width: 95%;
             height: 100%;
             margin-top: 30px;
@@ -156,6 +156,7 @@
             width: 33%;
             height: 200px;
             background: pink;
+            
             display: flex;
             flex-direction: column;
             margin-bottom: 10px;

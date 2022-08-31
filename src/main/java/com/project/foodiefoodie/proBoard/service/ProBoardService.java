@@ -152,7 +152,7 @@ public class ProBoardService {
         List<MenuDTO> menuDTOS = proBoardMapper.selectMenuInfo(promotionBno);
         for (MenuDTO menuDTO : menuDTOS) {
             menuDTO.setFilePath(FoodieFileUtils.getFileContent(menuDTO.getFilePath() + "//" + menuDTO.getFileName()));
-            
+          //  + "//" + menuDTO.getFileName()
         }
         return menuDTOS;
     }

@@ -12,7 +12,7 @@ public class MasterAndMember extends Member{
     private String masterName;
     private String storeName;
     private String storeAddress;
-    private Date storeRegDate;
+    private int storeRegDate;
     private String hotDeal;
     private String storeCallNumber;
     private String detailAddress;

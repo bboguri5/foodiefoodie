@@ -3,6 +3,7 @@ package com.project.foodiefoodie.member.repository;
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.dto.AuthDTO;
+import com.project.foodiefoodie.member.dto.BusinessNoAndPromotionNoDTO;
 import com.project.foodiefoodie.member.dto.MasterModifyDTO;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
@@ -45,6 +46,8 @@ public interface MasterMapper {
     int masterCount(String email);
 
     boolean masterModi(MasterModifyDTO masterModifyDTO);
+
+    BusinessNoAndPromotionNoDTO findPromotionBno(String businessNo);
 
 
 

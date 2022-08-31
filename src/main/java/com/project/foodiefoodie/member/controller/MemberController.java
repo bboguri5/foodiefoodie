@@ -291,9 +291,9 @@ public class MemberController {
     }
 
     @PostMapping("/myPage/modify")
-    public String PostModifyMember(HttpSession session, ModifyDTO modifyDTO) {
-        log.info("modifyDTO : {}", modifyDTO);
-        memberService.modifyMemberService(modifyDTO);
+    public String PostModifyMember(HttpSession session, NewModifyMemberDTO newModifyMemberDTO) {
+        log.info("modifyDTO : {}", newModifyMemberDTO);
+        memberService.modifyMemberService(newModifyMemberDTO);
         log.info("go service ");
         return "redirect:/myPage-profile";
     }

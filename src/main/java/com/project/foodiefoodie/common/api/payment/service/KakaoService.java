@@ -50,7 +50,7 @@ public class KakaoService {
         String authValue = "KakaoAK " + KakaoMyApp.KAKAO_ADMIN_KEY;
         log.info("authval: {}", authValue);
         connection.setRequestProperty("Authorization", authValue);
-//        connection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        connection.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         connection.setDoOutput(true); // 응답 결과를 받아보자
 
@@ -138,7 +138,10 @@ public class KakaoService {
             if (menuInfoList.size() > 2) {
                 queryParam.append(menuInfoList.get(0).getMenuName() + " 외 " + (menuInfoList.size() -1) + "개");
             } else {
-                queryParam.append(menuInfoList.get(0).getMenuName() + ", " + menuInfoList.get(1).getMenuName());
+                queryParam.append(menuInfoList.get(0).getMenuName());
+                if (menuInfoList.size() == 2) {
+                    queryParam.append(", " + menuInfoList.get(1).getMenuName());
+                }
             }
             queryParam.append("&quantity=" + totalQuantity) // 총 주문 수량
                     .append("&total_amount=" + (int) resultPrice) // 총 결제금액

@@ -20,8 +20,8 @@ public interface ProBoardMapper {
 
     boolean modifyProBoard(ProBoard proBoard);
     boolean modifyStoreTime(ProBoard proBoard );
-    boolean modifyMenu(int promotionBno , String menuName, int menuPrice);
-
+    boolean modifyMenuInfo(MenuDTO menuDTO);
+    boolean deleteFile(int promotionBno, String fileName, String type);
     boolean delete(int promotionBno);
 
     Master selectMaster(String businessNo);
@@ -45,5 +45,4 @@ public interface ProBoardMapper {
     boolean deleteNotice(int noticeNo);
 
     Integer isHotDeal(String businessNo);
-
 }

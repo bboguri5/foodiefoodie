@@ -301,7 +301,7 @@
                         <!-- detail info -->
                         <div class="row">
                             <div class="col-md-6 master-detail">
-                                <input type="text" name="promotionBno" value="${proBoard.promotionBno}" hidden>
+                                <input type="text" name="promotionBno" class ="promotionBno" value="${proBoard.promotionBno}" hidden>
                                 <div class="row-form">
                                     <input type="text" name="businessNo" value="${proBoard.businessNo}" hidden>
                                     <div class="form-group detail-Info">
@@ -784,17 +784,18 @@
 
             var newElem = $('.pricing-list-item').first().clone(); // 첫 item 복사 
             newElem.find('input').val('');
-            console.log("how count ? " , count);
-            if(count === 1){
+            newElem.addClass('item' + count);
+
+            if (count === 1) {
                 newElem.addClass('menuHidden');
-            }if(count > 1) {
-                console.log( "else if : " , count);
+            }
+            if (count > 1) {
+                console.log("else if : ", count);
                 newElem.removeClass('menuHidden');
             }
 
             newElem.appendTo('table#pricing-list-container tbody');
-
-            console.log("newElem ", newElem);
+            $('.item' + count).append("<input type = 'hidden' class='menu" + count + "'>")
         }
 
         /* add menu item delete */
@@ -810,11 +811,10 @@
 
             makeNewMenuItemDom();
 
-            if(count > 2)
-            {
+            if (count > 2) {
                 $('.menu-row').last().find('.delete-form').append(
-                '<a class="delete' + ' menuDelete' + count + '"' +
-                ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
+                    '<a class="delete' + ' menuDelete' + count + '"' +
+                    ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
             }
 
             const $target = $('#pricing-list-container').last().find('.menu1').last();
@@ -1018,7 +1018,7 @@
 
                     const firstItem = itemBox.first().children();
                     firstItem.addClass('menuHidden');
-                
+
                     // menuHidden
                     for (const menu of menuList) {
 
@@ -1039,13 +1039,14 @@
                         menuDropzone.emit("complete", newMenuFile);
                         menuDropzone.files.push(newMenuFile);
 
-                        const nameTarget = menuDropzone.element.parentElement.parentElement.nextElementSibling.children[0].children[0];
-                        const priceTarget = menuDropzone.element.parentElement.parentElement.nextElementSibling.nextElementSibling.children[0].children[0];
+                        const nameTarget = menuDropzone.element.parentElement.parentElement.nextElementSibling
+                            .children[0].children[0];
+                        const priceTarget = menuDropzone.element.parentElement.parentElement.nextElementSibling
+                            .nextElementSibling.children[0].children[0];
                         nameTarget.value = menu.menuName;
                         priceTarget.value = menu.menuPrice;
-                        console.log(nameTarget); 
-                        
 
+                        $('.menu' + count).val(menu.menuNo);
                     };
 
                 }
@@ -1203,6 +1204,8 @@
 
         $('.save').on('click', e => {
 
+            submitMenu();
+
             AddFileList();
             if (!checkArr.includes(false)) { // title , hashTag , content 필수 입력 
 
@@ -1218,7 +1221,9 @@
                     changeFormatTime(); // 시간 00:00으로 변환
                     changeFormatContent() // 내용 \n -> <br>으로 치환
 
-                    $('#promotionWriteForm').submit();
+
+
+                    // $('#promotionWriteForm').submit();
                 }
 
             } else {
@@ -1227,14 +1232,53 @@
             }
         });
 
-        function checkValue()
+        function submitMenu()
         {
-            if(!($contentTag.val().length > 0 && $titleTag.val().length > 0 && $hashTag.val().length > 0))
-            {
+            const $menuNameList = document.querySelectorAll(".menu-name");
+            const $menuPriceList = document.querySelectorAll(".menu-price");
+
+            console.log($menuNameList);
+            console.log($menuPriceList);
+
+            let menuDTOList = [];
+
+            for (let index = 1; index < $menuNameList.length; index++) {
+
+                let no = $menuNameList[index].parentElement.parentElement.parentElement.parentElement
+                    .nextElementSibling.value;
+                console.log("?? ?? ? ?", no);
+                let name = $menuNameList[index].value;
+                let price = $menuPriceList[index].value;
+
+                const promotionBno = $('.promotionBno').val();
+
+                const menu = {
+                    promotionBno: promotionBno,
+                    menuNo: no,
+                    menuName: name,
+                    menuPrice: price
+                }
+
+                menuDTOList.push(menu);
+            }
+
+            const reqInfo = {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(menuDTOList)
+                    };
+                fetch('/proBoard/modify/menu',reqInfo);
+
+        }
+
+        function checkValue() {
+            if (!($contentTag.val().length > 0 && $titleTag.val().length > 0 && $hashTag.val().length > 0)) {
                 alert("입력란을 확인해주세요.");
                 return false;
             }
-            
+
             return true;
         }
 
@@ -1253,7 +1297,7 @@
 
 
             console.log($menuHiddenTag);
-          
+
 
             if (titleDropzone.files.length > 0) {
                 titleDataTraster.items.add(titleDropzone.files[0]);
@@ -1263,7 +1307,7 @@
                 alert("title 이미지는 필수입니다.");
                 return;
             }
-            
+
             console.log("titleHiddenTag 결론 : ", $titleHiddenTag.files);
 
             if (detailDropzone.files.length > 0) {
@@ -1280,7 +1324,7 @@
             if (menuFileList.length > 0) {
                 for (let index = 1; index < menuFileList.length; index++) {
                     console.log(menuFileList[1].name);
-                    if(menuFileList[1].name === "default")
+                    if (menuFileList[1].name === "default")
                         continue;
                     if (menuFileList[index] != null) {
                         menuDataTraster.items.add(menuFileList[index]);
@@ -1295,9 +1339,9 @@
                 if ($menuNameList[1].value.length === 0 && $menuPriceList[1].value.length === 0) {
                     return;
                 }
-                
+
                 $menuHiddenTag.files = menuDataTraster.files;
-                
+
                 /* console.log("menuDataTraster : ", menuFileList);
                 $menuHiddenTag.files = menuDataTraster.files;
                 */
@@ -1308,7 +1352,7 @@
 
         // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
         function checkMenuInput() {
-            
+
             const $menuNameList = document.querySelectorAll(".menu-name");
             const $menuPriceList = document.querySelectorAll(".menu-price");
 
@@ -1321,7 +1365,7 @@
                         return false;
                     }
 
-                    
+
                     return true;
                 }
 
@@ -1332,7 +1376,7 @@
 
                 return true;
             }
-            
+
 
             if (menuItem.length > 1) {
                 for (let index = 0; index < $menuNameList.length; index++) {

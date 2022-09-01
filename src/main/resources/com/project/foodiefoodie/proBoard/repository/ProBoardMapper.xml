@@ -28,14 +28,7 @@
             ,#{closedDay}
         )
     </insert>
-    <insert id="saveMenu">
-        insert into PROMOTION_FOOD_MENU VALUES (
-            SEQ_PROMOTION_FOOD_MENU.nextval
-            ,#{promotionBno}
-            ,#{menuName}
-            ,#{menuPrice}
-        )
-    </insert>
+
 
     <insert id="saveNotice">
         insert into promotion_notice
@@ -78,6 +71,15 @@
         where promotion_bno = #{promotionBno}
 
     </update>
+
+    <insert id="saveMenu">
+        insert into PROMOTION_FOOD_MENU VALUES (
+        SEQ_PROMOTION_FOOD_MENU.nextval
+        ,#{promotionBno}
+        ,#{menuName}
+        ,#{menuPrice}
+        )
+    </insert>
     <!--    <update id="modify">-->
     <!--        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}-->
     <!--    </update>-->
@@ -166,6 +168,10 @@
         where menu.promotion_bno = #{promotionBno}
 
     </select>
+
+    <update id="modifyMenuInfo">
+        update promotion_food_menu set menu_name = #{menuName} , price = #{price} where menu_no = #{menuNo};
+    </update>
 
     <!--  ==================================  notice ==================================  -->
     <resultMap id="noticeDTO" type="com.project.foodiefoodie.proBoard.dto.NoticeDTO">
@@ -257,4 +263,18 @@
              where promotion_bno = #{promotionBno}
         </select>
 
+    <delete id="deleteFile">
+        delete from
+        <if test="type == 'title'">
+            PROMOTION_UPLOAD_TITLE_IMG
+        </if>
+        <if test="type == 'detail'">
+            PROMOTION_UPLOAD_DETAIL_IMG
+        </if>
+        <if test="type == 'menu'">
+            PROMOTION_UPLOAD_MENU_IMG
+        </if>
+        where promotion_bno = #{promotionBno}
+        and file_name = #{fileName}
+    </delete>
 </mapper>

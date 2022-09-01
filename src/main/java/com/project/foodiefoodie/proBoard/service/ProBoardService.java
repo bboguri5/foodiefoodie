@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 @Service
 @Log4j2
@@ -32,12 +34,13 @@ public class ProBoardService {
 
         proBoardMapper.modifyProBoard(proBoard);
         proBoardMapper.modifyStoreTime(proBoard);
-        return modifyMenu(promotionBno,menuList);
 
-//        for(String key : fileMap.keySet())
-//        {
-//            System.out.println(key);
-//        }
+        for(String key : fileMap.keySet())
+        {
+             saveImgInfo(uploadImgFile(proBoard, fileMap.get(key), key));
+        }
+
+        return true;
     }
 
 //    public boolean delete(int promotionBno) {
@@ -92,13 +95,13 @@ public class ProBoardService {
         return newUploadPath;
     }
 
+
     private List<FileDTO> uploadImgFile(ProBoard proBoard, List<MultipartFile> fileList, String folderName) {
 
         log.info(" service uploadImgFile {}", proBoard.getPromotionBno());
-
         List<FileDTO> fileDTOList = new ArrayList<>();
-        for (MultipartFile imgFile : fileList) {
 
+        for (MultipartFile imgFile : fileList) {
             if (imgFile.getSize() == 0) return null;
 
             if (imgFile.getOriginalFilename().equals("default")) {
@@ -109,10 +112,32 @@ public class ProBoardService {
                 continue;
             }
 
-            try {
-                String newPath = getNewUploadPath(folderName, proBoard.getBusinessNo());
-                File file = new File(newPath, Objects.requireNonNull(imgFile.getOriginalFilename()));
+            String newPath = getNewUploadPath(folderName, proBoard.getBusinessNo());
+            File file = new File(newPath, Objects.requireNonNull(imgFile.getOriginalFilename()));
+            File folder = new File(newPath);
+            if (folderName.equals("title") || folderName.equals("detail")) { // 해당 폴더가 존재 유무 확인
+                File[] localFileList = folder.listFiles(); //파일리스트 얻어오기
 
+                List<String> requestFileList = new ArrayList<>();
+                for (MultipartFile f : fileList) {
+                    requestFileList.add(f.getOriginalFilename());
+                }
+
+                List<String> fileNameList = new ArrayList<>();
+                for (File f : localFileList) {
+                    fileNameList.add(f.getName());
+                }
+
+                // 수정시 삭제 되어야 하는것
+                for (File f : localFileList) {
+                    String localfileName = f.getName();
+                    if (!requestFileList.contains(localfileName)) {
+                        file.delete();
+                        proBoardMapper.deleteFile(proBoard.getPromotionBno(),imgFile.getOriginalFilename(),folderName);
+                    }
+                }
+            }
+            try {
                 if(file.exists())
                     continue;
                 imgFile.transferTo(file);
@@ -166,106 +191,10 @@ public class ProBoardService {
         return !resultList.contains(false);
     }
 
-    private boolean modifyMenu(int promotionBno, List<String[]> menuList) {
-        List<Boolean> resultList = new ArrayList<>();
-        for (int i = 0; i < menuList.get(0).length; i++) {
-            if (menuList.get(0)[i].isEmpty() && menuList.get(1)[i].isEmpty()) return false;
-            resultList.add(proBoardMapper.modifyMenu(
-                    promotionBno, menuList.get(0)[i]
-                    , Integer.parseInt(menuList.get(1)[i]))
-            );
-        }
-        return !resultList.contains(false);
+    private boolean modifyMenuInfo(int promotionBno, List<MenuDTO> menuDTOList) {
+
+        return false;
     }
-
-//    public boolean modifyReviewFile(List<MultipartFile> reviewImg, ReviewBoard reviewBoard, long reviewBno) {
-//
-//        /*
-//            reviewImg : post 요청으로 넘어온 이미지 리스트
-//            reviewImg 리스트로 넘어온 파일 이름과 해당 리뷰글 서버경로에 저장되어 있는 파일 이름을 비교해서
-//            같다면 처리 x / 서버에는 있지만 reviewImg 리스트에는 없다면 삭제 / reviewImg 리스트에는 있지만 서버에는 없다면 추가
-//         */
-//
-//
-//        String originReviewImgPath = "C:\\foodiefoodie\\reviewBoard\\" + reviewBno;
-//        File folder = new File(originReviewImgPath);
-//        try {
-//            if (folder.exists()) { // 해당 폴더가 존재 유무 확인
-//                File[] folder_list = folder.listFiles(); //파일리스트 얻어오기
-//
-//                String newUploadPath = "";
-//                String newFileName = "";
-//                String fileFullPath = "";
-//
-//                // 리스트에 이미지 이름만 저장
-//                List<String> imgNameList = new ArrayList<>();
-//                for (MultipartFile file : reviewImg) {
-//                    imgNameList.add(file.getOriginalFilename());
-//                }
-////                log.info("imgName - {}", imgName);
-//
-//                List<String> fileNameList = new ArrayList<>();
-//                for (File file : folder_list) {
-//                    fileNameList.add(file.getName());
-//                }
-//
-//                // 수정시 삭제 되어야 하는것
-//                for (File file : folder_list) {
-//                    String fileName = file.getName();
-//                    if (!imgNameList.contains(fileName)) {
-//                        file.delete();
-//                        rbMapper.deleteReviewFileList(reviewBno, fileName);
-//                    }
-//
-//                }
-//
-//                // 수정시 등록되어야 하는것
-//                for (MultipartFile files : reviewImg) {
-//                    String originalFilename = files.getOriginalFilename();
-//                    if (!fileNameList.contains(originalFilename)) {
-//                        newUploadPath = getReviewNewUploadPath(reviewBno);
-//                        newFileName = files.getOriginalFilename();
-//                        fileFullPath = newUploadPath + File.separator + newFileName;
-//
-//                        File f = new File(newUploadPath, newFileName); // 파일 객체 생성
-//
-//                        try {
-//                            ReviewFileDTO reviewFileDTO = new ReviewFileDTO();
-//                            reviewFileDTO.setFilePath(fileFullPath);
-//                            reviewFileDTO.setFileName(newFileName);
-//                            reviewFileDTO.setReviewBno(reviewBno);
-//                            reviewFileDTO.setFileSize(files.getSize());
-//
-//                            files.transferTo(f);
-//
-//                            String fileContent = FoodieFileUtils.getFileContent(fileFullPath);
-//                            byte[] filebyte = FoodieFileUtils.getImgByte(fileFullPath);
-//                            reviewFileDTO.setFileByte(fileContent);
-//                            String contentType = files.getContentType();
-//
-//                            reviewFileDTO.setFileType(files.getContentType());
-//
-//                            String fileData = "data:" + files.getContentType() + ";base64," + fileContent;
-//                            reviewFileDTO.setFileData(fileData);
-//
-//                            saveReviewImagePath(reviewFileDTO); // 서버 이미지 경로 DB 저장
-//
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//                return true;
-//            }
-//            return false;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-
-
-
 
     public Integer isHotDealService(String businessNo) {
         log.info("isHotDeal - {}", proBoardMapper.isHotDeal(businessNo));

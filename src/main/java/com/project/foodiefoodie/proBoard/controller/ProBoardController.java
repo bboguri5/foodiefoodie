@@ -150,10 +150,10 @@ public class ProBoardController {
 
 
         System.out.println("진입");
-        log.info("foodie/write POST - ! {}", proBoard);
-        log.info("foodie/write POST!! - titleImgFile : {}", titleImgFile.get(0).getOriginalFilename());
-        log.info("foodie/write POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
-        log.info("foodie/write POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
+        log.info("proBoard/modify POST - ! {}", proBoard);
+        log.info("proBoard/modify POST!! - titleImgFile : {}", titleImgFile.get(0).getOriginalFilename());
+        log.info("proBoard/modify POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
+        log.info("proBoard/modify POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
 
         List<String[]> menuList = new ArrayList<>(Arrays.asList(
                 request.getParameterValues("menuName"),
@@ -168,4 +168,15 @@ public class ProBoardController {
         boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, menuList, fileMap);
         return "";
     }
+
+    @PostMapping("/modify/menu")
+    @ResponseBody
+    public String modifyMenu(@RequestBody List<MenuDTO> menuDTOList)
+    {
+        log.info(" @PostMapping(\"/modify/menu\") modifyMenu {}",menuDTOList);
+
+        return "";
+    }
+
+
 }

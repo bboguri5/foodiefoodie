@@ -722,6 +722,7 @@
             var newElem = $('form-group').first().clone(); // 첫 item 복사 
             newElem.find('input').val('');
             newElem.appendTo('table#pricing-list-container');
+
         }
 
         /* add menu item delete */
@@ -731,6 +732,7 @@
                 $(this).parent().parent().parent().parent().parent().remove();
             });
         }
+        
 
         /* add menu item */
         function addMenuItem() {

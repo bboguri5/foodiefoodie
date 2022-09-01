@@ -18,6 +18,8 @@ class PromotionBoardMapperTest {
     PromotionBoardMapper mapper;
 
 
+
+
     @Test
     @DisplayName("가게 게시물을 저장해야 한다.")
     void saveProBoardTest() {

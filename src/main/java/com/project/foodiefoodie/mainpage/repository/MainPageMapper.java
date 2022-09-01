@@ -62,4 +62,5 @@ public interface MainPageMapper {
     // 해당 해쉬태그 개수
     int findHashTagCount(String hashTag);
 
+    String isOpen(long promotionBno);
 }

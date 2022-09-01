@@ -38,6 +38,14 @@
         ) v_reply
         )
         WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
+
+
+        <!--SELECT *
+        FROM reply
+        WHERE review_bno = #{reviewBno}
+        ORDER BY reply_no DESC
+        LIMIT (#{page.pageNum} - 1) * #{page.amount}, #{page.amount}-->
+
     </select>
 
     <select id="findOne" resultMap="replyMap">
@@ -54,6 +62,16 @@
     <insert id="save">
         INSERT INTO reply
         VALUES (#{reviewBno}, seq_reply.nextval, #{email}, #{content}, #{nickName}, SYSDATE)
+
+        <!--INSERT INTO reply (review_bno, email, content, nickName, last_updated)
+        VALUES (#{reviewBno}, #{email}, #{content}, #{nickName}, current_timestamp)-->
     </insert>
+
+    <!--  댓글 수정  -->
+    <update id="modify">
+        UPDATE reply
+        SET content = #{content}
+        WHERE reply_no = #{replyNo}
+    </update>
 
 </mapper>

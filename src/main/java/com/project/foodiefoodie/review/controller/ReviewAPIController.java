@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.review.controller;
 
-import com.project.foodiefoodie.common.api.payment.dto.OrderInfo;
+import com.project.foodiefoodie.common.api.payment.dto.MenuInfo;
+import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -22,16 +24,20 @@ public class ReviewAPIController {
 
     @PutMapping("/review/updownlike")
     @Transactional
-    public String upLike(long reviewBno, String email) {
-        log.info("/review/uplike reviewBno - {}, email - {}", reviewBno, email);
-        boolean isLiked = reviewBoardService.isLikedService(reviewBno, email);
+    public String upLike(long reviewBno, HttpSession session) {
+
+        Member loginUser = (Member) session.getAttribute("loginUser");
+
+
+        log.info("/review/uplike reviewBno - {}, email - {}", reviewBno, loginUser.getEmail());
+        boolean isLiked = reviewBoardService.isLikedService(reviewBno, loginUser.getEmail());
         if (!isLiked) {
             reviewBoardService.upLikeService(reviewBno);
-            reviewBoardService.saveReviewLikeService(reviewBno, email);
+            reviewBoardService.saveReviewLikeService(reviewBno, loginUser.getEmail());
             return "up-success";
         } else {
             reviewBoardService.downLikeService(reviewBno);
-            reviewBoardService.deleteReviewLikeService(reviewBno, email);
+            reviewBoardService.deleteReviewLikeService(reviewBno, loginUser.getEmail());
             return "down success";
         }
     }
@@ -46,7 +52,7 @@ public class ReviewAPIController {
 
 
     @PostMapping("/test")
-    public void test(@RequestBody List<OrderInfo> test, @RequestBody String businessNo) {
+    public void test(@RequestBody List<MenuInfo> test, @RequestBody String businessNo) {
         log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!! - {}, {}", test, businessNo);
     }
 }

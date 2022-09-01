@@ -40,7 +40,7 @@ public class ReplyService {
         return mapper.findReplyCount(reviewBno);
     }
 
-    public Map<String, Object> getList(Long reviewBno, Page page) {
+    public Map<String, Object>  getList(Long reviewBno, Page page) {
         //댓글 목록 조회
         PageMaker maker = new PageMaker(page, getCount(reviewBno));
 
@@ -60,5 +60,13 @@ public class ReplyService {
     //댓글 쓰기 중간처리
     public boolean write(Reply reply) {
         return mapper.save(reply);
+    }
+
+    public boolean remove(Long rno) {
+        return mapper.remove(rno);
+    }
+
+    public boolean modify(Reply reply) {
+        return mapper.modify(reply);
     }
 }

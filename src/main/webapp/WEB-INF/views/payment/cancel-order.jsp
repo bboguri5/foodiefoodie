@@ -14,14 +14,11 @@
             margin-top: 70px;
         }
 
-		.title {
-            margin-bottom: 70px;
-        }
 	</style>
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/include/headear.jsp" %>
+    <%@ include file="/WEB-INF/views/include/header.jsp" %>
 
 
     <main class="bg_gray pattern">
@@ -56,6 +53,8 @@
 
 
     <%@ include file="/WEB-INF/views/include/footer.jsp" %>
+
+	
 
 </body>
 </html>

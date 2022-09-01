@@ -21,16 +21,19 @@
         <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
+            <c:if test="${empty hotDeals}">
+                <p>핫딜 진행중인 맛집이 없습니다!</p>
+            </c:if>
             <div class="row">
                 <c:forEach var="hd" items="${hotDeals}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <span class="ribbon off">${hd.discountPrice}원</span>
-                                <img src="${hd.filePath}" data-src="${hd.filePath}" class="img-fluid lazy"
+                                <span class="ribbon off">${hd.discountPrice}%</span>
+                                <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                     <a href="detail-restaurant.html" class="strip_info">
-                                    <small>기간: ${hd.endDate}</small>
+                                        <small>${hd.isOpen}</small>
                                     <div class="item_title">
                                         <h3>${hd.storeName}</h3>
                                         <small># : ${hd.hashTag}</small>

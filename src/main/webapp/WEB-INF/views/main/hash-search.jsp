@@ -10,20 +10,7 @@
 
     
     <style>
-        .search form {
-			display: flex;
-		}
 
-		.search .form-select {
-			flex: 1;
-			margin-top: 8px;
-			border-radius: 10px;
-		}
-
-
-		.search .row {
-			flex: 10;
-		}
     </style>
 
 </head>
@@ -37,20 +24,24 @@
         <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
+            <c:if test="${empty hashTagList}">
+                <p>해당 카테고리 맛집이 없습니다.</p>
+            </c:if>
             <div class="row">
                 <c:forEach var="ht" items="${hashTagList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
 
-                                <c:if test="${ht.hotDeal == 'Y'.charAt(0) && ht.endDate > todayDate}">
-									<span class="ribbon off">${ht.discountPrice}</span>
+                                <c:if test="${ht.hotDeal == 'on'}">
+									<span class="ribbon off">${ht.discountPrice}%</span>
 								</c:if>
-                                <img src="${ht.filePath}" data-src="${ht.filePath}" class="img-fluid lazy"
+                                <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
-                                    <c:if test="${ht.hotDeal == 'Y'.charAt(0) && ht.endDate > todayDate}">
-                                        <small>기간: ${ht.endDate}</small>
+                                    <small>${ht.isOpen}</small>
+                                    <c:if test="${ht.hotDeal == 'on'}">
+                                        <span class="ribbon off">${ht.discountPrice}%</span>
                                     </c:if>
                                     <div class="item_title">
                                         <h3>${ht.storeName}</h3>

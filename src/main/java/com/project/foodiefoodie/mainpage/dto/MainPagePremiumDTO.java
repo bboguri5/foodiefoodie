@@ -16,8 +16,5 @@ public class MainPagePremiumDTO {
     private double avgStarRate;
     private Long reviewCnt;
     private char hotDeal;
-    private String filePath;
     private int discountPrice;
-    private Long startDate;
-    private Long endDate;
 }

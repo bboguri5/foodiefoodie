@@ -9,7 +9,13 @@ import lombok.*;
 @AllArgsConstructor
 public class ReviewUpload {
 
-    private long reviewBno;
-    private String filePath;
-    private String fileName;
+    long reviewBno;
+    String filePath;
+    String fileName;
+    String fileByte;
+    long fileSize;
+    String fileData;
+    String fileType;
+    byte[] fileByteArray;
+
 }

@@ -25,7 +25,7 @@
     <insert id="insertOrderDetail">
         INSERT INTO order_detail
         VALUES
-            (#{orderNo}, #{menu}, #{quantity}, #{price})
+            (#{orderNo}, #{menu}, #{quantity}, #{price}, #{discount})
     </insert>
 
 </mapper>

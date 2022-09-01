@@ -38,19 +38,23 @@
         <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
+            <c:if test="${empty premiumList}">
+                <p>광고 진행중인 맛집이 없습니다.</p>
+            </c:if>
             <div class="row">
                 <c:forEach var="pl" items="${premiumList}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <c:if test="${pl.hotDeal == 'Y'.charAt(0) && pl.endDate > todayDate}">
-									<span class="ribbon off">${pl.discountPrice}</span>
+                                <c:if test="${pl.hotDeal == 'on'}">
+									<span class="ribbon off">${pl.discountPrice}%</span>
 								</c:if>
-                                <img src="${pl.filePath}" data-src="${pl.filePath}" class="img-fluid lazy"
+                                <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
-                                    <c:if test="${pl.hotDeal == 'Y'.charAt(0) && pl.endDate > todayDate}">
-                                        <small>기간: ${pl.endDate}</small>
+                                    <small>${pl.isOpen}</small>
+                                    <c:if test="${pl.hotDeal == 'on'}">
+                                        <span class="ribbon off">${pl.discountPrice}%</span>
                                     </c:if>
                                     <div class="item_title">
                                         <h3>${pl.storeName}</h3>

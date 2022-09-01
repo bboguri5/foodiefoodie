@@ -15,9 +15,6 @@
 			margin-top: 70px;
 		}
 
-		.title {
-			margin-bottom: 70px;
-		}
 	</style>
 </head>
 
@@ -58,6 +55,7 @@
 
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp" %>
+
 
 </body>
 

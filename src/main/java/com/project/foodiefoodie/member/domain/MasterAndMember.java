@@ -19,4 +19,5 @@ public class MasterAndMember extends Member{
     private String extraAddress;
     private String storeDetailAddress;
     private String storeExtraAddress;
+    private String promotionAuth;
 }

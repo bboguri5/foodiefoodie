@@ -15,6 +15,7 @@ DROP TABLE reply;
 DROP TABLE favorite_store;
 DROP TABLE hot_deal;
 DROP TABLE review_board;
+drop table PROMOTION_STORE_TIME;
 DROP TABLE premiume_promotion_board;
 DROP TABLE promotion_food_menu;
 DROP TABLE promotion_board;
@@ -393,21 +394,20 @@ commit;
 
 
 ----------------------------------------------------------- 08 / 15
-
+drop table PROMOTION_STORE_TIME;
  create table PROMOTION_STORE_TIME
     (
         promotion_bno number(10) NOT NULL
-        ,weekdayOpenTime number(8) NOT NULL
-        ,weekdayCloseTime number(8) NOT NULL
-        ,weekendOpenTime number(8) NOT NULL
-        ,weekendCloseTime number(8) NOT NULL
-        ,breakStartTime number(8) NOT NULL
-        ,breakEndTime number(8) NOT NULL
+        ,weekdayOpenTime varchar2(10) NOT NULL
+        ,weekdayCloseTime varchar2(10) NOT NULL
+        ,weekendOpenTime varchar2(10) NOT NULL
+        ,weekendCloseTime varchar2(10) NOT NULL
+        ,breakStartTime varchar2(10) NOT NULL
+        ,breakEndTime varchar2(10) NOT NULL
         ,closedDay VARCHAR2(20)
         , CONSTRAINT fk_store_time_promotion_bno FOREIGN KEY (promotion_bno)
         REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
     );
-
 
    ------------------------------------------------------------- 08 / 24
 
@@ -435,3 +435,145 @@ ALTER TABLE hot_deal DROP COLUMN end_date ;
        , menu_ea NUMBER(2) NOT NULL -- 주문 수량
        , price NUMBER(10) NOT NULL -- 가격
    );
+
+   ----------------------------------------------------------- 08/25
+     drop table promotion_notice;
+     drop sequence seq_promotion_notice;
+     create SEQUENCE seq_promotion_notice;
+      create table promotion_notice
+      (
+          promotion_bno NUMBER(10),
+          notice_no NUMBER(10) PRIMARY KEY,
+          content varchar2(300) NOT NULL,
+          update_date date DEFAULT SYSDATE NOT NULL,
+           CONSTRAINT fk_promotion_bno_notice FOREIGN KEY (promotion_bno)
+              REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+      );
+
+   select * from promotion_notice;
+
+   alter table review_board
+   modify store_name VARCHAR2(50) NOT NULL;
+
+   ALTER TABLE review_board
+   add store_address VARCHAR2(150) NOT NULL;
+   ALTER TABLE review_board
+   add store_detail_address VARCHAR2(50) NULL;
+   ALTER TABLE review_board
+   add store_extra_address VARCHAR2(50) NULL;
+
+   ALTER TABLE review_board
+   add store_name VARCHAR2(50);
+
+
+CREATE SEQUENCE seq_order_no;
+
+   ----------------------------------------------------- 08/26
+   drop table review_upload;
+   drop table profile_upload;
+   -- 리뷰 파일 업로드
+   CREATE TABLE review_upload(
+       review_bno NUMBER(10) NOT NULL
+       , file_path clob not null
+       , file_name VARCHAR2(100) NOT NULL
+       , CONSTRAINT fk_rev_upload FOREIGN KEY (review_bno)
+       REFERENCES review_board (review_bno) ON DELETE CASCADE
+   );
+
+
+   -- 프로필이미지 파일 업로드
+   CREATE TABLE profile_upload(
+       email VARCHAR2(50) PRIMARY KEY
+       , file_path clob not null
+       , file_name VARCHAR2(100) NOT NULL
+       , CONSTRAINT fk_profile_upload FOREIGN KEY (email)
+       REFERENCES member (email) ON DELETE CASCADE
+   );
+
+
+
+
+
+
+
+
+
+   ---------------------------------------------------------------- 08/30
+
+alter table review_upload
+add file_size number(20);
+
+alter table review_upload
+add file_type varchar2(10);
+
+alter table review_upload
+add file_byte clob;
+
+alter table review_upload
+add file_data clob;
+
+
+
+
+drop SEQUENCE seq_promotion_menu_img;
+drop SEQUENCE SEQ_PROMOTION_FOOD_MENU;
+
+CREATE SEQUENCE seq_promotion_menu_img;
+CREATE SEQUENCE SEQ_PROMOTION_FOOD_MENU;
+
+drop table PROMOTION_UPLOAD_MENU_IMG;
+create table PROMOTION_UPLOAD_MENU_IMG (
+        promotion_bno number(10)
+        ,menu_no
+        ,file_path clob
+        ,file_name varchar2(100)
+        ,file_mediatype varchar2(20)
+        ,file_size number(20)
+        ,file_byte clob
+        ,file_data clob
+        ,CONSTRAINT fk_promotion_bno_menu_img FOREIGN KEY (promotion_bno)
+              REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+        ,CONSTRAINT fk_menu_no_menu_img FOREIGN KEY (menu_no)
+              REFERENCES PROMOTION_FOOD_MENU (menu_no) ON DELETE CASCADE
+);
+
+
+alter table promotion_board drop column FILE_NAME ;
+alter table promotion_board drop column FILE_PATH ;
+
+
+
+alter table PROMOTION_UPLOAD_DETAIL_IMG
+add file_mediatype varchar2(10);
+
+alter table PROMOTION_UPLOAD_DETAIL_IMG
+add file_size number(20);
+
+alter table PROMOTION_UPLOAD_DETAIL_IMG
+add file_byte clob;
+
+alter table PROMOTION_UPLOAD_DETAIL_IMG
+add file_data clob;
+---------------------------------------------
+
+
+alter table PROMOTION_UPLOAD_TITLE_IMG
+add file_mediatype varchar2(10);
+
+alter table PROMOTION_UPLOAD_TITLE_IMG
+add file_size number(20);
+
+alter table PROMOTION_UPLOAD_TITLE_IMG
+add file_byte clob;
+
+alter table PROMOTION_UPLOAD_TITLE_IMG
+add file_data clob;
+
+commit;
+
+select* from PROMOTION_UPLOAD_MENU_IMG ;
+
+
+
+
+

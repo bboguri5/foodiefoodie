@@ -39,6 +39,8 @@ public interface MasterMapper {
 
     // boolean removeMaster(String businessNo);
 
+    Master findOneMasterForBusinessNo(String businessNo);
+
   List<Master> callMaster(String email);
 
     int masterCount(String email);

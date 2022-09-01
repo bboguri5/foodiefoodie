@@ -51,6 +51,11 @@
         WHERE business_no = #{businessNo}
     </delete>
 
+    <select id="findOneMasterForBusinessNo" resultMap="masterMap">
+        SELECT * FROM master
+        WHERE business_no = #{businessNo}
+    </select>
+
 
     <select id="callMaster" resultMap="masterMap">
         SELECT

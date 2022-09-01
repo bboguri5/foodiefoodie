@@ -8,14 +8,12 @@
     <resultMap id="dealMap" type="com.project.foodiefoodie.hotdeal.domain.HotDeal">
         <result property="businessNo" column="business_no"/>
         <result property="discountPrice" column="discount_price"/>
-        <result property="endDate" column="end_date"/>
-        <result property="startDate" column="start_date"/>
     </resultMap>
 
     <insert id="save">
         INSERT INTO hot_deal
-        (business_no, discount_price, end_date, start_date)
-        VALUES (#{businessNo}, #{discountPrice}, #{endDate}, #{startDate})
+        (business_no, discount_price)
+        VALUES (#{businessNo}, #{discountPrice})
     </insert>
 
     <select id="findOne" resultMap="dealMap">
@@ -30,7 +28,7 @@
 
     <update id="modify">
         UPDATE hot_deal
-        SET discount_price = #{discountPrice}, end_date=#{endDate}, start_date=#{startDate}
-        WHERE business_no=#{businessNo}
+        SET discount_price = #{discountPrice}
+        WHERE business_no = #{businessNo}
     </update>
 </mapper>

@@ -38,7 +38,7 @@ public class premiumeController {
 
         log.info("premiume-complete POST! - {}", premiume);
 
-//        pres.modifyService(premiume);
+        pres.modifyService(premiume);
 
         return "redirect:/admin/premiume-" + menu;
     }

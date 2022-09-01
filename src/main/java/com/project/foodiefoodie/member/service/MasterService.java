@@ -38,6 +38,10 @@ public class MasterService {
         return mapper.removeMaster(businessNo);
     }
 
+    public Master findOneForBusinessNoService(String businessNo) {
+        return mapper.findOneMasterForBusinessNo(businessNo);
+    }
+
     // 마스터 리스트 받는당~
     public List<Master> allMaster(String email){
         List<Master> masters = mapper.callMaster(email);

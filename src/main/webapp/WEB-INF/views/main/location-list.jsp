@@ -24,6 +24,7 @@
 		.search .row {
 			flex: 10;
 		}
+
     </style>
 
 </head>
@@ -38,19 +39,23 @@
         <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
+            <c:if test="${empty locations}">
+                <p>이 지역에 등록된 맛집이 없습니다.</p>
+            </c:if>
             <div class="row">
                 <c:forEach var="ll" items="${locations}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <c:if test="${ll.hotDeal == 'Y'.charAt(0) && ll.endDate > todayDate}">
-									<span class="ribbon off">${ll.discountPrice}</span>
+                                <c:if test="${ll.hotDeal == 'on'}">
+									<span class="ribbon off">${ll.discountPrice}%</span>
 								</c:if>
-                                <img src="${ll.filePath}" data-src="${ll.filePath}" class="img-fluid lazy"
+                                <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
-                                <a href="detail-restaurant.htll" class="strip_info">
-                                    <c:if test="${ll.hotDeal == 'Y'.charAt(0) && ll.endDate > todayDate}">
-                                        <small>기간: ${ll.endDate}</small>
+                                <a href="detail-restaurant.html" class="strip_info">
+                                    <small>${ll.isOpen}</small>
+                                    <c:if test="${ll.hotDeal == 'on'}">
+                                        <span class="ribbon off">${ll.discountPrice}%</span>
                                     </c:if>
                                     <div class="item_title">
                                         <h3>${ll.storeName}</h3>
@@ -61,8 +66,7 @@
                             <ul>
                                 <li><span>${ll.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>근처 맛집<em>${ll.reviewCnt}개
-                                                리뷰</em></span><strong>${ll.avgStarRate}</strong></div>
+                                    <div class="score"><span>근처 맛집<em>${ll.reviewCnt}개 리뷰</em></span><strong>${ll.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>

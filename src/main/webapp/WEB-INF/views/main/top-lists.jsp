@@ -10,7 +10,7 @@
 
     
     <style>
-        .search form {
+        /* .search form {
 			display: flex;
 		}
 
@@ -23,7 +23,7 @@
 
 		.search .row {
 			flex: 10;
-		}
+		} */
     </style>
 
 </head>
@@ -36,19 +36,23 @@
         <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
+            <c:if test="${empty topTodayAll}">
+                <p>등록된 맛집이 없습니다.</p>
+            </c:if>
             <div class="row">
                 <c:forEach var="topTodayAll" items="${topTodayAll}" varStatus="status">
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <c:if test="${topTodayAll.hotDeal == 'Y'.charAt(0) && topTodayAll.endDate > todayDate}">
-									<span class="ribbon off">${topTodayAll.discountPrice}</span>
+                                <c:if test="${topTodayAll.hotDeal == 'on'}">
+									<span class="ribbon off">${topTodayAll.discountPrice}%</span>
 								</c:if>
-                                <img src="${topTodayAll.filePath}" data-src="${topTodayAll.filePath}" class="img-fluid lazy"
+                                <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
-                                    <c:if test="${topTodayAll.hotDeal == 'Y'.charAt(0) && topTodayAll.endDate > todayDate}">
-                                        <small>기간: ${topTodayAll.endDate}</small>
+                                    <small>${topTodayAll.isOpen}</small>
+                                    <c:if test="${topTodayAll.hotDeal == 'on'}">
+                                        <span class="ribbon off">${topTodayAll.discountPrice}%</span>
                                     </c:if>
                                     <div class="item_title">
                                         <h3>${topTodayAll.storeName}</h3>

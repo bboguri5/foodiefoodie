@@ -28,12 +28,11 @@
 
         <div class="container margin_60_40">
             <div class="row justify-content-center">
-                <div class="col-lg-4">
+                <div class="col-lg-5">
                     <div class="sign_up">
                         <div class="head">
                             <div class="title">
                                 <h3>이메일 계정 찾기</h3>
-                                <br>
                             </div>
                         </div>
                         <!-- /head -->
@@ -41,7 +40,7 @@
                             <!-- <a href="#0" class="social_bt facebook">Sign up with Facebook</a>
 							<a href="#0" class="social_bt google">Sign up with Google</a>
 							<div class="divider"><span>Or</span></div> -->
-                            <h6>회원가입시 사용한 성함, 전화번호, 생년월일을 입력하세요.</h6>
+                            <h6>가입한 성함, 전화번호, 생년월일을 입력하세요.</h6>
                             <br>
                             <form id="find-email-form" action="/find/email" method="post">
 

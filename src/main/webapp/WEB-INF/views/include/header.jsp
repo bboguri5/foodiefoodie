@@ -18,7 +18,7 @@
         </c:if>
 
         <c:if test="${loginUser != null}">
-            <c:if test="${loginUser.email == 'admin@naver.com'}">
+            <c:if test="${loginUser.auth == 'ADMIN'}">
                 <ul id="top_menu" class="drop_user">
                     <li>
                         <div class="dropdown user clearfix">
@@ -38,7 +38,7 @@
                     </li>
                 </ul>
             </c:if>
-            <c:if test="${loginUser.email != 'admin@naver.com'}">
+            <c:if test="${loginUser.auth != 'ADMIN'}">
                 <ul id="top_menu" class="drop_user">
                     <li>
                         <div class="dropdown user clearfix">

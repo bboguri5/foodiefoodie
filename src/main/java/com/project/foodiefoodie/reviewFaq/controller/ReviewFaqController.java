@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.reviewFaq.controller;
 
 import com.project.foodiefoodie.blackList.service.BlackListService;
+import com.project.foodiefoodie.member.service.MemberService;
 import com.project.foodiefoodie.promotion.service.PromotionService;
 import com.project.foodiefoodie.promotionFaq.domain.PromotionFaq;
 import com.project.foodiefoodie.promotionFaq.service.PromotionFaqService;
@@ -27,7 +28,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class ReviewFaqController {
 
-
+    private final MemberService ms;
     private final ReviewFaqService rvfs;
     private final ReportMemberService rms;
     private final ReviewService rs;
@@ -83,7 +84,9 @@ public class ReviewFaqController {
 
             // 리뷰글에 카운트 추가
             int reportCnt = rs.checkReportCntService(reviewFaq.getReviewWriterEmail());
-            rs.reportCntModifyService(reportCnt + 1, reviewFaq.getReviewWriterEmail());
+            if (ms.findMember(reviewFaq.getReviewWriterEmail()) != null) {
+                rs.reportCntModifyService(reportCnt + 1, reviewFaq.getReviewWriterEmail());
+            }
         }
 
         return "redirect:/admin/reviewFaq";

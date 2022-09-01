@@ -11,5 +11,5 @@ public class AvgStarDTO {
 
     private String businessNo;
     private int reviewCount;
-    private double sr;
+    private int sr;
 }

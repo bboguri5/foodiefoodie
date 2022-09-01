@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -77,6 +79,10 @@
 		.submenu .show-submenu {
 			color: #589442;
 		}
+
+		.review-write-btn .review-write-text {
+			color: #589442;
+		}
 	</style>
 </head>
 
@@ -92,16 +98,20 @@
 						<div class="col-xl-4 col-lg-5 col-md-5">
 							<div class="search_bar_list">
 								<input required value="${search}" name="search" type="text" class="form-control"
-									placeholder="Search in blog...">
-								<input type="submit" value="Search">
+									placeholder="리뷰 검색...">
+								<input type="submit" value="검색">
 							</div>
 						</div>
 					</form>
 					<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
 						<nav class="main-menu">
 							<ul>
+								<li class="review-write-btn">
+									<a class="review-write-text" href="/review/write">리뷰 작성</a>
+								</li>
+
 								<li class="submenu">
-									<a href="#0" class="show-submenu">SORT <i class="arrow_carrot-down"></i></a>
+									<a href="#0" class="show-submenu">정렬<i class="arrow_carrot-down"></i></a>
 									<ul>
 										<c:if test="${not empty search}">
 											<li><a href="/review/search?search=${search}&sort=like">추천순</a></li>
@@ -135,15 +145,17 @@
 							<!-- <div class="col-md-6"> -->
 							<article class="blog">
 								<figure>
-									<a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}"><img
-											src="${uploads[status.index].filePath}" alt="">
+									<a href="/review/detail?reviewBno=${rl.reviewBno}"><img
+											src="data:image/png;base64, ${uploads[status.index]}" alt="">
 										<div class="preview"><span>Read more</span></div>
 									</a>
 								</figure>
 								<div class="post_info">
-									<small>Last Updated - ${rl.lastUpdated}
+									<small>Last Updated - 
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
-									<h2><a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a></h2>
+									<h2><a
+											href="/review/detail?reviewBno=${rl.reviewBno}">${rl.title}</a>
+									</h2>
 
 									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
 									<p>식당 주소: ${rl.storeAddress}</p>
@@ -154,9 +166,25 @@
 												${rl.email}
 											</li>
 											<li>
-												<i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i><span
-													id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-												<a href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}#section-comment"><i
+
+												<c:set var="contains" value="false" />
+												<c:forEach var="item" items="${isLikedList}">
+													<c:if test="${item eq rl.reviewBno}">
+														<c:set var="contains" value="true" />
+													</c:if>
+												</c:forEach>
+												<c:choose>
+													<c:when test="${contains}">
+														<i id="${rl.reviewBno}" class="heartIcon icon_heart"></i>
+													</c:when>
+													<c:otherwise>
+														<i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i>
+													</c:otherwise>
+												</c:choose>
+
+												<span id="heart${rl.reviewBno}">${rl.likeCnt}</span>
+												<a
+													href="/review/detail?reviewBno=${rl.reviewBno}#section-comment"><i
 														id="${rl.reviewBno}"
 														class="icon_comment_alt"></i>${replyCount[status.index]}</a>
 											</li>
@@ -185,18 +213,25 @@
 	<%@ include file="../include/footer.jsp" %>
 
 	<script>
-		const upCount = document.querySelector('.upCount');
-		upCount.addEventListener('click', e => {
-			if (e.target.classList.contains('heartIcon')) {
-				if ('${loginUser}' === '') {
-					alert('로그인 후 사용 가능합니다');
-				} else {
-					likeOrUnlike(e);
+		(function () {
+			likeUnlikeEvent();
+		})();
+
+		function likeUnlikeEvent() {
+			const upCount = document.querySelector('.upCount');
+			upCount.addEventListener('click', e => {
+				if (e.target.classList.contains('heartIcon')) {
+					if ('${loginUser}' === '') {
+						alert('로그인 후 사용 가능합니다');
+					} else {
+						likeOrUnlike(e);
+					}
+				} else if (e.target.className.classList.contains('icon_comment_alt')) {
+					location.href = '/review/detail?reviewBno=' + e.target.id +
+						'#section-comment';
 				}
-			} else if (e.target.className.classList.contains('icon_comment_alt')) {
-				location.href = '/review/detail?email=${loginUser.email}&reviewBno=' + e.target.id + '#section-comment';
-			}
-		});
+			});
+		}
 
 		function likeOrUnlike(e) {
 			// 서버에 수정 비동기 요청 보내기
@@ -209,8 +244,8 @@
 				}
 			};
 
-			const email = '${loginUser.email}';
-			fetch('/review/updownlike?reviewBno=' + bno + '&email=' + email, reqInfo)
+			// const email = '${loginUser.email}';
+			fetch('/review/updownlike?reviewBno=' + bno, reqInfo)
 				.then(res => res.text())
 				.then(msg => {
 					if (msg === 'up-success') {

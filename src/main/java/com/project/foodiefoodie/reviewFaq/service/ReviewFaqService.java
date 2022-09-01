@@ -34,4 +34,11 @@ public class ReviewFaqService {
         return mapper.findAllAndTitle(complete);
     }
 
+    public boolean saveService(ReviewFaq reviewFaq) {
+        boolean flag = mapper.save(reviewFaq);
+
+
+        return flag;
+    }
+
 }

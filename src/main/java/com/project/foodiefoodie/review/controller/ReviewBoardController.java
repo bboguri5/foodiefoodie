@@ -9,8 +9,11 @@ import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
+import com.project.foodiefoodie.reviewFaq.domain.ReviewFaq;
+import com.project.foodiefoodie.reviewFaq.service.ReviewFaqService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +34,8 @@ public class ReviewBoardController {
     private final ReviewBoardService reviewBoardService;
     private final ReplyService replyService;
     private final MasterService masterService;
+    private final ReviewFaqService reviewFaqService;
+
     @GetMapping("/review")
     public String review(String sort, Model model,  HttpSession session) {
         log.info("review started - list");
@@ -199,6 +204,24 @@ public class ReviewBoardController {
         return "redirect:/review/detail?reviewBno=" + reviewBoard.getReviewBno();
     }
 
+    @PostMapping("/review/remove")
+    public String reviewRemove(Long reviewBno) {
+        log.info("/review/remove POST!!!!! - {}", reviewBno);
 
+        reviewBoardService.removeReviewService(reviewBno);
+
+        return "redirect:/review?sort=latest";
+    }
+
+    @PostMapping("/review/review-faq")
+    public String reviewFaq(ReviewFaq reviewFaq) {
+
+        log.info("/review/review-faq POST!!!! - {}", reviewFaq);
+
+        reviewFaqService.saveService(reviewFaq);
+
+
+        return "redirect:/review/detail?reviewBno=" + reviewFaq.getReviewBno();
+    }
 
 }

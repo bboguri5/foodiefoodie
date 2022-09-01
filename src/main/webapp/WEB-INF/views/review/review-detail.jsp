@@ -93,6 +93,45 @@
             height: 100%;
             /* display: block; */
         }
+
+        .star {
+            position: relative;
+            font-size: 2rem;
+            color: #ddd;
+        }
+
+        .star input {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .star span {
+            width: 0;
+            position: absolute;
+            left: 0;
+            color: red;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .review-modal-content {
+            position: absolute;
+            top: 100px;
+        }
+        .modal-review-faq-content {
+            height: 200px;
+        }
+        
+        .singlepost figure {
+            margin-top: 30px !important;
+        }
+
+        .img-css {
+            margin-top: 30px !important;
+        }
     </style>
 
 </head>
@@ -109,9 +148,9 @@
                     <form action="/review/search" method="get">
                         <div class="col-xl-4 col-lg-5 col-md-5">
                             <div class="search_bar_list">
-								<input required value="${search}" name="search" type="text" class="form-control"
-									placeholder="리뷰 검색...">
-								<input type="submit" value="검색">
+                                <input required value="${search}" name="search" type="text" class="form-control"
+                                    placeholder="리뷰 검색...">
+                                <input type="submit" value="검색">
                             </div>
                         </div>
                     </form>
@@ -127,10 +166,20 @@
                     <div class="singlepost">
                         <h1 style="display: inline;">${review.title}</h1>
                         <a style="margin-left: 550px;" href="/review/modify/${review.reviewBno}">수정</a>
+                        <span style="margin-left: 10px">|</span>
+                        <a href="#" class="review-del-btn" style="margin-left: 10px;">삭제</a>
+                        <span style="margin-left: 10px">|</span>
+                        <a href="#" class="review-faq-btn" style="margin-left: 10px;" data-bs-toggle='modal'
+                            data-bs-target='.review-faq-modal'>신고</a>
+                        <form method="post" action="/review/remove" class="review-del-form">
+                            <input type="hidden" value="${review.reviewBno}" name="reviewBno">
+                        </form>
                         <div class="postmeta">
                             <ul>
                                 <!-- <li><a href="#"><i class="icon_folder-alt"></i> Category</a></li> -->
-                                <li><i class="icon_calendar"></i><fmt:formatDate type="both" value="${review.lastUpdated}" /></li>
+                                <li><i class="icon_calendar"></i>
+                                    <fmt:formatDate type="both" value="${review.lastUpdated}" />
+                                </li>
 
                                 <li><a href="#"><i class="icon_pencil-edit"></i> ${review.email}</a></li>
                                 <li><a href="#section-comment"><i class="icon_comment_alt"></i> (${replyCount})
@@ -144,12 +193,19 @@
                         </div>
                         <!-- /post meta -->
                         <div class="post-content">
-                            <p>내 평점: ${review.starRate}점</p>
+                            <label>평점</label>
+                            <div></div>
+                            <span class="star">
+                                ★★★★★
+                                <span>★★★★★</span>
+                                <input type="hidden" oninput="drawStar(this)" value="1" step="1" min="0" max="10"
+                                    name="starRate">
+                            </span>
                             <p>식당 이름: <a href="#">${review.storeName}</a></p>
                             <span>식당 주소: ${review.storeAddress} --> </span>
                             <a class="openKaKaoMap" target="_blank">주소 지도로 보기</a>
                         </div>
-                        <figure>
+                        <figure class="img-css">
                             <div class="owl-carousel owl-theme carousel_1 magnific-gallery owl-loaded owl-drag">
                                 <div class="owl-stage-outer">
                                     <div class="owl-stage"
@@ -171,7 +227,7 @@
                                 </div>
                                 <div class="owl-nav disabled"><button type="button" role="presentation"
                                         class="owl-prev"><span aria-label="Previous">‹</span></button>
-                                        <button type="button" role="presentation" class="owl-next"><span
+                                    <button type="button" role="presentation" class="owl-next"><span
                                             aria-label="Next">›</span></button></div>
                             </div>
                         </figure>
@@ -261,6 +317,44 @@
 
         <!-- end replyModifyModal -->
 
+        <!-- 리뷰 신고 모달 -->
+        <form action="/review/review-faq" method="post" class="modal-form review-faq-form">
+            <div class="modal fade review-faq-modal" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content review-modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="edit_bookingLabel">신고글 정보</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>리뷰 제목</label>
+                                <input type="text" class="form-control modal-report-no" value="${review.title}" disabled>
+                                <input type="hidden" class="modal-review-bno" name="reviewBno" value="${review.reviewBno}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>리뷰 작성자</label>
+                                <input type="text" class="form-control modal-review-writer-email" name="reviewWriterEmail" value="${review.email}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>신고 작성자</label>
+                                <input type="text" class="form-control modal-writer-email" name="writerEmail" value="${loginUser.email}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>신고 사유</label>
+                                <textarea type="text" class="form-control modal-review-faq-content"
+                                name="content"></textarea>
+                            </div>
+                             <!-- /Row -->
+                        </div>
+                        <div class="modal-footer btn-wrap">
+                            <button class="btn btn-primary del-btn modal-faq-btn" type="button">신고</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
 
     </main>
     <!-- /main -->
@@ -341,7 +435,7 @@
                 const loginEmail = "${loginUser.email}";
                 // console.log("login email - ", typeof loginEmail);
 
-                
+
                 for (let rep of replyList) {
 
                     tag +=
@@ -350,7 +444,8 @@
                         `           <a href="#"><img src="/img/avatar1.jpg" alt=""></a>` +
                         `       </div>` +
                         `       <div class="comment_right clearfix">` +
-                        `           <div class="comment_info">작성 : <a href="#">` + rep.nickName + `</a><span>|</span>`  + new Date(rep.lastUpdated).toLocaleString();
+                        `           <div class="comment_info">작성 : <a href="#">` + rep.nickName + `</a><span>|</span>` +
+                        new Date(rep.lastUpdated).toLocaleString();
 
                     if (loginEmail === rep.email) {
                         tag +=
@@ -640,6 +735,38 @@
                 });
         }
     </script>
+
+    <script>
+        const starRate = document.querySelector('.star span');
+        starRate.style.width = (`${review.starRate}` * 10) + '%';
+    </script>
+
+    <script>
+        const reviewDelBtn = document.querySelector('.review-del-btn');
+        const reviewDelForm = document.querySelector('.review-del-form');
+        reviewDelBtn.onclick = e => {
+            reviewDelForm.submit();
+        }
+    </script>
+
+
+    <!-- 댓글 신고 모달 form -->
+    <script>
+        const reviewFaqBtn = document.querySelector('.modal-faq-btn');
+
+        reviewFaqBtn.onclick = e => {
+            const faqContent = document.querySelector('.modal-review-faq-content');
+            const reviewFaqForm = document.querySelector('.review-faq-form');
+            if(faqContent.value.trim() === '') {
+                alert("사유는 필수값입니다.");
+            } else {
+                reviewFaqForm.submit();
+            }
+        }
+
+
+    </script>
+
 
 
 </body>

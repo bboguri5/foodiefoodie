@@ -170,4 +170,9 @@
         and file_name = #{fileName}
     </delete>
 
+    <delete id="removeReview">
+        delete from review_board
+        where review_bno = #{reviewBno}
+    </delete>
+
 </mapper>

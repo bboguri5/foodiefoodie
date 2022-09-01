@@ -84,19 +84,17 @@
     </select>
 
     <select id="searchAllReview" resultMap="rbDTOMap">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no,
-        m.store_name, m.store_address
-        FROM review_board rb
-        JOIN master m
-        ON rb.business_no = m.business_no
+        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
+        store_name, store_address
+        FROM review_board
         WHERE private = 'F'
-        AND rb.email LIKE '%' || #{search}|| '%'
-        OR rb.title LIKE '%' || #{search}|| '%'
-        OR rb.content LIKE '%' || #{search}|| '%'
-        OR m.store_name LIKE '%' || #{search}|| '%'
-        OR m.store_address LIKE '%' || #{search}|| '%'
-        <if test="sort == 'latest'">ORDER BY rb.last_updated DESC</if>
-        <if test="sort == 'like'">ORDER BY rb.like_cnt DESC</if>
+        AND email LIKE '%' || #{search}|| '%'
+        OR title LIKE '%' || #{search}|| '%'
+        OR content LIKE '%' || #{search}|| '%'
+        OR store_name LIKE '%' || #{search}|| '%'
+        OR store_address LIKE '%' || #{search}|| '%'
+        <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
+        <if test="sort == 'like'">ORDER BY like_cnt DESC</if>
     </select>
 
     <insert id="reviewUpload">

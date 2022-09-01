@@ -85,12 +85,8 @@
 			sessionStorage.removeItem('totalQuantity');
 			sessionStorage.removeItem('discount');
 			sessionStorage.removeItem('businessNo');
-			fetch('/reOrder')
-				.then(res => res.text())
-				.then(referer => {
-					location.href = referer;
-				});
-			// window.history.back();
+			
+			location.href = '${referer}';
 		});
 
 

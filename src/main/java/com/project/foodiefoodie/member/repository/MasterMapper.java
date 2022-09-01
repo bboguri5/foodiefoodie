@@ -2,15 +2,13 @@ package com.project.foodiefoodie.member.repository;
 
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.member.domain.Master;
-import com.project.foodiefoodie.member.dto.AuthDTO;
 import com.project.foodiefoodie.member.dto.BusinessNoAndPromotionNoDTO;
+import com.project.foodiefoodie.member.dto.MasterHotDealOnOffDTO;
 import com.project.foodiefoodie.member.dto.MasterModifyDTO;
-import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import com.project.foodiefoodie.member.domain.MasterAndMember;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -49,6 +47,7 @@ public interface MasterMapper {
 
     BusinessNoAndPromotionNoDTO findPromotionBno(String businessNo);
 
+    boolean MasterHotDealOnOff(MasterHotDealOnOffDTO masterHotDealOnOffDTO);
 
 
 

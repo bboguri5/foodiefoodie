@@ -322,7 +322,7 @@
 
 
     <!-- hotDeal Modal -->
-    <form action="/admin/promotion-completeFaq" method="post" class="promotion-modal-form">
+    <form action="/hotDealForm/${masterNum}" method="post" class="promotion-modal-form hotDealForm">
         <div class="modal fade hotDeal" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -334,34 +334,39 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input type="checkbox" name="hotDealOn" id="hotDealOn"> ON <input type="checkbox"
-                            name="hotDealOff" id="hotDealOff"> OFF
-
+                        <input type="radio" name="hotDealRadio" id="hotDealOn" value="ON"> ON <input type="radio"
+                            name="hotDealRadio" id="hotDealOff" value="OFF"> OFF
+                            <!-- 히든값으로 비즈니스 번호 넣어줄라고 했는데 받아보니 널값임 그냥 내일 물어봐야지 -->
+                            <!-- <input type="text" name=" businessNo" value="${master.businessNo}" hidden> -->
                         <!-- <div class="form-group">
-                            <label>할인율</label>
-                            <input type="text" class="form-control promotion-modal-report-no" name="hotdealPercent">
-                        </div> -->
-                        <select name="hotdealPercent" class="hotdealPercent">
-                            <option value="0">0%</option>
-                            <option value="5">5%</option>
-                            <option value="10">10%</option>
-                            <option value="15">15%</option>
-                            <option value="20">20%</option>
-                            <option value="25">25%</option>
-                            <option value="30">30%</option>
-                            <option value="35">35%</option>
-                            <option value="40">40%</option>
-                            <option value="45">45%</option>
-                            <option value="50">50%</option>
-                        </select>
-                        <!-- /Row -->
-                    </div>
-                    <div class="modal-footer btn-wrap">
-                        <button class="btn btn-primary del-btn promotion-complete-n" type="button">신고 취소</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                <label>할인율</label>
+                                <input type="text" class="form-control promotion-modal-report-no" name="hotdealPercent">
+                            </div> -->
+                        <div class="selectBox">
+                            <select name="discountPrice" class="hotdealPercent">
+                                <option value="0">0%</option>
+                                <option value="5">5%</option>
+                                <option value="10">10%</option>
+                                <option value="15">15%</option>
+                                <option value="20">20%</option>
+                                <option value="25">25%</option>
+                                <option value="30">30%</option>
+                                <option value="35">35%</option>
+                                <option value="40">40%</option>
+                                <option value="45">45%</option>
+                                <option value="50">50%</option>
+                            </select>
+                        </div>
+
+    
+    <!-- /Row -->
+    </div>
+    <div class="modal-footer btn-wrap">
+        <button class="btn btn-primary del-btn promotion-complete-n hotdealBtn" type="button">신고 취소</button>
+    </div>
+    <!-- </div>
+    </div>
+    </div> -->
     </form>
     <!-- Bootstrap core JavaScript-->
     <script src="/mypage/vendor/jquery/jquery.min.js"></script>
@@ -499,16 +504,88 @@
     </script>
 
     <script>
+        (function () {
+            // 즉시 실행함수 
+
+
+        })();
+
+
         $(document).ready(function () {
 
-            const $onCheckBox = document.getElementById("hotDealOn");
-            console.log($onCheckBox);
-            const $offCheckBox = document.getElementById("hotDealOff");
-            console.log($offCheckBox);
 
-            const $checkArray = [$onCheckBox,$offCheckBox];
+            const $onRadio = document.getElementById('hotDealOn');
+            console.log($onRadio);
+            const $offRadio = document.getElementById('hotDealOff');
+            console.log($offRadio);
 
-            if()
+            const $checkArray = [$onRadio, $offRadio];
+
+            const $selectBox = document.querySelector('.selectBox');
+            console.log($selectBox);
+
+            const $hotdealBtn = document.querySelector('.hotdealBtn');
+
+
+            const $hotDealForm = document.querySelector('.hotDealForm');
+     
+
+
+            $onRadio.onclick = e => {
+                // on 을 클릭하면 
+                // $onRadio.checked = true;
+                const onlog = $onRadio.checked;
+                console.log(onlog); // 트루라고 나옴 
+
+                // $offRadio.checked = false;
+                const offlog = $offRadio.checked;
+                console.log(offlog); // undefined 라고 나옴 
+
+                if (onlog && !offlog) {
+                    console.log('wq wreqw');
+                    $selectBox.style.display = 'block';
+                }
+
+            };
+
+            $offRadio.onclick = e => {
+                // on 을 클릭하면 
+                // $onRadio.checked = false;
+                const onlog = $onRadio.checked;
+                console.log(onlog); // 트루라고 나옴 
+
+                // $offRadio.checked = true;
+                const offlog = $offRadio.checked;
+                console.log(offlog); // undefined 라고 나옴 
+
+                if (!onlog && offlog) {
+                    console.log('wq wr123123eqw');
+                    $selectBox.style.display = 'none';
+                }
+            };
+
+            $hotdealBtn.onclick = e => {
+
+                const $hotDealRadioList = document.getElementsByName('hotDealRadio');
+
+                console.log($checkArray);
+
+                console.log($hotDealRadioList); // 잘 잡아옴 
+
+
+                $hotDealRadioList.forEach((node) => {
+                    if (node.checked) {
+                        console.log(node.value);
+
+
+                        // location.href = '/master/register';
+                        $hotDealForm.submit();
+                    }
+                })
+
+            };
+
+
 
 
 

@@ -17,6 +17,14 @@
         <result property="storeCallNumber" column="store_call_number"/>
     </resultMap>
 
+
+    <update id="MasterHotDealOnOff">
+        UPDATE master
+        SET hot_deal = #{hotDeal}
+        WHERE business_no = #{businessNo}
+    </update>
+
+
     <insert id="requestAuthMaster">
         INSERT INTO master
             (business_no, email, master_name, store_name, store_address, store_detail_address,

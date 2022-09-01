@@ -3,6 +3,7 @@ package com.project.foodiefoodie.member.repository;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.MasterAndMember;
 import com.project.foodiefoodie.member.dto.BusinessNoAndPromotionNoDTO;
+import com.project.foodiefoodie.member.dto.MasterHotDealOnOffDTO;
 import com.project.foodiefoodie.member.dto.MasterModifyDTO;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import com.project.foodiefoodie.promotion.dto.PromotionMasterDTO;
@@ -82,5 +83,19 @@ class MasterMapperTest {
         System.out.println("\n\n======================\n\n");
 
     }
+
+    @Test
+    @DisplayName("비즈니스번호 , 핫딜 on/off 넣으면 값이 바뀜")
+    void  MasterHotDealOnOffTest(){
+        String buBno = "1234-2222-3333-1124";
+        String hotDeal = "off";
+        MasterHotDealOnOffDTO masterHotDealOnOffDTO = new MasterHotDealOnOffDTO();
+        masterHotDealOnOffDTO.setBusinessNo(buBno);
+        masterHotDealOnOffDTO.setHotDeal(hotDeal);
+        boolean b = masterMapper.MasterHotDealOnOff(masterHotDealOnOffDTO);
+        assertTrue(b);
+//
+    }
+
 
 }

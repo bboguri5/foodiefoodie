@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.foodiefoodie.myPage.repository.HotDealDiscountMapper">
+    <!--맵퍼 경로 맞음    -->
+
+    <resultMap id="OrdersMap" type="com.project.foodiefoodie.myPage.dto.ModiHotDealPercentDTO">
+        <result column="business_no" property="businessNo" />
+        <result column="discount_price" property="discountPrice" />
+        <!-- 이메일도 있음 -->
+    </resultMap>
+
+<!--    값 넣어주는 메서드 -->
+    <insert id="insertHotDealPercent">
+        INSERT INTO hot_deal VALUES (#{businessNo},#{discountPrice})
+    </insert>
+
+<!--    있는지 없는지 확인하는 메서드 -->
+    <select id="hotDealCount" resultType="int">
+        select count(*)
+        from hot_deal
+        where business_no = #{businessNo}
+    </select>
+
+    <update id="hotDealDiscountMoid">
+        UPDATE hot_deal
+        SET discount_price = #{discountPrice}
+        WHERE business_no = #{businessNo}
+    </update>
+
+
+
+
+
+</mapper>

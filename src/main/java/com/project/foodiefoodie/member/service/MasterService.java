@@ -2,6 +2,7 @@ package com.project.foodiefoodie.member.service;
 
 import com.project.foodiefoodie.common.paging.Page;
 import com.project.foodiefoodie.member.domain.Master;
+import com.project.foodiefoodie.member.dto.MasterHotDealOnOffDTO;
 import com.project.foodiefoodie.member.dto.MasterModifyDTO;
 import com.project.foodiefoodie.member.dto.master.MasterDTO;
 import com.project.foodiefoodie.member.repository.MasterMapper;
@@ -55,6 +56,11 @@ public class MasterService {
         return b;
     }
 
+    // 마스터 핫딜 on off  수정하는 메서드
+    public boolean masterHotDealOnOffService(MasterHotDealOnOffDTO masterHotDealOnOffDTO){
+        boolean onOff = mapper.MasterHotDealOnOff(masterHotDealOnOffDTO);
+        return onOff;
+    }
 
 
 

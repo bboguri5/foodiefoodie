@@ -1,6 +1,5 @@
 package com.project.foodiefoodie.review.service;
 
-import com.project.foodiefoodie.proBoard.dto.ImageDTO;
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
 import com.project.foodiefoodie.review.domain.ReviewBoard;

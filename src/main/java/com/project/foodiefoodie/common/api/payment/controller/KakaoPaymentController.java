@@ -49,12 +49,21 @@ public class KakaoPaymentController {
         ObjectMapper objectMapper = new ObjectMapper();
 
 
-        // js에서 비동기처리로 받은 json데이터들이 다 자바 객체 형태로 데이터가 존재하지만 엄밀히는 문자열이다.
+        // js에서 비동기처리로 서버에 받아온 json데이터들이 다 자바스크립트 객체 형태로 데이터가 존재하지만 엄밀히는 문자열이다.
         // 그래서 그 문자열을 파싱해서 사용해야 하는데.. 그걸 스프링에서는 잭슨 라이브러리가 해준다.
-            // 자바에 들어온 json 데이터를 변환할 때도! 어떤 비동기 처리에 의한 데이터를 json 형태로 보낼 때도!! 잭슨 라이브러리는 열일한다.
-        // js에서 맵에 여러 데이터들을 받는 와중에 list를 받았는데!
-        // 그걸 기본형(int, String, double..)이 아닌,, 커스텀 객체 (List< ~~DTO>) 형태로 받고자 한다면..
-        // 원활히 변환이 이루어지지 않고 에러가 발생한다. 그 때는 잭슨 라이브러리에게 해당 데이터를 이런 식으로 변환해달라는 요청을 따로 보내야 한다!
+            // 자바에 들어온 json 데이터를 변환할 때도!
+            // 어떤 비동기 처리에 의한 데이터를 서버에서 클라이언트로 json 형태로 보낼 때도!! 잭슨 라이브러리는 열일한다.
+        // js -> 서버로 Map에 여러 데이터들을 담아 한번에 받는 와중에 배열 형태의 데이터를 받았는데!
+        // 그걸 서버에서 받을 때 제네릭 타입이 커맨드 객체인 리스트로 받아달라고 했더니.. (List<MenuInfo> 이렇게 받고자 했다!)
+        // 로그를 찍어서 잘 받아왔는지 확인해보면 로그에는 찍히지만.. 이상하게 Exception 이 뜨는 것을 볼 수 있다.
+        // casting 얘기가 나오고 List 얘기가 나온다면.. 아래 주석을 더 참고하면 된다.
+
+        // 제네릭 타입을 설정해서 이대로 받아달라고 요청할 때!!
+        // 해당 제네릭 타입이 기본형(int, String, double..)이 아닌,, // 커스텀 객체 (List< ~~DTO>) 형태로 받고자 한다면..
+        // 원활히 변환이 이루어지지 않고 에러가 발생한다.
+        // 그 때는 잭슨 라이브러리에게 해당 데이터를 이런 식으로 변환해달라는 요청을 따로 보내야 한다! (제네릭 타입 명시!!)
+
+            // 결론.. 그래서 어떻게 하는거냐!!
         // ObjectMapper 객체 생성 이후 convertValue 메서드 활용!!
         // 매개변수는 2개를 사용하고 첫번째 매개변수에는 내가 js에서 받아온 데이터! 즉, 커스텀 제네릭 타입을 사용하고자 하는 부분!
         // 2번째 매개변수에는 new TypeReference< 여기에 어떤 형태로 받을 것인지를 적는다. > () {}
@@ -89,9 +98,16 @@ public class KakaoPaymentController {
 
 
     @GetMapping("/kakao/order/check/request")
-    public String hey(HttpSession session) {
+    public String hey(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+
         List<MenuInfo> menuInfoList = (List<MenuInfo>) session.getAttribute("menuInfoList");
         log.info("/kakao/order/check GET!! - {}", menuInfoList);
+
+        String referer = request.getHeader("Referer");
+        model.addAttribute("referer", referer);
+
+
         return "payment/check-order";
     }
 
@@ -110,18 +126,6 @@ public class KakaoPaymentController {
         model.addAttribute("pcUrl", pcRedirectUrl);
 
         return "payment/check-order";
-    }
-
-
-    // 재주문하기 누른 경우 이전 화면으로 돌려줄 비동기 요청 처리
-    @GetMapping("/reOrder")
-    @ResponseBody
-    public String reOrder(HttpServletRequest request) {
-        String referer = request.getHeader("Referer");
-        if (referer == null) {
-            return "/";
-        }
-        return referer;
     }
 
 

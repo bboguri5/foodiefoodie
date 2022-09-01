@@ -89,9 +89,16 @@ public class KakaoPaymentController {
 
 
     @GetMapping("/kakao/order/check/request")
-    public String hey(HttpSession session) {
+    public String hey(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+
         List<MenuInfo> menuInfoList = (List<MenuInfo>) session.getAttribute("menuInfoList");
         log.info("/kakao/order/check GET!! - {}", menuInfoList);
+
+        String referer = request.getHeader("Referer");
+        model.addAttribute("referer", referer);
+
+
         return "payment/check-order";
     }
 
@@ -110,18 +117,6 @@ public class KakaoPaymentController {
         model.addAttribute("pcUrl", pcRedirectUrl);
 
         return "payment/check-order";
-    }
-
-
-    // 재주문하기 누른 경우 이전 화면으로 돌려줄 비동기 요청 처리
-    @GetMapping("/reOrder")
-    @ResponseBody
-    public String reOrder(HttpServletRequest request) {
-        String referer = request.getHeader("Referer");
-        if (referer == null) {
-            return "/";
-        }
-        return referer;
     }
 
 

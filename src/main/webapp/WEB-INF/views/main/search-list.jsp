@@ -81,13 +81,13 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <c:if test="${sl.hotDeal == 'Y'.charAt(0)}">
+                                <c:if test="${sl.hotDeal == 'on'}">
                                     <span class="ribbon off">${sl.discountPrice}%</span>
                                 </c:if>
                                 <img src="" data-src="" class="img-fluid lazy" alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <small>${sl.isOpen}</small>
-                                    <c:if test="${sl.hotDeal == 'Y'.charAt(0)}">
+                                    <c:if test="${sl.hotDeal == 'on'}">
                                         <span class="ribbon off">${sl.discountPrice}%</span>
                                     </c:if>
                                     <div class="item_title">

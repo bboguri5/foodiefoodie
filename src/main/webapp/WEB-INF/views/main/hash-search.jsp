@@ -33,14 +33,14 @@
                         <div class="strip">
                             <figure>
 
-                                <c:if test="${ht.hotDeal == 'Y'.charAt(0)}">
+                                <c:if test="${ht.hotDeal == 'on'}">
 									<span class="ribbon off">${ht.discountPrice}%</span>
 								</c:if>
                                 <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <small>${ht.isOpen}</small>
-                                    <c:if test="${ht.hotDeal == 'Y'.charAt(0)}">
+                                    <c:if test="${ht.hotDeal == 'on'}">
                                         <span class="ribbon off">${ht.discountPrice}%</span>
                                     </c:if>
                                     <div class="item_title">

@@ -289,7 +289,7 @@
                                     role="tab">Reviews</a>
                             </li>
                             <li class="nav-item">
-                                <a id="tab-D" href="#pane-D" class="nav-link" data-bs-toggle="tab" role="tab">Notice</a>
+                                <a id="tab-D" href="#pane-D" class="nav-link newNotice" data-bs-toggle="tab" role="tab">Notice</a>
                             </li>
                         </ul>
                         <div class="tab-content" role="tablist">
@@ -327,7 +327,8 @@
                                                     <tbody>
                                                         <tr class="only-desktop">
                                                             <th>주소</th>
-                                                            <td>${proBoard.storeAddress} ${proBoard.storeDetailAddress}<br>
+                                                            <td>${proBoard.storeAddress}
+                                                                ${proBoard.storeDetailAddress}<br>
                                                                 <!-- ${address} -->
                                                             </td>
                                                         </tr>
@@ -389,6 +390,12 @@
 
 
                             <!-- B type -->
+
+
+
+
+
+                            <!-- B type -->
                             <div id="pane-B" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
                                 <div class="card-header" role="tab" id="heading-B">
                                     <div class="card-header" role="tab" id="heading-B">
@@ -411,7 +418,7 @@
                                             <!-- menu itmes -->
                                             <c:forEach var="menu" items="${menuList}">
 
-                                            <div class="menu_item thumbs">
+                                                <div class="menu_item thumbs">
                                                     <figure>
                                                         <a title="Photo title" data-effect="mfp-zoom-in">
                                                             <c:set var="filePath" value="${menu.filePath}" />
@@ -426,15 +433,15 @@
                                                             </c:if>
                                                         </a>
                                                     </figure>
-                                                <div id="menu${menu.menuNo}" class="menuInfo">
-                                                    <h4 id="menu-name${menu.menuNo}">${menu.menuName}
-                                                    </h4>
-                                                    <em id="menu-price${menu.menuNo}">${menu.menuPrice}</em>
-                                                    <button id="${menu.menuNo}" class="menuAddBtn"
-                                                        type="button">방문포장</button>
+                                                    <div id="menu${menu.menuNo}" class="menuInfo">
+                                                        <h4 id="menu-name${menu.menuNo}">${menu.menuName}
+                                                        </h4>
+                                                        <em id="menu-price${menu.menuNo}">${menu.menuPrice}</em>
+                                                        <button id="${menu.menuNo}" class="menuAddBtn"
+                                                            type="button">방문포장</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </c:forEach>
+                                            </c:forEach>
 
                                             <!-- menu itmes -->
                                         </div>
@@ -444,7 +451,6 @@
                                     <div class="theiaStickySidebar">
                                         <div class="box_booking">
                                             <div class="head">
-
                                                 <h3>Order Summary</h3>
                                                 <c:if test="${not empty isHotDeal}">
                                                     <div class="offer">${isHotDeal}% 할인</div>
@@ -466,7 +472,10 @@
                                                             class="line-through">0</span></li>
                                                 </ul>
 
-                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">주문하기</a>
+                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
+                                                    Now</a>
+                                                <div class="text-center"><small>No money charged on this
+                                                        steps</small></div>
                                             </div>
                                         </div>
 
@@ -476,6 +485,9 @@
 
                             </div>
                             <!-- /B type -->
+
+
+
 
 
                             <!-- C type -->
@@ -552,6 +564,7 @@
                                 </div>
                             </div>
                             <!-- /C type -->
+
                             <!-- D type -->
                             <div id="pane-D" class="card tab-pane fade show" role="tabpanel" aria-labelledby="tab-D">
                                 <div class="card-header" role="tab" id="heading-D">
@@ -567,94 +580,41 @@
                                         <div class="add_bottom_25"></div>
                                         <!-- 공지사항  -->
                                         <h2>공지사항</h2>
-                                        <div class="noticeBox">
-                                            <!-- <div class="header_box">
-                                                <div class="filter">
-                                                    <div class="styled-select short">
-                                                        <select name="orderby">
-                                                            <option value="Any time">Any time</option>
-                                                            <option value="Latest">Latest</option>
-                                                            <option value="Oldest">Oldest</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-                                            <div class="list_general">
-                                                <ul>
-                                                    <li>
-                                                        <figure><img src="/img/item_1.jpg" alt=""></figure>
-                                                        <small>Pizza - Italian</small>
-                                                        <h4>La Monnalisa</h4>
-                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
-                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
-                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
-                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
-                                                            vocent ocurreret per....</p>
-                                                        <p><a href="#0" class="btn_1 gray"><i
-                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
-                                                        <ul class="buttons">
-                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
-                                                                        class="fa fa-fw fa-times-circle-o"></i>
-                                                                    Cancel</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <figure><img src="/img/item_2.jpg" alt=""></figure>
-                                                        <small>Pizza - Italian</small>
-                                                        <h4>Da Alfredo</h4>
-                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
-                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
-                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
-                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
-                                                            vocent ocurreret per....</p>
-                                                        <p><a href="#0" class="btn_1 gray"><i
-                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
-                                                        <ul class="buttons">
-                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
-                                                                        class="fa fa-fw fa-times-circle-o"></i>
-                                                                    Cancel</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li>
-                                                        <figure><img src="/img/item_3.jpg" alt=""></figure>
-                                                        <small>Japanese</small>
-                                                        <h4>Sushi Gold</h4>
-                                                        <p>Lorem ipsum dolor sit amet, est ei idque voluptua copiosae,
-                                                            pro detracto disputando reformidans at, ex vel suas eripuit.
-                                                            Vel alii zril maiorum ex, mea id sale eirmod epicurei. Sit
-                                                            te possit senserit, eam alia veritus maluisset ei, id cibo
-                                                            vocent ocurreret per....</p>
-                                                        <p><a href="#0" class="btn_1 gray"><i
-                                                                    class="fa fa-fw fa-eye"></i> View item</a></p>
-                                                        <ul class="buttons">
-                                                            <li><a href="#0" class="btn_1 gray delete wishlist_close"><i
-                                                                        class="fa fa-fw fa-times-circle-o"></i>
-                                                                    Cancel</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                        <div class="add_bottom_25 openWriteBox">
+                                            <p class="inline-popups noticeWrite">
+                                                <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
+                                                    <i class="fa fa-fw fa-reply"></i>글쓰기</a>
+                                            </p>
                                         </div>
-                                        <!-- /공지사항 -->
-                                        <!-- detail info -->
+                                        <div class="list_general notices">
+                                            <ul>
+                                                <!-- makeNoticeDom method -->
+                                            </ul>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
+                            <!-- /공지사항 -->
+                            <!-- detail info -->
                         </div>
-                        <!-- /tab-content -->
                     </div>
-                    <!-- /tabs_detail -->
-
                 </div>
-                <!-- /col -->
 
-                <!-- /row -->
             </div>
+            <!-- /tab-content -->
+        </div>
+        <!-- /tabs_detail -->
 
-            <!-- /row -->
+        </div>
+        <!-- /col -->
 
-            <!-- /container -->
+        <!-- /row -->
+        </div>
+
+        <!-- /row -->
+
+        <!-- /container -->
         </div>
     </main>
     <!-- /main -->
@@ -820,6 +780,18 @@
             </div>
         </form>
         <!--form -->
+        <div id="modal-reply" class="white-popup mfp-with-anim mfp-hide">
+            <div class="small-dialog-header">
+                <h3>공지사항 내용</h3>
+            </div>
+            <div class="message-reply margin-top-0">
+                <div class="form-group">
+                    <textarea cols="40" rows="3" class="form-control noticeContent" placeholder="300자 이내"></textarea>
+                </div>
+                <button class="btn_1 noticeSubmit">입력</button>
+            </div>
+        </div>
+        <!-- notice modal to review popup -->
     </div>
     <!-- /Sign In Modal -->
 
@@ -841,13 +813,14 @@
 
 <script>
     showKaKao(); // information map  
+
     clickEventOpenKakao(); // open kakao map 
+
     showNotice(); // notice
     makeNoticeWriteStyle(); // notice popup style
     clickEventSaveNotice(); // notice save 
 
     function showKaKao() {
-
         let positionAddress = '';
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = {
@@ -893,8 +866,18 @@
                 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
             }
 
+            $("#tab-A").on('click', function () {
+                console.log("map relayout");
+                map.relayout();
+            })
+
         });
 
+
+
+    }
+
+    function clickEventOpenKakao() {
         const $openKakaoMap = $(".openKaKaoMap");
         $openKakaoMap.on("click", function () {
 
@@ -946,7 +929,7 @@
         };
 
 
-        fetch('/foodie/detail/notice/save', reqInfo)
+        fetch('/proBoard/detail/notice/save', reqInfo)
             .then(res => res.text())
             .then(result => {
                 console.log(result);
@@ -963,7 +946,7 @@
 
     function showNotice() {
         console.log("showNotice");
-        fetch('/foodie/detail/notice/show/' + `${promotionBno}`)
+        fetch('/proBoard/detail/notice/show/' + `${promotionBno}`)
             .then(res => res.json())
             .then(noticeDTOS => {
                 console.log(noticeDTOS);
@@ -1008,7 +991,7 @@
         const $deleteNotice = $('.deleteNoticeWrite');
         $deleteNotice.on('click', function () {
             const noticeNo = this.parentElement.firstElementChild.value;
-            fetch('/foodie/detail/notice/delete/' + noticeNo, {
+            fetch('/proBoard/detail/notice/delete/' + noticeNo, {
                     method: 'DELETE'
                 })
                 .then(res => res.text())
@@ -1025,64 +1008,140 @@
     };
 </script>
 
-    <!-- javascript -->
+<!-- javascript -->
 
-    <!-- 메뉴 주문 자바 스크립트 -->
-    <script>
-        const isHotDeal = "${isHotDeal != null}";
-        const deal = "${isHotDeal}";
+  <!-- 메뉴 주문 자바 스크립트 -->
+  <script>
+    const isHotDeal = "${isHotDeal != null}";
+    const deal = "${isHotDeal}";
 
-        // 즉시 실행
-        (function () {
+    // 즉시 실행
+    (function () {
 
-            console.log("isHotDeal - ", typeof isHotDeal);
+        console.log("isHotDeal - ", typeof isHotDeal);
 
-            // hot deal 이 true 일 경우
-            if (isHotDeal === 'true') {
-                document.querySelector('.after-discount').innerHTML = document.querySelector('.after-discount')
-                    .innerHTML += '<li class="total"><span id="discount">0</span></li>';
-                document.querySelector('.line-through').style.textDecoration = 'line-through';
-            }
-            // 메뉴 추가 버튼 클릭 이벤트
-            menuAddClickEvent();
-
-            // 주문 버튼 클릭 이벤트
-            submitOrderClickEvent();
-
-        })();
-
+        // hot deal 이 true 일 경우
+        if (isHotDeal === 'true') {
+            document.querySelector('.after-discount').innerHTML = document.querySelector('.after-discount')
+                .innerHTML += '<li class="total"><span id="discount">0</span></li>';
+            document.querySelector('.line-through').style.textDecoration = 'line-through';
+        }
         // 메뉴 추가 버튼 클릭 이벤트
-        function menuAddClickEvent() {
-            const menuAddBtn = document.querySelector('.menu-gallery');
-            menuAddBtn.addEventListener('click', e => {
-                // console.log(e.target.classList);
-                if (e.target.classList.contains('menuAddBtn')) {
-                    // console.log('menuAddBtn clicked');
-                    addToOrder(e.target);
-                }
-            });
+        menuAddClickEvent();
+
+        // 주문 버튼 클릭 이벤트
+        submitOrderClickEvent();
+
+    })();
+
+    // 메뉴 추가 버튼 클릭 이벤트
+    function menuAddClickEvent() {
+        const menuAddBtn = document.querySelector('.menu-gallery');
+        menuAddBtn.addEventListener('click', e => {
+            // console.log(e.target.classList);
+            if (e.target.classList.contains('menuAddBtn')) {
+                // console.log('menuAddBtn clicked');
+                addToOrder(e.target);
+            }
+        });
+    }
+
+    // ADD TO ORDER SUMMARY LIST
+    function addToOrder(target) {
+
+        // get menu info
+        const menuId = target.id;
+        const menuInfo = document.getElementById('menu' + menuId);
+        const menuName = document.getElementById('menu-name' + menuId).textContent;
+        const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+        var totalPrice = document.getElementById('total').textContent;
+        // console.log('totalPrice = ', totalPrice);
+        // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ", menuPrice);
+
+        // 이미 메뉴가 리스트에 들어있으면 quantity & price 정보 수정
+        if (document.getElementById('order-name' + menuId) !== null) {
+            // increase current quantity
+            const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+            // console.log('current quantity - ', currQuantity);
+            document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
+
+            // increase menu price and total price
+            document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+            if (isHotDeal === 'true') {
+                document.getElementById('discount').textContent = parseInt(document.getElementById('total')
+                    .textContent) - parseInt(document.getElementById('total').textContent) * (
+                    deal / 100);
+            }
+            var currentPrice = document.getElementById('order-price' + menuId).textContent;
+            document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
+                menuPrice);
+
+
+            // add minus button if more than one
+            const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+            if (newQuantity > 1) {
+                const minusBtn = document.getElementById('minus' + menuId);
+                minusBtn.classList.add('icon_minus_alt2');
+
+            }
+        } else { // 리스트에 비동기로 정보 추가
+
+            let tag = '';
+            tag +=
+                `   <li id="order-name` + menuId + `">` +
+                `       <a class="removeMenu" href="#0">` + menuName + `</a>` +
+                `       <div id="order-quantity` + menuId + `" class="quantity ` + menuId + `">` +
+                `           <i id="minus` + menuId + `" class=""></i><strong class="order-quantity` +
+                menuId +
+                `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` + // maybe delete id
+                `       </div>` +
+                `       <span id="order-price` + menuId + `">` + menuPrice + `</span>` +
+                `   </li>`;
+
+            document.getElementById('async-order-list').innerHTML += tag;
+
+            // 최종 가격 업데이트
+            document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+            if (isHotDeal === 'true') {
+                document.getElementById('discount').textContent = parseInt(document.getElementById('total')
+                    .textContent) - parseInt(document.getElementById('total').textContent) * (
+                    deal / 100);
+            }
         }
 
-        // ADD TO ORDER SUMMARY LIST
-        function addToOrder(target) {
+        // 주문 메뉴 개수 업다운 버튼 이벤트
+        upDownQuantityClickEvent();
 
-            // get menu info
-            const menuId = target.id;
-            const menuInfo = document.getElementById('menu' + menuId);
-            const menuName = document.getElementById('menu-name' + menuId).textContent;
-            const menuPrice = document.getElementById('menu-price' + menuId).textContent;
-            var totalPrice = document.getElementById('total').textContent;
-            // console.log('totalPrice = ', totalPrice);
-            // console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ", menuPrice);
+        // 주문 메뉴 삭제 이벤트
+        deleteMenuFromOrderClickEvent();
+    }
 
-            // 이미 메뉴가 리스트에 들어있으면 quantity & price 정보 수정
-            if (document.getElementById('order-name' + menuId) !== null) {
+    // 주문 메뉴 개수 업다운 버튼 이벤트
+    function upDownQuantityClickEvent() {
+
+        const targetBtn = document.querySelector('.click-target');
+
+        targetBtn.onclick = e => {
+            const menuId = e.target.parentElement.classList[1];
+            if (e.target.classList.contains('icon_plus_alt2')) {
+                console.log('plus clicked ', menuId);
+
                 // increase current quantity
                 const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
                 // console.log('current quantity - ', currQuantity);
                 document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
 
+                // add minus button if more than one
+                const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                if (newQuantity > 1) {
+                    const minusBtn = document.getElementById('minus' + menuId);
+                    minusBtn.classList.add('icon_minus_alt2');
+
+                }
+
                 // increase menu price and total price
+                var totalPrice = document.getElementById('total').textContent;
+                const menuPrice = document.getElementById('menu-price' + menuId).textContent;
                 document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
                 if (isHotDeal === 'true') {
                     document.getElementById('discount').textContent = parseInt(document.getElementById('total')
@@ -1093,218 +1152,132 @@
                 document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
                     menuPrice);
 
+            } else if (e.target.classList.contains('icon_minus_alt2')) {
+                console.log('minus clicked', menuId);
 
-                // add minus button if more than one
+                // increase current quantity
+                const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
+                // console.log('current quantity - ', currQuantity);
+                document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) - 1;
+
+                // add minus button if less than or equal to one
                 const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
-                if (newQuantity > 1) {
+                if (newQuantity <= 1) {
                     const minusBtn = document.getElementById('minus' + menuId);
-                    minusBtn.classList.add('icon_minus_alt2');
+                    minusBtn.classList.remove('icon_minus_alt2');
 
                 }
-            } else { // 리스트에 비동기로 정보 추가
 
-                let tag = '';
-                tag +=
-                    `   <li id="order-name` + menuId + `">` +
-                    `       <a class="removeMenu" href="#0">` + menuName + `</a>` +
-                    `       <div id="order-quantity` + menuId + `" class="quantity ` + menuId + `">` +
-                    `           <i id="minus` + menuId + `" class=""></i><strong class="order-quantity` +
-                    menuId +
-                    `">1</strong><i id="plus` + menuId + `" class="icon_plus_alt2"></i>` + // maybe delete id
-                    `       </div>` +
-                    `       <span id="order-price` + menuId + `">` + menuPrice + `</span>` +
-                    `   </li>`;
-
-                document.getElementById('async-order-list').innerHTML += tag;
-
-                // 최종 가격 업데이트
-                document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
+                // increase menu price and total price
+                var totalPrice = document.getElementById('total').textContent;
+                const menuPrice = document.getElementById('menu-price' + menuId).textContent;
+                document.getElementById('total').textContent = parseInt(totalPrice) - parseInt(menuPrice);
                 if (isHotDeal === 'true') {
                     document.getElementById('discount').textContent = parseInt(document.getElementById('total')
                         .textContent) - parseInt(document.getElementById('total').textContent) * (
                         deal / 100);
                 }
-            }
-
-            // 주문 메뉴 개수 업다운 버튼 이벤트
-            upDownQuantityClickEvent();
-
-            // 주문 메뉴 삭제 이벤트
-            deleteMenuFromOrderClickEvent();
-        }
-
-        // 주문 메뉴 개수 업다운 버튼 이벤트
-        function upDownQuantityClickEvent() {
-
-            const targetBtn = document.querySelector('.click-target');
-
-            targetBtn.onclick = e => {
-                const menuId = e.target.parentElement.classList[1];
-                if (e.target.classList.contains('icon_plus_alt2')) {
-                    console.log('plus clicked ', menuId);
-
-                    // increase current quantity
-                    const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
-                    // console.log('current quantity - ', currQuantity);
-                    document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) + 1;
-
-                    // add minus button if more than one
-                    const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
-                    if (newQuantity > 1) {
-                        const minusBtn = document.getElementById('minus' + menuId);
-                        minusBtn.classList.add('icon_minus_alt2');
-
-                    }
-
-                    // increase menu price and total price
-                    var totalPrice = document.getElementById('total').textContent;
-                    const menuPrice = document.getElementById('menu-price' + menuId).textContent;
-                    document.getElementById('total').textContent = parseInt(totalPrice) + parseInt(menuPrice);
-                    if (isHotDeal === 'true') {
-                        document.getElementById('discount').textContent = parseInt(document.getElementById('total')
-                            .textContent) - parseInt(document.getElementById('total').textContent) * (
-                            deal / 100);
-                    }
-                    var currentPrice = document.getElementById('order-price' + menuId).textContent;
-                    document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) + parseInt(
-                        menuPrice);
-
-                } else if (e.target.classList.contains('icon_minus_alt2')) {
-                    console.log('minus clicked', menuId);
-
-                    // increase current quantity
-                    const currQuantity = document.querySelector('.order-quantity' + menuId).textContent;
-                    // console.log('current quantity - ', currQuantity);
-                    document.querySelector('.order-quantity' + menuId).textContent = parseInt(currQuantity) - 1;
-
-                    // add minus button if less than or equal to one
-                    const newQuantity = document.querySelector('.order-quantity' + menuId).textContent;
-                    if (newQuantity <= 1) {
-                        const minusBtn = document.getElementById('minus' + menuId);
-                        minusBtn.classList.remove('icon_minus_alt2');
-
-                    }
-
-                    // increase menu price and total price
-                    var totalPrice = document.getElementById('total').textContent;
-                    const menuPrice = document.getElementById('menu-price' + menuId).textContent;
-                    document.getElementById('total').textContent = parseInt(totalPrice) - parseInt(menuPrice);
-                    if (isHotDeal === 'true') {
-                        document.getElementById('discount').textContent = parseInt(document.getElementById('total')
-                            .textContent) - parseInt(document.getElementById('total').textContent) * (
-                            deal / 100);
-                    }
-                    var currentPrice = document.getElementById('order-price' + menuId).textContent;
-                    document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) - parseInt(
-                        menuPrice);
-                }
+                var currentPrice = document.getElementById('order-price' + menuId).textContent;
+                document.getElementById('order-price' + menuId).textContent = parseInt(currentPrice) - parseInt(
+                    menuPrice);
             }
         }
+    }
 
-        // 주문 메뉴 삭제 이벤트
-        function deleteMenuFromOrderClickEvent() {
-            const targetBtn = document.querySelector('.click-target');
-            targetBtn.addEventListener('click', e => {
-                if (e.target.classList.contains('removeMenu')) {
-                    e.preventDefault();
-                    // remove menu2
-                    // console.log('remove clicked - ', e.target.parentElement);
-                    e.target.parentElement.remove();
-                    document.getElementById('total').textContent = 0;
-                }
-
-            });
-        }
-
-        // 주문 버튼 클릭 이벤트
-        function submitOrderClickEvent() {
-            document.getElementById('submit-order').onclick = e => {
+    // 주문 메뉴 삭제 이벤트
+    function deleteMenuFromOrderClickEvent() {
+        const targetBtn = document.querySelector('.click-target');
+        targetBtn.addEventListener('click', e => {
+            if (e.target.classList.contains('removeMenu')) {
                 e.preventDefault();
-                makeOrderInfo();
+                // remove menu2
+                // console.log('remove clicked - ', e.target.parentElement);
+                e.target.parentElement.remove();
+                document.getElementById('total').textContent = 0;
+            }
+
+        });
+    }
+
+    // 주문 버튼 클릭 이벤트
+    function submitOrderClickEvent() {
+        document.getElementById('submit-order').onclick = e => {
+            e.preventDefault();
+            makeOrderInfo();
+        };
+    }
+
+    function makeOrderInfo() {
+        // console.log('make order list clicked');
+
+        // menu 정보를 담을 객체 리스트
+        const menuList = [];
+        const orderList = document.getElementById('async-order-list').children;
+
+        // console.log(orderList);
+        // console.log('business_no : ' + '${master.businessNo}');
+
+        for (let i = 0; i < orderList.length; i++) {
+            // console.log(orderList[i].innerText);
+            var orderArray = orderList[i].innerText.split(/\s+/);
+            // console.log('orderArray - ', orderArray);
+
+            var menuName = "";
+            for (let j = 0; j < orderArray.length - 2; j++) {
+                menuName += orderArray[j] + ' ';
+            }
+
+
+            const menu = {
+                menuName: menuName,
+                menuPrice: orderArray[orderArray.length - 1],
+                quantity: orderArray[orderArray.length - 2],
+                // businessNo: businessNo,
+                // discount: 10
             };
+
+            menuList[menuList.length] = menu;
+
         }
 
-        function makeOrderInfo() {
-            // console.log('make order list clicked');
+        const businessNo = '${master.businessNo}';
 
-            // menu 정보를 담을 객체 리스트
-            const menuList = [];
-            const orderList = document.getElementById('async-order-list').children;
+        const obj = {
+            businessNo: businessNo,
+            discount: deal,
+            menuList: menuList
+        }
 
-            // console.log(orderList);
-            // console.log('business_no : ' + '
-            // .businessNo}');
+        submitOrder(obj);
+    }
 
-            for (let i = 0; i < orderList.length; i++) {
-                // console.log(orderList[i].innerText);
-                var orderArray = orderList[i].innerText.split(/\s+/);
-                // console.log('orderArray - ', orderArray);
 
-                var menuName = "";
-                for (let j = 0; j < orderArray.length - 2; j++) {
-                    menuName += orderArray[j] + ' ';
+
+    // 주문 정보 전송 메서드
+    function submitOrder(obj) {
+
+        // POST요청을 위한 요청 정보 객체
+        const reqInfo = {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(obj)
+        };
+
+        // console.log(data);
+
+
+        fetch('/kakao/order/check', reqInfo)
+            .then(res => res.text())
+            .then(msg => {
+                if (msg === 'order-success') {
+                    location.href = '/kakao/order/check/request';
                 }
-
-
-                const menu = {
-                    menuName: menuName,
-                    menuPrice: orderArray[orderArray.length - 1],
-                    quantity: orderArray[orderArray.length - 2],
-                    // businessNo: businessNo,
-                    // discount: 10
-                };
-
-                menuList[menuList.length] = menu;
-
-            }
-
-            const businessNo = '${proBoard.businessNo}';
-
-            const obj = {
-                businessNo: businessNo,
-                discount: deal,
-                menuList: menuList
-            }
-
-            submitOrder(obj);
-        }
-
-
-
-        // 주문 정보 전송 메서드
-        function submitOrder(obj) {
-
-            // POST요청을 위한 요청 정보 객체
-            const reqInfo = {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(obj)
-            };
-
-            // console.log(data);
-
-
-            fetch('/kakao/order/check', reqInfo)
-                .then(res => res.text())
-                .then(msg => {
-                    if (msg === 'order-success') {
-                        location.href = '/kakao/order/check/request';
-                    }
-                });
-        }
-    </script>
-
-
-
-
-
-
+            });
+    }
+</script>
 
 </body>
-
-
-
 
 </html>

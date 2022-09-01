@@ -44,14 +44,14 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <c:if test="${topTodayAll.hotDeal == 'Y'.charAt(0)}">
+                                <c:if test="${topTodayAll.hotDeal == 'on'}">
 									<span class="ribbon off">${topTodayAll.discountPrice}%</span>
 								</c:if>
                                 <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <small>${topTodayAll.isOpen}</small>
-                                    <c:if test="${topTodayAll.hotDeal == 'Y'.charAt(0)}">
+                                    <c:if test="${topTodayAll.hotDeal == 'on'}">
                                         <span class="ribbon off">${topTodayAll.discountPrice}%</span>
                                     </c:if>
                                     <div class="item_title">

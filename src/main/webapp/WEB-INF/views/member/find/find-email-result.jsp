@@ -9,12 +9,13 @@
 
     <style>
         main {
-            height: 65vh;
+            height: 80vh;
         }
 
         .box_booking_2 {
             margin-top: 70px;
         }
+
 
     </style>
 

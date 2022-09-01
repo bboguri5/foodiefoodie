@@ -418,13 +418,20 @@
 						// 	console.log("yes: ", locationList[i].discountPrice);
 						// }
 
+
+						const isHot = locationList[i].hotDeal.toLowerCase() == 'on';
+						console.log(isHot);
+
 						tag +=
 							`<div class="item">` +
 							`   <div class="strip">` +
-							`       <figure>` +
-							`			<c:if test="` + locationList[i].hotDeal.toLowerCase() + ` == 'on'}">` +
-							`				<span class="ribbon off">` + locationList[i].discountPrice + `%</span>` +
-							`			</c:if>` +
+							`       <figure>`;
+
+						if (isHot) {
+							tag += `<span class="ribbon off">` + locationList[i].discountPrice + `%</span>`;
+						}
+
+						tag += 
 							`           <img src="" data-src="" class="owl-lazy" alt="">` +
 							`           <a href="detail-restaurant.html" class="strip_info">` +
 							`				<small>` + locationList[i].isOpen + `</small>` +

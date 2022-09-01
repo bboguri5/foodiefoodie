@@ -283,6 +283,7 @@
             <div class="btnbox">
                 <button type="button" class="btn modiBtn btn-success">수정하기</button>
                 <!-- <button type="button" class="btn masterRegistBtn btn-primary">가게 등록 하기</button> -->
+                <button type="button" class="btn btn-secondary makeProBoard">홍보글 작성하기</button>
                 <button type="button" class="btn deleteBtn btn-danger">가게 없애기</button>
             </div>
         </div>
@@ -362,7 +363,7 @@
     <!-- /Row -->
     </div>
     <div class="modal-footer btn-wrap">
-        <button class="btn btn-primary del-btn promotion-complete-n hotdealBtn" type="button">신고 취소</button>
+        <button class="btn btn-primary del-btn promotion-complete-n hotdealBtn" type="button">적용 하기</button>
     </div>
     <!-- </div>
     </div>
@@ -585,9 +586,39 @@
 
             };
 
+            const $makeProBoardBtn = document.querySelector(".makeProBoard");
+            
+            console.log("$makeProBoardBtn==========");
+            console.log($makeProBoardBtn);
 
-            console.log('${master.hotDeal}');
+            $makeProBoardBtn.onclick = e =>{
 
+                fetch('/countProBoard/' + '${masterNum}')
+                    .then(res => res.text())
+                    .then(msg => {
+                        if (msg === 'yes') {
+                            console.log('====yes====');
+                            // 없으니까 작성하는 페이지로 가는거고 
+                            location.href = "/proBoard/write/${master.businessNo}";
+                        } else if(msg === 'no'){
+                            console.log('====no====');
+                            // 이미 홍보 글이 있으니까 작성한 페이지로 이동 ! 
+                            alert("이미 홍보글이 있습니다. 작성된 홍보글로 이동합니다.")
+                            location.href = "/proBoard/detail/${promotionBno}";
+                        }
+                    });
+
+
+
+            };
+
+
+
+
+            
+
+
+            
 
         });
     </script>

@@ -91,6 +91,7 @@
             <result property="fileName" column="file_name"/>
         </resultMap>
 
+
         <select id="selectOne" resultMap="proBoardMap">
             SELECT *
             FROM promotion_board

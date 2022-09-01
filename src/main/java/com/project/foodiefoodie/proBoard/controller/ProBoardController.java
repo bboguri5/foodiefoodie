@@ -46,7 +46,7 @@ public class ProBoardController {
         model.addAttribute("storeTime", storeTimeDTO);
 
         log.info("{}", storeTimeDTO);
-        return "promotion/pro-detail";
+        return "promotion/pro-detail"; // /proBoard/write/{businessNo}
     }
 
     @GetMapping("/write/{businessNo}")

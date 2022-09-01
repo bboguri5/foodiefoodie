@@ -265,13 +265,11 @@
 
     <!-- 가게 등록 버튼 클릭 이벤트 -->
     <script>
-
         const $masterRegistBtn = $('.masterRegistBtn');
 
         $masterRegistBtn.on('click', e => {
             location.href = '/master/register';
         });
-
     </script>
 
 
@@ -289,6 +287,12 @@
         const $body = document.body;
 
         const $changePW = document.querySelector('.changePW');
+
+
+        const $deleteBtn = document.querySelector('.deleteBtn');
+
+
+
 
         // 비동기
         const $falseh5 = document.querySelector('.falseh5');
@@ -343,6 +347,7 @@
             };
         }
 
+
         if ($delBtn !== null) {
 
             //삭제버튼
@@ -378,6 +383,19 @@
             };
         }
 
+
+        $deleteBtn
+
+
+        if ($deleteBtn !== null) {
+
+            // 회원탈퇴!! 
+            $deleteBtn.onclick = e => {
+               
+                alert("회원탈퇴를 하셨습니다.")
+                location.href = '/';
+            };
+        }
 
 
         if ($passwordBtn !== null) {

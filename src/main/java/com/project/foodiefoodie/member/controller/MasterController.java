@@ -4,6 +4,7 @@ import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.MasterModifyDTO;
 import com.project.foodiefoodie.member.service.MasterService;
+import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,6 +28,8 @@ import java.util.List;
 public class MasterController {
 
     private final MasterService masterService;
+
+    private final PromotionBoardService promotionBoardService;
 
 
     // 사업자 등록 화면 요청 처리
@@ -73,8 +76,13 @@ public class MasterController {
         log.info("welcome /masterInfo -loginUser-Auth :?? {}",loginUser.getAuth());
         List<Master> masters = masterService.allMaster(email);
         Master master = masters.get(masterNum);
+        String businessNo = master.getBusinessNo();
         model.addAttribute("masterNum",masterNum);
         model.addAttribute("master",master);
+        // promotion넘버를 가져와야됨
+        int proBoardNumService = promotionBoardService.findProBoardNumService(businessNo);
+        model.addAttribute("promotionBno",proBoardNumService);
+
         return "/myPage/masterInfo";
     }
 

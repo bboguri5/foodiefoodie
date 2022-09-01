@@ -33,4 +33,15 @@ public class PromotionBoardService {
     public int checkReportCnt(String businessNo) {
         return mapper.checkReportCnt(businessNo);
     }
+
+
+    // 프로모션 갯수 불러오는 메서드
+    public int countPromotionBoardService(String businessNo){
+        return mapper.countPromotionBoard(businessNo);
+    }
+
+    // 프로모션 번호 알려주는 메서드
+    public int findProBoardNumService(String businessNo){
+        return mapper.findProBoardNum(businessNo);
+    }
 }

@@ -39,5 +39,13 @@ public interface PromotionBoardMapper {
     boolean reportCntModify(int reportCnt, String businessNo);
     int checkReportCnt(String businessNo);
 
+
+    // 프로모션 보드 갯수 확인하는 메서드
+    int countPromotionBoard(String businessNo);
+
+    // 프로모션 번호 가져옴
+    int findProBoardNum(String businessNo);
+
+
 }
 

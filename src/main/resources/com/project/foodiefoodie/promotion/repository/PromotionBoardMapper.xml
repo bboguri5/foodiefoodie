@@ -14,6 +14,22 @@
         <result property="hashTag" column="hash_tag"/>
     </resultMap>
 
+<!--    프로모션 보드 갯수 알아오는 메서드 -->
+    <select id="countPromotionBoard" resultType="int">
+        select count(*)
+        from promotion_board
+        where business_no = #{business_no}
+    </select>
+
+    <select id="findProBoardNum" resultType="int">
+        select promotion_bno
+        from promotion_board
+        where business_no = #{business_no}
+    </select>
+
+
+
+
     <insert id="save">
         INSERT INTO promotion_board (business_no, promotion_bno, content, title)
         VALUES (#{businessNo}, seq_promotion_board.nextval, #{content}, #{title})

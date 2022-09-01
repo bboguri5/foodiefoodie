@@ -151,7 +151,8 @@
         FROM promotion_board P JOIN hot_deal H
         ON P.business_no = H.business_no
         JOIN master M
-        ON H.business_no = M.business_no ) sub
+        ON H.business_no = M.business_no
+        WHERE hot_deal = 'on') sub
         WHERE ROWNUM BETWEEN 1 AND 6
     </select>
 
@@ -165,7 +166,8 @@
         FROM promotion_board P JOIN hot_deal H
         ON P.business_no = H.business_no
         JOIN master M
-        ON H.business_no = M.business_no ) sub)
+        ON H.business_no = M.business_no
+        WHERE hot_deal = 'on') sub)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
     </select>
 

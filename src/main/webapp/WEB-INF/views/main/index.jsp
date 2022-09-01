@@ -141,7 +141,7 @@
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<c:if test="${topToday.hotDeal == 'Y'.charAt(0)}">
+								<c:if test="${topToday.hotDeal == 'on'}">
 									<span class="ribbon off">${topToday.discountPrice}%</span>
 								</c:if>
 								<img src="" data-src="" class="owl-lazy" alt="">
@@ -181,7 +181,7 @@
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<c:if test="${pl.hotDeal == 'Y'.charAt(0)}">
+								<c:if test="${pl.hotDeal == 'on'}">
 									<span class="ribbon off">${pl.discountPrice}%</span>
 								</c:if>
 								<img src="" data-src="" class="owl-lazy" alt="">
@@ -417,7 +417,7 @@
 							`<div class="item">` +
 							`   <div class="strip">` +
 							`       <figure>` +
-							`			<c:if test="` + locationList[i].hotDeal + ` == 'Y'.charAt(0)}">` +
+							`			<c:if test="` + locationList[i].hotDeal + ` == 'on'}">` +
 							`				<span class="ribbon off">` + locationList[i].discountPrice + `%</span>` +
 							`			</c:if>` +
 							`           <img src="" data-src="" class="owl-lazy" alt="">` +

@@ -33,16 +33,16 @@
                         <div class="strip">
                             <figure>
 
-                                <c:if test="${ht.hotDeal == 'on'}">
+                                <c:if test="${ht.hotDeal.toLowerCase() == 'on'}">
 									<span class="ribbon off">${ht.discountPrice}%</span>
 								</c:if>
                                 <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <small>${ht.isOpen}</small>
-                                    <c:if test="${ht.hotDeal == 'on'}">
+                                    <!-- <c:if test="${ht.hotDeal.toLowerCase() == 'on'}">
                                         <span class="ribbon off">${ht.discountPrice}%</span>
-                                    </c:if>
+                                    </c:if> -->
                                     <div class="item_title">
                                         <h3>${ht.storeName}</h3>
                                         <small># : ${ht.hashTag}</small>

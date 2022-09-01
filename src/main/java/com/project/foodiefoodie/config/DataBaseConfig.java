@@ -16,6 +16,10 @@ public class DataBaseConfig {
     @Bean
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
+
+//        config.setJdbcUrl("jdbc:mariadb://localhost:3306/teamB");
+//        config.setDriverClassName("org.mariadb.jdbc.Driver");
+
         config.setUsername("teamB");
         config.setPassword("1234");
         config.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:xe");

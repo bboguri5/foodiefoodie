@@ -47,16 +47,16 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <c:if test="${ll.hotDeal == 'on'}">
+                                <c:if test="${ll.hotDeal.toLowerCase() == 'on'}">
 									<span class="ribbon off">${ll.discountPrice}%</span>
 								</c:if>
                                 <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
                                 <a href="detail-restaurant.html" class="strip_info">
                                     <small>${ll.isOpen}</small>
-                                    <c:if test="${ll.hotDeal == 'on'}">
+                                    <!-- <c:if test="${ll.hotDeal.toLowerCase() == 'on'}">
                                         <span class="ribbon off">${ll.discountPrice}%</span>
-                                    </c:if>
+                                    </c:if> -->
                                     <div class="item_title">
                                         <h3>${ll.storeName}</h3>
                                         <small># : ${ll.hashTag}</small>

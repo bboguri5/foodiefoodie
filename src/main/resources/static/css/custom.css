@@ -1,1 +1,11 @@
 /* YOUR CUSTOM CSS */
+
+@media screen and (max-width:900px) {
+    #locationList {
+        flex-direction: column;
+    }
+
+    #locationList div.item {
+        width: 100%;
+    }
+}

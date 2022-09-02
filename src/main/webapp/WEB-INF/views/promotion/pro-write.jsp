@@ -1003,7 +1003,6 @@
         $('.save').on('click', e => {
             let checkSave = [false, false];
             checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
-
             AddFileList();
             if (!checkArr.includes(false)) { // title , hashTag , content 필수 입력 
 
@@ -1025,6 +1024,7 @@
 
             }
         });
+
 
         function AddFileList() {
             // 이미지 file 변환 및 form 태그 내 input에 추가. 

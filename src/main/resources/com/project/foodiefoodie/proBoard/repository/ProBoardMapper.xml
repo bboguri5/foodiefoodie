@@ -63,28 +63,12 @@
         where promotion_bno = #{promotionBno}
     </update>
 
-    <update id="modifyMenu">
 
-        update PROMOTION_FOOD_MENU set
-        menuName = #{menuName}
-        menuPrice = #{menuPrice}
-        where promotion_bno = #{promotionBno}
-
-    </update>
-
-    <insert id="saveMenu">
-        insert into PROMOTION_FOOD_MENU VALUES (
-        SEQ_PROMOTION_FOOD_MENU.nextval
-        ,#{promotionBno}
-        ,#{menuName}
-        ,#{menuPrice}
-        )
-    </insert>
     <!--    <update id="modify">-->
     <!--        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}-->
     <!--    </update>-->
 
-    <!--    <delete id="delete">-->
+    <!--    <delete id="deleteProBoard">-->
     <!--        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}-->
     <!--    </delete>-->
 
@@ -169,9 +153,24 @@
 
     </select>
 
+    <insert id="saveMenuInfo">
+        insert into PROMOTION_FOOD_MENU VALUES (
+        SEQ_PROMOTION_FOOD_MENU.nextval
+        ,#{promotionBno}
+        ,#{menuName}
+        ,#{menuPrice}
+        )
+    </insert>
+
     <update id="modifyMenuInfo">
-        update promotion_food_menu set menu_name = #{menuName} , price = #{price} where menu_no = #{menuNo};
+        update promotion_food_menu set menu_name = #{menuName} , price = #{menuPrice} where menu_no = #{menuNo}
     </update>
+
+    <delete id="deleteMenuInfo">
+        delete from promotion_food_menu where promotion_bno = #{promotionBno}
+    </delete>
+
+
 
     <!--  ==================================  notice ==================================  -->
     <resultMap id="noticeDTO" type="com.project.foodiefoodie.proBoard.dto.NoticeDTO">
@@ -208,7 +207,6 @@
             PROMOTION_BNO
             ,MENU_NO
             </if>
-
             ,FILE_PATH ,FILE_NAME ,FILE_MEDIATYPE
             ,FILE_SIZE ,FILE_BYTE ,FILE_DATA
             )
@@ -221,23 +219,6 @@
             ,#{fileSize} ,#{fileByte} ,#{fileData}
             )
         </insert>
-
-    <insert id="modifyFiles">
-
-        <if test="filePath.contains('title')">
-            update PROMOTION_UPLOAD_TITLE_IMG set
-        </if>
-
-        <if test="filePath.contains('detail')">
-            update PROMOTION_UPLOAD_DETAIL_IMG set
-        </if>
-
-        <if test="filePath.contains('menu')">
-            update PROMOTION_UPLOAD_MENU_IMG set
-        </if>
-        ,FILE_PATH = #{filePath} ,FILE_NAME = #{fileName} ,FILE_MEDIATYPE = #{fileMediaType}
-        ,FILE_SIZE = #{fileSize} ,FILE_BYTE = #{fileByte} ,FILE_DATA = #{fileData}
-    </insert>
 
         <resultMap id="FileDTO" type="com.project.foodiefoodie.proBoard.dto.FileDTO">
             <result property="promotionBno" column="PROMOTION_BNO"/>
@@ -263,7 +244,7 @@
              where promotion_bno = #{promotionBno}
         </select>
 
-    <delete id="deleteFile">
+    <delete id="deleteFileOneInfo">
         delete from
         <if test="type == 'title'">
             PROMOTION_UPLOAD_TITLE_IMG
@@ -271,10 +252,18 @@
         <if test="type == 'detail'">
             PROMOTION_UPLOAD_DETAIL_IMG
         </if>
-        <if test="type == 'menu'">
-            PROMOTION_UPLOAD_MENU_IMG
-        </if>
         where promotion_bno = #{promotionBno}
         and file_name = #{fileName}
+    </delete>
+
+    <delete id="deleteFileAllInfo">
+        delete from
+        <if test="type == 'title'">
+            PROMOTION_UPLOAD_TITLE_IMG
+        </if>
+        <if test="type == 'detail'">
+            PROMOTION_UPLOAD_DETAIL_IMG
+        </if>
+        where promotion_bno = #{promotionBno}
     </delete>
 </mapper>

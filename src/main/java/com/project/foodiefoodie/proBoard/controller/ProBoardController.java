@@ -34,6 +34,7 @@ public class ProBoardController {
     public String detail(Model model, @PathVariable int promotionBno) {
         log.info(" ProBoardController /detail/{} Get - ! ", promotionBno);
 
+        // proBoard - ProBoard + Master + StoreTimeDTO 상속 관계
         model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
         model.addAttribute("menuList", proBoardService.selectMenuInfo(promotionBno));
         model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
@@ -109,6 +110,15 @@ public class ProBoardController {
         return "";
     }
 
+    @PostMapping("/write/menu")
+    @ResponseBody
+    public String writeMenu(@RequestBody List<MenuDTO> menuDTOList)
+    {
+        log.info("   @PostMapping(\"/write/menu\") writeMenu {}",menuDTOList);
+        proBoardService.saveMenuInfo(menuDTOList);
+        return "";
+    }
+
     //    ---------------------------------------- modify ----------------------------------------
 
     @GetMapping("/modify/{promotionBno}")
@@ -120,12 +130,13 @@ public class ProBoardController {
 //            return "redirect:/login";
 //        }
 
+        // proBoard - ProBoard + Master + StoreTimeDTO 상속
         model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
 
         return "promotion/pro-modify";
     }
 
-    @GetMapping("/modify/files/{promotionBno}")
+    @GetMapping("/modify/files/{promotionBno}") // 수정 (비동기) - 파일 + 메뉴 보여주기
     @ResponseBody
     public Map<String,Object> modifyFiles(@PathVariable int promotionBno)
     {
@@ -141,31 +152,24 @@ public class ProBoardController {
         return infoMap;
     }
 
-
-    @PostMapping("/modify")
+    @PostMapping("/modify") // 수정 - 저장 데이터 보내기
     public String modify(HttpServletRequest request, ProBoard proBoard,
                         List<MultipartFile> titleImgFile,
                         List<MultipartFile> detailImgFiles,
                         List<MultipartFile> menuImgFiles) {
 
-
-        System.out.println("진입");
-        log.info("proBoard/modify POST - ! {}", proBoard);
+        log.info("proBoard/modify POST - init ! {}", proBoard);
         log.info("proBoard/modify POST!! - titleImgFile : {}", titleImgFile.get(0).getOriginalFilename());
         log.info("proBoard/modify POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
         log.info("proBoard/modify POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
 
-        List<String[]> menuList = new ArrayList<>(Arrays.asList(
-                request.getParameterValues("menuName"),
-                request.getParameterValues("menuPrice")
-        ));
         Map<String, List<MultipartFile>> fileMap = new HashMap<>() {{
             put("title", titleImgFile);
             put("detail", detailImgFiles);
             put("menu", menuImgFiles);
         }};
 
-        boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, menuList, fileMap);
+        boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, fileMap);
         return "";
     }
 
@@ -174,7 +178,7 @@ public class ProBoardController {
     public String modifyMenu(@RequestBody List<MenuDTO> menuDTOList)
     {
         log.info(" @PostMapping(\"/modify/menu\") modifyMenu {}",menuDTOList);
-
+        proBoardService.modifyMenuInfo(menuDTOList);
         return "";
     }
 

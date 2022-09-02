@@ -18,6 +18,7 @@ import java.nio.file.Files;
 public class FileDTO  {
 
     private int promotionBno;
+    private int menuNo;
     private String filePath;
     private String fileName;
 
@@ -43,6 +44,6 @@ public class FileDTO  {
         this.fileSize = file.length();
         this.fileData = String.format("data:%s;base64,%s", fileMediaType, fileByte);
 
-        log.info(" object FileDTO : {}", this.toString());
+        log.info(" object FileDTO : {} {}",this.filePath, this.fileName);
     }
 }

@@ -58,7 +58,7 @@ public class ReviewBoardController {
         List<Long> isLikedList = reviewBoardService.getLikedListService(email);
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
-        log.info("reviewUploads - {}", reviewUploads);
+//        log.info("reviewUploads - {}", reviewUploads);
 //        log.info("replyCount - {}", replyCount);
 //        log.info("reviewList - {}", reviewList);
         model.addAttribute("reviewList", reviewList);

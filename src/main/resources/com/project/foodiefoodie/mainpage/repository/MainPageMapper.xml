@@ -217,7 +217,7 @@
         ON P.business_no = H.business_no
         JOIN master M
         ON H.business_no = M.business_no
-        WHERE hot_deal = 'on') sub
+        WHERE LOWER(hot_deal) = 'on') sub
         WHERE ROWNUM BETWEEN 1 AND 6
     </select>
 

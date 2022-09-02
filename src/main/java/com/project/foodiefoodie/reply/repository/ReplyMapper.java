@@ -25,4 +25,6 @@ public interface ReplyMapper {
 
     boolean modify(Reply reply);
 
+    int replyCount(long reviewBno);
+
 }

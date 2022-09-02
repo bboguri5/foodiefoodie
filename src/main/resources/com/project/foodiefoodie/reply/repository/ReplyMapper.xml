@@ -15,6 +15,13 @@
         <result property="lastUpdated" column="last_updated"/>
     </resultMap>
 
+    <select id="replyCount" resultType="int">
+        select count(reply_no)
+        from reply
+        where review_bno = #{reviewBno}
+    </select>
+
+
     <delete id="remove">
         DELETE FROM reply
         WHERE reply_no = #{replyNo}

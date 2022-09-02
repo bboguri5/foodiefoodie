@@ -84,17 +84,22 @@
 
         .instaHeader .profileContent .myInfo .boardCnt {
             color: black;
-            margin-left: 50px;
+            text-align : center;
+            line-height: 30px;
             flex: 1;
         }
 
         .instaHeader .profileContent .myInfo .followYou {
             color: black;
+            text-align : center;
+            line-height: 30px;
             flex: 1;
         }
 
         .instaHeader .profileContent .myInfo .followMe {
             color: black;
+            text-align : center;
+            line-height: 30px;
             flex: 1;
         }
 
@@ -132,14 +137,14 @@
 
         .myReview-allWrap .reviewPictureWrapper {
             width: 100%;
-            /* background: purple; */
+            background: purple;
             height: 100vh;
             position: relative;
             
         }
 
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox {
-            /* background: gray; */
+            background: gray;
             width: 95%;
             height: 100%;
             margin-top: 30px;
@@ -163,15 +168,15 @@
             margin-left: 3px;
         }
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .reviewPicture{
-            flex: 7;
+            background: blue;
             border: 1px solid #000;
         }
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .title{
-            flex: 1;
+            
             border: 1px solid #000;
         }
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .content{
-            flex: 2;
+           
             border: 1px solid #000;
         }
 
@@ -189,44 +194,44 @@
     <div class="content-wrapper">
         <div class="myReview-allWrap">
             <div class="instaHeader">
-                <div class="picture">
+                <!-- <div class="picture">
                     <div class="profilePicture">
                         ${profile.filePath} , ${profile.fileName}
                         <img src="" alt="">
                         <form action="" method="post">
-                            <!-- 히든으로 감춰서 보낼수있다 -->
+                            
                             <input type="hidden" name="qwe" value="123">
                         </form>
                     </div>
-                </div>
+                </div> -->
                 <div class="profileContent">
-                    <h2 class="userId">${loginUser.email} 계정 이메일</h2>
+                    <h2 class="userId">${loginUser.email} </h2>
                     <div class="myInfo">
-                        <div class="boardCnt">게시물수 ? </div>
-                        <div class="followYou">내가 한거</div>
-                        <div class="followMe">나한테 팔로우 건사람 </div>
+                        <div class="boardCnt">게시물수 </div>
+                        <div class="followYou">좋아요 갯수 </div>
+                        <div class="followMe">댓글 갯수 </div>
                     </div>
                 </div>
             </div>
-            <div id="hoverWrapper">
+            <!-- <div id="hoverWrapper">
                 <div class="hoverMenu">
-                    <div class="myReview">내 리뷰 보기 </div>
+                    <div class="myReview">리뷰 쓰기 </div>
                     <div class="favoriteList">즐겨찾기 사진 모음집</div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="reviewPictureWrapper">
                 <div class="reviewPictureBox">
-                    <c:forEach var="reviewInfo" items="${reviewInfo}">
+                    <c:forEach var="review" items="${myReviewList}">
                         <div class="reviewBox item1">
-                            <div class="reviewPicture picBox">
-                               파일경로 : ${reviewInfo.filePath}
-                                파일이름 : ${reviewInfo.fileName}
-                                <img src="" alt="">
-                            </div>
-                            <div class="title">${reviewInfo.title}</div>
-                            <div class="content">${reviewInfo.content}</div>
-                        </div>
+                            <a href="">
+                                <div class="reviewPicture picBox">
+                                    <img src="${review.fileData}" alt="#">
+                                </div> 
+                                <!-- <div class="title">${reviewInfo.title}</div>
+                                    <div class="content">${reviewInfo.content}</div> -->
+                                </div>
+                            </a>
                     </c:forEach>
                     <!-- <div class="reviewBox item2">
                         <div class="reviewPicture picBox">

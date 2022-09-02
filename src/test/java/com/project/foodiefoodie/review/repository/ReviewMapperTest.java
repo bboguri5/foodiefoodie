@@ -26,4 +26,17 @@ class ReviewMapperTest {
         boolean flag = mapper.reportCntModify(2, "bbbb2222@naver.com");
         assertTrue(flag);
     }
+
+    @Test
+    @DisplayName("리뷰 번호 주면 , 좋아요 갯수 줌 ")
+    void reviewLikeCountTest(){  // 성공
+        long Num = 1;
+        int i = mapper.reviewLikeCount(Num);
+        System.out.println("\n ========\n\n");
+        System.out.println(i);
+        System.out.println("\n ========\n\n");
+
+
+    }
+
 }

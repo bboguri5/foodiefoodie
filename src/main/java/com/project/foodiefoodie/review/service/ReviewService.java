@@ -20,4 +20,10 @@ public class ReviewService {
     public boolean reportCntModifyService(int reportCnt, String email) {
         return mapper.reportCntModify(reportCnt, email);
     }
+
+    // 리뷰글 좋아요 갯수
+    public int reviewLikeCount(Long reviewBno){
+        return mapper.reviewLikeCount(reviewBno);
+    }
+
 }

@@ -190,4 +190,33 @@
         where review_bno = #{reviewBno}
     </delete>
 
+    <resultMap id="myPageReviewMap" type="com.project.foodiefoodie.review.dto.FileDataDTO">
+        <result property="reviewBno" column="review_bno"/>
+        <result property="fileData" column="file_data"/>
+    </resultMap>
+
+
+    <select id="reviewDataList" resultMap="myPageReviewMap">
+        select file_data
+        from review_upload
+        where review_bno = #{reviewBno}
+        order by review_bno
+    </select>
+
+    <select id="MyReviewCount" resultType="int">
+        select count(*)
+        from review_board
+        where email = #{email}
+    </select>
+
+    <resultMap id="reviewNumMap" type="com.project.foodiefoodie.review.dto.ReviewNumDTO">
+        <result property="reviewBno" column="review_bno"/>
+    </resultMap>
+
+    <select id="reviewNumList" resultMap="reviewNumMap">
+        select review_bno from review_board
+        where email = #{email}
+    </select>
+
+
 </mapper>

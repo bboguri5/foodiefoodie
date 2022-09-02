@@ -426,3 +426,12 @@ INSERT INTO hot_deal (business_no, discount_price) VALUES ('1234-2222-3333-1119'
 INSERT INTO hot_deal (business_no, discount_price) VALUES ('1234-2222-3333-1121', 7);
 COMMIT;
 
+-- promotion
+
+SELECT * FROM promotion_board;
+INSERT INTO promotion_board (business_no, promotion_bno, content, title, hashTag) VALUES ('1234-2222-3333-1111', seq_promotion_board.nextval, 'some content', 'title', '한식 맛집 금천구');
+
+SELECT * FROM premiume_promotion_board;
+INSERT INTO premiume_promotion_board (promotion_bno, complete) VALUES (22, 't');
+
+commit;

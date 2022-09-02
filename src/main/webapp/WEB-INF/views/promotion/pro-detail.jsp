@@ -246,7 +246,7 @@
                                 ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
-                            <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
+                            <!-- <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
                                 <div class="buttons clearfix">
                                     <span class="magnific-gallery">
                                         <a href="/img/detail_1.jpg" class="btn_hero" title="Photo title"
@@ -256,7 +256,7 @@
                                     </span>
                                     <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- /row -->
                     </div>
@@ -311,7 +311,7 @@
                                         <h2>Detail Photos</h2>
                                         <div class="pictures magnific-gallery clearfix">
                                             <c:forEach var="detailImg" items="${detailFiles}" varStatus="status">
-                                                <figure><a title="Photo title" data-effect="mfp-zoom-in"><img
+                                                <figure><a title="Photo title" href="${detailImg.fileData}" data-effect="mfp-zoom-in"><img
                                                             src="${detailImg.fileData}" data-src="${detailImg.fileData}"
                                                             class="lazy" alt=""></a>
                                                 </figure>

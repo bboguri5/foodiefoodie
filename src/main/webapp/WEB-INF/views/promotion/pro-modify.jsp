@@ -1077,7 +1077,7 @@
             createImageThumbnails: true,
             thumbnailWidth: 100,
             thumbnailHeight: 100,
-            maxFiles: 5,
+            maxFiles: 10,
             maxFilesize: 2,
             addRemoveLinks: true,
             dictRemoveFile: 'X',
@@ -1092,7 +1092,7 @@
                 this.on('addedfiles', function (files) { // detail - menu 추가시  
                     let overResult = ''; // 중북된 파일 경고문구
 
-                    if (myDropzone.files.length > 5) { // detail - img 5개 제한 
+                    if (myDropzone.files.length > 10) { // detail - img 5개 제한 
 
                         for (const file of files) {
                             myDropzone.removeFile(file); // 5개 이상일 경우 자동 삭제 

@@ -142,7 +142,7 @@
 						<div class="strip">
 							<figure>
 								<img src="" data-src="" class="owl-lazy" alt="">
-								<a href="detail-restaurant.html" class="strip_info">
+								<a href="/proBoard/detail/${topToday.businessNo}" class="strip_info">
 									<small>${topToday.isOpen}</small>
 									<c:if test="${topToday.hotDeal.toLowerCase() == 'on'}">
 										<span class="ribbon off">${topToday.discountPrice}%</span>
@@ -182,7 +182,7 @@
 						<div class="strip">
 							<figure>
 								<img src="" data-src="" class="owl-lazy" alt="">
-								<a href="detail-restaurant.html" class="strip_info">
+								<a href="/proBoard/detail/${pl.businessNo}" class="strip_info">
 									<small>${pl.isOpen}</small>
 									<c:if test="${pl.hotDeal.toLowerCase() == 'on'}">
 										<span class="ribbon off">${pl.discountPrice}%</span>
@@ -252,7 +252,7 @@
 							<div class="list_home">
 								<ul>
 									<li>
-										<a href="detail-restaurant.html">
+										<a href="/proBoard/detail/${hd.businessNo}">
 											<small>${hd.isOpen}</small>
 											<figure>
 												<img src="" data-src="" alt="" class="lazy">
@@ -275,7 +275,7 @@
 							<div class="list_home">
 								<ul>
 									<li>
-										<a href="detail-restaurant.html">
+										<a href="/proBoard/detail/${hd.businessNo}">
 											<small>${hd.isOpen}</small>
 											<figure>
 												<img src="" data-src="" alt="" class="lazy">
@@ -433,7 +433,7 @@
 
 						tag += 
 							`           <img src="" data-src="" class="owl-lazy" alt="">` +
-							`           <a href="detail-restaurant.html" class="strip_info">` +
+							`           <a href="/proBoard/detail/` + locationList[i].businessNo + `" class="strip_info">` +
 							`				<small>` + locationList[i].isOpen + `</small>` +
 							`               <div class="item_title">` +
 							`                   <h3>` + locationList[i].storeName + `</h3>` +

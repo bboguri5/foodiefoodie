@@ -77,6 +77,8 @@
         <result property="masterName" column="MASTER_NAME"/>
         <result property="storeName" column="STORE_NAME"/>
         <result property="storeAddress" column="STORE_ADDRESS"/>
+        <result property="storeDetailAddress" column="STORE_DETAIL_ADDRESS"/>
+        <result property="storeExtraAddress" column="STORE_EXTRA_ADDRESS"/>
         <result property="hotDeal" column="HOT_DEAL"/>
         <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
     </resultMap>

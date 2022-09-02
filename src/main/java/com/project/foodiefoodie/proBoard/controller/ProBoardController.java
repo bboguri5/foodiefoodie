@@ -38,7 +38,7 @@ public class ProBoardController {
         model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
         model.addAttribute("menuList", proBoardService.selectMenuInfo(promotionBno));
         model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
-        model.addAttribute("title",proBoardService.selectFiles(promotionBno,"title").get(0));
+        model.addAttribute("titleFile",proBoardService.selectFiles(promotionBno,"title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
         return "promotion/pro-detail";
     }

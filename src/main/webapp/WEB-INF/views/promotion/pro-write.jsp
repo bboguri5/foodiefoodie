@@ -262,6 +262,7 @@
         <form id="promotionWriteForm" action="/proBoard/write" method="post" enctype="multipart/form-data">
             <div class="content-wrapper">
                 <div class="container-fluid">
+                    
                     <!-- write title -->
                     <div class="box_general padding_bottom">
                         <div class="header_box version_2">
@@ -295,7 +296,7 @@
                                 <div class="form-group detail-Info detail-address">
                                     <label>STORE ADDRESS
                                     </label>
-                                    <input type="text" class="form-control" value="${master.storeAddress}" readonly>
+                                    <input type="text" class="form-control" value="${master.storeAddress} ${master.storeDetailAddress} ${master.storeExtraAddress}" readonly>
                                 </div>
                                 <div class="form-group detail-Info">
                                     <label class="title-label">Title
@@ -359,8 +360,8 @@
                         <div class="header_box version_2">
                             <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
                         </div>
-                        <!-- add Menu List row -->
 
+                        <!-- add Menu List row -->
                         <div class="row">
                             <div class="col-md-12">
 
@@ -395,7 +396,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </td>
                                     </tr>
                                 </table>
@@ -547,10 +547,10 @@
                     </div>
                 </div>
             </div>
-            </div>
             <div class="col-md-12 save-btn">
                 <button type="button" class="btn_1 medium save">Save</button>
-                <button type="button" class="btn_1 medium cancel">Cancel</button></div>
+                <button type="button" class="btn_1 medium cancel">Cancel</button>
+            </div>
         </form>
     </main>
 
@@ -617,12 +617,8 @@
         const $titleTag = $('.title');
         const $hashTag = $('.hashTag');
         const $contentTag = $('.content');
-        const menuItem = document.querySelectorAll('.row.menu-row');
         const $menuNameList = document.querySelectorAll(".menu-name");
         const $menuPriceList = document.querySelectorAll(".menu-price");
-
-        // title , hashTag , content , menu , hashTag overlap , time  
-        const checkArr = [false, false, false];
 
         let menuFileList = []; // img file list
 
@@ -677,11 +673,9 @@
                 if ($titleTag.val().trim() === '') {
                     $titleTag.css('border-color', 'red');
                     $('.title-label').html('TITLE <b class="c-red title-red">[ 제목은 필수정보입니다. ]</b>');
-                    checkArr[0] = false;
                 } else {
                     $titleTag.css('border-color', 'green');
                     $('.title-red').remove();
-                    checkArr[0] = true;
                 }
             });
 
@@ -692,11 +686,9 @@
                 if ($hashTag.val().trim() === '') {
                     $hashTag.css('border-color', 'red');
                     $('.hashTag-label').html('HASH TAG <b class="c-red hashTag-red">[ 해시태그는 필수정보입니다. ]</b>');
-                    checkArr[1] = false;
                 } else {
                     $hashTag.css('border-color', 'green');
                     $('.hashTag-red').remove();
-                    checkArr[1] = true;
                 }
             });
 
@@ -707,11 +699,9 @@
                 if ($contentTag.val().trim() === '') {
                     $('.content').css('border-color', 'red');
                     $('.content-label').html('CONTENT <b class="c-red content-red">[ 내용은 필수정보입니다. ]</b>');
-                    checkArr[2] = false;
                 } else {
                     $('.content').css('border-color', 'green');
                     $('.content-red').remove();
-                    checkArr[2] = true;
                 }
             });
         }
@@ -1001,15 +991,15 @@
 
 
         $('.save').on('click', e => {
-            let checkSave = [false, false];
-            checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
-            AddFileList();
-            if (!checkArr.includes(false)) { // title , hashTag , content 필수 입력 
 
-                // let checkSave = [false, false, false];
+                let checkSave = [false, false, false, false,false];
 
-                checkSave[1] = checkOverlapHashTag(); // 해시태그 중복 검증 
-                // checkSave[2] = checkInputTime(); // 시간 입력 검증 
+            
+                checkSave[0]= AddFileList();
+                checkSave[1] = checkValue(); // 입력란 검증 
+                checkSave[2] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
+                checkSave[3] = checkOverlapHashTag(); // 해시태그 중복 검증 
+                checkSave[4] = checkInputTime(); // 시간 입력 검증 
 
                 console.log("checkSave : ", checkSave);
                 if (!checkSave.includes(false)) {
@@ -1018,13 +1008,19 @@
 
                     $('#promotionWriteForm').submit();
                 }
-
-            } else {
-                alert("입력란을 확인해주세요.");
-
-            }
         });
 
+        function checkValue() {
+
+            if($contentTag.val().length > 0 && $titleTag.val().length > 0 && $hashTag.val().length > 0) 
+            {
+                return true;
+            }
+        
+            alert("입력란을 확인해주세요.");
+            return false;
+
+        }
 
         function AddFileList() {
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
@@ -1055,7 +1051,7 @@
 
             } else {
                 alert("title 이미지는 필수입니다.");
-                return;
+                return false;
             }
 
             if (detailDropzone.files.length > 0) {
@@ -1081,11 +1077,14 @@
             2. menu item 2개 이상
                 - input값 없으면 = false
             */
+
+            const menuItem = document.querySelectorAll('.pricing-list-item')
+           
+            console.log(menuItem.length);
             if (menuItem.length === 1) {
 
                 if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
                     if (menuFileList.length > 0 && menuFileList[0].name != 'default') {
-                        console.log(" 사진 등록 ? ");
                         alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
                         return false;
                     } else {

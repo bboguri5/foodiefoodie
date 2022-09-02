@@ -680,16 +680,13 @@
         const promotionBno = $('.promotionBno').val();
 
 
-        $contentTag.text(`${proBoard.content}`.replace(/<br>/gi, "\n"));
-
-
-        // title , hashTag , content , menu , hashTag overlap , time  
-        // const checkArr = [false, false, false];
 
         let menuFileList = []; // img file list
 
 
         $(function () {
+
+            $contentTag.text(`${proBoard.content}`.replace(/<br>/gi, "\n"));
             selectClosedDay();
             inputOnlyIntType(); // first menu item price 
             limitHashTag(); // hash tag 글자수/단어 제한 
@@ -741,11 +738,9 @@
                 if ($titleTag.val().trim() === '') {
                     $titleTag.css('border-color', 'red');
                     $('.title-label').html('TITLE <b class="c-red title-red">[ 제목은 필수정보입니다. ]</b>');
-                    // checkArr[0] = false;
                 } else {
                     $titleTag.css('border-color', 'green');
                     $('.title-red').remove();
-                    // checkArr[0] = true;
                 }
             });
 
@@ -756,11 +751,9 @@
                 if ($hashTag.val().trim() === '') {
                     $hashTag.css('border-color', 'red');
                     $('.hashTag-label').html('HASH TAG <b class="c-red hashTag-red">[ 해시태그는 필수정보입니다. ]</b>');
-                    // checkArr[1] = false;
                 } else {
                     $hashTag.css('border-color', 'green');
                     $('.hashTag-red').remove();
-                    // checkArr[1] = true;
                 }
             });
 
@@ -771,11 +764,9 @@
                 if ($contentTag.val().trim() === '') {
                     $('.content').css('border-color', 'red');
                     $('.content-label').html('CONTENT <b class="c-red content-red">[ 내용은 필수정보입니다. ]</b>');
-                    // checkArr[2] = false;
                 } else {
                     $('.content').css('border-color', 'green');
                     $('.content-red').remove();
-                    // checkArr[2] = true;
                 }
             });
         }
@@ -1049,22 +1040,6 @@
 
                 }
 
-
-
-                //     const menuFile = new File([menu.fileByte], menu.fileName, {
-                //         type: menu.fileMediaType,
-                //         size: menu.fileSize,
-                //         status: menuDropzone.ADDED,
-                //         accepted: true
-                //     });
-
-                //     menuDropzone.emit("addedfile", menuFile);
-                //     menuDropzone.emit("thumbnail", menuFile, menu.fileData);
-                //     menuDropzone.emit("complete", menuFile);
-                //     menuDropzone.files.push(menuFile);
-                // }
-
-
             });
 
 
@@ -1197,25 +1172,18 @@
 
 
         $('.save').on('click', e => {
-            submitMenu();
-            AddFileList();
-            // if (!checkArr.includes(false)) { // title , hashTag , content 필수 입력 
                 const $menuNameList = document.querySelectorAll(".menu-name");
-
-                console.log($menuNameList);
-                for(const menuName of $menuNameList)
-                {
-                    console.log("emneu : ",menuName.value);
-                }
+                
                 let checkSave = [false, false, false, false];
 
-                checkSave[0] = checkValue();
-                checkSave[1] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
-                checkSave[2] = checkOverlapHashTag(); // 해시태그 중복 검증 
-                checkSave[3] = checkInputTime(); // 시간 입력 검증 
+                checkSave[0] = AddFileList(); // 파일 input에 적용 및 검증  
+                checkSave[1] = checkValue(); // 입력란 검증 
+                checkSave[2] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
+                checkSave[3] = checkOverlapHashTag(); // 해시태그 중복 검증 
+                checkSave[4] = checkInputTime(); // 시간 입력 검증 
 
                 if (!checkSave.includes(false)) {
-                    // submitMenu(); // menu dto로 보내기 
+                    submitMenu();
                     changeFormatTime(); // 시간 00:00으로 변환
                     changeFormatContent() // 내용 \n -> <br>으로 치환
 
@@ -1270,13 +1238,17 @@
         }
 
         function checkValue() {
-            if (!($contentTag.val().length > 0 && $titleTag.val().length > 0 && $hashTag.val().length > 0)) {
-                alert("입력란을 확인해주세요.");
-                return false;
+
+            if($contentTag.val().length > 0 && $titleTag.val().length > 0 && $hashTag.val().length > 0)
+            {
+                return true;
             }
 
-            return true;
+            alert("입력란을 확인해주세요.");
+            return false;
+
         }
+
 
         function AddFileList() {
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
@@ -1298,7 +1270,7 @@
 
             } else {
                 alert("title 이미지는 필수입니다.");
-                return;
+                return false;
             }
 
             console.log("titleHiddenTag 결론 : ", $titleHiddenTag.files);
@@ -1328,26 +1300,21 @@
 
                 const $menuNameList = document.querySelectorAll(".menu-name");
                 const $menuPriceList = document.querySelectorAll(".menu-price");
-
                 if($menuNameList.length === 1)
                 {
                     if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
-                            return;
+                        return true;
                      }
                 }
                 else
                 {
                     if ($menuNameList[1].value.length === 0 && $menuPriceList[1].value.length === 0) {
-                            return;
+                        return true;
                     }
                 }
               
 
                 $menuHiddenTag.files = menuDataTraster.files;
-
-                /* console.log("menuDataTraster : ", menuFileList);
-                $menuHiddenTag.files = menuDataTraster.files;
-                */
                 console.log("menuHiddenTag 결론 : ", $menuHiddenTag.files);
             }
         }
@@ -1359,8 +1326,9 @@
             const $menuNameList = document.querySelectorAll(".menu-name");
             const $menuPriceList = document.querySelectorAll(".menu-price");
 
-            const menuItem = document.querySelectorAll('.row.menu-row');
-            if (menuItem.length > 1) {
+            const menuItem = document.querySelectorAll('.pricing-list-item')
+
+            if (menuItem.length === 2) {
 
                 if ($menuNameList[1].value.length === 0 && $menuPriceList[1].value.length === 0) {
                     if (menuFileList[1].name != 'default') {
@@ -1380,18 +1348,13 @@
             }
 
 
-            if (menuItem.length > 1) {
+            if (menuItem.length > 2) {
                 for (let index = 0; index < $menuNameList.length; index++) {
 
                     if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.length === 0) {
                         alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
                         return false;
                     }
-
-                    // if ($menuNameList[0].value.length === 0 || $menuPriceList[0].value.length === 0) {
-                    //     alert("메뉴 입력란을 확인해주세요.");
-                    //     return false;
-                    // }
                 }
                 return true;
             }

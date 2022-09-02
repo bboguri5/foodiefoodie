@@ -221,9 +221,7 @@
         margin-right: 40px;
     }
 
-    .submenu .show-submenu {
-        color: #589442;
-    }
+ 
 </style>
 
 <body>
@@ -232,7 +230,7 @@
 
     <!-- main -->
     <main>
-        <div class="hero_in detail_page title_img_add" style=" background-image: url(${title.fileData});">
+        <div class="hero_in detail_page title_img_add" style=" background-image: url(${titleFile.fileData});">
             <!-- <img src="data:image/jpg;base64,${titleImg}">  -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                 <div class="container">
@@ -246,17 +244,11 @@
                                 ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
-                            <!-- <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
+                            <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
                                 <div class="buttons clearfix">
-                                    <span class="magnific-gallery">
-                                        <a href="/img/detail_1.jpg" class="btn_hero" title="Photo title"
-                                            data-effect="mfp-zoom-in"><i class="icon_image"></i>View photos</a>
-                                        <a href="/img/detail_2.jpg" title="Photo title" data-effect="mfp-zoom-in"></a>
-                                        <a href="/img/detail_3.jpg" title="Photo title" data-effect="mfp-zoom-in"></a>
-                                    </span>
                                     <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                         <!-- /row -->
                     </div>

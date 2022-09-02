@@ -435,3 +435,13 @@ SELECT * FROM premiume_promotion_board;
 INSERT INTO premiume_promotion_board (promotion_bno, complete) VALUES (22, 't');
 
 commit;
+
+-- review
+INSERT INTO review_board (review_bno, email, title, content, business_no, star_rate, store_name, store_address) VALUES (seq_review_board.nextval, 'email3@naver.com', '맛집 후기', '내용 길어요!!!!!!!!!!!!!!!!!!!!!
+호호호호호 너무 맛있었다구요 ㅁ러내ㅑ러대ㅑ러ㅐ쟏러ㅐ러냐ㅐ러대ㅑㄴ ㅓㅐ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 다시 갈거에요~~~~~~~~~~~~~~~~~~~~~~~~~! 금천구 맛집입니당.', '1234-2222-3333-1111', 5, '세상에서 제일 맛있는 집', '서울 금천구 가산동');
+
+UPDATE promotion_board SET avg_star_rate = 5;
+UPDATE promotion_board SET review_cnt = 1;
+
+commit;
+

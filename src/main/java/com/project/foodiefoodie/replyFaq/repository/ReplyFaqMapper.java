@@ -14,4 +14,5 @@ public interface ReplyFaqMapper {
 
     List<ReplyFaqDTO> findAllReply(String complete);
 
+    boolean save(ReplyFaq replyFaq);
 }

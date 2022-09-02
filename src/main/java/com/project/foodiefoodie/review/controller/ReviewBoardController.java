@@ -5,6 +5,8 @@ import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
+import com.project.foodiefoodie.replyFaq.domain.ReplyFaq;
+import com.project.foodiefoodie.replyFaq.service.ReplyFaqService;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
@@ -35,6 +37,7 @@ public class ReviewBoardController {
     private final ReplyService replyService;
     private final MasterService masterService;
     private final ReviewFaqService reviewFaqService;
+    private final ReplyFaqService replyFaqService;
 
     @GetMapping("/review")
     public String review(String sort, Model model,  HttpSession session) {
@@ -102,6 +105,7 @@ public class ReviewBoardController {
         model.addAttribute("replyList", replyList);
         model.addAttribute("replyCount", replyService.findReplyCountService(reviewBno));
         model.addAttribute("isLiked", reviewBoardService.isLikedService(reviewBno, email));
+        log.info("replyList - {}", replyList);
         return "review/review-detail";
     }
 
@@ -224,4 +228,13 @@ public class ReviewBoardController {
         return "redirect:/review/detail?reviewBno=" + reviewFaq.getReviewBno();
     }
 
+    @PostMapping("/review/reply-faq")
+    public String replyFaq(ReplyFaq replyFaq) {
+
+        log.info("/review/reply-faq POST!!!!! - {}", replyFaq);
+
+        replyFaqService.saveService(replyFaq);
+
+        return "redirect:/review?sort=latest";
+    }
 }

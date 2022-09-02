@@ -160,8 +160,6 @@
             min-height: 190px;
         }
 
-
-
         .add-Img-row .row {
             justify-content: space-between;
         }
@@ -277,6 +275,31 @@
         .ui-timepicker-standard {
             font-family: none;
         }
+
+         /* btn */
+
+         .save-btn {
+            display: flex;
+            justify-content: space-around;
+            width: 20%;
+            margin: 0 auto;
+        }
+
+        button.btn.medium{
+            border-radius: 30px;
+            width: 100px;
+            height: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+        button.btn.medium.saveBtn {
+            background: #7db27d;
+        }
+
+        button.btn.medium.cancelBtn {
+            background: #c83030;
+        }
     </style>
 
 
@@ -324,7 +347,7 @@
                                 <div class="form-group detail-Info detail-address">
                                     <label>STORE ADDRESS
                                     </label>
-                                    <input type="text" class="form-control" value="${proBoard.storeAddress}" readonly>
+                                    <input type="text" class="form-control" value="${master.storeAddress} ${master.storeDetailAddress} ${master.storeExtraAddress}" readonly>
                                 </div>
                                 <div class="form-group detail-Info">
                                     <label class="title-label">Title
@@ -591,8 +614,9 @@
             </div>
             </div>
             <div class="col-md-12 save-btn">
-                <button type="button" class="btn_1 medium save">Save</button>
-                <button type="button" class="btn_1 medium cancel">Cancel</button></div>
+                <button type="button" class="btn medium saveBtn">Save</button>
+                <button type="button" class="btn medium cancelBtn">Cancel</button>
+            </div>
         </form>
     </main>
     <script>
@@ -722,7 +746,8 @@
             });
 
             $('.day-delete').on('click', function () {
-                resultList = [];
+                resultSet.clear();
+                resultList.clear;
                 $closedDay.val('');
             });
         }

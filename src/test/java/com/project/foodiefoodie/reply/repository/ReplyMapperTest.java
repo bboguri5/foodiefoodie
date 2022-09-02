@@ -38,4 +38,19 @@ class ReplyMapperTest {
         Reply one = mapper.findOne(3);
         System.out.println(one);
     }
+
+
+    @Test
+    @DisplayName("리뷰 번호 주면 총 댓글수 가져다줌")
+    void countReplyTest(){
+        long num = 1;
+
+        int i = mapper.replyCount(num);
+        System.out.println("\n\n=====\n\n");
+        System.out.println(i);
+        System.out.println("\n\n=====\n\n");
+
+
+    }
+
 }

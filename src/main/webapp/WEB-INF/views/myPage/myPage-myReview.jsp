@@ -43,9 +43,10 @@
 
         .instaHeader {
             display: flex;
-            background: skyblue;
+            /* background: skyblue; */
             width: 100%;
-            height: 200px;
+            /* height: 200px; */
+            height: 150px;
         }
 
         .instaHeader .picture {
@@ -68,7 +69,7 @@
 
         .instaHeader .profileContent {
             flex: 5;
-            background: green;
+            /* background: green; */
 
         }
 
@@ -84,24 +85,32 @@
 
         .instaHeader .profileContent .myInfo .boardCnt {
             color: black;
-            margin-left: 50px;
+            text-align : center;
+            line-height: 30px;
+            font-size: x-large;
             flex: 1;
         }
 
         .instaHeader .profileContent .myInfo .followYou {
             color: black;
+            text-align : center;
+            line-height: 30px;
+            font-size: x-large;
             flex: 1;
         }
 
         .instaHeader .profileContent .myInfo .followMe {
             color: black;
+            text-align : center;
+            line-height: 30px;
+            font-size: x-large;
             flex: 1;
         }
 
         .myReview-allWrap #hoverWrapper {
             width: 100%;
             height: 100px;
-            background: yellow;
+            /* background: yellow; */
             position: relative;
         }
 
@@ -113,7 +122,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            background: yellowgreen;
+            /* background: yellowgreen; */
         }
 
         .myReview-allWrap .hoverMenu .myReview {
@@ -132,20 +141,20 @@
 
         .myReview-allWrap .reviewPictureWrapper {
             width: 100%;
-            /* background: purple; */
+            background: purple;
             height: 100vh;
             position: relative;
             
         }
 
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox {
-            /* background: gray; */
-            width: 95%;
+            background: gray;
+            width: 97%;
             height: 100%;
             margin-top: 30px;
             position: absolute;
             left: 50%;
-            top: 50%;
+            top: 47%;
             transform: translate(-50%, -50%);
             display: flex;
             flex-wrap: wrap;
@@ -153,27 +162,27 @@
             align-content: flex-start;
         }
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox{
-            width: 33%;
-            height: 200px;
+            width: 32%;
+            height: 270px;
             background: pink;
-            
             display: flex;
             flex-direction: column;
             margin-bottom: 10px;
-            margin-left: 3px;
+            margin-left: 10px;
+            overflow: hidden;
         }
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .reviewPicture{
-            flex: 7;
+            background: blue;
             border: 1px solid #000;
         }
-        .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .title{
-            flex: 1;
+        /* .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .title{
+            
             border: 1px solid #000;
         }
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .content{
-            flex: 2;
+           
             border: 1px solid #000;
-        }
+        } */
 
         
     </style>
@@ -189,44 +198,44 @@
     <div class="content-wrapper">
         <div class="myReview-allWrap">
             <div class="instaHeader">
-                <div class="picture">
+                <!-- <div class="picture">
                     <div class="profilePicture">
                         ${profile.filePath} , ${profile.fileName}
                         <img src="" alt="">
                         <form action="" method="post">
-                            <!-- 히든으로 감춰서 보낼수있다 -->
+                            
                             <input type="hidden" name="qwe" value="123">
                         </form>
                     </div>
-                </div>
+                </div> -->
                 <div class="profileContent">
-                    <h2 class="userId">${loginUser.email} 계정 이메일</h2>
+                    <h2 class="userId">${loginUser.email} </h2>
                     <div class="myInfo">
-                        <div class="boardCnt">게시물수 ? </div>
-                        <div class="followYou">내가 한거</div>
-                        <div class="followMe">나한테 팔로우 건사람 </div>
+                        <div class="boardCnt">게시물수 ${totalMyReviewCount} </div>
+                        <div class="followYou">좋아요 갯수 ${totalLikeCount}</div>
+                        <div class="followMe">총 댓글 갯수 ${totalReplyCount} </div>
                     </div>
                 </div>
             </div>
-            <div id="hoverWrapper">
+            <!-- <div id="hoverWrapper">
                 <div class="hoverMenu">
-                    <div class="myReview">내 리뷰 보기 </div>
+                    <div class="myReview">리뷰 쓰기 </div>
                     <div class="favoriteList">즐겨찾기 사진 모음집</div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="reviewPictureWrapper">
                 <div class="reviewPictureBox">
-                    <c:forEach var="reviewInfo" items="${reviewInfo}">
+                    <c:forEach var="review" items="${myReviewList}">
                         <div class="reviewBox item1">
-                            <div class="reviewPicture picBox">
-                               파일경로 : ${reviewInfo.filePath}
-                                파일이름 : ${reviewInfo.fileName}
-                                <img src="" alt="">
-                            </div>
-                            <div class="title">${reviewInfo.title}</div>
-                            <div class="content">${reviewInfo.content}</div>
-                        </div>
+                            <a href="/review/detail?reviewBno=${review.reviewBno}">
+                                <div class="reviewPicture picBox">
+                                    <img src="${review.fileData}" alt="#">
+                                </div> 
+                                <!-- <div class="title">${reviewInfo.title}</div>
+                                    <div class="content">${reviewInfo.content}</div> -->
+                                </div>
+                            </a>
                     </c:forEach>
                     <!-- <div class="reviewBox item2">
                         <div class="reviewPicture picBox">

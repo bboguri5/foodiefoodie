@@ -4,6 +4,10 @@ import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.*;
 import com.project.foodiefoodie.member.service.FavoriteListService;
 import com.project.foodiefoodie.member.service.MyPageService;
+import com.project.foodiefoodie.reply.service.ReplyService;
+import com.project.foodiefoodie.review.dto.ReviewNumDTO;
+import com.project.foodiefoodie.review.service.ReviewBoardService;
+import com.project.foodiefoodie.review.service.ReviewService;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,6 +27,12 @@ public class MyPageController {
     private final FavoriteListService favoriteListService;
 //
     private final MyPageService myPageService;
+
+    private final ReviewBoardService reviewBoardService;
+
+    private final ReplyService replyService;
+
+    private final ReviewService reviewService;
 
 //    private final MyReviewDTO reviewDTO;
 
@@ -52,48 +62,68 @@ public class MyPageController {
         String email = member.getEmail();
         // 이메일 을 가져오고
 
-        ArrayList<MyReviewDTO> myReviewDTOS = new ArrayList<>(); // 최종적으로 모델에 들어갈 값
-        // 여기안에는 title , content , filePath ,fileName 이 들어가야한다
+        // 이메일로 계정의 첫번째 사진을 담은 리스트를 불러온다
+        ArrayList<String> strings = reviewBoardService.firstDataList(email);
 
-        List<MyReviewTitleDTO> titleListService = myPageService.findTitleListService(email);
-        // title content reviewBno 들어있는 리스트 // 안에 내용물 있음
-               // reviewBno 이걸로 파일 경로 , 파일 이름을 넣을 것 이다
-        int size = titleListService.size();
+        // 이메일로 내가 가지고있는 리뷰 번호들을 가져온다 !
+        List<ReviewNumDTO> reviewNumDTOS = reviewBoardService.reviewNumList(email);
 
+        // 그것들의 갯수를 구한다
+        int size = reviewNumDTOS.size();
+        log.info("\n\n========\n\n");
+        log.info("size = {}" ,size);
+        log.info("\n\n========\n\n");
+        // 내가 필요한 정보를 담을 리스트를 만든다
+        ArrayList<ReviewLikeReplyPictureDTO> reviewLikeReplyPictureDTOS = new ArrayList<>();
+
+        int totalReplyCount = 0;
+
+        int totalLikeCount = 0;
+
+        int totalMyReviewCount = size;
 
         for (int i = 0; i <size ; i++) {
-            MyReviewDTO myReviewDTO = new MyReviewDTO();
-//            List<MyReviewTitleDTO> titleListService1 = myPageService.findTitleListService(email);
-            MyReviewTitleDTO titleDTO = titleListService.get(i);
 
-            myReviewDTO.setTitle(titleDTO.getTitle());
+            // 담을 객체를 생성한다
+            ReviewLikeReplyPictureDTO reviewLikeReplyPictureDTO = new ReviewLikeReplyPictureDTO();
+            // 파일 담기
+            reviewLikeReplyPictureDTO.setFileData(strings.get(i));
 
-            myReviewDTO.setContent(titleDTO.getContent());
+            // 리뷰당 좋아요 갯수 구하기
+            int likeCount = reviewService.reviewLikeCount(reviewNumDTOS.get(i).getReviewBno());
+            // 토탈카운트에 더하기
+            totalLikeCount += likeCount;
 
-            log.info("========1================1==================1");
-            // 여기까지는 잘 나온거임..
-            HashMap<Integer, MyReviewPathDTO> pathListService = myPageService.findPathListService(email);
-            log.info("\n====2=======\n");
-            MyReviewPathDTO pathDTO = pathListService.get(titleListService.get(i).getReviewBno());
-            log.info("\n======3=====\n");
-            log.info("pathDTO : {}",pathDTO);
-            log.info("\n=====잘 받아와 졌는지 확인======\n");
-            myReviewDTO.setFilePath(pathDTO.getFilePath());
+            // 리뷰 좋아요 갯수 담기
+            reviewLikeReplyPictureDTO.setLikeCnt(likeCount);
 
-            myReviewDTO.setFileName(pathDTO.getFileName());
+            // 리뷰글 당 댓글 갯수 구하기
+            int countReply = replyService.CountReply(reviewNumDTOS.get(i).getReviewBno());
 
-            myReviewDTOS.add(myReviewDTO);
-            log.info("==========================================");
+            // 총 댓글수에다가 , 리뷰글당 댓글수 더하기
+            totalReplyCount += countReply;
+
+            // 리뷰 댓글 갯수 담기
+            reviewLikeReplyPictureDTO.setReplyCount(countReply);
+
+
+            // 리뷰 글 번호 담기
+            reviewLikeReplyPictureDTO.setReviewBno(reviewNumDTOS.get(i).getReviewBno());
+
+            //
+
+            // 세팅한 객체를 리스트에 담아준다
+            reviewLikeReplyPictureDTOS.add(reviewLikeReplyPictureDTO);
+
+
         }
-        ProfileDTO profileDTO = myPageService.selectProfile(email);
-        log.info("==========================================");
-        log.info(profileDTO);
-        log.info(myReviewDTOS);
-        log.info("==========================================");
 
-        model.addAttribute("profile",profileDTO);
 
-        model.addAttribute("reviewInfo",myReviewDTOS);
+        model.addAttribute("myReviewList",reviewLikeReplyPictureDTOS);
+        model.addAttribute("totalReplyCount",totalReplyCount);
+        model.addAttribute("totalLikeCount",totalLikeCount);
+        model.addAttribute("totalMyReviewCount",totalMyReviewCount);
+
 
         return "/myPage/myPage-myReview";
     }

@@ -10,11 +10,11 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class ReviewFileDTO {
     long reviewBno;
+    String fileData;
     String filePath;
     String fileName;
     String fileByte;
     long fileSize;
-    String fileData;
     String fileType;
 
 

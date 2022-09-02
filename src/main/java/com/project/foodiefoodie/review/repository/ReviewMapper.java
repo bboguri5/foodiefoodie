@@ -9,4 +9,8 @@ public interface ReviewMapper {
 
     int checkReportCnt(String email);
 
+    int reviewLikeCount(Long reviewBno);
+
+
+
 }

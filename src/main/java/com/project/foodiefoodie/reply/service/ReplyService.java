@@ -69,4 +69,12 @@ public class ReplyService {
     public boolean modify(Reply reply) {
         return mapper.modify(reply);
     }
+
+
+
+    // 댓글 갯수 가져오기
+    public int CountReply(long reviewBno){
+        return mapper.replyCount(reviewBno);
+    }
+
 }

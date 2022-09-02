@@ -25,25 +25,25 @@ class ProBoardFileMapperTest {
 //        boolean result = proBoardFileMapper.saveFiles( new FileDTO(44,new File("C:\\foodiefoodie\\proBoard\\1234-11-12345\\menu\\1013171_1651842338741_31533.jpg")));
 //        System.out.println(result);
 //    }
-    @Test
-    @DisplayName(" 마슽터 / 게시판작성정보 / 파일 다 가져옴 ")
-    void selectProBoardTest()
-    {
-        ProBoard proBoard = proBoardMapper.selectProBoard(56);
-        System.out.println(proBoard.getFileName());
-    }
-
-    @Test
-    @DisplayName("menu 파일 저옵 다 가 고 옴 ")
-    void selectMenuInfoTest()
-    {
-        List<MenuDTO> menuDTOS = proBoardMapper.selectMenuInfo(56);
-
-        for(MenuDTO menu : menuDTOS )
-        {
-            System.out.println(menu.getFileName());
-        }
-    }
+//    @Test
+//    @DisplayName(" 마슽터 / 게시판작성정보 / 파일 다 가져옴 ")
+//    void selectProBoardTest()
+//    {
+//        ProBoard proBoard = proBoardMapper.selectProBoard(56);
+//        System.out.println(proBoard.getFileName());
+//    }
+//
+//    @Test
+//    @DisplayName("menu 파일 저옵 다 가 고 옴 ")
+//    void selectMenuInfoTest()
+//    {
+//        List<MenuDTO> menuDTOS = proBoardMapper.selectMenuInfo(56);
+//
+//        for(MenuDTO menu : menuDTOS )
+//        {
+//            System.out.println(menu.getFileName());
+//        }
+//    }
 
 
 }

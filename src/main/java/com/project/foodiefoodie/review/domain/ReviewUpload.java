@@ -14,7 +14,7 @@ public class ReviewUpload {
     String fileName;
     String fileByte;
     long fileSize;
-    String fileData;
+    String fileData; // 이거 이미지 파일일에 넣어준다 src
     String fileType;
     byte[] fileByteArray;
 

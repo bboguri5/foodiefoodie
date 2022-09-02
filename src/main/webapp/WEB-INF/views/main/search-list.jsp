@@ -85,7 +85,7 @@
                                     <span class="ribbon off">${sl.discountPrice}%</span>
                                 </c:if>
                                 <img src="" data-src="" class="img-fluid lazy" alt="">
-                                <a href="detail-restaurant.html" class="strip_info">
+                                <a href="/proBoard/detail/${sl.businessNo}" class="strip_info">
                                     <small>${sl.isOpen}</small>
                                     <!-- <c:if test="${sl.hotDeal.toLowerCase() == 'on'}">
                                         <span class="ribbon off">${sl.discountPrice}%</span>

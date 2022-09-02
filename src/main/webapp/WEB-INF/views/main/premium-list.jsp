@@ -51,7 +51,7 @@
 								</c:if>
                                 <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
-                                <a href="detail-restaurant.html" class="strip_info">
+                                <a href="/proBoard/detail/${pl.businessNo}" class="strip_info">
                                     <small>${pl.isOpen}</small>
                                     <!-- <c:if test="${pl.hotDeal.toLowerCase() == 'on'}">
                                         <span class="ribbon off">${pl.discountPrice}%</span>

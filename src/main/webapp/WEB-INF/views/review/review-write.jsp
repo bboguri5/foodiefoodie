@@ -78,27 +78,34 @@
         .content-wrapper {
             margin-left: 0%;
         }
+
         .content-wrapper label {
             font-weight: 700;
         }
+
         .mg-wrap {
             margin-left: 2%;
             margin-right: 2%;
         }
+
         body.fixed-nav {
             padding-top: 0;
         }
+
         .container-fluid {
             margin-bottom: 100px;
         }
+
         .save-buttons {
             padding-left: 40%;
         }
+
         .star {
             position: relative;
             font-size: 2rem;
             color: #ddd;
         }
+
         .star input {
             width: 100%;
             height: 100%;
@@ -107,6 +114,7 @@
             opacity: 0;
             cursor: pointer;
         }
+
         .star span {
             width: 0;
             position: absolute;
@@ -115,26 +123,32 @@
             overflow: hidden;
             pointer-events: none;
         }
+
         /* dropzone */
         .dropzone {
             border: 2px dotted gray;
             min-height: 190px;
         }
+
         .add-Img-row .row {
             justify-content: space-between;
         }
+
         .add-Img-row .form-group:nth-child(1) {
             width: 45%;
             margin-left: 20px;
         }
+
         .add-Img-row .form-group:nth-child(2) {
             width: 45%;
             margin-right: 20px;
         }
+
         #title-dropzone.dropzone .dz-preview .dz-image {
             position: relative;
             width: 100%;
         }
+
         .dropzone .dz-remove {
             position: absolute;
             z-index: 100;
@@ -143,10 +157,12 @@
             color: red;
             font-weight: 700;
         }
+
         #title-dropzone.dropzone {
             resize: both;
             overflow: auto;
         }
+
         #detail-dropzone.dropzone {
             display: flex;
             justify-content: space-evenly;
@@ -154,15 +170,18 @@
             overflow: auto;
             position: relative;
         }
+
         #detail-dropzone .dz-default.dz-message {
             position: absolute;
             top: 50px;
         }
+
         #detail-dropzone.dropzone .dz-preview .dz-image {
             width: 100px;
             height: 100px;
             position: relative;
         }
+
         #detail-dropzone.dropzone .dz-remove {
             position: absolute;
             z-index: 100;
@@ -170,15 +189,19 @@
             top: 10px;
             color: red;
         }
+
         .dropzone .dz-preview .dz-details .dz-size {
             font-size: 10px;
         }
+
         .dropzone .dz-preview .dz-details .dz-filename {
             font-size: 10px;
         }
+
         .dropzone .dz-preview .dz-progress {
             z-index: 0;
         }
+
         .dropzone .dz-message .dz-button {
             margin-top: 50px;
         }
@@ -193,7 +216,8 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <div class="content-wrapper">
-        <form id="review-write-form" action="/review/write" class="review-form" method="post" enctype="multipart/form-data">
+        <form id="review-write-form" action="/review/write" class="review-form" method="post"
+            enctype="multipart/form-data">
             <div class="container-fluid">
                 <div class="box_general padding_bottom mg-wrap">
                     <div class="header_box version_2">
@@ -217,7 +241,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="store-name-label" >가게이름</label>
+                                <label class="store-name-label">가게이름</label>
                                 <input type="text" class="form-control store-name" placeholder="파리바게뜨"
                                     value="${master.storeName}" name="storeName">
                                 <input type="hidden" name="businessNo" value="${master.businessNo}">
@@ -420,8 +444,19 @@
                             ')';
                         guideTextBox.style.display = 'block';
                     } else {
-                        guideTextBox.innerHTML = '';
-                        guideTextBox.style.display = 'none';
+                        // guideTextBox.innerHTML = '';
+                        // guideTextBox.style.display = 'none';
+                    }
+                },
+                onclose: function (state) {
+                    console.log(state);
+                    //state는 우편번호 찾기 화면이 어떻게 닫혔는지에 대한 상태 변수 이며, 상세 설명은 아래 목록에서 확인하실 수 있습니다.
+                    if (state === 'FORCE_CLOSE') {
+                        //사용자가 브라우저 닫기 버튼을 통해 팝업창을 닫았을 경우, 실행될 코드를 작성하는 부분입니다.
+
+                    } else if (state === 'COMPLETE_CLOSE') {
+                        //사용자가 검색결과를 선택하여 팝업창이 닫혔을 경우, 실행될 코드를 작성하는 부분입니다.
+                        //oncomplete 콜백 함수가 실행 완료된 후에 실행됩니다.
                     }
                 }
             }).open();
@@ -567,7 +602,7 @@
             const reviewDataTranster = new DataTransfer();
             if (reviewDropzone.files.length == 0) {
                 alert('리뷰 사진은 필수입니다.');
-                return; 
+                return;
             }
             if (reviewDropzone.files.length > 0) {
                 for (const reviewFile of reviewDropzone.files) {

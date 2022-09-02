@@ -231,14 +231,16 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label class="title-label">리뷰 제목</label>
-                                <input type="text" class="form-control title" placeholder="가산 고기 맛집!" maxlength="40"
+                                <input type="text" class="form-control title" placeholder="맛있는 빵들~" maxlength="40"
                                     name="title" value="${review.title}">
                                 <input type="hidden" name="reviewBno" value="${review.reviewBno}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label>작성자</label>
                                 <input type="text" class="form-control" placeholder="abc1234@naver.com"
                                     value="${review.email}" disabled>
@@ -247,6 +249,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label class="store-name-label">가게이름</label>
                                 <input type="text" class="form-control store-name" placeholder="파리바게뜨"
                                     value="${review.storeName}" name="storeName">
@@ -262,13 +265,16 @@
                                 <div>
                                     <span id="addrChk"></span>
                                 </div>
+                                <span style="color: red; margin-right: 1px;">*</span>
                                 <input class="form-group" type="text" id="sample4_postcode" placeholder="우편번호">
                                 <input class="form-group" type="button" onclick="sample4_execDaumPostcode()"
                                     value="우편번호 찾기"><br>
+                                    <span style="color: red;">*</span>
                                 <input class="form-group addr-api store-address" type="text" id="sample4_roadAddress"
                                     placeholder="도로명주소" name="storeAddress" value="${review.storeAddress}">
                                 <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소">
-                                <span id=" guide" style="color:#999;display:none"></span>
+                                <span id=" guide" style="color:#999;display:none"></span><br>
+                                <span style="color: red;">*</span>
                                 <input class="form-group addr-api store-detail-address" type="text"
                                     id="sample4_detailAddress" placeholder="상세주소" name="storeDetailAddress"
                                     value="${review.storeDetailAddress}">
@@ -307,6 +313,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label class="content-label">내용</label>
                                 <textarea name="content" class="form-control content" style="height: 150px;"
                                     placeholder="Message" id="message_contact" name="content"></textarea>
@@ -319,6 +326,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group review-group">
+                                <span style="color: red;">*</span>
                                 <label class="review-img-label">사진</label>
                                 <div class="dropzone col-md-12 review-img" id="review-dropzone"></div>
                                 <input type="file" name="reviewImgFile" class="dz-hidden-input hidden-review-img"
@@ -476,7 +484,6 @@
         const $titleTag = $('.title');
         const $storeNameTag = $('.store-name');
         const $contentTag = $('.content');
-        const checkArr = [false, false, false];
 
         $contentTag.text(`${review.content}`.replace(/<br>/gi, "\n"));
 
@@ -665,110 +672,6 @@
         });
 
 
-        // const list = new Array();
-        // <c:forEach items="${reviewFile}" var="it">
-
-        //     list.push("${it}");
-            
-        // </c:forEach>
-        // console.log(list);
-
-        // console.log("size : ", list.length);
-        // console.log("name : ", list[0].length);
-        
-
-        // for (let index = 0; index < list.length; index++) {
-        //     // console.log("!!!!! ", list[index]);
-        //     const newFile = new File(['file'], list[index].fileName, {
-        //         type: list[index].fileType,
-        //         size: list[index].fileSize,
-        //         status: reviewDropzone.ADDED,
-        //         accepted: true
-        //     });
-            
-        //     // console.log("!! ",list[index].fileByte);
-        //     reviewDropzone.emit("addedfile", newFile);
-        //     // console.log(list[index].filedata);
-        //     reviewDropzone.emit("thumbnail", newFile, list[index].fileData);
-        //     reviewDropzone.emit("complete", newFile);
-        //     reviewDropzone.files.push(newFile);
-
-        //     console.log("?? ",reviewDropzone.files);
-        // }
-
-        // for (const iterator in list) {
-        //     console.log("!!!!! ", iterator.fileName);
-        //     const newFile = new File(['file'], iterator.fileName, {
-        //         type: iterator.fileType,
-        //         size: iterator.fileSize,
-        //         status: reviewDropzone.ADDED,
-        //         accepted: true
-        //     });
-            
-        //     console.log("!! ",iterator.fileByte);
-        //     reviewDropzone.emit("addedfile", newFile);
-        //     console.log(iterator.filedata);
-        //     reviewDropzone.emit("thumbnail", newFile, iterator.fileByte);
-        //     reviewDropzone.emit("complete", newFile);
-        //     reviewDropzone.files.push(newFile);
-
-        //     console.log("?? ",reviewDropzone.files);
-        // }
-
-        // console.log(list);
-        // console.log(list.length);
-    
-
-        // const list = ${reviewFile};
-        // const lllist = [];
-        // // lllist = list;
-        // for (let index = 0; index < list.length; index++) {
-        //         console.log(list[index].fileName);
-        // }
-
-        // const list = "${reviewFile}".length;
-
-        // console.log("${reviewFile[0].filePath}");
-        // console.log(list);
-        // for (let i = 0; i = "${reviewFile}".length; i++) {
-        //     console.log("??3");
-        //     const newFile = new File(['file'], "${rf.fileName}", {
-        //         type: "${rf.fileType}",
-        //         size: "${rf.fileSize}",
-        //         status: reviewDropzone.ADDED,
-        //         accepted: true
-        //     });
-            
-        //     console.log("!! ",newFile);
-        //     reviewDropzone.emit("addedfile", newFile);
-        //     reviewDropzone.emit("thumbnail", newFile, "${rf.fileData}");
-        //     reviewDropzone.emit("complete", newFile);
-        //     reviewDropzone.files.push(newFile);
-
-        //     console.log("?? ",reviewDropzone.files);
-
-        // }
-
-        // const newFile = new File(['file'], "${reviewUpload1.fileName}", {
-        //         type: "${reviewUpload1.fileType}",
-        //         size: "${reviewUpload1.fileSize}",
-        //         status: reviewDropzone.ADDED,
-        //         accepted: true
-        //     });
-            
-        //     console.log("!! ",newFile);
-        //     reviewDropzone.emit("addedfile", newFile);
-        //     reviewDropzone.emit("thumbnail", newFile, "${reviewUpload1.fileData}");
-        //     reviewDropzone.emit("complete", newFile);
-        //     reviewDropzone.files.push(newFile);
-
-        //     console.log("?? ",reviewDropzone.files);
-
-
-
-
-
-
         // -------------- // fiel upload and file dropzone --------------
 
 
@@ -786,6 +689,26 @@
 
             // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
             const reviewDataTranster = new DataTransfer();
+
+            const $titleTag = $('.title');
+            const $storeNameTag = $('.store-name');
+            const $contentTag = $('.content');
+            // ------------------ 필수정보 --------------------
+
+            if ($titleTag.val().trim() == '') {
+                alert('제목을 확인해 주세요!!');
+                return;
+            }
+
+            if ($storeNameTag.val().trim() == '') {
+                alert('가게이름을 확인해 주세요!!');
+                return;
+            }
+
+            if ($contentTag.val().trim() == '') {
+                alert('내용을 확인해 주세요!!');
+                return;
+            }
 
             if (reviewDropzone.files.length == 0) {
                 alert('리뷰 사진은 필수입니다.');
@@ -809,6 +732,7 @@
 
             for (let addrInput of $addrApiInputList) {
                 if (addrInput.value.trim() === '') {
+                    alert('주소를 확인해 주세요!!');
                     addrInput.style.borderColor = 'red';
                     $addrChk.text('필수 입력사항입니다. 원활한 서비스 이용을 위해 정확한 주소를 입력하세요.');
                     $addrChk.css('color', 'red');
@@ -818,25 +742,15 @@
                 }
             }
 
-            $addrChk.text('');
-            checkArr[6] = true;
-
-            for (let c of checkArr) {
-                if (c === false) {
-                    return;
-                }
-            }
-
-            if (!checkArr.includes(false)) {
+            
+            
 
                 // 내용 \n -> <br>으로 치환
                 const content = $contentTag.val().replace(/\n/gi, "<br>");
                 $contentTag.val(content)
 
                 $('#review-modify-form').submit();
-            } else {
-                alert("입력값을 확인해주세요.");
-            }
+            
 
 
         });

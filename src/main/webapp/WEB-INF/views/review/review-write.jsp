@@ -226,13 +226,15 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label class="title-label">리뷰 제목</label>
-                                <input type="text" class="form-control title" placeholder="가산 고기 맛집!" maxlength="40"
+                                <input type="text" class="form-control title" placeholder="맛있는 빵들~" maxlength="40"
                                     name="title">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label>작성자</label>
                                 <input type="text" class="form-control" placeholder="abc1234@naver.com"
                                     value="${loginUser.name}" disabled>
@@ -241,6 +243,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label class="store-name-label">가게이름</label>
                                 <input type="text" class="form-control store-name" placeholder="파리바게뜨"
                                     value="${master.storeName}" name="storeName">
@@ -256,13 +259,16 @@
                                 <div>
                                     <span id="addrChk"></span>
                                 </div>
+                                <span style="color: red;">*</span>
                                 <input class="form-group" type="text" id="sample4_postcode" placeholder="우편번호">
                                 <input class="form-group" type="button" onclick="sample4_execDaumPostcode()"
                                     value="우편번호 찾기"><br>
+                                <span style="color: red;">*</span>
                                 <input class="form-group addr-api store-address" type="text" id="sample4_roadAddress"
                                     placeholder="도로명주소" name="storeAddress" value="${master.storeAddress}">
                                 <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소">
-                                <span id=" guide" style="color:#999;display:none"></span>
+                                <span id=" guide" style="color:#999;display:none"></span><br>
+                                <span style="color: red;">*</span>
                                 <input class="form-group addr-api store-detail-address" type="text"
                                     id="sample4_detailAddress" placeholder="상세주소" name="storeDetailAddress"
                                     value="${master.storeDetailAddress}">
@@ -301,6 +307,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label class="content-label">내용</label>
                                 <textarea name="content" class="form-control content" style="height: 150px;"
                                     placeholder="Message" id="message_contact" name="content"></textarea>
@@ -313,6 +320,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group review-group">
+                                <span style="color: red;">*</span>
                                 <label class="review-img-label">사진</label>
                                 <div class="dropzone col-md-12 review-img" id="review-dropzone"></div>
                                 <input type="file" name="reviewImgFile" class="dz-hidden-input hidden-review-img"
@@ -465,52 +473,6 @@
     <!-- /주소 검증 -->
 
     <script>
-        /* -------------------------------- save 시 검증 -------------------------------- */
-        const $titleTag = $('.title');
-        const $storeNameTag = $('.store-name');
-        const $contentTag = $('.content');
-        const checkArr = [false, false, false];
-        // ------------------ 필수정보 --------------------
-        $titleTag.on('keyup', function () {
-            if ($titleTag.val().trim() === '') {
-                $titleTag.css('border-color', 'red');
-                $('.title-label').html('리뷰 제목 <b class="c-red title-red">[ 제목은 필수정보입니다. ]</b>');
-                checkArr[0] = false;
-            } else {
-                $titleTag.css('border-color', 'green');
-                $('.title-red').remove();
-                checkArr[0] = true;
-            }
-        });
-        $storeNameTag.on('keyup', function () {
-            if ($storeNameTag.val().trim() === '') {
-                $storeNameTag.css('border-color', 'red');
-                $('.store-name-label').html('가게 이름 <b class="c-red store-name-red">[가게이름은 필수정보입니다. ]</b>');
-                checkArr[1] = false;
-            } else {
-                $storeNameTag.css('border-color', 'green');
-                $('.store-name-red').remove();
-                checkArr[1] = true;
-            }
-        });
-        $contentTag.on('keyup', function () {
-            if ($contentTag.val().trim() === '') {
-                $('.content').css('border-color', 'red');
-                $('.content-label').html('내용 <b class="c-red content-red">[ 내용은 필수정보입니다. ]</b>');
-                checkArr[2] = false;
-            } else {
-                $('.content').css('border-color', 'green');
-                $('.content-red').remove();
-                checkArr[2] = true;
-            }
-        });
-        /* -------------------------------- /save 시 검증 -------------------------------- */
-        /* -------------------------------- /입력 검증 -------------------------------- */
-    </script>
-
-
-
-    <script>
         // -------------- fiel upload and file dropzone --------------
         Dropzone.autoDiscover = false;
         const receiptDropzone = new Dropzone("#receipt-dropzone.dropzone", {
@@ -600,6 +562,30 @@
             const $reviewHiddenTag = document.querySelector('.hidden-review-img');
             // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
             const reviewDataTranster = new DataTransfer();
+
+            const $titleTag = $('.title');
+            const $storeNameTag = $('.store-name');
+            const $contentTag = $('.content');
+            // ------------------ 필수정보 --------------------
+
+            if ($titleTag.val().trim() == '') {
+                alert('제목을 확인해 주세요!!');
+                return;
+            }
+
+            if ($storeNameTag.val().trim() == '') {
+                alert('가게이름을 확인해 주세요!!');
+                return;
+            }
+
+            if ($contentTag.val().trim() == '') {
+                alert('내용을 확인해 주세요!!');
+                return;
+            }
+
+
+
+
             if (reviewDropzone.files.length == 0) {
                 alert('리뷰 사진은 필수입니다.');
                 return;
@@ -615,6 +601,7 @@
             const $addrChk = $('#addrChk');
             for (let addrInput of $addrApiInputList) {
                 if (addrInput.value.trim() === '') {
+                    alert('주소를 확인해 주세요!!')
                     addrInput.style.borderColor = 'red';
                     $addrChk.text('필수 입력사항입니다. 원활한 서비스 이용을 위해 정확한 주소를 입력하세요.');
                     $addrChk.css('color', 'red');
@@ -623,21 +610,12 @@
                     addrInput.style.borderColor = 'yellowgreen';
                 }
             }
-            $addrChk.text('');
-            checkArr[6] = true;
-            for (let c of checkArr) {
-                if (c === false) {
-                    return;
-                }
-            }
-            if (!checkArr.includes(false)) {
-                // 내용 \n -> <br>으로 치환
-                const content = $contentTag.val().replace(/\n/gi, "<br>");
-                $contentTag.val(content)
-                $('#review-write-form').submit();
-            } else {
-                alert("입력값을 확인해주세요.");
-            }
+            
+            // 내용 \n -> <br>으로 치환
+            const content = $contentTag.val().replace(/\n/gi, "<br>");
+            $contentTag.val(content);
+            $('#review-write-form').submit();
+
         });
     </script>
 

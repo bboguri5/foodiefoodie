@@ -77,10 +77,13 @@ public class PromotionFaqController {
                 }
             }
 
-            // 홍보글에 카운트 추가
-            int reportCnt = ps.checkReportCnt(promotionFaq.getBusinessNo());
-            if (ms.findOneForBusinessNoService(promotionFaq.getBusinessNo()) != null) {
-                ps.reportCntModifyService(reportCnt + 1, promotionFaq.getBusinessNo());
+            // 해당 홍보글이 있으면
+            if (ps.findOneService(promotionFaq.getBusinessNo()) != null) {
+                // 홍보글에 카운트 추가
+                int reportCnt = ps.checkReportCnt(promotionFaq.getBusinessNo());
+                if (ms.findOneForBusinessNoService(promotionFaq.getBusinessNo()) != null) {
+                    ps.reportCntModifyService(reportCnt + 1, promotionFaq.getBusinessNo());
+                }
             }
         }
 

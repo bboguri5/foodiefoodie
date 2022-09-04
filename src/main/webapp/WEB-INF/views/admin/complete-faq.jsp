@@ -125,7 +125,7 @@
 
 
     <!-- promotion-faq Modal -->
-    <form action="/admin/promotion-completeFaq" method="post" class="promotion-modal-form">
+    <form action="/admin/promotion-completeFaq-cancel" method="post" class="promotion-modal-form">
         <div class="modal fade promotion-faq" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -165,7 +165,7 @@
                         <input type="hidden" class="form-control promotion-complete-type" name="completeType">
                         <!-- /Row -->
                     </div>
-                    <div class="modal-footer btn-wrap">
+                    <div class="modal-footer pro-btn-wrap">
                         <button class="btn btn-primary del-btn promotion-complete-n" type="button">신고 취소</button>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
 
 
     <!-- review-faq Modal -->
-    <form action="/admin/review-completeFaq" method="post" class="modal-form">
+    <form action="/admin/review-completeFaq-cancel" method="post" class="review-modal-form">
         <div class="modal fade review-faq" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -211,7 +211,7 @@
                         <input type="hidden" class="form-control review-complete-type" name="completeType">
                         <!-- /Row -->
                     </div>
-                    <div class="modal-footer btn-wrap">
+                    <div class="modal-footer review-btn-wrap">
                         <button class="btn btn-primary del-btn review-complete-n" type="button">신고 취소</button>
                     </div>
                 </div>
@@ -221,7 +221,7 @@
 
 
     <!-- reply-faq Modal -->
-    <form action="/admin/reply-completeFaq" method="post" class="modal-form">
+    <form action="/admin/reply-completeFaq-cancel" method="post" class="reply-modal-form">
         <div class="modal fade reply-faq" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -257,7 +257,7 @@
                         <input type="hidden" class="form-control reply-complete-type" name="completeType">
                         <!-- /Row -->
                     </div>
-                    <div class="modal-footer btn-wrap">
+                    <div class="modal-footer reply-btn-wrap">
                         <button class="btn btn-primary del-btn reply-complete-n" type="button">신고 취소</button>
                     </div>
                 </div>
@@ -283,7 +283,7 @@
                 document.querySelector('.promotion-modal-contents').value = e.target.dataset.content;
             })
 
-            const $btnWrap = document.querySelector('.btn-wrap');
+            const $btnWrap = document.querySelector('.pro-btn-wrap');
             const $modalForm = document.querySelector('.promotion-modal-form');
             
             $btnWrap.addEventListener('click', e => {
@@ -307,8 +307,8 @@
                 document.querySelector('.review-modal-contents').value = e.target.dataset.content;
             })
 
-            const $btnWrap = document.querySelector('.btn-wrap');
-            const $modalForm = document.querySelector('.modal-form');
+            const $btnWrap = document.querySelector('.review-btn-wrap');
+            const $modalForm = document.querySelector('.review-modal-form');
             
             $btnWrap.addEventListener('click', e => {
                 
@@ -320,8 +320,10 @@
         }
 
         function replyModalData() {
+            
             const $targetNo = document.querySelector('.target-no');
             $targetNo.addEventListener('click', e => {
+                console.log(e.target);
                 document.querySelector('.reply-modal-report-no').value = e.target.dataset.replyfaqno;
                 document.querySelector('.reply-modal-reply-no').value = e.target.dataset.replyno;
                 document.querySelector('.reply-modal-writer-email').value = e.target.dataset.writeremail;
@@ -330,8 +332,8 @@
                 document.querySelector('.reply-modal-contents').value = e.target.dataset.content;
             })
 
-            const $btnWrap = document.querySelector('.btn-wrap');
-            const $modalForm = document.querySelector('.modal-form');
+            const $btnWrap = document.querySelector('.reply-btn-wrap');
+            const $modalForm = document.querySelector('.reply-modal-form');
             $btnWrap.addEventListener('click', e => {
                 
                 if(e.target === document.querySelector('.reply-complete-n')) {

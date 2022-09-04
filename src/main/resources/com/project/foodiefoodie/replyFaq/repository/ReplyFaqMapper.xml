@@ -13,6 +13,7 @@
         <result property="writerEmail" column="writer_email"/>
         <result property="faqComplete" column="faq_complete"/>
         <result property="replyWriterEmail" column="reply_writer_email"/>
+        <result property="content" column="reply_faq_content"/>
     </resultMap>
 
     <resultMap id="replyFaqDTO" type="com.project.foodiefoodie.replyFaq.dto.ReplyFaqDTO">

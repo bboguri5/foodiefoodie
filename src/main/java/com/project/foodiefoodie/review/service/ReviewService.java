@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.review.service;
 
+import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.repository.ReviewMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

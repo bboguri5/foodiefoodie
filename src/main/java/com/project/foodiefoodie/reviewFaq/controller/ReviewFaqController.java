@@ -9,6 +9,7 @@ import com.project.foodiefoodie.reportMember.domain.ReportMaster;
 import com.project.foodiefoodie.reportMember.domain.ReportMember;
 import com.project.foodiefoodie.reportMember.service.ReportMasterService;
 import com.project.foodiefoodie.reportMember.service.ReportMemberService;
+import com.project.foodiefoodie.review.service.ReviewBoardService;
 import com.project.foodiefoodie.review.service.ReviewService;
 import com.project.foodiefoodie.reviewFaq.domain.ReviewFaq;
 import com.project.foodiefoodie.reviewFaq.dto.ReviewFaqDTO;
@@ -32,6 +33,7 @@ public class ReviewFaqController {
     private final ReviewFaqService rvfs;
     private final ReportMemberService rms;
     private final ReviewService rs;
+    private final ReviewBoardService rbs;
     private final BlackListService bls;
 
     @GetMapping("/admin/reviewFaq")
@@ -79,12 +81,15 @@ public class ReviewFaqController {
                 }
 
             }
-
-            // 리뷰글에 카운트 추가
-            int reportCnt = rs.checkReportCntService(reviewFaq.getReviewWriterEmail());
-            if (ms.findMember(reviewFaq.getReviewWriterEmail()) != null) {
-                rs.reportCntModifyService(reportCnt + 1, reviewFaq.getReviewWriterEmail());
+            // 해당 리뷰글이 있으면
+            if (rbs.findOneReviewService(reviewFaq.getReviewBno()) != null) {
+                // 리뷰글에 카운트 추가
+                int reportCnt = rs.checkReportCntService(reviewFaq.getReviewWriterEmail());
+                if (ms.findMember(reviewFaq.getReviewWriterEmail()) != null) {
+                    rs.reportCntModifyService(reportCnt + 1, reviewFaq.getReviewWriterEmail());
+                }
             }
+
         }
 
         return "redirect:/admin/reviewFaq";

@@ -16,16 +16,7 @@
         <result property="discountPrice" column="discount_price"/>
     </resultMap>
 
-    <resultMap id="ppMap" type="com.project.foodiefoodie.mainpage.dto.MainPagePremiumDTO">
-        <result property="promotionBno" column="promotion_bno"/>
-        <result property="businessNo" column="business_no"/>
-        <result property="storeName" column="store_name"/>
-        <result property="storeAddress" column="store_address"/>
-        <result property="avgStarRate" column="avg_star_rate"/>
-        <result property="reviewCnt" column="review_cnt"/>
-        <result property="hotDeal" column="hot_deal"/>
-        <result property="discountPrice" column="discount_price"/>
-    </resultMap>
+
 
     <!-- 메인 페이지에 평점 높은 7개 가게 불러오기 -->
     <select id="findTopToday" resultMap="mpMap">
@@ -72,7 +63,7 @@
     </select>
 
     <!-- 기한이 지나지 않은 월정액 가게 랜덤으로 메인 페이지에 7개 불러오기 -->
-    <select id="findRandPremium" resultMap="ppMap">
+    <select id="findRandPremium" resultMap="mpMap">
 
         <!--SELECT * FROM (
         SELECT P.business_no, promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
@@ -93,14 +84,13 @@
         ON P.business_no = M.business_no
         LEFT OUTER JOIN hot_deal H
         ON H.business_no = P.business_no
-        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
-        (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL))
-        ORDER BY DBMS_RANDOM.RANDOM ) sub
+        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE LOWER(complete) = 't')
+        ORDER BY DBMS_RANDOM.RANDOM) sub
         WHERE ROWNUM BETWEEN 1 AND 7
     </select>
 
     <!-- 월정액 가게 전체 불러오기 -->
-    <select id="findAllPremium" resultMap="ppMap">
+    <select id="findAllPremium" resultMap="mpMap">
          SELECT *
          FROM (SELECT ROWNUM rn, sub.*
          FROM (
@@ -110,8 +100,7 @@
          ON P.business_no = M.business_no
          LEFT OUTER JOIN hot_deal H
          ON H.business_no = P.business_no
-         WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
-         (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL))
+         WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE LOWER(complete) = 't')
          ORDER BY DBMS_RANDOM.RANDOM
          ) sub)
          WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})

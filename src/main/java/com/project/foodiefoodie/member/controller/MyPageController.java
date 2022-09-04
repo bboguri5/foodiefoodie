@@ -120,8 +120,8 @@ public class MyPageController {
 
 
         model.addAttribute("myReviewList",reviewLikeReplyPictureDTOS);
-        model.addAttribute("totalReplyCount",totalReplyCount);
-        model.addAttribute("totalLikeCount",totalLikeCount);
+        model.addAttribute("totalReplyCount",totalReplyCount); // 댓글 총 갯수
+        model.addAttribute("totalLikeCount",totalLikeCount); // 좋아요 총 갯수
         model.addAttribute("totalMyReviewCount",totalMyReviewCount);
 
 

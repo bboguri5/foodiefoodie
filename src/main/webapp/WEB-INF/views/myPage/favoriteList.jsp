@@ -46,8 +46,8 @@
             </ol>
             <div class="box_general">
                 <div class="header_box">
-                    <h2 class="d-inline-block">즐겨찾기</h2>
-                    <div class="filter">
+                    <h2 class="d-inline-block">&#128172; 즐겨찾기 &#9825;</h2>
+                    <!-- <div class="filter">
                         <div class="styled-select short">
                             <select name="orderby">
                                 <option value="Any time">Any time</option>
@@ -55,7 +55,7 @@
                                 <option value="Oldest">Oldest</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="list_general">
                     <ul>

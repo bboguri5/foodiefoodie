@@ -175,6 +175,12 @@
             background: blue;
             border: 1px solid #000;
         }
+        .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .likeAndReplyBox{
+            background: green;
+            width: 100%;
+            height: 100%;
+        }
+
         /* .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .title{
             
             border: 1px solid #000;
@@ -230,6 +236,7 @@
                         <div class="reviewBox item1">
                             <a href="/review/detail?reviewBno=${review.reviewBno}">
                                 <div class="reviewPicture picBox">
+                                    <!-- <div class="likeAndReplyBox"></div> -->
                                     <img src="${review.fileData}" alt="#">
                                 </div> 
                                 <!-- <div class="title">${reviewInfo.title}</div>

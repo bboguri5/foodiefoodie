@@ -23,6 +23,17 @@ public class ProBoardService {
     private final ProBoardMapper proBoardMapper;
 
 
+    public boolean addFavoriteStore(String email, int promotionBno){
+        return proBoardMapper.addFavoriteStore(email,promotionBno);
+    }
+
+    public boolean isFavoriteStore(String email, int promotionBno)
+    {
+        return proBoardMapper.isFavoriteStore(email,promotionBno) > 0 ;
+    }
+    public boolean removeFavoriteStore(String email ,int promotionBno){
+        return proBoardMapper.removeFavoriteStore(email,promotionBno);
+    }
     @Transactional
     public boolean saveProBoard(ProBoard proBoard, List<String[]> menuList, Map<String, List<MultipartFile>> fileMap) {
 

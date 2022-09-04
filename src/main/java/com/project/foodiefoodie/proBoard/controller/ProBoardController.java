@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.proBoard.controller;
 
 
+import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.FileDTO;
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
@@ -8,14 +9,17 @@ import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
+import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import org.apache.catalina.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -31,7 +35,8 @@ public class ProBoardController {
     private final ProBoardService proBoardService;
 
     @GetMapping("/detail/{promotionBno}")
-    public String detail(Model model, @PathVariable int promotionBno) {
+    public String detail(Model model, @PathVariable int promotionBno,
+                         HttpSession session) {
         log.info(" ProBoardController /detail/{} Get - ! ", promotionBno);
 
         // proBoard - ProBoard + Master + StoreTimeDTO 상속 관계
@@ -40,6 +45,9 @@ public class ProBoardController {
         model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
         model.addAttribute("titleFile",proBoardService.selectFiles(promotionBno,"title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
+
+        Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
+        model.addAttribute("isFavorite",proBoardService.isFavoriteStore(member.getEmail(),promotionBno));
         return "promotion/pro-detail";
     }
 
@@ -68,6 +76,28 @@ public class ProBoardController {
         boolean result = proBoardService.deleteNotice(noticeNo);
         return result ? "delete-success" : "delete-failed";
     }
+
+    @GetMapping("/detail/favorite/store/add/{promotionBno}")
+    @ResponseBody
+    public String addFavoriteStore(HttpSession session ,@PathVariable int promotionBno)
+    {
+        log.info(" /detail/favorite/store/add - {}",promotionBno);
+        Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
+        proBoardService.addFavoriteStore(member.getEmail(),promotionBno);
+        return "";
+    }
+
+    @DeleteMapping ("/detail/favorite/store/remove/{promotionBno}")
+    @ResponseBody
+    public String removeFavoriteStore(HttpSession session ,@PathVariable int promotionBno)
+    {
+        log.info(" /detail/favorite/store/remove - {}",promotionBno);
+
+        Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
+        proBoardService.removeFavoriteStore(member.getEmail(),promotionBno);
+        return "";
+    }
+
 
     //    ---------------------------------------- write ----------------------------------------
     @GetMapping("/write/{businessNo}")

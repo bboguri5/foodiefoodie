@@ -30,6 +30,9 @@ public interface ProBoardMapper {
 
     ProBoard selectProBoard(int promotionBno);
 
+    boolean addFavoriteStore(String email ,int promotionBno);
+    int isFavoriteStore(String email ,int promotionBno);
+    boolean removeFavoriteStore(String email ,int promotionBno);
 
     /* ============================= file =============================== */
 

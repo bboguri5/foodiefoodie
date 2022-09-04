@@ -33,6 +33,7 @@
     <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css/admin.css" rel="stylesheet">
 
+
     <!-- jquery -->
     <script src="/js/jquery-3.3.1.min.js"></script>
     <!-- bootstrap js -->
@@ -632,10 +633,14 @@
 </body>
 
 <script>
+   
+
+
     showKaKao(); // information map  
 
     clickEventOpenKakao(); // open kakao map 
 
+    addFavoriteStore(); // add favorite
     showNotice(); // notice
     makeNoticeWriteStyle(); // notice popup style
     clickEventSaveNotice(); // notice save 
@@ -692,10 +697,33 @@
             })
 
         });
-
-
-
     }
+
+
+    function addFavoriteStore() {
+        if (`${isFavorite}` === 'true') {
+            $('.wishlist').addClass('liked');
+        } else {
+            $('.wishlist').removeClass('liked');
+        }
+
+        // Like Icon
+        $('.btn_hero.wishlist').on('click', function (e) {
+            e.preventDefault();
+
+            if ($(this).hasClass('liked')) {
+                fetch('/proBoard/detail/favorite/store/remove/' + `${promotionBno}`, {
+                    method: 'DELETE'
+                });
+            } else {
+                fetch('/proBoard/detail/favorite/store/add/' + `${promotionBno}`);
+            }
+
+            $(this).toggleClass('liked');
+
+        });
+    }
+    
 
     function clickEventOpenKakao() {
         const $openKakaoMap = $(".openKaKaoMap");

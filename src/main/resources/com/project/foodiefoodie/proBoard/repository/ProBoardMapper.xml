@@ -126,6 +126,21 @@
     <select id="selectPromotionBno" resultType="int">
         select promotion_bno from PROMOTION_BOARD where business_no = #{businessNo}
     </select>
+    
+    <insert id="addFavoriteStore">
+        INSERT INTO favorite_store VALUES (#{email},#{promotionBno})
+    </insert>
+    <select id="isFavoriteStore" resultType="int">
+        SELECT count(*)
+        FROM favorite_store
+        WHERE EXISTS (SELECT *
+        FROM favorite_store
+        WHERE promotion_bno = #{promotionBno}
+        AND email = #{email})
+    </select>
+    <delete id="removeFavoriteStore">
+        DELETE FROM favorite_store WHERE promotion_bno = #{promotionBno} and email = #{email}
+    </delete>
 
     <!--  ================================== menu ==================================  -->
 

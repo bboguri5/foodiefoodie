@@ -24,7 +24,7 @@ public class ProBoardService {
 
 
     @Transactional
-    public boolean saveProBoard(ProBoard proBoard, List<String[]> menuList , Map<String,List<MultipartFile>> fileMap) {
+    public boolean saveProBoard(ProBoard proBoard, List<String[]> menuList, Map<String, List<MultipartFile>> fileMap) {
 
         log.info(" saveProBoard service init - {}", proBoard);
         boolean result = proBoardMapper.saveProBoard(proBoard); // content , title .. 저장
@@ -35,18 +35,23 @@ public class ProBoardService {
             int promotionBno = proBoardMapper.selectPromotionBno(proBoard.getBusinessNo());
             proBoard.setPromotionBno(promotionBno);
 
-            for (int i = 0; i <menuList.get(0).length ; i++) {
-                MenuDTO menuDTO = new MenuDTO();
-                menuDTO.setPromotionBno(promotionBno);
-                menuDTO.setMenuName(menuList.get(0)[i]);
-                menuDTO.setMenuPrice(Integer.parseInt(menuList.get(1)[i]));
-                proBoardMapper.saveMenuInfo(menuDTO);
+            if(!menuList.get(0)[0].isEmpty())
+            {
+                for (int i = 0; i < menuList.get(0).length; i++) {
+
+                    MenuDTO menuDTO = new MenuDTO();
+                    menuDTO.setPromotionBno(promotionBno);
+                    menuDTO.setMenuName(menuList.get(0)[i]);
+                    menuDTO.setMenuPrice(Integer.parseInt(menuList.get(1)[i]));
+                    proBoardMapper.saveMenuInfo(menuDTO);
+                }
             }
 
             proBoardMapper.saveStoreTime(proBoard);
 
             for (String key : fileMap.keySet()) {
-                saveFileInfo(uploadSaveFiles(proBoard, fileMap.get(key), key));
+                List<FileDTO> fileDTOList = uploadSaveFiles(proBoard, fileMap.get(key), key);
+                if(fileDTOList != null) saveFileInfo(fileDTOList);
             }
         }
 
@@ -55,21 +60,21 @@ public class ProBoardService {
 
     @Transactional
     public boolean modifyProBoard(ProBoard proBoard, Map<String, List<MultipartFile>> fileMap) {
-        log.info( " service modifyProBoard {} ",proBoard.getPromotionBno());
+        log.info(" service modifyProBoard {} ", proBoard.getPromotionBno());
         int promotionBno = proBoard.getPromotionBno();
 
         proBoardMapper.modifyProBoard(proBoard);
         proBoardMapper.modifyStoreTime(proBoard);
 
         for (String key : fileMap.keySet()) {
-            if(!key.equals("menu")){ // 메뉴는 비동기에서 DB 삭제되어 자동으로 파일도 삭제됨
-                proBoardMapper.deleteFileAllInfo(promotionBno,key);
+            if (!key.equals("menu")) { // 메뉴는 비동기에서 DB 삭제되어 자동으로 파일도 삭제됨
+                proBoardMapper.deleteFileAllInfo(promotionBno, key);
             }
             saveFileInfo(uploadSaveFiles(proBoard, fileMap.get(key), key));
         }
 
         for (String key : fileMap.keySet()) {
-            deleteLocalFile(proBoard.getBusinessNo(),key,fileMap.get(key));
+            deleteLocalFile(proBoard.getBusinessNo(), key, fileMap.get(key));
         }
 
         return true;
@@ -100,8 +105,7 @@ public class ProBoardService {
         return newUploadPath;
     }
 
-    private boolean deleteLocalFile(String businessNo , String folderName , List<MultipartFile> fileList)
-    {
+    private boolean deleteLocalFile(String businessNo, String folderName, List<MultipartFile> fileList) {
         List<Boolean> result = new ArrayList<>();
         List<String> requestFileNames = new ArrayList<>();
         String newUploadPath = "C:\\foodiefoodie\\proBoard";
@@ -111,17 +115,15 @@ public class ProBoardService {
 
         File folder = new File(newUploadPath);
 
-        for (MultipartFile file : fileList)
-        {
-            if(file.getSize() == 0 ) return false;
+        for (MultipartFile file : fileList) {
+            if (file.getSize() == 0) return false;
             requestFileNames.add(file.getOriginalFilename());
         }
         for (File localFile : folder.listFiles()) {
 
-            log.info(" 지우겠습니까? = {} >> {}",!requestFileNames.contains(localFile.getName()),localFile.getName());
-            if(!requestFileNames.contains(localFile.getName()))
-            {
-                log.info("{} , {}",requestFileNames,localFile);
+            log.info(" 지우겠습니까? = {} >> {}", !requestFileNames.contains(localFile.getName()), localFile.getName());
+            if (!requestFileNames.contains(localFile.getName())) {
+                log.info("{} , {}", requestFileNames, localFile);
                 result.add(localFile.delete());
             }
         }
@@ -131,27 +133,29 @@ public class ProBoardService {
 
     private List<FileDTO> uploadSaveFiles(ProBoard proBoard, List<MultipartFile> fileList, String folderName) {
 
-        log.info(" service uploadSaveFile init {}", proBoard.getPromotionBno());
+        log.info(" service uploadSaveFile init {}", fileList);
         List<FileDTO> fileDTOList = new ArrayList<>();
 
+        if(fileList == null) return null;
         for (MultipartFile imgFile : fileList) {
-            if (imgFile.getSize() == 0) return null;
+            if (imgFile.getSize() == 0 || imgFile.isEmpty()) return null;
+
+            log.info(" service uploadSaveFile imgFile = {}", imgFile.getOriginalFilename());
 
             if (imgFile.getOriginalFilename().equals("default")) {
                 String defFilePath = "\\img\\menu";
                 String defFileName = "foodie_default.PNG";
                 FileDTO fileDTO = new FileDTO(proBoard.getPromotionBno(),
-                        0,defFilePath,defFileName,"default",
-                        0L,"default",defFilePath + File.separator + defFileName);
-                log.info(" service uploadSaveFile default {}", fileDTO.getFilePath()+"\\"+fileDTO.getFileName());
+                        0, defFilePath, defFileName, "default",
+                        0L, "default", defFilePath + File.separator + defFileName);
+                log.info(" service uploadSaveFile default {}", fileDTO.getFilePath() + "\\" + fileDTO.getFileName());
                 fileDTOList.add(fileDTO);
                 continue;
             }
 
-            String newPath = getNewUploadPath(proBoard.getBusinessNo(),folderName);
+            String newPath = getNewUploadPath(proBoard.getBusinessNo(), folderName);
             File file = new File(newPath, Objects.requireNonNull(imgFile.getOriginalFilename()));
-            if(!file.exists())
-            {
+            if (!file.exists()) {
                 try {
                     log.info(" service uploadSaveFile new file add {}", file.getName());
                     imgFile.transferTo(file);
@@ -166,7 +170,7 @@ public class ProBoardService {
 
     private boolean saveFileInfo(List<FileDTO> fileDTOList) {
 
-        log.info(" service saveFileInfo - {} ",fileDTOList.size());
+        log.info(" service saveFileInfo - {} ", fileDTOList.size());
 
         if (fileDTOList == null) return false;
 
@@ -177,7 +181,9 @@ public class ProBoardService {
         return !resultList.contains(false);
     }
 
-    public List<FileDTO> selectFiles(int promotionBno , String type) {return proBoardMapper.selectFiles(promotionBno,type);}
+    public List<FileDTO> selectFiles(int promotionBno, String type) {
+        return proBoardMapper.selectFiles(promotionBno, type);
+    }
 
     /* ===================================== notice ===================================== */
 
@@ -185,7 +191,9 @@ public class ProBoardService {
         return proBoardMapper.selectNotice(promotionBno);
     }
 
-    public boolean saveNotice(NoticeDTO noticeDTO) {return proBoardMapper.saveNotice(noticeDTO);}
+    public boolean saveNotice(NoticeDTO noticeDTO) {
+        return proBoardMapper.saveNotice(noticeDTO);
+    }
 
     public boolean deleteNotice(int noticeNo) {
         return proBoardMapper.deleteNotice(noticeNo);
@@ -197,11 +205,13 @@ public class ProBoardService {
     }
 
     public boolean saveMenuInfo(List<MenuDTO> menuList) {
+
+        log.info(" service saveMenuInfo init ");
         List<Boolean> resultList = new ArrayList<>();
 
-        for(MenuDTO menu : menuList)
-        {
-           resultList.add(proBoardMapper.saveMenuInfo(menu));
+        for (MenuDTO menu : menuList) {
+            log.info(" service saveMenuInfo menu {}", menu);
+            resultList.add(proBoardMapper.saveMenuInfo(menu));
         }
         return !resultList.contains(false);
     }
@@ -209,11 +219,10 @@ public class ProBoardService {
     public boolean modifyMenuInfo(List<MenuDTO> menuDTO) {
 
         int promotionBno = menuDTO.get(0).getPromotionBno();
-        log.info(" service modifyMenuInfo init - {} ",promotionBno);
+        log.info(" service modifyMenuInfo init - {} ", promotionBno);
 
         proBoardMapper.deleteMenuInfo(promotionBno);
-        for (MenuDTO menu : menuDTO)
-        {
+        for (MenuDTO menu : menuDTO) {
             proBoardMapper.saveMenuInfo(menu);
         }
 

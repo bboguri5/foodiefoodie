@@ -56,6 +56,12 @@
     </delete>
 
 
+    <delete id="deleteMemberIntoProfile">
+        DELETE FROM member
+        WHERE email = #{email}
+    </delete>
+
+
     <update id="modifyMember">
         UPDATE member
         SET nick_name = #{nickName}, phone_number = #{phoneNumber} , address = #{address}

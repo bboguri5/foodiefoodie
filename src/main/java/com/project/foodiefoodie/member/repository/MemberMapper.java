@@ -68,5 +68,11 @@ public interface MemberMapper {
     // 새로운 맴버 수정
     boolean newMemberModi(NewModifyMemberDTO newModifyMemberDTO);
 
+    // 맴버
+    // 이메일 넣으면 맴버 삭제시켜주는 메서드
+    boolean deleteMemberIntoProfile(String email);
+
+
+
 
 }

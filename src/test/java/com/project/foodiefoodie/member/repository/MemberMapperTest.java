@@ -127,4 +127,17 @@ class MemberMapperTest {
 
     }
 
+
+    @Test
+    @DisplayName("이메일 넣으면 회원 삭제되어야 함 ")
+    void deleteIntoProfile(){ // 성공
+
+        String email = "bbb@nate.com";
+
+        boolean b = mapper.deleteMemberIntoProfile(email);
+
+        assertTrue(b);
+    }
+
+
 }

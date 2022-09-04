@@ -257,4 +257,10 @@ public class MemberService {
     public String sendEmailAuthCode(String email) throws Exception {
         return emailService.sendAuthCodeEmail(email);
     }
+
+    // 맴버 삭제 해주는 메서드
+    public boolean deleteMemberIntoProfileService(String email){
+        boolean b = memberMapper.deleteMemberIntoProfile(email);
+        return b;
+    }
 }

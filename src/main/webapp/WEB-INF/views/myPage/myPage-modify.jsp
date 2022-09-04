@@ -478,7 +478,7 @@
 
 
             const $successModiBtn = document.querySelector('.successModify');
-            const $returnBtn = document.querySelector('.return');
+            const $returnBtn = document.querySelector('.return'); // 되돌아가기 버튼
             const $modiForm = document.querySelector('.modiForm');
 
             if ($successModiBtn !== null) {
@@ -526,7 +526,7 @@
                 $returnBtn.onclick = e => {
                     console.log("되돌이가기 , 수정안하고 그냥 뒤로가는기능 ");
 
-                    location.href = '/myPage-profile';
+                    location.href = '/myPage/profile';
                 };
             }
 

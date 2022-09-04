@@ -14,7 +14,7 @@
             margin-left: 20px;
         }
 
-        .modalBox {
+        .modalBox1 {
             position: absolute;
             display: none;
             width: 25%;
@@ -27,7 +27,7 @@
             border: 2px solid green;
         }
 
-        .modalBox .passwordModal {
+        .modalBox1 .passwordModal {
             width: 80%;
             height: 60%;
             position: absolute;
@@ -38,12 +38,12 @@
             /* background: blue; */
         }
 
-        .modalBox .passwordModal .passwordModal-title {
+        .modalBox1 .passwordModal .passwordModal-title {
             text-align: center;
             margin-bottom: 15px;
         }
 
-        .modalBox .passwordModal .falseh5 {
+        .modalBox1 .passwordModal .falseh5 {
             display: none;
             /* 이건 먹는데  */
             color: red;
@@ -51,15 +51,75 @@
             text-align: center;
         }
 
-        .modalBox .passwordModal .passwordform {
+        .modalBox1 .passwordModal .passwordform {
             text-align: center;
         }
 
-        .modalBox .passwordModal .passwordBtn {
+        .modalBox1 .passwordModal .passwordBtn {
             margin-left: 20px;
         }
 
-        .modalBox .returnBtn {
+        .modalBox1 .returnBtn {
+            /* 종료버튼  */
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 85%;
+            top: 10%;
+            border-radius: 50%;
+            background: green;
+            text-align: center;
+            color: #000;
+        }
+
+        /* ====================================================== */
+
+        .modalBox2 {
+            position: absolute;
+            display: none;
+            width: 25%;
+            height: 20%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 5%;
+            border: 2px solid green;
+        }
+
+        .modalBox2 .passwordModal {
+            width: 80%;
+            height: 60%;
+            position: absolute;
+            margin: 0 auto;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            /* background: blue; */
+        }
+
+        .modalBox2 .passwordModal .passwordModal-title {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .modalBox2 .passwordModal .falseh5 {
+            display: none;
+            /* 이건 먹는데  */
+            color: red;
+            /* 왜 색깔은 안변하냐 ;; */
+            text-align: center;
+        }
+
+        .modalBox2 .passwordModal .passwordform {
+            text-align: center;
+        }
+
+        .modalBox2 .passwordModal .passwordBtn2 {
+            margin-left: 20px;
+        }
+
+        .modalBox2 .returnBtn {
             /* 종료버튼  */
             position: absolute;
             width: 20px;
@@ -237,13 +297,27 @@
 
             <!-- ----------------------------------------------------------------------------------------------------------------- -->
 
-            <div class="modalBox">
+            <div class="modalBox1">
                 <div class="passwordModal">
-                    <h5 class="passwordModal-title">비밀번호를 입력하세요</h5>
+
+                    <h6 class="passwordModal-title">수정하기 위한 비밀번호를 입력하세요</h6>
                     <h5 class="falseh5">[비밀번호가 틀렸습니다.]</h5>
 
                     <input type="password" name="password" class="passwordInput"> <button type="button"
                         class="passwordBtn">누르세요</button>
+                </div>
+                <div class="returnBtn">X</div>
+
+            </div>
+
+            <div class="modalBox2">
+                <div class="passwordModal">
+                    <h5></h5>
+                    <h5 class="passwordModal-title">탈퇴하기 위한 비밀번호를 입력하세요</h5>
+                    <h5 class="falseh5">[비밀번호가 틀렸습니다.]</h5>
+
+                    <input type="password" name="password" class="passwordInput2"> <button type="button"
+                        class="passwordBtn2">누르세요</button>
                 </div>
                 <div class="returnBtn">X</div>
 
@@ -279,16 +353,21 @@
         const $modBtn = document.querySelector('.modiBtn');
         // const $delBtn = document.querySelector('.del-btn');
         const $masterBtn = document.querySelector('.masterRegistBtn');
-        const $modalBox = document.querySelector('.modalBox');
+        const $modalBox1 = document.querySelector('.modalBox1'); // 수정하는 모달 창 
+
+        const $modalBox2 = document.querySelector('.modalBox2'); // 탈퇴하는 모달 창  
         const $returnBtn = document.querySelector('.returnBtn');
         const $passwordModal = document.querySelector('.passwordModal');
         const $passwordInput = document.querySelector('.passwordInput');
+
+        const $passwordInput2 = document.querySelector('.passwordInput2'); // 탈퇴 인풋 
 
         const $body = document.body;
 
         const $changePW = document.querySelector('.changePW');
 
 
+        // 회원탈퇴 
         const $deleteBtn = document.querySelector('.deleteBtn');
 
 
@@ -298,6 +377,8 @@
         const $falseh5 = document.querySelector('.falseh5');
         const $brLabel = document.querySelector('.brLabel');
         const $passwordBtn = document.querySelector('.passwordBtn');
+
+        const $passwordBtn2 = document.querySelector('.passwordBtn2');
 
 
 
@@ -327,7 +408,21 @@
 
                 // $body.style.opacity = 0.5;
 
-                $modalBox.style.display = "block";
+                $modalBox1.style.display = "block";
+                // location.href = '/myPage-modify';
+            });
+
+        }
+
+
+
+        if ($deleteBtn !== null) {
+
+            // 회원탈퇴 
+            $deleteBtn.addEventListener('click', e => {
+                console.log("회원탈퇴 눌러버려따 ! ");
+
+                $modalBox2.style.display = "block";
                 // location.href = '/myPage-modify';
             });
 
@@ -342,7 +437,7 @@
                 console.log("빨간색 x 버튼 눌렀다");
                 $falseh5.style.display = "none";
 
-                $modalBox.style.display = "none";
+                $modalBox1.style.display = "none";
                 // location.href = '/myPage/modify';
             };
         }
@@ -384,18 +479,16 @@
         }
 
 
-        $deleteBtn
 
 
-        if ($deleteBtn !== null) {
 
-            // 회원탈퇴!! 
-            $deleteBtn.onclick = e => {
-               
-                alert("회원탈퇴를 하셨습니다.")
-                location.href = '/';
-            };
-        }
+        // if ($deleteBtn !== null) {
+        //     // 회원탈퇴!! 
+        //     $deleteBtn.onclick = e => {
+
+        //         location.href = '/';
+        //     };
+        // }
 
 
         if ($passwordBtn !== null) {
@@ -405,6 +498,15 @@
                 trueAndFalsePassword();
             }
         }
+
+        if ($passwordBtn2 !== null) {
+            // 탈퇴하기 누르고 나서 발동하는 메서드 
+            $passwordBtn2.onclick = e => {
+                console.log('click seccion');
+                trueAndFalsePassword2();
+            }
+        }
+
 
 
         // 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드 
@@ -433,6 +535,44 @@
                     if (msg === 'password-success') {
                         alert("비밀번호 인증에 성공했습니다. 수정화면으로 이동합니다.");
                         location.href = '/myPage/modify';
+                    } else if (msg === 'password-false') {
+                        console.log(123123123123123123);
+                        $falseh5.style.display = "block";
+                        $falseh5.style.color = 'red';
+                        $brLabel.style.display = "none";
+                    }
+                });
+        }
+
+        function trueAndFalsePassword2(e) {
+
+            console.log('탈퇴하려고 비밀번호 검증 '); // 나옴 
+
+            const $passwordInput2 = document.querySelector('.passwordInput2')
+
+            console.log($passwordInput2.value);
+            
+            // 서버로 전송할 데이터들
+            const password = {
+                password: $passwordInput2.value
+            };
+
+            // POST요청을 위한 요청 정보 객체
+            const reqInfo = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(password)
+            };
+
+            fetch('/trueAndFalsePassword', reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    console.log('aanjseqpw oqwf[ojqwo[fn [qownf'); // 여기까지온다 
+                    if (msg === 'password-success') {
+                        alert("비밀번호 인증에 성공했습니다. 탈퇴하셨으므로 메인화면으로 이동합니다.");
+                        location.href = '/secession';
                     } else if (msg === 'password-false') {
                         console.log(123123123123123123);
                         $falseh5.style.display = "block";

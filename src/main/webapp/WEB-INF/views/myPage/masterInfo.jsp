@@ -337,8 +337,8 @@
                     <div class="modal-body">
                         <input type="radio" name="hotDealRadio" id="hotDealOn" value="ON"> ON <input type="radio"
                             name="hotDealRadio" id="hotDealOff" value="OFF"> OFF
-                            <!-- 히든값으로 비즈니스 번호 넣어줄라고 했는데 받아보니 널값임 그냥 내일 물어봐야지 -->
-                            <!-- <input type="text" name=" businessNo" value="${master.businessNo}" hidden> -->
+                        <!-- 히든값으로 비즈니스 번호 넣어줄라고 했는데 받아보니 널값임 그냥 내일 물어봐야지 -->
+                        <!-- <input type="text" name=" businessNo" value="${master.businessNo}" hidden> -->
                         <!-- <div class="form-group">
                                 <label>할인율</label>
                                 <input type="text" class="form-control promotion-modal-report-no" name="hotdealPercent">
@@ -359,13 +359,14 @@
                             </select>
                         </div>
 
-    
-    <!-- /Row -->
-    </div>
-    <div class="modal-footer btn-wrap">
-        <button class="btn btn-primary del-btn promotion-complete-n hotdealBtn" type="button">적용 하기</button>
-    </div>
-    <!-- </div>
+
+                        <!-- /Row -->
+                    </div>
+                    <div class="modal-footer btn-wrap">
+                        <button class="btn btn-primary del-btn promotion-complete-n hotdealBtn" type="button">적용
+                            하기</button>
+                    </div>
+                    <!-- </div>
     </div>
     </div> -->
     </form>
@@ -529,7 +530,7 @@
 
 
             const $hotDealForm = document.querySelector('.hotDealForm');
-     
+
 
 
             $onRadio.onclick = e => {
@@ -587,20 +588,22 @@
             };
 
             const $makeProBoardBtn = document.querySelector(".makeProBoard");
-            
+
             console.log("$makeProBoardBtn==========");
             console.log($makeProBoardBtn);
 
-            $makeProBoardBtn.onclick = e =>{
+            $makeProBoardBtn.onclick = e => {
 
-                fetch('/countProBoard/' + '${masterNum}')
+                console.log("홍보글 작성하기 눌럿어요 ");
+                // 여기까지는 나온다 . 
+                    fetch('/countProBoard/' + '${masterNum}')
                     .then(res => res.text())
                     .then(msg => {
                         if (msg === 'yes') {
                             console.log('====yes====');
                             // 없으니까 작성하는 페이지로 가는거고 
                             location.href = "/proBoard/write/${master.businessNo}";
-                        } else if(msg === 'no'){
+                        } else if (msg === 'no') {
                             console.log('====no====');
                             // 이미 홍보 글이 있으니까 작성한 페이지로 이동 ! 
                             alert("이미 홍보글이 있습니다. 작성된 홍보글로 이동합니다.")
@@ -610,15 +613,18 @@
 
 
 
-            };
-
-
-
 
             
 
 
+            }
+                
             
+
+
+
+
+
 
         });
     </script>

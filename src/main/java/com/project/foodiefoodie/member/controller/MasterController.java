@@ -80,8 +80,13 @@ public class MasterController {
         model.addAttribute("masterNum",masterNum);
         model.addAttribute("master",master);
         // promotion넘버를 가져와야됨
-        int proBoardNumService = promotionBoardService.findProBoardNumService(businessNo);
+        // 안썼으면 안나오니까 이거 무작정 주지말고 if 로 묶어서 줌
+        Integer proBoardNumService = promotionBoardService.findProBoardNumService(businessNo);
+
+        if (proBoardNumService == null){
         model.addAttribute("promotionBno",proBoardNumService);
+        }
+
 
         return "/myPage/masterInfo";
     }

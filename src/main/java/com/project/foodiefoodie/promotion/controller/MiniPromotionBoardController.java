@@ -28,20 +28,31 @@ public class MiniPromotionBoardController {
     @GetMapping("/countProBoard/{masterNum}")
     @ResponseBody
     public String CountMyProBoard(@PathVariable int masterNum, HttpSession session , Model model){
+        log.info("\n\n=======\n\n");
+        log.info("masterNum = {}",masterNum); // 잘 나옴
+
         Member loginUser = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = loginUser.getEmail();
+        log.info("email == {}", email); // 잘 나옴
         List<Master> masters = masterService.allMaster(email);
         Master master = masters.get(masterNum);
         String businessNo = master.getBusinessNo();
+        log.info("businessNo == {}",businessNo); // 잘 나옴
 
         int i = promotionBoardService.countPromotionBoardService(businessNo);
         model.addAttribute("countBoard",i);
+        log.info("countPromotionBoardService(businessNo) == int count {}" ,i); // 잘 나옴
+        log.info("\n\n=======\n\n");
+
 
         if (i == 0) {
+            log.info("yes");
             return "yes";
         } else {
+            log.info("No");
             return "no";
         }
+
 
     }
 }

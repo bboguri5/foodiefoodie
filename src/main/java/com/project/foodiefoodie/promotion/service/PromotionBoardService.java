@@ -41,7 +41,7 @@ public class PromotionBoardService {
     }
 
     // 프로모션 번호 알려주는 메서드
-    public int findProBoardNumService(String businessNo){
+    public Integer findProBoardNumService(String businessNo){
         return mapper.findProBoardNum(businessNo);
     }
 }

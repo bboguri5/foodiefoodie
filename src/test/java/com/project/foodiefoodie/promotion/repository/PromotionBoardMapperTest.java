@@ -71,7 +71,7 @@ class PromotionBoardMapperTest {
     @DisplayName("사업자 번호 주면 홍보글 번호 줌")
     void findProBoardNumTest(){
         String buNo = "1234-2222-3333-1124";
-        int proBoardNum = mapper.findProBoardNum(buNo);
+        Integer proBoardNum = mapper.findProBoardNum(buNo);
         System.out.println("\n\n=======\n\n");
         System.out.println(proBoardNum);
         System.out.println("\n\n=======\n\n");

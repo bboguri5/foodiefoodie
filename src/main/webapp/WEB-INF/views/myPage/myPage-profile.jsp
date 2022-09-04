@@ -277,7 +277,7 @@
     <!-- 게시글 상세보기 관련 script -->
     <script>
         const $modBtn = document.querySelector('.modiBtn');
-        const $delBtn = document.querySelector('.del-btn');
+        // const $delBtn = document.querySelector('.del-btn');
         const $masterBtn = document.querySelector('.masterRegistBtn');
         const $modalBox = document.querySelector('.modalBox');
         const $returnBtn = document.querySelector('.returnBtn');
@@ -348,16 +348,16 @@
         }
 
 
-        if ($delBtn !== null) {
+        // if ($delBtn !== null) {
 
-            //삭제버튼
-            $delBtn.onclick = e => {
-                if (!confirm('정말 삭제하시겠습니까?')) {
-                    return;
-                }
-                location.href = '/board/delete?boardNo=${b.boardNo}';
-            };
-        }
+        //     //삭제버튼
+        //     $delBtn.onclick = e => {
+        //         if (!confirm('정말 삭제하시겠습니까?')) {
+        //             return;
+        //         }
+        //         location.href = '/board/delete?boardNo=${b.boardNo}';
+        //     };
+        // }
 
 
 
@@ -399,6 +399,7 @@
 
 
         if ($passwordBtn !== null) {
+            // 수정하기 누르고 나서 발동하는 메서드 
             $passwordBtn.onclick = e => {
                 console.log('click password');
                 trueAndFalsePassword();

@@ -44,8 +44,9 @@ public interface PromotionBoardMapper {
     int countPromotionBoard(String businessNo);
 
     // 프로모션 번호 가져옴
-    int findProBoardNum(String businessNo);
+//    int findProBoardNum(String businessNo);
 
+    Integer findProBoardNum(String businessNo);
 
 }
 

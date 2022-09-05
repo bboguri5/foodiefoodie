@@ -117,7 +117,7 @@
 				<span><em></em></span>
 				<h2>오늘의 맛집</h2>
 				<p>평점이 높은 인기 식당</p>
-				<a href="/foodlist">View All</a>
+				<a href="/foodlist">더보기</a>
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
@@ -157,7 +157,7 @@
 				<span><em></em></span>
 				<h2>푸디푸디 추천 맛집</h2>
 				<p>푸디푸디 광고 맛집</p>
-				<a href="/premiumlist">View All</a>
+				<a href="/premiumlist">더보기</a>
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
@@ -198,7 +198,7 @@
 				<span><em></em></span>
 				<h2 id="locationHeader"></h2>
 				<p>근처 맛집을 찾아보기</p>
-				<a id="viewAll" href="#0">View All</a>
+				<a id="viewAll" href="#0">더보기</a>
 			</div>
 
 			<div id="locationList" class="owl-carousel owl-theme carousel_4">
@@ -282,7 +282,7 @@
 			</div>
 			<!-- /row -->
 			<p class="text-center d-block d-md-block d-lg-none"><a href="grid-listing-filterscol.html"
-					class="btn_1">View All</a></p>
+					class="btn_1">더보기</a></p>
 			<!-- /button visibile on tablet/mobile only -->
 		</div>
 		<!-- /container -->

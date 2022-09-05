@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.foodiefoodie.myPage.repository.FavoriteListMapper">
+<!--경로 맞구여ㅛ ...-->
+
+    <resultMap id="favoriteListMap" type="com.project.foodiefoodie.myPage.dto.FavoriteStorePromotionBnoListDTO">
+        <result column="promotion_bno" property="promotionBno" />
+    </resultMap>
+
+<!--    맵퍼 경로도 맞구요 -->
+
+    <select id="favoriteStorePromotionBnoList" resultMap="favoriteListMap">
+        select promotion_bno from favorite_store
+        where email = #{email}
+    </select>
+
+    <resultMap id="FavoriteDataMap" type="com.project.foodiefoodie.myPage.dto.FavoriteFileDataDTO">
+        <result column="file_data" property="fileData" />
+        <result column="promotion_bno" property="promotionBno" />
+    </resultMap>
+
+    <select id="favoriteFileData" resultMap="FavoriteDataMap">
+        select file_data
+        from promotion_upload_title_img
+        where promotion_bno = #{promotionBno}
+    </select>
+
+
+
+
+
+
+
+
+</mapper>

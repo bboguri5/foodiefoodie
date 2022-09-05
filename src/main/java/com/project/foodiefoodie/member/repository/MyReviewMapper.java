@@ -13,7 +13,6 @@ public interface MyReviewMapper {
 
     List<MyReviewTitleDTO> reviewTitle(String email);
 
-
     List<MyReviewPathDTO> reviewPath(int reviewBno);
 
     // 셀렉

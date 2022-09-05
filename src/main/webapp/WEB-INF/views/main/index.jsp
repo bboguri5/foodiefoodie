@@ -153,7 +153,7 @@
 			<!-- /carousel -->
 
 
-			<div class="main_title">
+			<!-- <div class="main_title">
 				<span><em></em></span>
 				<h2>푸디푸디 추천 맛집</h2>
 				<p>푸디푸디 광고 맛집</p>
@@ -188,7 +188,7 @@
 						</div>
 					</div>
 				</c:forEach>
-			</div>
+			</div> -->
 			<!-- /carousel -->
 
 

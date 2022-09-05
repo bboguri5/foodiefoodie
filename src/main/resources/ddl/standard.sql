@@ -286,6 +286,10 @@ create table promotion_upload_detail_img(
       promotion_bno NUMBER(10) NOT NULL
     , file_path clob not null
     , file_name VARCHAR2(100) NULL
+    , file_mediatype varchar2(10)
+    , file_size number(20)
+    , file_byte clob
+    , file_data clob
     , CONSTRAINT fk_pro_upload_detail_img FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
@@ -295,6 +299,10 @@ create table promotion_upload_title_img(
    promotion_bno NUMBER(10) NOT NULL
     , file_path clob not null
     , file_name VARCHAR2(100) NULL
+    , file_mediatype varchar2(10)
+    , file_size number(20)
+    , file_byte clob
+    , file_data clob
     , CONSTRAINT fk_pro_upload_title_img FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );

@@ -64,21 +64,21 @@
   $(this).parent().parent().parent().fadeOut('slow', function (c) {});
  });
   
-  // Pricing add
-  function newMenuItem() {
-    var newElem = $('tr.pricing-list-item').first().clone();
-    newElem.find('input').val('');
-    newElem.appendTo('table#pricing-list-container');
-  }
-  if ($("table#pricing-list-container").is('*')) {
-    $('.add-pricing-list-item').on('click', function (e) {
-      e.preventDefault();
-      newMenuItem();
-    });
-    $(document).on("click", "#pricing-list-container .delete", function (e) {
-      e.preventDefault();
-      $(this).parent().parent().parent().remove();
-    });
-  }
+  // // Pricing add
+  // function newMenuItem() {
+  //   var newElem = $('tr.pricing-list-item').first().clone();
+  //   newElem.find('input').val('');
+  //   newElem.appendTo('table#pricing-list-container');
+  // }
+  // if ($("table#pricing-list-container").is('*')) {
+  //   $('.add-pricing-list-item').on('click', function (e) {
+  //     e.preventDefault();
+  //     newMenuItem();
+  //   });
+  //   $(document).on("click", "#pricing-list-container .delete", function (e) {
+  //     e.preventDefault();
+  //     $(this).parent().parent().parent().remove();
+  //   });
+  // }
   
 })(jQuery); // End of use strict

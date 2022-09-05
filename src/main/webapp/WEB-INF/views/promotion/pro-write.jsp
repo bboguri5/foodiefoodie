@@ -113,10 +113,7 @@
             border-bottom: 0;
         }
 
-        .save-btn {
-            display: flex;
-            justify-content: center;
-        }
+
 
         .c-red {
             color: red;
@@ -248,6 +245,32 @@
         .ui-timepicker-standard {
             font-family: none;
         }
+
+        /* btn */
+
+        .save-btn {
+            display: flex;
+            justify-content: space-around;
+            width: 20%;
+            margin: 0 auto;
+        }
+
+        button.btn.medium {
+            border-radius: 30px;
+            width: 100px;
+            height: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        button.btn.medium.saveBtn {
+            background: #7db27d;
+        }
+
+        button.btn.medium.cancelBtn {
+            background: #c83030;
+        }
     </style>
 
 
@@ -262,6 +285,7 @@
         <form id="promotionWriteForm" action="/proBoard/write" method="post" enctype="multipart/form-data">
             <div class="content-wrapper">
                 <div class="container-fluid">
+
                     <!-- write title -->
                     <div class="box_general padding_bottom">
                         <div class="header_box version_2">
@@ -295,7 +319,9 @@
                                 <div class="form-group detail-Info detail-address">
                                     <label>STORE ADDRESS
                                     </label>
-                                    <input type="text" class="form-control" value="${master.storeAddress}" readonly>
+                                    <input type="text" class="form-control"
+                                        value="${master.storeAddress} ${master.storeDetailAddress} ${master.storeExtraAddress}"
+                                        readonly>
                                 </div>
                                 <div class="form-group detail-Info">
                                     <label class="title-label">Title
@@ -359,8 +385,8 @@
                         <div class="header_box version_2">
                             <h2><i class="fa fa-list"></i>Add item to Menu List</h2>
                         </div>
-                        <!-- add Menu List row -->
 
+                        <!-- add Menu List row -->
                         <div class="row">
                             <div class="col-md-12">
 
@@ -395,7 +421,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </td>
                                     </tr>
                                 </table>
@@ -547,10 +572,10 @@
                     </div>
                 </div>
             </div>
-            </div>
             <div class="col-md-12 save-btn">
-                <button type="button" class="btn_1 medium save">Save</button>
-                <button type="button" class="btn_1 medium cancel">Cancel</button></div>
+                <button type="button" class="btn medium saveBtn">Save</button>
+                <button type="button" class="btn medium cancelBtn">Cancel</button>
+            </div>
         </form>
     </main>
 
@@ -617,12 +642,8 @@
         const $titleTag = $('.title');
         const $hashTag = $('.hashTag');
         const $contentTag = $('.content');
-        const menuItem = document.querySelectorAll('.row.menu-row');
         const $menuNameList = document.querySelectorAll(".menu-name");
         const $menuPriceList = document.querySelectorAll(".menu-price");
-
-        // title , hashTag , content , menu , hashTag overlap , time  
-        const checkArr = [false, false, false];
 
         let menuFileList = []; // img file list
 
@@ -633,9 +654,8 @@
             limitHashTag(); // hash tag 글자수/단어 제한 
             checkSaveData(); // title , content , hashTag 
         });
-
-        addMenuImg(1); // first menu item dropzone 처리
-        addMenuItem();
+        let count = 1;
+        addMenuItem(count);
 
 
         /* 휴무 요일 선택,제거,중복처리 */
@@ -661,7 +681,8 @@
             });
 
             $('.day-delete').on('click', function () {
-                resultList = [];
+                resultSet.clear();
+                resultList.clear;
                 $closedDay.val('');
             });
         }
@@ -677,11 +698,9 @@
                 if ($titleTag.val().trim() === '') {
                     $titleTag.css('border-color', 'red');
                     $('.title-label').html('TITLE <b class="c-red title-red">[ 제목은 필수정보입니다. ]</b>');
-                    checkArr[0] = false;
                 } else {
                     $titleTag.css('border-color', 'green');
                     $('.title-red').remove();
-                    checkArr[0] = true;
                 }
             });
 
@@ -692,11 +711,9 @@
                 if ($hashTag.val().trim() === '') {
                     $hashTag.css('border-color', 'red');
                     $('.hashTag-label').html('HASH TAG <b class="c-red hashTag-red">[ 해시태그는 필수정보입니다. ]</b>');
-                    checkArr[1] = false;
                 } else {
                     $hashTag.css('border-color', 'green');
                     $('.hashTag-red').remove();
-                    checkArr[1] = true;
                 }
             });
 
@@ -707,89 +724,15 @@
                 if ($contentTag.val().trim() === '') {
                     $('.content').css('border-color', 'red');
                     $('.content-label').html('CONTENT <b class="c-red content-red">[ 내용은 필수정보입니다. ]</b>');
-                    checkArr[2] = false;
                 } else {
                     $('.content').css('border-color', 'green');
                     $('.content-red').remove();
-                    checkArr[2] = true;
                 }
             });
         }
 
 
-        /* add menu item dom */
-        function makeNewMenuItemDom() {
-            var newElem = $('form-group').first().clone(); // 첫 item 복사 
-            newElem.find('input').val('');
-            newElem.appendTo('table#pricing-list-container');
-        }
 
-        /* add menu item delete */
-        function deleteMenuItem() {
-            $(document).on("click", "#pricing-list-container .delete", function (e) {
-                e.preventDefault();
-                $(this).parent().parent().parent().parent().parent().remove();
-            });
-        }
-
-        /* add menu item */
-        function addMenuItem() {
-            let count = 1;
-
-            // default 이미지 없는 메뉴는 기본이미지으로 대체하기 위해 default으로 비어있는 파일. 
-            // 첫 menu item을 위해 push 
-            menuFileList.push(new File(["default"], "default", {
-                type: "image/png",
-                name: "foodie_default.PNG"
-            }));
-
-            const par = $('table#pricing-list-container').first().find('.delete').remove(); // menu x버튼 클릭 시 line 삭제 
-
-            if ($("table#pricing-list-container").is('*')) {
-
-                $('.add-pricing-list-item').on('click', function (e) {
-
-                    ++count; // 추가된 menuItem 마다 번호 부여하여 구분 하기위함.
-
-                    const $container = $('#pricing-list-container');
-                    e.preventDefault();
-                    makeNewMenuItemDom();
-
-                    $('.menu-row').last().find('.delete-form').append(
-                        '<a class="delete' + ' menuDelete' + count + '"' +
-                        ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
-                    $(this).css('border-colore', 'none'); // 처음 menuItem 제외하고 추가 시 delete 버튼 생성 
-
-
-                    inputOnlyIntType(); // 추가된 menuItem에서 price 숫자검증 
-
-
-                    // add menu item 이미지 리셋 
-                    const $target = $('#pricing-list-container').last().find('.menu1').last();
-
-                    $target.last().removeClass('dz-started');
-                    $target.last().removeClass('dz-max-files-reached');
-                    $target.last()[0].innerHTML = '';
-
-                    $target.removeClass('menu1');
-                    $target.addClass('menu' + count)
-
-
-                    // 추가할 때마다 리스트에 비어있는 파일 추가 
-                    menuFileList.push(new File(["default"], "default", {
-                        type: "image/png",
-                        name: "foodie_default.PNG"
-                    }));
-                    console.log("add : ", menuFileList);
-
-                    addMenuImg(count); // menu item add imgs 
-
-                });
-
-                deleteMenuItem();
-
-            }
-        }
 
 
         /* menu price - 숫자만 입력  */
@@ -849,11 +792,135 @@
             });
         }
 
+        /* add menu item dom */
+        function makeNewMenuItemDom() {
+            console.log("new");
+            var newElem = $('tr.pricing-list-item').first().clone(); // 첫 item 복사 
+            newElem.find('input').val('');
+            newElem.appendTo('table#pricing-list-container tbody');
 
+            console.log(newElem);
+        }
+
+        /* add menu item delete */
+        function deleteMenuItem() {
+            $(document).on("click", "#pricing-list-container .delete", function (e) {
+                e.preventDefault();
+                $(this).parent().parent().parent().parent().parent().remove();
+            });
+        }
+
+
+        /* add menu item */
+        function addMenuItem(count) {
+
+            if (count === 1) {
+                addMenuImg(1); // first menu item dropzone 처리
+
+                // default 이미지 없는 메뉴는 기본이미지으로 대체하기 위해 default으로 비어있는 파일. 
+                // 첫 menu item을 위해 push 
+                menuFileList.push(new File(["default"], "default", {
+                    type: "image/png",
+                    name: "foodie_default.PNG"
+                }));
+            }
+
+            const par = $('table#pricing-list-container').first().find('.delete').remove(); // menu x버튼 클릭 시 line 삭제 
+
+            if ($("table#pricing-list-container").is('*')) {
+
+                $('.add-pricing-list-item').on('click', function (e) {
+
+                    ++count; // 추가된 menuItem 마다 번호 부여하여 구분 하기위함.
+
+                    const $container = $('#pricing-list-container');
+                    e.preventDefault();
+                    makeNewMenuItemDom();
+
+                    $('.menu-row').last().find('.delete-form').append(
+                        '<a class="delete' + ' menuDelete' + count + '"' +
+                        ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
+                    $(this).css('border-colore', 'none'); // 처음 menuItem 제외하고 추가 시 delete 버튼 생성 
+
+
+                    inputOnlyIntType(); // 추가된 menuItem에서 price 숫자검증 
+
+
+                    // add menu item 이미지 리셋 
+                    const $target = $('#pricing-list-container').last().find('.menu1').last();
+
+                    $target.last().removeClass('dz-started');
+                    $target.last().removeClass('dz-max-files-reached');
+                    $target.last()[0].innerHTML = '';
+
+                    $target.removeClass('menu1');
+                    $target.addClass('menu' + count)
+
+
+                    // 추가할 때마다 리스트에 비어있는 파일 추가 
+                    menuFileList.push(new File(["default"], "default", {
+                        type: "image/png",
+                        name: "foodie_default.PNG"
+                    }));
+
+                    addMenuImg(count); // menu item add imgs 
+
+                });
+
+                deleteMenuItem();
+
+            }
+        }
 
         // -------------- fiel upload and file dropzone --------------
 
+        function addMenuImg(index) { // 추가된 menu item dropzone 처리 
+            let dropName = '.menu' + index;
+            let deleteName = '.menuDelete' + index;
+            const menuDropzone = new Dropzone(dropName, {
+                url: "/proBoard/write",
+                method: 'post',
+                autoProcessQueue: false,
+                clickable: true,
+                createImageThumbnails: true,
+                thumbnailHeight: 80,
+                thumbnailWidth: 80,
+                maxFiles: 1,
+                maxFilesize: 5,
+                addRemoveLinks: true,
+                dictRemoveFile: 'X',
+                acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
 
+                init: function () {
+                    let myDropzone = this;
+                    this.on('addedfile', function (file) { // menu item 추가 시 
+                        menuFileList[index - 1] = file;
+                        console.log("add : ", menuFileList);
+                    });
+
+                    $(deleteName).on('click', function (e) { // menu item 삭제 시 
+                        delete menuFileList[index - 1];
+                        --index;
+                        console.log("delete : ", menuFileList);
+                    });
+
+                    myDropzone.on('removedfile', function (file) { // menu img 삭제 시 
+
+                        for (const menu of menuFileList) {
+                            if ((menu != null) && (menu.name === file.name)) {
+                                menuFileList[index - 1] = new File(["default"], "default", {
+                                    type: "image/png",
+                                    name: "foodie_default.PNG"
+                                });
+                                console.log("remove : ", menuFileList);
+                            }
+                        }
+                    })
+                }
+            });
+
+            return menuDropzone;
+        }
 
         const titleDropzone = new Dropzone("#title-dropzone.dropzone", {
             url: "/proBoard/write",
@@ -947,82 +1014,42 @@
             }
         });
 
-        function addMenuImg(index) { // 추가된 menu item dropzone 처리 
-            let dropName = '.menu' + index;
-            let deleteName = '.menuDelete' + index;
-            const menuDropzone = new Dropzone(dropName, {
-                url: "/proBoard/write",
-                method: 'post',
-                autoProcessQueue: false,
-                clickable: true,
-                createImageThumbnails: true,
-                thumbnailHeight: 80,
-                thumbnailWidth: 80,
-                maxFiles: 1,
-                maxFilesize: 5,
-                addRemoveLinks: true,
-                dictRemoveFile: 'X',
-                acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
 
-                init: function () {
-                    let myDropzone = this;
-                    this.on('addedfile', function (file) { // menu item 추가 시 
-                        menuFileList[index - 1] = file;
-                        console.log("add : ", menuFileList);
-                    });
-
-                    $(deleteName).on('click', function (e) { // menu item 삭제 시 
-                        delete menuFileList[index - 1];
-                        --index;
-                        console.log("delete : ", menuFileList);
-                    });
-
-                    myDropzone.on('removedfile', function (file) { // menu img 삭제 시 
-
-                        for (const menu of menuFileList) {
-                            if ((menu != null) && (menu.name === file.name)) {
-                                menuFileList[index - 1] = new File(["default"], "default", {
-                                    type: "image/png",
-                                    name: "foodie_default.PNG"
-                                });
-                                console.log("remove : ", menuFileList);
-                            }
-                        }
-                    })
-                }
-            });
-
-            return menuDropzone;
-        }
 
         // -------------- // fiel upload and file dropzone --------------
 
 
-        $('.save').on('click', e => {
-            let checkSave = [false, false];
-            checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
+        $('.saveBtn').on('click', e => {
 
-            AddFileList();
-            if (!checkArr.includes(false)) { // title , hashTag , content 필수 입력 
+            // let checkSave = [false, false, false, false, false];
+            let checkSave = [false, false, false];
 
-                // let checkSave = [false, false, false];
+            checkSave[0] = checkValue(); // 입력란 검증 
+            checkSave[1] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
+            checkSave[2] = checkOverlapHashTag(); // 해시태그 중복 검증 
+            // checkSave[4] = checkInputTime(); // 시간 입력 검증 
 
-                checkSave[1] = checkOverlapHashTag(); // 해시태그 중복 검증 
-                // checkSave[2] = checkInputTime(); // 시간 입력 검증 
+            console.log("checkSave : ", checkSave);
+            if (!checkSave.includes(false)) {
+                AddFileList();
+                changeFormatTime(); // 시간 00:00으로 변환
+                changeFormatContent() // 내용 \n -> <br>으로 치환
 
-                console.log("checkSave : ", checkSave);
-                if (!checkSave.includes(false)) {
-                    changeFormatTime(); // 시간 00:00으로 변환
-                    changeFormatContent() // 내용 \n -> <br>으로 치환
-
-                    $('#promotionWriteForm').submit();
-                }
-
-            } else {
-                alert("입력란을 확인해주세요.");
-
+                $('#promotionWriteForm').submit();
+                console.log($menuNameList);
             }
         });
+
+        function checkValue() {
+
+            if ($contentTag.val().length > 0 && $titleTag.val().length > 0 && $hashTag.val().length > 0) {
+                return true;
+            }
+
+            alert("입력란을 확인해주세요.");
+            return false;
+
+        }
 
         function AddFileList() {
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
@@ -1037,23 +1064,13 @@
             const titleDataTraster = new DataTransfer();
             const menuDataTraster = new DataTransfer();
 
-            if (menuFileList.length > 0) {
-                for (const menuFile of menuFileList) {
-                    if (menuFile != null) {
-                        menuDataTraster.items.add(menuFile);
-                    }
-                }
-                console.log("menuDataTraster : ", menuFileList);
-                $menuHiddenTag.files = menuDataTraster.files;
-            }
-
             if (titleDropzone.files.length > 0) {
                 titleDataTraster.items.add(titleDropzone.files[0]);
                 $titleHiddenTag.files = titleDataTraster.files;
 
             } else {
                 alert("title 이미지는 필수입니다.");
-                return;
+                return false;
             }
 
             if (detailDropzone.files.length > 0) {
@@ -1062,6 +1079,17 @@
                 }
                 $detailHiddenTag.files = detailDataTranster.files;
 
+            }
+
+            if (menuFileList.length > 0) {
+
+                for (const menuFile of menuFileList) {
+                    if (menuFile != null) {
+                        menuDataTraster.items.add(menuFile);
+                    }
+                }
+                console.log("menuDataTraster : ", menuFileList);
+                $menuHiddenTag.files = menuDataTraster.files;
             }
         }
 
@@ -1079,11 +1107,13 @@
             2. menu item 2개 이상
                 - input값 없으면 = false
             */
+
+            const menuItem = document.querySelectorAll('.pricing-list-item')
+
             if (menuItem.length === 1) {
 
                 if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
                     if (menuFileList.length > 0 && menuFileList[0].name != 'default') {
-                        console.log(" 사진 등록 ? ");
                         alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
                         return false;
                     } else {

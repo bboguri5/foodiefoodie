@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.proBoard.controller;
 
 
+import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.FileDTO;
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
@@ -8,6 +9,7 @@ import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
+import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -31,16 +33,18 @@ public class ProBoardController {
     private final ProBoardService proBoardService;
 
     @GetMapping("/detail/{promotionBno}")
-    public String detail(Model model, @PathVariable int promotionBno) {
+    public String detail(Model model, @PathVariable int promotionBno,
+                         HttpSession session) {
         log.info(" ProBoardController /detail/{} Get - ! ", promotionBno);
 
         model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
         model.addAttribute("menuList", proBoardService.selectMenuInfo(promotionBno));
         model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
-        model.addAttribute("title",proBoardService.selectFiles(promotionBno,"title").get(0));
+        model.addAttribute("titleFile",proBoardService.selectFiles(promotionBno,"title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
 
-        model.addAttribute("isHotDeal", proBoardService.isHotDealService(proBoardService.selectProBoard(promotionBno).getBusinessNo()));
+        Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
+        model.addAttribute("isFavorite",proBoardService.isFavoriteStore(member.getEmail(),promotionBno));
         return "promotion/pro-detail";
     }
 
@@ -69,6 +73,28 @@ public class ProBoardController {
         boolean result = proBoardService.deleteNotice(noticeNo);
         return result ? "delete-success" : "delete-failed";
     }
+
+    @GetMapping("/detail/favorite/store/add/{promotionBno}")
+    @ResponseBody
+    public String addFavoriteStore(HttpSession session ,@PathVariable int promotionBno)
+    {
+        log.info(" /detail/favorite/store/add - {}",promotionBno);
+        Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
+        proBoardService.addFavoriteStore(member.getEmail(),promotionBno);
+        return "";
+    }
+
+    @DeleteMapping ("/detail/favorite/store/remove/{promotionBno}")
+    @ResponseBody
+    public String removeFavoriteStore(HttpSession session ,@PathVariable int promotionBno)
+    {
+        log.info(" /detail/favorite/store/remove - {}",promotionBno);
+
+        Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
+        proBoardService.removeFavoriteStore(member.getEmail(),promotionBno);
+        return "";
+    }
+
 
     //    ---------------------------------------- write ----------------------------------------
     @GetMapping("/write/{businessNo}")
@@ -111,6 +137,7 @@ public class ProBoardController {
         return "";
     }
 
+
     //    ---------------------------------------- modify ----------------------------------------
 
     @GetMapping("/modify/{promotionBno}")
@@ -122,12 +149,13 @@ public class ProBoardController {
 //            return "redirect:/login";
 //        }
 
+        // proBoard - ProBoard + Master + StoreTimeDTO 상속
         model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
 
         return "promotion/pro-modify";
     }
 
-    @GetMapping("/modify/files/{promotionBno}")
+    @GetMapping("/modify/files/{promotionBno}") // 수정 (비동기) - 파일 + 메뉴 보여주기
     @ResponseBody
     public Map<String,Object> modifyFiles(@PathVariable int promotionBno)
     {
@@ -142,5 +170,36 @@ public class ProBoardController {
 
         return infoMap;
     }
+
+    @PostMapping("/modify") // 수정 - 저장 데이터 보내기
+    public String modify(HttpServletRequest request, ProBoard proBoard,
+                        List<MultipartFile> titleImgFile,
+                        List<MultipartFile> detailImgFiles,
+                        List<MultipartFile> menuImgFiles) {
+
+        log.info("proBoard/modify POST - init ! {}", proBoard);
+        log.info("proBoard/modify POST!! - titleImgFile : {}", titleImgFile.get(0).getOriginalFilename());
+        log.info("proBoard/modify POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
+        log.info("proBoard/modify POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
+
+        Map<String, List<MultipartFile>> fileMap = new HashMap<>() {{
+            put("title", titleImgFile);
+            put("detail", detailImgFiles);
+            put("menu", menuImgFiles);
+        }};
+
+        boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, fileMap);
+        return "";
+    }
+
+    @PostMapping("/modify/menu")
+    @ResponseBody
+    public String modifyMenu(@RequestBody List<MenuDTO> menuDTOList)
+    {
+        log.info(" @PostMapping(\"/modify/menu\") modifyMenu {}",menuDTOList);
+        proBoardService.modifyMenuInfo(menuDTOList);
+        return "";
+    }
+
 
 }

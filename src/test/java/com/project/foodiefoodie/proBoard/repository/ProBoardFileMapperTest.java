@@ -32,18 +32,18 @@ class ProBoardFileMapperTest {
 //        ProBoard proBoard = proBoardMapper.selectProBoard(56);
 //        System.out.println(proBoard.getFileName());
 //    }
-//
-//    @Test
-//    @DisplayName("menu 파일 저옵 다 가 고 옴 ")
-//    void selectMenuInfoTest()
-//    {
-//        List<MenuDTO> menuDTOS = proBoardMapper.selectMenuInfo(56);
-//
-//        for(MenuDTO menu : menuDTOS )
-//        {
-//            System.out.println(menu.getFileName());
-//        }
-//    }
+
+    @Test
+    @DisplayName("menu 파일 저옵 다 가 고 옴 ")
+    void selectMenuInfoTest()
+    {
+        List<MenuDTO> menuDTOS = proBoardMapper.selectMenuInfo(56);
+
+        for(MenuDTO menu : menuDTOS )
+        {
+            System.out.println(menu.getFileName());
+        }
+    }
 
 
 }

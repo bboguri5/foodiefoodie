@@ -28,14 +28,7 @@
             ,#{closedDay}
         )
     </insert>
-    <insert id="saveMenu">
-        insert into PROMOTION_FOOD_MENU VALUES (
-            SEQ_PROMOTION_FOOD_MENU.nextval
-            ,#{promotionBno}
-            ,#{menuName}
-            ,#{menuPrice}
-        )
-    </insert>
+
 
     <insert id="saveNotice">
         insert into promotion_notice
@@ -47,11 +40,35 @@
         )
     </insert>
 
+
+<!--  modify   -->
+
+    <update id="modifyProBoard">
+        UPDATE PROMOTION_BOARD SET
+        CONTENT = #{content} , LAST_UPDATED = sysdate ,TITLE = #{title} ,HASHTAG = #{hashTag}
+        where promotion_bno = #{promotionBno}
+
+    </update>
+
+    <update id="modifyStoreTime">
+
+        UPDATE PROMOTION_STORE_TIME SET
+        WEEKDAYOPENTIME = #{weekdayOpenTime}
+        ,WEEKDAYCLOSETIME = #{weekdayCloseTime}
+        ,WEEKENDOPENTIME = #{weekendOpenTime}
+        ,WEEKENDCLOSETIME = #{weekendCloseTime}
+        ,BREAKSTARTTIME = #{breakStartTime}
+        ,BREAKENDTIME = #{breakEndTime}
+        ,CLOSEDDAY = #{closedDay}
+        where promotion_bno = #{promotionBno}
+    </update>
+
+
     <!--    <update id="modify">-->
     <!--        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}-->
     <!--    </update>-->
 
-    <!--    <delete id="delete">-->
+    <!--    <delete id="deleteProBoard">-->
     <!--        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}-->
     <!--    </delete>-->
 
@@ -60,6 +77,8 @@
         <result property="masterName" column="MASTER_NAME"/>
         <result property="storeName" column="STORE_NAME"/>
         <result property="storeAddress" column="STORE_ADDRESS"/>
+        <result property="storeDetailAddress" column="STORE_DETAIL_ADDRESS"/>
+        <result property="storeExtraAddress" column="STORE_EXTRA_ADDRESS"/>
         <result property="hotDeal" column="HOT_DEAL"/>
         <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
     </resultMap>
@@ -107,6 +126,21 @@
     <select id="selectPromotionBno" resultType="int">
         select promotion_bno from PROMOTION_BOARD where business_no = #{businessNo}
     </select>
+    
+    <insert id="addFavoriteStore">
+        INSERT INTO favorite_store VALUES (#{email},#{promotionBno})
+    </insert>
+    <select id="isFavoriteStore" resultType="int">
+        SELECT count(*)
+        FROM favorite_store
+        WHERE EXISTS (SELECT *
+        FROM favorite_store
+        WHERE promotion_bno = #{promotionBno}
+        AND email = #{email})
+    </select>
+    <delete id="removeFavoriteStore">
+        DELETE FROM favorite_store WHERE promotion_bno = #{promotionBno} and email = #{email}
+    </delete>
 
     <!--  ================================== menu ==================================  -->
 
@@ -135,6 +169,25 @@
         where menu.promotion_bno = #{promotionBno}
 
     </select>
+
+    <insert id="saveMenuInfo">
+        insert into PROMOTION_FOOD_MENU VALUES (
+        SEQ_PROMOTION_FOOD_MENU.nextval
+        ,#{promotionBno}
+        ,#{menuName}
+        ,#{menuPrice}
+        )
+    </insert>
+
+    <update id="modifyMenuInfo">
+        update promotion_food_menu set menu_name = #{menuName} , price = #{menuPrice} where menu_no = #{menuNo}
+    </update>
+
+    <delete id="deleteMenuInfo">
+        delete from promotion_food_menu where promotion_bno = #{promotionBno}
+    </delete>
+
+
 
     <!--  ==================================  notice ==================================  -->
     <resultMap id="noticeDTO" type="com.project.foodiefoodie.proBoard.dto.NoticeDTO">
@@ -171,7 +224,6 @@
             PROMOTION_BNO
             ,MENU_NO
             </if>
-
             ,FILE_PATH ,FILE_NAME ,FILE_MEDIATYPE
             ,FILE_SIZE ,FILE_BYTE ,FILE_DATA
             )
@@ -209,4 +261,26 @@
              where promotion_bno = #{promotionBno}
         </select>
 
+    <delete id="deleteFileOneInfo">
+        delete from
+        <if test="type == 'title'">
+            PROMOTION_UPLOAD_TITLE_IMG
+        </if>
+        <if test="type == 'detail'">
+            PROMOTION_UPLOAD_DETAIL_IMG
+        </if>
+        where promotion_bno = #{promotionBno}
+        and file_name = #{fileName}
+    </delete>
+
+    <delete id="deleteFileAllInfo">
+        delete from
+        <if test="type == 'title'">
+            PROMOTION_UPLOAD_TITLE_IMG
+        </if>
+        <if test="type == 'detail'">
+            PROMOTION_UPLOAD_DETAIL_IMG
+        </if>
+        where promotion_bno = #{promotionBno}
+    </delete>
 </mapper>

@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MenuDTO extends FileDTO{
 
+   private int promotionBno;
    private int menuNo;
    private String menuName;
    private int menuPrice;

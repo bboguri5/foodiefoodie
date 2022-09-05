@@ -446,9 +446,9 @@
                                     <div class="theiaStickySidebar">
                                         <div class="box_booking">
                                             <div class="head">
-                                                <h3>Order Summary</h3>
+                                                <h3>장바구니</h3>
                                                 <c:if test="${not empty isHotDeal}">
-                                                    <div class="offer">${isHotDeal}% 할인</div>
+                                                    <div class="offer">전 메뉴 ${isHotDeal}% 할인 적용 중!!</div>
                                                 </c:if>
                                             </div>
                                             <!-- /head -->
@@ -463,14 +463,12 @@
 
                                                 <ul class="clearfix after-discount">
                                                     <!-- 핫딜이면 -->
-                                                    <li class="total">Total<span id="total"
+                                                    <li class="total">최종 결제 금액<span id="total"
                                                             class="line-through">0</span></li>
                                                 </ul>
 
-                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
-                                                    Now</a>
-                                                <div class="text-center"><small>No money charged on this
-                                                        steps</small></div>
+                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">주문하기</a>
+                                                <div class="text-center"><small>이 단계에서는 비용이 청구되지 않습니다</small></div>
                                             </div>
                                         </div>
 

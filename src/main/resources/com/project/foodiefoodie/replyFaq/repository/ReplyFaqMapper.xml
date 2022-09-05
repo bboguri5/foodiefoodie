@@ -60,5 +60,10 @@
         values(seq_reply_faq.nextval, #{replyNo}, #{writerEmail}, #{content}, #{replyWriterEmail})
     </insert>
 
+<!--    <insert id="save">-->
+<!--        insert into reply_faq (reply_no, writer_email, reply_faq_content, reply_writer_email)-->
+<!--        values(#{replyNo}, #{writerEmail}, #{content}, #{replyWriterEmail})-->
+<!--    </insert>-->
+
 
 </mapper>

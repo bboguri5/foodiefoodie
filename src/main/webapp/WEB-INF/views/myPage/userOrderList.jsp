@@ -42,12 +42,12 @@
                 <li class="breadcrumb-item">
                     <a href="#">내가 주문한 내역</a>
                 </li>
-                <li class="breadcrumb-item active">주문 내역~</li>
+            
             </ol>
             <!-- Example DataTables Card-->
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-table"></i> 내가 먹은 내역~ </div>
+                    <i class="fa fa-table"></i> 내가 먹은 내역 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

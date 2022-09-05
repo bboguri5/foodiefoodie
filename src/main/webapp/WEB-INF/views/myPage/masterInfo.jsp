@@ -110,10 +110,6 @@
     <!-- 프로필 쓰는 공간 !! ==================================================================================================== -->
     <div class="content-wrapper">
         <div class="container-fluid">
-            <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">${loginUser.nickName}님의 프로필 </li>
-            </ol>
             <div class="box_general padding_bottom">
                 <div class="header_box version_2">
                     <h2><i class="fa fa-user"></i>${master.storeName} </h2>

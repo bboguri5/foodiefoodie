@@ -63,52 +63,8 @@
                                 <p><a href="/proBoard/detail/${info.promotionBno}" class="btn_1 gray"><i
                                             class="fa fa-fw fa-envelope"></i>${info.storeName} 상세페이지가기</a>
                                 </p>
-                                <!-- <ul class="buttons">
-                                    <li><a href="#0" class="btn_1 gray approve"><i
-                                                class="fa fa-fw fa-check-circle-o"></i> Approve</a></li>
-                                    <li><a href="#0" class="btn_1 gray delete" data-toggle="modal"
-                                            data-target="#edit_booking"><i class="fa fa-fw fa-pencil"></i> Edit</a></li>
-                                    <li><a href="#0" class="btn_1 gray delete"><i
-                                                class="fa fa-fw fa-times-circle-o"></i> Cancel</a></li>
-                                </ul> -->
                             </li>
                         </c:forEach>
-                        <li>
-                            <figure><img src="img/item_2.jpg" alt=""></figure>
-                            <h4>Da Alfredo <i class="cancel">Cancelled</i></h4>
-                            <ul class="booking_list">
-                                <li><strong>Booking date</strong> 11 November 2019</li>
-                                <li><strong>Booking details</strong> 2 People</li>
-                                <li><strong>Client</strong> Mark Twain</li>
-                            </ul>
-                            <p><a href="#0" class="btn_1 gray"><i class="fa fa-fw fa-envelope"></i> Send Message</a></p>
-                            <ul class="buttons">
-                                <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
-                                        Approve</a></li>
-                                <li><a href="#0" class="btn_1 gray delete" data-toggle="modal"
-                                        data-target="#edit_booking"><i class="fa fa-fw fa-pencil"></i> Edit</a></li>
-                                <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i>
-                                        Cancel</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <figure><img src="img/item_3.jpg" alt=""></figure>
-                            <h4>Sushi Gold <i class="approved">Approved</i></h4>
-                            <ul class="booking_list">
-                                <li><strong>Booking date</strong> 21 November 2019</li>
-                                <li><strong>Booking details</strong> 2 People</li>
-                                <li><strong>Client</strong> Mark Twain</li>
-                            </ul>
-                            <p><a href="#0" class="btn_1 gray"><i class="fa fa-fw fa-envelope"></i> Send Message</a></p>
-                            <ul class="buttons">
-                                <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
-                                        Approve</a></li>
-                                <li><a href="#0" class="btn_1 gray delete" data-toggle="modal"
-                                        data-target="#edit_booking"><i class="fa fa-fw fa-pencil"></i> Edit</a></li>
-                                <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i>
-                                        Cancel</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
             </div>

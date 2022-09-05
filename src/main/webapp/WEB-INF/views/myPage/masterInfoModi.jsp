@@ -78,17 +78,11 @@
     <!-- 프로필 쓰는 공간 !! ==================================================================================================== -->
     <div class="content-wrapper">
         <div class="container-fluid">
-            <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#">여긴 마스터 정보~ </a>
-                </li>
-                <li class="breadcrumb-item active">${loginUser.nickName}님의 프로필 </li>
-            </ol>
+          
             <form action="/masterModiPost/${masterNum}" method="post" class="modiForm">
                 <div class="box_general padding_bottom">
                     <div class="header_box version_2">
-                        <h2><i class="fa fa-user"></i>마스터 정보 ~~ </h2>
+                        <h2><i class="fa fa-user"></i>${loginUser.nickName}님의 마스터 정보  </h2>
                     </div>
                     <div class="row">
                         <!-- 프로필 쓰는 공간 !!  -->

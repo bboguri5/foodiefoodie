@@ -232,7 +232,7 @@
 
             <div class="reviewPictureWrapper">
                 <div class="reviewPictureBox">
-                    <c:forEach var="review" items="${myReviewList}">
+                    <c:forEach var="review" items="${myReviewList}">    
                         <div class="reviewBox item1">
                             <a href="/review/detail?reviewBno=${review.reviewBno}">
                                 <div class="reviewPicture picBox">

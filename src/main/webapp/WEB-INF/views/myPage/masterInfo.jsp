@@ -112,9 +112,6 @@
         <div class="container-fluid">
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#">여긴 마스터 정보~ </a>
-                </li>
                 <li class="breadcrumb-item active">${loginUser.nickName}님의 프로필 </li>
             </ol>
             <div class="box_general padding_bottom">

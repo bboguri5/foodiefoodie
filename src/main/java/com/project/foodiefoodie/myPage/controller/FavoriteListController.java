@@ -7,14 +7,12 @@ import com.project.foodiefoodie.myPage.dto.FavoriteStoreInfoDTO;
 import com.project.foodiefoodie.myPage.dto.FavoriteStorePromotionBnoListDTO;
 import com.project.foodiefoodie.myPage.service.FavoriteListService;
 import com.project.foodiefoodie.util.LoginUtils;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +53,7 @@ public class FavoriteListController {
 
             // 홍보글 번호 세팅
             favoriteAllInfoDTO.setPromotionBno(promotionBno);
+
             // 파일데이터 세팅
             FavoriteFileDataDTO favoriteFileDataDTO = favoriteListService.favoriteFileData(promotionBno);
             String fileData = favoriteFileDataDTO.getFileData();
@@ -85,7 +84,7 @@ public class FavoriteListController {
 
         model.addAttribute("favoriteAllInfo",favoriteAllInfoDTOS);
 
-        return "myPage/favoriteList";
+        return "/myPage/bookings";
     }
 
 }

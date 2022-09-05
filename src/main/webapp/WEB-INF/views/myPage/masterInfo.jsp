@@ -284,6 +284,7 @@
                 <button type="button" class="btn modiBtn btn-success">수정하기</button>
                 <!-- <button type="button" class="btn masterRegistBtn btn-primary">가게 등록 하기</button> -->
                 <button type="button" class="btn btn-secondary makeProBoard">홍보글 작성하기</button>
+                <button type="button" class="btn btn-secondary detailProBoard">홍보글 상세보기</button>
                 <button type="button" class="btn deleteBtn btn-danger">가게 없애기</button>
             </div>
         </div>
@@ -592,40 +593,37 @@
             console.log("$makeProBoardBtn==========");
             console.log($makeProBoardBtn);
 
-            $makeProBoardBtn.onclick = e => {
+            const $makeProBoard = $('.makeProBoard');
 
-                console.log("홍보글 작성하기 눌럿어요 ");
-                // 여기까지는 나온다 . 
-                    fetch('/countProBoard/' + '${masterNum}')
-                    .then(res => res.text())
-                    .then(msg => {
-                        if (msg === 'yes') {
-                            console.log('====yes====');
-                            // 없으니까 작성하는 페이지로 가는거고 
+            console.log("홍보글 작성하기 눌럿어요 ");
+            // 여기까지는 나온다 . 
+            fetch('/countProBoard/' + '${masterNum}')
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'yes') {
+                        console.log('====yes====');
+                        // 없으니까 작성하기 표시 
+                        $makeProBoard.text("홍보글 작성하기");
+
+                        $makeProBoard.on('click', function () {
                             location.href = "/proBoard/write/${master.businessNo}";
-                        } else if (msg === 'no') {
-                            console.log('====no====');
-                            // 이미 홍보 글이 있으니까 작성한 페이지로 이동 ! 
-                            alert("이미 홍보글이 있습니다. 작성된 홍보글로 이동합니다.")
+                        })
+
+                        $('.detailProBoard').css('display','none');
+                    } else if (msg === 'no') {
+                        console.log('====no====');
+                        $makeProBoard.text("홍보글 수정하기")
+                        // 있으닌깐 수정하기 표시  
+
+                        $makeProBoard.on('click', function () {
+                            location.href = "/proBoard/modify/${promotionBno}";
+                        })
+
+                        $('.detailProBoard').on('click', function () {
                             location.href = "/proBoard/detail/${promotionBno}";
-                        }
-                    });
-
-
-
-
-            
-
-
-            }
-                
-            
-
-
-
-
-
-
+                        });
+                    }
+                });
         });
     </script>
 

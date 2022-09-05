@@ -97,6 +97,9 @@
             text-align: center;
             color: #000;
         }
+        .hotDealLabel{
+            border: 2px solid red;
+        }
     </style>
 
 
@@ -170,7 +173,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><a href="#0" data-toggle="modal" data-target=".hotDeal">핫딜 ON/OFF
+                                    <label class="hotDealLabel"><a href="#0" data-toggle="modal" data-target=".hotDeal">핫딜 ON/OFF
                                             Button</a></label>
                                     <input type="text" class="form-control" placeholder="${master.hotDeal}" readonly>
                                 </div>

@@ -9,4 +9,5 @@ import lombok.*;
 @AllArgsConstructor
 public class ReviewNumDTO {
      long reviewBno;
+
 }

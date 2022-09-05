@@ -42,6 +42,7 @@ public class ProBoardController {
         model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
         model.addAttribute("titleFile",proBoardService.selectFiles(promotionBno,"title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
+        model.addAttribute("isHotDeal", proBoardService.isHotDealService(proBoardService.selectProBoard(promotionBno).getBusinessNo()));
 
         // 로그인 하면 즐겨찾기 표시 , 로그인 안하면 즐겨찾기 표시 X
         String loginFlag = LoginUtils.LOGIN_FLAG;
@@ -192,24 +193,29 @@ public class ProBoardController {
         log.info("proBoard/modify POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
         log.info("proBoard/modify POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
 
+        List<String[]> menuList = new ArrayList<>(Arrays.asList(
+                request.getParameterValues("menuName"),
+                request.getParameterValues("menuPrice")
+        ));
+
         Map<String, List<MultipartFile>> fileMap = new HashMap<>() {{
             put("title", titleImgFile);
             put("detail", detailImgFiles);
             put("menu", menuImgFiles);
         }};
 
-        boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, fileMap);
+        boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, menuList, fileMap);
         return "";
     }
 
-    @PostMapping("/modify/menu")
-    @ResponseBody
-    public String modifyMenu(@RequestBody List<MenuDTO> menuDTOList)
-    {
-        log.info(" @PostMapping(\"/modify/menu\") modifyMenu {}",menuDTOList);
-        proBoardService.modifyMenuInfo(menuDTOList);
-        return "";
-    }
+//    @PostMapping("/modify/menu")
+//    @ResponseBody
+//    public String modifyMenu(@RequestBody List<MenuDTO> menuDTOList)
+//    {
+//        log.info(" @PostMapping(\"/modify/menu\") modifyMenu {}",menuDTOList);
+//        proBoardService.modifyMenuInfo(menuDTOList);
+//        return "";
+//    }
 
 
 }

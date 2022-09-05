@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.myPage.repository;
 
 
+import com.project.foodiefoodie.myPage.dto.FavoriteStoreInfoDTO;
 import com.project.foodiefoodie.myPage.dto.FavoriteStorePromotionBnoListDTO;
 import com.project.foodiefoodie.myPage.dto.FavoriteFileDataDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,7 +18,11 @@ public interface FavoriteListMapper {
     // 가게의 메인 사진을 가져오는 메서드
     FavoriteFileDataDTO favoriteFileData(int promotionBno);
 
-    // 가게 번호로 , 가게이름,
+
+    // 홍보글 번호로 , 가게 정보 가져옴
+
+    FavoriteStoreInfoDTO favoriteStoreInfo(int promotionBno);
+
 
 
 

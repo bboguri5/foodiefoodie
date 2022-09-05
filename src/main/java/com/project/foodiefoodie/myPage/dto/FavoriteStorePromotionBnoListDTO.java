@@ -10,7 +10,7 @@ import lombok.*;
 public class FavoriteStorePromotionBnoListDTO {
 
     // 즐겨찾기 홍보글 번호
-    private String promotionBno;
+    private int promotionBno;
 
 
 

@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.myPage.repository;
 
 import com.project.foodiefoodie.myPage.dto.FavoriteFileDataDTO;
+import com.project.foodiefoodie.myPage.dto.FavoriteStoreInfoDTO;
 import com.project.foodiefoodie.myPage.dto.FavoriteStorePromotionBnoListDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,13 @@ class favoriteListMapperTest {
 
 
 
+    @Test
+    @DisplayName("게시글 번호 주면 가게 정보 나옴 ")
+    void storeInfoTest(){
+        int promoBno = 23 ;
+        FavoriteStoreInfoDTO favoriteStoreInfoDTO = favoriteListMapper.favoriteStoreInfo(promoBno);
+        System.out.println(favoriteStoreInfoDTO);
+    }
 
 
 

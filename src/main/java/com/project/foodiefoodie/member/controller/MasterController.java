@@ -87,6 +87,7 @@ public class MasterController {
     public String masterInfo(@PathVariable int masterNum , HttpSession session , Model model){
         Member loginUser = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = loginUser.getEmail();
+        log.info("\n\n=====\n\n");
         log.info("welcome /masterInfo -loginUser-Auth :?? {}",loginUser.getAuth());
         List<Master> masters = masterService.allMaster(email);
         Master master = masters.get(masterNum);

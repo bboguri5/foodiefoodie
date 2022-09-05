@@ -11,11 +11,11 @@
 	<style>
 		#locationList {
 			display: flex;
-			justify-content: space-between;
 		}
 
 		#locationList .item {
 			width: 19%;
+			margin-right: 1%;
 		}
 
 
@@ -39,21 +39,6 @@
 						<div class="col-xl-9 col-lg-10 col-md-8">
 							<h1>푸디푸디</h1>
 							<p>Foodies Welcome Here</p>
-
-							<!-- <div class="search"> -->
-							<!-- <form action="/list?sort=star" method="get">
-									<div class="row g-0 custom-search-input">
-										<div class="col-lg-6">
-											<div class="form-group">
-												<input required class="form-control no_border_r" type="text"
-													placeholder="지역, 식당, 또는 음식" name="keyword" value="${s.keyword}">
-											</div>
-										</div>
-										<div class="col-lg-2">
-											<input type="submit" value="검색">
-										</div>
-									</div>
-								</form> -->
 							<form action="/list?sort=star" method="get">
 								<div class="search_bar">
 									<input required type="text" class="form-control" placeholder="지역, 식당, 또는 음식"
@@ -132,33 +117,33 @@
 				<span><em></em></span>
 				<h2>오늘의 맛집</h2>
 				<p>평점이 높은 인기 식당</p>
-				<a href="/foodlist">View All</a>
+				<a href="/foodlist">더보기</a>
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
 				<c:if test="${empty topToday}">등록된 맛집이 없습니다.</c:if>
-				<c:forEach var="topToday" items="${topToday}" varStatus="status">
+				<c:forEach var="tt" items="${topToday}" varStatus="status">
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<img src="" data-src="" class="owl-lazy" alt="">
-								<a href="/proBoard/detail/${topToday.businessNo}" class="strip_info">
-									<small>${topToday.isOpen}</small>
-									<c:if test="${topToday.hotDeal.toLowerCase() == 'on'}">
-										<span class="ribbon off">${topToday.discountPrice}%</span>
+								<img class="index-img-css" src="${tt.fileData}" alt="">
+								<a href="/proBoard/detail/${tt.promotionBno}" class="strip_info">
+									<small>${tt.isOpen}</small>
+									<c:if test="${tt.hotDeal.toLowerCase() == 'on'}">
+										<span class="ribbon off">-${tt.discountPrice}%</span>
 									</c:if>
 									<div class="item_title">
-										<h3>${topToday.storeName}</h3>
-										<small># : ${topToday.hashTag}</small>
+										<h3>${tt.storeName}</h3>
+										<small># : ${tt.hashTag}</small>
 									</div>
 								</a>
 							</figure>
 							<ul>
 								<!-- <li><span class="loc_open">Now Open</span></li> -->
-								<li><span>${topToday.storeAddress}</span></li>
+								<li><span>${tt.storeAddress}</span></li>
 								<li>
-									<div class="score"><span>최고맛집<em>${topToday.reviewCnt}개
-												리뷰</em></span><strong>${topToday.avgStarRate}</strong></div>
+									<div class="score"><span>최고맛집<em>${tt.reviewCnt}개
+												리뷰</em></span><strong>${tt.avgStarRate}</strong></div>
 								</li>
 							</ul>
 						</div>
@@ -172,7 +157,7 @@
 				<span><em></em></span>
 				<h2>푸디푸디 추천 맛집</h2>
 				<p>푸디푸디 광고 맛집</p>
-				<a href="/premiumlist">View All</a>
+				<a href="/premiumlist">더보기</a>
 			</div>
 
 			<div class="owl-carousel owl-theme carousel_4">
@@ -181,11 +166,11 @@
 					<div class="item">
 						<div class="strip">
 							<figure>
-								<img src="" data-src="" class="owl-lazy" alt="">
-								<a href="/proBoard/detail/${pl.businessNo}" class="strip_info">
+								<img class="index-img-css" src="${pl.fileData}" alt="">
+								<a href="/proBoard/detail/${pl.promotionBno}" class="strip_info">
 									<small>${pl.isOpen}</small>
 									<c:if test="${pl.hotDeal.toLowerCase() == 'on'}">
-										<span class="ribbon off">${pl.discountPrice}%</span>
+										<span class="ribbon off">-${pl.discountPrice}%</span>
 									</c:if>
 									<div class="item_title">
 										<h3>${pl.storeName}</h3>
@@ -213,7 +198,7 @@
 				<span><em></em></span>
 				<h2 id="locationHeader"></h2>
 				<p>근처 맛집을 찾아보기</p>
-				<a id="viewAll" href="#0">View All</a>
+				<a id="viewAll" href="#0">더보기</a>
 			</div>
 
 			<div id="locationList" class="owl-carousel owl-theme carousel_4">
@@ -252,17 +237,17 @@
 							<div class="list_home">
 								<ul>
 									<li>
-										<a href="/proBoard/detail/${hd.businessNo}">
+										<a href="/proBoard/detail/${hd.promotionBno}">
 											<small>${hd.isOpen}</small>
 											<figure>
-												<img src="" data-src="" alt="" class="lazy">
+												<img class="owl-lazy index-img-css" src="${hd.fileData}" alt="">
 											</figure>
 											<div class="score"><strong>${hd.avgStarRate}</strong></div>
 											<em>${hd.storeAddress}</em>
 											<h3>${hd.storeName}</h3>
 											<small># : ${hd.hashTag}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}%</span></li>
+												<li><span class="ribbon off">-${hd.discountPrice}%</span></li>
 											</ul>
 										</a>
 									</li>
@@ -275,17 +260,17 @@
 							<div class="list_home">
 								<ul>
 									<li>
-										<a href="/proBoard/detail/${hd.businessNo}">
+										<a href="/proBoard/detail/${hd.promotionBno}">
 											<small>${hd.isOpen}</small>
 											<figure>
-												<img src="" data-src="" alt="" class="lazy">
+												<img class="owl-lazy index-img-css" src="${hd.fileData}" alt="">
 											</figure>
 											<div class="score"><strong>${hd.avgStarRate}</strong></div>
 											<em>${hd.storeAddress}</em>
 											<h3>${hd.storeName}</h3>
 											<small># : ${hd.hashTag}</small>
 											<ul>
-												<li><span class="ribbon off">${hd.discountPrice}%</span></li>
+												<li><span class="ribbon off">-${hd.discountPrice}%</span></li>
 											</ul>
 										</a>
 									</li>
@@ -297,7 +282,7 @@
 			</div>
 			<!-- /row -->
 			<p class="text-center d-block d-md-block d-lg-none"><a href="grid-listing-filterscol.html"
-					class="btn_1">View All</a></p>
+					class="btn_1">더보기</a></p>
 			<!-- /button visibile on tablet/mobile only -->
 		</div>
 		<!-- /container -->
@@ -329,6 +314,7 @@
 
 	<script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
+
 		// 로그인 한 사람만 사업자 등록 할수있음
 		document.querySelector('.addMaster').onclick = e => {
 			if ('${loginUser}' != '') {
@@ -428,12 +414,13 @@
 							`       <figure>`;
 
 						if (isHot) {
-							tag += `<span class="ribbon off">` + locationList[i].discountPrice + `%</span>`;
+							tag += `<span class="ribbon off">-` + locationList[i].discountPrice + `%</span>`;
 						}
 
-						tag += 
-							`           <img src="" data-src="" class="owl-lazy" alt="">` +
-							`           <a href="/proBoard/detail/` + locationList[i].businessNo + `" class="strip_info">` +
+						tag +=
+							`		<img class="owl-lazy index-img-css" src="` + locationList[i].fileData + `" alt="">` +
+							`           <a href="/proBoard/detail/` + locationList[i].promotionBno +
+							`" class="strip_info">` +
 							`				<small>` + locationList[i].isOpen + `</small>` +
 							`               <div class="item_title">` +
 							`                   <h3>` + locationList[i].storeName + `</h3>` +

@@ -54,7 +54,7 @@
                                     <span id="nameChk"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" id="name" placeholder="이름" name="name">
+                                    <input class="form-control" type="text" id="name" placeholder="이름" name="name" maxlength="4">
                                     <!-- <i class="icon_pencil"></i> -->
                                 </div>
                                 <div>
@@ -197,19 +197,25 @@
                     // 이메일 중복확인이 여기서 들어가야 한다. 비동기 요청!!
                     fetch('/member/check?type=email&value=' + $emailInput.val())
                         .then(res => res.text())
-                        .then(flag => {
+                        .then(msg => {
 
-                            if (flag === 'true') {
+                            if (msg === 'duplicate') {
                                 // 중복 이메일인 경우
                                 $emailInput.css('border-color', 'red');
-                                $emailChk.text('중복된 아이디입니다.');
+                                $emailChk.text('중복된 계정명입니다.');
                                 $emailChk.css('color', 'red');
                                 checkArr[0] = false;
-
-                            } else {
+                            } 
+                            else if (msg === 'blackList') {
+                                $emailInput.css('border-color', 'red');
+                                $emailChk.text('블랙리스트로 등록된 계정명입니다.');
+                                $emailChk.css('color', 'red');
+                                checkArr[0] = false;
+                            }
+                            else {
                                 // 정상적으로 입력한 경우
                                 $emailInput.css('border-color', 'greenyellow');
-                                $emailChk.text('사용 가능한 이메일입니다');
+                                $emailChk.text('사용 가능한 계정명입니다');
                                 $emailChk.css('color', 'green');
                                 checkArr[0] = true;
                             }

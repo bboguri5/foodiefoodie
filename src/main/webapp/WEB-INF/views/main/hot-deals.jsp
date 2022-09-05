@@ -32,7 +32,7 @@
                                 <span class="ribbon off">${hd.discountPrice}%</span>
                                 <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
-                                    <a href="/proBoard/detail/${hd.businessNo}" class="strip_info">
+                                    <a href="/proBoard/detail/${hd.promotionBnos}" class="strip_info">
                                         <small>${hd.isOpen}</small>
                                     <div class="item_title">
                                         <h3>${hd.storeName}</h3>

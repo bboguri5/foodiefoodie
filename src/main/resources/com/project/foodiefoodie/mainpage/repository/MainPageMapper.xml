@@ -334,7 +334,7 @@
         <![CDATA[
         SELECT
         CASE
-        WHEN (SELECT TO_CHAR(SYSDATE,'DY') FROM dual) IN (SELECT closedday FROM promotion_store_time) THEN 'not open'
+        WHEN (SELECT TO_CHAR(SYSDATE,'DY') FROM dual) = closedday THEN 'not open'
         WHEN breakstarttime <= (SELECT TO_CHAR
         (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) AND breakendtime >= (SELECT TO_CHAR
         (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) THEN 'break time'

@@ -49,7 +49,7 @@
 								</c:if>
                                 <img src="" data-src="" class="img-fluid lazy"
                                     alt="">
-                                <a href="/proBoard/detail/${topTodayAll.businessNo}" class="strip_info">
+                                <a href="/proBoard/detail/${topTodayAll.promotionBno}" class="strip_info">
                                     <small>${topTodayAll.isOpen}</small>
                                     <!-- <c:if test="${topTodayAll.hotDeal.toLowerCase() == 'on'}">
                                         <span class="ribbon off">${topTodayAll.discountPrice}%</span>

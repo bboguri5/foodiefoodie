@@ -820,7 +820,11 @@
         const $sideNav = document.querySelector('.side-nav');
         $sideNav.onclick = e => {
             if (e.target.classList.contains('nav-removeBtn')) {
-                reviewDelForm.submit();
+                const reviewDelForm = document.querySelector('.review-del-form');
+
+                if (confirm('정말로 삭제하시겠습니까?')) {
+                    reviewDelForm.submit();
+                }
             }
         }
     </script>

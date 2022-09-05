@@ -1,5 +1,7 @@
 package com.project.foodiefoodie.member.controller;
 
+import com.project.foodiefoodie.blackList.domain.BlackListMaster;
+import com.project.foodiefoodie.blackList.service.BlackListMasterService;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.MasterModifyDTO;
@@ -29,6 +31,8 @@ public class MasterController {
 
     private final MasterService masterService;
 
+    private final BlackListMasterService blackListMasterService;
+
     private final PromotionBoardService promotionBoardService;
 
 
@@ -42,11 +46,22 @@ public class MasterController {
     // 사업자 번호 중복 비동기 처리
     @GetMapping("/master/check")
     @ResponseBody
-    public ResponseEntity<Boolean> duplicateBusinessNo(String businessNo) {
+    public ResponseEntity<String> duplicateBusinessNo(String businessNo) {
 
-        boolean flag = masterService.duplicateBusinessNo(businessNo);
+        BlackListMaster findBlackUser = blackListMasterService.findOneService(businessNo);
+        
+        if (findBlackUser == null) { // 블랙 리스트에 등록된 사업자 번호가 아닌 경우 
+            boolean flag = masterService.duplicateBusinessNo(businessNo);
 
-        return new ResponseEntity<>(flag, HttpStatus.OK);
+            if (flag) { // 중복된 사업자 번호인 경우
+                return new ResponseEntity<>("duplicate", HttpStatus.OK);
+            }
+
+            return new ResponseEntity<>("possible", HttpStatus.OK);
+        }
+
+        // 블랙리스트로 등록된 사업자 번호인 경우
+        return new ResponseEntity<>("blackList", HttpStatus.OK);
     }
 
 

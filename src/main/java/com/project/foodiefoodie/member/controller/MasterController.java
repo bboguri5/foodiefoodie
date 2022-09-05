@@ -35,7 +35,7 @@ public class MasterController {
     // 사업자 등록 화면 요청 처리
     @GetMapping("/master/register")
     public String requestAuthMaster() {
-        return "/member/master/request-auth";
+        return "member/master/request-auth";
     }
 
 
@@ -60,7 +60,7 @@ public class MasterController {
         boolean flag = masterService.requestAuthMaster(master);
 
         if (flag) {
-            return "/member/master/request-success";
+            return "member/master/request-success";
         }
 
         ra.addFlashAttribute("resultMsg", "fail");

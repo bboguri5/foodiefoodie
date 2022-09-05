@@ -43,7 +43,7 @@ public class MemberController {
     public String register() {
         log.info("/register GET!!");
 
-        return "/member/register";
+        return "member/register";
     }
 
 
@@ -66,7 +66,7 @@ public class MemberController {
 
         memberService.registerService(member);
 
-        return "/member/success-regist";
+        return "member/success-regist";
     }
 
 
@@ -286,7 +286,7 @@ public class MemberController {
     @GetMapping("/myPage/modify")
     public String myPageModify() {
         log.info("myPage-modify");
-        return "/myPage/myPage-modify";
+        return "myPage/myPage-modify";
     }
 
     @PostMapping("/myPage/modify")

@@ -199,7 +199,7 @@ public class ReviewBoardController {
     @PostMapping("/review/modify")
     public String reviewModifyData(ReviewBoard reviewBoard, List<MultipartFile> reviewImgFile, HttpSession session) {
 
-//        log.info("/review/modify POST! - {}", reviewBoard);
+        log.info("/review/modify POST! - {}", reviewBoard);
 
         Member loginUser = (Member) session.getAttribute("loginUser");
 

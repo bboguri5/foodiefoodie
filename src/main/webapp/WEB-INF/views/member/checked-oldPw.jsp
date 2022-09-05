@@ -33,14 +33,13 @@
                         <div class="box_booking_2">
                             <div class="head">
                                 <div class="title">
-                                    <h3>비밀번호 변경하기.</h3>
+                                    <h3>비밀번호 변경하기</h3>
                                 </div>
                             </div>
                             <!-- /head -->
                             <div class="main">
                                 <div id="confirm">
-                                    <h3>계정 이메일로 인증 코드 메일을 전송했습니다. <br>메일 확인 후 하단 입력창에 인증코드를 입력하세요.</h3>
-                                    <br>
+                                    <p>계정 이메일로 인증 코드 메일을 전송했습니다. <br>메일 확인 후 하단 입력창에 인증코드를 입력하세요.</p>
                                     <form action="/check/member/authCode" method="post">
                                         <input type="text" name="inputAuthCode" placeholder="이메일 인증코드">
                                         <button type="submit">전송</button>
@@ -53,15 +52,13 @@
                         <div class="box_booking_2">
                             <div class="head">
                                 <div class="title">
-                                    <h3>비밀번호 변경에 실패했습니다.</h3>
-                                    <br>
+                                    <h3>비밀번호 변경 실패</h3>
                                 </div>
                             </div>
                             <!-- /head -->
                             <div class="main">
                                 <div id="confirm">
-                                    <h3>잘못된 현재 비밀번호를 입력하셨습니다. <br> 다시 시도하세요.</h3>
-                                    <br>
+                                    <p>잘못된 현재 비밀번호를 입력하셨습니다. <br> 다시 시도하세요.</p>
                                     <a href="/change/pw">다시 시도하기</a>
                                 </div>
                             </div>

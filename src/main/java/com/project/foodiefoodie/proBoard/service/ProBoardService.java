@@ -35,7 +35,7 @@ public class ProBoardService {
         return proBoardMapper.removeFavoriteStore(email,promotionBno);
     }
     @Transactional
-    public boolean saveProBoard(ProBoard proBoard, List<String[]> menuList, Map<String, List<MultipartFile>> fileMap) {
+    public int saveProBoard(ProBoard proBoard, List<String[]> menuList, Map<String, List<MultipartFile>> fileMap) {
 
         log.info(" saveProBoard service init - {}", proBoard);
         boolean result = proBoardMapper.saveProBoard(proBoard); // content , title .. 저장
@@ -66,7 +66,7 @@ public class ProBoardService {
             }
         }
 
-        return result;
+        return proBoard.getPromotionBno();
     }
 
     @Transactional

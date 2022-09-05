@@ -43,8 +43,18 @@ public class ProBoardController {
         model.addAttribute("titleFile",proBoardService.selectFiles(promotionBno,"title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
 
-        Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
-        model.addAttribute("isFavorite",proBoardService.isFavoriteStore(member.getEmail(),promotionBno));
+        // 로그인 하면 즐겨찾기 표시 , 로그인 안하면 즐겨찾기 표시 X
+        String loginFlag = LoginUtils.LOGIN_FLAG;
+        Member member = (Member) session.getAttribute(loginFlag);
+
+        if(member != null)
+        {
+            model.addAttribute("isFavorite",proBoardService.isFavoriteStore(member.getEmail(),promotionBno));
+            model.addAttribute("flag",true);
+        }
+        else {
+            model.addAttribute("flag",false);
+        }
         return "promotion/pro-detail";
     }
 
@@ -133,8 +143,8 @@ public class ProBoardController {
             put("menu", menuImgFiles);
         }};
 
-        boolean proBoardSaveResult = proBoardService.saveProBoard(proBoard, menuList, fileMap);
-        return "";
+        int promotionBno = proBoardService.saveProBoard(proBoard, menuList, fileMap);
+        return "redirect:/proBoard/detail/"+promotionBno;
     }
 
 

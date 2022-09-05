@@ -16,6 +16,10 @@
             margin-top: 70px;
         }
 
+        .left {
+            float: left;
+        }
+
     </style>
 
 </head>
@@ -38,16 +42,14 @@
                             <!-- /head -->
                             <div class="main">
                                 <div id="confirm">
-                                    <h3>현재 비밀번호 확인</h3>
-                                    <br>
                                     <form action="/check/oldPw" method="post" id="check-oldPw-form">
                                         <div class="form-group">
-                                            <label>현재 비밀번호를 입력하세요.</label>
+                                            <label class="left">현재 비밀번호를 입력하세요.</label>
                                             <span id="pwChk"></span>
                                             <input class="form-control" id="password_sign" type="password" name="oldPw">
                                         </div>
                                         <div class="form-group">
-                                            <label>현재 비밀번호를 다시 한번 입력하세요.</label>
+                                            <label class="left">현재 비밀번호를 다시 한번 입력하세요.</label>
                                             <span id="rePwChk"></span>
                                             <input class="form-control" id="recheck-pw" type="password">
                                         </div>

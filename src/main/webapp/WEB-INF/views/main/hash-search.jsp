@@ -34,11 +34,10 @@
                             <figure>
 
                                 <c:if test="${ht.hotDeal.toLowerCase() == 'on'}">
-									<span class="ribbon off">${ht.discountPrice}%</span>
+									<span class="ribbon off">-${ht.discountPrice}%</span>
 								</c:if>
-                                <img src="" data-src="" class="img-fluid lazy"
-                                    alt="">
-                                <a href="/proBoard/detail/${ht.businessNo}" class="strip_info">
+                                <img class="img-fluid lazy index-img-css" src="${ht.fileData}" alt="">
+                                <a href="/proBoard/detail/${ht.promotionBno}" class="strip_info">
                                     <small>${ht.isOpen}</small>
                                     <!-- <c:if test="${ht.hotDeal.toLowerCase() == 'on'}">
                                         <span class="ribbon off">${ht.discountPrice}%</span>

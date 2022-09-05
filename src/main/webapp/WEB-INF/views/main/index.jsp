@@ -11,11 +11,11 @@
 	<style>
 		#locationList {
 			display: flex;
-			justify-content: space-between;
 		}
 
 		#locationList .item {
 			width: 19%;
+			margin-right: 1%;
 		}
 
 

@@ -1,5 +1,7 @@
 package com.project.foodiefoodie.member.controller;
 
+import com.project.foodiefoodie.blackList.domain.BlackList;
+import com.project.foodiefoodie.blackList.service.BlackListService;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
 import com.project.foodiefoodie.member.dto.NewModifyMemberDTO;
@@ -37,25 +39,39 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    private final BlackListService blackListService;
+
 
     // 회원 가입 화면 요청 처리
     @GetMapping("/register")
     public String register() {
         log.info("/register GET!!");
 
-        return "/member/register";
+        return "member/register";
     }
 
 
     // 아이디, 이메일 중복확인 비동기 요청 처리
     @GetMapping("/member/check")
     @ResponseBody
-    public ResponseEntity<Boolean> check(DuplicateDTO dto) {
+    public ResponseEntity<String> check(DuplicateDTO dto) {
         log.info("/member/check?type={}&value={} GET!! ASYNC", dto.getType(), dto.getValue());
 
-        boolean flag = memberService.checkDuplicate(dto);
+        BlackList findBlackUser = blackListService.findOneService(dto.getValue());
 
-        return new ResponseEntity<>(flag, HttpStatus.OK);
+        if (findBlackUser != null) { // 블랙리스트로 등록된 이메일인 경우
+            return new ResponseEntity<>("blackList", HttpStatus.OK);
+        } 
+        else { // 블랙 리스트가 아닌 경우
+            boolean flag = memberService.checkDuplicate(dto);
+
+            if (flag) { // 중복된 이메일인 경우
+                return new ResponseEntity<>("duplicate", HttpStatus.OK);
+            }
+
+            // 사용 가능한 이메일인 경우
+            return new ResponseEntity<>("possible", HttpStatus.OK);
+        }
     }
 
 
@@ -66,7 +82,7 @@ public class MemberController {
 
         memberService.registerService(member);
 
-        return "/member/success-regist";
+        return "member/success-regist";
     }
 
 

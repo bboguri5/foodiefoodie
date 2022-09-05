@@ -169,14 +169,17 @@
 
                 fetch('/master/check?businessNo=' + $businessNoInput.val())
                     .then(res => res.text())
-                    .then(flag => {
-                        if (flag === 'false') {
+                    .then(msg => {
+                        if (msg === 'possible') {
                             $businessNoInput.css('border-color', 'yellowgreen');
                             $businessNoChk.css('color', 'green');
                             $businessNoChk.text('등록 가능한 사업자 번호입니다.');
-                        } else {
+                        } else if (msg === 'duplicate') {
                             $businessNoChk.css('color', 'red');
                             $businessNoChk.text('중복된 사업자 번호입니다.');
+                        } else {
+                            $businessNoChk.css('color', 'red');
+                            $businessNoChk.text('블랙리스트로 등록된 사업자번호입니다.');
                         }
                     })
 

@@ -55,4 +55,29 @@ class PromotionBoardMapperTest {
 //        List<PromotionBoard> list = mapper.findAll();
 //        System.out.println(list);
     }
+
+    @Test
+    @DisplayName("사업자 번호 주면 , 갯수 나옴 ")
+    void countPromotionBoard(){
+        String buNo = "1234-2222-3333-1124";
+        int i = mapper.countPromotionBoard(buNo);
+        System.out.println("\n\n=======\n\n");
+        System.out.println(i);
+        System.out.println("\n\n=======\n\n");
+    }
+
+
+    @Test
+    @DisplayName("사업자 번호 주면 홍보글 번호 줌")
+    void findProBoardNumTest(){
+        String buNo = "1234-2222-3333-1124";
+        Integer proBoardNum = mapper.findProBoardNum(buNo);
+        System.out.println("\n\n=======\n\n");
+        System.out.println(proBoardNum);
+        System.out.println("\n\n=======\n\n");
+
+    }
+
+
+
 }

@@ -2,6 +2,7 @@ package com.project.foodiefoodie.member.controller;
 
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
+import com.project.foodiefoodie.member.dto.NewModifyMemberDTO;
 import com.project.foodiefoodie.member.dto.find.EmailCodeDTO;
 import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
 import com.project.foodiefoodie.member.dto.find.FindPwDTO;
@@ -13,6 +14,7 @@ import com.project.foodiefoodie.member.service.MemberService;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.net.http.HttpResponse;
 import java.util.List;
 
 import static com.project.foodiefoodie.member.service.LoginFlag.*;
@@ -287,9 +290,9 @@ public class MemberController {
     }
 
     @PostMapping("/myPage/modify")
-    public String PostModifyMember(HttpSession session, ModifyDTO modifyDTO) {
-        log.info("modifyDTO : {}", modifyDTO);
-        memberService.modifyMemberService(modifyDTO);
+    public String PostModifyMember(HttpSession session, NewModifyMemberDTO newModifyMemberDTO) {
+        log.info("modifyDTO : {}", newModifyMemberDTO);
+        memberService.modifyMemberService(newModifyMemberDTO);
         log.info("go service ");
         return "redirect:/myPage-profile";
     }
@@ -321,6 +324,40 @@ public class MemberController {
             return "password-false";
         }
     }
+
+
+    // 회원탈퇴
+    @GetMapping("/secession")
+    public  String secessionMethod(HttpSession session, HttpServletRequest request , HttpServletResponse response){
+
+
+        log.info("\n\n\n===========\n\n\n");
+        log.info("secession success");
+        log.info("\n\n\n===========\n\n\n");
+        Member loginUser = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
+        String email = loginUser.getEmail();
+        // 데이터에서 정보 삭제
+        boolean b = memberService.deleteMemberIntoProfileService(email);
+        log.info("b {} ",b);
+
+        if (LoginUtils.isLogin(session)) { // 로그인 중인 상태라면~~
+
+            // 자동로그인까지 해놓고 있던 상태라면 해제!!
+            if (LoginUtils.hasAutoLoginCookie(request)) {
+                memberService.autoLogout(LoginUtils.getCurrentMemberEmail(session), request, response);
+            }
+
+            // 세션에서 정보 삭제 및 세션 무효화
+            session.removeAttribute(LoginUtils.LOGIN_FLAG);
+            session.invalidate();
+            return "main/index";
+        }
+
+        // 로그인 상태가 아니라면~
+        return "redirect:/";
+
+    }
+
 
 
 }

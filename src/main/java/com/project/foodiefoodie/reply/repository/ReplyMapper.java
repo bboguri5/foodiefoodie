@@ -25,6 +25,16 @@ public interface ReplyMapper {
 
     boolean modify(Reply reply);
 
+    // 리뷰 번호당 리뷰 댓글 갯수 가져옴
+    int replyCount(long reviewBno);
+
+
+
+
+
+
+
+
 
 
 }

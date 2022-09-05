@@ -56,6 +56,12 @@
     </delete>
 
 
+    <delete id="deleteMemberIntoProfile">
+        DELETE FROM member
+        WHERE email = #{email}
+    </delete>
+
+
     <update id="modifyMember">
         UPDATE member
         SET nick_name = #{nickName}, phone_number = #{phoneNumber} , address = #{address}
@@ -70,10 +76,6 @@
     </select>
 
 
-
-
-
-    
     
     <insert id="saveAutoLoginValue">
         INSERT INTO auto_login
@@ -139,6 +141,22 @@
         SET password = #{newPw}
         WHERE email = #{email}
     </update>
+
+    <resultMap id="newModifyMemberMap" type="com.project.foodiefoodie.member.dto.NewModifyMemberDTO">
+        <result column="nick_name" property="nickName"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="detail_address" property="detailAddress"/>
+        <result column="extra_address" property="extraAddress"/>
+    </resultMap>
+
+    <update id="newMemberModi">
+        UPDATE member
+        SET nick_name = #{nickName}, phone_number = #{phoneNumber} , address = #{address}
+        , detail_address = #{detailAddress} , extra_address = #{extraAddress}
+        WHERE  email = #{email}
+    </update>
+
+
 </mapper>
 
 

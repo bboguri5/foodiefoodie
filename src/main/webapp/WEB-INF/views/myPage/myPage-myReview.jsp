@@ -43,9 +43,10 @@
 
         .instaHeader {
             display: flex;
-            background: skyblue;
+            /* background: skyblue; */
             width: 100%;
-            height: 200px;
+            /* height: 200px; */
+            height: 150px;
         }
 
         .instaHeader .picture {
@@ -68,7 +69,7 @@
 
         .instaHeader .profileContent {
             flex: 5;
-            background: green;
+            /* background: green; */
 
         }
 
@@ -84,24 +85,32 @@
 
         .instaHeader .profileContent .myInfo .boardCnt {
             color: black;
-            margin-left: 50px;
+            text-align : center;
+            line-height: 30px;
+            font-size: x-large;
             flex: 1;
         }
 
         .instaHeader .profileContent .myInfo .followYou {
             color: black;
+            text-align : center;
+            line-height: 30px;
+            font-size: x-large;
             flex: 1;
         }
 
         .instaHeader .profileContent .myInfo .followMe {
             color: black;
+            text-align : center;
+            line-height: 30px;
+            font-size: x-large;
             flex: 1;
         }
 
         .myReview-allWrap #hoverWrapper {
             width: 100%;
             height: 100px;
-            background: yellow;
+            /* background: yellow; */
             position: relative;
         }
 
@@ -113,7 +122,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            background: yellowgreen;
+            /* background: yellowgreen; */
         }
 
         .myReview-allWrap .hoverMenu .myReview {
@@ -140,12 +149,12 @@
 
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox {
             background: gray;
-            width: 95%;
+            width: 97%;
             height: 100%;
             margin-top: 30px;
             position: absolute;
             left: 50%;
-            top: 50%;
+            top: 47%;
             transform: translate(-50%, -50%);
             display: flex;
             flex-wrap: wrap;
@@ -153,26 +162,33 @@
             align-content: flex-start;
         }
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox{
-            width: 33%;
-            height: 200px;
+            width: 32%;
+            height: 270px;
             background: pink;
             display: flex;
             flex-direction: column;
             margin-bottom: 10px;
-            margin-left: 3px;
+            margin-left: 10px;
+            overflow: hidden;
         }
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .reviewPicture{
-            flex: 7;
+            background: blue;
             border: 1px solid #000;
         }
-        .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .title{
-            flex: 1;
+        .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .likeAndReplyBox{
+            background: green;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .title{
+            
             border: 1px solid #000;
         }
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .content{
-            flex: 2;
+           
             border: 1px solid #000;
-        }
+        } */
 
         
     </style>
@@ -180,217 +196,53 @@
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-        <a class="navbar-brand" href="/"><img src="/mypage/img/logo.svg" alt="" width="142" height="36"></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
 
-            
-   <!-- ----------------------------------------------------------------------------------- -->
-           
-            <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My profile">
-                    <a class="nav-link" href="/myPage-profile">
-                        <i class="fa fa-fw fa-user"></i>
-                        <span class="nav-link-text">내 정보 / 수정/ 탈퇴</span>
-                    </a>
-                </li>
-
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
-                    <a class="nav-link" href="/myReview">
-                        <i class="fa fa-fw fa-star"></i>
-                        <span class="nav-link-text">Reviews 내가쓴 리뷰 </span>
-                    </a>
-                </li>
-
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
-                    <a class="nav-link" href="/favoriteList">
-                        <i class="fa fa-fw fa-heart"></i>
-                        <span class="nav-link-text">Bookmarks 즐겨찾기 리스트 </span>
-                    </a>
-                </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                    <a class="nav-link" href="messages.html">
-                        <i class="fa fa-fw fa-envelope-open"></i>
-                        <span class="nav-link-text"> 결제 내역 </span>
-                    </a>
-                </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                    <a class="nav-link" href="/reviewReport">
-                        <i class="fa fa-fw fa-envelope-open"></i>
-                        <span class="nav-link-text"> 게시글 신고 내역 </span>
-                    </a>
-                </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                    <a class="nav-link" href="/replyReport">
-                        <i class="fa fa-fw fa-envelope-open"></i>
-                        <span class="nav-link-text">댓글 신고 내역 </span>
-                    </a>
-                </li>
-            </ul>
-            
-            <!-- ----------------------------------------------------------------------------------- -->
-
-            <ul class="navbar-nav sidenav-toggler">
-                <li class="nav-item">
-                    <a class="nav-link text-center" id="sidenavToggler">
-                        <i class="fa fa-fw fa-angle-left"></i>
-                    </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-fw fa-envelope"></i>
-                        <span class="d-lg-none">Messages
-                            <span class="badge badge-pill badge-primary">12 New</span>
-                        </span>
-                        <span class="indicator text-primary d-none d-lg-block">
-                            <i class="fa fa-fw fa-circle"></i>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-                        <h6 class="dropdown-header">New Messages:</h6>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <strong>David Miller</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty
-                                awesome! These messages clip off when they reach the end of the box so they don't
-                                overflow over to the sides!</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <strong>Jane Smith</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">I was wondering if you could meet for an appointment at
-                                3:00 instead of 4:00. Thanks!</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <strong>John Doe</strong>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">I've sent the final files over to you for review. When
-                                you're able to sign off of them let me know and we can discuss distribution.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item small" href="#">View all messages</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-fw fa-bell"></i>
-                        <span class="d-lg-none">Alerts
-                            <span class="badge badge-pill badge-warning">6 New</span>
-                        </span>
-                        <span class="indicator text-warning d-none d-lg-block">
-                            <i class="fa fa-fw fa-circle"></i>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-                        <h6 class="dropdown-header">New Alerts:</h6>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <span class="text-success">
-                                <strong>
-                                    <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All
-                                systems are online.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <span class="text-danger">
-                                <strong>
-                                    <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All
-                                systems are online.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <span class="text-success">
-                                <strong>
-                                    <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
-                            </span>
-                            <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All
-                                systems are online.</div>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item small" href="#">View all alerts</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <form class="form-inline my-2 my-lg-0 mr-lg-2">
-                        <div class="input-group">
-                            <input class="form-control search-top" type="text" placeholder="Search for...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal"><i
-                            class="fa fa-fw fa-sign-out"></i>Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <%@ include file="../include/myPage-nav.jsp" %>
+    
     <!-- /Navigation-->
     <!-- 프로필 쓰는 공간 !! ==================================================================================================== -->
     <div class="content-wrapper">
         <div class="myReview-allWrap">
             <div class="instaHeader">
-                <div class="picture">
+                <!-- <div class="picture">
                     <div class="profilePicture">
                         ${profile.filePath} , ${profile.fileName}
                         <img src="" alt="">
                         <form action="" method="post">
-                            <!-- 히든으로 감춰서 보낼수있다 -->
+                            
                             <input type="hidden" name="qwe" value="123">
                         </form>
                     </div>
-                </div>
+                </div> -->
                 <div class="profileContent">
-                    <h2 class="userId">${loginUser.email} 계정 이메일</h2>
+                    <h2 class="userId">${loginUser.email} </h2>
                     <div class="myInfo">
-                        <div class="boardCnt">게시물수 ? </div>
-                        <div class="followYou">내가 한거</div>
-                        <div class="followMe">나한테 팔로우 건사람 </div>
+                        <div class="boardCnt">게시물수 ${totalMyReviewCount} </div>
+                        <div class="followYou">좋아요 갯수 ${totalLikeCount}</div>
+                        <div class="followMe">총 댓글 갯수 ${totalReplyCount} </div>
                     </div>
                 </div>
             </div>
-            <div id="hoverWrapper">
+            <!-- <div id="hoverWrapper">
                 <div class="hoverMenu">
-                    <div class="myReview">내 리뷰 보기 </div>
+                    <div class="myReview">리뷰 쓰기 </div>
                     <div class="favoriteList">즐겨찾기 사진 모음집</div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="reviewPictureWrapper">
                 <div class="reviewPictureBox">
-                    <c:forEach var="reviewInfo" items="${reviewInfo}">
+                    <c:forEach var="review" items="${myReviewList}">
                         <div class="reviewBox item1">
-                            <div class="reviewPicture picBox">
-                               파일경로 : ${reviewInfo.filePath}
-                                파일이름 : ${reviewInfo.fileName}
-                                <img src="" alt="">
-                            </div>
-                            <div class="title">${reviewInfo.title}</div>
-                            <div class="content">${reviewInfo.content}</div>
-                        </div>
+                            <a href="/review/detail?reviewBno=${review.reviewBno}">
+                                <div class="reviewPicture picBox">
+                                    <!-- <div class="likeAndReplyBox"></div> -->
+                                    <img src="${review.fileData}" alt="#">
+                                </div> 
+                                <!-- <div class="title">${reviewInfo.title}</div>
+                                    <div class="content">${reviewInfo.content}</div> -->
+                                </div>
+                            </a>
                     </c:forEach>
                     <!-- <div class="reviewBox item2">
                         <div class="reviewPicture picBox">
@@ -417,7 +269,6 @@
                     
                 </div>
             </div>
-
 
         </div>
 

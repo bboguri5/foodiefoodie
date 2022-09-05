@@ -4,8 +4,7 @@ import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
-import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
-import com.project.foodiefoodie.review.dto.ReviewFileDTO;
+import com.project.foodiefoodie.review.dto.*;
 import com.project.foodiefoodie.review.repository.ReviewBoardMapper;
 import com.project.foodiefoodie.util.FoodieFileUtils;
 import lombok.RequiredArgsConstructor;
@@ -362,6 +361,67 @@ public class ReviewBoardService {
 
         return flag;
     }
+
+
+
+
+
+
+    // 마이페이지부분 =====================================
+    // 리뷰 데이터 리스트 받아옴
+    public List<FileDataDTO> reviewDataList(Long reviewBno){
+        List<FileDataDTO> fileDataDTOS = rbMapper.reviewDataList(reviewBno);
+        return fileDataDTOS;
+    }
+
+    // 첫번째 값만 가져올꺼임
+    public ArrayList<String> firstDataList(String email){
+        // 스트링 값을 가질 스트링 리스트를 생성한다
+        ArrayList<String> firstDataList = new ArrayList<>();
+        // 길이를 구하고
+        int i = rbMapper.MyReviewCount(email);
+
+        // 리뷰번호들을 가져오고
+        List<ReviewNumDTO> reviewNumDTOS = rbMapper.reviewNumList(email);
+
+        for (int j = 0; j <i ; j++) {
+            //리뷰번호를 순서대로 꺼내온다
+            ReviewNumDTO reviewNumDTO = reviewNumDTOS.get(j);
+            // 리뷰번호를 가져오고
+            long reviewBno = reviewNumDTO.getReviewBno();
+
+            // 리뷰번호로 , 리뷰데이터 리스트를 가져오고
+            List<FileDataDTO> fileDataDTOS = rbMapper.reviewDataList(reviewBno);
+
+            // 그중에 첫번째 데이터(스트링)값을 추출한다
+            FileDataDTO fileDataDTO = fileDataDTOS.get(0);
+            String fileData = fileDataDTO.getFileData();
+
+            // 그걸 스트링 리스트에 넣는다 !
+            firstDataList.add(fileData);
+        }
+
+        // 이건 이메일당 , 올린 게시물의 첫번째 사진이 담겨있는 리스트이다
+        return firstDataList;
+    }
+
+        //   리뷰 갯수 가져옴
+    public int MyReviewCount(String email){
+        int i = rbMapper.MyReviewCount(email);
+        return i;
+    }
+
+    // 리뷰 번호들 가져옴
+    public List<ReviewNumDTO>reviewNumList(String email){
+        List<ReviewNumDTO> reviewNumDTOS = rbMapper.reviewNumList(email);
+
+        return reviewNumDTOS;
+    }
+
+
+
+
+
 
 
 

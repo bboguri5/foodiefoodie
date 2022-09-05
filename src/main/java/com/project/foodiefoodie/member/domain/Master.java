@@ -15,14 +15,14 @@ import java.util.Date;
 public class Master {
 
     private String businessNo;
-    private String email;
     private String masterName;
     private String storeName;
     private String storeAddress;
     private String storeDetailAddress;
     private String storeExtraAddress;
-    private Date storeRegDate;
-    private char hotDeal;
+    private int storeRegDate;
+    private String hotDeal;
     private String storeCallNumber;
 
+    private String email;
 }

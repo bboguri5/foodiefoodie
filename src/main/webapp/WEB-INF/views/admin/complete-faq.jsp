@@ -53,7 +53,8 @@
                                                 data-promotionwriteremail="${pf.promotionWriterEmail}"
                                                 data-content="${pf.content}" data-businessno="${pf.businessNo}">
                                                 ${pf.prFaqNo}</a></th>
-                                        <th>${pf.promotionWriterEmail}</th>
+                                                <!-- <th><a href="#" data-target=".promotion-faq" data-toggle="modal"></a></th> -->
+                                        <th><a href="#" data-target=".promotion-faq" data-toggle="modal">${pf.promotionWriterEmail}</a></th>
                                         <th>${pf.businessNo}</th>
                                     </tr>
                                 </c:forEach>

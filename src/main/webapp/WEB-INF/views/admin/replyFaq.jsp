@@ -125,7 +125,8 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>신고번호</label>
-                            <input type="text" class="form-control modal-report-no" name="replyFaqNo" readonly>
+                            <input type="text" class="form-control modal-report-no"  name="replyFaqNo" readonly>
+                            <!-- value="e.target.dataset.replyfaqno" 이걸 왜 직접 안넣고 자바로 넣는지 이해가아된디 -->
                         </div>
                         <div class="form-group">
                             <label>댓글</label>

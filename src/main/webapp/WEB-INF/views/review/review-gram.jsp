@@ -154,9 +154,9 @@
 									<small>Last Updated - 
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
 									<h2><a
-											href="/review/detail?reviewBno=${rl.reviewBno}">${rl.title}</a>
+											href="#">${rl.title}</a>
 									</h2>
-
+									<p>평점: ${rl.starRate}/10</p>
 									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
 									<p>식당 주소: ${rl.storeAddress}</p>
 									<p>${rl.content}

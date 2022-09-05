@@ -18,6 +18,15 @@
         <result property="reportCnt" column="report_cnt"/>
     </resultMap>
 
+
+    <select id="reviewLikeCount" resultType="int">
+        select count(*)
+        from review_board
+        where review_bno = #{reviewBno}
+    </select>
+
+
+
     <select id="checkReportCnt" resultType="int">
         SELECT report_cnt FROM review_board
         WHERE email = #{email}

@@ -9,4 +9,10 @@ public interface ReviewMapper {
 
     int checkReportCnt(String email);
 
+
+    // 리뷰번호 주면 , 리뷰 좋아요 갯수 줌
+    int reviewLikeCount(Long reviewBno);
+
+
+
 }

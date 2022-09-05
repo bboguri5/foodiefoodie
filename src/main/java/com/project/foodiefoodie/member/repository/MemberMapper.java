@@ -3,6 +3,7 @@ package com.project.foodiefoodie.member.repository;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.AuthDTO;
 import com.project.foodiefoodie.member.dto.ModifyDTO;
+import com.project.foodiefoodie.member.dto.NewModifyMemberDTO;
 import com.project.foodiefoodie.member.dto.find.FindEmailDTO;
 import com.project.foodiefoodie.member.dto.find.FindPwDTO;
 import com.project.foodiefoodie.member.dto.login.AutoLoginDTO;
@@ -63,5 +64,15 @@ public interface MemberMapper {
 
     // 비밀번호 가져오는 메서드 // 이걸로 비밀번호만 검증할것임 // 수정할때나 , 비밀번호 바꿀때
     String findPassword(String email);
+
+    // 새로운 맴버 수정
+    boolean newMemberModi(NewModifyMemberDTO newModifyMemberDTO);
+
+    // 맴버
+    // 이메일 넣으면 맴버 삭제시켜주는 메서드
+    boolean deleteMemberIntoProfile(String email);
+
+
+
 
 }

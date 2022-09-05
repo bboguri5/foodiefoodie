@@ -5,6 +5,7 @@ import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.AuthDTO;
 import com.project.foodiefoodie.member.dto.DeleteMemberDTO;
 import com.project.foodiefoodie.member.dto.DuplicateDTO;
+import com.project.foodiefoodie.member.dto.NewModifyMemberDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,8 +104,40 @@ class MemberMapperTest {
 
 
     @Test
-    @DisplayName("비밀번호 검증 후 회원 정보 수정이 이루어져야 한다.")
-    void modifyMemberTest() {
+    @DisplayName("이메일 값으로 사람 찾고 그 사람 정보 바꿈")
+    void newMemberModiTest(){ // 성공!
+        String email = "soslimso@nate.com";
+        Member member = mapper.findMember(email);
+        System.out.println("\n\n\n=================\n\n\n");
+        System.out.println(member);
+        System.out.println("\n\n\n=================\n\n\n");
+        NewModifyMemberDTO newModifyMemberDTO = new NewModifyMemberDTO();
+        newModifyMemberDTO.setPhoneNumber("010-5151-5151");
+        newModifyMemberDTO.setEmail("soslimso@nate.com");
+        newModifyMemberDTO.setNickName("도니수정");
+        newModifyMemberDTO.setAddress("수정된");
+        newModifyMemberDTO.setDetailAddress("디테일한");
+        newModifyMemberDTO.setExtraAddress("엑스트라 010");
+        System.out.println("\n\n\n=================\n\n\n");
+        boolean b = mapper.newMemberModi(newModifyMemberDTO);
+        Member member1 = mapper.findMember(email);
+        System.out.println(member1);
+        System.out.println("\n\n\n=================\n\n\n");
+        assertTrue(b);
 
     }
+
+
+    @Test
+    @DisplayName("이메일 넣으면 회원 삭제되어야 함 ")
+    void deleteIntoProfile(){ // 성공
+
+        String email = "bbb@nate.com";
+
+        boolean b = mapper.deleteMemberIntoProfile(email);
+
+        assertTrue(b);
+    }
+
+
 }

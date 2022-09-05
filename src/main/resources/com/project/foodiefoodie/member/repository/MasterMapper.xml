@@ -17,9 +17,16 @@
         <result property="storeCallNumber" column="store_call_number"/>
     </resultMap>
 
+
+    <update id="MasterHotDealOnOff">
+        UPDATE master
+        SET hot_deal = #{hotDeal}
+        WHERE business_no = #{businessNo}
+    </update>
+
+
     <insert id="requestAuthMaster">
         INSERT INTO master
-
             (business_no, email, master_name, store_name, store_address, store_detail_address,
             <if test="storeExtraAddress != null">
                 store_extra_address,
@@ -39,7 +46,6 @@
         WHERE business_no = #{businessNo}
     </select>
 
-
     <delete id="removeMaster">
         DELETE FROM master
         WHERE business_no = #{businessNo}
@@ -49,5 +55,66 @@
         SELECT * FROM master
         WHERE business_no = #{businessNo}
     </select>
+
+
+    <select id="callMaster" resultMap="masterMap">
+        SELECT
+        business_no, email, master_name, store_name, store_address, store_reg_date, hot_deal, store_call_number ,store_detail_address,store_extra_address
+        FROM master
+        WHERE email = #{email}
+    </select>
+
+    <select id="masterCount" resultType="int">
+        select count(*) from master
+        where email = #{email}
+    </select>
+
+
+    <resultMap id="masterModiMap" type="com.project.foodiefoodie.member.dto.MasterModifyDTO">
+        <result property="storeName" column="store_name"/>
+        <result property="storeAddress" column="store_address"/>
+        <result property="storeCallNumber" column="store_call_number"/>
+        <result property="storeDetailAddress" column="store_detail_address"/>
+        <result property="storeExtraAddress" column="store_extra_address"/>
+        <result property="businessNo" column="business_no"/>
+
+    </resultMap>
+
+    <update id="masterModi">
+        UPDATE master SET
+            business_no = #{businessNo}
+        <if test="storeName != null">
+            ,store_name = #{storeName}
+        </if>
+        <if test="storeAddress != null">
+            ,store_address=#{storeAddress}
+        </if>
+        <if test="storeCallNumber != null">
+            ,store_call_number = #{storeCallNumber}
+        </if>
+        <if test="storeExtraAddress != null">
+            ,store_extra_address=#{storeExtraAddress}
+        </if>
+        <if test="storeDetailAddress != null">
+            ,store_detail_address = #{storeDetailAddress}
+        </if>
+
+
+
+        WHERE business_no= #{businessNo}
+    </update>
+
+    <resultMap id="businessMap" type="com.project.foodiefoodie.member.dto.BusinessNoAndPromotionNoDTO">
+        <result property="businessNo" column="business_no"/>
+        <result property="promotionBno" column="promotion_bno"/>
+    </resultMap>
+
+    <select id="findPromotionBno" resultMap="businessMap">
+        SELECT business_no,promotion_bno
+        FROM promotion_board
+        WHERE business_no = #{businessNo}
+    </select>
+
+
 
 </mapper>

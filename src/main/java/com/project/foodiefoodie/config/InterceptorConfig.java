@@ -21,6 +21,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
     private final UnLoginInterceptor unLoginInterceptor;
 
     private final UnCheckedOrderInterceptor unCheckedOrderInterceptor;
+    private final MemberInterceptor memberInterceptor;
+
+    private final MasterInterceptor masterInterceptor;
+
 
     private final ReviewWriteInterceptor reviewWriteInterceptor;
 
@@ -47,6 +51,15 @@ public class InterceptorConfig implements WebMvcConfigurer {
         // 관리자 페이지 인터셉터 설정
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns("/admin/*");
+
+        registry.addInterceptor(memberInterceptor)
+                .addPathPatterns("/myPage");
+
+        // 아직 경로가 정해지지 않아서 일단 주석처리 합니다.
+        // registry.addInterceptor(masterInterceptor)
+//                 .addPathPatterns("/myPage/masterPage");
+
+
 
         // 리뷰 작성화면 인터셉터
         registry.addInterceptor(reviewWriteInterceptor)

@@ -3,6 +3,7 @@ package com.project.foodiefoodie.myPage.controller;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.myPage.dto.FavoriteAllInfoDTO;
 import com.project.foodiefoodie.myPage.dto.FavoriteFileDataDTO;
+import com.project.foodiefoodie.myPage.dto.FavoriteStoreInfoDTO;
 import com.project.foodiefoodie.myPage.dto.FavoriteStorePromotionBnoListDTO;
 import com.project.foodiefoodie.myPage.service.FavoriteListService;
 import com.project.foodiefoodie.util.LoginUtils;
@@ -36,6 +37,8 @@ public class FavoriteListController {
         List<FavoriteStorePromotionBnoListDTO> favoriteStorePromotionBnoListDTOS = favoriteListService.favoriteStorePromotionBnoList(email);
         int size = favoriteStorePromotionBnoListDTOS.size();
 
+
+
         // 결과적으로 이걸 모델에 담아줘야 한다
         ArrayList<FavoriteAllInfoDTO> favoriteAllInfoDTOS = new ArrayList<>();
 
@@ -58,21 +61,31 @@ public class FavoriteListController {
             favoriteAllInfoDTO.setFileData(fileData);
 
 
+            // 가게 정보 가지고있는 DTO
+            FavoriteStoreInfoDTO favoriteStoreInfoDTO = favoriteListService.favoriteStoreInfo(promotionBno);
+            // 가게이름 세팅
+            favoriteAllInfoDTO.setStoreName(favoriteStoreInfoDTO.getStoreName());
+            // 핫딜 유무
+            favoriteAllInfoDTO.setHotDeal(favoriteStoreInfoDTO.getHotDeal());
+            // 가게 번호
+            favoriteAllInfoDTO.setStoreCallNumber(favoriteStoreInfoDTO.getStoreCallNumber());
+            // 가게 주소
+            favoriteAllInfoDTO.setStoreAddress(favoriteStoreInfoDTO.getStoreAddress());
+            // 가게 디테일주소
+            favoriteAllInfoDTO.setStoreDetailAddress(favoriteStoreInfoDTO.getStoreDetailAddress());
+            // 가게 익스트라 주소
+            favoriteAllInfoDTO.setStoreExtraAddress(favoriteStoreInfoDTO.getStoreExtraAddress());
+            // 가게 평점
+            favoriteAllInfoDTO.setAvgStarRate(favoriteStoreInfoDTO.getAvgStarRate());
 
-
-
-
-
-
-
-
-
-
-
+            //  세팅한걸 리스트에 넣어준다
+            favoriteAllInfoDTOS.add(favoriteAllInfoDTO);
 
         }
 
-        return "/myPage/favoriteList";
+        model.addAttribute("favoriteAllInfo",favoriteAllInfoDTOS);
+
+        return "myPage/favoriteList";
     }
 
 }

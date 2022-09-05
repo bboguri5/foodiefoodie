@@ -99,8 +99,6 @@
             ,store_detail_address = #{storeDetailAddress}
         </if>
 
-
-
         WHERE business_no= #{businessNo}
     </update>
 

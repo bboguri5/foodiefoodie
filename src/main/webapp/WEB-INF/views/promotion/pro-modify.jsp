@@ -58,16 +58,15 @@
         header {
 
             position: absolute;
-
+            opacity: none;
         }
 
         .main-menu>ul>li>a {
             color: #000;
         }
 
-        ul#top_menu li a.login,
-        ul#top_menu li {
-            color: #000;
+        ul#top_menu li a {
+            color: #090909;
         }
 
         /* detail info */
@@ -724,7 +723,10 @@
         });
         addMenuItem();
 
-        // addMenuItem();
+
+        function clickEventCancel() {
+
+        }
 
 
         /* 휴무 요일 선택,제거,중복처리 */

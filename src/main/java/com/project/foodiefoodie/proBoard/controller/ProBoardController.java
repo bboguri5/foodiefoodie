@@ -42,6 +42,7 @@ public class ProBoardController {
         model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
         model.addAttribute("titleFile",proBoardService.selectFiles(promotionBno,"title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
+        model.addAttribute("isHotDeal", proBoardService.isHotDealService(proBoardService.selectProBoard(promotionBno).getBusinessNo()));
 
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         model.addAttribute("isFavorite",proBoardService.isFavoriteStore(member.getEmail(),promotionBno));

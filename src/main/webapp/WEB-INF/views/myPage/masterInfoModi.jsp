@@ -13,7 +13,7 @@
     <title>FOOGRA - Admin dashboard</title>
 
     <!-- Favicons-->
-    <link rel="shortcut icon" href="/mypage/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" type="image/x-icon" href="/mypage/img/apple-touch-icon-57x57-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
         href="/mypage/img/apple-touch-icon-72x72-precomposed.png">

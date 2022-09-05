@@ -54,7 +54,7 @@
                                     <span id="nameChk"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" type="text" id="name" placeholder="이름" name="name">
+                                    <input class="form-control" type="text" id="name" placeholder="이름" name="name" maxlength="4">
                                     <!-- <i class="icon_pencil"></i> -->
                                 </div>
                                 <div>

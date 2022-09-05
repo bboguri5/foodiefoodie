@@ -13,6 +13,15 @@
     </insert>
 
 
+<!--    MariaDB version-->
+<!--    <insert id="insertOrderList">-->
+<!--        INSERT INTO order_list-->
+<!--            (email, business_no)-->
+<!--        VALUES-->
+<!--            (#{email}, #{businessNo})-->
+<!--    </insert>-->
+
+
     <select id="findCurrentOrderNo" resultType="int">
         SELECT order_no
         FROM order_list

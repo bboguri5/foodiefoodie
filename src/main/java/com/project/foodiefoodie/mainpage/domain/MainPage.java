@@ -16,7 +16,7 @@ public class MainPage {
     private String hashTag;
     private double avgStarRate;
     private Long reviewCnt;
-    private char hotDeal;
+    private String hotDeal;
     private int discountPrice;
     private String isOpen;
 }

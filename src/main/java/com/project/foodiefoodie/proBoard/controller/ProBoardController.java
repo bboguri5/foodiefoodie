@@ -13,13 +13,11 @@ import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-import org.apache.catalina.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -39,7 +37,6 @@ public class ProBoardController {
                          HttpSession session) {
         log.info(" ProBoardController /detail/{} Get - ! ", promotionBno);
 
-        // proBoard - ProBoard + Master + StoreTimeDTO 상속 관계
         model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
         model.addAttribute("menuList", proBoardService.selectMenuInfo(promotionBno));
         model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
@@ -140,14 +137,6 @@ public class ProBoardController {
         return "";
     }
 
-    @PostMapping("/write/menu")
-    @ResponseBody
-    public String writeMenu(@RequestBody List<MenuDTO> menuDTOList)
-    {
-        log.info("   @PostMapping(\"/write/menu\") writeMenu {}",menuDTOList);
-        proBoardService.saveMenuInfo(menuDTOList);
-        return "";
-    }
 
     //    ---------------------------------------- modify ----------------------------------------
 

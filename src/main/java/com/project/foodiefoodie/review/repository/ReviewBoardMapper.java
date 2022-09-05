@@ -56,6 +56,6 @@ public interface ReviewBoardMapper {
 
     boolean deleteReviewFileList(Long reviewBno, String fileName);
 
-
+    boolean removeReview(Long reviewBno);
 
 }

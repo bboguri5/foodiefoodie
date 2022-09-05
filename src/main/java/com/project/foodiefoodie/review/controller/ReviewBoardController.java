@@ -5,12 +5,17 @@ import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
+import com.project.foodiefoodie.replyFaq.domain.ReplyFaq;
+import com.project.foodiefoodie.replyFaq.service.ReplyFaqService;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
+import com.project.foodiefoodie.reviewFaq.domain.ReviewFaq;
+import com.project.foodiefoodie.reviewFaq.service.ReviewFaqService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +36,9 @@ public class ReviewBoardController {
     private final ReviewBoardService reviewBoardService;
     private final ReplyService replyService;
     private final MasterService masterService;
+    private final ReviewFaqService reviewFaqService;
+    private final ReplyFaqService replyFaqService;
+
     @GetMapping("/review")
     public String review(String sort, Model model,  HttpSession session) {
         log.info("review started - list");
@@ -50,7 +58,7 @@ public class ReviewBoardController {
         List<Long> isLikedList = reviewBoardService.getLikedListService(email);
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
-        log.info("reviewUploads - {}", reviewUploads);
+//        log.info("reviewUploads - {}", reviewUploads);
 //        log.info("replyCount - {}", replyCount);
 //        log.info("reviewList - {}", reviewList);
         model.addAttribute("reviewList", reviewList);
@@ -97,6 +105,7 @@ public class ReviewBoardController {
         model.addAttribute("replyList", replyList);
         model.addAttribute("replyCount", replyService.findReplyCountService(reviewBno));
         model.addAttribute("isLiked", reviewBoardService.isLikedService(reviewBno, email));
+        log.info("replyList - {}", replyList);
         return "review/review-detail";
     }
 
@@ -199,6 +208,33 @@ public class ReviewBoardController {
         return "redirect:/review/detail?reviewBno=" + reviewBoard.getReviewBno();
     }
 
+    @PostMapping("/review/remove")
+    public String reviewRemove(Long reviewBno) {
+        log.info("/review/remove POST!!!!! - {}", reviewBno);
+
+        reviewBoardService.removeReviewService(reviewBno);
+
+        return "redirect:/review?sort=latest";
+    }
+
+    @PostMapping("/review/review-faq")
+    public String reviewFaq(ReviewFaq reviewFaq) {
+
+        log.info("/review/review-faq POST!!!! - {}", reviewFaq);
+
+        reviewFaqService.saveService(reviewFaq);
 
 
+        return "redirect:/review/detail?reviewBno=" + reviewFaq.getReviewBno();
+    }
+
+    @PostMapping("/review/reply-faq")
+    public String replyFaq(ReplyFaq replyFaq) {
+
+        log.info("/review/reply-faq POST!!!!! - {}", replyFaq);
+
+        replyFaqService.saveService(replyFaq);
+
+        return "redirect:/review?sort=latest";
+    }
 }

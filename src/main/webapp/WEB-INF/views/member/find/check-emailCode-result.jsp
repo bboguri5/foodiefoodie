@@ -16,6 +16,10 @@
             margin-top: 70px;
         }
 
+        .left {
+            float: left;
+        }
+
     </style>
 
 </head>
@@ -28,7 +32,7 @@
 
         <div class="container margin_60_40">
             <div class="row justify-content-center">
-                <div class="col-lg-7">
+                <div class="col-lg-6">
                     <c:if test="${flag != false}">
                         <div class="box_booking_2">
                             <div class="head">
@@ -47,12 +51,12 @@
                                             <input type="hidden" name="email" value="${loginUser.email}">
                                         </c:if>
                                         <div class="form-group">
-                                            <label>변경할 비밀번호를 입력하세요.</label>
+                                            <label class="left">변경할 비밀번호를 입력하세요.</label>
                                             <span id="pwChk"></span>
                                             <input class="form-control" id="password_sign" type="password" name="newPw">
                                         </div>
                                         <div class="form-group">
-                                            <label>변경할 비밀번호를 다시 한번 입력하세요.</label>
+                                            <label class="left">변경할 비밀번호를 다시 한번 입력하세요.</label>
                                             <span id="rePwChk"></span>
                                             <input class="form-control" id="recheck-pw" type="password">
                                         </div>

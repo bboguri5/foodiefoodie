@@ -40,6 +40,7 @@ public class MainPageService {
     // 월정액 가게 랜덤으로 메인 페이지에 7개 요청 중간 처리
     public List<MainPage> findRandPremiumService() {
         List<MainPage> randPremium = mapper.findRandPremium();
+//        log.info("randPremium - {}", randPremium);
         isOpenService(randPremium);
         return randPremium;
     }

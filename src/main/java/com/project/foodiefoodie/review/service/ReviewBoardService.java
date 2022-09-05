@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.review.service;
 
+import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+
 import java.util.*;
 
 @Service
@@ -47,7 +49,7 @@ public class ReviewBoardService {
 
             // 리뷰, 이미지 저장이 잘 되었으면 가게 평점 & 리뷰 개수 업데이트 해주기
             String businessNo = reviewBoard.getBusinessNo();
-//            log.info("save businessNo - {}", businessNo);
+            log.info("save businessNo - {}", businessNo);
             if (!Objects.equals(businessNo, "")) {
 //                log.info("!!!!!!!!!!!");
                 double avgStarRate = rbMapper.getStarRate(businessNo);
@@ -279,13 +281,13 @@ public class ReviewBoardService {
                 String fileFullPath = "";
 
                 // 리스트에 이미지 이름만 저장
-                List<String> imgNameList = new ArrayList<>();
+                List<String> imgNameList = new ArrayList<>(); // 요청 리스트
                 for (MultipartFile file : reviewImg) {
                     imgNameList.add(file.getOriginalFilename());
                 }
 //                log.info("imgName - {}", imgName);
 
-                List<String> fileNameList = new ArrayList<>();
+                List<String> fileNameList = new ArrayList<>(); // 로컬 리스트
                 for (File file : folder_list) {
                     fileNameList.add(file.getName());
                 }
@@ -293,7 +295,7 @@ public class ReviewBoardService {
                 // 수정시 삭제 되어야 하는것
                 for (File file : folder_list) {
                     String fileName = file.getName();
-                    if (!imgNameList.contains(fileName)) {
+                    if (!imgNameList.contains(fileName)) {  // 요청 리스트안에 로컬파일이 없는 경우 345 123 -> 345  123은 로컬에는 있지만 삭제되어야 하는 파일
                         file.delete();
                         rbMapper.deleteReviewFileList(reviewBno, fileName);
                     }
@@ -345,10 +347,23 @@ public class ReviewBoardService {
         }
     }
 
-
-
     public List<Long> getLikedListService(String email) {
 //        log.info("liked list - {}", rbMapper.getLikedList(email));
         return rbMapper.getLikedList(email);
     }
+
+    // 서버에 있는 이미지 폴더 삭제 후 db 데이터 삭제 진행
+    public boolean removeReviewService(Long reviewBno) {
+        boolean flag = rbMapper.removeReview(reviewBno);
+
+        if (flag) {
+            deleteFile(reviewBno);
+        }
+
+        return flag;
+    }
+
+
+
+
 }

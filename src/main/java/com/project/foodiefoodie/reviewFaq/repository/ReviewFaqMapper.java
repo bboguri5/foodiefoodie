@@ -14,4 +14,8 @@ public interface ReviewFaqMapper {
     boolean update(long reFaqNo, String complete);
 
     List<ReviewFaqDTO> findAllAndTitle(String complete);
+
+    boolean save(ReviewFaq reviewFaq);
+
+
 }

@@ -51,6 +51,11 @@
         , private, store_name, store_address, store_detail_address, store_extra_address)
         VALUES (#{email}, #{title}, #{content}, seq_review_board.nextval, #{businessNo}, #{starRate}
         , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress})
+
+        <!--INSERT INTO review_board (email, title, content, business_no, star_rate
+        , private, store_name, store_address, store_detail_address, store_extra_address)
+        VALUES (#{email}, #{title}, #{content}, #{businessNo}, #{starRate}
+        , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress})-->
     </insert>
 
     <!--  해당 가게 평균 평점 구하기  -->
@@ -68,7 +73,7 @@
     </select>
 
     <select id="findAllReviews" resultMap="rbDTOMap">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
+        SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
         , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address
         FROM review_board rb
         WHERE private = 'F'
@@ -77,26 +82,36 @@
     </select>
 
     <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
+        SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
         , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address
         FROM review_board rb
         WHERE rb.review_bno = #{reviewBno}
     </select>
 
     <select id="searchAllReview" resultMap="rbDTOMap">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt, m.business_no,
-        m.store_name, m.store_address
-        FROM review_board rb
-        JOIN master m
-        ON rb.business_no = m.business_no
+        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
+        store_name, store_address
+        FROM review_board
         WHERE private = 'F'
-        AND rb.email LIKE '%' || #{search}|| '%'
-        OR rb.title LIKE '%' || #{search}|| '%'
-        OR rb.content LIKE '%' || #{search}|| '%'
-        OR m.store_name LIKE '%' || #{search}|| '%'
-        OR m.store_address LIKE '%' || #{search}|| '%'
-        <if test="sort == 'latest'">ORDER BY rb.last_updated DESC</if>
-        <if test="sort == 'like'">ORDER BY rb.like_cnt DESC</if>
+        AND email LIKE '%' || #{search}|| '%'
+        OR title LIKE '%' || #{search}|| '%'
+        OR content LIKE '%' || #{search}|| '%'
+        OR store_name LIKE '%' || #{search}|| '%'
+        OR store_address LIKE '%' || #{search}|| '%'
+        <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
+        <if test="sort == 'like'">ORDER BY like_cnt DESC</if>
+
+        <!--SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
+        store_name, store_address
+        FROM review_board
+        WHERE private = 'F'
+        AND email LIKE CONCAT('%', #{search}, '%')
+        OR title LIKE CONCAT('%', #{search}, '%')
+        OR content LIKE CONCAT('%', #{search}, '%')
+        OR store_name LIKE CONCAT('%', #{search}, '%')
+        OR store_address LIKE CONCAT('%', #{search}, '%')
+        <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
+        <if test="sort == 'like'">ORDER BY like_cnt DESC</if>-->
     </select>
 
     <insert id="reviewUpload">
@@ -168,6 +183,11 @@
         delete from review_upload
         where review_bno = #{reviewBno}
         and file_name = #{fileName}
+    </delete>
+
+    <delete id="removeReview">
+        delete from review_board
+        where review_bno = #{reviewBno}
     </delete>
 
 </mapper>

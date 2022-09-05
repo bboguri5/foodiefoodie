@@ -1088,7 +1088,7 @@
 
         }
 
-        const businessNo = '${master.businessNo}';
+        const businessNo = '${proBoard.businessNo}';
 
         const obj = {
             businessNo: businessNo,

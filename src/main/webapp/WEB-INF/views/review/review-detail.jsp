@@ -502,7 +502,7 @@
                         `           <div class="comment_info">작성 : <a href="#">` + rep.nickName + `</a><span>|</span>` +
                         new Date(rep.lastUpdated).toLocaleString();
 
-                    if (loginEmail === rep.email || `${loginUser.auth == 'ADMIN'}`) {
+                    if (loginEmail === rep.email || "${loginUser.auth}" == 'ADMIN') {
                         tag +=
                             `<span>|</span><a id='replyModBtn' class='btn btn-sm btn-outline-secondary' data-bs-toggle='modal' data-bs-target='#replyModifyModal'>수정</a>` +
                             `<span>|</span><a id='replyDelBtn' class='btn btn-sm btn-outline-secondary' href='#'>삭제</a>`

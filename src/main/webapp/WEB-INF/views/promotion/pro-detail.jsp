@@ -13,7 +13,7 @@
     <title>Foogra - Discover & Book the best restaurants at the best price</title>
 
     <!-- jquery -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
+    <!-- <script src="/js/jquery-3.3.1.min.js"></script> -->
 
     <!-- GOOGLE WEB FONT -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -27,32 +27,23 @@
     <!-- SPECIFIC CSS -->
     <link href="/css/detail-page.css" rel="stylesheet">
 
-    <link href="/css/detail-page-delivery.css" rel="stylesheet">
-
     <!-- notice -->
     <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css/admin.css" rel="stylesheet">
 
 
-    <!-- jquery -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <!-- bootstrap css -->
 
-    <style id="theia-sticky-sidebar-stylesheet-TSS">
-        .theiaStickySidebar:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    </style>
+    
+
+
+<%@ include file="../include/static-head.jsp" %>
     <!-- kakao map -->
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
     </script>
-
-
 </head>
 
 <style>
@@ -226,6 +217,7 @@
 </style>
 
 <body>
+
     <%@ include file="../include/header.jsp" %>
 
 
@@ -575,12 +567,14 @@
                                         <div class="add_bottom_25"></div>
                                         <!-- 공지사항  -->
                                         <h2>공지사항</h2>
+                                        <c:if test="${noticeFlag}">
                                         <div class="add_bottom_25 openWriteBox">
                                             <p class="inline-popups noticeWrite">
                                                 <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
                                                     <i class="fa fa-fw fa-reply"></i>글쓰기</a>
                                             </p>
                                         </div>
+                                    </c:if>
                                         <div class="list_general notices">
                                             <ul>
                                                 <!-- makeNoticeDom method -->
@@ -620,7 +614,7 @@
 
     <!-- COMMON SCRIPTS -->
     <script src="/js/common_scripts.min.js"></script>
-    <script src="/js/common_func.js"></script>
+    <!-- <script src="/js/common_func.js"></script> -->
     <script src="/js/validate.js"></script>
 
     <!-- SPECIFIC SCRIPTS -->
@@ -635,8 +629,6 @@
 </body>
 
 <script>
-   
-
 
     showKaKao(); // information map  
 

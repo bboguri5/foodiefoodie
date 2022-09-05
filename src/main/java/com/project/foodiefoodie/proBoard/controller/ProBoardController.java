@@ -37,12 +37,17 @@ public class ProBoardController {
                          HttpSession session) {
         log.info(" ProBoardController /detail/{} Get - ! ", promotionBno);
 
-        model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
+
+        ProBoard proBoard = proBoardService.selectProBoard(promotionBno);
+        model.addAttribute("proBoard",proBoard);
         model.addAttribute("menuList", proBoardService.selectMenuInfo(promotionBno));
         model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
         model.addAttribute("titleFile",proBoardService.selectFiles(promotionBno,"title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
         model.addAttribute("isHotDeal", proBoardService.isHotDealService(proBoardService.selectProBoard(promotionBno).getBusinessNo()));
+
+
+
 
         // 로그인 하면 즐겨찾기 표시 , 로그인 안하면 즐겨찾기 표시 X
         String loginFlag = LoginUtils.LOGIN_FLAG;
@@ -50,6 +55,7 @@ public class ProBoardController {
 
         if(member != null)
         {
+            model.addAttribute("noticeFlag",proBoard.getEmail().equals(member.getEmail()));
             model.addAttribute("isFavorite",proBoardService.isFavoriteStore(member.getEmail(),promotionBno));
             model.addAttribute("flag",true);
         }

@@ -79,7 +79,10 @@ public class ReviewFaqController {
                 rms.modifyService(reportMember);
 
                 if (newReportCnt == 5) {
+                    // 블랙리스트에 등록
                     bls.saveService(reviewFaq.getReviewWriterEmail());
+                    // 해당 계정 탈퇴
+                    ms.removeService(reviewFaq.getReviewWriterEmail());
                 }
 
             }

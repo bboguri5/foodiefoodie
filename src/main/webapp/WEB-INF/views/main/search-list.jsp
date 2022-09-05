@@ -82,9 +82,9 @@
                         <div class="strip">
                             <figure>
                                 <c:if test="${sl.hotDeal.toLowerCase() == 'on'}">
-                                    <span class="ribbon off">${sl.discountPrice}%</span>
+                                    <span class="ribbon off">-${sl.discountPrice}%</span>
                                 </c:if>
-                                <img src="" data-src="" class="img-fluid lazy" alt="">
+                                <img class="img-fluid lazy index-img-css" src="${sl.fileData}" alt="">
                                 <a href="/proBoard/detail/${sl.promotionBno}" class="strip_info">
                                     <small>${sl.isOpen}</small>
                                     <!-- <c:if test="${sl.hotDeal.toLowerCase() == 'on'}">

@@ -19,4 +19,5 @@ public class MainPage {
     private String hotDeal;
     private int discountPrice;
     private String isOpen;
+    private String fileData;
 }

@@ -47,10 +47,10 @@
                         <div class="strip">
                             <figure>
                                 <c:if test="${pl.hotDeal.toLowerCase() == 'on'}">
-									<span class="ribbon off">${pl.discountPrice}%</span>
+									<span class="ribbon off">-${pl.discountPrice}%</span>
 								</c:if>
-                                <img src="" data-src="" class="img-fluid lazy"
-                                    alt="">
+                                <img class="img-fluid lazy index-img-css" src="${pl.fileData}" alt="">
+
                                 <a href="/proBoard/detail/${pl.promotionBno}" class="strip_info">
                                     <small>${pl.isOpen}</small>
                                     <!-- <c:if test="${pl.hotDeal.toLowerCase() == 'on'}">

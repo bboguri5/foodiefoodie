@@ -6,9 +6,9 @@
 
 <head>
 
-	<%@ include file="../include/static-head.jsp" %>
+    <%@ include file="../include/static-head.jsp" %>
 
-    
+
 
 </head>
 
@@ -17,7 +17,7 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <main>
-        
+
         <%@ include file="../include/page-header.jsp" %>
 
         <div class="container margin_30_40">
@@ -29,11 +29,11 @@
                     <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                         <div class="strip">
                             <figure>
-                                <span class="ribbon off">${hd.discountPrice}%</span>
-                                <img src="" data-src="" class="img-fluid lazy"
-                                    alt="">
-                                    <a href="/proBoard/detail/${hd.promotionBnos}" class="strip_info">
-                                        <small>${hd.isOpen}</small>
+                                <span class="ribbon off">-${hd.discountPrice}%</span>
+                                <img class="img-fluid lazy index-img-css" src="${hd.fileData}" alt="">
+
+                                <a href="/proBoard/detail/${hd.promotionBnos}" class="strip_info">
+                                    <small>${hd.isOpen}</small>
                                     <div class="item_title">
                                         <h3>${hd.storeName}</h3>
                                         <small># : ${hd.hashTag}</small>
@@ -43,7 +43,8 @@
                             <ul>
                                 <li><span>${hd.storeAddress}</span></li>
                                 <li>
-                                    <div class="score"><span>핫딜!!<em>${hd.reviewCnt}개 리뷰</em></span><strong>${hd.avgStarRate}</strong></div>
+                                    <div class="score"><span>핫딜!!<em>${hd.reviewCnt}개
+                                                리뷰</em></span><strong>${hd.avgStarRate}</strong></div>
                                 </li>
                             </ul>
                         </div>
@@ -86,7 +87,7 @@
     </main>
     <!-- /main -->
 
-	<%@ include file="../include/footer.jsp" %>
+    <%@ include file="../include/footer.jsp" %>
 
 </body>
 

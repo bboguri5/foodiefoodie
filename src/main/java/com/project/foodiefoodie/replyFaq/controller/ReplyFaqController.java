@@ -82,8 +82,11 @@ public class ReplyFaqController {
                 }
             }
 
-            // 댓글 삭제
-            rs.removeService(replyFaq.getReplyNo());
+            if (rs.findOneService(replyFaq.getReplyNo()) != null) {
+                // 댓글 삭제
+                rs.removeService(replyFaq.getReplyNo());
+            }
+
         }
 
         return "redirect:/admin/replyFaq";

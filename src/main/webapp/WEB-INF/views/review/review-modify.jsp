@@ -350,14 +350,9 @@
                 <p class="save-buttons"><button type="button" class="btn_1 medium save">저장</button> <a href="/"
                         class="btn_1 medium gray">취소</a>
                 </p>
-
-                <input type="file">
         </form>
     </div>
-
-    </div>
-
-
+    <%@ include file="../include/footer.jsp" %>
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>
     <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

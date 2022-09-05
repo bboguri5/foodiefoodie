@@ -345,9 +345,10 @@
                         class="btn_1 medium gray">취소</a>
                 </p>
         </form>
+        
     </div>
-
-    </div>
+    <%@ include file="../include/footer.jsp" %>
+    
 
 
     <!-- Bootstrap core JavaScript-->
@@ -610,7 +611,7 @@
                     addrInput.style.borderColor = 'yellowgreen';
                 }
             }
-            
+
             // 내용 \n -> <br>으로 치환
             const content = $contentTag.val().replace(/\n/gi, "<br>");
             $contentTag.val(content);

@@ -107,12 +107,13 @@
         }
 
         .star input {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            opacity: 0;
-            cursor: pointer;
+            z-index: 1000;
+            width: 100% !important;
+            height: 100% !important;
+            position: absolute !important;
+            left: 0 !important;
+            opacity: 0 !important;
+            cursor: pointer !important;
         }
 
         .star span {
@@ -210,6 +211,16 @@
             width: 150px;
             height: 150px;
         }
+
+        .rangeslider {
+            background: #e6e6e6;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+
     </style>
 
 

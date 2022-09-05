@@ -212,7 +212,7 @@ public class ReviewBoardService {
 
     public boolean modifyReview(ReviewBoard reviewBoard, List<MultipartFile> reviewImg) {
 
-
+        log.info("modifyReview - {}", reviewBoard);
         boolean flag = modifyReviewFile(reviewImg, reviewBoard, reviewBoard.getReviewBno());
 
 
@@ -268,82 +268,87 @@ public class ReviewBoardService {
             같다면 처리 x / 서버에는 있지만 reviewImg 리스트에는 없다면 삭제 / reviewImg 리스트에는 있지만 서버에는 없다면 추가
          */
 
+        boolean flag = rbMapper.modifyReview(reviewBoard);
 
-        String originReviewImgPath = "C:\\foodiefoodie\\reviewBoard\\" + reviewBno;
-        File folder = new File(originReviewImgPath);
-        try {
-            if (folder.exists()) { // 해당 폴더가 존재 유무 확인
-                File[] folder_list = folder.listFiles(); //파일리스트 얻어오기
+        if (flag) {
+            String originReviewImgPath = "C:\\foodiefoodie\\reviewBoard\\" + reviewBno;
+            File folder = new File(originReviewImgPath);
+            try {
+                if (folder.exists()) { // 해당 폴더가 존재 유무 확인
+                    File[] folder_list = folder.listFiles(); //파일리스트 얻어오기
 
-                String newUploadPath = "";
-                String newFileName = "";
-                String fileFullPath = "";
+                    String newUploadPath = "";
+                    String newFileName = "";
+                    String fileFullPath = "";
 
-                // 리스트에 이미지 이름만 저장
-                List<String> imgNameList = new ArrayList<>(); // 요청 리스트
-                for (MultipartFile file : reviewImg) {
-                    imgNameList.add(file.getOriginalFilename());
-                }
+                    // 리스트에 이미지 이름만 저장
+                    List<String> imgNameList = new ArrayList<>(); // 요청 리스트
+                    for (MultipartFile file : reviewImg) {
+                        imgNameList.add(file.getOriginalFilename());
+                    }
 //                log.info("imgName - {}", imgName);
 
-                List<String> fileNameList = new ArrayList<>(); // 로컬 리스트
-                for (File file : folder_list) {
-                    fileNameList.add(file.getName());
-                }
-
-                // 수정시 삭제 되어야 하는것
-                for (File file : folder_list) {
-                    String fileName = file.getName();
-                    if (!imgNameList.contains(fileName)) {  // 요청 리스트안에 로컬파일이 없는 경우 345 123 -> 345  123은 로컬에는 있지만 삭제되어야 하는 파일
-                        file.delete();
-                        rbMapper.deleteReviewFileList(reviewBno, fileName);
+                    List<String> fileNameList = new ArrayList<>(); // 로컬 리스트
+                    for (File file : folder_list) {
+                        fileNameList.add(file.getName());
                     }
 
-                }
+                    // 수정시 삭제 되어야 하는것
+                    for (File file : folder_list) {
+                        String fileName = file.getName();
+                        if (!imgNameList.contains(fileName)) {  // 요청 리스트안에 로컬파일이 없는 경우 345 123 -> 345  123은 로컬에는 있지만 삭제되어야 하는 파일
+                            file.delete();
+                            rbMapper.deleteReviewFileList(reviewBno, fileName);
+                        }
 
-                // 수정시 등록되어야 하는것
-                for (MultipartFile files : reviewImg) {
-                    String originalFilename = files.getOriginalFilename();
-                    if (!fileNameList.contains(originalFilename)) {
-                        newUploadPath = getReviewNewUploadPath(reviewBno);
-                        newFileName = files.getOriginalFilename();
-                        fileFullPath = newUploadPath + File.separator + newFileName;
+                    }
 
-                        File f = new File(newUploadPath, newFileName); // 파일 객체 생성
+                    // 수정시 등록되어야 하는것
+                    for (MultipartFile files : reviewImg) {
+                        String originalFilename = files.getOriginalFilename();
+                        if (!fileNameList.contains(originalFilename)) {
+                            newUploadPath = getReviewNewUploadPath(reviewBno);
+                            newFileName = files.getOriginalFilename();
+                            fileFullPath = newUploadPath + File.separator + newFileName;
 
-                        try {
-                            ReviewFileDTO reviewFileDTO = new ReviewFileDTO();
-                            reviewFileDTO.setFilePath(fileFullPath);
-                            reviewFileDTO.setFileName(newFileName);
-                            reviewFileDTO.setReviewBno(reviewBno);
-                            reviewFileDTO.setFileSize(files.getSize());
+                            File f = new File(newUploadPath, newFileName); // 파일 객체 생성
 
-                            files.transferTo(f);
+                            try {
+                                ReviewFileDTO reviewFileDTO = new ReviewFileDTO();
+                                reviewFileDTO.setFilePath(fileFullPath);
+                                reviewFileDTO.setFileName(newFileName);
+                                reviewFileDTO.setReviewBno(reviewBno);
+                                reviewFileDTO.setFileSize(files.getSize());
 
-                            String fileContent = FoodieFileUtils.getFileContent(fileFullPath);
-                            byte[] filebyte = FoodieFileUtils.getImgByte(fileFullPath);
-                            reviewFileDTO.setFileByte(fileContent);
-                            String contentType = files.getContentType();
+                                files.transferTo(f);
 
-                            reviewFileDTO.setFileType(files.getContentType());
+                                String fileContent = FoodieFileUtils.getFileContent(fileFullPath);
+                                byte[] filebyte = FoodieFileUtils.getImgByte(fileFullPath);
+                                reviewFileDTO.setFileByte(fileContent);
+                                String contentType = files.getContentType();
 
-                            String fileData = "data:" + files.getContentType() + ";base64," + fileContent;
-                            reviewFileDTO.setFileData(fileData);
+                                reviewFileDTO.setFileType(files.getContentType());
 
-                            saveReviewImagePath(reviewFileDTO); // 서버 이미지 경로 DB 저장
+                                String fileData = "data:" + files.getContentType() + ";base64," + fileContent;
+                                reviewFileDTO.setFileData(fileData);
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                                saveReviewImagePath(reviewFileDTO); // 서버 이미지 경로 DB 저장
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
+                    return true;
                 }
-                return true;
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
             }
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+
         }
+        return false;
     }
 
     public List<Long> getLikedListService(String email) {

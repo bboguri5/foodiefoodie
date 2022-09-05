@@ -280,13 +280,13 @@ public class MemberController {
         Member member = memberService.findMember(loginUser.getEmail());
         model.addAttribute("member", member);
         log.info("myPage-profile");
-        return "/myPage/myPage-profile";
+        return "myPage/myPage-profile";
     }
 
     @GetMapping("/myPage/modify")
     public String myPageModify() {
         log.info("myPage-modify");
-        return "/myPage/myPage-modify";
+        return "myPage/myPage-modify";
     }
 
     @PostMapping("/myPage/modify")

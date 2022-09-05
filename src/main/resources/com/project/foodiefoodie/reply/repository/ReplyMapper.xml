@@ -61,7 +61,7 @@
 
     <insert id="save">
         INSERT INTO reply
-        VALUES (#{reviewBno}, #{email}, #{content}, #{nickName}, SYSDATE)
+        VALUES (#{reviewBno}, seq_reply.nextval, #{email}, #{zcontent}, #{nickName}, SYSDATE)
 
         <!--INSERT INTO reply (review_bno, email, content, nickName, last_updated)
         VALUES (#{reviewBno}, #{email}, #{content}, #{nickName}, current_timestamp)-->

@@ -117,20 +117,26 @@
             overflow: hidden;
             pointer-events: none;
         }
+
         .review-modal-content {
             position: absolute;
             top: 100px;
         }
+
         .modal-review-faq-content {
             height: 200px;
         }
-        
+
         .singlepost figure {
             margin-top: 30px !important;
         }
 
         .img-css {
             margin-top: 30px !important;
+        }
+
+        .reply-modal-content {
+            margin-top: 10px;
         }
     </style>
 
@@ -165,12 +171,18 @@
                 <div class="col-lg-9">
                     <div class="singlepost">
                         <h1 style="display: inline;">${review.title}</h1>
-                        <a style="margin-left: 550px;" href="/review/modify/${review.reviewBno}">수정</a>
-                        <span style="margin-left: 10px">|</span>
-                        <a href="#" class="review-del-btn" style="margin-left: 10px;">삭제</a>
-                        <span style="margin-left: 10px">|</span>
-                        <a href="#" class="review-faq-btn" style="margin-left: 10px;" data-bs-toggle='modal'
-                            data-bs-target='.review-faq-modal'>신고</a>
+                        <div class="side-nav" style="float: right;">
+                            <c:if test="${loginUser.email == review.email || loginUser.auth == 'ADMIN'}">
+                                <a class="nav-modifyBtn" style="margin-left: 550px;"
+                                    href="/review/modify/${review.reviewBno}">수정</a>
+                                <span style="margin-left: 10px">|</span>
+                                <a href="#" class="review-del-btn nav-removeBtn" style="margin-left: 10px;">삭제</a>
+                                <span style="margin-left: 10px">|</span>
+                            </c:if>
+                            <a href="#" class="review-faq-btn nav-faq-btn" style="margin-left: 10px;"
+                                data-bs-toggle='modal' data-bs-target='.review-faq-modal'>신고</a>
+                        </div>
+
                         <form method="post" action="/review/remove" class="review-del-form">
                             <input type="hidden" value="${review.reviewBno}" name="reviewBno">
                         </form>
@@ -201,7 +213,7 @@
                                 <input type="hidden" oninput="drawStar(this)" value="1" step="1" min="0" max="10"
                                     name="starRate">
                             </span>
-                            <p>식당 이름: <a href="#">${review.storeName}</a></p>
+                            <p>식당 이름: <a href="/proBoard/detail/${review.businessNo}">${review.storeName}</a></p>
                             <span>식당 주소: ${review.storeAddress} --> </span>
                             <a class="openKaKaoMap" target="_blank">주소 지도로 보기</a>
                         </div>
@@ -242,7 +254,7 @@
                     <a name="section-comment"></a>
                     <div id="comments">
                         <h5>댓글</h5>
-                        <ul id="replyData"></ul>
+                        <ul id="replyData" class="reply-wrap"></ul>
 
                     </div>
 
@@ -329,26 +341,66 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>리뷰 제목</label>
-                                <input type="text" class="form-control modal-report-no" value="${review.title}" disabled>
-                                <input type="hidden" class="modal-review-bno" name="reviewBno" value="${review.reviewBno}" readonly>
+                                <input type="text" class="form-control modal-report-no" value="${review.title}"
+                                    disabled>
+                                <input type="hidden" class="modal-review-bno" name="reviewBno"
+                                    value="${review.reviewBno}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>리뷰 작성자</label>
-                                <input type="text" class="form-control modal-review-writer-email" name="reviewWriterEmail" value="${review.email}" readonly>
+                                <input type="text" class="form-control modal-review-writer-email"
+                                    name="reviewWriterEmail" value="${review.email}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>신고 작성자</label>
-                                <input type="text" class="form-control modal-writer-email" name="writerEmail" value="${loginUser.email}" readonly>
+                                <input type="text" class="form-control modal-writer-email" name="writerEmail"
+                                    value="${loginUser.email}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>신고 사유</label>
                                 <textarea type="text" class="form-control modal-review-faq-content"
-                                name="content"></textarea>
+                                    name="content"></textarea>
                             </div>
-                             <!-- /Row -->
+                            <!-- /Row -->
                         </div>
                         <div class="modal-footer btn-wrap">
                             <button class="btn btn-primary del-btn modal-faq-btn" type="button">신고</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- 댓글 신고 모달 -->
+        <form action="/review/reply-faq" method="post" class="modal-form reply-faq-form">
+            <div id="replyFaqModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content reply-modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="edit_bookingLabel">신고글 정보</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>댓글 작성자</label>
+                                <input type="text" class="form-control modal-reply-report-no" name="replyWriterEmail"
+                                    readonly>
+                                <input type="hidden" class="modal-reply-bno" name="replyNo" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>신고 작성자</label>
+                                <input type="text" class="form-control modal-reply-writer-email" name="writerEmail"
+                                    value="${loginUser.email}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>신고 사유</label>
+                                <textarea type="text" class="form-control modal-reply-faq-content"
+                                    name="content"></textarea>
+                            </div>
+                            <!-- /Row -->
+                        </div>
+                        <div class="modal-footer btn-wrap">
+                            <button class="btn btn-primary del-btn reply-faq-modal-btn" type="button">신고</button>
                         </div>
                     </div>
                 </div>
@@ -368,6 +420,9 @@
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	5360d35d1bee01640aec82cf5cd7e275&libraries=services,clusterer,drawing">
     </script>
+
+
+
 
     <script>
         function clickEventOpenKakao() {
@@ -447,12 +502,18 @@
                         `           <div class="comment_info">작성 : <a href="#">` + rep.nickName + `</a><span>|</span>` +
                         new Date(rep.lastUpdated).toLocaleString();
 
-                    if (loginEmail === rep.email) {
+                    if (loginEmail === rep.email || `${loginUser.auth == 'ADMIN'}`) {
                         tag +=
                             `<span>|</span><a id='replyModBtn' class='btn btn-sm btn-outline-secondary' data-bs-toggle='modal' data-bs-target='#replyModifyModal'>수정</a>` +
-                            `<span>|</span><a id='replyDelBtn' class='btn btn-sm btn-outline-secondary' href='#'>삭제</a>`;
+                            `<span>|</span><a id='replyDelBtn' class='btn btn-sm btn-outline-secondary' href='#'>삭제</a>`
+                            ;
                     }
-
+                    if(loginEmail != null) {
+                        tag +=
+                        `<span>|</span><a id='replyFaqBtn' class='btn btn-sm btn-outline-secondary' data-bs-toggle='modal' data-bs-target='#replyFaqModal'
+                                            data-replyWriterEmail=` + rep.email + ` data-replyNo=` + rep.replyNo +
+                            `>신고</a>`;
+                    }
                     tag +=
                         `           </div>` +
                         `           <p>` + rep.content + `</p>` +
@@ -736,37 +797,55 @@
         }
     </script>
 
+    <!-- 별점 -->
     <script>
         const starRate = document.querySelector('.star span');
         starRate.style.width = (`${review.starRate}` * 10) + '%';
     </script>
 
-    <script>
-        const reviewDelBtn = document.querySelector('.review-del-btn');
-        const reviewDelForm = document.querySelector('.review-del-form');
-        reviewDelBtn.onclick = e => {
-            reviewDelForm.submit();
-        }
-    </script>
-
-
-    <!-- 댓글 신고 모달 form -->
+    <!-- 신고 버튼 -->
     <script>
         const reviewFaqBtn = document.querySelector('.modal-faq-btn');
 
         reviewFaqBtn.onclick = e => {
             const faqContent = document.querySelector('.modal-review-faq-content');
             const reviewFaqForm = document.querySelector('.review-faq-form');
-            if(faqContent.value.trim() === '') {
+            if (faqContent.value.trim() === '') {
                 alert("사유는 필수값입니다.");
             } else {
                 reviewFaqForm.submit();
             }
         }
-
-
+        // 삭제 버튼
+        const $sideNav = document.querySelector('.side-nav');
+        $sideNav.onclick = e => {
+            if (e.target.classList.contains('nav-removeBtn')) {
+                reviewDelForm.submit();
+            }
+        }
     </script>
 
+    <!-- 댓글 신고 -->
+    <script>
+        const $replyWrap = document.querySelector('.reply-wrap');
+        console.log($replyWrap);
+        $replyWrap.addEventListener('click', e => {
+            console.log(e.target);
+            // console.log(document.querySelector('.modal-reply-report-no'));
+            // console.log(document.querySelector('.modal-reply-bno'));
+            // console.log(e.target.dataset.replywriteremail);
+            // console.log(e.target.dataset.replyno);
+            document.querySelector('.modal-reply-report-no').value = e.target.dataset.replywriteremail;
+            document.querySelector('.modal-reply-bno').value = e.target.dataset.replyno;
+        });
+
+        const $replyFaqModalBtn = document.querySelector('.reply-faq-modal-btn');
+        const $replyFaqForm = document.querySelector('.reply-faq-form');
+        $replyFaqModalBtn.onclick = e => {
+
+            $replyFaqForm.submit();
+        }
+    </script>
 
 
 </body>

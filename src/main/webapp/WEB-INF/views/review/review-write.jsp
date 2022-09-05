@@ -78,27 +78,34 @@
         .content-wrapper {
             margin-left: 0%;
         }
+
         .content-wrapper label {
             font-weight: 700;
         }
+
         .mg-wrap {
             margin-left: 2%;
             margin-right: 2%;
         }
+
         body.fixed-nav {
             padding-top: 0;
         }
+
         .container-fluid {
             margin-bottom: 100px;
         }
+
         .save-buttons {
             padding-left: 40%;
         }
+
         .star {
             position: relative;
             font-size: 2rem;
             color: #ddd;
         }
+
         .star input {
             width: 100%;
             height: 100%;
@@ -107,6 +114,7 @@
             opacity: 0;
             cursor: pointer;
         }
+
         .star span {
             width: 0;
             position: absolute;
@@ -115,26 +123,32 @@
             overflow: hidden;
             pointer-events: none;
         }
+
         /* dropzone */
         .dropzone {
             border: 2px dotted gray;
             min-height: 190px;
         }
+
         .add-Img-row .row {
             justify-content: space-between;
         }
+
         .add-Img-row .form-group:nth-child(1) {
             width: 45%;
             margin-left: 20px;
         }
+
         .add-Img-row .form-group:nth-child(2) {
             width: 45%;
             margin-right: 20px;
         }
+
         #title-dropzone.dropzone .dz-preview .dz-image {
             position: relative;
             width: 100%;
         }
+
         .dropzone .dz-remove {
             position: absolute;
             z-index: 100;
@@ -143,10 +157,12 @@
             color: red;
             font-weight: 700;
         }
+
         #title-dropzone.dropzone {
             resize: both;
             overflow: auto;
         }
+
         #detail-dropzone.dropzone {
             display: flex;
             justify-content: space-evenly;
@@ -154,15 +170,18 @@
             overflow: auto;
             position: relative;
         }
+
         #detail-dropzone .dz-default.dz-message {
             position: absolute;
             top: 50px;
         }
+
         #detail-dropzone.dropzone .dz-preview .dz-image {
             width: 100px;
             height: 100px;
             position: relative;
         }
+
         #detail-dropzone.dropzone .dz-remove {
             position: absolute;
             z-index: 100;
@@ -170,15 +189,19 @@
             top: 10px;
             color: red;
         }
+
         .dropzone .dz-preview .dz-details .dz-size {
             font-size: 10px;
         }
+
         .dropzone .dz-preview .dz-details .dz-filename {
             font-size: 10px;
         }
+
         .dropzone .dz-preview .dz-progress {
             z-index: 0;
         }
+
         .dropzone .dz-message .dz-button {
             margin-top: 50px;
         }
@@ -193,7 +216,8 @@
     <%@ include file="../include/detail-header.jsp" %>
 
     <div class="content-wrapper">
-        <form id="review-write-form" action="/review/write" class="review-form" method="post" enctype="multipart/form-data">
+        <form id="review-write-form" action="/review/write" class="review-form" method="post"
+            enctype="multipart/form-data">
             <div class="container-fluid">
                 <div class="box_general padding_bottom mg-wrap">
                     <div class="header_box version_2">
@@ -202,13 +226,15 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label class="title-label">리뷰 제목</label>
-                                <input type="text" class="form-control title" placeholder="가산 고기 맛집!" maxlength="40"
+                                <input type="text" class="form-control title" placeholder="맛있는 빵들~" maxlength="40"
                                     name="title">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label>작성자</label>
                                 <input type="text" class="form-control" placeholder="abc1234@naver.com"
                                     value="${loginUser.name}" disabled>
@@ -217,7 +243,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="store-name-label" >가게이름</label>
+                                <span style="color: red;">*</span>
+                                <label class="store-name-label">가게이름</label>
                                 <input type="text" class="form-control store-name" placeholder="파리바게뜨"
                                     value="${master.storeName}" name="storeName">
                                 <input type="hidden" name="businessNo" value="${master.businessNo}">
@@ -232,13 +259,16 @@
                                 <div>
                                     <span id="addrChk"></span>
                                 </div>
+                                <span style="color: red;">*</span>
                                 <input class="form-group" type="text" id="sample4_postcode" placeholder="우편번호">
                                 <input class="form-group" type="button" onclick="sample4_execDaumPostcode()"
                                     value="우편번호 찾기"><br>
+                                <span style="color: red;">*</span>
                                 <input class="form-group addr-api store-address" type="text" id="sample4_roadAddress"
                                     placeholder="도로명주소" name="storeAddress" value="${master.storeAddress}">
                                 <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소">
-                                <span id=" guide" style="color:#999;display:none"></span>
+                                <span id=" guide" style="color:#999;display:none"></span><br>
+                                <span style="color: red;">*</span>
                                 <input class="form-group addr-api store-detail-address" type="text"
                                     id="sample4_detailAddress" placeholder="상세주소" name="storeDetailAddress"
                                     value="${master.storeDetailAddress}">
@@ -277,6 +307,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <span style="color: red;">*</span>
                                 <label class="content-label">내용</label>
                                 <textarea name="content" class="form-control content" style="height: 150px;"
                                     placeholder="Message" id="message_contact" name="content"></textarea>
@@ -289,6 +320,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group review-group">
+                                <span style="color: red;">*</span>
                                 <label class="review-img-label">사진</label>
                                 <div class="dropzone col-md-12 review-img" id="review-dropzone"></div>
                                 <input type="file" name="reviewImgFile" class="dz-hidden-input hidden-review-img"
@@ -420,60 +452,25 @@
                             ')';
                         guideTextBox.style.display = 'block';
                     } else {
-                        guideTextBox.innerHTML = '';
-                        guideTextBox.style.display = 'none';
+                        // guideTextBox.innerHTML = '';
+                        // guideTextBox.style.display = 'none';
+                    }
+                },
+                onclose: function (state) {
+                    console.log(state);
+                    //state는 우편번호 찾기 화면이 어떻게 닫혔는지에 대한 상태 변수 이며, 상세 설명은 아래 목록에서 확인하실 수 있습니다.
+                    if (state === 'FORCE_CLOSE') {
+                        //사용자가 브라우저 닫기 버튼을 통해 팝업창을 닫았을 경우, 실행될 코드를 작성하는 부분입니다.
+
+                    } else if (state === 'COMPLETE_CLOSE') {
+                        //사용자가 검색결과를 선택하여 팝업창이 닫혔을 경우, 실행될 코드를 작성하는 부분입니다.
+                        //oncomplete 콜백 함수가 실행 완료된 후에 실행됩니다.
                     }
                 }
             }).open();
         }
     </script>
     <!-- /주소 검증 -->
-
-    <script>
-        /* -------------------------------- save 시 검증 -------------------------------- */
-        const $titleTag = $('.title');
-        const $storeNameTag = $('.store-name');
-        const $contentTag = $('.content');
-        const checkArr = [false, false, false];
-        // ------------------ 필수정보 --------------------
-        $titleTag.on('keyup', function () {
-            if ($titleTag.val().trim() === '') {
-                $titleTag.css('border-color', 'red');
-                $('.title-label').html('리뷰 제목 <b class="c-red title-red">[ 제목은 필수정보입니다. ]</b>');
-                checkArr[0] = false;
-            } else {
-                $titleTag.css('border-color', 'green');
-                $('.title-red').remove();
-                checkArr[0] = true;
-            }
-        });
-        $storeNameTag.on('keyup', function () {
-            if ($storeNameTag.val().trim() === '') {
-                $storeNameTag.css('border-color', 'red');
-                $('.store-name-label').html('가게 이름 <b class="c-red store-name-red">[가게이름은 필수정보입니다. ]</b>');
-                checkArr[1] = false;
-            } else {
-                $storeNameTag.css('border-color', 'green');
-                $('.store-name-red').remove();
-                checkArr[1] = true;
-            }
-        });
-        $contentTag.on('keyup', function () {
-            if ($contentTag.val().trim() === '') {
-                $('.content').css('border-color', 'red');
-                $('.content-label').html('내용 <b class="c-red content-red">[ 내용은 필수정보입니다. ]</b>');
-                checkArr[2] = false;
-            } else {
-                $('.content').css('border-color', 'green');
-                $('.content-red').remove();
-                checkArr[2] = true;
-            }
-        });
-        /* -------------------------------- /save 시 검증 -------------------------------- */
-        /* -------------------------------- /입력 검증 -------------------------------- */
-    </script>
-
-
 
     <script>
         // -------------- fiel upload and file dropzone --------------
@@ -565,9 +562,33 @@
             const $reviewHiddenTag = document.querySelector('.hidden-review-img');
             // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
             const reviewDataTranster = new DataTransfer();
+
+            const $titleTag = $('.title');
+            const $storeNameTag = $('.store-name');
+            const $contentTag = $('.content');
+            // ------------------ 필수정보 --------------------
+
+            if ($titleTag.val().trim() == '') {
+                alert('제목을 확인해 주세요!!');
+                return;
+            }
+
+            if ($storeNameTag.val().trim() == '') {
+                alert('가게이름을 확인해 주세요!!');
+                return;
+            }
+
+            if ($contentTag.val().trim() == '') {
+                alert('내용을 확인해 주세요!!');
+                return;
+            }
+
+
+
+
             if (reviewDropzone.files.length == 0) {
                 alert('리뷰 사진은 필수입니다.');
-                return; 
+                return;
             }
             if (reviewDropzone.files.length > 0) {
                 for (const reviewFile of reviewDropzone.files) {
@@ -580,6 +601,7 @@
             const $addrChk = $('#addrChk');
             for (let addrInput of $addrApiInputList) {
                 if (addrInput.value.trim() === '') {
+                    alert('주소를 확인해 주세요!!')
                     addrInput.style.borderColor = 'red';
                     $addrChk.text('필수 입력사항입니다. 원활한 서비스 이용을 위해 정확한 주소를 입력하세요.');
                     $addrChk.css('color', 'red');
@@ -588,21 +610,12 @@
                     addrInput.style.borderColor = 'yellowgreen';
                 }
             }
-            $addrChk.text('');
-            checkArr[6] = true;
-            for (let c of checkArr) {
-                if (c === false) {
-                    return;
-                }
-            }
-            if (!checkArr.includes(false)) {
-                // 내용 \n -> <br>으로 치환
-                const content = $contentTag.val().replace(/\n/gi, "<br>");
-                $contentTag.val(content)
-                $('#review-write-form').submit();
-            } else {
-                alert("입력값을 확인해주세요.");
-            }
+            
+            // 내용 \n -> <br>으로 치환
+            const content = $contentTag.val().replace(/\n/gi, "<br>");
+            $contentTag.val(content);
+            $('#review-write-form').submit();
+
         });
     </script>
 

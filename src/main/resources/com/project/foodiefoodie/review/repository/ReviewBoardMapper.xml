@@ -73,7 +73,7 @@
     </select>
 
     <select id="findAllReviews" resultMap="rbDTOMap">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
+        SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
         , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address
         FROM review_board rb
         WHERE private = 'F'
@@ -82,7 +82,7 @@
     </select>
 
     <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
-        SELECT rb.review_bno, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
+        SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
         , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address
         FROM review_board rb
         WHERE rb.review_bno = #{reviewBno}

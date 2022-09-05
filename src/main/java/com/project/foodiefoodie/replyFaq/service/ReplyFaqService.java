@@ -48,4 +48,14 @@ public class ReplyFaqService {
         return replyFaqDTOList;
     }
 
+    public boolean saveService(ReplyFaq replyFaq) {
+
+        boolean flag = mapper.save(replyFaq);
+
+
+
+
+        return flag;
+    }
+
 }

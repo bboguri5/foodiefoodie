@@ -298,7 +298,7 @@
             $returnBtn.onclick = e => {
                 console.log("되돌이가기 , 수정안하고 그냥 뒤로가는기능 ");
 
-                location.href = '/masterInfo';
+                location.href = '/masterInfo/${masterNum}';
             };
         }
     </script>

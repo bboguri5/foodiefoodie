@@ -247,7 +247,9 @@
                             </div>
                             <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
                                 <div class="buttons clearfix">
-                                    <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
+                                    <c:if test="${flag}">
+                                        <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

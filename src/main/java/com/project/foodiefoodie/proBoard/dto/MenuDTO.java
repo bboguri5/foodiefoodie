@@ -17,4 +17,5 @@ public class MenuDTO extends FileDTO{
    private int menuNo;
    private String menuName;
    private int menuPrice;
+
 }

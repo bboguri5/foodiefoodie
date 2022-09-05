@@ -11,7 +11,6 @@
         <c:if test="${loginUser == null}">
             <ul id="top_menu">
                 <li><a href="#sign-in-dialog" id="sign-in" class="login">Sign In</a></li>
-                <li><a href="wishlist.html" class="wishlist_bt_top" title="Your wishlist">Your wishlist</a></li>
             </ul>
         </c:if>
 

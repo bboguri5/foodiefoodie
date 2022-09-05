@@ -230,7 +230,7 @@
             VALUES (
             #{promotionBno}
             <if test="filePath.contains('menu')">
-            ,SEQ_PROMOTION_MENU_IMG.nextval
+            ,SEQ_PROMOTION_FOOD_MENU.currval
             </if>
             ,#{filePath} ,#{fileName} ,#{fileMediaType}
             ,#{fileSize} ,#{fileByte} ,#{fileData}

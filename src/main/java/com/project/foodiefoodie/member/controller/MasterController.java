@@ -83,7 +83,6 @@ public class MasterController {
         return "redirect:/request-auth";
     }
 
-
     @GetMapping("/masterInfo/{masterNum}")
     public String masterInfo(@PathVariable int masterNum , HttpSession session , Model model){
         Member loginUser = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
@@ -98,12 +97,11 @@ public class MasterController {
         // 안썼으면 안나오니까 이거 무작정 주지말고 if 로 묶어서 줌
         Integer proBoardNumService = promotionBoardService.findProBoardNumService(businessNo);
 
-        if (proBoardNumService == null){
+        log.info("proboard = {}",proBoardNumService);
+        if (proBoardNumService != null){
         model.addAttribute("promotionBno",proBoardNumService);
         }
-
-
-        return "/myPage/masterInfo";
+        return "myPage/masterInfo";
     }
 
 

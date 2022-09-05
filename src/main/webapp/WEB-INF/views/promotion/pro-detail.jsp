@@ -13,7 +13,7 @@
     <title>Foogra - Discover & Book the best restaurants at the best price</title>
 
     <!-- jquery -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
+    <!-- <script src="/js/jquery-3.3.1.min.js"></script> -->
 
     <!-- GOOGLE WEB FONT -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -27,32 +27,23 @@
     <!-- SPECIFIC CSS -->
     <link href="/css/detail-page.css" rel="stylesheet">
 
-    <link href="/css/detail-page-delivery.css" rel="stylesheet">
-
     <!-- notice -->
     <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css/admin.css" rel="stylesheet">
 
 
-    <!-- jquery -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <!-- bootstrap css -->
 
-    <style id="theia-sticky-sidebar-stylesheet-TSS">
-        .theiaStickySidebar:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    </style>
+    
+
+
+<%@ include file="../include/static-head.jsp" %>
     <!-- kakao map -->
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
     </script>
-
-
 </head>
 
 <style>
@@ -226,6 +217,7 @@
 </style>
 
 <body>
+
     <%@ include file="../include/header.jsp" %>
 
 
@@ -247,7 +239,9 @@
                             </div>
                             <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
                                 <div class="buttons clearfix">
-                                    <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
+                                    <c:if test="${flag}">
+                                        <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>
@@ -444,9 +438,9 @@
                                     <div class="theiaStickySidebar">
                                         <div class="box_booking">
                                             <div class="head">
-                                                <h3>Order Summary</h3>
+                                                <h3>장바구니</h3>
                                                 <c:if test="${not empty isHotDeal}">
-                                                    <div class="offer">${isHotDeal}% 할인</div>
+                                                    <div class="offer">전 메뉴 ${isHotDeal}% 할인 적용 중!!</div>
                                                 </c:if>
                                             </div>
                                             <!-- /head -->
@@ -461,14 +455,12 @@
 
                                                 <ul class="clearfix after-discount">
                                                     <!-- 핫딜이면 -->
-                                                    <li class="total">Total<span id="total"
+                                                    <li class="total">최종 결제 금액<span id="total"
                                                             class="line-through">0</span></li>
                                                 </ul>
 
-                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">Order
-                                                    Now</a>
-                                                <div class="text-center"><small>No money charged on this
-                                                        steps</small></div>
+                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">주문하기</a>
+                                                <div class="text-center"><small>이 단계에서는 비용이 청구되지 않습니다</small></div>
                                             </div>
                                         </div>
 
@@ -573,12 +565,14 @@
                                         <div class="add_bottom_25"></div>
                                         <!-- 공지사항  -->
                                         <h2>공지사항</h2>
+                                        <c:if test="${noticeFlag}">
                                         <div class="add_bottom_25 openWriteBox">
                                             <p class="inline-popups noticeWrite">
                                                 <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
                                                     <i class="fa fa-fw fa-reply"></i>글쓰기</a>
                                             </p>
                                         </div>
+                                    </c:if>
                                         <div class="list_general notices">
                                             <ul>
                                                 <!-- makeNoticeDom method -->
@@ -618,7 +612,7 @@
 
     <!-- COMMON SCRIPTS -->
     <script src="/js/common_scripts.min.js"></script>
-    <script src="/js/common_func.js"></script>
+    <!-- <script src="/js/common_func.js"></script> -->
     <script src="/js/validate.js"></script>
 
     <!-- SPECIFIC SCRIPTS -->
@@ -633,8 +627,6 @@
 </body>
 
 <script>
-   
-
 
     showKaKao(); // information map  
 

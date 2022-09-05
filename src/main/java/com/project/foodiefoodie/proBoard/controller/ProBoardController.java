@@ -37,15 +37,31 @@ public class ProBoardController {
                          HttpSession session) {
         log.info(" ProBoardController /detail/{} Get - ! ", promotionBno);
 
-        model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
+
+        ProBoard proBoard = proBoardService.selectProBoard(promotionBno);
+        model.addAttribute("proBoard",proBoard);
         model.addAttribute("menuList", proBoardService.selectMenuInfo(promotionBno));
         model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
         model.addAttribute("titleFile",proBoardService.selectFiles(promotionBno,"title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
         model.addAttribute("isHotDeal", proBoardService.isHotDealService(proBoardService.selectProBoard(promotionBno).getBusinessNo()));
 
-        Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
-        model.addAttribute("isFavorite",proBoardService.isFavoriteStore(member.getEmail(),promotionBno));
+
+
+
+        // 로그인 하면 즐겨찾기 표시 , 로그인 안하면 즐겨찾기 표시 X
+        String loginFlag = LoginUtils.LOGIN_FLAG;
+        Member member = (Member) session.getAttribute(loginFlag);
+
+        if(member != null)
+        {
+            model.addAttribute("noticeFlag",proBoard.getEmail().equals(member.getEmail()));
+            model.addAttribute("isFavorite",proBoardService.isFavoriteStore(member.getEmail(),promotionBno));
+            model.addAttribute("flag",true);
+        }
+        else {
+            model.addAttribute("flag",false);
+        }
         return "promotion/pro-detail";
     }
 
@@ -134,8 +150,8 @@ public class ProBoardController {
             put("menu", menuImgFiles);
         }};
 
-        boolean proBoardSaveResult = proBoardService.saveProBoard(proBoard, menuList, fileMap);
-        return "";
+        int promotionBno = proBoardService.saveProBoard(proBoard, menuList, fileMap);
+        return "redirect:/proBoard/detail/"+promotionBno;
     }
 
 
@@ -183,24 +199,29 @@ public class ProBoardController {
         log.info("proBoard/modify POST!! - detailImgFiles : {}", detailImgFiles.get(0).getOriginalFilename());
         log.info("proBoard/modify POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
 
+        List<String[]> menuList = new ArrayList<>(Arrays.asList(
+                request.getParameterValues("menuName"),
+                request.getParameterValues("menuPrice")
+        ));
+
         Map<String, List<MultipartFile>> fileMap = new HashMap<>() {{
             put("title", titleImgFile);
             put("detail", detailImgFiles);
             put("menu", menuImgFiles);
         }};
 
-        boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, fileMap);
+        boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, menuList, fileMap);
         return "";
     }
 
-    @PostMapping("/modify/menu")
-    @ResponseBody
-    public String modifyMenu(@RequestBody List<MenuDTO> menuDTOList)
-    {
-        log.info(" @PostMapping(\"/modify/menu\") modifyMenu {}",menuDTOList);
-        proBoardService.modifyMenuInfo(menuDTOList);
-        return "";
-    }
+//    @PostMapping("/modify/menu")
+//    @ResponseBody
+//    public String modifyMenu(@RequestBody List<MenuDTO> menuDTOList)
+//    {
+//        log.info(" @PostMapping(\"/modify/menu\") modifyMenu {}",menuDTOList);
+//        proBoardService.modifyMenuInfo(menuDTOList);
+//        return "";
+//    }
 
 
 }

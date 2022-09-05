@@ -9,7 +9,7 @@
 
     <style>
         main {
-            height: 65vh;
+            height: 70vh;
         }
 
         .sign_up {

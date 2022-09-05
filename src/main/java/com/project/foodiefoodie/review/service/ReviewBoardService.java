@@ -259,7 +259,6 @@ public class ReviewBoardService {
         } catch (Exception e) {
             e.getStackTrace();
         }
-
     }
 
     public boolean modifyReviewFile(List<MultipartFile> reviewImg, ReviewBoard reviewBoard, long reviewBno) {

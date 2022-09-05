@@ -2,7 +2,6 @@ package com.project.foodiefoodie.proBoard.dto;
 
 
 import com.project.foodiefoodie.member.domain.Master;
-import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import lombok.*;
 
 import java.util.Date;

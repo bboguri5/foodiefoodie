@@ -160,8 +160,6 @@
             min-height: 190px;
         }
 
-
-
         .add-Img-row .row {
             justify-content: space-between;
         }
@@ -265,17 +263,43 @@
             height: 80px;
         }
 
+        .menuHidden {
+            display: none;
+        }
+
+        .col-md-1.menu-add-img {
+            width: 140px;
+        }
+
         /* picker */
         .ui-timepicker-standard {
             font-family: none;
         }
 
-        .menuHidden {
-            display: none;
+        /* btn */
+
+        .save-btn {
+            display: flex;
+            justify-content: space-around;
+            width: 20%;
+            margin: 0 auto;
         }
 
-        .menuActive {
-            display: block;
+        button.btn.medium {
+            border-radius: 30px;
+            width: 100px;
+            height: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        button.btn.medium.saveBtn {
+            background: #7db27d;
+        }
+
+        button.btn.medium.cancelBtn {
+            background: #c83030;
         }
     </style>
 
@@ -288,7 +312,7 @@
     <%@ include file="../include/header.jsp" %>
 
     <main>
-        <form id="promotionWriteForm" action="/proBoard/write" method="post" enctype="multipart/form-data">
+        <form id="promotionWriteForm" action="/proBoard/modify" method="post" enctype="multipart/form-data">
             <div class="content-wrapper">
                 <div class="container-fluid">
                     <!-- write title -->
@@ -301,7 +325,8 @@
                         <!-- detail info -->
                         <div class="row">
                             <div class="col-md-6 master-detail">
-                                <input type="text" class="" hidden>
+                                <input type="text" name="promotionBno" class="promotionBno"
+                                    value="${proBoard.promotionBno}" hidden>
                                 <div class="row-form">
                                     <input type="text" name="businessNo" value="${proBoard.businessNo}" hidden>
                                     <div class="form-group detail-Info">
@@ -324,7 +349,9 @@
                                 <div class="form-group detail-Info detail-address">
                                     <label>STORE ADDRESS
                                     </label>
-                                    <input type="text" class="form-control" value="${proBoard.storeAddress}" readonly>
+                                    <input type="text" class="form-control"
+                                        value="${proBoard.storeAddress} ${proBoard.storeDetailAddress} ${proBoard.storeExtraAddress}"
+                                        readonly>
                                 </div>
                                 <div class="form-group detail-Info">
                                     <label class="title-label">Title
@@ -405,7 +432,7 @@
                                                 </div>
                                                 <div class="col-md-1 menu-add-img">
                                                     <div class="form-group">
-                                                        <div class="dropzone menu1" id="menu-dropzone"></div>
+                                                        <div class="dropzone dz-clickable menu1" id="menu-dropzone"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -591,8 +618,9 @@
             </div>
             </div>
             <div class="col-md-12 save-btn">
-                <button type="button" class="btn_1 medium save">Save</button>
-                <button type="button" class="btn_1 medium cancel">Cancel</button></div>
+                <button type="button" class="btn medium saveBtn">Save</button>
+                <button type="button" class="btn medium cancelBtn">Cancel</button>
+            </div>
         </form>
     </main>
     <script>
@@ -677,26 +705,25 @@
         const $titleTag = $('.title');
         const $hashTag = $('.hashTag');
         const $contentTag = $('.content');
+        const promotionBno = $('.promotionBno').val();
 
 
-        $contentTag.text(`${proBoard.content}`.replace(/<br>/gi, "\n"));
-
-
-        // title , hashTag , content , menu , hashTag overlap , time  
-        const checkArr = [false, false, false];
 
         let menuFileList = []; // img file list
+        let count = 1;
 
 
         $(function () {
+
+            $contentTag.text(`${proBoard.content}`.replace(/<br>/gi, "\n"));
             selectClosedDay();
             inputOnlyIntType(); // first menu item price 
             limitHashTag(); // hash tag 글자수/단어 제한 
             checkSaveData(); // title , content , hashTag 
         });
-
-        // addMenuImg(1); // first menu item dropzone 처리
         addMenuItem();
+
+        // addMenuItem();
 
 
         /* 휴무 요일 선택,제거,중복처리 */
@@ -722,7 +749,8 @@
             });
 
             $('.day-delete').on('click', function () {
-                resultList = [];
+                resultSet.clear();
+                resultList.clear;
                 $closedDay.val('');
             });
         }
@@ -738,11 +766,9 @@
                 if ($titleTag.val().trim() === '') {
                     $titleTag.css('border-color', 'red');
                     $('.title-label').html('TITLE <b class="c-red title-red">[ 제목은 필수정보입니다. ]</b>');
-                    checkArr[0] = false;
                 } else {
                     $titleTag.css('border-color', 'green');
                     $('.title-red').remove();
-                    checkArr[0] = true;
                 }
             });
 
@@ -753,11 +779,9 @@
                 if ($hashTag.val().trim() === '') {
                     $hashTag.css('border-color', 'red');
                     $('.hashTag-label').html('HASH TAG <b class="c-red hashTag-red">[ 해시태그는 필수정보입니다. ]</b>');
-                    checkArr[1] = false;
                 } else {
                     $hashTag.css('border-color', 'green');
                     $('.hashTag-red').remove();
-                    checkArr[1] = true;
                 }
             });
 
@@ -768,109 +792,11 @@
                 if ($contentTag.val().trim() === '') {
                     $('.content').css('border-color', 'red');
                     $('.content-label').html('CONTENT <b class="c-red content-red">[ 내용은 필수정보입니다. ]</b>');
-                    checkArr[2] = false;
                 } else {
                     $('.content').css('border-color', 'green');
                     $('.content-red').remove();
-                    checkArr[2] = true;
                 }
             });
-        }
-
-        let count = 1;
-
-        // /* add menu item dom */
-        function makeNewMenuItemDom() {
-            var newElem = $('.pricing-list-item').first().clone(); // 첫 item 복사 
-            newElem.find('input').val('');
-            newElem.css('display','block');
-            newElem.appendTo('table#pricing-list-container tbody');
-
-            console.log("newElem " , newElem);
-        }
-
-        /* add menu item delete */
-        function deleteMenuItem() {
-            $(document).on("click", "#pricing-list-container .delete", function (e) {
-                e.preventDefault();
-                $(this).parent().parent().parent().parent().parent().remove();
-            });
-        }
-
-        function createAddMenuItem() {
-            ++count;
-
-            console.log("creat 진입");
-            makeNewMenuItemDom();
-            $('.menu-row').last().find('.delete-form').append(
-                '<a class="delete' + ' menuDelete' + count + '"' +
-                ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
-            $(this).css('border-colore', 'none'); // 처음 menuItem 제외하고 추가 시 delete 버튼 생성 
-            const $target = $('#pricing-list-container').last().find('.menu1').last();
-            $target.removeClass('menu1');
-            $target.addClass('menu' + count);
-
-
-            inputOnlyIntType(); // 추가된 menuItem에서 price 숫자검증 
-            deleteMenuItem();
-        }
-
-        /* add menu item */
-        function addMenuItem() {
-
-            // default 이미지 없는 메뉴는 기본이미지으로 대체하기 위해 default으로 비어있는 파일. 
-            // 첫 menu item을 위해 push 
-            menuFileList.push(new File(["default"], "default", {
-                type: "image/png",
-                name: "foodie_default.PNG"
-            }));
-
-            const par = $('table#pricing-list-container').first().find('.delete').remove(); // menu x버튼 클릭 시 line 삭제 
-
-            if ($("table#pricing-list-container").is('*')) {
-
-                $('.add-pricing-list-item').on('click', function (e) {
-
-                    ++count; // 추가된 menuItem 마다 번호 부여하여 구분 하기위함.
-
-                    const $container = $('#pricing-list-container');
-                    e.preventDefault();
-                    // makeNewMenuItemDom();
-
-                    $('.menu-row').last().find('.delete-form').append(
-                        '<a class="delete' + ' menuDelete' + count + '"' +
-                        ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
-                    $(this).css('border-colore', 'none'); // 처음 menuItem 제외하고 추가 시 delete 버튼 생성 
-
-
-                    inputOnlyIntType(); // 추가된 menuItem에서 price 숫자검증 
-
-
-                    // add menu item 이미지 리셋 
-                    const $target = $('#pricing-list-container').last().find('.menu1').last();
-
-                    $target.last().removeClass('dz-started');
-                    $target.last().removeClass('dz-max-files-reached');
-                    $target.last()[0].innerHTML = '';
-
-                    $target.removeClass('menu1');
-                    $target.addClass('menu' + count)
-
-
-                    // 추가할 때마다 리스트에 비어있는 파일 추가 
-                    menuFileList.push(new File(["default"], "default", {
-                        type: "image/png",
-                        name: "foodie_default.PNG"
-                    }));
-                    console.log("add : ", menuFileList);
-
-                    addMenuImg(count); // menu item add imgs 
-
-                });
-
-                deleteMenuItem();
-
-            }
         }
 
 
@@ -886,13 +812,10 @@
 
                 var x = $(this).val();
                 if (x.length > 0) {
-                    // $(this).css('border-color', 'green');
                     if (x.match(replaceNotInt)) {
                         x = x.replace(replaceNotInt, "");
                     }
                     $(this).val(x);
-                } else {
-                    // $(this).css('border-color', 'red');
                 }
             });
         }
@@ -932,11 +855,114 @@
         }
 
 
+        // /* add menu item dom */
+        function makeNewMenuItemDom() {
+
+            var newElem = $('tr.pricing-list-item').first().clone(); // 첫 item 복사 
+            newElem.find('input').val('');
+            newElem.find('.dz-clickable').html(
+                '<div class="dz-default dz-message"><button class="dz-button" type="button">Drop files here to upload</button></div>'
+            );
+            newElem.children().children().addClass('item' + count);
+            newElem.appendTo('table#pricing-list-container tbody');
+
+            newElem.find('#menu-dropzone').addClass('dz-started');
+            $('.item' + count).append("<input type = 'hidden' name='menuNo' class='menu" + count + "'>")
+        }
+
+        /* add menu item delete */
+        function deleteMenuItem() {
+            $(document).on("click", "#pricing-list-container .delete", function (e) {
+                e.preventDefault();
+                $(this).parent().parent().parent().parent().parent().remove();
+            });
+        }
+
+        function createAddMenuItem() {
+
+            var newElem = $('tr.pricing-list-item').first().clone(); // 첫 item 복사 
+            newElem.find('input').val('');
+            newElem.find('.dz-complete').remove();
+            newElem.find('.dz-started').removeClass('dz-started');
+            newElem.children().children().addClass('item' + count);
+            newElem.appendTo('table#pricing-list-container tbody');
+
+            $('.item' + count).append("<input type = 'hidden' name='menuNo' class='menu" + count + "'>")
+
+            if (count > 1) {
+                $('.menu-row').last().find('.delete-form').append(
+                    '<a class="delete' + ' menuDelete' + count + '"' +
+                    ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
+            }
+
+            const $target = $('#pricing-list-container').last().find('.menu1').last();
+            $target.removeClass('menu1');
+            $target.addClass('menu' + count);
 
 
+            inputOnlyIntType(); // 추가된 menuItem에서 price 숫자검증 
+            deleteMenuItem();
+
+        }
+
+        /* add menu item */
+        function addMenuItem() {
+
+            // default 이미지 없는 메뉴는 기본이미지으로 대체하기 위해 default으로 비어있는 파일. 
+            // 첫 menu item을 위해 push 
+
+            // menuFileList.push(new File(["default"], "default", {
+            //     type: "image/png",
+            //     name: "foodie_default.PNG"
+            // }));
+
+            const par = $('table#pricing-list-container').first().find('.delete').remove(); // menu x버튼 클릭 시 line 삭제 
+
+            if ($("table#pricing-list-container").is('*')) {
+
+                $('.add-pricing-list-item').on('click', function (e) {
+
+                    ++count; // 추가된 menuItem 마다 번호 부여하여 구분 하기위함.
+
+                    const $container = $('#pricing-list-container');
+                    e.preventDefault();
+                    makeNewMenuItemDom();
+
+                    let items = $('tbody').children();
+
+                    $('.menu-row').last().find('.delete-form').append(
+                        '<a class="delete' + ' menuDelete' + count + '"' +
+                        ' href="#"><i class="fa fa-fw fa-remove"></i></a>')
+                    $(this).css('border-colore', 'none'); // 처음 menuItem 제외하고 추가 시 delete 버튼 생성 
 
 
+                    inputOnlyIntType(); // 추가된 menuItem에서 price 숫자검증 
 
+
+                    // add menu item 이미지 리셋 
+                    const $target = $('#pricing-list-container').last().find('.menu1').last();
+                    $target.last().removeClass('dz-started');
+                    $target.last().removeClass('dz-max-files-reached');
+
+                    $target.removeClass('menu1');
+                    $target.addClass('menu' + count)
+
+
+                    // 추가할 때마다 리스트에 비어있는 파일 추가 
+                    menuFileList.push(new File(["default"], "default", {
+                        type: "image/png",
+                        name: "foodie_default.PNG"
+                    }));
+                    console.log("add : ", menuFileList);
+
+                    addMenuImg(count); // menu item add imgs 
+
+                });
+
+                deleteMenuItem();
+
+            }
+        }
 
 
         // -------------- fiel upload and file dropzone --------------
@@ -955,20 +981,17 @@
             dictRemoveFile: 'X',
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
 
-
         });
 
 
-        console.log(`${promotionBno}`);
-        fetch('/proBoard/modify/files/' + ${promotionBno})
+        // -------------- menu file add --------------
+
+        fetch('/proBoard/modify/files/${promotionBno}')
             .then(res => res.json())
             .then(fileMap => {
                 const title = fileMap.title[0];
                 const details = fileMap.detail;
                 const menuList = fileMap.menuList;
-                console.log("title : ", title);
-                console.log("details : ", details);
-                console.log("menu : ", menuList);
 
 
                 const newTitleFile = new File([title.fileByte], title.fileName, {
@@ -998,63 +1021,73 @@
                 }
 
 
+                if (menuList.length === 0) {
+                    menuFileList.push(new File(["default"], "default", {
+                        type: "image/png",
+                        name: "foodie_default.PNG"
+                    }));
 
-                console.log(menuList);
+                    $('.menu1').html(
+                        '<div class="dz-default dz-message"><button class="dz-button" type="button">Drop files here to upload</button></div>'
+                    );
+
+                    addMenuImg(1);
+                }
+             
                 if (menuList.length > 0) {
 
-                    const itemBox = $("#pricing-list-container tbody");
+                    
 
-                    const firstItem = itemBox.first().children();
-                        firstItem.css("display","none");
-
-
-                    // menuHidden
                     for (const menu of menuList) {
 
-                        createAddMenuItem();
                         let menuDropzone = addMenuImg(count);
+                        console.log("count : ", count, " menuList.length", menuList.length + 1);
 
-                        console.log(menuDropzone);
+                        if (menu.fileName.includes('foodie_default')) {
 
-                        const newMenuFile = new File([menu.fileByte], menu.fileName, {
-                            type: menu.fileMediaType,
-                            size: menu.fileSize,
-                            status: titleDropzone.ADDED,
-                            accepted: true
-                        });
+                            const newMenuFile = new File(["default"], "default", {
+                                type: "image/png",
+                                name: "foodie_default.`PNG"
+                            });
 
-                        menuDropzone.emit("addedfile", newMenuFile);
-                        menuDropzone.emit("thumbnail", newMenuFile, menu.fileData);
-                        menuDropzone.emit("complete", newMenuFile);
-                        menuDropzone.files.push(newMenuFile);
+                            menuDropzone.emit("addedfile", newMenuFile);
+                            menuDropzone.emit("thumbnail", newMenuFile, menu.fileData);
+                            menuDropzone.emit("complete", newMenuFile);
 
+                            menuDropzone.files.push(newMenuFile);
+                        } else {
+                            const newMenuFile = new File([menu.fileByte], menu.fileName, {
+                                type: menu.fileMediaType,
+                                size: menu.fileSize,
+                                status: titleDropzone.ADDED,
+                                accepted: true
+                            });
 
-                        // const lastItem = itemBox.last().children();
-                        // lastItem.css("display","block")
+                            menuDropzone.emit("addedfile", newMenuFile);
+                            menuDropzone.emit("thumbnail", newMenuFile, menu.fileData);
+                            menuDropzone.emit("complete", newMenuFile);
 
+                            menuDropzone.files.push(newMenuFile);
+                        }
+
+                        const nameTarget = menuDropzone.element.parentElement.parentElement.nextElementSibling
+                            .children[0].children[0];
+                        const priceTarget = menuDropzone.element.parentElement.parentElement.nextElementSibling
+                            .nextElementSibling.children[0].children[0];
+                        nameTarget.value = menu.menuName;
+                        priceTarget.value = menu.menuPrice;
+
+                        $('.menu' + count).val(menu.menuNo);
+
+                        if (count < menuList.length) {
+                            ++count;
+                            createAddMenuItem();
+                        }
                     };
-
                 }
-
-
-                //     const menuFile = new File([menu.fileByte], menu.fileName, {
-                //         type: menu.fileMediaType,
-                //         size: menu.fileSize,
-                //         status: menuDropzone.ADDED,
-                //         accepted: true
-                //     });
-
-                //     menuDropzone.emit("addedfile", menuFile);
-                //     menuDropzone.emit("thumbnail", menuFile, menu.fileData);
-                //     menuDropzone.emit("complete", menuFile);
-                //     menuDropzone.files.push(menuFile);
-                // }
-
-
             });
 
 
-        console.log(titleDropzone.filse);
 
         let overlapSet = new Set();
         const detailDropzone = new Dropzone("#detail-dropzone.dropzone", {
@@ -1065,7 +1098,7 @@
             createImageThumbnails: true,
             thumbnailWidth: 100,
             thumbnailHeight: 100,
-            maxFiles: 5,
+            maxFiles: 10,
             maxFilesize: 2,
             addRemoveLinks: true,
             dictRemoveFile: 'X',
@@ -1074,21 +1107,20 @@
             uploadMultiple: true,
             init: function () {
 
-
-
                 let myDropzone = this;
 
                 // dorpzone은 파일을 올릴 때마다 기존 파일들은 삭제되고 새로운 file list가 생성 
                 this.on('addedfiles', function (files) { // detail - menu 추가시  
                     let overResult = ''; // 중북된 파일 경고문구
 
-                    if (myDropzone.files.length > 5) { // detail - img 5개 제한 
+                    if (myDropzone.files.length > 10) { // detail - img 5개 제한 
 
                         for (const file of files) {
                             myDropzone.removeFile(file); // 5개 이상일 경우 자동 삭제 
                         }
                         $('.detail-img-label').html(
-                            'detail <b class="c-red detail-red">[ 이미지는 5개까지만 가능합니다. ]</b>');
+                            'detail <b class="c-red detail-red">[ 이미지는 5개까지만 가능합니다. ]</b>'
+                        );
                         setTimeout(function () {
                             $('.detail-red').remove();
                         }, 5000); // 5초동안만 경고문구 발생 
@@ -1107,7 +1139,8 @@
 
                     if (overResult.length > 1) { // 중복된 파일 경우 
                         $('.detail-img-label').html(
-                            'detail <b class="c-red detail-red">[ 중복된 파일은 ' + overResult +
+                            'detail <b class="c-red detail-red">[ 중복된 파일은 ' +
+                            overResult +
                             '입니다.]</b>');
 
                         setTimeout(function () {
@@ -1154,7 +1187,6 @@
 
                     let myDropzone = this;
 
-
                     this.on('addedfile', function (file) { // menu item 추가 시 
                         menuFileList[index - 1] = file;
                         console.log("add : ", menuFileList);
@@ -1187,30 +1219,77 @@
         // -------------- // fiel upload and file dropzone --------------
 
 
-        $('.save').on('click', e => {
+        $('.saveBtn').on('click', e => {
+            const $menuNameList = document.querySelectorAll(".menu-name");
 
-            AddFileList();
-            if (!checkArr.includes(false)) { // title , hashTag , content 필수 입력 
+            let checkSave = [false, false, false, false, false];
 
-                let checkSave = [false, false, false];
+            checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
+            checkSave[1] = checkValue(); // 입력란 검증 
+            checkSave[2] = AddFileList(); // 파일 input에 적용 및 검증  
+            checkSave[3] = checkOverlapHashTag(); // 해시태그 중복 검증 
+            checkSave[4] = checkInputTime(); // 시간 입력 검증 
 
-                checkSave[0] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
-                checkSave[1] = checkOverlapHashTag(); // 해시태그 중복 검증 
-                checkSave[2] = checkInputTime(); // 시간 입력 검증 
+            console.log("checkSave : ", checkSave);
+            if (!checkSave.includes(false)) {
+                // submitMenu();
+                changeFormatTime(); // 시간 00:00으로 변환
+                changeFormatContent() // 내용 \n -> <br>으로 치환
 
-                console.log("checkSave : ", checkSave);
-                if (!checkSave.includes(false)) {
-                    changeFormatTime(); // 시간 00:00으로 변환
-                    changeFormatContent() // 내용 \n -> <br>으로 치환
-
-                    $('#promotionWriteForm').submit();
-                }
-
-            } else {
-                alert("입력란을 확인해주세요.");
-
+                // $('#promotionWriteForm').submit();
             }
         });
+
+        function submitMenu() {
+            const $menuNameList = document.querySelectorAll(".menu-name");
+            const $menuPriceList = document.querySelectorAll(".menu-price");
+
+            console.log($menuNameList);
+            console.log($menuPriceList);
+
+            let menuDTOList = [];
+
+            for (let index = 1; index < $menuNameList.length; index++) {
+
+                let no = $menuNameList[index].parentElement.parentElement.parentElement.lastElementChild.value;
+                let name = $menuNameList[index].value;
+                let price = $menuPriceList[index].value;
+
+                if (name != '' && price != '') {
+                    console.log("promotionBno", promotionBno);
+                    const menu = {
+                        promotionBno: promotionBno,
+                        menuNo: no,
+                        menuName: name,
+                        menuPrice: price
+                    }
+                    menuDTOList.push(menu);
+                }
+            }
+
+            console.log("dto = ", menuDTOList);
+            const reqInfo = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(menuDTOList)
+            };
+            fetch('/proBoard/modify/menu', reqInfo);
+
+        }
+
+        function checkValue() {
+
+            if ($contentTag.val().length > 0 && $titleTag.val().length > 0 && $hashTag.val().length > 0) {
+                return true;
+            }
+
+            alert("입력란을 확인해주세요.");
+            return false;
+
+        }
+
 
         function AddFileList() {
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
@@ -1224,15 +1303,7 @@
             const titleDataTraster = new DataTransfer();
             const menuDataTraster = new DataTransfer();
 
-            if (menuFileList.length > 0) {
-                for (const menuFile of menuFileList) {
-                    if (menuFile != null) {
-                        menuDataTraster.items.add(menuFile);
-                    }
-                }
-                console.log("menuDataTraster : ", menuFileList);
-                $menuHiddenTag.files = menuDataTraster.files;
-            }
+            console.log($menuHiddenTag);
 
             if (titleDropzone.files.length > 0) {
                 titleDataTraster.items.add(titleDropzone.files[0]);
@@ -1240,8 +1311,10 @@
 
             } else {
                 alert("title 이미지는 필수입니다.");
-                return;
+                return false;
             }
+
+            console.log("titleHiddenTag 결론 : ", $titleHiddenTag.files);
 
             if (detailDropzone.files.length > 0) {
                 for (const detailFile of detailDropzone.files) {
@@ -1250,59 +1323,66 @@
                 $detailHiddenTag.files = detailDataTranster.files;
 
             }
+
+            console.log("detailHiddenTag 결론 : ", $detailHiddenTag.files);
+
+
+            if (menuFileList.length > 0) {
+                for (let index = 0; index < menuFileList.length; index++) {
+                    if (menuFileList[index] != null) {
+                        menuDataTraster.items.add(menuFileList[index]);
+                    }
+
+
+                }
+
+                const $menuNameList = document.querySelectorAll(".menu-name");
+                const $menuPriceList = document.querySelectorAll(".menu-price");
+                if ($menuNameList.length === 1) {
+                    if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
+                        return true;
+                    }
+                }
+
+                $menuHiddenTag.files = menuDataTraster.files;
+                console.log("menuHiddenTag 결론 : ", $menuHiddenTag.files);
+                return true;
+            }
         }
+
 
         // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
         function checkMenuInput() {
+
             const $menuNameList = document.querySelectorAll(".menu-name");
             const $menuPriceList = document.querySelectorAll(".menu-price");
 
-            /* 
-            1. menu item 1개 
-                - input값 없으면 = true
-                - name만 입력하면 = false
-                - price만 입력하면 = false
-                - 사진만 있으면 = false
+            const menuItem = document.querySelectorAll('.pricing-list-item')
 
-            2. menu item 2개 이상
-                - input값 없으면 = false
-            */
-            const menuItem = document.querySelectorAll('.row.menu-row');
-            if (menuItem.length === 1) {
-
-                if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
-                    if (menuFileList[0].name != 'default') {
-                        alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
-                        return false;
-                    }
-
-                    return true;
-                }
+            if (menuItem.length === 0) {
 
                 if ($menuNameList[0].value.length === 0 || $menuPriceList[0].value.length === 0) {
                     alert("메뉴 입력란을 확인해주세요.");
                     return false;
                 }
 
-                return true;
-            }
-
-
-            if (menuItem.length > 1) {
-                for (let index = 0; index < $menuNameList.length; index++) {
-
-                    if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.leng === 0) {
-                        alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
-                        return false;
-                    }
-
-                    if ($menuNameList[0].value.length === 0 || $menuPriceList[0].value.length === 0) {
-                        alert("메뉴 입력란을 확인해주세요.");
+                if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
+                    if (menuFileList[0].name != 'default') {
+                        alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
                         return false;
                     }
                 }
-                return true;
+
             }
+
+            for (let index = 0; index < $menuNameList.length; index++) {
+
+                if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.length === 0) {
+                    alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
+                    return false;
+                }
+            }
+
         }
 
         // 해시태그 중복 확인
@@ -1349,7 +1429,7 @@
             const $selectTimeList = document.querySelectorAll('.select-time');
             $selectTimeList.forEach(element => {
 
-                console.log(element.value);
+                console.log("changeFormatTime", element.value);
                 if (element.value.includes("am")) {
                     element.value = element.value.replace(' am', '');
                 } else if (element.value.includes("pm")) {

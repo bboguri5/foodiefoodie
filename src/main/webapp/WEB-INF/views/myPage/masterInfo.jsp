@@ -8,6 +8,27 @@
 <head>
     <%@ include file="../include/admin-static-head.jsp" %>
 
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="/mypage/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
+        href="/mypage/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+        href="/mypage/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+        href="/mypage/img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- Bootstrap core CSS-->
+    <link href="/mypage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Main styles -->
+    <link href="/mypage/css/admin.css" rel="stylesheet">
+    <!-- Icon fonts-->
+    <link href="/mypage/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Plugin styles -->
+    <link href="/mypage/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="/mypage/vendor/dropzone.css" rel="stylesheet">
+    <!-- Your custom styles -->
+    <link href="/mypage/css/custom.css" rel="stylesheet">
 
     <style>
         .btnbox .btn {
@@ -72,6 +93,10 @@
             text-align: center;
             color: #000;
         }
+        .hotDealLabel{
+            margin-left: 5px;
+            color: red;
+        }
     </style>
 
 
@@ -85,13 +110,6 @@
     <!-- 프로필 쓰는 공간 !! ==================================================================================================== -->
     <div class="content-wrapper">
         <div class="container-fluid">
-            <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#">여긴 마스터 정보~ </a>
-                </li>
-                <li class="breadcrumb-item active">${loginUser.nickName}님의 프로필 </li>
-            </ol>
             <div class="box_general padding_bottom">
                 <div class="header_box version_2">
                     <h2><i class="fa fa-user"></i>${master.storeName} </h2>
@@ -152,8 +170,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label><a href="#0" data-toggle="modal" data-target=".hotDeal">핫딜 ON/OFF
-                                            Button</a></label>
+                                    <label>핫딜 ON/OFF<a href="#0" data-toggle="modal" data-target=".hotDeal" class="hotDealLabel">Button</a></label>
                                     <input type="text" class="form-control" placeholder="${master.hotDeal}" readonly>
                                 </div>
                             </div>
@@ -571,13 +588,13 @@
             const $makeProBoard = $('.makeProBoard');
 
             console.log("홍보글 작성하기 눌럿어요 ");
-            // 여기까지는 나온다 . 
+            // 여기까지는 나온다 .
             fetch('/countProBoard/' + '${masterNum}')
                 .then(res => res.text())
                 .then(msg => {
                     if (msg === 'yes') {
                         console.log('====yes====');
-                        // 없으니까 작성하기 표시 
+                        // 없으니까 작성하기 표시
                         $makeProBoard.text("홍보글 작성하기");
 
                         $makeProBoard.on('click', function () {
@@ -588,7 +605,7 @@
                     } else if (msg === 'no') {
                         console.log('====no====');
                         $makeProBoard.text("홍보글 수정하기")
-                        // 있으닌깐 수정하기 표시  
+                        // 있으닌깐 수정하기 표시
 
                         $makeProBoard.on('click', function () {
                             location.href = "/proBoard/modify/${promotionBno}";

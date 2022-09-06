@@ -60,13 +60,7 @@
     <!-- 프로필 쓰는 공간 !! ==================================================================================================== -->
     <div class="content-wrapper">
         <div class="container-fluid">
-            <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#">여기에 뭘 적을까 </a>
-                </li>
-                <li class="breadcrumb-item active">너의 프로필 </li>
-            </ol>
+         
             <form action="/modifyMember" method="post" class="modiForm">
                 <div class="box_general padding_bottom">
                     <div class="header_box version_2">

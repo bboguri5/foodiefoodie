@@ -28,7 +28,28 @@
     </select>
 
 
+    <resultMap id="storeInfoMap" type="com.project.foodiefoodie.myPage.dto.FavoriteStoreInfoDTO">
+        <result column="store_name" property="storeName" />
+        <result column="store_call_number" property="storeCallNumber" />
+        <result column="hot_deal" property="hotDeal" />
+        <result column="store_address" property="storeAddress" />
+        <result column="store_detail_address" property="storeDetailAddress" />
+        <result column="store_extra_address" property="storeExtraAddress" />
+        <result column="avg_star_rate" property="avgStarRate" />
 
+    </resultMap>
+
+    <select id="favoriteStoreInfo" resultMap="storeInfoMap">
+        SELECT a.store_name ,a.store_call_number , a.hot_deal , a.store_address , a.store_detail_address
+        <if test="store_extra_address !=null">
+            , a.store_extra_address
+        </if>
+        , b.avg_star_rate
+        FROM master a
+        INNER JOIN promotion_board b
+        ON a.business_no = b.business_no
+        where promotion_bno = #{promotionBno}
+    </select>
 
 
 

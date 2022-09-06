@@ -8,6 +8,27 @@
 <head>
     <%@ include file="../include/admin-static-head.jsp" %>
 
+    <!-- Favicons-->
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" type="image/x-icon" href="/mypage/img/apple-touch-icon-57x57-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
+        href="/mypage/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+        href="/mypage/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+        href="/mypage/img/apple-touch-icon-144x144-precomposed.png">
+
+    <!-- Bootstrap core CSS-->
+    <link href="/mypage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Main styles -->
+    <link href="/mypage/css/admin.css" rel="stylesheet">
+    <!-- Icon fonts-->
+    <link href="/mypage/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Plugin styles -->
+    <link href="/mypage/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="/mypage/vendor/dropzone.css" rel="stylesheet">
+    <!-- Your custom styles -->
+    <link href="/mypage/css/custom.css" rel="stylesheet">
 
     <style>
         .btnbox .btn {
@@ -53,17 +74,11 @@
     <!-- 프로필 쓰는 공간 !! ==================================================================================================== -->
     <div class="content-wrapper">
         <div class="container-fluid">
-            <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#">여긴 마스터 정보~ </a>
-                </li>
-                <li class="breadcrumb-item active">${loginUser.nickName}님의 프로필 </li>
-            </ol>
+
             <form action="/masterModiPost/${masterNum}" method="post" class="modiForm">
                 <div class="box_general padding_bottom">
                     <div class="header_box version_2">
-                        <h2><i class="fa fa-user"></i>마스터 정보 ~~ </h2>
+                        <h2><i class="fa fa-user"></i>${loginUser.nickName}님의 마스터 정보  </h2>
                     </div>
                     <div class="row">
                         <!-- 프로필 쓰는 공간 !!  -->

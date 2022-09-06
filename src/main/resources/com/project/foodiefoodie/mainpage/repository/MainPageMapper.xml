@@ -255,7 +255,7 @@
         ON H.business_no = M.business_no
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
-        WHERE hot_deal = 'on') sub)
+        WHERE Lower(hot_deal) = 'on') sub)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
 
         <!--SELECT *

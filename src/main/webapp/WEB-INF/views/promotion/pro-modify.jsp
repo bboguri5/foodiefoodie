@@ -117,11 +117,6 @@
             border-bottom: 0;
         }
 
-        .save-btn {
-            display: flex;
-            justify-content: center;
-        }
-
         .c-red {
             color: red;
         }
@@ -620,6 +615,7 @@
             <div class="col-md-12 save-btn">
                 <button type="button" class="btn medium saveBtn">Save</button>
                 <button type="button" class="btn medium cancelBtn">Cancel</button>
+                <button type="button" class="btn medium cancelBtn">Delete</button>
             </div>
         </form>
     </main>

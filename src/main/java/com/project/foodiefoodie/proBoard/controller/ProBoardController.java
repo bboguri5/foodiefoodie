@@ -11,6 +11,7 @@ import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
 import com.project.foodiefoodie.reply.service.ReplyService;
+import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
 import com.project.foodiefoodie.util.LoginUtils;
@@ -71,27 +72,23 @@ public class ProBoardController {
         List<Integer> replyCount = new ArrayList<>();
         getUploads(reviewUploads, replyCount, reviewList);
 
-        if(reviewList.size() < 3 )
-        {
-            proBoard.setAvgStarRate(0);
-        }
 
-//        log.info("reviewUploads - {}", reviewUploads);
-//        log.info("replyCount - {}", replyCount);
-//        log.info("reviewList - {}", reviewList);
+        log.info("reviewUploads - {}", reviewUploads);
+        log.info("replyCount - {}", replyCount);
+        log.info("reviewList - {}", reviewList);
         model.addAttribute("reviewList", reviewList);
-//        model.addAttribute("uploads", reviewUploads);
+        model.addAttribute("uploads", reviewUploads);
         return "promotion/pro-detail";
     }
 
     private void getUploads(List<String> reviewUploads, List<Integer> replyCount, List<ReviewBoardDTO> reviewList) {
         for (int i = 0; i < reviewList.size(); i++) {
             long reviewBno = reviewList.get(i).getReviewBno();
-            List<String> reviewUpload = reviewBoardService.findReviewUploadsForByteService(reviewBno);
+            List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUpload(reviewBno);
             int count = replyService.findReplyCountService(reviewBno);
 
             if (!reviewUpload.isEmpty()) {
-                reviewUploads.add(reviewUpload.get(0));
+                reviewUploads.add(reviewUpload.get(0).getFileData());
             } else {
                 reviewUploads.add(null);
             }

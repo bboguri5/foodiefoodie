@@ -209,10 +209,11 @@ public class ReviewBoardController {
     }
 
     @PostMapping("/review/remove")
-    public String reviewRemove(Long reviewBno) {
+    public String reviewRemove(Long reviewBno,String businessNo) {
         log.info("/review/remove POST!!!!! - {}", reviewBno);
+        log.info("/review/remove POST!!!!! - {}", businessNo);
 
-        reviewBoardService.removeReviewService(reviewBno);
+        reviewBoardService.removeReviewService(reviewBno,businessNo);
 
         return "redirect:/review?sort=latest";
     }

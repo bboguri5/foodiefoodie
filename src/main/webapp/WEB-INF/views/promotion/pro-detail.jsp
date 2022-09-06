@@ -51,11 +51,28 @@
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
     </script>
+    <%@ include file="../include/static-head.jsp" %>
 
 
 </head>
 
 <style>
+    .hero_in.detail_page .wrapper .buttons.writeBtn {
+        position: absolute;
+        bottom: 0;
+        right: 150px;
+    }
+
+    .hero_in.detail_page .wrapper .buttons.wishBtn {
+        position: absolute;
+        bottom: 0;
+        right: 20px;
+    }
+
+    .writeBtnHero {
+        font-size: 18px;
+    }
+
     .container.margin_detail .col-lg-8 {
         width: 100%;
     }
@@ -156,32 +173,9 @@
 
 
     /* review */
-    #locationList {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    #locationList .item {
-        width: 16%;
-    }
-
-    .search form {
-        display: flex;
-    }
-
-    .search .form-select {
-        flex: 1;
-        margin-top: 8px;
-        border-radius: 10px;
-    }
-
-    .search .row {
-        flex: 10;
-    }
-
     .col-lg-9 {
         margin: auto;
-        width: 60%;
+        width: 100%;
     }
 
     article.blog .post_info {
@@ -227,19 +221,57 @@
         text-align: center;
     }
 
-    .reviews .reviewContent
-    {
+    .row.upCount {
+        width: 60%;
         margin: 0 auto;
     }
-    .review_summary{
-        
+
+    .reviews #review_summary {
+        margin: 0 auto;
+        width: 60%;
+    }
+
+    div.text-end {
+        text-align: center !important;
     }
 </style>
+
+<style>
+    .card-body.reviews {
+        word-wrap: normal;
+    }
+
+    .star {
+        position: relative;
+        font-size: 2rem;
+        color: #ddd;
+    }
+
+    .star input {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .star span {
+        width: 0;
+        position: absolute;
+        left: 0px;
+        color: yellow;
+        overflow: hidden;
+        pointer-events: none;
+    }
+</style>
+
+<%@ include file="../include/detail-header.jsp" %>
 
 
 
 <body>
-    <%@ include file="../include/header.jsp" %>
+
 
 
     <!-- main -->
@@ -252,24 +284,27 @@
                         <div class="row">
                             <div class="col-xl-4 col-lg-5 col-md-6">
                                 <div class="head">
-                                    <div class="score"><span>review<em>${proBoard.review_cnt}</em></span>
-                                        <c:if test="${proBoard.avgStarRate} == 0">
-                                            <strong>"평점이 없습니다."</strong>
-                                        </c:if>
-                                        <c:if test="${proBoard.avgStarRate} != 0">
-                                            <strong> ${proBoard.avgStarRate}</strong>
-                                        </c:if>
+                                    <c:if test="${proBoard.avgStarRate != 0}">
+                                    <div class="score">
+                                        <span>review<em>${proBoard.review_cnt}</em></span>
+                                        <strong> ${proBoard.avgStarRate}</strong>
                                     </div>
+                                    </c:if>
                                 </div>
                                 <h1>${proBoard.title}</h1>
                                 ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
                             <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
-                                <div class="buttons clearfix">
+                                <div class="buttons clearfix wishBtn">
                                     <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
                                 </div>
+                                <div class="buttons clearfix writeBtn">
+                                    <a href="/review/write/${proBoard.businessNo}" class="btn_hero"><strong
+                                            class="writeBtnHero">리뷰작성</strong> </a>
+                                </div>
                             </div>
+
                         </div>
                         <!-- /row -->
                     </div>
@@ -518,95 +553,39 @@
                                 </div>
                                 <div id="collapse-C" class="collapse" role="tabpanel" aria-labelledby="heading-C">
                                     <div class="card-body reviews">
-                                            <div class="col-md-3 reviewContent">
-                                                <div id="review_summary">
-                                                    <c:if test="${proBoard.avgStarRate} == 0">
-                                                        <strong>"평점이 없습니다."</strong>
-                                                    </c:if>
-                                                    <c:if test="${proBoard.avgStarRate} != 0">
-                                                        <strong> ${proBoard.avgStarRate}</strong>
-                                                    </c:if>
-                                                    <small> revivew view : ${proBoard.review_cnt}</small>
-                                                </div>
-                                            <div class="col-md-9 reviews_sum_details">
+                                        <c:if test="${proBoard.avgStarRate == 0}">
+                                            <strong>평점을 평가할 충분한 리뷰가 없습니다.</strong>
 
-                                                <div class="row upCount">
-                                                    <c:forEach var="rl" items="${reviewList}" varStatus="status">
-                                                        <!-- <div class="col-md-6"> -->
-                                                        <article class="blog">
-                                                            <figure>
-                                                                <a href="/review/detail?reviewBno=${rl.reviewBno}"><img
-                                                                        src="data:image/png;base64, ${uploads[status.index]}" alt="">
-                                                                    <div class="preview"><span>Read more</span></div>
-                                                                </a>
-                                                            </figure>
-                                                            <div class="post_info">
-                                                                <small>Last Updated - 
-                                                                    <fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
-                                                                <h2><a
-                                                                        href="#">${rl.title}</a>
-                                                                </h2>
-                                                                <p>평점: ${rl.starRate}/10</p>
-                                                                <p>식당 이름: <a href="#">${rl.storeName}</a></p>
-                                                                <p>식당 주소: ${rl.storeAddress}</p>
-                                                                <p>${rl.content}
-                                                                    <ul>
-                                                                        <li>
-                                                                            <div class="thumb"><img src="/img/avatar.jpg" alt=""></div>
-                                                                            ${rl.email}
-                                                                        </li>
-                                                                        <li>
-                            
-                                                                            <c:set var="contains" value="false" />
-                                                                            <c:forEach var="item" items="${isLikedList}">
-                                                                                <c:if test="${item eq rl.reviewBno}">
-                                                                                    <c:set var="contains" value="true" />
-                                                                                </c:if>
-                                                                            </c:forEach>
-                                                                            <c:choose>
-                                                                                <c:when test="${contains}">
-                                                                                    <i id="${rl.reviewBno}" class="heartIcon icon_heart"></i>
-                                                                                </c:when>
-                                                                                <c:otherwise>
-                                                                                    <i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i>
-                                                                                </c:otherwise>
-                                                                            </c:choose>
-                            
-                                                                            <span id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-                                                                            <a
-                                                                                href="/review/detail?reviewBno=${rl.reviewBno}#section-comment"><i
-                                                                                    id="${rl.reviewBno}"
-                                                                                    class="icon_comment_alt"></i>${replyCount[status.index]}</a>
-                                                                        </li>
-                            
-                                                                    </ul>
-                                                            </div>
-                                                        </article>
-                                                        <!-- /article -->
-                                                        <!-- </div> -->
-                                                    </c:forEach>
-                                                </div>
+                                        </c:if>
+                                        <c:if test="${proBoard.avgStarRate != 0}">
 
-                                                <!-- <c:forEach var="rl" items="${reviewList}" varStatus="status">
-                                                
+                                            <div id="review_summary">
+                                                <span class="star">
+                                                    ★★★★★
+                                                    <span>★★★★★</span>
+                                                </span>
+                                                <strong> ${proBoard.avgStarRate}</strong>
+                                                <small> revivew view : ${proBoard.review_cnt}</small>
+                                            </div>
+                                            <div class="add_bottom_45"></div>
+
+                                            <div class="row upCount">
+                                                <c:forEach var="rl" items="${reviewList}" varStatus="status">
+                                                    <!-- <div class="col-md-6"> -->
                                                     <article class="blog">
+                                                        <div class="add_bottom_45"></div>
+
                                                         <figure>
-                                                            <a
-                                                                href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}"><img
-                                                                    src="${uploads[status.index].filePath}" alt="">
+                                                            <a href="/review/detail?reviewBno=${rl.reviewBno}"><img
+                                                                    src="${uploads[status.index]}" alt="">
                                                                 <div class="preview"><span>Read more</span></div>
                                                             </a>
                                                         </figure>
-                                                        <div class="post_info">
-                                                            <small>Last Updated - ${rl.lastUpdated}
-                                                                <fmt:formatDate type="both" value="${rl.lastUpdated}" />
-                                                            </small>
-                                                            <h2><a
-                                                                    href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a>
-                                                            </h2>
 
-                                                            <p>식당 이름: <a href="#">${rl.storeName}</a></p>
-                                                            <p>식당 주소: ${rl.storeAddress}</p>
+                                                        <div class="post_info">
+                                                            <h2><a href="#">${rl.title}</a>
+                                                            </h2>
+                                                            <p>평점: ${rl.starRate}/10</p>
                                                             <p>${rl.content}
                                                                 <ul>
                                                                     <li>
@@ -615,26 +594,34 @@
                                                                         ${rl.email}
                                                                     </li>
                                                                     <li>
-                                                                        <i id="${rl.reviewBno}"
-                                                                            class="heartIcon icon_heart_alt"></i><span
-                                                                            id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-                                                                        <a
-                                                                            href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}#section-comment"><i
-                                                                                id="${rl.reviewBno}"
-                                                                                class="icon_comment_alt"></i>${replyCount[status.index]}</a>
+
+                                                                        <c:set var="contains" value="false" />
+                                                                        <c:forEach var="item" items="${isLikedList}">
+                                                                            <c:if test="${item eq rl.reviewBno}">
+                                                                                <c:set var="contains" value="true" />
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                        <c:choose>
+                                                                            <c:when test="${contains}">
+                                                                                <i id="${rl.reviewBno}"
+                                                                                    class="heartIcon icon_heart"></i>
+                                                                            </c:when>
+                                                                        </c:choose>
                                                                     </li>
 
                                                                 </ul>
                                                         </div>
                                                     </article>
-                                            
-                                                </c:forEach> -->
+                                                    <!-- /article -->
+                                                    <!-- </div> -->
+                                                </c:forEach>
+                                                <!-- /review_card -->
                                             </div>
-                                            <!-- /review_card -->
-                                        </div>
+                                        </c:if>
                                         <!-- /reviews -->
-                                        <div class="text-end"><a href="leave-review.html" class="btn_1">Leave a
-                                                review</a></div>
+                                        <div class="text-end"><a href="leave-review.html" class="btn_1 viewMore"> View
+                                                More </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1206,6 +1193,13 @@
     }
 </script>
 
+<script>
+    // <!-- 별점 -->
+    const starRate = document.querySelector('.star span');
+    const dd = Math.ceil(`${proBoard.avgStarRate}`) * 10;
+
+    starRate.style.width = dd + '%';
+</script>
 </body>
 
 </html>

@@ -97,5 +97,23 @@ class MasterMapperTest {
 //
     }
 
+    @Test
+    @DisplayName("사업자번호 주면 사업자가 삭제됨 ")
+    void deleteMasterTest(){ // 성공
+        String busibno= "1111-2222-3333-0001 ";
+        boolean b = masterMapper.deleteMaster(busibno);
+        assertTrue(b);
+    }
+
+    @Test
+    @DisplayName("비즈니스 번호 주면 이메일 받아냄")
+    void findEmailTest(){
+        String busiNo= "1234-2222-3333-1129";
+        String email = masterMapper.findEmail(busiNo);
+        System.out.println("\n\n====\n\n");
+        System.out.println(email);
+        System.out.println("\n\n====\n\n");
+    }
+
 
 }

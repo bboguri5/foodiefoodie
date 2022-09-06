@@ -97,7 +97,8 @@
             text-align: center;
             color: #000;
         }
-        .hotDealLabel{
+
+        .hotDealLabel {
             border: 2px solid red;
         }
     </style>
@@ -173,7 +174,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="hotDealLabel"><a href="#0" data-toggle="modal" data-target=".hotDeal">핫딜 ON/OFF
+                                    <label class="hotDealLabel"><a href="#0" data-toggle="modal"
+                                            data-target=".hotDeal">핫딜 ON/OFF
                                             Button</a></label>
                                     <input type="text" class="form-control" placeholder="${master.hotDeal}" readonly>
                                 </div>
@@ -281,7 +283,7 @@
                 <!-- <button type="button" class="btn masterRegistBtn btn-primary">가게 등록 하기</button> -->
                 <button type="button" class="btn btn-secondary makeProBoard">홍보글 작성하기</button>
                 <button type="button" class="btn btn-secondary detailProBoard">홍보글 상세보기</button>
-                <button type="button" class="btn deleteBtn btn-danger">가게 없애기</button>
+                <button type="button" class="btn deleteStoreBtn btn-danger">가게 정보 삭제하기</button>
             </div>
         </div>
         <!-- /.container-fluid-->
@@ -400,23 +402,10 @@
         const $passwordBtn = document.querySelector('.passwordBtn');
 
 
+        // 가게 정보 삭제하기 클릭버튼 
+        const $deleteStoreBtn = document.querySelector('.deleteStoreBtn');
 
-        // $body.onclick = e => {
 
-        //     if (e.target.matches('.modiBtn')) return;
-        //     // if (e.target.matches('.modalBox')) return;
-        //     // if (e.target.matches('.passwordModal')) return;
-
-        //     if ($modalBox.style.display === 'block') {
-        //         console.log('바디 :', $modalBox.style.display);
-        //         console.log("아아아아ㅏ");
-        //         console.log("클릭----");
-        //         console.log(e.target);
-        //         $body.style.opacity = 1;
-        //         $modalBox.style.display = "none";
-        //     }
-
-        // }
 
 
 
@@ -513,6 +502,22 @@
         $(document).ready(function () {
 
 
+            // 가게 정보 삭제하기 클릭버튼 
+            const $deleteStoreBtn = document.querySelector('.deleteStoreBtn');
+
+            $deleteStoreBtn.onclick = e => {
+                console.log("가게정보 삭제하기 버튼 눌렀다");
+                
+                // 마스터 넘을 넘겨준다 ! 
+                location.href = "/delMaster/${masterNum}";
+
+            };
+
+
+
+
+
+            // 핫딜 온오프 버튼  
             const $onRadio = document.getElementById('hotDealOn');
             console.log($onRadio);
             const $offRadio = document.getElementById('hotDealOff');
@@ -605,7 +610,7 @@
                             location.href = "/proBoard/write/${master.businessNo}";
                         })
 
-                        $('.detailProBoard').css('display','none');
+                        $('.detailProBoard').css('display', 'none');
                     } else if (msg === 'no') {
                         console.log('====no====');
                         $makeProBoard.text("홍보글 수정하기")

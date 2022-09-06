@@ -6,6 +6,7 @@ import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.MasterModifyDTO;
 import com.project.foodiefoodie.member.service.MasterService;
+import com.project.foodiefoodie.member.service.MemberService;
 import com.project.foodiefoodie.promotion.service.PromotionBoardService;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,7 @@ public class MasterController {
 
     private final PromotionBoardService promotionBoardService;
 
+    private final MemberService memberService;
 
     // 사업자 등록 화면 요청 처리
     @GetMapping("/master/register")
@@ -149,6 +151,43 @@ public class MasterController {
 
 //        return "/masterInfo/"+masterNum;
         return "redirect:/masterInfo/"+masterNum;
+    }
+
+
+
+    // 마스터 정보 삭제하기 컨트롤러 !!
+
+    @GetMapping("/delMaster/{masterNum}")
+    public String deleteMasterInfo(@PathVariable int masterNum ,HttpSession session){
+
+        log.info("im - delMaster masterNum {}" ,masterNum);
+        Member loginUser = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
+        String email = loginUser.getEmail();
+
+        List<Master> masters = masterService.allMaster(email);
+        Master master = masters.get(masterNum);
+        String businessNo = master.getBusinessNo();
+        log.info("businessNo  = {}",businessNo);
+        // 마스터 넘으로 마스터 번호까지 추출했음
+
+        // 마스터의 숫자 (가게 갯수)
+        int i = masterService.masterCountService(email);
+
+        if (i > 0){
+            //마스터가 하나라도 있으면 / 마스터를 삭제하라는 말
+            log.info("\n\n==\n\n");
+            log.info(" delete before i = {}",i);
+
+            masterService.deleteMasterService(businessNo);
+            log.info("delete after i = {}",i);
+            log.info("\n\n==\n\n");
+        } else if (i == 0 ) {
+            // 강등됨
+            memberService.authDownCommonTest(email);
+
+        }
+        return "/myPage/profile";
+
     }
 
 }

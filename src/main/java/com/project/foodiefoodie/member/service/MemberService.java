@@ -263,4 +263,11 @@ public class MemberService {
         boolean b = memberMapper.deleteMemberIntoProfile(email);
         return b;
     }
+
+    // 맴버 강등시키는 메서드
+    public boolean authDownCommonTest(String email){
+        boolean b = memberMapper.authDownCommon(email);
+        return b;
+    }
+
 }

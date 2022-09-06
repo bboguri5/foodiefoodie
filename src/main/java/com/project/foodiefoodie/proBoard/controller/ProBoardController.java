@@ -14,6 +14,8 @@ import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
+import com.project.foodiefoodie.promotionFaq.domain.PromotionFaq;
+import com.project.foodiefoodie.promotionFaq.service.PromotionFaqService;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -38,6 +40,7 @@ public class ProBoardController {
 
     private final ProBoardService proBoardService;
     private final MainPageService mainPageService;
+    private final PromotionFaqService promotionFaqService;
 
     private final ReviewBoardService reviewBoardService;
     private final ReplyService replyService;
@@ -249,4 +252,13 @@ public class ProBoardController {
     }
 
 
+    @PostMapping("/promotion-faq")
+    public String promotionFaq(PromotionFaq promotionFaq) {
+
+        log.info("/promotion-faq POST! - {}", promotionFaq);
+
+        promotionFaqService.saveService(promotionFaq);
+
+        return "redirect:/proBoard/detail/" + promotionFaq.getPromotionBno();
+    }
 }

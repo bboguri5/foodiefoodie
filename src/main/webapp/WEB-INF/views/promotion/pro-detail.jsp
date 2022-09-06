@@ -7,21 +7,21 @@
 
 <head>
 
-  
+
 
     <%@ include file="../include/static-head.jsp" %>
 
       <!-- SPECIFIC CSS -->
       <link href="/css/detail-page.css" rel="stylesheet">
       <link href="/css/detail-page-delivery.css" rel="stylesheet">
-  
+
       <!-- notice -->
       <link href="/css/admin.css" rel="stylesheet">
-  
+
       <!-- bootstrap js -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
-  
-      </style> 
+
+      </style>
       <!-- kakao map -->
       <script type="text/javascript"
           src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
@@ -281,6 +281,15 @@
     .proBoardModifyBtn {
         left: 0;
     }
+
+    .promotion-modal-content {
+        position: absolute;
+        top: 100px;
+    }
+
+    .modal-promotion-faq-content {
+        height: 200px;
+    }
 </style>
 
 <%@ include file="../include/detail-header.jsp" %>
@@ -307,7 +316,10 @@
                                         </div>
                                     </c:if>
                                 </div>
-                                <h1>${proBoard.title}</h1>
+                                <h1 style="display: inline;">${proBoard.title}</h1> <a href="#" class="promotion-faq-btn nav-faq-btn"
+                                style="margin-left: 10px;" data-bs-toggle='modal'
+                                data-bs-target='.promotion-faq-modal'>신고</a>
+                                <br>
                                 ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
@@ -699,6 +711,49 @@
         </div>
         <!-- /tabs_detail -->
 
+        <!-- 홍보글 신고 모달 -->
+        <form action="/proBoard/promotion-faq" method="POST" class="modal-form promotion-faq-form">
+            <div class="modal fade promotion-faq-modal" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content promotion-modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="edit_bookingLabel">신고글 정보</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>가게 이름</label>
+                                <input type="text" class="form-control" value="${proBoard.storeName}" disabled>
+                                <input type="hidden" class="modal-promotion-bno" name="promotionBno"
+                                    value="${proBoard.promotionBno}" readonly>
+                                <input type="hidden" value="${proBoard.businessNo}" name="businessNo" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>사업자 계정</label>
+                                <input type="text" class="form-control modal-promotion-writer-email"
+                                    name="promotionWriterEmail" value="${proBoard.email}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>신고 작성자</label>
+                                <input type="text" class="form-control modal-writer-email" name="writerEmail"
+                                    value="${loginUser.email}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>신고 사유</label>
+                                <textarea type="text" class="form-control modal-promotion-faq-content"
+                                    name="content"></textarea>
+                            </div>
+                            <!-- /Row -->
+                        </div>
+                        <div class="modal-footer btn-wrap">
+                            <button class="btn btn-primary del-btn modal-faq-btn" type="button">신고</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
     </main>
     <div id="modal-reply" class="white-popup mfp-with-anim mfp-hide">
         <div class="small-dialog-header">
@@ -746,7 +801,7 @@
 
     function showKaKao() {
         let positionAddress = '';
-        var mapContainer = document.getElementById('kakaoMap'), // 지도를 표시할 div 
+        var mapContainer = document.getElementById('kakaoMap'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                 level: 3, // 지도의 확대 레벨
@@ -803,25 +858,23 @@
     function addFavoriteStore() {
         if (`${isFavorite}` === 'true') {
             $('.wishlist').addClass('liked');
-            console.log("like");
         } else {
-            console.log("zzzzzz");
+            $('.wishlist').removeClass('liked');
         }
 
         // Like Icon
         $('.btn_hero.wishlist').on('click', function (e) {
             e.preventDefault();
 
-            if (!$('.wishlist').hasClass('liked')) {
+            if ($(this).hasClass('liked')) {
                 fetch('/proBoard/detail/favorite/store/remove/' + `${promotionBno}`, {
                     method: 'DELETE'
                 });
             } else {
-
                 fetch('/proBoard/detail/favorite/store/add/' + `${promotionBno}`);
             }
 
-            // $('.wishlist').toggleClass('liked');
+            $(this).toggleClass('liked');
 
         });
     }
@@ -1241,6 +1294,24 @@
     // console.log(reviewStar);
     // reviewStarRate.style.width = reviewStar + '%';
 </script>
+<!-- 신고 버튼 -->
+<script>
+    const promotionFaqBtn = document.querySelector('.modal-faq-btn');
+
+    promotionFaqBtn.onclick = e => {
+        const faqContent = document.querySelector('.modal-promotion-faq-content');
+        const promotionFaqForm = document.querySelector('.promotion-faq-form');
+        if (faqContent.value.trim() === '') {
+            alert("사유는 필수값입니다.");
+        } else {
+            promotionFaqForm.submit();
+        }
+    }
+
+</script>
+
+
+
 </body>
 
 </html>

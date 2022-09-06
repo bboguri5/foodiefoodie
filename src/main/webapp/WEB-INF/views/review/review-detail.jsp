@@ -133,7 +133,7 @@
 
         .img-css {
             margin-top: 30px !important;
-        }inde
+        }
 
         .reply-modal-content {
             margin-top: 10px;

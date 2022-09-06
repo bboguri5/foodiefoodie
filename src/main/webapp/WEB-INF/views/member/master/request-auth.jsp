@@ -221,6 +221,13 @@
                     return;
                 }
 
+                if (!getBusiNo.test($('#businessNo-input').val())) {
+
+                    alert('형식에 맞지 않는 사업자 번호입니다. 입력을 확인하세요.')
+
+                    return;
+                }
+
 
                 // 정상적으로 입력을 완료한 경우
                 $reqAuthForm.submit();

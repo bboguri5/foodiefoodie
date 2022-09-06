@@ -2,15 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Ansonika">
-    <title>FOOGRA - Admin dashboard</title>
+    <%@ include file="../include/admin-static-head.jsp" %>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
@@ -98,7 +94,8 @@
             color: #000;
         }
         .hotDealLabel{
-            border: 2px solid red;
+            margin-left: 5px;
+            color: red;
         }
     </style>
 
@@ -173,8 +170,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="hotDealLabel"><a href="#0" data-toggle="modal" data-target=".hotDeal">핫딜 ON/OFF
-                                            Button</a></label>
+                                    <label>핫딜 ON/OFF<a href="#0" data-toggle="modal" data-target=".hotDeal" class="hotDealLabel">Button</a></label>
                                     <input type="text" class="form-control" placeholder="${master.hotDeal}" readonly>
                                 </div>
                             </div>

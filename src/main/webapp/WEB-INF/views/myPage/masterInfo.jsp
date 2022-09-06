@@ -98,6 +98,66 @@
             color: #000;
         }
 
+        /* ===================================================================== */
+
+        .modalBox2 {
+            position: absolute;
+            display: none;
+            width: 25%;
+            height: 20%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 5%;
+            border: 2px solid green;
+        }
+
+        .modalBox2 .passwordModal {
+            width: 80%;
+            height: 60%;
+            position: absolute;
+            margin: 0 auto;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            /* background: blue; */
+        }
+
+        .modalBox2 .passwordModal .passwordModal-title {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .modalBox2 .passwordModal .falseh5 {
+            display: none;
+            /* 이건 먹는데  */
+            color: red;
+            /* 왜 색깔은 안변하냐 ;; */
+            text-align: center;
+        }
+
+        .modalBox2 .passwordModal .passwordform {
+            text-align: center;
+        }
+
+        .modalBox2 .passwordModal .passwordBtn2 {
+            margin-left: 20px;
+        }
+
+        .modalBox2 .returnBtn {
+            /* 종료버튼  */
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: 85%;
+            top: 10%;
+            border-radius: 50%;
+            background: green;
+            text-align: center;
+            color: #000;
+        }
+
         .hotDealLabel {
             border: 2px solid red;
         }
@@ -264,7 +324,7 @@
         <p><a href="#0" class="btn_1 medium">사장으로 등록하기</a></p> -->
 
             <!-- ----------------------------------------------------------------------------------------------------------------- -->
-
+            <!-- 마스터 수정버튼 비밀번호 검증하는 모달  -->
             <div class="modalBox">
                 <div class="passwordModal">
                     <h5 class="passwordModal-title">비밀번호를 입력하세요</h5>
@@ -272,6 +332,19 @@
 
                     <input type="password" name="password" class="passwordInput"> <button type="button"
                         class="passwordBtn">누르세요</button>
+                </div>
+                <div class="returnBtn">X</div>
+
+            </div>
+
+            <!-- 가게 정보 삭제 버튼 비밀번호 검증하는 모달  -->
+            <div class="modalBox2">
+                <div class="passwordModal">
+                    <h5 class="passwordModal-title">비밀번호를 입력하세요</h5>
+                    <h5 class="falseh52">[비밀번호가 틀렸습니다.]</h5>
+
+                    <input type="password" name="password" class="passwordInput2"> <button type="button"
+                        class="passwordBtn2">누르세요</button>
                 </div>
                 <div class="returnBtn">X</div>
 
@@ -287,37 +360,6 @@
             </div>
         </div>
         <!-- /.container-fluid-->
-    </div>
-    <!-- /.container-wrapper-->
-    <footer class="sticky-footer">
-        <div class="container">
-            <div class="text-center">
-                <small>Copyright © FoodieFoodie 2022</small>
-            </div>
-        </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="#0">Logout</a>
-                </div>
-            </div>
-        </div>
     </div>
 
 
@@ -396,18 +438,18 @@
 
         const $body = document.body;
 
-        // 비동기 
+        // 가게 정보 수정 비동기 
         const $falseh5 = document.querySelector('.falseh5');
         const $brLabel = document.querySelector('.brLabel');
         const $passwordBtn = document.querySelector('.passwordBtn');
 
 
-        // 가게 정보 삭제하기 클릭버튼 
-        const $deleteStoreBtn = document.querySelector('.deleteStoreBtn');
+        // 가게 정보 삭제 비밀번호 인풋 
+        const $passwordInput2 = document.querySelector('.passwordInput2');
+        const $modalBox2 = document.querySelector('.modalBox2');
 
-
-
-
+        const $falseh52 = document.querySelector('.falseh52');
+        const $brLabel2 = document.querySelector('.brLabel2');
 
         if ($modBtn !== null) {
             //수정버튼
@@ -426,7 +468,7 @@
 
         if ($returnBtn !== null) {
             // 모달창 빨간색 x 버튼 
-            const $passwordInput = document.querySelector('.passwordInput')
+          
             $returnBtn.onclick = e => {
                 console.log("빨간색 x 버튼 눌렀다");
                 $falseh5.style.display = "none";
@@ -455,7 +497,7 @@
         }
 
 
-        // 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드 
+        //마스터 정보 수정// 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드 
         function trueAndFalsePassword(e) {
 
             const $passwordInput = document.querySelector('.passwordInput')
@@ -489,6 +531,46 @@
                     }
                 });
         }
+
+
+
+         //가게 정보 삭제// 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드 
+        function trueAndFalsePassword2(e) {
+
+            const $passwordInput2 = document.querySelector('.passwordInput2')
+
+            // 서버로 전송할 데이터들
+            const password = {
+                password: $passwordInput2.value
+            };
+
+            // POST요청을 위한 요청 정보 객체
+            const reqInfo = {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(password)
+            };
+
+            fetch('/trueAndFalsePassword', reqInfo)
+                .then(res => res.text())
+                .then(msg => {
+                    if (msg === 'password-success') {
+                        alert("비밀번호가 맞았습니다.");
+                        if(confirm("진짜로 삭제 하시겠습니까?")){
+                            location.href = '/delMaster/${masterNum}';
+                        }else{
+                            location.href = 'redirect:/myPage/masterInfo/${masterNum}';
+                        }
+                    } else if (msg === 'password-false') {
+                        console.log(123123123123123123);
+                        $falseh52.style.display = "block";
+                        $falseh52.style.color = 'red';
+                        $brLabel.style.display = "none";
+                    }
+                });
+        }
     </script>
 
     <script>
@@ -499,6 +581,12 @@
         })();
 
 
+        // 가게 정보 삭제하기 클릭버튼 
+        const $deleteStoreBtn = document.querySelector('.deleteStoreBtn');
+        // 비밀번호 넘기는 버튼 
+        const $passwordBtn2 = document.querySelector('.passwordBtn2');
+
+
         $(document).ready(function () {
 
 
@@ -507,12 +595,22 @@
 
             $deleteStoreBtn.onclick = e => {
                 console.log("가게정보 삭제하기 버튼 눌렀다");
-                
-                // 마스터 넘을 넘겨준다 ! 
-                location.href = "/delMaster/${masterNum}";
 
+                // 모달창 띄운다 
+                $modalBox2.style.display = "block";
+
+                // // 마스터 넘을 넘겨준다 ! 
+                // location.href = "/delMaster/${masterNum}";
             };
 
+
+            // 가게 정보 삭제 비밀번호 넘기는 버튼 
+        if ($passwordBtn2 !== null) {
+            $passwordBtn2.onclick = e => {
+                console.log('click password2');
+                trueAndFalsePassword2();
+            }
+        }
 
 
 

@@ -153,7 +153,6 @@ public class MasterController {
 
 
     // 마스터 정보 삭제하기 컨트롤러 !!
-
     @GetMapping("/delMaster/{masterNum}")
     public String deleteMasterInfo(@PathVariable int masterNum, HttpSession session) {
 
@@ -185,7 +184,6 @@ public class MasterController {
             memberService.authDownCommonTest(email);
             //
             loginUser.setAuth(Auth.COMMON);
-
         }
 
 

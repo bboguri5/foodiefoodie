@@ -68,9 +68,9 @@
     <!--        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}-->
     <!--    </update>-->
 
-    <!--    <delete id="deleteProBoard">-->
-    <!--        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}-->
-    <!--    </delete>-->
+        <delete id="deleteProBoard">
+            DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}
+        </delete>
 
     <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
         <result property="businessNo" column="BUSINESS_NO"/>

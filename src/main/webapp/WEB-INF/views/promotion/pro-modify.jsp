@@ -272,10 +272,10 @@
 
         /* btn */
 
-        .save-btn {
+        .btnList {
             display: flex;
             justify-content: space-around;
-            width: 20%;
+            width: 25%;
             margin: 0 auto;
         }
 
@@ -294,6 +294,10 @@
 
         button.btn.medium.cancelBtn {
             background: #c83030;
+        }
+
+        button.btn.medium.deleteBtn {
+            background: #000;
         }
     </style>
 
@@ -571,17 +575,15 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="휴무" 
+                                                        <input type="text" class="form-control" placeholder="휴무"
                                                             readonly="">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <input type="text" name="closedDay"
-                                                            value="${proBoard.closedDay}"
-                                                            class="form-control closedDay" 
-                                                            placeholder="휴무 옵션 선택"
-                                                            readonly>
+                                                            value="${proBoard.closedDay}" class="form-control closedDay"
+                                                            placeholder="휴무 옵션 선택" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -612,10 +614,11 @@
                 </div>
             </div>
             </div>
-            <div class="col-md-12 save-btn">
+            <div class="col-md-12 btnList">
+                <button type="button" class="btn medium deleteBtn">Delete</button>
                 <button type="button" class="btn medium saveBtn">Save</button>
-                <button type="button" class="btn medium cancelBtn">Cancel</button>
-                <button type="button" class="btn medium cancelBtn">Delete</button>
+                <button type="button" class="btn medium cancelBtn"
+                    onclick="location.href='/proBoard/detail/${promotionBno}'">Cancel</button>
             </div>
         </form>
     </main>
@@ -626,7 +629,7 @@
             timeFormat: 'HH:mm a',
         });
 
-        const zz ='${proBoard.weekdayCloseTime}'.split(':');
+        const zz = '${proBoard.weekdayCloseTime}'.split(':');
         console.log(zz);
         $('.weekday-closeTime').timepicker({
             defaultTime: '${proBoard.weekdayCloseTime}',
@@ -653,7 +656,6 @@
             startTime: '${proBoard.breakStartTime} a',
             timeFormat: 'HH:mm a'
         });
-
     </script>
 
     <%@ include file="../include/footer.jsp" %>
@@ -720,14 +722,26 @@
             inputOnlyIntType(); // first menu item price 
             limitHashTag(); // hash tag 글자수/단어 제한 
             checkSaveData(); // title , content , hashTag 
+            clickProBoardDelete();
         });
         addMenuItem();
 
 
-        function clickEventCancel() {
-
+        // 홍보글 삭제
+        function clickProBoardDelete() {
+            $('.deleteBtn').on('click', function () {
+                $.ajax({
+                    type: "delete",
+                    url: "/proBoard/delete/${promotionBno}",
+                    success: function () {
+                        location.href = "/"
+                    },
+                    error: function () {
+                        alert("삭제 실패")
+                    }
+                })
+            });
         }
-
 
         /* 휴무 요일 선택,제거,중복처리 */
         function selectClosedDay() {
@@ -759,7 +773,7 @@
             });
         }
 
-
+    
 
         /* 필수 입력 검증 */
         function checkSaveData() {

@@ -18,6 +18,8 @@ import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -238,14 +240,13 @@ public class ProBoardController {
         return "";
     }
 
-//    @PostMapping("/modify/menu")
-//    @ResponseBody
-//    public String modifyMenu(@RequestBody List<MenuDTO> menuDTOList)
-//    {
-//        log.info(" @PostMapping(\"/modify/menu\") modifyMenu {}",menuDTOList);
-//        proBoardService.modifyMenuInfo(menuDTOList);
-//        return "";
-//    }
+    @DeleteMapping("/delete/{promotionBno}")
+    public ResponseEntity deleteProBoard(@PathVariable int promotionBno)
+    {
+        log.info(" controller deleteProBoard init - {}",promotionBno);
+        return proBoardService.deleteProBoard(promotionBno) ?
+                new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
+    }
 
 
 }

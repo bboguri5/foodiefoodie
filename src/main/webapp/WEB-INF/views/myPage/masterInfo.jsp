@@ -129,7 +129,7 @@
             margin-bottom: 15px;
         }
 
-        .modalBox2 .passwordModal .falseh5 {
+        .modalBox2 .passwordModal .falseh52 {
             display: none;
             /* 이건 먹는데  */
             color: red;
@@ -145,7 +145,7 @@
             margin-left: 20px;
         }
 
-        .modalBox2 .returnBtn {
+        .modalBox2 .returnBtn2 {
             /* 종료버튼  */
             position: absolute;
             width: 20px;
@@ -346,7 +346,7 @@
                     <input type="password" name="password" class="passwordInput2"> <button type="button"
                         class="passwordBtn2">누르세요</button>
                 </div>
-                <div class="returnBtn">X</div>
+                <div class="returnBtn2">X</div>
 
             </div>
 
@@ -448,6 +448,7 @@
         const $passwordInput2 = document.querySelector('.passwordInput2');
         const $modalBox2 = document.querySelector('.modalBox2');
 
+        const $returnBtn2 = document.querySelector('.returnBtn2');
         const $falseh52 = document.querySelector('.falseh52');
         const $brLabel2 = document.querySelector('.brLabel2');
 
@@ -477,6 +478,20 @@
                 // location.href = '/myPage-modify';
             };
         }
+
+        
+        if ($returnBtn2 !== null) {
+            // 가게 정보 삭제 모달 x 
+          
+            $returnBtn2.onclick = e => {
+                console.log("버튼 x 눌렀다");
+                $falseh52.style.display = "none";
+
+                $modalBox2.style.display = "none";
+                // location.href = '/myPage-modify';
+            };
+        }
+
 
         if ($delBtn !== null) {
 

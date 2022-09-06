@@ -574,7 +574,8 @@
             </div>
             <div class="col-md-12 save-btn">
                 <button type="button" class="btn medium saveBtn">Save</button>
-                <button type="button" class="btn medium cancelBtn">Cancel</button>
+                <button type="button" class="btn medium cancelBtn"
+                onclick="location.href='/myPage/profile'">Cancel</button>
             </div>
         </form>
     </main>

@@ -18,11 +18,10 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     JavaMailSender emailSender;
 
-    public static final String authCode = createKey();
 
 
 
-    private MimeMessage createMessage(String email)throws Exception {
+    private MimeMessage createMessage(String email, String authCode)throws Exception {
         log.info("sender : {}", email);
         log.info("authCode : {}", authCode);
 
@@ -84,7 +83,8 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public String sendAuthCodeEmail(String email) throws Exception {
         // TODO Auto-generated method stub
-        MimeMessage message = createMessage(email);
+        String authCode = createKey();
+        MimeMessage message = createMessage(email, authCode);
 
         try { // 예외처리
             emailSender.send(message);

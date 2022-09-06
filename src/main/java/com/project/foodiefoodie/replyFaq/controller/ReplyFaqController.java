@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.replyFaq.controller;
 
 import com.project.foodiefoodie.blackList.service.BlackListService;
+import com.project.foodiefoodie.member.service.MemberService;
 import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.replyFaq.domain.ReplyFaq;
@@ -29,6 +30,7 @@ public class ReplyFaqController {
     private final ReportMemberService rms;
     private final ReplyService rs;
     private final BlackListService bls;
+    private final MemberService ms;
 
 
     @GetMapping("/admin/replyFaq")
@@ -78,7 +80,10 @@ public class ReplyFaqController {
                 rms.modifyService(reportMember);
 
                 if (newReportCnt == 5) {
+                    // 블랙리스트에 등록
                     bls.saveService(replyFaq.getReplyWriterEmail());
+                    // 해당 계정 탈퇴
+                    ms.removeService(replyFaq.getReplyWriterEmail());
                 }
             }
 

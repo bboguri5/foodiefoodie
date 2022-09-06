@@ -22,20 +22,8 @@ import java.util.List;
 public class ProBoardService {
     private final ProBoardMapper proBoardMapper;
 
-
-    public boolean addFavoriteStore(String email, int promotionBno){
-        return proBoardMapper.addFavoriteStore(email,promotionBno);
-    }
-
-    public boolean isFavoriteStore(String email, int promotionBno)
-    {
-        return proBoardMapper.isFavoriteStore(email,promotionBno) > 0 ;
-    }
-    public boolean removeFavoriteStore(String email ,int promotionBno){
-        return proBoardMapper.removeFavoriteStore(email,promotionBno);
-    }
     @Transactional
-    public boolean saveProBoard(ProBoard proBoard, List<String[]> menuList, Map<String, List<MultipartFile>> fileMap) {
+    public int saveProBoard(ProBoard proBoard, List<String[]> menuList, Map<String, List<MultipartFile>> fileMap) {
 
         log.info(" saveProBoard service init - {}", proBoard);
         boolean result = proBoardMapper.saveProBoard(proBoard); // content , title .. 저장
@@ -44,43 +32,42 @@ public class ProBoardService {
 
             log.info(" saveProBoard result init - {} ", result);
             int promotionBno = proBoardMapper.selectPromotionBno(proBoard.getBusinessNo());
+
             proBoard.setPromotionBno(promotionBno);
 
-            if(!menuList.get(0)[0].isEmpty())
-            {
-                for (int i = 0; i < menuList.get(0).length; i++) {
-
-                    MenuDTO menuDTO = new MenuDTO();
-                    menuDTO.setPromotionBno(promotionBno);
-                    menuDTO.setMenuName(menuList.get(0)[i]);
-                    menuDTO.setMenuPrice(Integer.parseInt(menuList.get(1)[i]));
-                    proBoardMapper.saveMenuInfo(menuDTO);
-                }
-            }
+            saveMenuList(proBoard, menuList, fileMap.get("menu"));
 
             proBoardMapper.saveStoreTime(proBoard);
 
             for (String key : fileMap.keySet()) {
-                List<FileDTO> fileDTOList = uploadSaveFiles(proBoard, fileMap.get(key), key);
-                if(fileDTOList != null) saveFileInfo(fileDTOList);
+                if (!key.equals("menu")) {
+                    System.out.println(key.equals("menu"));
+                    List<FileDTO> fileDTOList = uploadSaveFiles(proBoard, fileMap.get(key), key);
+                    if (fileDTOList != null) saveFileInfo(fileDTOList);
+                }
+
             }
         }
 
-        return result;
+        return proBoard.getPromotionBno();
     }
 
+
     @Transactional
-    public boolean modifyProBoard(ProBoard proBoard, Map<String, List<MultipartFile>> fileMap) {
+    public boolean modifyProBoard(ProBoard proBoard, List<String[]> menuList, Map<String, List<MultipartFile>> fileMap) {
         log.info(" service modifyProBoard {} ", proBoard.getPromotionBno());
         int promotionBno = proBoard.getPromotionBno();
 
         proBoardMapper.modifyProBoard(proBoard);
         proBoardMapper.modifyStoreTime(proBoard);
 
+        proBoardMapper.deleteMenuInfo(promotionBno); // menu db 전체 삭제
+        saveMenuList(proBoard, menuList, fileMap.get("menu")); // menu & menuFiles 전체 저장
+
         for (String key : fileMap.keySet()) {
-            if (!key.equals("menu")) { // 메뉴는 비동기에서 DB 삭제되어 자동으로 파일도 삭제됨
-                proBoardMapper.deleteFileAllInfo(promotionBno, key);
-            }
+            if (key.equals("menu") || key.isEmpty()) continue; // 메뉴는 비동기에서 DB 삭제되어 자동으로 파일도 삭제됨
+
+            proBoardMapper.deleteFileAllInfo(promotionBno, key);
             saveFileInfo(uploadSaveFiles(proBoard, fileMap.get(key), key));
         }
 
@@ -147,7 +134,7 @@ public class ProBoardService {
         log.info(" service uploadSaveFile init {}", fileList);
         List<FileDTO> fileDTOList = new ArrayList<>();
 
-        if(fileList == null) return null;
+        if (fileList == null) return null;
         for (MultipartFile imgFile : fileList) {
             if (imgFile.getSize() == 0 || imgFile.isEmpty()) return null;
 
@@ -180,10 +167,8 @@ public class ProBoardService {
     }
 
     private boolean saveFileInfo(List<FileDTO> fileDTOList) {
-
-        log.info(" service saveFileInfo - {} ", fileDTOList.size());
-
         if (fileDTOList == null) return false;
+        log.info(" service saveFileInfo - {} ", fileDTOList.size());
 
         List<Boolean> resultList = new ArrayList<>();
         for (FileDTO fileDTO : fileDTOList) {
@@ -215,29 +200,38 @@ public class ProBoardService {
         return proBoardMapper.selectMenuInfo(promotionBno);
     }
 
-    public boolean saveMenuInfo(List<MenuDTO> menuList) {
 
-        log.info(" service saveMenuInfo init ");
-        List<Boolean> resultList = new ArrayList<>();
+    private void saveMenuList(ProBoard proBoard, List<String[]> menuList, List<MultipartFile> menuFileList) {
+        log.info(" service saveMenuList - {}", menuList);
 
-        for (MenuDTO menu : menuList) {
-            log.info(" service saveMenuInfo menu {}", menu);
-            resultList.add(proBoardMapper.saveMenuInfo(menu));
+        if (!menuList.get(0)[0].isEmpty()) {
+            List<FileDTO> menuFileDTOs = uploadSaveFiles(proBoard, menuFileList, "menu");
+
+            for (int i = 0; i < menuList.get(0).length; i++) {
+
+                MenuDTO menuDTO = new MenuDTO();
+                menuDTO.setPromotionBno(proBoard.getPromotionBno());
+                menuDTO.setMenuName(menuList.get(0)[i]);
+                menuDTO.setMenuPrice(Integer.parseInt(menuList.get(1)[i]));
+                proBoardMapper.saveMenuInfo(menuDTO);
+
+                proBoardMapper.saveFiles(menuFileDTOs.get(i));
+            }
         }
-        return !resultList.contains(false);
     }
 
-    public boolean modifyMenuInfo(List<MenuDTO> menuDTO) {
+    /* ===================================== favorite ===================================== */
 
-        int promotionBno = menuDTO.get(0).getPromotionBno();
-        log.info(" service modifyMenuInfo init - {} ", promotionBno);
+    public boolean addFavoriteStore(String email, int promotionBno) {
+        return proBoardMapper.addFavoriteStore(email, promotionBno);
+    }
 
-        proBoardMapper.deleteMenuInfo(promotionBno);
-        for (MenuDTO menu : menuDTO) {
-            proBoardMapper.saveMenuInfo(menu);
-        }
+    public boolean isFavoriteStore(String email, int promotionBno) {
+        return proBoardMapper.isFavoriteStore(email, promotionBno) > 0;
+    }
 
-        return true;
+    public boolean removeFavoriteStore(String email, int promotionBno) {
+        return proBoardMapper.removeFavoriteStore(email, promotionBno);
     }
 
     public Integer isHotDealService(String businessNo) {

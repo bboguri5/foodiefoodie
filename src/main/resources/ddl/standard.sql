@@ -366,8 +366,6 @@ CONSTRAINT fk_promotion_bno_notice FOREIGN KEY (promotion_bno)
 REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
-
-
 create table PROMOTION_UPLOAD_MENU_IMG (
         promotion_bno number(10)
         , menu_no number(5)

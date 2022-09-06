@@ -226,7 +226,17 @@
 
         text-align: center;
     }
+
+    .reviews .reviewContent
+    {
+        margin: 0 auto;
+    }
+    .review_summary{
+        
+    }
 </style>
+
+
 
 <body>
     <%@ include file="../include/header.jsp" %>
@@ -242,7 +252,14 @@
                         <div class="row">
                             <div class="col-xl-4 col-lg-5 col-md-6">
                                 <div class="head">
-                                    <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
+                                    <div class="score"><span>review<em>${proBoard.review_cnt}</em></span>
+                                        <c:if test="${proBoard.avgStarRate} == 0">
+                                            <strong>"평점이 없습니다."</strong>
+                                        </c:if>
+                                        <c:if test="${proBoard.avgStarRate} != 0">
+                                            <strong> ${proBoard.avgStarRate}</strong>
+                                        </c:if>
+                                    </div>
                                 </div>
                                 <h1>${proBoard.title}</h1>
                                 ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
@@ -501,17 +518,77 @@
                                 </div>
                                 <div id="collapse-C" class="collapse" role="tabpanel" aria-labelledby="heading-C">
                                     <div class="card-body reviews">
-                                        <div class="row add_bottom_45 d-flex align-items-center">
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 reviewContent">
                                                 <div id="review_summary">
-                                                    <strong>8.5</strong>
-                                                    <em>Superb</em>
-                                                    <small>Based on 4 reviews</small>
+                                                    <c:if test="${proBoard.avgStarRate} == 0">
+                                                        <strong>"평점이 없습니다."</strong>
+                                                    </c:if>
+                                                    <c:if test="${proBoard.avgStarRate} != 0">
+                                                        <strong> ${proBoard.avgStarRate}</strong>
+                                                    </c:if>
+                                                    <small> revivew view : ${proBoard.review_cnt}</small>
                                                 </div>
-                                            </div>
                                             <div class="col-md-9 reviews_sum_details">
-                                                <c:forEach var="rl" items="${reviewList}" varStatus="status">
-                                                    <!-- <div class="col-md-6"> -->
+
+                                                <div class="row upCount">
+                                                    <c:forEach var="rl" items="${reviewList}" varStatus="status">
+                                                        <!-- <div class="col-md-6"> -->
+                                                        <article class="blog">
+                                                            <figure>
+                                                                <a href="/review/detail?reviewBno=${rl.reviewBno}"><img
+                                                                        src="data:image/png;base64, ${uploads[status.index]}" alt="">
+                                                                    <div class="preview"><span>Read more</span></div>
+                                                                </a>
+                                                            </figure>
+                                                            <div class="post_info">
+                                                                <small>Last Updated - 
+                                                                    <fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
+                                                                <h2><a
+                                                                        href="#">${rl.title}</a>
+                                                                </h2>
+                                                                <p>평점: ${rl.starRate}/10</p>
+                                                                <p>식당 이름: <a href="#">${rl.storeName}</a></p>
+                                                                <p>식당 주소: ${rl.storeAddress}</p>
+                                                                <p>${rl.content}
+                                                                    <ul>
+                                                                        <li>
+                                                                            <div class="thumb"><img src="/img/avatar.jpg" alt=""></div>
+                                                                            ${rl.email}
+                                                                        </li>
+                                                                        <li>
+                            
+                                                                            <c:set var="contains" value="false" />
+                                                                            <c:forEach var="item" items="${isLikedList}">
+                                                                                <c:if test="${item eq rl.reviewBno}">
+                                                                                    <c:set var="contains" value="true" />
+                                                                                </c:if>
+                                                                            </c:forEach>
+                                                                            <c:choose>
+                                                                                <c:when test="${contains}">
+                                                                                    <i id="${rl.reviewBno}" class="heartIcon icon_heart"></i>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <i id="${rl.reviewBno}" class="heartIcon icon_heart_alt"></i>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                            
+                                                                            <span id="heart${rl.reviewBno}">${rl.likeCnt}</span>
+                                                                            <a
+                                                                                href="/review/detail?reviewBno=${rl.reviewBno}#section-comment"><i
+                                                                                    id="${rl.reviewBno}"
+                                                                                    class="icon_comment_alt"></i>${replyCount[status.index]}</a>
+                                                                        </li>
+                            
+                                                                    </ul>
+                                                            </div>
+                                                        </article>
+                                                        <!-- /article -->
+                                                        <!-- </div> -->
+                                                    </c:forEach>
+                                                </div>
+
+                                                <!-- <c:forEach var="rl" items="${reviewList}" varStatus="status">
+                                                
                                                     <article class="blog">
                                                         <figure>
                                                             <a
@@ -550,9 +627,8 @@
                                                                 </ul>
                                                         </div>
                                                     </article>
-                                                    <!-- /article -->
-                                                    <!-- </div> -->
-                                                </c:forEach>
+                                            
+                                                </c:forEach> -->
                                             </div>
                                             <!-- /review_card -->
                                         </div>
@@ -624,7 +700,7 @@
 
     <!-- COMMON SCRIPTS -->
     <script src="/js/common_scripts.min.js"></script>
-    <script src="/js/common_func.js"></script>
+    <!-- <script src="/js/common_func.js"></script> -->
     <script src="/js/validate.js"></script>
 
     <!-- SPECIFIC SCRIPTS -->
@@ -662,8 +738,9 @@
         // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
+        const masterAddress = '${proBoard.storeAddress}';
         // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(`${proBoard.storeAddress}`, function (result, status) {
+        geocoder.addressSearch(masterAddress, function (result, status) {
 
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {

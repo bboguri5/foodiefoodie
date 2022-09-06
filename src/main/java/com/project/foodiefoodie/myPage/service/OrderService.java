@@ -55,4 +55,12 @@ public class OrderService {
     }
 
 
+    // 주문번호에 할인율 받아오기
+    public int discountRate(int orderNum){
+        int discount = orderMapper.discount(orderNum);
+        return discount;
+    }
+
+
+
 }

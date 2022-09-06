@@ -14,9 +14,12 @@
     <!-- Favicons-->
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" type="image/x-icon" href="/mypage/img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/mypage/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/mypage/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/mypage/img/apple-touch-icon-144x144-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
+        href="/mypage/img/apple-touch-icon-72x72-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
+        href="/mypage/img/apple-touch-icon-114x114-precomposed.png">
+    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
+        href="/mypage/img/apple-touch-icon-144x144-precomposed.png">
     <!-- Bootstrap core CSS-->
     <link href="/mypage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Main styles -->
@@ -32,7 +35,7 @@
 <body class="fixed-nav sticky-footer" id="page-top">
 
     <%@ include file="../include/myPage-nav.jsp" %>
-    
+
     <!-- 여기가 메인 ~~------------------------------------------------------------------------------------------ -->
     <!-- /Navigation-->
     <div class="content-wrapper">
@@ -42,7 +45,7 @@
                 <li class="breadcrumb-item">
                     <a href="#">내가 주문한 내역</a>
                 </li>
-            
+
             </ol>
             <!-- Example DataTables Card-->
             <div class="card mb-3">
@@ -56,7 +59,9 @@
                                     <th>주문 번호 </th>
                                     <th>주문 한 가게</th>
                                     <th>주문 내역</th>
-                                    <th>총 가격</th>
+                                    <th>할인 전 가격</th>
+                                    <th>할인율</th>
+                                    <th>할인 된 가격</th>
                                     <th>날 짜</th>
                                 </tr>
                             </thead>
@@ -65,7 +70,9 @@
                                     <th>주문 번호 </th>
                                     <th>주문 한 가게</th>
                                     <th>주문 내역</th>
-                                    <th>총 가격</th> 
+                                    <th>할인 전 가격</th>
+                                    <th>할인율</th>
+                                    <th>할인 된 가격</th>
                                     <th>날 짜</th>
                                 </tr>
                             </tfoot>
@@ -79,12 +86,14 @@
                                         <td>${userOrder.storeName}</td>
                                         <td>${userOrder.orderMenuList}</td>
                                         <td>${userOrder.totalNum}</td>
+                                        <td>${userOrder.discount}</td>
+                                        <td>${userOrder.realMoney}</td>
                                         <td>${userOrder.orderDate}</td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
 
-                              <!-- ================================================ -->
+                            <!-- ================================================ -->
                         </table>
                     </div>
                 </div>
@@ -108,7 +117,8 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -125,7 +135,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Bootstrap core JavaScript-->
     <script src="/mypage/vendor/jquery/jquery.min.js"></script>
     <script src="/mypage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -37,6 +37,9 @@ public interface OrderMapper {
     // 내 주문번호 , 및 가게이름
     List<OrderNoAndStoreNameDTO> OrderNoAndStoreNameDTOList(String email);
 
+    // 할인율 !!
+    int discount(int orderNum);
+
 
 
 

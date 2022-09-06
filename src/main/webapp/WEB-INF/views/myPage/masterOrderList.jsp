@@ -51,7 +51,9 @@
                                     <th>주문 번호 </th>
                                     <th>주문 한 사람</th>
                                     <th>주문 내역 </th>
-                                    <th>총 가격</th>
+                                    <th>할인 전 가격</th>
+                                    <th>할인율</th>
+                                    <th>할인 후 가격</th>
                                     <th>날 짜 </th>
                                 </tr>
                             </thead>
@@ -60,7 +62,9 @@
                                     <th>주문 번호 </th>
                                     <th>주문 한 사람</th>
                                     <th>주문 내역 </th>
-                                    <th>총 가격</th>
+                                    <th>할인 전 가격</th>
+                                    <th>할인율</th>
+                                    <th>할인 후 가격</th>
                                     <th>날 짜 </th>
                                 </tr>
                             </tfoot>
@@ -74,6 +78,8 @@
                                         <td>${masterOrder.email}</td>
                                         <td>${masterOrder.orderMenuList}</td>
                                         <td>${masterOrder.totalNum}</td>
+                                        <td>${masterOrder.discount}</td>
+                                        <td>${masterOrder.realMoney}</td>
                                         <td>${masterOrder.dateAndTime}</td>
                                     </tr>
                                 </c:forEach>

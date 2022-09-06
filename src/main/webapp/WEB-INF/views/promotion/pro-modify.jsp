@@ -273,9 +273,14 @@
         /* btn */
 
         .btnList {
+            position: relative;
+            width: 100%;
+        }
+        .btnSaveCancel
+        {
             display: flex;
             justify-content: space-around;
-            width: 25%;
+            width: 20%;
             margin: 0 auto;
         }
 
@@ -298,6 +303,9 @@
 
         button.btn.medium.deleteBtn {
             background: #000;
+            position: absolute;
+            top: -53px;
+            right: -500px;
         }
     </style>
 
@@ -615,10 +623,14 @@
             </div>
             </div>
             <div class="col-md-12 btnList">
-                <button type="button" class="btn medium deleteBtn">Delete</button>
-                <button type="button" class="btn medium saveBtn">Save</button>
-                <button type="button" class="btn medium cancelBtn"
-                    onclick="location.href='/proBoard/detail/${promotionBno}'">Cancel</button>
+                <div class="col-md-8 btnSaveCancel">
+                    <button type="button" class="btn medium saveBtn">Save</button>
+                    <button type="button" class="btn medium cancelBtn"
+                        onclick="location.href='/proBoard/detail/${promotionBno}'">Cancel</button>    
+                </div>
+                <div class="col-md-8 ">
+                    <button type="button" class="btn medium deleteBtn">Delete</button>
+                </div>
             </div>
         </form>
     </main>
@@ -773,7 +785,7 @@
             });
         }
 
-    
+
 
         /* 필수 입력 검증 */
         function checkSaveData() {
@@ -859,7 +871,7 @@
                         x = x.replace(replaceChar, "").replace(replaceNotFullKorean, "");
                     }
                 }
-                if (cleanArr.length-1 >= 10 && cleanArr.length) {
+                if (cleanArr.length - 1 >= 10 && cleanArr.length) {
                     if (leng <= $hashTag.val().length + 1) {
                         $hashTag.val($hashTag.val().substring(0, leng));
                         $(this).css('border-color', 'red');
@@ -1378,31 +1390,31 @@
             const $menuPriceList = document.querySelectorAll(".menu-price");
 
             const menuItem = document.querySelectorAll('.pricing-list-item')
+            console.log("menu? ", menuItem.length);
 
-            if (menuItem.length === 0) {
+            if (menuItem.length === 1) {
+                if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
+                    if (menuFileList[0].name != 'default') {
+                        alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
+                        return false;
+                    }
+                    return true;
+                }
 
                 if ($menuNameList[0].value.length === 0 || $menuPriceList[0].value.length === 0) {
                     alert("메뉴 입력란을 확인해주세요.");
                     return false;
                 }
 
-                if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
-                    if (menuFileList[0].name != 'default') {
-                        alert("사진 등록 시 메뉴를 꼭 입력해주세요.");
+            } else {
+                for (let index = 0; index < $menuNameList.length; index++) {
+
+                    if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.length === 0) {
+                        alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
                         return false;
                     }
                 }
-
             }
-
-            for (let index = 0; index < $menuNameList.length; index++) {
-
-                if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.length === 0) {
-                    alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
-                    return false;
-                }
-            }
-
         }
 
         // 해시태그 중복 확인

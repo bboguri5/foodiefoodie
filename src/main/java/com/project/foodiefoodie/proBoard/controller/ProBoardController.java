@@ -237,7 +237,7 @@ public class ProBoardController {
         }};
 
         boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, menuList, fileMap);
-        return "";
+        return "redirect:/proBoard/detail/" + proBoard.getPromotionBno();
     }
 
     @DeleteMapping("/delete/{promotionBno}")

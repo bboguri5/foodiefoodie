@@ -810,23 +810,26 @@
     function addFavoriteStore() {
         if (`${isFavorite}` === 'true') {
             $('.wishlist').addClass('liked');
-        } else {
-            $('.wishlist').removeClass('liked');
+            console.log("like");
+        } 
+        else{
+            console.log("zzzzzz");
         }
 
         // Like Icon
         $('.btn_hero.wishlist').on('click', function (e) {
             e.preventDefault();
 
-            if ($(this).hasClass('liked')) {
+            if (!$('.wishlist').hasClass('liked')) {
                 fetch('/proBoard/detail/favorite/store/remove/' + `${promotionBno}`, {
                     method: 'DELETE'
                 });
             } else {
+
                 fetch('/proBoard/detail/favorite/store/add/' + `${promotionBno}`);
             }
 
-            $(this).toggleClass('liked');
+            // $('.wishlist').toggleClass('liked');
 
         });
     }

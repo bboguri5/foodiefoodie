@@ -571,7 +571,7 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="휴무"
+                                                        <input type="text" class="form-control" placeholder="휴무" 
                                                             readonly="">
                                                     </div>
                                                 </div>
@@ -579,14 +579,14 @@
                                                     <div class="form-group">
                                                         <input type="text" name="closedDay"
                                                             value="${proBoard.closedDay}"
-                                                            class="form-control closed-day" placeholder="휴무 옵션 선택"
+                                                            class="form-control closedDay" 
+                                                            placeholder="휴무 옵션 선택"
                                                             readonly>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group dayBox">
-                                                        <select type="text" class="form-control selectDay"
-                                                            placeholder="예시 : 화요일 (요일입력)">
+                                                        <select type="text" class="form-control selectDay">
                                                             <option value="월">월</option>
                                                             <option value="화">화</option>
                                                             <option value="수">수</option>
@@ -621,35 +621,39 @@
     </main>
     <script>
         $('.weekday-openTime').timepicker({
-            defaultTime: '${proBoard.weekdayOpenTime}'
-        });
-        $('.weekday-closeTime').timepicker({
-            defaultTime: '${proBoard.weekdayCloseTime}'
-        });
-        $('.weekend-openTime').timepicker({
-            defaultTime: '${proBoard.weekendOpenTime}'
-        });
-        $('.weekend-closeTime').timepicker({
-            defaultTime: '${proBoard.weekendCloseTime}'
-        });
-        $('.break-startTime').timepicker({
-            defaultTime: '${proBoard.breakStartTime}'
-        });
-        $('.break-endTime').timepicker({
-            defaultTime: '${proBoard.breakEndTime}'
+            defaultTime: '${proBoard.weekdayOpenTime}',
+            startTime: '${proBoard.weekdayOpenTime}',
+            timeFormat: 'HH:mm a',
         });
 
-        // select time 
-        $(".select-time").timepicker({
-            timeFormat: 'HH:mm a',
-            interval: 30,
-            maxTime: '23:30pm',
-            defaultTime: '24',
-            startTime: '08:00',
-            dynamic: false,
-            dropdown: true,
-            scrollbar: true
+        const zz ='${proBoard.weekdayCloseTime}'.split(':');
+        console.log(zz);
+        $('.weekday-closeTime').timepicker({
+            defaultTime: '${proBoard.weekdayCloseTime}',
+            startTime: '${proBoard.weekdayCloseTime} a',
+            timeFormat: 'HH:mm a'
         });
+        $('.weekend-openTime').timepicker({
+            defaultTime: '${proBoard.weekendOpenTime}',
+            startTime: '${proBoard.weekendOpenTime} a',
+            timeFormat: 'HH:mm a'
+        });
+        $('.weekend-closeTime').timepicker({
+            defaultTime: '${proBoard.weekendCloseTime}',
+            startTime: '${proBoard.weekendCloseTime} a',
+            timeFormat: 'HH:mm a'
+        });
+        $('.break-startTime').timepicker({
+            defaultTime: '${proBoard.breakStartTime}',
+            startTime: '${proBoard.breakStartTime} a',
+            timeFormat: 'HH:mm a'
+        });
+        $('.break-endTime').timepicker({
+            defaultTime: '${proBoard.breakStartTime}',
+            startTime: '${proBoard.breakStartTime} a',
+            timeFormat: 'HH:mm a'
+        });
+
     </script>
 
     <%@ include file="../include/footer.jsp" %>
@@ -744,7 +748,8 @@
                 resultSet.add($selectDay.val());
                 resultList = Array.from(resultSet);
                 $closedDay.val(resultList.join())
-                console.log(resultList);
+
+                console.log($closedDay.val());
             });
 
             $('.day-delete').on('click', function () {

@@ -213,7 +213,10 @@
         margin-right: 40px;
     }
 
- 
+    .not-open {
+
+        text-align: center;
+    }
 </style>
 
 <body>
@@ -298,9 +301,9 @@
                                         <h2>Detail Photos</h2>
                                         <div class="pictures magnific-gallery clearfix">
                                             <c:forEach var="detailImg" items="${detailFiles}" varStatus="status">
-                                                <figure><a title="Photo title" href="${detailImg.fileData}" data-effect="mfp-zoom-in"><img
-                                                            src="${detailImg.fileData}" data-src="${detailImg.fileData}"
-                                                            class="lazy" alt=""></a>
+                                                <figure><a title="Photo title" href="${detailImg.fileData}"
+                                                        data-effect="mfp-zoom-in"><img src="${detailImg.fileData}"
+                                                            data-src="${detailImg.fileData}" class="lazy" alt=""></a>
                                                 </figure>
                                             </c:forEach>
                                         </div>
@@ -435,37 +438,41 @@
                                         <!-- /menu-gallery -->
                                         <div class="add_bottom_45"></div>
                                     </div>
-                                    <div class="theiaStickySidebar">
-                                        <div class="box_booking">
-                                            <div class="head">
-                                                <h3>장바구니</h3>
-                                                <c:if test="${not empty isHotDeal}">
-                                                    <div class="offer">전 메뉴 ${isHotDeal}% 할인 적용 중!!</div>
-                                                </c:if>
+                                    <c:if test="${isOpen == '영업전' || isOpen == '브레이크 타임' || isOpen == '영업끝' || isOpen == '오늘 휴무'}">
+                                        <h4 class="not-open">영업중에만 방문포장 주문을 할 수 있습니다.</h4>
+                                    </c:if>
+                                    <c:if test="${isOpen == '영업중'}">
+                                        <div class="theiaStickySidebar">
+                                            <div class="box_booking">
+                                                <div class="head">
+                                                    <h3>장바구니</h3>
+                                                    <c:if test="${not empty isHotDeal}">
+                                                        <div class="offer">전 메뉴 ${isHotDeal}% 할인 적용 중!!</div>
+                                                    </c:if>
+                                                </div>
+                                                <!-- /head -->
+                                                <div class="main">
+                                                    <ul id="async-order-list" class="clearfix click-target">
+
+                                                    </ul>
+
+                                                    <form action="#" method="get">
+                                                        <input hidden value="" type="text">
+                                                    </form>
+
+                                                    <ul class="clearfix after-discount">
+                                                        <!-- 핫딜이면 -->
+                                                        <li class="total">최종 결제 금액<span id="total"
+                                                                class="line-through">0</span></li>
+                                                    </ul>
+
+                                                    <a id="submit-order" href="#" class="btn_1 full-width mb_5">주문하기</a>
+                                                    <div class="text-center"><small>이 단계에서는 비용이 청구되지 않습니다</small></div>
+                                                </div>
                                             </div>
-                                            <!-- /head -->
-                                            <div class="main">
-                                                <ul id="async-order-list" class="clearfix click-target">
 
-                                                </ul>
-
-                                                <form action="#" method="get">
-                                                    <input hidden value="" type="text">
-                                                </form>
-
-                                                <ul class="clearfix after-discount">
-                                                    <!-- 핫딜이면 -->
-                                                    <li class="total">최종 결제 금액<span id="total"
-                                                            class="line-through">0</span></li>
-                                                </ul>
-
-                                                <a id="submit-order" href="#" class="btn_1 full-width mb_5">주문하기</a>
-                                                <div class="text-center"><small>이 단계에서는 비용이 청구되지 않습니다</small></div>
-                                            </div>
                                         </div>
-
-                                    </div>
-
+                                    </c:if>
                                 </div>
 
                             </div>
@@ -627,7 +634,6 @@
 </body>
 
 <script>
-
     showKaKao(); // information map  
 
     clickEventOpenKakao(); // open kakao map 
@@ -715,7 +721,7 @@
 
         });
     }
-    
+
 
     function clickEventOpenKakao() {
         const $openKakaoMap = $(".openKaKaoMap");

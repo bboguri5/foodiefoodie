@@ -395,6 +395,7 @@
         WHEN weekdayclosetime >= (SELECT TO_CHAR
         (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) AND weekdayopentime <= (SELECT TO_CHAR
         (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) THEN '영업중'
+        WHEN (SELECT TO_CHAR(SYSDATE, 'HH24:MI') FROM dual) <= weekdayopentime THEN '영업전'
         ELSE '영업끝'
         END AS StoreTimeText
         FROM promotion_store_time

@@ -338,17 +338,17 @@
             </div>
 
             <!-- 가게 정보 삭제 버튼 비밀번호 검증하는 모달  -->
-            <div class="modalBox2">
-                <div class="passwordModal">
-                    <h5 class="passwordModal-title">비밀번호를 입력하세요</h5>
-                    <h5 class="falseh52">[비밀번호가 틀렸습니다.]</h5>
-
-                    <input type="password" name="password" class="passwordInput2"> <button type="button"
+            <form action="/delMaster/${masterNum}" method="post" class="deleteMasterForm">
+                <div class="modalBox2">
+                    <div class="passwordModal">
+                        <h5 class="passwordModal-title">비밀번호를 입력하세요</h5>
+                        <h5 class="falseh52">[비밀번호가 틀렸습니다.]</h5>
+                        <input type="password" name="password" class="passwordInput2"> <button type="button"
                         class="passwordBtn2">누르세요</button>
+                    </div>
+                    <div class="returnBtn2">X</div>
                 </div>
-                <div class="returnBtn2">X</div>
-
-            </div>
+            </form>
 
             <!-- ----------------------------------------------------------------------------------------------------------------- -->
             <div class="btnbox">
@@ -451,6 +451,8 @@
         const $returnBtn2 = document.querySelector('.returnBtn2');
         const $falseh52 = document.querySelector('.falseh52');
         const $brLabel2 = document.querySelector('.brLabel2');
+
+        const $deleteMasterForm = document.querySelector('.deleteMasterForm');
 
         if ($modBtn !== null) {
             //수정버튼
@@ -574,9 +576,9 @@
                     if (msg === 'password-success') {
                         alert("비밀번호가 맞았습니다.");
                         if(confirm("진짜로 삭제 하시겠습니까?")){
-                            location.href = '/delMaster/${masterNum}';
+                            $deleteMasterForm.submit();
                         }else{
-                            location.href = 'redirect:/myPage/masterInfo/${masterNum}';
+                            $modalBox2.style.display = "none";
                         }
                     } else if (msg === 'password-false') {
                         console.log(123123123123123123);

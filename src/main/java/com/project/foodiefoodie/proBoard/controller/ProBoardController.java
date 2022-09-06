@@ -255,6 +255,7 @@ public class ProBoardController {
     @PostMapping("/promotion-faq")
     public String promotionFaq(PromotionFaq promotionFaq) {
 
+//        ORA-00984: column not allowed here 오류 발생 -> 성렬씨께 문의 
         log.info("/promotion-faq POST! - {}", promotionFaq);
 
         promotionFaqService.saveService(promotionFaq);

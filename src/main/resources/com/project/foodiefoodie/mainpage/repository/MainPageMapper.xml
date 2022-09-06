@@ -162,7 +162,7 @@
         WHERE store_address LIKE '%' || #{storeAddress}|| '%'
         ORDER BY DBMS_RANDOM.RANDOM
         ) sub
-        WHERE ROWNUM BETWEEN 1 AND 5
+        WHERE ROWNUM BETWEEN 1 AND 4
 
         <!-- SELECT *
         FROM (
@@ -177,7 +177,7 @@
         WHERE store_address LIKE CONCAT('%', #{storeAddress}, '%')
         ORDER BY DBMS_RANDOM.RANDOM
         ) sub
-        WHERE ROWNUM BETWEEN 1 AND 5-->
+        WHERE ROWNUM BETWEEN 1 AND 4-->
     </select>
 
     <!-- 현재 위치에 있는 가게 전체 불러오기  -->

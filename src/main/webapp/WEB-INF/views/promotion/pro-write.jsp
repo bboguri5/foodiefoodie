@@ -779,9 +779,8 @@
                     if (x.match(replaceChar) || x.match(replaceNotFullKorean)) {
                         x = x.replace(replaceChar, "").replace(replaceNotFullKorean, "");
                     }
-                    $(this).val(x);
                 }
-                if (cleanArr.length >= 11 && cleanArr.length) {
+                if (cleanArr.length-1 >= 10 && cleanArr.length) {
                     if (leng <= $hashTag.val().length + 1) {
                         $hashTag.val($hashTag.val().substring(0, leng));
                         $(this).css('border-color', 'red');

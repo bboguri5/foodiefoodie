@@ -171,6 +171,10 @@
         margin-left: 20px;
     }
 
+    a.btn_1.proBoardModifyBtn {
+        margin-left: 85%;
+    }
+
 
     /* review */
     .col-lg-9 {
@@ -265,7 +269,7 @@
         pointer-events: none;
     }
 
-      .star.reviewStar {
+    .star.reviewStar {
         position: relative;
         font-size: 2rem;
         color: #ddd;
@@ -288,14 +292,19 @@
         overflow: hidden;
         pointer-events: none;
     }
-    p.reviewP{
+
+    p.reviewP {
         overflow-wrap: normal;
     }
 
-    strong.noneReview{
+    strong.noneReview {
         text-align: center;
-           display: block;
+        display: block;
         font-size: 50px;
+    }
+
+    .proBoardModifyBtn {
+        left: 0;
     }
 </style>
 
@@ -317,10 +326,10 @@
                             <div class="col-xl-4 col-lg-5 col-md-6">
                                 <div class="head">
                                     <c:if test="${proBoard.avgStarRate != 0}">
-                                    <div class="score">
-                                        <span>review<em>${proBoard.review_cnt}</em></span>
-                                        <strong> ${proBoard.avgStarRate}</strong>
-                                    </div>
+                                        <div class="score">
+                                            <span>review<em>${proBoard.review_cnt}</em></span>
+                                            <strong> ${proBoard.avgStarRate}</strong>
+                                        </div>
                                     </c:if>
                                 </div>
                                 <h1>${proBoard.title}</h1>
@@ -328,17 +337,18 @@
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
 
-                            <c:if test="${flag || !(masterFlag)}">
-                            <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
-                                <div class="buttons clearfix wishBtn">
-                                    <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
+                            <c:if test="${flag || (flag == !(masterFlag))}">
+                                <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
+                                    <div class="buttons clearfix wishBtn">
+                                        <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
+                                    </div>
+                                    <div class="buttons clearfix writeBtn">
+                                        <a href="/review/write/${proBoard.businessNo}" class="btn_hero"><strong
+                                                class="writeBtnHero"><i class="icon_pencil"></i> write review</strong>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="buttons clearfix writeBtn">
-                                    <a href="/review/write/${proBoard.businessNo}" class="btn_hero"><strong
-                                            class="writeBtnHero"><i class="icon_pencil"></i> write review</strong> </a>
-                                </div>
-                            </div>
-                        </c:if>
+                            </c:if>
                         </div>
                         <!-- /row -->
                     </div>
@@ -374,6 +384,10 @@
                                     role="tab">Notice</a>
                             </li>
                         </ul>
+                        <div class="add_bottom_25"></div>
+                        <c:if test="${masterFlag}">
+                            <a class="btn_1 proBoardModifyBtn" href="/proBoard/modify/${promotionBno}">홍보글 수정하기</a>
+                        </c:if>
                         <div class="tab-content" role="tablist">
                             <!-- A type -->
                             <div id="pane-A" class="card tab-pane fade show active" role="tabpanel"
@@ -617,11 +631,11 @@
 
                                                             <h2><a href="#">${rl.title}</a>
                                                             </h2>
-                                                            <p class="reviewP">평점:  <span class="star reviewStar">
-                                                                ★★★★★
-                                                                <c:set var="starRate" value="${rl.starRate*10}%" />
-                                                                <span style="width: ${starRate};">★★★★★</span>
-                                                            </span>${rl.starRate}/10</p>
+                                                            <p class="reviewP">평점: <span class="star reviewStar">
+                                                                    ★★★★★
+                                                                    <c:set var="starRate" value="${rl.starRate*10}%" />
+                                                                    <span style="width: ${starRate};">★★★★★</span>
+                                                                </span>${rl.starRate}/10</p>
                                                             <p>${rl.content}
                                                                 <ul>
                                                                     <li>
@@ -656,9 +670,11 @@
                                         </c:if>
                                         <!-- /reviews -->
                                         <c:if test="${proBoard.avgStarRate > 0}">
-                                        <div class="text-end"><a href="/review/search?search=${proBoard.businessNo}&sort=latest" class="btn_1 viewMore"> View
-                                                More </a>
-                                        </div>
+                                            <div class="text-end"><a
+                                                    href="/review/search?search=${proBoard.businessNo}&sort=latest"
+                                                    class="btn_1 viewMore"> View
+                                                    More </a>
+                                            </div>
                                         </c:if>
                                     </div>
                                 </div>
@@ -682,10 +698,10 @@
                                         <h2>공지사항</h2>
                                         <div class="add_bottom_25 openWriteBox">
                                             <c:if test="${masterFlag}">
-                                            <p class="inline-popups noticeWrite">
-                                                <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
-                                                    <i class="fa fa-fw fa-reply"></i>글쓰기</a>
-                                            </p>
+                                                <p class="inline-popups noticeWrite">
+                                                    <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
+                                                        <i class="fa fa-fw fa-reply"></i>글쓰기</a>
+                                                </p>
                                             </c:if>
                                         </div>
                                         <div class="list_general notices">
@@ -811,8 +827,7 @@
         if (`${isFavorite}` === 'true') {
             $('.wishlist').addClass('liked');
             console.log("like");
-        } 
-        else{
+        } else {
             console.log("zzzzzz");
         }
 
@@ -929,7 +944,7 @@
                 `<a class="btn_1 gray delete">` +
                 `<i class="fa fa-fw fa-times-circle-o"></i>` +
                 `삭제 </a>` +
-                `</c:if>`+
+                `</c:if>` +
                 `</li>` +
                 `</ul>` +
                 `<p class="update_date"> 업데이트 : ` + notice.updateAFewDaysAgo + `</p>` +

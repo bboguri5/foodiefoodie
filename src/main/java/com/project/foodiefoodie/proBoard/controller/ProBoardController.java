@@ -10,12 +10,18 @@ import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
+import com.project.foodiefoodie.reply.service.ReplyService;
+import com.project.foodiefoodie.review.domain.ReviewUpload;
+import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
+import com.project.foodiefoodie.review.service.ReviewBoardService;
 import com.project.foodiefoodie.promotionFaq.domain.PromotionFaq;
 import com.project.foodiefoodie.promotionFaq.service.PromotionFaqService;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -36,40 +42,62 @@ public class ProBoardController {
     private final MainPageService mainPageService;
     private final PromotionFaqService promotionFaqService;
 
+    private final ReviewBoardService reviewBoardService;
+    private final ReplyService replyService;
+
     @GetMapping("/detail/{promotionBno}")
     public String detail(Model model, @PathVariable int promotionBno,
                          HttpSession session) {
         log.info(" ProBoardController /detail/{} Get - ! ", promotionBno);
 
-
         ProBoard proBoard = proBoardService.selectProBoard(promotionBno);
-        model.addAttribute("proBoard",proBoard);
+
+        model.addAttribute("proBoard", proBoard);
         model.addAttribute("menuList", proBoardService.selectMenuInfo(promotionBno));
-        model.addAttribute("detailFiles",proBoardService.selectFiles(promotionBno,"detail"));
-        model.addAttribute("titleFile",proBoardService.selectFiles(promotionBno,"title").get(0));
+        model.addAttribute("detailFiles", proBoardService.selectFiles(promotionBno, "detail"));
+        model.addAttribute("titleFile", proBoardService.selectFiles(promotionBno, "title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
         model.addAttribute("isHotDeal", proBoardService.isHotDealService(proBoardService.selectProBoard(promotionBno).getBusinessNo()));
         model.addAttribute("isOpen", mainPageService.isOpenService(promotionBno));
 
-
-
-
         // 로그인 하면 즐겨찾기 표시 , 로그인 안하면 즐겨찾기 표시 X
         String loginFlag = LoginUtils.LOGIN_FLAG;
         Member member = (Member) session.getAttribute(loginFlag);
+        List<String> reviewUploads = new ArrayList<>();
+        List<Integer> replyCount = new ArrayList<>();
 
-        if(member != null)
-        {
-            model.addAttribute("noticeFlag",proBoard.getEmail().equals(member.getEmail()));
-            model.addAttribute("isFavorite",proBoardService.isFavoriteStore(member.getEmail(),promotionBno));
-            model.addAttribute("flag",true);
+        // 공지사항 마스터만 작성 및 삭제
+        if (member != null) {
+            model.addAttribute("masterFlag", proBoard.getEmail().equals(member.getEmail()));
+            model.addAttribute("isFavorite", proBoardService.isFavoriteStore(member.getEmail(), promotionBno));
+            model.addAttribute("flag", true);
+        } else {
+            model.addAttribute("flag", false);
         }
-        else {
-            model.addAttribute("flag",false);
-        }
+
+        // 리뷰
+        List<ReviewBoardDTO> reviewList = reviewBoardService.searchTop5ReviewService(proBoard.getBusinessNo(), "latest");
+
+        getUploads(reviewUploads, replyCount, reviewList);
+        model.addAttribute("reviewList", reviewList);
+        model.addAttribute("uploads", reviewUploads);
         return "promotion/pro-detail";
     }
 
+    private void getUploads(List<String> reviewUploads, List<Integer> replyCount, List<ReviewBoardDTO> reviewList) {
+        for (int i = 0; i < reviewList.size(); i++) {
+            long reviewBno = reviewList.get(i).getReviewBno();
+            List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUpload(reviewBno);
+            int count = replyService.findReplyCountService(reviewBno);
+
+            if (!reviewUpload.isEmpty()) {
+                reviewUploads.add(reviewUpload.get(0).getFileData());
+            } else {
+                reviewUploads.add(null);
+            }
+            replyCount.add(count);
+        }
+    }
 
     @GetMapping("/detail/notice/show/{promotionBno}")
     @ResponseBody
@@ -98,22 +126,20 @@ public class ProBoardController {
 
     @GetMapping("/detail/favorite/store/add/{promotionBno}")
     @ResponseBody
-    public String addFavoriteStore(HttpSession session ,@PathVariable int promotionBno)
-    {
-        log.info(" /detail/favorite/store/add - {}",promotionBno);
+    public String addFavoriteStore(HttpSession session, @PathVariable int promotionBno) {
+        log.info(" /detail/favorite/store/add - {}", promotionBno);
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
-        proBoardService.addFavoriteStore(member.getEmail(),promotionBno);
+        proBoardService.addFavoriteStore(member.getEmail(), promotionBno);
         return "";
     }
 
-    @DeleteMapping ("/detail/favorite/store/remove/{promotionBno}")
+    @DeleteMapping("/detail/favorite/store/remove/{promotionBno}")
     @ResponseBody
-    public String removeFavoriteStore(HttpSession session ,@PathVariable int promotionBno)
-    {
-        log.info(" /detail/favorite/store/remove - {}",promotionBno);
+    public String removeFavoriteStore(HttpSession session, @PathVariable int promotionBno) {
+        log.info(" /detail/favorite/store/remove - {}", promotionBno);
 
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
-        proBoardService.removeFavoriteStore(member.getEmail(),promotionBno);
+        proBoardService.removeFavoriteStore(member.getEmail(), promotionBno);
         return "";
     }
 
@@ -145,8 +171,8 @@ public class ProBoardController {
         log.info("foodie/write POST!! - menuImgFiles : {}", menuImgFiles.get(0).getOriginalFilename());
 
         List<String[]> menuList = new ArrayList<>(Arrays.asList(
-                    request.getParameterValues("menuName"),
-                    request.getParameterValues("menuPrice")
+                request.getParameterValues("menuName"),
+                request.getParameterValues("menuPrice")
         ));
 
         Map<String, List<MultipartFile>> fileMap = new HashMap<>() {{
@@ -156,7 +182,7 @@ public class ProBoardController {
         }};
 
         int promotionBno = proBoardService.saveProBoard(proBoard, menuList, fileMap);
-        return "redirect:/proBoard/detail/"+promotionBno;
+        return "redirect:/proBoard/detail/" + promotionBno;
     }
 
 
@@ -179,25 +205,23 @@ public class ProBoardController {
 
     @GetMapping("/modify/files/{promotionBno}") // 수정 (비동기) - 파일 + 메뉴 보여주기
     @ResponseBody
-    public Map<String,Object> modifyFiles(@PathVariable int promotionBno)
-    {
-        String[] fileType = {"title","detail"};
-        Map<String,Object> infoMap = new HashMap<>();
-        for(String type : fileType)
-        {
-            infoMap.put(type,proBoardService.selectFiles(promotionBno,type));
+    public Map<String, Object> modifyFiles(@PathVariable int promotionBno) {
+        String[] fileType = {"title", "detail"};
+        Map<String, Object> infoMap = new HashMap<>();
+        for (String type : fileType) {
+            infoMap.put(type, proBoardService.selectFiles(promotionBno, type));
         }
 
-        infoMap.put("menuList",proBoardService.selectMenuInfo(promotionBno));
+        infoMap.put("menuList", proBoardService.selectMenuInfo(promotionBno));
 
         return infoMap;
     }
 
     @PostMapping("/modify") // 수정 - 저장 데이터 보내기
     public String modify(HttpServletRequest request, ProBoard proBoard,
-                        List<MultipartFile> titleImgFile,
-                        List<MultipartFile> detailImgFiles,
-                        List<MultipartFile> menuImgFiles) {
+                         List<MultipartFile> titleImgFile,
+                         List<MultipartFile> detailImgFiles,
+                         List<MultipartFile> menuImgFiles) {
 
         log.info("proBoard/modify POST - init ! {}", proBoard);
         log.info("proBoard/modify POST!! - titleImgFile : {}", titleImgFile.get(0).getOriginalFilename());
@@ -216,17 +240,16 @@ public class ProBoardController {
         }};
 
         boolean proBoardModifyResult = proBoardService.modifyProBoard(proBoard, menuList, fileMap);
-        return "";
+        return "redirect:/proBoard/detail/" + proBoard.getPromotionBno();
     }
 
-//    @PostMapping("/modify/menu")
-//    @ResponseBody
-//    public String modifyMenu(@RequestBody List<MenuDTO> menuDTOList)
-//    {
-//        log.info(" @PostMapping(\"/modify/menu\") modifyMenu {}",menuDTOList);
-//        proBoardService.modifyMenuInfo(menuDTOList);
-//        return "";
-//    }
+    @DeleteMapping("/delete/{promotionBno}")
+    public ResponseEntity deleteProBoard(@PathVariable int promotionBno)
+    {
+        log.info(" controller deleteProBoard init - {}",promotionBno);
+        return proBoardService.deleteProBoard(promotionBno) ?
+                new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.EXPECTATION_FAILED);
+    }
 
 
     @PostMapping("/promotion-faq")

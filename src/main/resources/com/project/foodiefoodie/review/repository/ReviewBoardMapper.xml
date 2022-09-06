@@ -81,6 +81,7 @@
         <if test="sort == 'like'">ORDER BY rb.like_cnt DESC</if>
     </select>
 
+
     <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
         SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
         , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address
@@ -98,6 +99,7 @@
         OR content LIKE '%' || #{search}|| '%'
         OR store_name LIKE '%' || #{search}|| '%'
         OR store_address LIKE '%' || #{search}|| '%'
+        OR BUSINESS_NO = #{search}
         <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
         <if test="sort == 'like'">ORDER BY like_cnt DESC</if>
 
@@ -112,6 +114,17 @@
         OR store_address LIKE CONCAT('%', #{search}, '%')
         <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
         <if test="sort == 'like'">ORDER BY like_cnt DESC</if>-->
+    </select>
+
+    <select id="searchTop5Review" resultMap="rbDTOMap">
+        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
+        store_name, store_address
+        FROM review_board
+        WHERE private = 'F'
+        AND ROWNUM BETWEEN 1 AND 5
+        AND BUSINESS_NO = #{search}
+        <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
+        <if test="sort == 'like'">ORDER BY like_cnt DESC</if>
     </select>
 
     <insert id="reviewUpload">

@@ -6,56 +6,48 @@
 <html lang="ko">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Foogra - Discover & Book the best restaurants at the best price">
-    <meta name="author" content="Ansonika">
-    <title>Foogra - Discover & Book the best restaurants at the best price</title>
-
-    <!-- jquery -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
-
-    <!-- GOOGLE WEB FONT -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
-    <!-- BASE CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-
-    <!-- SPECIFIC CSS -->
-    <link href="/css/detail-page.css" rel="stylesheet">
-
-    <link href="/css/detail-page-delivery.css" rel="stylesheet">
-
-    <!-- notice -->
-    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/css/admin.css" rel="stylesheet">
 
 
-    <!-- jquery -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <!-- bootstrap js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
-    <!-- bootstrap css -->
 
-    <style id="theia-sticky-sidebar-stylesheet-TSS">
-        .theiaStickySidebar:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    </style>
-    <!-- kakao map -->
-    <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
-    </script>
+    <%@ include file="../include/static-head.jsp" %>
 
+      <!-- SPECIFIC CSS -->
+      <link href="/css/detail-page.css" rel="stylesheet">
+      <link href="/css/detail-page-delivery.css" rel="stylesheet">
+
+      <!-- notice -->
+      <link href="/css/admin.css" rel="stylesheet">
+
+      <!-- bootstrap js -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+      </style>
+      <!-- kakao map -->
+      <script type="text/javascript"
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
+      </script>
 
 </head>
 
+
+<!-- //css -->
 <style>
+    .hero_in.detail_page .wrapper .buttons.writeBtn {
+        position: absolute;
+        bottom: 0;
+        right: 150px;
+    }
+
+    .hero_in.detail_page .wrapper .buttons.wishBtn {
+        position: absolute;
+        bottom: 0;
+        right: 20px;
+    }
+
+    .writeBtnHero {
+        font-size: 18px;
+    }
+
     .container.margin_detail .col-lg-8 {
         width: 100%;
     }
@@ -154,34 +146,15 @@
         margin-left: 20px;
     }
 
+    a.btn_1.proBoardModifyBtn {
+        margin-left: 80%;
+    }
+
 
     /* review */
-    #locationList {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    #locationList .item {
-        width: 16%;
-    }
-
-    .search form {
-        display: flex;
-    }
-
-    .search .form-select {
-        flex: 1;
-        margin-top: 8px;
-        border-radius: 10px;
-    }
-
-    .search .row {
-        flex: 10;
-    }
-
     .col-lg-9 {
         margin: auto;
-        width: 60%;
+        width: 100%;
     }
 
     article.blog .post_info {
@@ -227,6 +200,88 @@
         text-align: center;
     }
 
+    .row.upCount {
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    .reviews #review_summary {
+        margin: 0 auto;
+        width: 60%;
+    }
+
+    div.text-end {
+        text-align: center !important;
+    }
+</style>
+
+<style>
+    .card-body.reviews {
+        word-wrap: normal;
+    }
+
+    .star.proBoardStar {
+        position: relative;
+        font-size: 2rem;
+        color: #ddd;
+    }
+
+    .star.proBoardStar input {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .star.proBoardStar span {
+        width: 0;
+        position: absolute;
+        left: 0px;
+        color: yellow;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    .star.reviewStar {
+        position: relative;
+        font-size: 2rem;
+        color: #ddd;
+    }
+
+    .star.reviewStar input {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .star.reviewStar span {
+        width: 0;
+        position: absolute;
+        left: 0px;
+        color: yellow;
+        overflow: hidden;
+        pointer-events: none;
+    }
+
+    p.reviewP {
+        overflow-wrap: normal;
+    }
+
+    strong.noneReview {
+        text-align: center;
+        display: block;
+        font-size: 50px;
+    }
+
+    .proBoardModifyBtn {
+        left: 0;
+    }
+
     .promotion-modal-content {
         position: absolute;
         top: 100px;
@@ -237,21 +292,29 @@
     }
 </style>
 
+<%@ include file="../include/detail-header.jsp" %>
+
+
+
 <body>
-    <%@ include file="../include/header.jsp" %>
+
 
 
     <!-- main -->
     <main>
         <div class="hero_in detail_page title_img_add" style=" background-image: url(${titleFile.fileData});">
-            <!-- <img src="data:image/jpg;base64,${titleImg}">  -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                 <div class="container">
                     <div class="main_info">
                         <div class="row">
                             <div class="col-xl-4 col-lg-5 col-md-6">
                                 <div class="head">
-                                    <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
+                                    <c:if test="${proBoard.avgStarRate != 0}">
+                                        <div class="score">
+                                            <span>review<em>${proBoard.review_cnt}</em></span>
+                                            <strong> ${proBoard.avgStarRate}</strong>
+                                        </div>
+                                    </c:if>
                                 </div>
                                 <h1 style="display: inline;">${proBoard.title}</h1> <a href="#" class="promotion-faq-btn nav-faq-btn"
                                 style="margin-left: 10px;" data-bs-toggle='modal'
@@ -260,11 +323,19 @@
                                 ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
-                            <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
-                                <div class="buttons clearfix">
-                                    <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
+
+                            <c:if test="${flag && !(masterFlag)}">
+                                <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
+                                    <div class="buttons clearfix wishBtn">
+                                        <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>favorite</a>
+                                    </div>
+                                    <div class="buttons clearfix writeBtn">
+                                        <a href="/review/write/${proBoard.businessNo}" class="btn_hero"><strong
+                                                class="writeBtnHero"><i class="icon_pencil"></i> write review</strong>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
                         </div>
                         <!-- /row -->
                     </div>
@@ -300,6 +371,10 @@
                                     role="tab">Notice</a>
                             </li>
                         </ul>
+                        <div class="add_bottom_25"></div>
+                        <c:if test="${masterFlag}">
+                            <a class="btn_1 proBoardModifyBtn" href="/proBoard/modify/${promotionBno}">홍보글 수정하기</a>
+                        </c:if>
                         <div class="tab-content" role="tablist">
                             <!-- A type -->
                             <div id="pane-A" class="card tab-pane fade show active" role="tabpanel"
@@ -385,7 +460,7 @@
 
                                             <div class="add_bottom_25"></div>
                                             <h2 class="detailInfoTitle"> 장소</h2>
-                                            <div id="map" class="kakaoMap" style="width:100%;height:600px;"></div>
+                                            <div id="kakaoMap" class="kakaoMap" style="width:100%;height:600px;"></div>
                                         </section>
                                     </div>
                                 </div>
@@ -497,10 +572,6 @@
                             </div>
                             <!-- /B type -->
 
-
-
-
-
                             <!-- C type -->
                             <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-C">
                                 <div class="card-header" role="tab" id="heading-C">
@@ -513,35 +584,45 @@
                                 </div>
                                 <div id="collapse-C" class="collapse" role="tabpanel" aria-labelledby="heading-C">
                                     <div class="card-body reviews">
-                                        <div class="row add_bottom_45 d-flex align-items-center">
-                                            <div class="col-md-3">
-                                                <div id="review_summary">
-                                                    <strong>8.5</strong>
-                                                    <em>Superb</em>
-                                                    <small>Based on 4 reviews</small>
-                                                </div>
+                                        <c:if test="${proBoard.avgStarRate == 0}">
+                                            <div class="add_bottom_45"></div>
+                                            <strong class="noneReview">리뷰가 없습니다.</strong>
+                                            <div class="add_bottom_45"></div>
+                                        </c:if>
+                                        <c:if test="${proBoard.avgStarRate != 0}">
+
+                                            <div id="review_summary">
+                                                <span class="star proBoardStar">
+                                                    ★★★★★
+                                                    <span>★★★★★</span>
+                                                </span>
+                                                <strong> ${proBoard.avgStarRate}</strong>
+                                                <small> revivew view : ${proBoard.review_cnt}</small>
                                             </div>
-                                            <div class="col-md-9 reviews_sum_details">
+                                            <div class="add_bottom_45"></div>
+
+                                            <div class="row upCount">
                                                 <c:forEach var="rl" items="${reviewList}" varStatus="status">
                                                     <!-- <div class="col-md-6"> -->
                                                     <article class="blog">
+                                                        <div class="add_bottom_45"></div>
+
                                                         <figure>
-                                                            <a
-                                                                href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}"><img
-                                                                    src="${uploads[status.index].filePath}" alt="">
+                                                            <a href="/review/detail?reviewBno=${rl.reviewBno}"><img
+                                                                    src="${uploads[status.index]}" alt="">
                                                                 <div class="preview"><span>Read more</span></div>
                                                             </a>
                                                         </figure>
-                                                        <div class="post_info">
-                                                            <small>Last Updated - ${rl.lastUpdated}
-                                                                <fmt:formatDate type="both" value="${rl.lastUpdated}" />
-                                                            </small>
-                                                            <h2><a
-                                                                    href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}">${rl.title}</a>
-                                                            </h2>
 
-                                                            <p>식당 이름: <a href="#">${rl.storeName}</a></p>
-                                                            <p>식당 주소: ${rl.storeAddress}</p>
+                                                        <div class="post_info">
+
+                                                            <h2><a href="#">${rl.title}</a>
+                                                            </h2>
+                                                            <p class="reviewP">평점: <span class="star reviewStar">
+                                                                    ★★★★★
+                                                                    <c:set var="starRate" value="${rl.starRate*10}%" />
+                                                                    <span style="width: ${starRate};">★★★★★</span>
+                                                                </span>${rl.starRate}/10</p>
                                                             <p>${rl.content}
                                                                 <ul>
                                                                     <li>
@@ -550,13 +631,19 @@
                                                                         ${rl.email}
                                                                     </li>
                                                                     <li>
-                                                                        <i id="${rl.reviewBno}"
-                                                                            class="heartIcon icon_heart_alt"></i><span
-                                                                            id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-                                                                        <a
-                                                                            href="/review/detail?email=${loginUser.email}&reviewBno=${rl.reviewBno}#section-comment"><i
-                                                                                id="${rl.reviewBno}"
-                                                                                class="icon_comment_alt"></i>${replyCount[status.index]}</a>
+
+                                                                        <c:set var="contains" value="false" />
+                                                                        <c:forEach var="item" items="${isLikedList}">
+                                                                            <c:if test="${item eq rl.reviewBno}">
+                                                                                <c:set var="contains" value="true" />
+                                                                            </c:if>
+                                                                        </c:forEach>
+                                                                        <c:choose>
+                                                                            <c:when test="${contains}">
+                                                                                <i id="${rl.reviewBno}"
+                                                                                    class="heartIcon icon_heart"></i>
+                                                                            </c:when>
+                                                                        </c:choose>
                                                                     </li>
 
                                                                 </ul>
@@ -565,12 +652,17 @@
                                                     <!-- /article -->
                                                     <!-- </div> -->
                                                 </c:forEach>
+                                                <!-- /review_card -->
                                             </div>
-                                            <!-- /review_card -->
-                                        </div>
+                                        </c:if>
                                         <!-- /reviews -->
-                                        <div class="text-end"><a href="leave-review.html" class="btn_1">Leave a
-                                                review</a></div>
+                                        <c:if test="${proBoard.avgStarRate > 0}">
+                                            <div class="text-end"><a
+                                                    href="/review/search?search=${proBoard.businessNo}&sort=latest"
+                                                    class="btn_1 viewMore"> View
+                                                    More </a>
+                                            </div>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -592,10 +684,12 @@
                                         <!-- 공지사항  -->
                                         <h2>공지사항</h2>
                                         <div class="add_bottom_25 openWriteBox">
-                                            <p class="inline-popups noticeWrite">
-                                                <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
-                                                    <i class="fa fa-fw fa-reply"></i>글쓰기</a>
-                                            </p>
+                                            <c:if test="${masterFlag}">
+                                                <p class="inline-popups noticeWrite">
+                                                    <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
+                                                        <i class="fa fa-fw fa-reply"></i>글쓰기</a>
+                                                </p>
+                                            </c:if>
                                         </div>
                                         <div class="list_general notices">
                                             <ul>
@@ -679,7 +773,7 @@
 
     <!-- COMMON SCRIPTS -->
     <script src="/js/common_scripts.min.js"></script>
-    <script src="/js/common_func.js"></script>
+    <!-- <script src="/js/common_func.js"></script> -->
     <script src="/js/validate.js"></script>
 
     <!-- SPECIFIC SCRIPTS -->
@@ -693,6 +787,8 @@
 
 </body>
 
+
+<!-- //script -->
 <script>
     showKaKao(); // information map  
 
@@ -705,7 +801,7 @@
 
     function showKaKao() {
         let positionAddress = '';
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        var mapContainer = document.getElementById('kakaoMap'), // 지도를 표시할 div
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                 level: 3, // 지도의 확대 레벨
@@ -717,8 +813,9 @@
         // 주소-좌표 변환 객체를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
 
+        const masterAddress = '${proBoard.storeAddress}';
         // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(`${proBoard.storeAddress}`, function (result, status) {
+        geocoder.addressSearch(masterAddress, function (result, status) {
 
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
@@ -873,9 +970,11 @@
                 `<p>` + notice.content + `</p>` +
                 `<ul class="buttons deleteNoticeWrite">` +
                 `<li>` +
+                `<c:if test="{masterFlag}">` +
                 `<a class="btn_1 gray delete">` +
                 `<i class="fa fa-fw fa-times-circle-o"></i>` +
                 `삭제 </a>` +
+                `</c:if>` +
                 `</li>` +
                 `</ul>` +
                 `<p class="update_date"> 업데이트 : ` + notice.updateAFewDaysAgo + `</p>` +
@@ -1184,6 +1283,17 @@
     }
 </script>
 
+<script>
+    // <!-- 별점 -->
+    const proBoardStarRate = document.querySelector('.proBoardStar span');
+    const proBoardStar = Math.ceil(`${proBoard.avgStarRate}`) * 10;
+    proBoardStarRate.style.width = proBoardStar + '%';
+
+    // const reviewStarRate = document.querySelector('.reviewStar span');
+    // const reviewStar = `${review.starRate}` * 10;
+    // console.log(reviewStar);
+    // reviewStarRate.style.width = reviewStar + '%';
+</script>
 <!-- 신고 버튼 -->
 <script>
     const promotionFaqBtn = document.querySelector('.modal-faq-btn');
@@ -1197,7 +1307,7 @@
             promotionFaqForm.submit();
         }
     }
-    
+
 </script>
 
 

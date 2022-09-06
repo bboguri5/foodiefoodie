@@ -2,6 +2,7 @@ package com.project.foodiefoodie.member.controller;
 
 import com.project.foodiefoodie.blackList.domain.BlackListMaster;
 import com.project.foodiefoodie.blackList.service.BlackListMasterService;
+import com.project.foodiefoodie.member.domain.Auth;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.dto.MasterModifyDTO;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.metal.MetalMenuBarUI;
 import java.util.List;
 
 @Controller
@@ -179,9 +181,11 @@ public class MasterController {
             log.info(" delete before i = {}",i);
 
             if(i == 1){
+                loginUser.setAuth(Auth.COMMON);
                 session.removeAttribute("masterList");
                 memberService.authDownCommonTest(email);
             }
+            // db 에서 삭제하고
             masterService.deleteMasterService(businessNo);
 
             log.info("delete after i = {}",i);

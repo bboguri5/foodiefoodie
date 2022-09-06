@@ -28,6 +28,15 @@ class ReviewBoardServiceTest {
         System.out.println(latest.size());
     }
 
+    @Test
+    @DisplayName("사업자번호로 조회 ")
+    void searchAllReviewServiceTest()
+    {
+        List<ReviewBoardDTO> latest = service.searchAllReviewService("1234-12-12345", "latest");
+        System.out.println(latest.size());
+    }
+
+
 
     //
 //    @Test

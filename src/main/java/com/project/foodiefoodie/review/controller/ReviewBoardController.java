@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -110,16 +111,19 @@ public class ReviewBoardController {
     }
 
     @GetMapping("/review/search")
-    public String searchReview(String search, String sort, Model model) {
+    public String searchReview(HttpServletRequest request, String search, String sort, Model model) {
         List<ReviewBoardDTO> searchList = reviewBoardService.searchAllReviewService(search, sort);
         List<String> reviewUploads = new ArrayList<>();
         List<Integer> replyCount = new ArrayList<>();
+
+        String beforeUrl = request.getHeader("REFERER");
 
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, searchList);
         model.addAttribute("reviewList", searchList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
+        if(!beforeUrl.contains("/detail")) // 이전 페이지가 detail 일 경우 검색 문구 표시 X
             model.addAttribute("search", search);
         return "review/review-gram";
     }

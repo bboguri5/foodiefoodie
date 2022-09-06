@@ -656,7 +656,7 @@
                                         </c:if>
                                         <!-- /reviews -->
                                         <c:if test="${proBoard.avgStarRate > 0}">
-                                        <div class="text-end"><a href="leave-review.html" class="btn_1 viewMore"> View
+                                        <div class="text-end"><a href="/review/search?search=${proBoard.businessNo}&sort=latest" class="btn_1 viewMore"> View
                                                 More </a>
                                         </div>
                                         </c:if>

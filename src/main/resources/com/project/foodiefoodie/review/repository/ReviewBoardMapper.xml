@@ -99,6 +99,7 @@
         OR content LIKE '%' || #{search}|| '%'
         OR store_name LIKE '%' || #{search}|| '%'
         OR store_address LIKE '%' || #{search}|| '%'
+        OR BUSINESS_NO = #{search}
         <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
         <if test="sort == 'like'">ORDER BY like_cnt DESC</if>
 

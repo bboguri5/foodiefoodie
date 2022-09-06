@@ -1,39 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="Ansonika">
-        <title>FOOGRA - Admin dashboard</title>
-        <!-- Favicons-->
-        <link rel="shortcut icon" href="/mypage/img/favicon.ico" type="image/x-icon">
-        <link rel="apple-touch-icon" type="image/x-icon" href="/mypage/img/apple-touch-icon-57x57-precomposed.png">
-        <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="/mypage/img/apple-touch-icon-72x72-precomposed.png">
-        <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="/mypage/img/apple-touch-icon-114x114-precomposed.png">
-        <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="/mypage/img/apple-touch-icon-144x144-precomposed.png">
-        <!-- Bootstrap core CSS-->
-        <link href="/mypage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Main styles -->
-        <link href="/mypage/css/admin.css" rel="stylesheet">
-        <!-- Icon fonts-->
-        <link href="/mypage/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <!-- Plugin styles -->
-        <link href="/mypage/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-        <!-- Your custom styles -->
-        <link href="/mypage/css/custom.css" rel="stylesheet">
-    </head>
-    
+<head>
+    <%@ include file="../include/admin-static-head.jsp" %>
+</head>
+
 <body class="fixed-nav sticky-footer" id="page-top">
 
     <%@ include file="../include/myPage-nav.jsp" %>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
         <a class="navbar-brand" href="index.html"><img src="img/logo.svg" alt="" width="142" height="36"></a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -50,10 +31,12 @@
                         <span class="nav-link-text">Messages</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="" data-original-title="Bookings">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title=""
+                    data-original-title="Bookings">
                     <a class="nav-link" href="bookings.html">
                         <i class="fa fa-fw fa-calendar-check-o"></i>
-                        <span class="nav-link-text">Bookings <span class="badge badge-pill badge-primary">6 New</span></span>
+                        <span class="nav-link-text">Bookings <span class="badge badge-pill badge-primary">6
+                                New</span></span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
@@ -139,7 +122,8 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-fw fa-envelope"></i>
                         <span class="d-lg-none">Messages
                             <span class="badge badge-pill badge-primary">12 New</span>
@@ -154,26 +138,31 @@
                         <a class="dropdown-item" href="#">
                             <strong>David Miller</strong>
                             <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty awesome! These messages clip off when they reach the end of the box so they don't overflow over to the sides!</div>
+                            <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty
+                                awesome! These messages clip off when they reach the end of the box so they don't
+                                overflow over to the sides!</div>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">
                             <strong>Jane Smith</strong>
                             <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">I was wondering if you could meet for an appointment at 3:00 instead of 4:00. Thanks!</div>
+                            <div class="dropdown-message small">I was wondering if you could meet for an appointment at
+                                3:00 instead of 4:00. Thanks!</div>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">
                             <strong>John Doe</strong>
                             <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">I've sent the final files over to you for review. When you're able to sign off of them let me know and we can discuss distribution.</div>
+                            <div class="dropdown-message small">I've sent the final files over to you for review. When
+                                you're able to sign off of them let me know and we can discuss distribution.</div>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item small" href="#">View all messages</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-fw fa-bell"></i>
                         <span class="d-lg-none">Alerts
                             <span class="badge badge-pill badge-warning">6 New</span>
@@ -191,7 +180,8 @@
                                     <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
                             </span>
                             <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                            <div class="dropdown-message small">This is an automated server response message. All
+                                systems are online.</div>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">
@@ -200,7 +190,8 @@
                                     <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
                             </span>
                             <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                            <div class="dropdown-message small">This is an automated server response message. All
+                                systems are online.</div>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">
@@ -209,7 +200,8 @@
                                     <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
                             </span>
                             <span class="small float-right text-muted">11:21 AM</span>
-                            <div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+                            <div class="dropdown-message small">This is an automated server response message. All
+                                systems are online.</div>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item small" href="#">View all alerts</a>
@@ -228,7 +220,8 @@
                     </form>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                    <a class="nav-link" data-toggle="modal" data-target="#exampleModal"><i
+                            class="fa fa-fw fa-sign-out"></i>Logout</a>
                 </li>
             </ul>
         </div>
@@ -247,14 +240,14 @@
                 <div class="header_box">
                     <h2 class="d-inline-block">Bookings list</h2>
                     <div class="filter">
-                    	<div class="styled-select short">
-	                        <select name="orderby">
-	                            <option value="Any status">Any status</option>
-	                            <option value="Approved">Approved</option>
-	                            <option value="Pending">Pending</option>
-	                            <option value="Cancelled">Cancelled</option>
-	                        </select>
-	                    </div>
+                        <div class="styled-select short">
+                            <select name="orderby">
+                                <option value="Any status">Any status</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="list_general">
@@ -269,9 +262,12 @@
                             </ul>
                             <p><a href="#0" class="btn_1 gray"><i class="fa fa-fw fa-envelope"></i> Send Message</a></p>
                             <ul class="buttons">
-                                <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Approve</a></li>
-                                <li><a href="#0" class="btn_1 gray delete" data-toggle="modal" data-target="#edit_booking"><i class="fa fa-fw fa-pencil"></i> Edit</a></li>
-                                <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a></li>
+                                <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
+                                        Approve</a></li>
+                                <li><a href="#0" class="btn_1 gray delete" data-toggle="modal"
+                                        data-target="#edit_booking"><i class="fa fa-fw fa-pencil"></i> Edit</a></li>
+                                <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i>
+                                        Cancel</a></li>
                             </ul>
                         </li>
                         <li>
@@ -284,9 +280,12 @@
                             </ul>
                             <p><a href="#0" class="btn_1 gray"><i class="fa fa-fw fa-envelope"></i> Send Message</a></p>
                             <ul class="buttons">
-                                <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Approve</a></li>
-                                <li><a href="#0" class="btn_1 gray delete" data-toggle="modal" data-target="#edit_booking"><i class="fa fa-fw fa-pencil"></i> Edit</a></li>
-                                <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a></li>
+                                <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
+                                        Approve</a></li>
+                                <li><a href="#0" class="btn_1 gray delete" data-toggle="modal"
+                                        data-target="#edit_booking"><i class="fa fa-fw fa-pencil"></i> Edit</a></li>
+                                <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i>
+                                        Cancel</a></li>
                             </ul>
                         </li>
                         <li>
@@ -299,9 +298,12 @@
                             </ul>
                             <p><a href="#0" class="btn_1 gray"><i class="fa fa-fw fa-envelope"></i> Send Message</a></p>
                             <ul class="buttons">
-                                <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i> Approve</a></li>
-                                <li><a href="#0" class="btn_1 gray delete" data-toggle="modal" data-target="#edit_booking"><i class="fa fa-fw fa-pencil"></i> Edit</a></li>
-                                <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i> Cancel</a></li>
+                                <li><a href="#0" class="btn_1 gray approve"><i class="fa fa-fw fa-check-circle-o"></i>
+                                        Approve</a></li>
+                                <li><a href="#0" class="btn_1 gray delete" data-toggle="modal"
+                                        data-target="#edit_booking"><i class="fa fa-fw fa-pencil"></i> Edit</a></li>
+                                <li><a href="#0" class="btn_1 gray delete"><i class="fa fa-fw fa-times-circle-o"></i>
+                                        Cancel</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -338,8 +340,9 @@
         <i class="fa fa-angle-up"></i>
     </a>
 
-     <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Logout Modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -356,9 +359,10 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Edit Booking Modal -->
-    <div class="modal fade" id="edit_booking" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel" aria-hidden="true">
+    <div class="modal fade" id="edit_booking" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -368,7 +372,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                   <div class="form-group">
+                    <div class="form-group">
                         <label>Restaurant Name</label>
                         <input type="text" class="form-control" value="Restaurant Name">
                     </div>
@@ -391,7 +395,7 @@
                         </div>
                     </div>
                     <!-- /Row -->
-                   
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

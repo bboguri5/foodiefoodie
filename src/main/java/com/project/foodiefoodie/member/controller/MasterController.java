@@ -178,15 +178,16 @@ public class MasterController {
             log.info("\n\n==\n\n");
             log.info(" delete before i = {}",i);
 
+            if(i == 1){
+                session.removeAttribute("masterList");
+                memberService.authDownCommonTest(email);
+            }
             masterService.deleteMasterService(businessNo);
+
             log.info("delete after i = {}",i);
             log.info("\n\n==\n\n");
-        } else if (i == 0 ) {
-            // 강등됨
-            memberService.authDownCommonTest(email);
-
         }
-        return "/myPage/profile";
+        return "redirect:/myPage/profile";
 
     }
 

@@ -28,7 +28,12 @@ class MasterMapperTest {
 
         String email = "soslimso@nate.com";
         List<Master> masters = masterMapper.callMaster(email);
+        //
         System.out.println("\n\n======================\n\n");
+        // 마스터가 한명도 없으면 빈배열로옴
+        System.out.println(masters);
+            System.out.println(masters.size());
+            // 마스터의 갯수가 없어도 . 나오긴하고 , 소환은됨 ,
         for (Master master : masters) {
             System.out.println(master);
         }

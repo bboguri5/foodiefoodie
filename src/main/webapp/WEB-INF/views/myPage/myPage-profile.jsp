@@ -138,21 +138,21 @@
 
 <body class="fixed-nav sticky-footer" id="page-top">
 
-    <%@ include file="/WEB-INF/views/myPage/include/mypage-nav.jsp" %>
+    <%@ include file="../include/myPage-nav.jsp" %>
 
     <!-- 프로필 쓰는 공간 !! ==================================================================================================== -->
     <div class="content-wrapper">
         <div class="container-fluid">
             <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
+            <!-- <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="#">여기에 뭘 적을까 </a>
                 </li>
                 <li class="breadcrumb-item active">${loginUser.nickName}님의 프로필 </li>
-            </ol>
+            </ol> -->
             <div class="box_general padding_bottom">
                 <div class="header_box version_2">
-                    <h2><i class="fa fa-user"></i>프로필 상세정보</h2>
+                    <h2><i class="fa fa-user"></i>${loginUser.nickName}님의 프로필 상세정보</h2>
                 </div>
                 <div class="row">
                     <!-- <div class="col-md-4">

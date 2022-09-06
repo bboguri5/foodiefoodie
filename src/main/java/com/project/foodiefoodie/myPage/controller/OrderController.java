@@ -86,8 +86,6 @@ public class OrderController {
             int i2 = orderService.discountRate(orderNo);
             masterOrderListDTO.setDiscount(i2);
 
-
-
             // 7. 진짜 가격 계산해서 넣어주기
 
             if (i2 == 0){ // 할인율이 0 이라면 // 총금액을 넣어주고

@@ -13,7 +13,7 @@
     <title>Foogra - Discover & Book the best restaurants at the best price</title>
 
     <!-- jquery -->
-    <!-- <script src="/js/jquery-3.3.1.min.js"></script> -->
+    <script src="/js/jquery-3.3.1.min.js"></script>
 
     <!-- GOOGLE WEB FONT -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -27,23 +27,32 @@
     <!-- SPECIFIC CSS -->
     <link href="/css/detail-page.css" rel="stylesheet">
 
+    <link href="/css/detail-page-delivery.css" rel="stylesheet">
+
     <!-- notice -->
     <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="/css/admin.css" rel="stylesheet">
 
 
+    <!-- jquery -->
+    <script src="/js/jquery-3.3.1.min.js"></script>
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
     <!-- bootstrap css -->
 
-    
-
-
-<%@ include file="../include/static-head.jsp" %>
+    <style id="theia-sticky-sidebar-stylesheet-TSS">
+        .theiaStickySidebar:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
     <!-- kakao map -->
     <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
     </script>
+
+
 </head>
 
 <style>
@@ -220,7 +229,6 @@
 </style>
 
 <body>
-
     <%@ include file="../include/header.jsp" %>
 
 
@@ -242,9 +250,7 @@
                             </div>
                             <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
                                 <div class="buttons clearfix">
-                                    <c:if test="${flag}">
-                                        <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
-                                    </c:if>
+                                    <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
                                 </div>
                             </div>
                         </div>
@@ -438,7 +444,8 @@
                                         <!-- /menu-gallery -->
                                         <div class="add_bottom_45"></div>
                                     </div>
-                                    <c:if test="${isOpen == '영업전' || isOpen == '브레이크 타임' || isOpen == '영업끝' || isOpen == '오늘 휴무'}">
+                                    <c:if
+                                        test="${isOpen == '영업전' || isOpen == '브레이크 타임' || isOpen == '영업끝' || isOpen == '오늘 휴무'}">
                                         <h4 class="not-open">영업중에만 방문포장 주문을 할 수 있습니다.</h4>
                                     </c:if>
                                     <c:if test="${isOpen == '영업중'}">
@@ -572,14 +579,12 @@
                                         <div class="add_bottom_25"></div>
                                         <!-- 공지사항  -->
                                         <h2>공지사항</h2>
-                                        <c:if test="${noticeFlag}">
                                         <div class="add_bottom_25 openWriteBox">
                                             <p class="inline-popups noticeWrite">
                                                 <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
                                                     <i class="fa fa-fw fa-reply"></i>글쓰기</a>
                                             </p>
                                         </div>
-                                    </c:if>
                                         <div class="list_general notices">
                                             <ul>
                                                 <!-- makeNoticeDom method -->
@@ -619,7 +624,7 @@
 
     <!-- COMMON SCRIPTS -->
     <script src="/js/common_scripts.min.js"></script>
-    <!-- <script src="/js/common_func.js"></script> -->
+    <script src="/js/common_func.js"></script>
     <script src="/js/validate.js"></script>
 
     <!-- SPECIFIC SCRIPTS -->

@@ -134,4 +134,8 @@ public class MainPageService {
             o.setIsOpen(isOpen);
         }
     }
+
+    public String isOpenService(long promotionBno) {
+        return mapper.isOpen(promotionBno);
+    }
 }

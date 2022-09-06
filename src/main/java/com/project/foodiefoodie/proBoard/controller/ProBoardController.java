@@ -1,6 +1,7 @@
 package com.project.foodiefoodie.proBoard.controller;
 
 
+import com.project.foodiefoodie.mainpage.service.MainPageService;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.FileDTO;
@@ -31,6 +32,7 @@ import java.util.*;
 public class ProBoardController {
 
     private final ProBoardService proBoardService;
+    private final MainPageService mainPageService;
 
     @GetMapping("/detail/{promotionBno}")
     public String detail(Model model, @PathVariable int promotionBno,
@@ -43,6 +45,7 @@ public class ProBoardController {
         model.addAttribute("titleFile",proBoardService.selectFiles(promotionBno,"title").get(0));
         model.addAttribute("noticeDTOS", proBoardService.selectNotice(promotionBno));
         model.addAttribute("isHotDeal", proBoardService.isHotDealService(proBoardService.selectProBoard(promotionBno).getBusinessNo()));
+        model.addAttribute("isOpen", mainPageService.isOpenService(promotionBno));
 
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         model.addAttribute("isFavorite",proBoardService.isFavoriteStore(member.getEmail(),promotionBno));

@@ -53,7 +53,7 @@ public class MasterController {
     public ResponseEntity<String> duplicateBusinessNo(String businessNo) {
 
         BlackListMaster findBlackUser = blackListMasterService.findOneService(businessNo);
-        
+
         if (findBlackUser == null) { // 블랙 리스트에 등록된 사업자 번호가 아닌 경우 
             boolean flag = masterService.duplicateBusinessNo(businessNo);
 
@@ -88,37 +88,36 @@ public class MasterController {
     }
 
     @GetMapping("/masterInfo/{masterNum}")
-    public String masterInfo(@PathVariable int masterNum , HttpSession session , Model model){
-        Member loginUser = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
+    public String masterInfo(@PathVariable int masterNum, HttpSession session, Model model) {
+        Member loginUser = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = loginUser.getEmail();
         log.info("\n\n=====\n\n");
-        log.info("welcome /masterInfo -loginUser-Auth :?? {}",loginUser.getAuth());
+        log.info("welcome /masterInfo -loginUser-Auth :?? {}", loginUser.getAuth());
         List<Master> masters = masterService.allMaster(email);
         Master master = masters.get(masterNum);
         String businessNo = master.getBusinessNo();
-        model.addAttribute("masterNum",masterNum);
-        model.addAttribute("master",master);
+        model.addAttribute("masterNum", masterNum);
+        model.addAttribute("master", master);
         // promotion넘버를 가져와야됨
         // 안썼으면 안나오니까 이거 무작정 주지말고 if 로 묶어서 줌
         Integer proBoardNumService = promotionBoardService.findProBoardNumService(businessNo);
 
-        log.info("proboard = {}",proBoardNumService);
-        if (proBoardNumService != null){
-        model.addAttribute("promotionBno",proBoardNumService);
+        log.info("proboard = {}", proBoardNumService);
+        if (proBoardNumService != null) {
+            model.addAttribute("promotionBno", proBoardNumService);
         }
         return "myPage/masterInfo";
     }
 
 
-
     @GetMapping("/masterInfoModi/{masterNum}")
-    public String masterInfoModi(@PathVariable int masterNum, HttpSession session ,Model model){
+    public String masterInfoModi(@PathVariable int masterNum, HttpSession session, Model model) {
 
-        Member loginUser = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
+        Member loginUser = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = loginUser.getEmail();
 
 
-        log.info("welcome /masterInfoModi -loginUser-Auth :?? {}",loginUser.getAuth());
+        log.info("welcome /masterInfoModi -loginUser-Auth :?? {}", loginUser.getAuth());
 
 
         List<Master> masters = masterService.allMaster(email);
@@ -130,15 +129,15 @@ public class MasterController {
         Master master = masters.get(masterNum);
         log.info(master);
 
-        model.addAttribute("master",master);
-        model.addAttribute("masterNum",masterNum);
+        model.addAttribute("master", master);
+        model.addAttribute("masterNum", masterNum);
 
         return "/myPage/masterInfoModi";
     }
 
     @PostMapping("/masterModiPost/{masterNum}")
-    public String masterSuccessModi(@PathVariable int masterNum ,HttpSession session,MasterModifyDTO masterModifyDTO){
-        Member loginUser = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
+    public String masterSuccessModi(@PathVariable int masterNum, HttpSession session, MasterModifyDTO masterModifyDTO) {
+        Member loginUser = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = loginUser.getEmail();// 이메일 찾기
         boolean b = masterService.masterModiService(masterModifyDTO);
 
@@ -148,49 +147,48 @@ public class MasterController {
         master.setStoreName(masterModifyDTO.getStoreName());
 
 
-
-
-
 //        return "/masterInfo/"+masterNum;
-        return "redirect:/masterInfo/"+masterNum;
+        return "redirect:/masterInfo/" + masterNum;
     }
-
 
 
     // 마스터 정보 삭제하기 컨트롤러 !!
 
     @GetMapping("/delMaster/{masterNum}")
-    public String deleteMasterInfo(@PathVariable int masterNum ,HttpSession session){
+    public String deleteMasterInfo(@PathVariable int masterNum, HttpSession session) {
 
-        log.info("im - delMaster masterNum {}" ,masterNum);
+        log.info("im - delMaster masterNum {}", masterNum);
         Member loginUser = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = loginUser.getEmail();
 
         List<Master> masters = masterService.allMaster(email);
         Master master = masters.get(masterNum);
         String businessNo = master.getBusinessNo();
-        log.info("businessNo  = {}",businessNo);
+        log.info("businessNo  = {}", businessNo);
         // 마스터 넘으로 마스터 번호까지 추출했음
 
         // 마스터의 숫자 (가게 갯수)
         int i = masterService.masterCountService(email);
 
-        if (i > 0){
-            //마스터가 하나라도 있으면 / 마스터를 삭제하라는 말
-            log.info("\n\n==\n\n");
-            log.info(" delete before i = {}",i);
-
-            if(i == 1){
-                loginUser.setAuth(Auth.COMMON);
-                session.removeAttribute("masterList");
-                memberService.authDownCommonTest(email);
-            }
+        if (i > 0) {
+            // 세션에서 마스터 삭제하고
+            List<Master> masterList = (List<Master>) session.getAttribute("masterList");
+            // 세션에서 삭제
+            masterList.remove(masterNum);
             // db 에서 삭제하고
             masterService.deleteMasterService(businessNo);
-
-            log.info("delete after i = {}",i);
-            log.info("\n\n==\n\n");
+            i--;
         }
+        if(i == 0) {
+            log.info("else");
+            // db 권한 내림
+            memberService.authDownCommonTest(email);
+            //
+            loginUser.setAuth(Auth.COMMON);
+
+        }
+
+
         return "redirect:/myPage/profile";
 
     }

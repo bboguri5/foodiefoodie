@@ -72,6 +72,13 @@ public class ReviewBoardService {
         return rbMapper.searchAllReview(search, sort);
     }
 
+    public List<ReviewBoardDTO> searchTop5ReviewService(String search, String sort)
+    {
+        return rbMapper.searchTop5Review(search,sort);
+    }
+
+
+
     public ReviewBoardDTO findOneReviewService(long reviewBno) {
         return rbMapper.findOneReview(reviewBno);
     }

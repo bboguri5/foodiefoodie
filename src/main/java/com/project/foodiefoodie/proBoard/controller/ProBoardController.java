@@ -45,8 +45,8 @@ public class ProBoardController {
                          HttpSession session) {
         log.info(" ProBoardController /detail/{} Get - ! ", promotionBno);
 
-
         ProBoard proBoard = proBoardService.selectProBoard(promotionBno);
+
         model.addAttribute("proBoard", proBoard);
         model.addAttribute("menuList", proBoardService.selectMenuInfo(promotionBno));
         model.addAttribute("detailFiles", proBoardService.selectFiles(promotionBno, "detail"));
@@ -58,24 +58,22 @@ public class ProBoardController {
         // 로그인 하면 즐겨찾기 표시 , 로그인 안하면 즐겨찾기 표시 X
         String loginFlag = LoginUtils.LOGIN_FLAG;
         Member member = (Member) session.getAttribute(loginFlag);
+        List<String> reviewUploads = new ArrayList<>();
+        List<Integer> replyCount = new ArrayList<>();
 
+        // 공지사항 마스터만 작성 및 삭제
         if (member != null) {
-            model.addAttribute("noticeFlag", proBoard.getEmail().equals(member.getEmail()));
+            model.addAttribute("masterFlag", proBoard.getEmail().equals(member.getEmail()));
             model.addAttribute("isFavorite", proBoardService.isFavoriteStore(member.getEmail(), promotionBno));
             model.addAttribute("flag", true);
         } else {
             model.addAttribute("flag", false);
         }
 
-        List<ReviewBoardDTO> reviewList = reviewBoardService.searchAllReviewService(proBoard.getBusinessNo(), "latest");
-        List<String> reviewUploads = new ArrayList<>();
-        List<Integer> replyCount = new ArrayList<>();
+        // 리뷰
+        List<ReviewBoardDTO> reviewList = reviewBoardService.searchTop5ReviewService(proBoard.getBusinessNo(), "latest");
+
         getUploads(reviewUploads, replyCount, reviewList);
-
-
-        log.info("reviewUploads - {}", reviewUploads);
-        log.info("replyCount - {}", replyCount);
-        log.info("reviewList - {}", reviewList);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("uploads", reviewUploads);
         return "promotion/pro-detail";

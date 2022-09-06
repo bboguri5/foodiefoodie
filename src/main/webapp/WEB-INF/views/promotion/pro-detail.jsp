@@ -241,13 +241,13 @@
         word-wrap: normal;
     }
 
-    .star {
+    .star.proBoardStar {
         position: relative;
         font-size: 2rem;
         color: #ddd;
     }
 
-    .star input {
+    .star.proBoardStar input {
         width: 100%;
         height: 100%;
         position: absolute;
@@ -256,13 +256,46 @@
         cursor: pointer;
     }
 
-    .star span {
+    .star.proBoardStar span {
         width: 0;
         position: absolute;
         left: 0px;
         color: yellow;
         overflow: hidden;
         pointer-events: none;
+    }
+
+      .star.reviewStar {
+        position: relative;
+        font-size: 2rem;
+        color: #ddd;
+    }
+
+    .star.reviewStar input {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .star.reviewStar span {
+        width: 0;
+        position: absolute;
+        left: 0px;
+        color: yellow;
+        overflow: hidden;
+        pointer-events: none;
+    }
+    p.reviewP{
+        overflow-wrap: normal;
+    }
+
+    strong.noneReview{
+        text-align: center;
+           display: block;
+        font-size: 50px;
     }
 </style>
 
@@ -277,7 +310,6 @@
     <!-- main -->
     <main>
         <div class="hero_in detail_page title_img_add" style=" background-image: url(${titleFile.fileData});">
-            <!-- <img src="data:image/jpg;base64,${titleImg}">  -->
             <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
                 <div class="container">
                     <div class="main_info">
@@ -295,16 +327,18 @@
                                 ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
+
+                            <c:if test="${flag || !(masterFlag)}">
                             <div class="col-xl-8 col-lg-7 col-md-6 position-relative">
                                 <div class="buttons clearfix wishBtn">
                                     <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>Wishlist</a>
                                 </div>
                                 <div class="buttons clearfix writeBtn">
                                     <a href="/review/write/${proBoard.businessNo}" class="btn_hero"><strong
-                                            class="writeBtnHero">리뷰작성</strong> </a>
+                                            class="writeBtnHero"><i class="icon_pencil"></i> write review</strong> </a>
                                 </div>
                             </div>
-
+                        </c:if>
                         </div>
                         <!-- /row -->
                     </div>
@@ -425,7 +459,7 @@
 
                                             <div class="add_bottom_25"></div>
                                             <h2 class="detailInfoTitle"> 장소</h2>
-                                            <div id="map" class="kakaoMap" style="width:100%;height:600px;"></div>
+                                            <div id="kakaoMap" class="kakaoMap" style="width:100%;height:600px;"></div>
                                         </section>
                                     </div>
                                 </div>
@@ -537,10 +571,6 @@
                             </div>
                             <!-- /B type -->
 
-
-
-
-
                             <!-- C type -->
                             <div id="pane-C" class="card tab-pane fade" role="tabpanel" aria-labelledby="tab-C">
                                 <div class="card-header" role="tab" id="heading-C">
@@ -554,13 +584,14 @@
                                 <div id="collapse-C" class="collapse" role="tabpanel" aria-labelledby="heading-C">
                                     <div class="card-body reviews">
                                         <c:if test="${proBoard.avgStarRate == 0}">
-                                            <strong>평점을 평가할 충분한 리뷰가 없습니다.</strong>
-
+                                            <div class="add_bottom_45"></div>
+                                            <strong class="noneReview">리뷰가 없습니다.</strong>
+                                            <div class="add_bottom_45"></div>
                                         </c:if>
                                         <c:if test="${proBoard.avgStarRate != 0}">
 
                                             <div id="review_summary">
-                                                <span class="star">
+                                                <span class="star proBoardStar">
                                                     ★★★★★
                                                     <span>★★★★★</span>
                                                 </span>
@@ -583,9 +614,14 @@
                                                         </figure>
 
                                                         <div class="post_info">
+
                                                             <h2><a href="#">${rl.title}</a>
                                                             </h2>
-                                                            <p>평점: ${rl.starRate}/10</p>
+                                                            <p class="reviewP">평점:  <span class="star reviewStar">
+                                                                ★★★★★
+                                                                <c:set var="starRate" value="${rl.starRate*10}%" />
+                                                                <span style="width: ${starRate};">★★★★★</span>
+                                                            </span>${rl.starRate}/10</p>
                                                             <p>${rl.content}
                                                                 <ul>
                                                                     <li>
@@ -619,9 +655,11 @@
                                             </div>
                                         </c:if>
                                         <!-- /reviews -->
+                                        <c:if test="${proBoard.avgStarRate > 0}">
                                         <div class="text-end"><a href="leave-review.html" class="btn_1 viewMore"> View
                                                 More </a>
                                         </div>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -643,10 +681,12 @@
                                         <!-- 공지사항  -->
                                         <h2>공지사항</h2>
                                         <div class="add_bottom_25 openWriteBox">
+                                            <c:if test="${masterFlag}">
                                             <p class="inline-popups noticeWrite">
                                                 <a href="#modal-reply" data-effect="mfp-zoom-in" class="btn_1">
                                                     <i class="fa fa-fw fa-reply"></i>글쓰기</a>
                                             </p>
+                                            </c:if>
                                         </div>
                                         <div class="list_general notices">
                                             <ul>
@@ -713,7 +753,7 @@
 
     function showKaKao() {
         let positionAddress = '';
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        var mapContainer = document.getElementById('kakaoMap'), // 지도를 표시할 div 
             mapOption = {
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                 level: 3, // 지도의 확대 레벨
@@ -882,9 +922,11 @@
                 `<p>` + notice.content + `</p>` +
                 `<ul class="buttons deleteNoticeWrite">` +
                 `<li>` +
+                `<c:if test="{masterFlag}">` +
                 `<a class="btn_1 gray delete">` +
                 `<i class="fa fa-fw fa-times-circle-o"></i>` +
                 `삭제 </a>` +
+                `</c:if>`+
                 `</li>` +
                 `</ul>` +
                 `<p class="update_date"> 업데이트 : ` + notice.updateAFewDaysAgo + `</p>` +
@@ -1195,10 +1237,14 @@
 
 <script>
     // <!-- 별점 -->
-    const starRate = document.querySelector('.star span');
-    const dd = Math.ceil(`${proBoard.avgStarRate}`) * 10;
+    const proBoardStarRate = document.querySelector('.proBoardStar span');
+    const proBoardStar = Math.ceil(`${proBoard.avgStarRate}`) * 10;
+    proBoardStarRate.style.width = proBoardStar + '%';
 
-    starRate.style.width = dd + '%';
+    // const reviewStarRate = document.querySelector('.reviewStar span');
+    // const reviewStar = `${review.starRate}` * 10;
+    // console.log(reviewStar);
+    // reviewStarRate.style.width = reviewStar + '%';
 </script>
 </body>
 

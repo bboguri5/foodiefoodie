@@ -6,56 +6,31 @@
 <html lang="ko">
 
 <head>
-    <!-- <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Foogra - Discover & Book the best restaurants at the best price">
-    <meta name="author" content="Ansonika">
-    <title>Foogra - Discover & Book the best restaurants at the best price</title> -->
 
-    <!-- jquery -->
-    <!-- <script src="/js/jquery-3.3.1.min.js"></script> -->
+  
 
-    <!-- GOOGLE WEB FONT -->
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" -->
-        <!-- rel="stylesheet"> -->
-
-    <!-- BASE CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <link href="/css/style.css" rel="stylesheet"> -->
-
-    <!-- SPECIFIC CSS -->
-    <link href="/css/detail-page.css" rel="stylesheet">
-
-    <link href="/css/detail-page-delivery.css" rel="stylesheet">
-
-    <!-- notice -->
-    <!-- <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <link href="/css/admin.css" rel="stylesheet">
-
-
-    <!-- jquery -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <!-- bootstrap js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
-    <!-- bootstrap css -->
-
-    <!-- <style id="theia-sticky-sidebar-stylesheet-TSS">
-        .theiaStickySidebar:after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    </style> -->
-    <!-- <%@ include file="../include/admin-static-head.jsp" %> -->
     <%@ include file="../include/static-head.jsp" %>
-    <!-- kakao map -->
-    <script type="text/javascript"
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
-    </script>
+
+      <!-- SPECIFIC CSS -->
+      <link href="/css/detail-page.css" rel="stylesheet">
+      <link href="/css/detail-page-delivery.css" rel="stylesheet">
+  
+      <!-- notice -->
+      <link href="/css/admin.css" rel="stylesheet">
+  
+      <!-- bootstrap js -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  
+      </style> 
+      <!-- kakao map -->
+      <script type="text/javascript"
+          src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c52a004bc69d2f545cf74556fe651345&libraries=services,clusterer,drawing">
+      </script>
 
 </head>
 
+
+<!-- //css -->
 <style>
     .hero_in.detail_page .wrapper .buttons.writeBtn {
         position: absolute;
@@ -172,7 +147,7 @@
     }
 
     a.btn_1.proBoardModifyBtn {
-        margin-left: 85%;
+        margin-left: 80%;
     }
 
 
@@ -757,6 +732,8 @@
 
 </body>
 
+
+<!-- //script -->
 <script>
     showKaKao(); // information map  
 

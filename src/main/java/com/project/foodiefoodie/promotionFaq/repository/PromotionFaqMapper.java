@@ -13,4 +13,6 @@ public interface PromotionFaqMapper {
     boolean update(long prFaqNo, String complete);
 
     List<PromotionFaqDTO> findAllAndTitle(String complete);
+
+    boolean save(PromotionFaq promotionFaq);
 }

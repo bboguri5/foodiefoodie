@@ -358,7 +358,7 @@
                 <!-- /box_general -->
 
                 <!-- /.container-wrapper-->
-                <p class="save-buttons"><button type="button" class="btn_1 medium save">저장</button> <a href="/"
+                <p class="save-buttons"><button type="button" class="btn_1 medium save">저장</button> <a href="/review?sort=latest"
                         class="btn_1 medium gray">취소</a>
                 </p>
         </form>

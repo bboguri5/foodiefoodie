@@ -226,6 +226,15 @@
 
         text-align: center;
     }
+
+    .promotion-modal-content {
+        position: absolute;
+        top: 100px;
+    }
+
+    .modal-promotion-faq-content {
+        height: 200px;
+    }
 </style>
 
 <body>
@@ -244,7 +253,10 @@
                                 <div class="head">
                                     <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
                                 </div>
-                                <h1>${proBoard.title}</h1>
+                                <h1 style="display: inline;">${proBoard.title}</h1> <a href="#" class="promotion-faq-btn nav-faq-btn"
+                                style="margin-left: 10px;" data-bs-toggle='modal'
+                                data-bs-target='.promotion-faq-modal'>신고</a>
+                                <br>
                                 ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
                             </div>
@@ -604,6 +616,49 @@
             <!-- /tab-content -->
         </div>
         <!-- /tabs_detail -->
+
+        <!-- 홍보글 신고 모달 -->
+        <form action="/proBoard/promotion-faq" method="POST" class="modal-form promotion-faq-form">
+            <div class="modal fade promotion-faq-modal" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content promotion-modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="edit_bookingLabel">신고글 정보</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>가게 이름</label>
+                                <input type="text" class="form-control" value="${proBoard.storeName}" disabled>
+                                <input type="hidden" class="modal-promotion-bno" name="promotionBno"
+                                    value="${proBoard.promotionBno}" readonly>
+                                <input type="hidden" value="${proBoard.businessNo}" name="businessNo" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>사업자 계정</label>
+                                <input type="text" class="form-control modal-promotion-writer-email"
+                                    name="promotionWriterEmail" value="${proBoard.email}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>신고 작성자</label>
+                                <input type="text" class="form-control modal-writer-email" name="writerEmail"
+                                    value="${loginUser.email}" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>신고 사유</label>
+                                <textarea type="text" class="form-control modal-promotion-faq-content"
+                                    name="content"></textarea>
+                            </div>
+                            <!-- /Row -->
+                        </div>
+                        <div class="modal-footer btn-wrap">
+                            <button class="btn btn-primary del-btn modal-faq-btn" type="button">신고</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
 
     </main>
     <div id="modal-reply" class="white-popup mfp-with-anim mfp-hide">
@@ -1128,6 +1183,24 @@
             });
     }
 </script>
+
+<!-- 신고 버튼 -->
+<script>
+    const promotionFaqBtn = document.querySelector('.modal-faq-btn');
+
+    promotionFaqBtn.onclick = e => {
+        const faqContent = document.querySelector('.modal-promotion-faq-content');
+        const promotionFaqForm = document.querySelector('.promotion-faq-form');
+        if (faqContent.value.trim() === '') {
+            alert("사유는 필수값입니다.");
+        } else {
+            promotionFaqForm.submit();
+        }
+    }
+    
+</script>
+
+
 
 </body>
 

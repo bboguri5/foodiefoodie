@@ -10,6 +10,8 @@ import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
 import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
+import com.project.foodiefoodie.promotionFaq.domain.PromotionFaq;
+import com.project.foodiefoodie.promotionFaq.service.PromotionFaqService;
 import com.project.foodiefoodie.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -32,6 +34,7 @@ public class ProBoardController {
 
     private final ProBoardService proBoardService;
     private final MainPageService mainPageService;
+    private final PromotionFaqService promotionFaqService;
 
     @GetMapping("/detail/{promotionBno}")
     public String detail(Model model, @PathVariable int promotionBno,
@@ -226,4 +229,13 @@ public class ProBoardController {
 //    }
 
 
+    @PostMapping("/promotion-faq")
+    public String promotionFaq(PromotionFaq promotionFaq) {
+
+        log.info("/promotion-faq POST! - {}", promotionFaq);
+
+        promotionFaqService.saveService(promotionFaq);
+
+        return "redirect:/proBoard/detail/" + promotionFaq.getPromotionBno();
+    }
 }

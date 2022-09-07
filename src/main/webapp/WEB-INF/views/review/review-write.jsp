@@ -293,7 +293,7 @@
                                 <span class="star">
                                     ★★★★★
                                     <span>★★★★★</span>
-                                    <input type="range" oninput="drawStar(this)" value="0" step="1" min="0" max="10"
+                                    <input type="range" oninput="drawStar(this)" value="5" step="1" min="0" max="10"
                                         name="starRate">
                                 </span>
                             </div>

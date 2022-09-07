@@ -52,7 +52,7 @@
                                             data-faqcomplete="${rf.faqComplete}" data-reviewwriteremail="${rf.reviewWriterEmail}">
                                                 ${rf.reFaqNo}</a>
                                         </th>
-                                        <th><a href="#">${rf.title}</a></th>
+                                        <th><a href="/review/detail/?reviewBno=${rf.reviewBno}">${rf.title}</a></th>
                                         <th>${rf.writerEmail}</th>
                                         <th>${rf.reviewWriterEmail}</th>
                                     </tr>

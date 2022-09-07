@@ -1,5 +1,6 @@
-package com.project.foodiefoodie.review.interceptor;
+package com.project.foodiefoodie.proBoard.interceptor;
 
+import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.util.LoginUtils;
@@ -20,7 +21,7 @@ import static com.project.foodiefoodie.util.LoginUtils.getCurrentMemberEmail;
 
 @Configuration
 @Log4j2
-public class ReviewModifyInterceptor implements HandlerInterceptor {
+public class ProWriteInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -46,25 +47,16 @@ public class ReviewModifyInterceptor implements HandlerInterceptor {
     // 후처리 메서드
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("111111postHandle!!!!!");
+
         // postHandle이 작동해야 하는 URI 목록
-        List<String> uriList = Arrays.asList("/review/modify");
+        List<String> uriList = Arrays.asList("/proBoard/write");
 
         // 현재 요청 URI 정보 알아내기
         String requestURI = request.getRequestURI();
         log.info("requestURI - {}", requestURI);
-//        String[] split = requestURI.split("/");
-//        for (String s : split) {
-//            log.info("s - {}", s);
-//        }
-//        String t = "";
-//        for (int i = 1; i < split.length - 1; i++) {
-//            t += "/"+split[i];
-//        }
-//        log.info("t - {}", t);
-        String substring = requestURI.substring(0, 14);
-        log.info("requestURI - {}", substring);
-//        String method = null;
+
+        String substring = requestURI.substring(0, 15);
+        log.info("substring - {}", substring);
 
         // uriList 안에 요청 uri가 있다면 작동
         if (uriList.contains(substring)) {
@@ -74,11 +66,11 @@ public class ReviewModifyInterceptor implements HandlerInterceptor {
 
             // /review/modify 에 Map 가져오기
             Map<String, Object> modelMap = modelAndView.getModel();
-            ReviewBoardDTO review = (ReviewBoardDTO) modelMap.get("review");
+            Master master = (Master) modelMap.get("master");
             HttpSession session = request.getSession();
 
             // 작성자와 로그인유저 비교 후 다르면 return
-            String writer = review.getEmail();
+            String writer = master.getEmail();
             log.info("writer - {}", writer);
             String loginUser = getCurrentMemberEmail(session);
             log.info("loginUser - {}", loginUser);
@@ -88,10 +80,17 @@ public class ReviewModifyInterceptor implements HandlerInterceptor {
             if (loginUser1.getAuth().toString().equals("ADMIN")) return;
 
             String referer = request.getHeader("Referer");
+            log.info("referer - {}", referer);
             if (!Objects.equals(writer, loginUser)) {
-                response.sendRedirect(referer);
+                if (referer != null) {
+                    response.sendRedirect(referer);
+                } else {
+                    response.sendRedirect("/");
+                }
             }
         }
 
     }
+
+
 }

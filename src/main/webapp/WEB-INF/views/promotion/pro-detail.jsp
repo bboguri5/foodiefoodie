@@ -316,8 +316,8 @@
                                         </div>
                                     </c:if>
                                 </div>
-                                <h1 style="display: inline;">${proBoard.title}</h1> 
-                                
+                                <h1 style="display: inline;">${proBoard.title}</h1>
+
                                 <c:if test="${flag}">
                                 <a href="#" class="promotion-faq-btn nav-faq-btn"
                                 style="margin-left: 10px;" data-bs-toggle='modal'

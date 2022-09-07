@@ -52,5 +52,11 @@ public interface MasterMapper {
     boolean MasterHotDealOnOff(MasterHotDealOnOffDTO masterHotDealOnOffDTO);
 
 
+    // 마스터삭제하기
+    boolean deleteMaster(String businessBno);
+
+    // 비즈니스 번호 주면 이메일 뱉어냄
+    String findEmail(String businessBno);
+
 
 }

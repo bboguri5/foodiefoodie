@@ -72,6 +72,10 @@ public interface MemberMapper {
     // 이메일 넣으면 맴버 삭제시켜주는 메서드
     boolean deleteMemberIntoProfile(String email);
 
+    // 이메일 주면 common으로 강등시킴
+    boolean authDownCommon(String email);
+
+
 
 
 

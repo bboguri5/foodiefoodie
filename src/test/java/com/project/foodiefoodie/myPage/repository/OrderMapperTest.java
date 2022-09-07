@@ -117,4 +117,15 @@ class OrderMapperTest {
         System.out.println("\n\n=================\n\n\n");
     }
 
+    @Test
+    @DisplayName("주문 번호 넣으면 할인율이 나옴 ")
+    void discountNumTest(){
+        int num = 1 ;
+        int discount = orderMapper.discount(num);
+        System.out.println("\n\n=================\n\n\n");
+        System.out.println(discount);
+        System.out.println("\n\n=================\n\n\n");
+    }
+
+
 }

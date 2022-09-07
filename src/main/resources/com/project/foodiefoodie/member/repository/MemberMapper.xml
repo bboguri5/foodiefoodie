@@ -12,6 +12,12 @@
         <result column="extra_address" property="extraAddress"/>
     </resultMap>
 
+    <update id="authDownCommon">
+        UPDATE member
+        set auth = 'COMMON'
+        where email = #{email}
+    </update>
+
 
     <select id="isDuplicate" resultType="int">
         SELECT COUNT(*)

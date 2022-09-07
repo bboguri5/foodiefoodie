@@ -23,6 +23,21 @@
         WHERE business_no = #{businessNo}
     </update>
 
+<!--    사업자 번호주면 사업자 삭제 -->
+    <delete id="deleteMaster">
+        DELETE from master
+        WHERE business_no = #{businessNo}
+    </delete>
+
+<!--    사업자 번호 주면 이메일줌 -->
+    <select id="findEmail" resultType="String">
+        select email
+        from master
+        WHERE business_no = #{businessNo}
+    </select>
+
+
+
 
     <insert id="requestAuthMaster">
         INSERT INTO master

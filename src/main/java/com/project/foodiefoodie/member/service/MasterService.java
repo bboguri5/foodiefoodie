@@ -66,6 +66,12 @@ public class MasterService {
         return onOff;
     }
 
+    // 비즈니스 번호 주면 마스터 삭제하기
+    public boolean deleteMasterService(String businessBno){
+        boolean b = mapper.deleteMaster(businessBno);
+        return b;
+    }
+
 
 
 }

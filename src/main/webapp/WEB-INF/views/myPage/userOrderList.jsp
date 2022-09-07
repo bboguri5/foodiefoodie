@@ -79,10 +79,16 @@
 
                             <!-- ================================================ -->
 
-                            <tbody>
+                            <tbody class="target-no">
                                 <c:forEach var="userOrder" items="${userOrderList}">
                                     <tr>
-                                        <td>${userOrder.orderNo}</td>
+                                        <th><a href="#0" data-toggle="modal" data-target=".edit_booking"
+                                            data-orderno="${userOrder.orderNo}" data-storename="${userOrder.storeName}"
+                                            data-orderrowmenulist="${userOrder.orderRowMenuList}" data-totalNum="${userOrder.totalNum}"
+                                            data-discount="${userOrder.discount}" data-realmoney="${userOrder.realMoney}"
+                                            data-orderdate="${userOrder.orderDate}">
+                                            ${userOrder.orderNo}</a>
+                                        </th>
                                         <td>${userOrder.storeName}</td>
                                         <td>${userOrder.orderMenuList}</td>
                                         <td>${userOrder.totalNum}</td>
@@ -104,37 +110,61 @@
         <!-- /container-fluid-->
     </div>
     <!-- /container-wrapper-->
-    <footer class="sticky-footer">
-        <div class="container">
-            <div class="text-center">
-                <small>Copyright © FOOGRA 2021</small>
+    
+    <!-- Edit Booking Modal -->
+    <form action="#" method="post" class="modal-form">
+        <div class="modal fade edit_booking" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="edit_bookingLabel">주문 내역</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>주문 번호</label>
+                            <input type="text" class="form-control modal-orderNo" name="orderNo"  readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>주문 한 가게</label>
+                            <input type="text" class="form-control modal-storeName" name="email" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>주문 내역</label>
+                            <textarea name="" id="123" cols="30" rows="10" class="form-control modal-orderRowMenuList"></textarea>
+                            <!-- <input type="text" class="form-control modal-master-name" name="masterName" readonly> -->
+                        </div>
+                        <div class="form-group">
+                            <label>할인 전 가격</label>
+                            <input type="text" class="form-control modal-totalNum"
+                                name="totalNum"  readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>할인율</label>
+                            <input type="text" class="form-control modal-discount" name="discount" value="${userOrder.discount}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>할인 후 가격</label>
+                            <input type="text" class="form-control modal-realMoney" name="realMoney" value="${userOrder.realMoney}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>날짜</label>
+                            <input type="text" class="form-control modal-orderDate" name="orderDate" value="${userOrder.orderDate}" readonly>
+                        </div>
+                       
+                        <!-- /Row -->
+                    </div>
+                    <div class="modal-footer btn-wrap">
+                        <button class="btn btn-primary del-btn Confirm" type="button">확인</button>
+                        <!-- <button class="btn btn-primary del-btn disapprove" type="button">거절</button> -->
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="#0">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    </form>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/mypage/vendor/jquery/jquery.min.js"></script>
@@ -151,5 +181,60 @@
     <!-- Custom scripts for this page-->
     <script src="/mypage/js/admin-datatables.js"></script>
 </body>
+
+<script>
+
+(function () {
+            const $targetNo = document.querySelector('.target-no');
+            // console.log($targetNo);
+            
+            $targetNo.addEventListener('click', e => {
+
+
+                console.log("클릭이벤트");
+                console.log(e.target.value);
+
+                document.querySelector('.modal-orderNo').value = e.target.dataset.orderno;
+                document.querySelector('.modal-storeName').value = e.target.dataset.storename;
+                document.querySelector('.modal-orderRowMenuList').value = e.target.dataset.orderrowmenulist;
+                document.querySelector('.modal-totalNum').value = e.target.dataset.totalnum;
+                document.querySelector('.modal-discount').value = e.target.dataset.discount;
+             
+                document.querySelector('.modal-realMoney').value = e.target.dataset.realmoney;
+                document.querySelector('.modal-orderDate').value = e.target.dataset.orderdate;
+            })
+
+            const $Confirm= document.querySelector('.Confirm'); //확인버튼 
+            const $modalForm = document.querySelector('.modal-form'); // 모달폼 
+            $Confirm.addEventListener('click', e => {
+                console.log(e.target);
+                
+                $modalForm.style.display = 'none';
+               
+
+            })
+
+            // const $btnWrap = document.querySelector('.btn-wrap');
+            // // console.log($btnWrap);
+            
+       
+            // // console.log($modalForm);
+            // $btnWrap.addEventListener('click', e => {
+            //     console.log(e.target);
+                
+            //     if(e.target === document.querySelector('.approve')) {
+            //         document.querySelector('.approve-type').value = 'approve';
+            //         $modalForm.submit();
+            //     } else if(e.target === document.querySelector('.disapprove')) {
+            //         document.querySelector('.approve-type').value = 'disapprove';
+            //         $modalForm.submit();
+            //     }
+            // })
+
+
+
+        }())
+
+</script>
 
 </html>

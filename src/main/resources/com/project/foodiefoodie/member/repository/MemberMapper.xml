@@ -8,7 +8,6 @@
         <result column="nick_name" property="nickName" />
         <result column="phone_number" property="phoneNumber"/>
         <result column="regist_date" property="regDate"/>
-        <result column="login_time" property="recentLoginTime"/>
         <result column="detail_address" property="detailAddress"/>
         <result column="extra_address" property="extraAddress"/>
     </resultMap>

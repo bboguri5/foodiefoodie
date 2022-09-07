@@ -11,7 +11,6 @@ DROP TABLE report_master;
 DROP TABLE promotion_upload_title_img;
 DROP TABLE promotion_upload_detail_img;
 DROP TABLE promotion_food_menu;
-DROP TABLE profile_upload;
 DROP TABLE review_upload;
 DROP TABLE reply_faq;
 DROP TABLE review_faq;
@@ -21,7 +20,6 @@ DROP TABLE reply;
 DROP TABLE favorite_store;
 DROP TABLE hot_deal;
 DROP TABLE review_board;
-DROP TABLE premiume_promotion_board;
 DROP TABLE promotion_store_time;
 DROP TABLE promotion_board;
 DROP TABLE MASTER;
@@ -44,7 +42,6 @@ CREATE TABLE member (
     , gender VARCHAR(2) NOT NULL
     , auth VARCHAR(20) DEFAULT 'COMMON'
     , regist_date DATE DEFAULT current_timestamp
-    , login_time DATE
     , detail_address VARCHAR(50)
     , extra_address VARCHAR(50)
 );
@@ -54,7 +51,6 @@ CREATE TABLE member (
 CREATE TABLE auto_login (
     email VARCHAR(50) NOT NULL
     , session_id VARCHAR(50) NOT NULL
-    , ip_address VARCHAR(30)
     , logout_time DATE
     , CONSTRAINT fk_auto_login_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
@@ -67,8 +63,7 @@ CREATE TABLE MASTER (
     , master_name VARCHAR(15) NOT NULL
     , store_name VARCHAR(50) NOT NULL
     , store_address VARCHAR(150) NOT NULL
-    , store_reg_date INT(10)
-    , hot_deal VARCHAR(2) DEFAULT 'N'
+    , hot_deal VARCHAR(3) DEFAULT 'OFF'
     , store_call_number VARCHAR(20) NOT NULL
     , store_detail_address VARCHAR(50) NULL
     , store_extra_address VARCHAR(50) NULL
@@ -76,7 +71,6 @@ CREATE TABLE MASTER (
     , CONSTRAINT fk_master_email
     FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE
 );
-
 
 -- 홍보글
 CREATE TABLE promotion_board (
@@ -93,15 +87,7 @@ CREATE TABLE promotion_board (
     REFERENCES master (business_no) ON DELETE CASCADE
 );
 
--- 월정액 가게
-CREATE TABLE premiume_promotion_board (
-    promotion_bno INT(10) NOT NULL
-    , start_date INT(10)
-    , end_date INT(10)
-    , complete VARCHAR(2) DEFAULT 'N'  -- f 신청중 t 진행중 n종료 또는 취소
-    , CONSTRAINT fk_pro_bno FOREIGN KEY (promotion_bno)
-    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-);
+
 
 
 -- 리뷰
@@ -215,14 +201,6 @@ CREATE TABLE review_upload(
     REFERENCES review_board (review_bno) ON DELETE CASCADE
 );
 
--- 프로필이미지 파일 업로드
-CREATE TABLE profile_upload(
-    email VARCHAR(50) PRIMARY KEY
-    , file_path TEXT not null
-    , file_name VARCHAR(100) NOT NULL
-    , CONSTRAINT fk_profile_upload FOREIGN KEY (email)
-    REFERENCES member (email) ON DELETE CASCADE
-);
 
 
 -- 신고처리된 내역있는 일반유저
@@ -305,7 +283,7 @@ create table promotion_upload_title_img(
 CREATE TABLE promotion_food_menu(
         menu_no INT(5) primary key AUTO_INCREMENT
         , promotion_bno INT(10) NOT NULL
-        , menu_name VARCHAR(20) NOT NULL
+        , menu_name varchar(100) NOT NULL
         , price INT(6) NOT NULL
         , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
         REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE

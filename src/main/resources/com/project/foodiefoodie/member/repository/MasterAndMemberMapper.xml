@@ -14,7 +14,6 @@
         <result property="masterName" column="master_name"/>
         <result property="storeName" column="store_name"/>
         <result property="storeAddress" column="store_address"/>
-        <result property="storeRegDate" column="store_reg_date"/>
         <result property="hotDeal" column="hot_deal"/>
         <result property="storeCallNumber" column="store_call_number"/>
         <result property="detailAddress" column="detail_address"/>

@@ -8,8 +8,9 @@
 <head>
     <%@ include file="../include/admin-static-head.jsp" %>
 </head>
+
 <body class="fixed-nav sticky-footer" id="page-top">
-    
+
     <%@ include file="../include/myPage-nav.jsp" %>
 
     <!-- 여기가 메인 ~~------------------------------------------------------------------------------------------ -->
@@ -51,7 +52,12 @@
                             <!-- ==================================================== -->
                             <tbody>
                                 <c:forEach var="proReport" items="${proReportList}">
-                                    <tr>
+                                    <tr data-toggle="modal" data-target=".edit_booking"
+                                        data-prfaqno="${proReport.prFaqNo}"
+                                        data-promotionBno="${proReport.promotionBno}" 
+                                        data-title="${proReport.title}"
+                                        data-storeName="${proReport.storeName}" 
+                                        data-content="${proReport.content}">
                                         <td>${proReport.prFaqNo}</td>
                                         <td>${proReport.storeName}</td>
                                         <td>${proReport.promotionBno}</td>
@@ -85,7 +91,8 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -102,7 +109,46 @@
             </div>
         </div>
     </div>
-    
+
+    <div class="modal fade edit_booking" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="edit_bookingLabel">신고글 정보</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>신고번호</label>
+                        <input type="text" class="form-control modal-reportNo" name="prFaqNo" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>홍보글 번호</label>
+                        <input type="text" class="form-control modal-promotionBno" name="promotionBno" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>홍보글 타이틀</label>
+                        <input type="text" class="form-control modal-protitle" name="title" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>홍보글 가게명</label>
+                        <input type="text" class="form-control modal-storeName" name="storeName" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>사유</label>
+                        <input type="text" class="form-control modal-contents" name="content" readonly>
+                    </div>
+                    <input type="hidden" class="form-control complete-type" name="completeType">
+                    <!-- /Row -->
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
     <!-- Bootstrap core JavaScript-->
     <script src="/mypage/vendor/jquery/jquery.min.js"></script>
     <script src="/mypage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -118,5 +164,24 @@
     <!-- Custom scripts for this page-->
     <script src="/mypage/js/admin-datatables.js"></script>
 </body>
+
+
+<script>
+    const targetList = document.querySelectorAll('table tbody tr');
+
+
+    for (const target of targetList) {
+        target.addEventListener('click', e => {
+
+            console.log(target);
+            document.querySelector('.modal-reportNo').value = target.dataset.prfaqno;
+            document.querySelector('.modal-promotionBno').value = target.dataset.promotionbno;
+            document.querySelector('.modal-protitle').value = target.dataset.title;
+            document.querySelector('.modal-storeName').value = target.dataset.storename;
+            document.querySelector('.modal-contents').value = target.dataset.content;
+        })
+
+    }
+</script>
 
 </html>

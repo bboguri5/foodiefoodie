@@ -2,7 +2,9 @@ package com.project.foodiefoodie.proBoard.controller;
 
 
 import com.project.foodiefoodie.mainpage.service.MainPageService;
+import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
+import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.FileDTO;
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
@@ -35,6 +37,7 @@ public class ProBoardController {
     private final ProBoardService proBoardService;
     private final MainPageService mainPageService;
     private final PromotionFaqService promotionFaqService;
+    private final MasterService masterService;
 
     @GetMapping("/detail/{promotionBno}")
     public String detail(Model model, @PathVariable int promotionBno,
@@ -170,9 +173,13 @@ public class ProBoardController {
 //        {
 //            return "redirect:/login";
 //        }
+        ProBoard proBoard = proBoardService.selectProBoard(promotionBno);
+        Master master = masterService.findOneForBusinessNoService(proBoard.getBusinessNo());
 
+        model.addAttribute("master", master);
         // proBoard - ProBoard + Master + StoreTimeDTO 상속
         model.addAttribute("proBoard", proBoardService.selectProBoard(promotionBno));
+
 
         return "promotion/pro-modify";
     }

@@ -235,6 +235,43 @@
     .modal-promotion-faq-content {
         height: 200px;
     }
+
+    .star {
+        position: relative;
+        font-size: 2rem;
+        color: #ddd;
+        height: 50px;
+    }
+
+    .star input {
+        z-index: 10000;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .star span {
+        width: 0;
+        position: absolute ;
+        left: 0 ;
+        color: red ;
+        overflow: hidden !important;
+        pointer-events: none;
+    }
+    .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: normal;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
 </style>
 
 <body>
@@ -253,9 +290,9 @@
                                 <div class="head">
                                     <div class="score"><span>Superb<em>350 Reviews</em></span><strong>8.9</strong></div>
                                 </div>
-                                <h1 style="display: inline;">${proBoard.title}</h1> <a href="#" class="promotion-faq-btn nav-faq-btn"
-                                style="margin-left: 10px;" data-bs-toggle='modal'
-                                data-bs-target='.promotion-faq-modal'>신고</a>
+                                <h1 style="display: inline;">${proBoard.title}</h1> <a href="#"
+                                    class="promotion-faq-btn nav-faq-btn" style="margin-left: 10px;"
+                                    data-bs-toggle='modal' data-bs-target='.promotion-faq-modal'>신고</a>
                                 <br>
                                 ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
@@ -511,14 +548,20 @@
                                         </a>
                                     </h5>
                                 </div>
+                                
                                 <div id="collapse-C" class="collapse" role="tabpanel" aria-labelledby="heading-C">
                                     <div class="card-body reviews">
                                         <div class="row add_bottom_45 d-flex align-items-center">
                                             <div class="col-md-3">
                                                 <div id="review_summary">
-                                                    <strong>8.5</strong>
-                                                    <em>Superb</em>
-                                                    <small>Based on 4 reviews</small>
+                                                    <div class="post-content">
+                                                        <label>평점</label>
+                                                        <div></div>
+                                                        <span class="star">
+                                                            ★★★★★
+                                                            <span>★★★★★</span>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-9 reviews_sum_details">
@@ -1197,9 +1240,11 @@
             promotionFaqForm.submit();
         }
     }
-    
 </script>
-
+<script>
+    const starRate = document.querySelector('.star span');
+    starRate.style.width = '70%';
+</script>
 
 
 </body>

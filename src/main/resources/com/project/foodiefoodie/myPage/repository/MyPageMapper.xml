@@ -32,7 +32,7 @@
         <result column="reply_no" property="replyNo"/>
         <result column="content" property="replyContent"/>
         <result column="reply_faq_content" property="replyFaqContent"/>
-<!--        <result column="reply_writer_email" property="replyWriterEmail"/>-->
+        <result column="reply_writer_email" property="replyWriterEmail"/>
     </resultMap>
 
     <select id="reviewReportDTOList" resultMap="reviewReportMap">
@@ -55,7 +55,7 @@
         INNER JOIN review_board
         ON review_faq.review_bno = review_board.review_bno
         WHERE review_writer_email = #{reviewWriterEmail}
-        and faq_complete = 't'
+        and faq_complete = 'T'
     </select>
 
     <select id="replyReportDTO2List"  resultMap="replyReportMap2">
@@ -64,7 +64,7 @@
         INNER JOIN reply
         ON reply_faq.reply_no = reply.reply_no
         WHERE reply_writer_email = #{replyWriterEmail}
-        and faq_complete = 't'
+        and faq_complete = 'T'
     </select>
 
     <resultMap id="promotionReportMap" type="com.project.foodiefoodie.myPage.dto.PromotionReportDTO">

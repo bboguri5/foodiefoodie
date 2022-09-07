@@ -106,6 +106,7 @@
     }
 
     .openKaKaoMap {
+        cursor: pointer;
         margin-left: 10px;
     }
 

@@ -111,7 +111,7 @@
                         </div>
                         <div class="form-group">
                             <label>주문 내역</label>
-                            <textarea name="" id="123" cols="30" rows="10" class="form-control modal-orderRowMenuList" readonly></textarea>
+                            <textarea name="" id="123" cols="30" rows="5" class="form-control modal-orderRowMenuList" readonly></textarea>
                             <!-- <input type="text" class="form-control modal-master-name" name="masterName" readonly> -->
                         </div>
                         <div class="form-group">
@@ -182,27 +182,7 @@
 
         
           
-            // esc 누르기
-
-            
-
-            // const $btnWrap = document.querySelector('.btn-wrap');
-            // // console.log($btnWrap);
-
-
-            // // console.log($modalForm);
-            // $btnWrap.addEventListener('click', e => {
-            //     console.log(e.target);
-
-            //     if(e.target === document.querySelector('.approve')) {
-            //         document.querySelector('.approve-type').value = 'approve';
-            //         $modalForm.submit();
-            //     } else if(e.target === document.querySelector('.disapprove')) {
-            //         document.querySelector('.approve-type').value = 'disapprove';
-            //         $modalForm.submit();
-            //     }
-            // })
-
+          
 
 
         }())

@@ -11,7 +11,6 @@ DROP TABLE report_master;
 DROP TABLE promotion_upload_title_img;
 DROP TABLE promotion_upload_detail_img;
 DROP TABLE promotion_food_menu;
-DROP TABLE profile_upload;
 DROP TABLE review_upload;
 DROP TABLE reply_faq;
 DROP TABLE review_faq;
@@ -21,7 +20,6 @@ DROP TABLE reply;
 DROP TABLE favorite_store;
 DROP TABLE hot_deal;
 DROP TABLE review_board;
-DROP TABLE premiume_promotion_board;
 DROP TABLE promotion_store_time;
 DROP TABLE promotion_board;
 DROP TABLE MASTER;
@@ -34,7 +32,7 @@ commit;
 -- TABLE 생성
 -- 유저
 CREATE TABLE member (
-    email VARCHAR(50) PRIMARY KEY auto_increment
+    email VARCHAR(50) PRIMARY KEY
     , password VARCHAR(150) NOT NULL
     , nick_name VARCHAR(30) NOT NULL
     , phone_number VARCHAR(20) NOT NULL
@@ -44,7 +42,6 @@ CREATE TABLE member (
     , gender VARCHAR(2) NOT NULL
     , auth VARCHAR(20) DEFAULT 'COMMON'
     , regist_date DATE DEFAULT current_timestamp
-    , login_time DATE
     , detail_address VARCHAR(50)
     , extra_address VARCHAR(50)
 );
@@ -54,7 +51,6 @@ CREATE TABLE member (
 CREATE TABLE auto_login (
     email VARCHAR(50) NOT NULL
     , session_id VARCHAR(50) NOT NULL
-    , ip_address VARCHAR(30)
     , logout_time DATE
     , CONSTRAINT fk_auto_login_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
@@ -67,8 +63,7 @@ CREATE TABLE MASTER (
     , master_name VARCHAR(15) NOT NULL
     , store_name VARCHAR(50) NOT NULL
     , store_address VARCHAR(150) NOT NULL
-    , store_reg_date INT(10)
-    , hot_deal VARCHAR(2) DEFAULT 'N'
+    , hot_deal VARCHAR(3) DEFAULT 'OFF'
     , store_call_number VARCHAR(20) NOT NULL
     , store_detail_address VARCHAR(50) NULL
     , store_extra_address VARCHAR(50) NULL
@@ -77,11 +72,10 @@ CREATE TABLE MASTER (
     FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE
 );
 
-
 -- 홍보글
 CREATE TABLE promotion_board (
     business_no VARCHAR(50) NOT NULL
-    , promotion_bno INT(10) PRIMARY KEY AUTO_INCREMENT
+    , promotion_bno INT(10) AUTO_INCREMENT
     , content TEXT
     , last_updated DATE DEFAULT CURRENT_TIMESTAMP
     , title VARCHAR(70)
@@ -90,18 +84,11 @@ CREATE TABLE promotion_board (
     , hashTag varchar(200) not null
     , report_cnt INT(2) default 0
     , CONSTRAINT fk_busi_no FOREIGN KEY (business_no)
-    REFERENCES master (business_no) ON DELETE CASCADE
+    REFERENCES MASTER (business_no) ON DELETE CASCADE
+    , constraint pk_promo_bno primary key (promotion_bno)
 );
 
--- 월정액 가게
-CREATE TABLE premiume_promotion_board (
-    promotion_bno INT(10) NOT NULL
-    , start_date INT(10)
-    , end_date INT(10)
-    , complete VARCHAR(2) DEFAULT 'N'  -- f 신청중 t 진행중 n종료 또는 취소
-    , CONSTRAINT fk_pro_bno FOREIGN KEY (promotion_bno)
-    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
-);
+
 
 
 -- 리뷰
@@ -109,7 +96,7 @@ CREATE TABLE review_board (
     email VARCHAR(50) NOT NULL
     , title VARCHAR(70) NOT NULL
     , content TEXT
-    , review_bno INT(10) PRIMARY KEY AUTO_INCREMENT
+    , review_bno INT(10) AUTO_INCREMENT
     , business_no VARCHAR(50) NULL
     , last_updated DATE DEFAULT CURRENT_TIMESTAMP
     , like_cnt INT(8) DEFAULT 0
@@ -122,6 +109,7 @@ CREATE TABLE review_board (
     , store_extra_address VARCHAR(50) NULL
     , CONSTRAINT fk_review_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
+    , constraint pk_review_bno primary key (review_bno)
 );
 
 
@@ -130,7 +118,7 @@ CREATE TABLE hot_deal (
     business_no VARCHAR(50) NOT NULL
     , discount_price INT(5) NOT NULL
     , CONSTRAINT fk_hotdeal_busi_no FOREIGN KEY (business_no)
-    REFERENCES master (business_no) ON DELETE CASCADE
+    REFERENCES MASTER (business_no) ON DELETE CASCADE
 );
 
 
@@ -147,7 +135,7 @@ CREATE TABLE favorite_store (
 -- 리뷰글에 대한 댓글
 CREATE TABLE reply (
     review_bno INT(10) NOT NULL
-    , reply_no INT(10) PRIMARY KEY AUTO_INCREMENT
+    , reply_no INT(10) AUTO_INCREMENT
     , email VARCHAR(50) NOT NULL
     , content TEXT
     , nick_name VARCHAR(30) NOT NULL
@@ -156,6 +144,7 @@ CREATE TABLE reply (
     REFERENCES review_board (review_bno) ON DELETE CASCADE
     , CONSTRAINT fk_rep_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
+    , constraint pk_rep_no primary key (reply_no)
 );
 
 -- 리뷰 좋아요(추천)
@@ -170,35 +159,38 @@ CREATE TABLE review_like (
 
 -- 홍보글 신고
 CREATE TABLE promotion_faq (
-    pr_faq_no INT(10) PRIMARY KEY AUTO_INCREMENT
+    pr_faq_no INT(10) AUTO_INCREMENT
     , promotion_bno INT(10) NOT NULL
     , writer_email VARCHAR(50) NOT NULL
     , content TEXT
     , faq_complete VARCHAR(2) DEFAULT 'F'
     , promotion_writer_email VARCHAR(50) NOT NULL
     , business_no varchar(50) not null
+    , constraint pk_pr_faq_no primary key (pr_faq_no)
 );
 
 
 -- 리뷰글 신고
 CREATE TABLE review_faq (
-    re_faq_no INT(10) PRIMARY KEY AUTO_INCREMENT
+    re_faq_no INT(10) AUTO_INCREMENT
     , review_bno INT(10) NOT NULL
     , writer_email VARCHAR(50) NOT NULL
     , content TEXT
     , faq_complete VARCHAR(2) DEFAULT 'F'
     , review_writer_email VARCHAR(50) NOT NULL
+    , constraint pk_re_faq_no primary key (re_faq_no)
 );
 
 
 -- 댓글 신고
 CREATE TABLE reply_faq (
-    reply_faq_no INT(10) PRIMARY KEY AUTO_INCREMENT
+    reply_faq_no INT(10) AUTO_INCREMENT
     , reply_no INT(10) NOT NULL
     , writer_email VARCHAR(50) NOT NULL
     , reply_faq_content TEXT
     , faq_complete VARCHAR(2) DEFAULT 'F'
     , reply_writer_email VARCHAR(50) NOT NULL
+    , constraint pk_reply_faq_no primary key (reply_faq_no)
 );
 
 
@@ -215,14 +207,6 @@ CREATE TABLE review_upload(
     REFERENCES review_board (review_bno) ON DELETE CASCADE
 );
 
--- 프로필이미지 파일 업로드
-CREATE TABLE profile_upload(
-    email VARCHAR(50) PRIMARY KEY
-    , file_path TEXT not null
-    , file_name VARCHAR(100) NOT NULL
-    , CONSTRAINT fk_profile_upload FOREIGN KEY (email)
-    REFERENCES member (email) ON DELETE CASCADE
-);
 
 
 -- 신고처리된 내역있는 일반유저
@@ -244,7 +228,7 @@ create table report_master (
     business_no VARCHAR(50) NOT NULL
     , report_cnt INT (2) DEFAULT 1
     , CONSTRAINT fk_report_business_no FOREIGN KEY (business_no)
-    REFERENCES master (business_no) ON DELETE CASCADE
+    REFERENCES MASTER (business_no) ON DELETE CASCADE
 );
 
 
@@ -303,16 +287,17 @@ create table promotion_upload_title_img(
 
 -- 음식 메뉴
 CREATE TABLE promotion_food_menu(
-        menu_no INT(5) primary key AUTO_INCREMENT
+        menu_no INT(5) AUTO_INCREMENT
         , promotion_bno INT(10) NOT NULL
-        , menu_name VARCHAR(20) NOT NULL
+        , menu_name varchar(100) NOT NULL
         , price INT(6) NOT NULL
         , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
         REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+        , constraint pk_menu_no primary key (menu_no)
     );
 
 CREATE TABLE order_list (
-    order_no INT(8) PRIMARY KEY AUTO_INCREMENT
+    order_no INT(8) AUTO_INCREMENT
     , business_no VARCHAR(50) NOT NULL
     , CONSTRAINT fk_order_busi_no FOREIGN KEY (business_no)
     REFERENCES MASTER (business_no) ON DELETE CASCADE
@@ -320,6 +305,7 @@ CREATE TABLE order_list (
     , CONSTRAINT fk_order_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
     , order_date DATE DEFAULT CURRENT_TIMESTAMP -- 주문 날짜
+    , constraint pk_order_no primary key (order_no)
 );
 
 
@@ -337,11 +323,12 @@ CREATE TABLE order_detail (
 create table promotion_notice
 (
 promotion_bno INT(10),
-notice_no INT(10) PRIMARY KEY AUTO_INCREMENT,
+notice_no INT(10) AUTO_INCREMENT,
 content varchar(300) NOT NULL,
 update_date date DEFAULT CURRENT_TIMESTAMP NOT NULL,
 CONSTRAINT fk_promotion_bno_notice FOREIGN KEY (promotion_bno)
-REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
+REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE,
+constraint pk_notice_no primary key (notice_no)
 );
 
 
@@ -358,12 +345,14 @@ create table PROMOTION_UPLOAD_MENU_IMG (
         ,CONSTRAINT fk_promotion_bno_menu_img FOREIGN KEY (promotion_bno)
               REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
         ,CONSTRAINT fk_menu_no_menu_img FOREIGN KEY (menu_no)
-              REFERENCES PROMOTION_FOOD_MENU (menu_no) ON DELETE CASCADE
+              REFERENCES promotion_food_menu (menu_no) ON DELETE CASCADE
 );
 
 
 
 COMMIT;
+
+
 
 -- 영수증 관련 테이블은 아직~~
 -- API를 활용해서 다이렉트로 유효 영수증인지 검증이 끝난 후 결과만을 알려준다면

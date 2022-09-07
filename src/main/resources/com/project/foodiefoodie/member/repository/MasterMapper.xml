@@ -12,7 +12,6 @@
         <result property="storeAddress" column="store_address"/>
         <result property="storeDetailAddress" column="store_detail_address"/>
         <result property="storeExtraAddress" column="store_extra_address"/>
-        <result property="storeRegDate" column="store_reg_date"/>
         <result property="hotDeal" column="hot_deal"/>
         <result property="storeCallNumber" column="store_call_number"/>
     </resultMap>
@@ -74,7 +73,7 @@
 
     <select id="callMaster" resultMap="masterMap">
         SELECT
-        business_no, email, master_name, store_name, store_address, store_reg_date, hot_deal, store_call_number ,store_detail_address,store_extra_address
+        business_no, email, master_name, store_name, store_address, hot_deal, store_call_number ,store_detail_address,store_extra_address
         FROM master
         WHERE email = #{email}
     </select>

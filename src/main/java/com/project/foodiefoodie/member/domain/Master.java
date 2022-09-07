@@ -20,7 +20,6 @@ public class Master {
     private String storeAddress;
     private String storeDetailAddress;
     private String storeExtraAddress;
-    private int storeRegDate;
     private String hotDeal;
     private String storeCallNumber;
 

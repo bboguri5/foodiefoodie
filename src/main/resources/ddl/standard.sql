@@ -1,6 +1,6 @@
 -- 계정 추가 및 권한 부여
-create user teamB IDENTIFIED BY 1234;
-GRANT DBA, connect, RESOURCE TO teamB;
+--create user teamB IDENTIFIED BY 1234;
+--GRANT DBA, connect, RESOURCE TO teamB;
 
 -- DROP TABLE
 drop table order_detail;
@@ -14,7 +14,6 @@ DROP TABLE report_master;
 DROP TABLE promotion_upload_title_img;
 DROP TABLE promotion_upload_detail_img;
 DROP TABLE promotion_food_menu;
-DROP TABLE profile_upload;
 DROP TABLE review_upload;
 DROP TABLE reply_faq;
 DROP TABLE review_faq;
@@ -24,14 +23,11 @@ DROP TABLE reply;
 DROP TABLE favorite_store;
 DROP TABLE hot_deal;
 DROP TABLE review_board;
-DROP TABLE premiume_promotion_board;
 DROP TABLE promotion_store_time;
 DROP TABLE promotion_board;
 DROP TABLE MASTER;
 DROP TABLE auto_login;
 DROP TABLE member;
-
-commit;
 
 -- DROP SEQUENCE
 DROP SEQUENCE SEQ_ORDER_NO;
@@ -71,22 +67,18 @@ CREATE TABLE member (
     , gender VARCHAR2(2) NOT NULL
     , auth VARCHAR2(20) DEFAULT 'COMMON'
     , regist_date DATE DEFAULT SYSDATE
-    , login_time DATE
     , detail_address VARCHAR2(50)
     , extra_address VARCHAR2(50)
 );
-
 
 -- 자동로그인
 CREATE TABLE auto_login (
     email VARCHAR2(50) NOT NULL
     , session_id VARCHAR2(50) NOT NULL
-    , ip_address VARCHAR2(30)
     , logout_time DATE
     , CONSTRAINT fk_auto_login_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
 );
-
 -- 사업자
 CREATE TABLE MASTER (
     business_no VARCHAR2(50) PRIMARY KEY
@@ -94,8 +86,7 @@ CREATE TABLE MASTER (
     , master_name VARCHAR2(15) NOT NULL
     , store_name VARCHAR2(50) NOT NULL
     , store_address VARCHAR2(150) NOT NULL
-    , store_reg_date number(10)
-    , hot_deal VARCHAR2(2) DEFAULT 'N'
+    , hot_deal VARCHAR2(3) DEFAULT 'OFF'
     , store_call_number VARCHAR2(20) NOT NULL
     , store_detail_address VARCHAR2(50) NULL
     , store_extra_address VARCHAR2(50) NULL
@@ -103,7 +94,6 @@ CREATE TABLE MASTER (
     , CONSTRAINT fk_master_email
     FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE
 );
-
 
 -- 홍보글
 CREATE TABLE promotion_board (
@@ -118,16 +108,6 @@ CREATE TABLE promotion_board (
     , report_cnt number(2) default 0
     , CONSTRAINT fk_busi_no FOREIGN KEY (business_no)
     REFERENCES master (business_no) ON DELETE CASCADE
-);
-
--- 월정액 가게
-CREATE TABLE premiume_promotion_board (
-    promotion_bno NUMBER(10) NOT NULL
-    , start_date NUMBER(10)
-    , end_date NUMBER(10)
-    , complete VARCHAR2(2) DEFAULT 'N'  -- f 신청중 t 진행중 n종료 또는 취소
-    , CONSTRAINT fk_pro_bno FOREIGN KEY (promotion_bno)
-    REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
 
@@ -150,7 +130,6 @@ CREATE TABLE review_board (
     , CONSTRAINT fk_review_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
 );
-
 
 -- 핫딜
 CREATE TABLE hot_deal (
@@ -242,15 +221,6 @@ CREATE TABLE review_upload(
     REFERENCES review_board (review_bno) ON DELETE CASCADE
 );
 
--- 프로필이미지 파일 업로드
-CREATE TABLE profile_upload(
-    email VARCHAR2(50) PRIMARY KEY
-    , file_path clob not null
-    , file_name VARCHAR2(100) NOT NULL
-    , CONSTRAINT fk_profile_upload FOREIGN KEY (email)
-    REFERENCES member (email) ON DELETE CASCADE
-);
-
 
 -- 신고처리된 내역있는 일반유저
 CREATE TABLE report_member (
@@ -294,6 +264,8 @@ create table promotion_upload_detail_img(
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
+
+
 -- 홍보글 메인이미지
 create table promotion_upload_title_img(
    promotion_bno NUMBER(10) NOT NULL
@@ -306,8 +278,6 @@ create table promotion_upload_title_img(
     , CONSTRAINT fk_pro_upload_title_img FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
-
-
 
 
 -- 영업시간
@@ -366,6 +336,8 @@ CONSTRAINT fk_promotion_bno_notice FOREIGN KEY (promotion_bno)
 REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
 
+
+
 create table PROMOTION_UPLOAD_MENU_IMG (
         promotion_bno number(10)
         , menu_no number(5)
@@ -384,7 +356,6 @@ create table PROMOTION_UPLOAD_MENU_IMG (
 
 
 COMMIT;
-
 
 -- 영수증 관련 테이블은 아직~~
 -- API를 활용해서 다이렉트로 유효 영수증인지 검증이 끝난 후 결과만을 알려준다면

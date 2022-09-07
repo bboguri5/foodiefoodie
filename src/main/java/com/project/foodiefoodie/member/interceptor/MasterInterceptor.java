@@ -28,7 +28,6 @@ public class MasterInterceptor implements HandlerInterceptor {
             }
             return true;
         }
-        response.sendRedirect("/");
         return false;
     }
 }

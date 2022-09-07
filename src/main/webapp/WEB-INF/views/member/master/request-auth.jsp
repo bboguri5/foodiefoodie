@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control master" type="text" id="businessNo-input"
-                                        name="businessNo" placeholder="정확한 사업자 번호를 입력하세요.">
+                                        name="businessNo" placeholder="정확한 사업자 번호를 입력하세요." maxlength="12">
                                     <!-- <i class="icon_mail"></i> -->
                                 </div>
                                 <div>
@@ -218,6 +218,13 @@
 
                     alert('형식에 맞지 않는 사업주명입니다. 입력을 확인하세요.')
                     
+                    return;
+                }
+
+                if (!getBusiNo.test($('#businessNo-input').val()) || !$('#businessNo-input').contains(' ')) {
+
+                    alert('형식에 맞지 않는 사업자 번호입니다. 입력을 확인하세요.')
+
                     return;
                 }
 

@@ -22,7 +22,6 @@ public class ReviewBoardDTO {
     private String storeDetailAddress;
     private String storeExtraAddress;
     private String businessNo;
-
     // private String filePath;
     // private int replyCount;
 }

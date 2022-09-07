@@ -23,7 +23,7 @@ public class ProBoard extends StoreTimeDTO {
     private String content;
     private String title;
     private String hashTag;
-    private int avgStarRate;
+    private float avgStarRate;
     private int review_cnt;
     private int report_cnt;
 }

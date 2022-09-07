@@ -142,7 +142,6 @@
 				<div class="col-lg-9">
 					<div class="row upCount">
 						<c:forEach var="rl" items="${reviewList}" varStatus="status">
-							<!-- <div class="col-md-6"> -->
 							<article class="blog">
 								<figure>
 									<a href="/review/detail?reviewBno=${rl.reviewBno}"><img
@@ -192,8 +191,6 @@
 										</ul>
 								</div>
 							</article>
-							<!-- /article -->
-							<!-- </div> -->
 						</c:forEach>
 
 					</div>

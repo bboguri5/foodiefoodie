@@ -45,7 +45,6 @@ public class ReviewBoardService {
             uploadReviewFile(reviewImg, reviewBoard, newReviewNo);
 
 
-
             // 리뷰, 이미지 저장이 잘 되었으면 가게 평점 & 리뷰 개수 업데이트 해주기
             String businessNo = reviewBoard.getBusinessNo();
             log.info("save businessNo - {}", businessNo);
@@ -72,6 +71,13 @@ public class ReviewBoardService {
 //        log.info("search - {}", search);
         return rbMapper.searchAllReview(search, sort);
     }
+
+    public List<ReviewBoardDTO> searchTop5ReviewService(String search, String sort)
+    {
+        return rbMapper.searchTop5Review(search,sort);
+    }
+
+
 
     public ReviewBoardDTO findOneReviewService(long reviewBno) {
         return rbMapper.findOneReview(reviewBno);
@@ -357,11 +363,23 @@ public class ReviewBoardService {
     }
 
     // 서버에 있는 이미지 폴더 삭제 후 db 데이터 삭제 진행
-    public boolean removeReviewService(Long reviewBno) {
+    public boolean removeReviewService(Long reviewBno,String businessNo) {
         boolean flag = rbMapper.removeReview(reviewBno);
 
         if (flag) {
             deleteFile(reviewBno);
+            if(businessNo != null)
+            {
+                Long reviewCnt = rbMapper.getReviewCnt(businessNo);
+                if(reviewCnt == 0){
+                    pbMapper.updateRateAndCount(businessNo,0,0L);
+                    return true;
+                }
+                double avgStarRate = rbMapper.getStarRate(businessNo);
+
+                System.out.println("starRate & reviewCnt = " + avgStarRate + " & " + reviewCnt);
+                pbMapper.updateRateAndCount(businessNo, avgStarRate, reviewCnt);
+            }
         }
 
         return flag;

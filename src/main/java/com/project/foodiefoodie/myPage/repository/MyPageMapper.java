@@ -8,9 +8,9 @@ import java.util.List;
 @Mapper
 public interface MyPageMapper {
 
-   List<ReviewReportDTO> reviewReportDTOList(String reviewWriterEmail);
-
-    List<ReplyReportDTO> replyReportDTOList(String replyWriterEmail);
+//   List<ReviewReportDTO> reviewReportDTOList(String reviewWriterEmail);
+//
+//    List<ReplyReportDTO> replyReportDTOList(String replyWriterEmail);
 
     List<ReviewReportDTO2> reviewReportDTO2List(String reviewWriterEmail);
 

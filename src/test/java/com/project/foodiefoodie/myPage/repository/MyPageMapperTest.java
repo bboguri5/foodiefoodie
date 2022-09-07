@@ -17,34 +17,34 @@ class MyPageMapperTest {
     @Autowired
     MyPageMapper myPageMapper;
 
+//    @Test
+//    @DisplayName("이메일을 넣으면 내 리뷰 글에대해 신고한 리스트가 나온다 !")
+//    void findReviewReportList(){
+//        String email = "soslimso@nate.com";
+//        List<ReviewReportDTO> reviewReportDTOS = myPageMapper.reviewReportDTOList(email);
+//        System.out.println("\n\n\n ============================\n\n\n");
+//        for (ReviewReportDTO reviewReportDTO : reviewReportDTOS) {
+//            System.out.println(reviewReportDTO);
+//        }
+//        System.out.println("\n\n\n ============================\n\n\n");
+//    }
+
+
+//    @Test
+//    @DisplayName("이메일을 넣으면 내 댓글에 대해 신고한 리스트가 나온다 !")
+//    void findReplyReportList(){
+//        String email = "soslimso@nate.com";
+//        List<ReplyReportDTO> replyReportDTOS = myPageMapper.replyReportDTOList(email);
+//        System.out.println("\n\n\n ============================\n\n\n");
+//        for (ReplyReportDTO replyReportDTO : replyReportDTOS) {
+//            System.out.println(replyReportDTO);
+//        }
+//        System.out.println("\n\n\n ============================\n\n\n");
+//
+//    }
+
     @Test
-    @DisplayName("이메일을 넣으면 내 리뷰 글에대해 신고한 리스트가 나온다 !")
-    void findReviewReportList(){
-        String email = "soslimso@nate.com";
-        List<ReviewReportDTO> reviewReportDTOS = myPageMapper.reviewReportDTOList(email);
-        System.out.println("\n\n\n ============================\n\n\n");
-        for (ReviewReportDTO reviewReportDTO : reviewReportDTOS) {
-            System.out.println(reviewReportDTO);
-        }
-        System.out.println("\n\n\n ============================\n\n\n");
-    }
-
-
-    @Test
-    @DisplayName("이메일을 넣으면 내 댓글에 대해 신고한 리스트가 나온다 !")
-    void findReplyReportList(){
-        String email = "soslimso@nate.com";
-        List<ReplyReportDTO> replyReportDTOS = myPageMapper.replyReportDTOList(email);
-        System.out.println("\n\n\n ============================\n\n\n");
-        for (ReplyReportDTO replyReportDTO : replyReportDTOS) {
-            System.out.println(replyReportDTO);
-        }
-        System.out.println("\n\n\n ============================\n\n\n");
-
-    }
-
-    @Test
-    @DisplayName("이메일 넣으면 내용 잘 나오는지 보자구 ")
+    @DisplayName("이메일 넣으면 리뷰 신고 내용 잘 나오는지 보자구 ")
     void reviewFaqList(){
         String email = "soslimso@nate.com";
         List<ReviewReportDTO2> reviewReportDTO2s = myPageMapper.reviewReportDTO2List(email);
@@ -55,7 +55,7 @@ class MyPageMapperTest {
         System.out.println("\n\n\n ============================\n\n\n");
     }
     @Test
-    @DisplayName("이메일 넣으면 내용 잘 나오는지 보자구 ")
+    @DisplayName("이메일 넣으면  댓글 신고 내용 잘 나오는지 보자구 ")
     void replyFaqList(){
         String email = "soslimso@nate.com";
         List<ReplyReportDTO2> replyReportDTO2s = myPageMapper.replyReportDTO2List(email);

@@ -90,14 +90,14 @@
 
     <!-- Edit Booking Modal -->
     <form action="#" method="post" class="modal-form">
-        <div class="modal fade edit_booking" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
+        <div class="modal fade edit_booking" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel" id="modal"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="edit_bookingLabel">주문 내역</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
+                            <span aria-hidden="true" class="xbtn">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
@@ -111,7 +111,7 @@
                         </div>
                         <div class="form-group">
                             <label>주문 내역</label>
-                            <textarea name="" id="123" cols="30" rows="10" class="form-control modal-orderRowMenuList"></textarea>
+                            <textarea name="" id="123" cols="30" rows="10" class="form-control modal-orderRowMenuList" readonly></textarea>
                             <!-- <input type="text" class="form-control modal-master-name" name="masterName" readonly> -->
                         </div>
                         <div class="form-group">
@@ -134,8 +134,7 @@
 
                         <!-- /Row -->
                     </div>
-                    <div class="modal-footer btn-wrap">
-                        <button class="btn btn-primary del-btn Confirm " type="button" >확인</button>
+                    
                         <!-- <button class="btn btn-primary del-btn disapprove" type="button">거절</button> -->
                     </div>
                 </div>
@@ -181,18 +180,11 @@
                 document.querySelector('.modal-orderDate').value = e.target.dataset.orderdate;
             })
 
-            const $Confirm= document.querySelector('.Confirm'); //확인버튼
-            const $modalForm = document.querySelector('.modal-form'); // 모달폼
-
+        
+          
             // esc 누르기
 
-            $Confirm.addEventListener('click', e => {
-                console.log(e.target);
-
-                $modalForm.style.display = 'none';
-
-
-            })
+            
 
             // const $btnWrap = document.querySelector('.btn-wrap');
             // // console.log($btnWrap);

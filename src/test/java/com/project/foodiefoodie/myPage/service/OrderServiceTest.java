@@ -34,4 +34,14 @@ class OrderServiceTest {
         System.out.println(i);
         System.out.println("\n\n==============\n\n");
     }
+
+    @Test
+    @DisplayName("주문내역 세로로 나오는지 확인하는 ")
+    void rowList(){
+        int num = 21 ;
+        String s = orderService.sumRowMenuAndEa(num);
+        System.out.println("\n\n==============\n\n");
+        System.out.println(s);
+        System.out.println("\n\n==============\n\n");
+    }
 }

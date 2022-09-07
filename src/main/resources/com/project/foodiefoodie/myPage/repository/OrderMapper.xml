@@ -16,8 +16,16 @@
         <result column="order_no" property="orderNo"/>
         <result column="order_menu" property="orderMenu"/>
         <result column="menu_ea" property="menuEa"/>
+        <result column="discount" property="discount"/>
             <!-- price 도 있음        -->
     </resultMap>
+
+    <select id="discount" resultType="int">
+        select DISTINCT discount
+        from order_detail
+        where order_no = #{orderNo}
+
+    </select>
 
     <resultMap id="menuAndEa" type="com.project.foodiefoodie.myPage.dto.MenuAndEaDTO">
         <result column="order_menu" property="orderMenu"/>
@@ -34,6 +42,7 @@
         select count(*) from order_list
         where business_no = #{businessNo}
     </select>
+
 
     <select id="findOrderDetailList" resultMap="OrderDetailMap">
         select * from order_detail

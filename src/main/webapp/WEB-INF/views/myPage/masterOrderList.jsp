@@ -31,7 +31,9 @@
                                     <th>주문 번호 </th>
                                     <th>주문 한 사람</th>
                                     <th>주문 내역 </th>
-                                    <th>총 가격</th>
+                                    <th>할인 전 가격</th>
+                                    <th>할인율</th>
+                                    <th>할인 후 가격</th>
                                     <th>날 짜 </th>
                                 </tr>
                             </thead>
@@ -40,7 +42,9 @@
                                     <th>주문 번호 </th>
                                     <th>주문 한 사람</th>
                                     <th>주문 내역 </th>
-                                    <th>총 가격</th>
+                                    <th>할인 전 가격</th>
+                                    <th>할인율</th>
+                                    <th>할인 후 가격</th>
                                     <th>날 짜 </th>
                                 </tr>
                             </tfoot>
@@ -50,10 +54,19 @@
                             <tbody>
                                 <c:forEach var="masterOrder" items="${masterOrderList}">
                                     <tr>
+                                        <th><a href="#0" data-toggle="modal" data-target=".edit_booking"
+                                            data-orderno="${masterOrder.orderNo}" data-storename="${masterOrder.email}"
+                                            data-orderrowmenulist="${userOrder.orderRowMenuList}" data-totalNum="${masterOrder.totalNum}"
+                                            data-discount="${masterOrder.discount}" data-realmoney="${masterOrder.realMoney}"
+                                            data-orderdate="${masterOrder.orderDate}">
+                                            ${masterOrder.orderNo}</a>
+                                        </th>
                                         <td>${masterOrder.orderNo}</td>
                                         <td>${masterOrder.email}</td>
                                         <td>${masterOrder.orderMenuList}</td>
                                         <td>${masterOrder.totalNum}</td>
+                                        <td>${masterOrder.discount}</td>
+                                        <td>${masterOrder.realMoney}</td>
                                         <td>${masterOrder.dateAndTime}</td>
                                     </tr>
                                 </c:forEach>
@@ -100,6 +113,12 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+
+        
+    </script>
     
     <!-- Bootstrap core JavaScript-->
     <script src="/mypage/vendor/jquery/jquery.min.js"></script>

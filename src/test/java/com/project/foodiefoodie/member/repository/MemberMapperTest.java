@@ -138,6 +138,14 @@ class MemberMapperTest {
 
         assertTrue(b);
     }
+    @Test
+    @DisplayName("이메일 주면 마스터에서 일반인으로 강등됨")
+    void authDownCommonTest(){ // 성공
+        String email = "ddd@nate.com";
+        boolean b = mapper.authDownCommon(email);
+        assertTrue(b);
+
+    }
 
 
 }

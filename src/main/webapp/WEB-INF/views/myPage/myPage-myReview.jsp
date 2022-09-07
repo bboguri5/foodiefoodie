@@ -115,14 +115,14 @@
 
         .myReview-allWrap .reviewPictureWrapper {
             width: 100%;
-            background: purple;
+            /* background: purple; */
             height: 100vh;
             position: relative;
             
         }
 
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox {
-            background: gray;
+            /* background: gray; */
             width: 97%;
             height: 100%;
             margin-top: 30px;
@@ -144,7 +144,16 @@
             margin-bottom: 10px;
             margin-left: 10px;
             overflow: hidden;
+            position: relative;
         }
+        .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .likeAndReply{
+            position: absolute;
+            top: 85%;
+            left: 67%;
+            font-size: x-large;
+            color: yellowgreen;
+        }
+
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .reviewPicture{
             background: blue;
             border: 1px solid #000;
@@ -189,7 +198,8 @@
                     </div>
                 </div> -->
                 <div class="profileContent">
-                    <h2 class="userId">${loginUser.email} </h2>
+                    <h2 class="userId">${loginUser.email}</h2>
+                  
                     <div class="myInfo">
                         <div class="boardCnt">게시물수 ${totalMyReviewCount} </div>
                         <div class="followYou">좋아요 갯수 ${totalLikeCount}</div>
@@ -212,6 +222,7 @@
                                 <div class="reviewPicture picBox">
                                     <!-- <div class="likeAndReplyBox"></div> -->
                                     <img src="${review.fileData}" alt="#">
+                                    <div class="likeAndReply"> &#9825; ${review.likeCnt} &#128172; ${review.replyCount} </div>
                                 </div> 
                                 <!-- <div class="title">${reviewInfo.title}</div>
                                     <div class="content">${reviewInfo.content}</div> -->

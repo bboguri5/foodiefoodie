@@ -19,12 +19,23 @@ public class OrderService {
     private final OrderMapper orderMapper;
 
 
-    // 메뉴 합쳐서 나오는 문자열
+    // 메뉴 합쳐서 나오는 가로로 합쳐서 나오는 문자열
     public String sumNoMenuAndEa(int orderNo) {
         String sumString = "";
         List<MenuAndEaDTO> menuAndEaDTO = orderMapper.findMenuAndEaDTO(orderNo);
         for (MenuAndEaDTO andEaDTO : menuAndEaDTO) {
-            sumString += andEaDTO.getOrderMenu() + andEaDTO.getMenuEa() + "개, ";
+            sumString += andEaDTO.getOrderMenu() + andEaDTO.getMenuEa() + "개 ";
+        }
+        return sumString;
+
+    }
+
+    // 한줄 한줄씩 세로로 받는 문자열 메서드
+    public String sumRowMenuAndEa(int orderNo) {
+        String sumString = "";
+        List<MenuAndEaDTO> menuAndEaDTO = orderMapper.findMenuAndEaDTO(orderNo);
+        for (MenuAndEaDTO andEaDTO : menuAndEaDTO) {
+            sumString += andEaDTO.getOrderMenu() +"       "+ andEaDTO.getMenuEa() + "개\n";
         }
         return sumString;
 
@@ -53,6 +64,14 @@ public class OrderService {
         List<OrderNoAndStoreNameDTO> orderNoAndStoreNameDTOS = orderMapper.OrderNoAndStoreNameDTOList(email);
         return orderNoAndStoreNameDTOS;
     }
+
+
+    // 주문번호에 할인율 받아오기
+    public int discountRate(int orderNum){
+        int discount = orderMapper.discount(orderNum);
+        return discount;
+    }
+
 
 
 }

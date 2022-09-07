@@ -23,7 +23,7 @@
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My listings">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#storeInfo">
                         <i class="fa fa-fw fa-list"></i>
-                        <span class="nav-link-text">가게 정보 현황 ${masterCount}개</span>
+                        <span class="nav-link-text">가게 정보 현황 </span>
                     </a>
                     <ul class="sidenav-second-level collapse" id="storeInfo">
                             <c:forEach var="n" begin="0" end="${masterCount}" step="1">

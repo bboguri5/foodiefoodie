@@ -45,7 +45,7 @@
     }
 
     .writeBtnHero {
-        font-size: 18px;
+        font-size: 14px;
     }
 
     .container.margin_detail .col-lg-8 {
@@ -317,9 +317,12 @@
                                         </div>
                                     </c:if>
                                 </div>
-                                <h1 style="display: inline;">${proBoard.title}</h1> <a href="#"
-                                    class="promotion-faq-btn nav-faq-btn" style="margin-left: 10px;"
-                                    data-bs-toggle='modal' data-bs-target='.promotion-faq-modal'>신고</a>
+                                <h1 style="display: inline;">${proBoard.title}</h1>
+
+                                <c:if test="${flag}">
+                                <a href="#" class="promotion-faq-btn nav-faq-btn"
+                                style="margin-left: 10px;" data-bs-toggle='modal'
+                                data-bs-target='.promotion-faq-modal'>신고</a></c:if>
                                 <br>
                                 ${proBoard.storeAddress} ${proBoard.storeDetailAddress}
                                 <a class="openKaKaoMap" target="_blank">카카오맵 연결</a>
@@ -446,7 +449,7 @@
                                                 </table>
                                                 <p class="update_date">
                                                     업데이트
-                                                    : ${proBoard.lastUpdated}
+                                                    : ${proBoard.formatDate}
                                                 </p>
                                             </div>
                                             <div class="endLine"></div>
@@ -583,7 +586,6 @@
                                         </a>
                                     </h5>
                                 </div>
-
                                 <div id="collapse-C" class="collapse" role="tabpanel" aria-labelledby="heading-C">
                                     <div class="card-body reviews">
                                         <c:if test="${proBoard.avgStarRate == 0}">

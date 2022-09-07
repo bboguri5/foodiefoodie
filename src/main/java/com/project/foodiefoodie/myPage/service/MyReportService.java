@@ -3,53 +3,70 @@ package com.project.foodiefoodie.myPage.service;
 import com.project.foodiefoodie.myPage.dto.*;
 import com.project.foodiefoodie.myPage.repository.MyPageMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Log4j2
 @Service
 @RequiredArgsConstructor
 public class MyReportService {
 
     private final MyPageMapper myPageMapper;
 
-    // 리뷰 신고 리스트 불러오기
-    public List<ReviewReportDTO> reviewReportDTOListService(String email) {
-        List<ReviewReportDTO> reviewReportDTOS = myPageMapper.reviewReportDTOList(email);
-        for (ReviewReportDTO reviewReportDTO : reviewReportDTOS) {
-            String writerEmail = reviewReportDTO.getWriterEmail();
-            int i = writerEmail.indexOf("@");
-            String substring1 = writerEmail.substring(0, i);
-            reviewReportDTO.setWriterEmail("ID : " + substring1);
-            String content = reviewReportDTO.getContent();
-            if (content.length() >= 10) {
-                String substring = content.substring(0, 7);
-                reviewReportDTO.setContent(substring + "....");
-            }
-        }
-        return reviewReportDTOS;
-    }
-
-    // 댓글 신고 리스트 불러오기
-    public List<ReplyReportDTO> replyReportDTOListService(String email) {
-
-        List<ReplyReportDTO> replyReportDTOS = myPageMapper.replyReportDTOList(email);
-        for (ReplyReportDTO replyReportDTO : replyReportDTOS) {
-            String writerEmail = replyReportDTO.getWriterEmail();
-            int i = writerEmail.indexOf("@");
-            String substring = writerEmail.substring(0, i);
-            replyReportDTO.setWriterEmail("ID : " + substring);
-            String replyFaqContent = replyReportDTO.getReplyFaqContent();
-            if (replyFaqContent.length() >= 10) {
-                replyReportDTO.setReplyFaqContent(replyFaqContent.substring(0, 7) + "....");
-            }
-        }
-        return replyReportDTOS;
-    }
+//    // 리뷰 신고 리스트 불러오기
+//    public List<ReviewReportDTO> reviewReportDTOListService(String email) {
+//
+//        log.info(" public List<ReviewReportDTO> reviewReportDTOListService(String email) ");
+//
+//        List<ReviewReportDTO> reviewReportDTOS = myPageMapper.reviewReportDTOList(email);
+//        log.info("\n====\n");
+//        for (ReviewReportDTO reviewReportDTO : reviewReportDTOS) {
+//            log.info(reviewReportDTO);
+//        }
+//        log.info("\n====\n");
+//        for (ReviewReportDTO reviewReportDTO : reviewReportDTOS) {
+//            String writerEmail = reviewReportDTO.getWriterEmail();
+//            int i = writerEmail.indexOf("@");
+//            String substring1 = writerEmail.substring(0, i);
+//            reviewReportDTO.setWriterEmail("ID : " + substring1);
+//            String content = reviewReportDTO.getContent();
+//            if (content.length() >= 10) {
+//                String substring = content.substring(0, 7);
+//                reviewReportDTO.setContent(substring + "....");
+//            }
+//        }
+//        return reviewReportDTOS;
+//    }
+//
+//    // 댓글 신고 리스트 불러오기
+//    public List<ReplyReportDTO> replyReportDTOListService(String email) {
+//
+//        List<ReplyReportDTO> replyReportDTOS = myPageMapper.replyReportDTOList(email);
+//        for (ReplyReportDTO replyReportDTO : replyReportDTOS) {
+//            String writerEmail = replyReportDTO.getWriterEmail();
+//            int i = writerEmail.indexOf("@");
+//            String substring = writerEmail.substring(0, i);
+//            replyReportDTO.setWriterEmail("ID : " + substring);
+//            String replyFaqContent = replyReportDTO.getReplyFaqContent();
+//            if (replyFaqContent.length() >= 10) {
+//                replyReportDTO.setReplyFaqContent(replyFaqContent.substring(0, 7) + "....");
+//            }
+//        }
+//        return replyReportDTOS;
+//    }
 
     // 신규 !!! !
     public List<ReviewReportDTO2> reviewReportDTOListService2(String email) {
+
         List<ReviewReportDTO2> reviewReportDTO2s = myPageMapper.reviewReportDTO2List(email);
+        log.info("\n\n=====\n\n");
+        for (ReviewReportDTO2 reviewReportDTO2 : reviewReportDTO2s) {
+            log.info(reviewReportDTO2);
+        }
+        log.info("\n\n=====\n\n");
+
         for (ReviewReportDTO2 reviewReportDTO2 : reviewReportDTO2s) {
             String reviewTitle = reviewReportDTO2.getReviewTitle();
             String reviewFaqContent = reviewReportDTO2.getReviewFaqContent();

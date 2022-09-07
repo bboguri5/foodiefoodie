@@ -252,64 +252,11 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /row-->
-                        <!-- <div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label>Personal info</label>
-								<textarea style="height:100px;" class="form-control" placeholder="Personal info"></textarea>
-							</div>
-						</div>
-					</div> -->
-                        <!-- /row-->
+                     
                     </div>
                 </div>
             </div>
-            <!-- /box_general-->
-            <!-- <div class="row">
-			<div class="col-md-6">
-				<div class="box_general padding_bottom">
-					<div class="header_box version_2">
-						<h2><i class="fa fa-lock"></i>Change password</h2>
-					</div>
-					<div class="form-group">
-						<label>Old password</label>
-						<input class="form-control" type="password">
-					</div>
-					<div class="form-group">
-						<label>New password</label>
-						<input class="form-control" type="password">
-					</div>
-					<div class="form-group">
-						<label>Confirm new password</label>
-						<input class="form-control" type="password">
-					</div>
-				</div>
-			</div> -->
-            <!-- <div class="col-md-6">
-				<div class="box_general padding_bottom">
-					<div class="header_box version_2">
-						<h2><i class="fa fa-envelope"></i>Change email</h2>
-					</div>
-					<div class="form-group">
-						<label>Old email</label>
-						<input class="form-control" name="old_email" id="old_email" type="email">
-					</div>
-					<div class="form-group">
-						<label>New email</label>
-						<input class="form-control" name="new_email" id="new_email" type="email">
-					</div>
-					<div class="form-group">
-						<label>Confirm new email</label>
-						<input class="form-control" name="confirm_new_email" id="confirm_new_email" type="email">
-					</div>
-				</div>
-			</div>
-		</div> -->
-            <!-- /row-->
-            <!-- <p><a href="#0" class="btn_1 medium">수정하기</a></p>
-        <p><a href="#0" class="btn_1 medium">탈퇴하기</a></p>
-        <p><a href="#0" class="btn_1 medium">사장으로 등록하기</a></p> -->
+            
 
             <!-- ----------------------------------------------------------------------------------------------------------------- -->
             <!-- 마스터 수정버튼 비밀번호 검증하는 모달  -->

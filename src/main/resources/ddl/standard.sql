@@ -299,7 +299,7 @@ create table promotion_upload_title_img(
 CREATE TABLE promotion_food_menu(
         menu_no NUMBER(5) primary key
         , promotion_bno NUMBER(10) NOT NULL
-        , menu_name VARCHAR2(20) NOT NULL
+        , menu_name VARCHAR2(100) NOT NULL
         , price NUMBER(6) NOT NULL
         , CONSTRAINT fk_menu_busi_no FOREIGN KEY (promotion_bno)
         REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE

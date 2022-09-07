@@ -71,9 +71,9 @@
     </select>
 
     <!-- 기한이 지나지 않은 월정액 가게 랜덤으로 메인 페이지에 7개 불러오기 -->
-    <select id="findRandPremium" resultMap="mpMap">
+   <!-- <select id="findRandPremium" resultMap="mpMap">
 
-        <!--SELECT * FROM (
+        &lt;!&ndash;SELECT * FROM (
         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag, file_data
         FROM promotion_board P JOIN master M
@@ -85,7 +85,7 @@
         WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
         (current_timestamp, 'YYYYMMDD') "NOW" FROM DUAL))
         ORDER BY DBMS_RANDOM.RANDOM ) sub
-        WHERE ROWNUM BETWEEN 1 AND 7-->
+        WHERE ROWNUM BETWEEN 1 AND 7&ndash;&gt;
 
         SELECT * FROM (
         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
@@ -99,10 +99,10 @@
         WHERE P.promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE LOWER(complete) = 't')
         ORDER BY DBMS_RANDOM.RANDOM) sub
         WHERE ROWNUM BETWEEN 1 AND 7
-    </select>
+    </select>-->
 
     <!-- 월정액 가게 전체 불러오기 -->
-    <select id="findAllPremium" resultMap="mpMap">
+    <!--<select id="findAllPremium" resultMap="mpMap">
         SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
@@ -119,7 +119,7 @@
         ) sub)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
 
-        <!--SELECT *
+        &lt;!&ndash;SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
@@ -133,19 +133,19 @@
         WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
         (current_timestamp, 'YYYYMMDD') "NOW" FROM DUAL))
         ORDER BY DBMS_RANDOM.RANDOM
-        LIMIT (#{pageNum} - 1) * #{amount}, #{amount}-->
-    </select>
+        LIMIT (#{pageNum} - 1) * #{amount}, #{amount}&ndash;&gt;
+    </select>-->
 
     <!-- 프리미엄 가게 개수 계산 -->
-    <select id="getPremiumCnt" resultType="int">
+   <!-- <select id="getPremiumCnt" resultType="int">
         SELECT COUNT(*)
         FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
         (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
 
-        <!--SELECT COUNT(*)
+        &lt;!&ndash;SELECT COUNT(*)
         FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
-        (current_timestamp, 'YYYYMMDD') "NOW" FROM DUAL)-->
-    </select>
+        (current_timestamp, 'YYYYMMDD') "NOW" FROM DUAL)&ndash;&gt;
+    </select>-->
 
     <!-- 현재 위치에 있는 랜덤 6개 가게 불러오기  -->
     <select id="findLocationRand" resultMap="mpMap">

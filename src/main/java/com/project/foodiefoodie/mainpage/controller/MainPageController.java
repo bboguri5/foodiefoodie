@@ -41,8 +41,8 @@ public class MainPageController {
         model.addAttribute("topToday", topToday);
 
         // 푸디푸디 추천 맛집 --> 월정액 가게들 랜덤으로 메인에 보여주기 (기한 체크)
-        List<MainPage> premiumList = mainPageService.findRandPremiumService();
-        model.addAttribute("premiumList", premiumList);
+//        List<MainPage> premiumList = mainPageService.findRandPremiumService();
+//        model.addAttribute("premiumList", premiumList);
 
         // 현재 나의 위치 맛집 중 TOP 7 -->
         // location 이름과 매칭되는 ADDRESS 불러와서 겟
@@ -90,17 +90,17 @@ public class MainPageController {
         return "main/top-lists";
     }
 
-    @GetMapping("/premiumlist")
-    public String premiumList(Page page, Model model) {
-        Map<String, Object> findAllMap = mainPageService.findAllPremiumService(page);
-        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
-
-        model.addAttribute("pm", pm);
-        model.addAttribute("premiumList", findAllMap.get("premiumList"));
-        model.addAttribute("todayDate", getTodayDate());
-
-        return "main/premium-list";
-    }
+//    @GetMapping("/premiumlist")
+//    public String premiumList(Page page, Model model) {
+//        Map<String, Object> findAllMap = mainPageService.findAllPremiumService(page);
+//        PageMaker pm = new PageMaker(new Page(page.getPageNum(), page.getAmount()), (Integer) findAllMap.get("tc"));
+//
+//        model.addAttribute("pm", pm);
+//        model.addAttribute("premiumList", findAllMap.get("premiumList"));
+//        model.addAttribute("todayDate", getTodayDate());
+//
+//        return "main/premium-list";
+//    }
 
     @GetMapping("/locationlist")
     public String locationList(Model model, String storeAddress, Page page) {

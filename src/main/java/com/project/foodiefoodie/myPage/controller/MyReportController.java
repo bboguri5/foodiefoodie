@@ -26,15 +26,8 @@ public class MyReportController {
     public String reviewReportController(HttpSession session, Model model){
         Member member = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = member.getEmail();
-        log.info(" Come reviewReport ");
 //        List<ReviewReportDTO> reviewReportDTOS = reportService.reviewReportDTOListService(email);
         List<ReviewReportDTO2> reviewReportDTO2s = reportService.reviewReportDTOListService2(email);
-        log.info("\n========\n");
-        for (ReviewReportDTO2 reviewReportDTO2 : reviewReportDTO2s) {
-            log.info(reviewReportDTO2);
-        }
-        log.info("\n========\n");
-
         model.addAttribute("reviewReports", reviewReportDTO2s );
         return "/myPage/reviewReport";
     }

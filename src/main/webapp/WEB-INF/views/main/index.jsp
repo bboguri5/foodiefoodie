@@ -160,10 +160,10 @@
 				<a href="/premiumlist">더보기</a>
 			</div>
 
-			<div class="owl-carousel owl-theme carousel_4">
-				<c:if test="${empty premiumList}">광고 진행중인 맛집이 없습니다.</c:if>
-				<c:forEach var="pl" items="${premiumList}" varStatus="status">
-					<div class="item">
+			<div class="owl-carousel owl-theme carousel_4"> -->
+				<!-- <c:if test="${empty premiumList}">광고 진행중인 맛집이 없습니다.</c:if> -->
+				<!-- <c:forEach var="pl" items="${premiumList}" varStatus="status">  --> -->
+					<!-- <div class="item">
 						<div class="strip">
 							<figure>
 								<img class="index-img-css" src="${pl.fileData}" alt="">
@@ -186,9 +186,9 @@
 								</li>
 							</ul>
 						</div>
-					</div>
-				</c:forEach>
-			</div> -->
+					</div> -->
+				<!-- </c:forEach> -->
+			<!-- </div> -->
 			<!-- /carousel -->
 
 

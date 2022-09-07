@@ -20,5 +20,4 @@ public class Member {
     private String gender; // 성별
     private Auth auth; // 권한
     private Date regDate; // 가입일자
-    private Date recentLoginTime; // 최근 로그인 시간
 }

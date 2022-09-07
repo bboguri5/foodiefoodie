@@ -9,12 +9,10 @@
         <result property="nickName" column="nick_name"/>
         <result property="phoneNumber" column="phone_number"/>
         <result property="regDate" column="regist_date"/>
-        <result property="recentLoginTime" column="login_time"/>
         <result property="businessNo" column="business_no"/>
         <result property="masterName" column="master_name"/>
         <result property="storeName" column="store_name"/>
         <result property="storeAddress" column="store_address"/>
-        <result property="storeRegDate" column="store_reg_date"/>
         <result property="hotDeal" column="hot_deal"/>
         <result property="storeCallNumber" column="store_call_number"/>
         <result property="detailAddress" column="detail_address"/>
@@ -28,9 +26,9 @@
     <select id="findMaster" resultMap="masterMap">
         SELECT
         a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date, a.login_time
+        , a.name, a.gender, a.auth, a.regist_date
         , b.business_no, b.store_name, b.store_address, b.master_name
-        , b.store_reg_date, b.hot_deal, b.store_call_number, a.detail_address
+        , b.hot_deal, b.store_call_number, a.detail_address
         , a.extra_address, b.store_detail_address, b.store_extra_address, b.promotion_auth
         FROM member a
         LEFT OUTER JOIN master b
@@ -42,9 +40,9 @@
     <select id="findOneMaster" resultMap="masterMap">
         SELECT
         a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date, a.login_time
+        , a.name, a.gender, a.auth, a.regist_date
         , b.business_no, b.store_name, b.store_address, b.master_name
-        , b.store_reg_date, b.hot_deal, b.store_call_number, a.detail_address
+        , b.hot_deal, b.store_call_number, a.detail_address
         , a.extra_address, b.store_detail_address, b.store_extra_address, b.promotion_auth
         FROM member a
         LEFT OUTER JOIN master b
@@ -56,9 +54,9 @@
     <select id="approveMaster" resultMap="masterMap">
         SELECT
         a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date, a.login_time
+        , a.name, a.gender, a.auth, a.regist_date
         , b.business_no, b.store_name, b.store_address, b.master_name
-        , b.store_reg_date, b.hot_deal, b.store_call_number, a.detail_address
+        , b.hot_deal, b.store_call_number, a.detail_address
         , a.extra_address, b.store_detail_address, b.store_extra_address, b.promotion_auth
         FROM member a
         LEFT OUTER JOIN master b

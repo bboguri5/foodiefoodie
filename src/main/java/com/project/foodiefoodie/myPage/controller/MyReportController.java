@@ -28,8 +28,10 @@ public class MyReportController {
         String email = member.getEmail();
 //        List<ReviewReportDTO> reviewReportDTOS = reportService.reviewReportDTOListService(email);
         List<ReviewReportDTO2> reviewReportDTO2s = reportService.reviewReportDTOListService2(email);
+
         model.addAttribute("reviewReports", reviewReportDTO2s );
         return "/myPage/reviewReport";
+
     }
     @GetMapping("/replyReport")
     public String replyReportController(HttpSession session, Model model){

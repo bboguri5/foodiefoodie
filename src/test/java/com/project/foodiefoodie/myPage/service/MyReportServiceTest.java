@@ -52,7 +52,11 @@ class MyReportServiceTest {
         System.out.println("\n\n\n==================================\n\n\n");
         List<ReviewReportDTO2> reviewReportDTO2s = reportService.reviewReportDTOListService2(email);
         for (ReviewReportDTO2 reviewReportDTO2 : reviewReportDTO2s) {
-            System.out.println(reviewReportDTO2);
+            System.out.println(reviewReportDTO2.getReFaqNo());
+            System.out.println(reviewReportDTO2.getReviewBno());
+            System.out.println(reviewReportDTO2.getReviewTitle());
+            System.out.println(reviewReportDTO2.getReviewFaqContent());
+            System.out.println(reviewReportDTO2.getRealReviewContent());
         }
         System.out.println("\n\n\n==================================\n\n\n");
     }

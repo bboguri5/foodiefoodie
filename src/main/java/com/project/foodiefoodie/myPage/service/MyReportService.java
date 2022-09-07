@@ -61,22 +61,23 @@ public class MyReportService {
     public List<ReviewReportDTO2> reviewReportDTOListService2(String email) {
 
         List<ReviewReportDTO2> reviewReportDTO2s = myPageMapper.reviewReportDTO2List(email);
-        log.info("\n\n=====\n\n");
-        for (ReviewReportDTO2 reviewReportDTO2 : reviewReportDTO2s) {
-            log.info(reviewReportDTO2);
-        }
-        log.info("\n\n=====\n\n");
 
         for (ReviewReportDTO2 reviewReportDTO2 : reviewReportDTO2s) {
             String reviewTitle = reviewReportDTO2.getReviewTitle();
             String reviewFaqContent = reviewReportDTO2.getReviewFaqContent();
-            if (reviewTitle.length() > 4) {
-                reviewReportDTO2.setReviewTitle(reviewTitle.substring(0, 5) + "...");
-            }
-            if (reviewFaqContent.length() > 4) {
-                reviewReportDTO2.setReviewFaqContent(reviewFaqContent.substring(0, 5) + "...");
+            if (reviewTitle.length() > 15) {
+                reviewReportDTO2.setReviewTitle(reviewTitle.substring(0, 10) + "...");
 
+            } else {
+                reviewReportDTO2.setReviewTitle(reviewTitle);
             }
+            if (reviewFaqContent.length() > 15) {
+                reviewReportDTO2.setReviewFaqContent(reviewFaqContent.substring(0, 10) + "...");
+            } else {
+                reviewReportDTO2.setReviewFaqContent(reviewFaqContent);
+            }
+            // 그냥 쌩자 !
+            reviewReportDTO2.setRealReviewContent(reviewFaqContent);
         }
         return reviewReportDTO2s;
     }
@@ -86,18 +87,26 @@ public class MyReportService {
         for (ReplyReportDTO2 replyReportDTO2 : replyReportDTO2s) {
             String replyContent = replyReportDTO2.getReplyContent();
             String replyFaqContent = replyReportDTO2.getReplyFaqContent();
-            if (replyContent.length() > 4) {
-                replyReportDTO2.setReplyContent(replyContent.substring(0, 5) + "...");
+            if (replyContent.length() > 15) {
+                replyReportDTO2.setReplyContent(replyContent.substring(0, 10) + "...");
+            } else {
+                replyReportDTO2.setReplyFaqContent(replyFaqContent);
             }
-            if (replyFaqContent.length() > 4) {
-                replyReportDTO2.setReplyFaqContent(replyFaqContent.substring(0, 5) + "...");
+            if (replyFaqContent.length() > 15) {
+                replyReportDTO2.setReplyFaqContent(replyFaqContent.substring(0, 10) + "...");
+            } else {
+                replyReportDTO2.setReplyFaqContent(replyFaqContent);
             }
+            // 그냥 넣기
+            replyReportDTO2.setRealReplyFaqContent(replyFaqContent);
+
+
         }
         return replyReportDTO2s;
     }
 
     // 가게 신고 내역
-    public List<PromotionReportDTO> promotionReportDTOListService(PromotionInputDTO promotionInputDTO){
+    public List<PromotionReportDTO> promotionReportDTOListService(PromotionInputDTO promotionInputDTO) {
         List<PromotionReportDTO> promotionReportDTOS = myPageMapper.promotionReportList(promotionInputDTO);
         return promotionReportDTOS;
     }

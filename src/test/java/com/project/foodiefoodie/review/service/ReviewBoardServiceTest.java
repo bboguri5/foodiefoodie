@@ -1,12 +1,14 @@
 package com.project.foodiefoodie.review.service;
 
 import com.project.foodiefoodie.review.domain.ReviewBoard;
+import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,8 +16,29 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class ReviewBoardServiceTest {
 
+
+
     @Autowired ReviewBoardService service;
-//
+
+    @Test
+    @DisplayName("5개의 리뷰만 가져와라")
+    void searchTop5ReviewTest()
+    {
+        List<ReviewBoardDTO> latest = service.searchTop5ReviewService("1234-12-12345", "latest");
+        System.out.println(latest.size());
+    }
+
+    @Test
+    @DisplayName("사업자번호로 조회 ")
+    void searchAllReviewServiceTest()
+    {
+        List<ReviewBoardDTO> latest = service.searchAllReviewService("1234-12-12345", "latest");
+        System.out.println(latest.size());
+    }
+
+
+
+    //
 //    @Test
 //    @DisplayName("리뷰 정보를 저장하고, 프로모션 테이블 업데이트 한다.")
 //    void saveTest(){

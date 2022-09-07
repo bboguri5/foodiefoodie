@@ -2,40 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Ansonika">
-    <title>FOOGRA - Admin dashboard</title>
-    <!-- Favicons-->
-    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" type="image/x-icon" href="/mypage/img/apple-touch-icon-57x57-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72"
-        href="/mypage/img/apple-touch-icon-72x72-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114"
-        href="/mypage/img/apple-touch-icon-114x114-precomposed.png">
-    <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144"
-        href="/mypage/img/apple-touch-icon-144x144-precomposed.png">
-    <!-- Bootstrap core CSS-->
-    <link href="/mypage/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Main styles -->
-    <link href="/mypage/css/admin.css" rel="stylesheet">
-    <!-- Icon fonts-->
-    <link href="/mypage/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- Plugin styles -->
-    <link href="/mypage/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-    <!-- Your custom styles -->
-    <link href="/mypage/css/custom.css" rel="stylesheet">
+    <%@ include file="../include/admin-static-head.jsp" %>
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
 
     <%@ include file="../include/myPage-nav.jsp" %>
-
+    
     <!-- 여기가 메인 ~~------------------------------------------------------------------------------------------ -->
     <!-- /Navigation-->
     <div class="content-wrapper">
@@ -45,7 +22,7 @@
                 <li class="breadcrumb-item">
                     <a href="#">내가 주문한 내역</a>
                 </li>
-
+            
             </ol>
             <!-- Example DataTables Card-->
             <div class="card mb-3">
@@ -110,7 +87,7 @@
         <!-- /container-fluid-->
     </div>
     <!-- /container-wrapper-->
-    
+
     <!-- Edit Booking Modal -->
     <form action="#" method="post" class="modal-form">
         <div class="modal fade edit_booking" tabindex="-1" role="dialog" aria-labelledby="edit_bookingLabel"
@@ -154,7 +131,7 @@
                             <label>날짜</label>
                             <input type="text" class="form-control modal-orderDate" name="orderDate" value="${userOrder.orderDate}" readonly>
                         </div>
-                       
+
                         <!-- /Row -->
                     </div>
                     <div class="modal-footer btn-wrap">
@@ -187,7 +164,7 @@
 (function () {
             const $targetNo = document.querySelector('.target-no');
             // console.log($targetNo);
-            
+
             $targetNo.addEventListener('click', e => {
 
 
@@ -199,32 +176,32 @@
                 document.querySelector('.modal-orderRowMenuList').value = e.target.dataset.orderrowmenulist;
                 document.querySelector('.modal-totalNum').value = e.target.dataset.totalnum;
                 document.querySelector('.modal-discount').value = e.target.dataset.discount;
-             
+
                 document.querySelector('.modal-realMoney').value = e.target.dataset.realmoney;
                 document.querySelector('.modal-orderDate').value = e.target.dataset.orderdate;
             })
 
-            const $Confirm= document.querySelector('.Confirm'); //확인버튼 
-            const $modalForm = document.querySelector('.modal-form'); // 모달폼 
+            const $Confirm= document.querySelector('.Confirm'); //확인버튼
+            const $modalForm = document.querySelector('.modal-form'); // 모달폼
 
-            // esc 누르기 
+            // esc 누르기
 
             $Confirm.addEventListener('click', e => {
                 console.log(e.target);
-                
+
                 $modalForm.style.display = 'none';
-               
+
 
             })
 
             // const $btnWrap = document.querySelector('.btn-wrap');
             // // console.log($btnWrap);
-            
-       
+
+
             // // console.log($modalForm);
             // $btnWrap.addEventListener('click', e => {
             //     console.log(e.target);
-                
+
             //     if(e.target === document.querySelector('.approve')) {
             //         document.querySelector('.approve-type').value = 'approve';
             //         $modalForm.submit();

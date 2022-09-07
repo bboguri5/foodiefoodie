@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -8,66 +9,69 @@
 <head>
     <%@ include file="../include/admin-static-head.jsp" %>
 </head>
-<body class="fixed-nav sticky-footer" id="page-top">
-    
-    <%@ include file="../include/myPage-nav.jsp" %>
 
-    <!-- 여기가 메인 ~~------------------------------------------------------------------------------------------ -->
+<body class="fixed-nav sticky-footer" id="page-top">
+
+    <%@ include file="../include/myPage-nav.jsp" %>
+    
     <!-- /Navigation-->
     <div class="content-wrapper">
         <div class="container-fluid">
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">프로모션 신고</a>
+                    <a href="#">Dashboard</a>
                 </li>
-                <li class="breadcrumb-item active">프로모션 신고한사람~</li>
+                <li class="breadcrumb-item active">Bookmarks</li>
             </ol>
-            <!-- Example DataTables Card-->
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-table"></i> Data Table Example</div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>신고 번호</th>
-                                    <th>가게 이름</th>
-                                    <th>프로모션 번호</th>
-                                    <th>프로모션 제목</th>
-                                    <th>신고 내역</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>신고 번호</th>
-                                    <th>가게 이름</th>
-                                    <th>프로모션 번호</th>
-                                    <th>프로모션 제목</th>
-                                    <th>신고 내역</th>
-                                </tr>
-                            </tfoot>
-                            <!-- ==================================================== -->
-                            <tbody>
-                                <c:forEach var="proReport" items="${proReportList}">
-                                    <tr>
-                                        <td>${proReport.prFaqNo}</td>
-                                        <td>${proReport.storeName}</td>
-                                        <td>${proReport.promotionBno}</td>
-                                        <td>${proReport.title}</td>
-                                        <td>${proReport.content}</td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-
-                            <!-- ================================================================= -->
-                        </table>
-                    </div>
+            <div class="box_general">
+                <div class="header_box">
+                    <h2 class="d-inline-block">&#128172; 즐겨찾기 &#9825;</h2>
+                    <!-- <div class="filter">
+                        <div class="styled-select short">
+                            <select name="orderby">
+                                <option value="Any time">Any time</option>
+                                <option value="Latest">Latest</option>
+                                <option value="Oldest">Oldest</option>
+                            </select>
+                        </div>
+                    </div> -->
                 </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                <div class="list_general">
+                    <ul>
+                        <c:forEach var="dto" items="${favorites}">
+                           가게이름 ${dto.storeName}
+                           <li>
+                            <figure><img src="img/item_1.jpg" alt=""></figure>
+                            <h3>${dto.storeName}</h3>
+                            <p>${dto.storeAddress}</p>
+                            <p>${dto.storeCallNumber}</p>
+                            <p><a href="#0" class="btn_1 gray"><i class="fa fa-fw fa-eye"></i> ${dto.storeName}에 주문하기 </a></p>
+                            <ul class="buttons">
+                                <li><a href="#0" class="btn_1 gray delete wishlist_close"><i class="fa fa-fw fa-times-circle-o"></i> 즐겨찾기에서 지우기 </a></li>
+                            </ul>
+                        </li>
+
+                        </c:forEach>
+
+                    </ul>
+                </div>
             </div>
-            <!-- /tables-->
+            <!-- /box_general-->
+            <nav aria-label="...">
+                <ul class="pagination pagination-sm add_bottom_30">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /pagination-->
         </div>
         <!-- /container-fluid-->
     </div>
@@ -83,8 +87,8 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fa fa-angle-up"></i>
     </a>
-
     <!-- Logout Modal-->
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -115,8 +119,6 @@
     <script src="/mypage/vendor/jquery.magnific-popup.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="/mypage/js/admin.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="/mypage/js/admin-datatables.js"></script>
 </body>
 
 </html>

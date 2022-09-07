@@ -33,4 +33,8 @@ public class PromotionFaqService {
     public List<PromotionFaqDTO> findAllAndTitleService(String complete) {
         return mapper.findAllAndTitle(complete);
     }
+
+    public boolean saveService(PromotionFaq promotionFaq) {
+        return mapper.save(promotionFaq);
+    }
 }

@@ -16,13 +16,12 @@ public interface ProBoardMapper {
 
     boolean saveStoreTime(ProBoard proBoard);
 
-
     boolean modifyProBoard(ProBoard proBoard);
     boolean modifyStoreTime(ProBoard proBoard );
 
 //    boolean modifyMenuInfo(MenuDTO menuDTO);
 //    boolean deleteFileOneInfo(int promotionBno, String fileName, String type);
-//    boolean deleteProBoard(int promotionBno);
+    boolean deleteProBoard(int promotionBno);
 
     Master selectMaster(String businessNo);
 

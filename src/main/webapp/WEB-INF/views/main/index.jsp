@@ -14,7 +14,7 @@
 		}
 
 		#locationList .item {
-			width: 19%;
+			width: 24%;
 			margin-right: 1%;
 		}
 

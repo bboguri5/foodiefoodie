@@ -53,7 +53,7 @@
                                                 data-content="${pf.content}" data-businessno="${pf.businessNo}">
                                                 ${pf.prFaqNo}</a>
                                         </th>
-                                        <th><a href="#">${pf.title}</a></th>
+                                        <th><a href="/proBoard/detail/${pf.promotionBno}">${pf.title}</a></th>
                                         <th>${pf.writerEmail}</th>
                                         <th>${pf.promotionWriterEmail}</th>
                                     </tr>

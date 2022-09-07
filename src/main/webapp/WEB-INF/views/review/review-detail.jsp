@@ -133,7 +133,7 @@
 
         .img-css {
             margin-top: 30px !important;
-        }inde
+        }
 
         .reply-modal-content {
             margin-top: 10px;
@@ -185,6 +185,7 @@
 
                         <form method="post" action="/review/remove" class="review-del-form">
                             <input type="hidden" value="${review.reviewBno}" name="reviewBno">
+                            <input type="hidden" value="${review.businessNo}" name="businessNo">
                         </form>
                         <div class="postmeta">
                             <ul>

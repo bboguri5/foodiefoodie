@@ -49,6 +49,7 @@ public interface ReviewBoardMapper {
 
     List<ReviewBoardDTO> searchAllReview(@Param("search") String search, @Param("sort") String sort);
 
+    List<ReviewBoardDTO> searchTop5Review(String search, String sort);
     List<Long> getLikedList(String email);
     Long findNewReviewNo();
 

@@ -162,7 +162,7 @@
         WHERE store_address LIKE '%' || #{storeAddress}|| '%'
         ORDER BY DBMS_RANDOM.RANDOM
         ) sub
-        WHERE ROWNUM BETWEEN 1 AND 5
+        WHERE ROWNUM BETWEEN 1 AND 4
 
         <!-- SELECT *
         FROM (
@@ -177,7 +177,7 @@
         WHERE store_address LIKE CONCAT('%', #{storeAddress}, '%')
         ORDER BY DBMS_RANDOM.RANDOM
         ) sub
-        WHERE ROWNUM BETWEEN 1 AND 5-->
+        WHERE ROWNUM BETWEEN 1 AND 4-->
     </select>
 
     <!-- 현재 위치에 있는 가게 전체 불러오기  -->
@@ -255,7 +255,7 @@
         ON H.business_no = M.business_no
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
-        WHERE hot_deal = 'on') sub)
+        WHERE Lower(hot_deal) = 'on') sub)
         WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
 
         <!--SELECT *
@@ -395,6 +395,7 @@
         WHEN weekdayclosetime >= (SELECT TO_CHAR
         (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) AND weekdayopentime <= (SELECT TO_CHAR
         (SYSDATE, 'HH24:MI') "NOW" FROM DUAL) THEN '영업중'
+        WHEN (SELECT TO_CHAR(SYSDATE, 'HH24:MI') FROM dual) <= weekdayopentime THEN '영업전'
         ELSE '영업끝'
         END AS StoreTimeText
         FROM promotion_store_time

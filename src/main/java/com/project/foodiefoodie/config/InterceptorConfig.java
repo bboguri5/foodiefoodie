@@ -2,6 +2,8 @@ package com.project.foodiefoodie.config;
 
 import com.project.foodiefoodie.member.interceptor.*;
 import com.project.foodiefoodie.member.repository.MemberMapper;
+import com.project.foodiefoodie.proBoard.interceptor.ProModifyInterceptor;
+import com.project.foodiefoodie.proBoard.interceptor.ProWriteInterceptor;
 import com.project.foodiefoodie.review.interceptor.ReviewModifyInterceptor;
 import com.project.foodiefoodie.review.interceptor.ReviewWriteInterceptor;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +29,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
 
     private final ReviewWriteInterceptor reviewWriteInterceptor;
-
     private final ReviewModifyInterceptor reviewModifyInterceptor;
+    private final ProWriteInterceptor proWriteInterceptor;
+    private final ProModifyInterceptor proModifyInterceptor;
+
     // 인터셉터 설정 추가 메서드
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -46,7 +50,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
         // 로그인 하지 않은 경우 차단할 요청들 나열하기
         registry.addInterceptor(unLoginInterceptor)
                 .addPathPatterns("/kakao/order/check/request", "/master/*", "/myPage/*", "/insertDB", "/fail-order", "/success-order", "/cancel-order"
-                        , "/review/review-faq", "/review/reply-faq");
+                        , "/review/review-faq", "/review/reply-faq", "/passwordModal", "/myReview");
 
         // 관리자 페이지 인터셉터 설정
         registry.addInterceptor(adminInterceptor)
@@ -69,7 +73,12 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(reviewModifyInterceptor)
                 .addPathPatterns("/review/modify/*");
 
-
+        // 홍보글 작성화면 인터셉터
+        registry.addInterceptor(proWriteInterceptor)
+                .addPathPatterns("/proBoard/write/*");
+        // 홍보글 수정화면 인터셉터
+        registry.addInterceptor(proModifyInterceptor)
+                .addPathPatterns("/proBoard/modify/*");
 
 
 

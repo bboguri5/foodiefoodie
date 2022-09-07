@@ -83,6 +83,30 @@
 		.review-write-btn .review-write-text {
 			color: #589442;
 		}
+
+		.star {
+			position: relative;
+			font-size: 2rem;
+			color: #ddd;
+		}
+
+		.star input {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			opacity: 0;
+			cursor: pointer;
+		}
+
+		.star span {
+			width: 0;
+			position: absolute;
+			left: 0;
+			color: red;
+			overflow: hidden;
+			pointer-events: none;
+		}
 	</style>
 </head>
 
@@ -142,7 +166,6 @@
 				<div class="col-lg-9">
 					<div class="row upCount">
 						<c:forEach var="rl" items="${reviewList}" varStatus="status">
-							<!-- <div class="col-md-6"> -->
 							<article class="blog">
 								<figure>
 									<a href="/review/detail?reviewBno=${rl.reviewBno}"><img
@@ -151,12 +174,21 @@
 									</a>
 								</figure>
 								<div class="post_info">
-									<small>Last Updated - 
+									<small>Last Updated -
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
-									<h2><a
-											href="#">${rl.title}</a>
+									<h2><a href="#">${rl.title}</a>
 									</h2>
-									<p>평점: ${rl.starRate}/10</p>
+									<label>평점</label>
+									<div></div>
+									<span class="star">
+										★★★★★
+										<span style="width: ${rl.starRate * 10}%;">★★★★★</span>
+										<input type="hidden" oninput="drawStar(this)" value="" step="1" min="0"
+											max="10" name="starRate">
+									</span>
+									<p>식당 이름: <a href="#">${review.storeName}</a></p>
+									<span>식당 주소: ${review.storeAddress} --> </span>
+									<a class="openKaKaoMap" target="_blank">주소 지도로 보기</a>
 									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
 									<p>식당 주소: ${rl.storeAddress}</p>
 									<p>${rl.content}
@@ -183,8 +215,7 @@
 												</c:choose>
 
 												<span id="heart${rl.reviewBno}">${rl.likeCnt}</span>
-												<a
-													href="/review/detail?reviewBno=${rl.reviewBno}#section-comment"><i
+												<a href="/review/detail?reviewBno=${rl.reviewBno}#section-comment"><i
 														id="${rl.reviewBno}"
 														class="icon_comment_alt"></i>${replyCount[status.index]}</a>
 											</li>
@@ -192,8 +223,6 @@
 										</ul>
 								</div>
 							</article>
-							<!-- /article -->
-							<!-- </div> -->
 						</c:forEach>
 
 					</div>
@@ -274,6 +303,7 @@
 			fetch('/review/getLike?reviewBno=' + bno)
 				.then(res => res.text())
 				.then(likeCnt => {
+					document.getElementById(bno).
 					document.getElementById(bno).classList.remove('icon_heart');
 					document.getElementById(bno).classList.add('icon_heart_alt');
 					document.getElementById("heart" + bno).innerHTML = likeCnt;
@@ -281,7 +311,11 @@
 		}
 	</script>
 
-
+	<!-- 별점 -->
+	<script>
+		const starRate = document.querySelectorAll('.star span');
+		starRate.style.width = (`${review.starRate}` * 10) + '%';
+	</script>
 </body>
 
 </html>

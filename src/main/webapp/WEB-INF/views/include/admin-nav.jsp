@@ -57,7 +57,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Premiume">
+            <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Premiume">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#premiume">
                     <i class="fa fa-fw fa-list"></i>
                     <span class="nav-link-text">광고 관리</span>
@@ -70,7 +70,7 @@
                         <a href="/admin/premiume-T">진행중</a>
                     </li>
                 </ul>
-            </li>
+            </li> -->
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Update-auth"
                 data-original-title="Bookings">
                 <a class="nav-link" href="/admin/approve-master">

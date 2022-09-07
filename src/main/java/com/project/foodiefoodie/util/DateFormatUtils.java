@@ -1,5 +1,6 @@
 package com.project.foodiefoodie.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateFormatUtils {
@@ -46,5 +47,11 @@ public class DateFormatUtils {
         long regTime = date.getTime();
         long diffTime = (curTime - regTime) / 1000;
         return diffTime < 60*60*24*3;
+    }
+
+    public static String formatTimeVer1(Date date)
+    {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd a hh:mm ");
+        return simpleDateFormat.format(date);
     }
 }

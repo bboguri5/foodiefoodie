@@ -73,7 +73,10 @@ public class PromotionFaqController {
                 rms.modifyService(reportMaster);
 
                 if (newReportCnt == 5) {
+                    // 블랙리스트에 등록
                     blms.saveService(promotionFaq.getBusinessNo());
+                    // 해당 마스터 계정 삭제 (홍보글도 삭제됨)
+                    ms.removeMasterService(promotionFaq.getBusinessNo());
                 }
             }
 

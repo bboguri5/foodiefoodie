@@ -2,15 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Ansonika">
-    <title>FOOGRA - Admin dashboard</title>
+    <%@ include file="../include/admin-static-head.jsp" %>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
@@ -438,13 +434,13 @@
 
         const $body = document.body;
 
-        // 가게 정보 수정 비동기 
+        // 가게 정보 수정 비동기
         const $falseh5 = document.querySelector('.falseh5');
         const $brLabel = document.querySelector('.brLabel');
         const $passwordBtn = document.querySelector('.passwordBtn');
 
 
-        // 가게 정보 삭제 비밀번호 인풋 
+        // 가게 정보 삭제 비밀번호 인풋
         const $passwordInput2 = document.querySelector('.passwordInput2');
         const $modalBox2 = document.querySelector('.modalBox2');
 
@@ -471,7 +467,7 @@
 
         if ($returnBtn !== null) {
             // 모달창 빨간색 x 버튼 
-          
+
             $returnBtn.onclick = e => {
                 console.log("빨간색 x 버튼 눌렀다");
                 $falseh5.style.display = "none";
@@ -481,10 +477,10 @@
             };
         }
 
-        
+
         if ($returnBtn2 !== null) {
-            // 가게 정보 삭제 모달 x 
-          
+            // 가게 정보 삭제 모달 x
+
             $returnBtn2.onclick = e => {
                 console.log("버튼 x 눌렀다");
                 $falseh52.style.display = "none";
@@ -514,7 +510,7 @@
         }
 
 
-        //마스터 정보 수정// 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드 
+        //마스터 정보 수정// 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드
         function trueAndFalsePassword(e) {
 
             const $passwordInput = document.querySelector('.passwordInput')
@@ -551,7 +547,7 @@
 
 
 
-         //가게 정보 삭제// 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드 
+         //가게 정보 삭제// 비밀번호 맞는지 아닌지 확인하고 넘기는 메서드
         function trueAndFalsePassword2(e) {
 
             const $passwordInput2 = document.querySelector('.passwordInput2')
@@ -598,30 +594,30 @@
         })();
 
 
-        // 가게 정보 삭제하기 클릭버튼 
+        // 가게 정보 삭제하기 클릭버튼
         const $deleteStoreBtn = document.querySelector('.deleteStoreBtn');
-        // 비밀번호 넘기는 버튼 
+        // 비밀번호 넘기는 버튼
         const $passwordBtn2 = document.querySelector('.passwordBtn2');
 
 
         $(document).ready(function () {
 
 
-            // 가게 정보 삭제하기 클릭버튼 
+            // 가게 정보 삭제하기 클릭버튼
             const $deleteStoreBtn = document.querySelector('.deleteStoreBtn');
 
             $deleteStoreBtn.onclick = e => {
                 console.log("가게정보 삭제하기 버튼 눌렀다");
 
-                // 모달창 띄운다 
+                // 모달창 띄운다
                 $modalBox2.style.display = "block";
 
-                // // 마스터 넘을 넘겨준다 ! 
+                // // 마스터 넘을 넘겨준다 !
                 // location.href = "/delMaster/${masterNum}";
             };
 
 
-            // 가게 정보 삭제 비밀번호 넘기는 버튼 
+            // 가게 정보 삭제 비밀번호 넘기는 버튼
         if ($passwordBtn2 !== null) {
             $passwordBtn2.onclick = e => {
                 console.log('click password2');
@@ -632,7 +628,7 @@
 
 
 
-            // 핫딜 온오프 버튼  
+            // 핫딜 온오프 버튼
             const $onRadio = document.getElementById('hotDealOn');
             console.log($onRadio);
             const $offRadio = document.getElementById('hotDealOff');

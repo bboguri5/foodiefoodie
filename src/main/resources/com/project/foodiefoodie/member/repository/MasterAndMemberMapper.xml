@@ -9,7 +9,6 @@
         <result property="nickName" column="nick_name"/>
         <result property="phoneNumber" column="phone_number"/>
         <result property="regDate" column="regist_date"/>
-        <result property="recentLoginTime" column="login_time"/>
         <result property="businessNo" column="business_no"/>
         <result property="masterName" column="master_name"/>
         <result property="storeName" column="store_name"/>

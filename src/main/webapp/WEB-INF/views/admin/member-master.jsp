@@ -158,10 +158,6 @@
                             <input type="text" class="form-control modal-registDate" disabled>
                         </div>
                         <div class="form-group">
-                            <label>최종 로그인</label>
-                            <input type="text" class="form-control modal-loginTime" disabled>
-                        </div>
-                        <div class="form-group">
                             <label>사업자 번호</label>
                             <input type="text" class="form-control modal-businessNo" disabled>
                         </div>
@@ -176,10 +172,6 @@
                         <div class="form-group">
                             <label>상세주소</label>
                             <input type="text" class="form-control modal-storedetailAddress" disabled>
-                        </div>
-                        <div class="form-group">
-                            <label>가게 오픈일</label>
-                            <input type="text" class="form-control modal-storeRegDate" disabled>
                         </div>
                         <div class="form-group">
                             <label>핫딜</label>
@@ -216,12 +208,10 @@
                 document.querySelector('.modal-gender').value = e.target.dataset.gender;
                 document.querySelector('.modal-auth').value = e.target.dataset.auth;
                 document.querySelector('.modal-registDate').value = e.target.dataset.registDate;
-                document.querySelector('.modal-loginTime').value = e.target.dataset.loginTime;
                 document.querySelector('.modal-businessNo').value = e.target.dataset.businessno;
                 document.querySelector('.modal-storeName').value = e.target.dataset.storename;
                 document.querySelector('.modal-storeAddress').value = e.target.dataset.storeaddress;
                 document.querySelector('.modal-storedetailAddress').value = e.target.dataset.storedetailaddress;
-                document.querySelector('.modal-storeRegDate').value = e.target.dataset.storeregdate;
                 document.querySelector('.modal-hotdeal').value = e.target.dataset.hotdeal;
                 document.querySelector('.modal-storeCallNumber').value = e.target.dataset.storecallnumber;
             }

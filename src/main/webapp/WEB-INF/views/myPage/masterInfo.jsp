@@ -155,7 +155,7 @@
         }
 
         .hotDealLabel {
-            border: 2px solid red;
+            color: red;
         }
     </style>
 
@@ -219,20 +219,12 @@
                                         readonly>
                                 </div>
                             </div>
-                            <!-- <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>STORE_REG_DATE 가게 시작날짜 </label>
-                                    <input type="email" class="form-control" placeholder="${master.storeRegDate}"
-                                        readonly>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="hotDealLabel"><a href="#0" data-toggle="modal"
-                                            data-target=".hotDeal">핫딜 ON/OFF
-                                            Button</a></label>
+                                    <label>핫딜 ON/OFF
+                                        <a href="#0" data-toggle="modal"data-target=".hotDeal" class="hotDealLabel">Button</a></label>
                                     <input type="text" class="form-control" placeholder="${master.hotDeal}" readonly>
                                 </div>
                             </div>

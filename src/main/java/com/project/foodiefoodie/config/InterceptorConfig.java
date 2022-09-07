@@ -59,9 +59,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
         registry.addInterceptor(memberInterceptor)
                 .addPathPatterns("/myPage");
 
-        // 아직 경로가 정해지지 않아서 일단 주석처리 합니다.
-        // registry.addInterceptor(masterInterceptor)
-//                 .addPathPatterns("/myPage/masterPage");
+
+        // 마스터 권한 체크 인터셉터 설정
+         registry.addInterceptor(masterInterceptor)
+                 .addPathPatterns("/masterInfo/*", "/masterInfoModi/*");
 
 
 

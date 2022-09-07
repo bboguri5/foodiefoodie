@@ -74,6 +74,13 @@
                             <tbody>
                                 <c:forEach var="masterOrder" items="${masterOrderList}">
                                     <tr>
+                                        <th><a href="#0" data-toggle="modal" data-target=".edit_booking"
+                                            data-orderno="${masterOrder.orderNo}" data-storename="${masterOrder.email}"
+                                            data-orderrowmenulist="${userOrder.orderRowMenuList}" data-totalNum="${masterOrder.totalNum}"
+                                            data-discount="${masterOrder.discount}" data-realmoney="${masterOrder.realMoney}"
+                                            data-orderdate="${masterOrder.orderDate}">
+                                            ${masterOrder.orderNo}</a>
+                                        </th>
                                         <td>${masterOrder.orderNo}</td>
                                         <td>${masterOrder.email}</td>
                                         <td>${masterOrder.orderMenuList}</td>
@@ -126,6 +133,12 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+
+        
+    </script>
     
     <!-- Bootstrap core JavaScript-->
     <script src="/mypage/vendor/jquery/jquery.min.js"></script>

@@ -158,7 +158,7 @@
                         <!-- /Row -->
                     </div>
                     <div class="modal-footer btn-wrap">
-                        <button class="btn btn-primary del-btn Confirm" type="button">확인</button>
+                        <button class="btn btn-primary del-btn Confirm " type="button" >확인</button>
                         <!-- <button class="btn btn-primary del-btn disapprove" type="button">거절</button> -->
                     </div>
                 </div>
@@ -206,6 +206,9 @@
 
             const $Confirm= document.querySelector('.Confirm'); //확인버튼 
             const $modalForm = document.querySelector('.modal-form'); // 모달폼 
+
+            // esc 누르기 
+
             $Confirm.addEventListener('click', e => {
                 console.log(e.target);
                 

@@ -51,13 +51,13 @@
         WHERE a.faq_complete = #{complete}
     </select>
 
-    <insert id="save">
-        INSERT INTO promotion_faq(pr_faq_no, promotion_bno, writer_email, content, promotion_writer_email, business_no)
-        values (seq_promotion_faq.nextval, #{promotionBno}, #{writerEmail}, #{content}, #{promotionWriterEmail}, #{businessNo})
-    </insert>
-
 <!--    <insert id="save">-->
-<!--        INSERT INTO promotion_faq(promotion_bno, writer_email, content, promotion_writer_email, business_no)-->
-<!--        values (#{promotionBno}, #{writerEmail}, #{content}, #{promotionWriterEmail}, #{businessNo})-->
+<!--        INSERT INTO promotion_faq(pr_faq_no, promotion_bno, writer_email, content, promotion_writer_email, business_no)-->
+<!--        values (seq_promotion_faq.nextval, #{promotionBno}, #{writerEmail}, #{content}, #{promotionWriterEmail}, #{businessNo})-->
 <!--    </insert>-->
+
+    <insert id="save">
+        INSERT INTO promotion_faq(promotion_bno, writer_email, content, promotion_writer_email, business_no)
+        values (#{promotionBno}, #{writerEmail}, #{content}, #{promotionWriterEmail}, #{businessNo})
+    </insert>
 </mapper>

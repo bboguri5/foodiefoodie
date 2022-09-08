@@ -47,15 +47,15 @@
 
 
     <insert id="save">
-        INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate
+        <!--INSERT INTO review_board (email, title, content, review_bno, business_no, star_rate
         , private, store_name, store_address, store_detail_address, store_extra_address)
         VALUES (#{email}, #{title}, #{content}, seq_review_board.nextval, #{businessNo}, #{starRate}
-        , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress})
+        , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress})-->
 
-        <!--INSERT INTO review_board (email, title, content, business_no, star_rate
+        INSERT INTO review_board (email, title, content, business_no, star_rate
         , private, store_name, store_address, store_detail_address, store_extra_address)
         VALUES (#{email}, #{title}, #{content}, #{businessNo}, #{starRate}
-        , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress})-->
+        , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress})
     </insert>
 
     <!--  해당 가게 평균 평점 구하기  -->
@@ -90,7 +90,7 @@
     </select>
 
     <select id="searchAllReview" resultMap="rbDTOMap">
-        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
+        <!--SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
         store_name, store_address
         FROM review_board
         WHERE private = 'F'
@@ -101,9 +101,9 @@
         OR store_address LIKE '%' || #{search}|| '%'
         OR BUSINESS_NO = #{search}
         <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
-        <if test="sort == 'like'">ORDER BY like_cnt DESC</if>
+        <if test="sort == 'like'">ORDER BY like_cnt DESC</if>-->
 
-        <!--SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
+        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
         store_name, store_address
         FROM review_board
         WHERE private = 'F'
@@ -113,7 +113,7 @@
         OR store_name LIKE CONCAT('%', #{search}, '%')
         OR store_address LIKE CONCAT('%', #{search}, '%')
         <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
-        <if test="sort == 'like'">ORDER BY like_cnt DESC</if>-->
+        <if test="sort == 'like'">ORDER BY like_cnt DESC</if>
     </select>
 
     <select id="searchTop5Review" resultMap="rbDTOMap">

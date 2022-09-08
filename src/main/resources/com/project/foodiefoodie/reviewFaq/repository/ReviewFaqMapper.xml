@@ -51,14 +51,14 @@
         WHERE a.faq_complete = #{complete}
     </select>
 
-    <insert id="save">
+    <!--<insert id="save">
         insert into review_faq (re_faq_no, review_bno, writer_email, content, review_writer_email)
         values (seq_review_faq.nextval, #{reviewBno}, #{writerEmail}, #{content}, #{reviewWriterEmail})
-    </insert>
+    </insert>-->
 
-<!--    <insert id="save">-->
-<!--        insert into review_faq (review_bno, writer_email, content, review_writer_email)-->
-<!--        values (#{reviewBno}, #{writerEmail}, #{content}, #{reviewWriterEmail})-->
-<!--    </insert>-->
+    <insert id="save">
+        insert into review_faq (review_bno, writer_email, content, review_writer_email)
+        values (#{reviewBno}, #{writerEmail}, #{content}, #{reviewWriterEmail})
+    </insert>
 
 </mapper>

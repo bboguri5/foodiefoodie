@@ -5,294 +5,294 @@
 <mapper namespace="com.project.foodiefoodie.proBoard.repository.ProBoardMapper">
 
         <!--    mySQL  -->
-<!--    <insert id="saveProBoard">-->
-<!--        insert into PROMOTION_BOARD (-->
-<!--        BUSINESS_NO ,CONTENT-->
-<!--        ,LAST_UPDATED ,TITLE ,HASHTAG-->
-<!--        )-->
-<!--        VALUES (-->
-<!--        #{businessNo} ,#{content}-->
-<!--        ,sysdate ,#{title} ,#{hashTag}-->
-<!--        )-->
-<!--    </insert>-->
+    <insert id="saveProBoard">
+        insert into PROMOTION_BOARD (
+        BUSINESS_NO ,CONTENT
+        ,LAST_UPDATED ,TITLE ,HASHTAG
+        )
+        VALUES (
+        #{businessNo} ,#{content}
+        ,sysdate ,#{title} ,#{hashTag}
+        )
+    </insert>
 
-<!--    <insert id="saveStoreTime">-->
-<!--        insert into PROMOTION_STORE_TIME VALUES (-->
-<!--        #{promotionBno}-->
-<!--        ,#{weekdayOpenTime}-->
-<!--        ,#{weekdayCloseTime}-->
-<!--        ,#{weekendOpenTime}-->
-<!--        ,#{weekendCloseTime}-->
-<!--        ,#{breakStartTime}-->
-<!--        ,#{breakEndTime}-->
-<!--        ,#{closedDay}-->
-<!--        )-->
-<!--    </insert>-->
-
-
-<!--    <insert id="saveNotice">-->
-<!--        insert into promotion_notice-->
-<!--        (promotion_bno, content)-->
-<!--        values(-->
-<!--        ,#{promotionBno}-->
-<!--        ,#{content}-->
-<!--        )-->
-<!--    </insert>-->
+    <insert id="saveStoreTime">
+        insert into PROMOTION_STORE_TIME VALUES (
+        #{promotionBno}
+        ,#{weekdayOpenTime}
+        ,#{weekdayCloseTime}
+        ,#{weekendOpenTime}
+        ,#{weekendCloseTime}
+        ,#{breakStartTime}
+        ,#{breakEndTime}
+        ,#{closedDay}
+        )
+    </insert>
 
 
-<!--    &lt;!&ndash;  modify   &ndash;&gt;-->
-
-<!--    <update id="modifyProBoard">-->
-<!--        UPDATE PROMOTION_BOARD SET-->
-<!--        CONTENT = #{content} , LAST_UPDATED = sysdate ,TITLE = #{title} ,HASHTAG = #{hashTag}-->
-<!--        where promotion_bno = #{promotionBno}-->
-
-<!--    </update>-->
-
-<!--    <update id="modifyStoreTime">-->
-
-<!--        UPDATE PROMOTION_STORE_TIME SET-->
-<!--        WEEKDAYOPENTIME = #{weekdayOpenTime}-->
-<!--        ,WEEKDAYCLOSETIME = #{weekdayCloseTime}-->
-<!--        ,WEEKENDOPENTIME = #{weekendOpenTime}-->
-<!--        ,WEEKENDCLOSETIME = #{weekendCloseTime}-->
-<!--        ,BREAKSTARTTIME = #{breakStartTime}-->
-<!--        ,BREAKENDTIME = #{breakEndTime}-->
-<!--        ,CLOSEDDAY = #{closedDay}-->
-<!--        where promotion_bno = #{promotionBno}-->
-<!--    </update>-->
+    <insert id="saveNotice">
+        insert into promotion_notice
+        (promotion_bno, content)
+        values(
+        ,#{promotionBno}
+        ,#{content}
+        )
+    </insert>
 
 
-<!--    &lt;!&ndash;    <update id="modify">&ndash;&gt;-->
-<!--    &lt;!&ndash;        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}&ndash;&gt;-->
-<!--    &lt;!&ndash;    </update>&ndash;&gt;-->
+    <!--  modify   -->
 
-<!--    <delete id="deleteProBoard">-->
-<!--        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}-->
-<!--    </delete>-->
+    <update id="modifyProBoard">
+        UPDATE PROMOTION_BOARD SET
+        CONTENT = #{content} , LAST_UPDATED = sysdate ,TITLE = #{title} ,HASHTAG = #{hashTag}
+        where promotion_bno = #{promotionBno}
 
-<!--    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">-->
-<!--        <result property="businessNo" column="BUSINESS_NO"/>-->
-<!--        <result property="masterName" column="MASTER_NAME"/>-->
-<!--        <result property="storeName" column="STORE_NAME"/>-->
-<!--        <result property="storeAddress" column="STORE_ADDRESS"/>-->
-<!--        <result property="storeDetailAddress" column="STORE_DETAIL_ADDRESS"/>-->
-<!--        <result property="storeExtraAddress" column="STORE_EXTRA_ADDRESS"/>-->
-<!--        <result property="hotDeal" column="HOT_DEAL"/>-->
-<!--        <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>-->
-<!--    </resultMap>-->
+    </update>
 
-<!--    <select id="selectMaster" resultMap="masterMap">-->
-<!--        select * from master where BUSINESS_NO = #{businessNo}-->
-<!--    </select>-->
+    <update id="modifyStoreTime">
 
-<!--    &lt;!&ndash;  ================================== proBoard select ==================================  &ndash;&gt;-->
-
-<!--    <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">-->
-<!--        <result property="businessNo" column="business_no"/>-->
-<!--        <result property="promotionBno" column="promotion_bno"/>-->
-<!--        <result property="lastUpdated" column="last_updated"/>-->
-<!--        <result property="avgStarRate" column="AVG_STAR_RATE"/>-->
-
-<!--        <result property="masterName" column="MASTER_NAME"/>-->
-<!--        <result property="storeName" column="STORE_NAME"/>-->
-<!--        <result property="storeAddress" column="STORE_ADDRESS"/>-->
-<!--        <result property="storeDetailAddress" column="STORE_DETAIL_ADDRESS"/>-->
-<!--        <result property="storeExtraAddress" column="STORE_EXTRA_ADDRESS"/>-->
-<!--        <result property="storeRegDate" column="STORE_REG_DATE"/>-->
-<!--        <result property="hotDeal" column="HOT_DEAL"/>-->
-<!--        <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>-->
-
-<!--        &lt;!&ndash;        <result property="filePath" column="FILE_PATH"/>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <result property="fileName" column="FILE_NAME"/>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <result property="fileMediaType" column="FILE_MEDIATYPE"/>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <result property="fileSize" column="FILE_SIZE"/>&ndash;&gt;-->
-<!--        &lt;!&ndash;        <result property="fileData" column="FILE_DATA"/>&ndash;&gt;-->
-<!--    </resultMap>-->
-
-<!--    <select id="selectProBoard" resultMap="proBoardMap">-->
-
-<!--        select * from master master-->
-<!--        RIGHT join promotion_board board-->
-<!--        on master.business_no = board.business_no-->
-<!--        LEFT join promotion_store_time time-->
-<!--        on board.promotion_bno = time.promotion_bno-->
-<!--        where board.promotion_bno = #{promotionBno}-->
-<!--        and board.promotion_bno = time.promotion_bno-->
-
-<!--    </select>-->
-
-<!--    <select id="selectPromotionBno" resultType="int">-->
-<!--        select promotion_bno from PROMOTION_BOARD where business_no = #{businessNo}-->
-<!--    </select>-->
-
-<!--    <insert id="addFavoriteStore">-->
-<!--        INSERT INTO favorite_store VALUES (#{email},#{promotionBno})-->
-<!--    </insert>-->
-<!--    <select id="isFavoriteStore" resultType="int">-->
-<!--        SELECT count(*)-->
-<!--        FROM favorite_store-->
-<!--        WHERE EXISTS (SELECT *-->
-<!--        FROM favorite_store-->
-<!--        WHERE promotion_bno = #{promotionBno}-->
-<!--        AND email = #{email})-->
-<!--    </select>-->
-<!--    <delete id="removeFavoriteStore">-->
-<!--        DELETE FROM favorite_store WHERE promotion_bno = #{promotionBno} and email = #{email}-->
-<!--    </delete>-->
-
-<!--    &lt;!&ndash;  ================================== menu ==================================  &ndash;&gt;-->
-
-<!--    <resultMap id="menuDTO" type="com.project.foodiefoodie.proBoard.dto.MenuDTO">-->
-<!--        <result property="menuNo" column="menu_no"/>-->
-<!--        <result property="menuName" column="menu_name"/>-->
-<!--        <result property="menuPrice" column="price"/>-->
-
-<!--        <result property="filePath" column="FILE_PATH"/>-->
-<!--        <result property="fileName" column="FILE_NAME"/>-->
-<!--        <result property="fileMediaType" column="FILE_MEDIATYPE"/>-->
-<!--        <result property="fileSize" column="FILE_SIZE"/>-->
-<!--        <result property="fileByte" column="FILE_BYTE"/>-->
-<!--        <result property="fileData" column="FILE_DATA"/>-->
-<!--    </resultMap>-->
-
-<!--    <select id="selectMenuInfo" resultMap="menuDTO">-->
-
-<!--        select-->
-<!--        menu.menu_no, menu.menu_name , menu.price ,-->
-<!--        imgs.file_name , imgs.file_mediatype , imgs.file_size ,-->
-<!--        imgs.file_data , imgs.file_path , imgs.file_byte-->
-<!--        from promotion_food_menu menu-->
-<!--        LEFT JOIN promotion_upload_menu_img imgs-->
-<!--        ON  menu.menu_no = imgs.menu_no-->
-<!--        where menu.promotion_bno = #{promotionBno}-->
-
-<!--    </select>-->
-
-<!--    <insert id="saveMenuInfo">-->
-<!--        insert into PROMOTION_FOOD_MENU-->
-<!--        (promotion_bno,menu_name,price)-->
-<!--        VALUES (-->
-<!--        SEQ_PROMOTION_FOOD_MENU.nextval-->
-<!--        ,#{promotionBno}-->
-<!--        ,#{menuName}-->
-<!--        ,#{menuPrice}-->
-<!--        )-->
-<!--    </insert>-->
-
-<!--    <update id="modifyMenuInfo">-->
-<!--        update promotion_food_menu set menu_name = #{menuName} , price = #{menuPrice} where menu_no = #{menuNo}-->
-<!--    </update>-->
-
-<!--    <delete id="deleteMenuInfo">-->
-<!--        delete from promotion_food_menu where promotion_bno = #{promotionBno}-->
-<!--    </delete>-->
+        UPDATE PROMOTION_STORE_TIME SET
+        WEEKDAYOPENTIME = #{weekdayOpenTime}
+        ,WEEKDAYCLOSETIME = #{weekdayCloseTime}
+        ,WEEKENDOPENTIME = #{weekendOpenTime}
+        ,WEEKENDCLOSETIME = #{weekendCloseTime}
+        ,BREAKSTARTTIME = #{breakStartTime}
+        ,BREAKENDTIME = #{breakEndTime}
+        ,CLOSEDDAY = #{closedDay}
+        where promotion_bno = #{promotionBno}
+    </update>
 
 
+    <!--    <update id="modify">-->
+    <!--        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}-->
+    <!--    </update>-->
 
-<!--    &lt;!&ndash;  ==================================  notice ==================================  &ndash;&gt;-->
-<!--    <resultMap id="noticeDTO" type="com.project.foodiefoodie.proBoard.dto.NoticeDTO">-->
-<!--        <result property="noticeNo" column="notice_no"/>-->
-<!--        <result property="updateDate" column="update_date"/>-->
-<!--    </resultMap>-->
-<!--    <select id="selectNotice" resultMap="noticeDTO">-->
-<!--        select * from promotion_notice where promotion_bno = #{promotionBno} order by notice_no desc-->
-<!--    </select>-->
+    <delete id="deleteProBoard">
+        DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}
+    </delete>
 
-<!--    <delete id="deleteNotice">-->
-<!--        delete from promotion_notice where notice_no = #{noticeNo}-->
-<!--    </delete>-->
+    <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.Master">
+        <result property="businessNo" column="BUSINESS_NO"/>
+        <result property="masterName" column="MASTER_NAME"/>
+        <result property="storeName" column="STORE_NAME"/>
+        <result property="storeAddress" column="STORE_ADDRESS"/>
+        <result property="storeDetailAddress" column="STORE_DETAIL_ADDRESS"/>
+        <result property="storeExtraAddress" column="STORE_EXTRA_ADDRESS"/>
+        <result property="hotDeal" column="HOT_DEAL"/>
+        <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
+    </resultMap>
 
-<!--    <select id="isHotDeal" resultType="Integer">-->
-<!--        SELECT discount_price FROM hot_deal WHERE business_no = #{businessNo}-->
-<!--    </select>-->
+    <select id="selectMaster" resultMap="masterMap">
+        select * from master where BUSINESS_NO = #{businessNo}
+    </select>
 
-<!--    &lt;!&ndash;  ==================================  files ==================================  &ndash;&gt;-->
+    <!--  ================================== proBoard select ==================================  -->
+
+    <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">
+        <result property="businessNo" column="business_no"/>
+        <result property="promotionBno" column="promotion_bno"/>
+        <result property="lastUpdated" column="last_updated"/>
+        <result property="avgStarRate" column="AVG_STAR_RATE"/>
+
+        <result property="masterName" column="MASTER_NAME"/>
+        <result property="storeName" column="STORE_NAME"/>
+        <result property="storeAddress" column="STORE_ADDRESS"/>
+        <result property="storeDetailAddress" column="STORE_DETAIL_ADDRESS"/>
+        <result property="storeExtraAddress" column="STORE_EXTRA_ADDRESS"/>
+        <result property="storeRegDate" column="STORE_REG_DATE"/>
+        <result property="hotDeal" column="HOT_DEAL"/>
+        <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
+
+        <!--        <result property="filePath" column="FILE_PATH"/>-->
+        <!--        <result property="fileName" column="FILE_NAME"/>-->
+        <!--        <result property="fileMediaType" column="FILE_MEDIATYPE"/>-->
+        <!--        <result property="fileSize" column="FILE_SIZE"/>-->
+        <!--        <result property="fileData" column="FILE_DATA"/>-->
+    </resultMap>
+
+    <select id="selectProBoard" resultMap="proBoardMap">
+
+        select * from master master
+        RIGHT join promotion_board board
+        on master.business_no = board.business_no
+        LEFT join promotion_store_time time
+        on board.promotion_bno = time.promotion_bno
+        where board.promotion_bno = #{promotionBno}
+        and board.promotion_bno = time.promotion_bno
+
+    </select>
+
+    <select id="selectPromotionBno" resultType="int">
+        select promotion_bno from PROMOTION_BOARD where business_no = #{businessNo}
+    </select>
+
+    <insert id="addFavoriteStore">
+        INSERT INTO favorite_store VALUES (#{email},#{promotionBno})
+    </insert>
+    <select id="isFavoriteStore" resultType="int">
+        SELECT count(*)
+        FROM favorite_store
+        WHERE EXISTS (SELECT *
+        FROM favorite_store
+        WHERE promotion_bno = #{promotionBno}
+        AND email = #{email})
+    </select>
+    <delete id="removeFavoriteStore">
+        DELETE FROM favorite_store WHERE promotion_bno = #{promotionBno} and email = #{email}
+    </delete>
+
+    <!--  ================================== menu ==================================  -->
+
+    <resultMap id="menuDTO" type="com.project.foodiefoodie.proBoard.dto.MenuDTO">
+        <result property="menuNo" column="menu_no"/>
+        <result property="menuName" column="menu_name"/>
+        <result property="menuPrice" column="price"/>
+
+        <result property="filePath" column="FILE_PATH"/>
+        <result property="fileName" column="FILE_NAME"/>
+        <result property="fileMediaType" column="FILE_MEDIATYPE"/>
+        <result property="fileSize" column="FILE_SIZE"/>
+        <result property="fileByte" column="FILE_BYTE"/>
+        <result property="fileData" column="FILE_DATA"/>
+    </resultMap>
+
+    <select id="selectMenuInfo" resultMap="menuDTO">
+
+        select
+        menu.menu_no, menu.menu_name , menu.price ,
+        imgs.file_name , imgs.file_mediatype , imgs.file_size ,
+        imgs.file_data , imgs.file_path , imgs.file_byte
+        from promotion_food_menu menu
+        LEFT JOIN promotion_upload_menu_img imgs
+        ON  menu.menu_no = imgs.menu_no
+        where menu.promotion_bno = #{promotionBno}
+
+    </select>
+
+    <insert id="saveMenuInfo">
+        insert into PROMOTION_FOOD_MENU
+        (promotion_bno,menu_name,price)
+        VALUES (
+        SEQ_PROMOTION_FOOD_MENU.nextval
+        ,#{promotionBno}
+        ,#{menuName}
+        ,#{menuPrice}
+        )
+    </insert>
+
+    <update id="modifyMenuInfo">
+        update promotion_food_menu set menu_name = #{menuName} , price = #{menuPrice} where menu_no = #{menuNo}
+    </update>
+
+    <delete id="deleteMenuInfo">
+        delete from promotion_food_menu where promotion_bno = #{promotionBno}
+    </delete>
 
 
-<!--    <insert id="saveFiles">-->
-<!--        <selectKey keyProperty="menuNo" order="BEFORE" resultType="long">-->
-<!--            select max(menu_no) from promotion_food_menu-->
-<!--            where promotion_bno = #{promotionBno}-->
-<!--        </selectKey>-->
-<!--        <if test="filePath.contains('title')">-->
-<!--            insert into PROMOTION_UPLOAD_TITLE_IMG (-->
-<!--            PROMOTION_BNO-->
-<!--        </if>-->
 
-<!--        <if test="filePath.contains('detail')">-->
-<!--            insert into PROMOTION_UPLOAD_DETAIL_IMG (-->
-<!--            PROMOTION_BNO-->
-<!--        </if>-->
+    <!--  ==================================  notice ==================================  -->
+    <resultMap id="noticeDTO" type="com.project.foodiefoodie.proBoard.dto.NoticeDTO">
+        <result property="noticeNo" column="notice_no"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <select id="selectNotice" resultMap="noticeDTO">
+        select * from promotion_notice where promotion_bno = #{promotionBno} order by notice_no desc
+    </select>
 
-<!--        <if test="filePath.contains('menu')">-->
-<!--            insert into PROMOTION_UPLOAD_MENU_IMG (-->
-<!--            PROMOTION_BNO-->
-<!--            ,MENU_NO-->
-<!--        </if>-->
-<!--        ,FILE_PATH ,FILE_NAME ,FILE_MEDIATYPE-->
-<!--        ,FILE_SIZE ,FILE_BYTE ,FILE_DATA-->
-<!--        )-->
-<!--        VALUES (-->
-<!--        #{promotionBno}-->
-<!--        <if test="filePath.contains('menu')">-->
-<!--            ,#{menuNo}-->
-<!--        </if>-->
-<!--        ,#{filePath} ,#{fileName} ,#{fileMediaType}-->
-<!--        ,#{fileSize} ,#{fileByte} ,#{fileData}-->
-<!--        )-->
-<!--    </insert>-->
+    <delete id="deleteNotice">
+        delete from promotion_notice where notice_no = #{noticeNo}
+    </delete>
 
-<!--    <resultMap id="FileDTO" type="com.project.foodiefoodie.proBoard.dto.FileDTO">-->
-<!--        <result property="promotionBno" column="PROMOTION_BNO"/>-->
-<!--        <result property="filePath" column="FILE_PATH"/>-->
-<!--        <result property="fileName" column="FILE_NAME"/>-->
-<!--        <result property="fileMediaType" column="FILE_MEDIATYPE"/>-->
-<!--        <result property="fileSize" column="FILE_SIZE"/>-->
-<!--        <result property="fileByte" column="FILE_BYTE"/>-->
-<!--        <result property="fileData" column="FILE_DATA"/>-->
-<!--    </resultMap>-->
+    <select id="isHotDeal" resultType="Integer">
+        SELECT discount_price FROM hot_deal WHERE business_no = #{businessNo}
+    </select>
 
-<!--    <select id="selectFiles" resultMap="FileDTO">-->
-<!--        select * from-->
-<!--        <if test="type == 'title'">-->
-<!--            PROMOTION_UPLOAD_TITLE_IMG-->
-<!--        </if>-->
-<!--        <if test="type == 'detail'">-->
-<!--            PROMOTION_UPLOAD_DETAIL_IMG-->
-<!--        </if>-->
-<!--        <if test="type == 'menu'">-->
-<!--            PROMOTION_UPLOAD_MENU_IMG-->
-<!--        </if>-->
-<!--        where promotion_bno = #{promotionBno}-->
-<!--    </select>-->
+    <!--  ==================================  files ==================================  -->
 
-<!--    <delete id="deleteFileOneInfo">-->
-<!--        delete from-->
-<!--        <if test="type == 'title'">-->
-<!--            PROMOTION_UPLOAD_TITLE_IMG-->
-<!--        </if>-->
-<!--        <if test="type == 'detail'">-->
-<!--            PROMOTION_UPLOAD_DETAIL_IMG-->
-<!--        </if>-->
-<!--        where promotion_bno = #{promotionBno}-->
-<!--        and file_name = #{fileName}-->
-<!--    </delete>-->
 
-<!--    <delete id="deleteFileAllInfo">-->
-<!--        delete from-->
-<!--        <if test="type == 'title'">-->
-<!--            PROMOTION_UPLOAD_TITLE_IMG-->
-<!--        </if>-->
-<!--        <if test="type == 'detail'">-->
-<!--            PROMOTION_UPLOAD_DETAIL_IMG-->
-<!--        </if>-->
-<!--        where promotion_bno = #{promotionBno}-->
-<!--    </delete>-->
+    <insert id="saveFiles">
+        <selectKey keyProperty="menuNo" order="BEFORE" resultType="long">
+            select max(menu_no) from promotion_food_menu
+            where promotion_bno = #{promotionBno}
+        </selectKey>
+        <if test="filePath.contains('title')">
+            insert into PROMOTION_UPLOAD_TITLE_IMG (
+            PROMOTION_BNO
+        </if>
+
+        <if test="filePath.contains('detail')">
+            insert into PROMOTION_UPLOAD_DETAIL_IMG (
+            PROMOTION_BNO
+        </if>
+
+        <if test="filePath.contains('menu')">
+            insert into PROMOTION_UPLOAD_MENU_IMG (
+            PROMOTION_BNO
+            ,MENU_NO
+        </if>
+        ,FILE_PATH ,FILE_NAME ,FILE_MEDIATYPE
+        ,FILE_SIZE ,FILE_BYTE ,FILE_DATA
+        )
+        VALUES (
+        #{promotionBno}
+        <if test="filePath.contains('menu')">
+            ,#{menuNo}
+        </if>
+        ,#{filePath} ,#{fileName} ,#{fileMediaType}
+        ,#{fileSize} ,#{fileByte} ,#{fileData}
+        )
+    </insert>
+
+    <resultMap id="FileDTO" type="com.project.foodiefoodie.proBoard.dto.FileDTO">
+        <result property="promotionBno" column="PROMOTION_BNO"/>
+        <result property="filePath" column="FILE_PATH"/>
+        <result property="fileName" column="FILE_NAME"/>
+        <result property="fileMediaType" column="FILE_MEDIATYPE"/>
+        <result property="fileSize" column="FILE_SIZE"/>
+        <result property="fileByte" column="FILE_BYTE"/>
+        <result property="fileData" column="FILE_DATA"/>
+    </resultMap>
+
+    <select id="selectFiles" resultMap="FileDTO">
+        select * from
+        <if test="type == 'title'">
+            PROMOTION_UPLOAD_TITLE_IMG
+        </if>
+        <if test="type == 'detail'">
+            PROMOTION_UPLOAD_DETAIL_IMG
+        </if>
+        <if test="type == 'menu'">
+            PROMOTION_UPLOAD_MENU_IMG
+        </if>
+        where promotion_bno = #{promotionBno}
+    </select>
+
+    <delete id="deleteFileOneInfo">
+        delete from
+        <if test="type == 'title'">
+            PROMOTION_UPLOAD_TITLE_IMG
+        </if>
+        <if test="type == 'detail'">
+            PROMOTION_UPLOAD_DETAIL_IMG
+        </if>
+        where promotion_bno = #{promotionBno}
+        and file_name = #{fileName}
+    </delete>
+
+    <delete id="deleteFileAllInfo">
+        delete from
+        <if test="type == 'title'">
+            PROMOTION_UPLOAD_TITLE_IMG
+        </if>
+        <if test="type == 'detail'">
+            PROMOTION_UPLOAD_DETAIL_IMG
+        </if>
+        where promotion_bno = #{promotionBno}
+    </delete>
 
     <!-- 오라클 -->
 
-    <insert id="saveProBoard">
+    <!--<insert id="saveProBoard">
         insert into PROMOTION_BOARD (
             BUSINESS_NO ,PROMOTION_BNO ,CONTENT
             ,LAST_UPDATED ,TITLE ,HASHTAG
@@ -328,7 +328,7 @@
     </insert>
 
 
-<!--  modify   -->
+&lt;!&ndash;  modify   &ndash;&gt;
 
     <update id="modifyProBoard">
         UPDATE PROMOTION_BOARD SET
@@ -351,9 +351,9 @@
     </update>
 
 
-    <!--    <update id="modify">-->
-    <!--        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}-->
-    <!--    </update>-->
+    &lt;!&ndash;    <update id="modify">&ndash;&gt;
+    &lt;!&ndash;        UPDATE promotion_board SET content = #{content}, last_updated = sysdate, title = #{title}&ndash;&gt;
+    &lt;!&ndash;    </update>&ndash;&gt;
 
         <delete id="deleteProBoard">
             DELETE FROM promotion_board WHERE promotion_bno = #{promotionBno}
@@ -374,7 +374,7 @@
         select * from master where BUSINESS_NO = #{businessNo}
     </select>
 
-    <!--  ================================== proBoard select ==================================  -->
+    &lt;!&ndash;  ================================== proBoard select ==================================  &ndash;&gt;
 
     <resultMap id="proBoardMap" type="com.project.foodiefoodie.proBoard.domain.ProBoard">
         <result property="businessNo" column="business_no"/>
@@ -391,11 +391,11 @@
         <result property="hotDeal" column="HOT_DEAL"/>
         <result property="storeCallNumber" column="STORE_CALL_NUMBER"/>
 
-<!--        <result property="filePath" column="FILE_PATH"/>-->
-<!--        <result property="fileName" column="FILE_NAME"/>-->
-<!--        <result property="fileMediaType" column="FILE_MEDIATYPE"/>-->
-<!--        <result property="fileSize" column="FILE_SIZE"/>-->
-<!--        <result property="fileData" column="FILE_DATA"/>-->
+&lt;!&ndash;        <result property="filePath" column="FILE_PATH"/>&ndash;&gt;
+&lt;!&ndash;        <result property="fileName" column="FILE_NAME"/>&ndash;&gt;
+&lt;!&ndash;        <result property="fileMediaType" column="FILE_MEDIATYPE"/>&ndash;&gt;
+&lt;!&ndash;        <result property="fileSize" column="FILE_SIZE"/>&ndash;&gt;
+&lt;!&ndash;        <result property="fileData" column="FILE_DATA"/>&ndash;&gt;
     </resultMap>
 
     <select id="selectProBoard" resultMap="proBoardMap">
@@ -429,7 +429,7 @@
         DELETE FROM favorite_store WHERE promotion_bno = #{promotionBno} and email = #{email}
     </delete>
 
-    <!--  ================================== menu ==================================  -->
+    &lt;!&ndash;  ================================== menu ==================================  &ndash;&gt;
 
     <resultMap id="menuDTO" type="com.project.foodiefoodie.proBoard.dto.MenuDTO">
         <result property="menuNo" column="menu_no"/>
@@ -476,7 +476,7 @@
 
 
 
-    <!--  ==================================  notice ==================================  -->
+    &lt;!&ndash;  ==================================  notice ==================================  &ndash;&gt;
     <resultMap id="noticeDTO" type="com.project.foodiefoodie.proBoard.dto.NoticeDTO">
         <result property="noticeNo" column="notice_no"/>
         <result property="updateDate" column="update_date"/>
@@ -493,7 +493,7 @@
         SELECT discount_price FROM hot_deal WHERE business_no = #{businessNo}
     </select>
 
-    <!--  ==================================  files ==================================  -->
+    &lt;!&ndash;  ==================================  files ==================================  &ndash;&gt;
 
         <insert id="saveFiles">
             <if test="filePath.contains('title')">
@@ -569,5 +569,5 @@
             PROMOTION_UPLOAD_DETAIL_IMG
         </if>
         where promotion_bno = #{promotionBno}
-    </delete>
+    </delete>-->
 </mapper>

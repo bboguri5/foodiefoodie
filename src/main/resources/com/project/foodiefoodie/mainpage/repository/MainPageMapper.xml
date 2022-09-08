@@ -36,6 +36,22 @@
 
     <!-- 오늘의 맛집 평점 순으로 전체 불러오기 -->
     <select id="findTopTodayAll" resultMap="mpMap">
+        <!--        oracle version -->
+<!--        SELECT *-->
+<!--        FROM (SELECT ROWNUM rn, sub.*-->
+<!--        FROM ( SELECT P.promotion_bno, M.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,-->
+<!--        discount_price, hashTag, file_data-->
+<!--        FROM promotion_board P JOIN master M-->
+<!--        ON P.business_no = M.business_no-->
+<!--        LEFT OUTER JOIN hot_deal H-->
+<!--        ON H.business_no = P.business_no-->
+<!--        JOIN promotion_upload_title_img PI-->
+<!--        ON PI.promotion_bno = P.promotion_bno-->
+<!--        ORDER BY avg_star_rate DESC-->
+<!--        ) sub)-->
+<!--        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})-->
+
+        <!--        mariaDB version -->
         SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM ( SELECT P.promotion_bno, M.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
@@ -47,21 +63,7 @@
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
         ORDER BY avg_star_rate DESC
-        ) sub)
-        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
-
-        <!--SELECT *
-        FROM (SELECT ROWNUM rn, sub.*
-        FROM ( SELECT P.promotion_bno, M.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
-        discount_price, hashTag, file_data
-        FROM promotion_board P JOIN master M
-        ON P.business_no = M.business_no
-        LEFT OUTER JOIN hot_deal H
-        ON H.business_no = P.business_no
-        JOIN promotion_upload_title_img PI
-        ON PI.promotion_bno = P.promotion_bno
-        ORDER BY avg_star_rate DESC
-        LIMIT (#{pageNum} - 1) * #{amount}, #{amount}-->
+        LIMIT (#{pageNum} - 1) * #{amount}, #{amount}
     </select>
 
     <!-- 오늘의 맛집 개수 계산 -->
@@ -149,22 +151,24 @@
 
     <!-- 현재 위치에 있는 랜덤 6개 가게 불러오기  -->
     <select id="findLocationRand" resultMap="mpMap">
-        SELECT *
-        FROM (
-        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
-        discount_price, hashTag, file_data
-        FROM promotion_board P JOIN master M
-        ON P.business_no = M.business_no
-        LEFT OUTER JOIN hot_deal H
-        ON H.business_no = P.business_no
-        JOIN promotion_upload_title_img PI
-        ON PI.promotion_bno = P.promotion_bno
-        WHERE store_address LIKE '%' || #{storeAddress}|| '%'
-        ORDER BY DBMS_RANDOM.RANDOM
-        ) sub
-        WHERE ROWNUM BETWEEN 1 AND 4
+        <!--        oracle version -->
+<!--        SELECT *-->
+<!--        FROM (-->
+<!--        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,-->
+<!--        discount_price, hashTag, file_data-->
+<!--        FROM promotion_board P JOIN master M-->
+<!--        ON P.business_no = M.business_no-->
+<!--        LEFT OUTER JOIN hot_deal H-->
+<!--        ON H.business_no = P.business_no-->
+<!--        JOIN promotion_upload_title_img PI-->
+<!--        ON PI.promotion_bno = P.promotion_bno-->
+<!--        WHERE store_address LIKE '%' || #{storeAddress}|| '%'-->
+<!--        ORDER BY DBMS_RANDOM.RANDOM-->
+<!--        ) sub-->
+<!--        WHERE ROWNUM BETWEEN 1 AND 4-->
 
-        <!-- SELECT *
+        <!--        mariaDB version -->
+        SELECT *
         FROM (
         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag, file_data
@@ -177,28 +181,30 @@
         WHERE store_address LIKE CONCAT('%', #{storeAddress}, '%')
         ORDER BY DBMS_RANDOM.RANDOM
         ) sub
-        WHERE ROWNUM BETWEEN 1 AND 4-->
+        WHERE ROWNUM BETWEEN 1 AND 4
     </select>
 
     <!-- 현재 위치에 있는 가게 전체 불러오기  -->
     <select id="findAllInLocation" resultMap="mpMap">
-        SELECT *
-        FROM (SELECT ROWNUM rn, sub.*
-        FROM (
-        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
-        discount_price, hashTag, file_data
-        FROM promotion_board P JOIN master M
-        ON P.business_no = M.business_no
-        LEFT OUTER JOIN hot_deal H
-        ON H.business_no = P.business_no
-        JOIN promotion_upload_title_img PI
-        ON PI.promotion_bno = P.promotion_bno
-        WHERE store_address LIKE '%' || #{storeAddress}|| '%'
-        ORDER BY avg_star_rate
-        ) sub)
-        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
+<!--        oracle version -->
+<!--        SELECT *-->
+<!--        FROM (SELECT ROWNUM rn, sub.*-->
+<!--        FROM (-->
+<!--        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,-->
+<!--        discount_price, hashTag, file_data-->
+<!--        FROM promotion_board P JOIN master M-->
+<!--        ON P.business_no = M.business_no-->
+<!--        LEFT OUTER JOIN hot_deal H-->
+<!--        ON H.business_no = P.business_no-->
+<!--        JOIN promotion_upload_title_img PI-->
+<!--        ON PI.promotion_bno = P.promotion_bno-->
+<!--        WHERE store_address LIKE '%' || #{storeAddress}|| '%'-->
+<!--        ORDER BY avg_star_rate-->
+<!--        ) sub)-->
+<!--        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})-->
 
-        <!--SELECT *
+        <!--        mariaDB version -->
+        SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
@@ -211,20 +217,22 @@
         ON PI.promotion_bno = P.promotion_bno
         WHERE store_address LIKE CONCAT('%', #{storeAddress}, '%')
         ORDER BY avg_star_rate
-        LIMIT (#{pageNum} - 1) * #{amount}, #{amount}-->
+        LIMIT (#{pageNum} - 1) * #{amount}, #{amount}
     </select>
 
     <!-- 현재 위치에 있는 가게 개수 계산 -->
     <select id="getLocationCnt" resultType="int">
-        SELECT COUNT(*)
-        FROM master M JOIN promotion_board P
-        ON M.business_no = P.business_no
-        WHERE store_address LIKE '%' || #{storeAddress}|| '%'
-
+        <!--        oracle version -->
         <!--SELECT COUNT(*)
         FROM master M JOIN promotion_board P
         ON M.business_no = P.business_no
-        WHERE store_address LIKE CONCAT('%', #{storeAddress}, '%')-->
+        WHERE store_address LIKE '%' || #{storeAddress}|| '%'-->
+
+        <!--        mariaDB version -->
+        SELECT COUNT(*)
+        FROM master M JOIN promotion_board P
+        ON M.business_no = P.business_no
+        WHERE store_address LIKE CONCAT('%', #{storeAddress}, '%')
     </select>
 
     <!-- hot deal 랜덤 6개 목록 요청-->
@@ -244,20 +252,7 @@
 
     <!-- hot deal 목록 요청-->
     <select id="findAllHotDeal" resultMap="mpMap">
-        SELECT *
-        FROM (SELECT ROWNUM rn, sub.*
-        FROM (
-        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
-        discount_price, hashTag, file_data
-        FROM promotion_board P JOIN hot_deal H
-        ON P.business_no = H.business_no
-        JOIN master M
-        ON H.business_no = M.business_no
-        JOIN promotion_upload_title_img PI
-        ON PI.promotion_bno = P.promotion_bno
-        WHERE Lower(hot_deal) = 'on') sub)
-        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})
-
+        <!--        oracle version -->
         <!--SELECT *
         FROM (SELECT ROWNUM rn, sub.*
         FROM (
@@ -269,9 +264,23 @@
         ON H.business_no = M.business_no
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
-        WHERE hot_deal = 'on'
-        LIMIT (#{pageNum} - 1) * #{amount}, #{amount}-->
+        WHERE Lower(hot_deal) = 'on') sub)
+        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})-->
 
+        <!--        mariaDB version -->
+        SELECT *
+        FROM (SELECT ROWNUM rn, sub.*
+        FROM (
+        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
+        discount_price, hashTag, file_data
+        FROM promotion_board P JOIN hot_deal H
+        ON P.business_no = H.business_no
+        JOIN master M
+        ON H.business_no = M.business_no
+        JOIN promotion_upload_title_img PI
+        ON PI.promotion_bno = P.promotion_bno
+        WHERE hot_deal = 'on'
+        LIMIT (#{pageNum} - 1) * #{amount}, #{amount}
     </select>
 
     <!-- 기간 내 핫딜 개수 -->
@@ -282,18 +291,21 @@
 
     <!-- 해당 해쉬태그 개수 구하기 -->
     <select id="findHashTagCount" resultType="int">
-        SELECT COUNT(*)
-        FROM promotion_board
-        WHERE hashTag LIKE '%' || #{hashTag} || '%'
-
+        <!--        oracle version -->
         <!--SELECT COUNT(*)
         FROM promotion_board
-        WHERE hashTag LIKE CONCAT('%', #{hashTag}, '%')-->
+        WHERE hashTag LIKE '%' || #{hashTag} || '%'-->
+
+        <!--        mariaDB version -->
+        SELECT COUNT(*)
+        FROM promotion_board
+        WHERE hashTag LIKE CONCAT('%', #{hashTag}, '%')
     </select>
 
     <!-- 해당 해쉬태그 리스트 가져오기 -->
     <select id="findHashTag" resultMap="mpMap">
-        SELECT *
+        <!--        oracle version -->
+        <!--SELECT *
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
@@ -307,9 +319,10 @@
         WHERE hashTag LIKE '%' || #{hashTag} || '%'
         ORDER BY avg_star_rate DESC
         ) t_pb)
-        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
+        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})-->
 
-        <!--        SELECT *
+        <!--        mariaDB version -->
+                SELECT *
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
@@ -322,12 +335,13 @@
         ON PI.promotion_bno = P.promotion_bno
         WHERE hashTag LIKE CONCAT('%', #{hashTag}, '%')
         ORDER BY avg_star_rate DESC
-        LIMIT (#{page.pageNum} - 1) * #{page.amount}, #{page.amount}-->
+        LIMIT (#{page.pageNum} - 1) * #{page.amount}, #{page.amount}
     </select>
 
     <!-- 해당 서치 리스트 가져오기 -->
     <select id="findAllSearch" resultMap="mpMap">
-        SELECT *
+        <!--        oracle version -->
+        <!--SELECT *
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
@@ -344,9 +358,9 @@
         <if test="sort == 'star'">ORDER BY avg_star_rate DESC</if>
         <if test="sort == 'latest'">ORDER BY P.last_updated</if>
         ) t_pb)
-        WHERE rn BETWEEN (#{s.pageNum} - 1) * #{s.amount} + 1 AND (#{s.pageNum} * #{s.amount})
+        WHERE rn BETWEEN (#{s.pageNum} - 1) * #{s.amount} + 1 AND (#{s.pageNum} * #{s.amount})-->
 
-        <!--
+        <!--        mariaDB version -->
         SELECT *
         FROM (SELECT ROWNUM rn, t_pb.*
         FROM (
@@ -363,29 +377,32 @@
         OR hashTag LIKE CONCAT('%', #{s.keyword}, '%')
         <if test="sort == 'star'">ORDER BY avg_star_rate DESC</if>
         <if test="sort == 'latest'">ORDER BY P.last_updated</if>
-        LIMIT (#{s.pageNum} - 1) * #{s.amount}, #{s.amount}-->
+        LIMIT (#{s.pageNum} - 1) * #{s.amount}, #{s.amount}
     </select>
 
     <!-- 해당 서치 개수 -->
     <select id="getTotalCount" resultType="int">
-        SELECT COUNT(*)
+        <!--        oracle version -->
+        <!--SELECT COUNT(*)
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         WHERE store_address LIKE '%' || #{keyword} || '%'
         OR store_name LIKE '%' || #{keyword} || '%'
-        OR hashTag LIKE '%' || #{keyword} || '%'
+        OR hashTag LIKE '%' || #{keyword} || '%'-->
 
-        <!--SELECT COUNT(*)
+        <!--        mariaDB version -->
+        SELECT COUNT(*)
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
         WHERE store_address LIKE CONCAT('%', #{keyword}, '%')
         OR store_name LIKE CONCAT('%', #{keyword}, '%')
-        OR hashTag LIKE CONCAT('%', #{keyword}, '%')-->
+        OR hashTag LIKE CONCAT('%', #{keyword}, '%')
 
     </select>
 
     <select id="isOpen" resultType="String">
-        <![CDATA[
+        <!--        oracle version -->
+        <!--<![CDATA[
         SELECT
         CASE
         WHEN (SELECT TO_CHAR(SYSDATE,'DY') FROM dual) = closedday THEN '오늘 휴무'
@@ -400,9 +417,10 @@
         END AS StoreTimeText
         FROM promotion_store_time
         WHERE promotion_bno = #{promotionBno}
-        ]]>
+        ]]>-->
 
-        <!--<![CDATA[
+        <!--        mariaDB version -->
+        <![CDATA[
         SELECT
         CASE
         WHEN (SELECT TO_CHAR(current_timestamp,'DY') FROM dual) = closedday THEN '오늘 휴무'
@@ -416,7 +434,7 @@
         END AS StoreTimeText
         FROM promotion_store_time
         WHERE promotion_bno = #{promotionBno}
-        ]]>-->
+        ]]>
     </select>
 
 </mapper>

@@ -17,13 +17,12 @@ public class DataBaseConfig {
     public DataSource dataSource() {
         HikariConfig config = new HikariConfig();
 
-//        config.setJdbcUrl("jdbc:mariadb://localhost:3306/teamB");
-//        config.setDriverClassName("org.mariadb.jdbc.Driver");
-
-        config.setUsername("teamB");
-        config.setPassword("1234");
-        config.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:xe");
-        config.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+        config.setJdbcUrl("jdbc:mariadb://database-1.ce2n3tdihqpa.ap-northeast-2.rds.amazonaws.com:3306/TEAM_B");
+        config.setDriverClassName("org.mariadb.jdbc.Driver");
+        config.setUsername("admin");
+        config.setPassword("Ehdwls12!");
+//        config.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:xe");
+//        config.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 
         return new HikariDataSource(config);
     }

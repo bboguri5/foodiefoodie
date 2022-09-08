@@ -30,15 +30,15 @@
 
 
 
-    <insert id="save">
+    <!--<insert id="save">
         INSERT INTO promotion_board (business_no, promotion_bno, content, title)
         VALUES (#{businessNo}, seq_promotion_board.nextval, #{content}, #{title})
-    </insert>
+    </insert>-->
 
-<!--    <insert id="save">-->
-<!--        INSERT INTO promotion_board (business_no, content, title)-->
-<!--        VALUES (#{businessNo}, #{content}, #{title})-->
-<!--    </insert>-->
+    <insert id="save">
+        INSERT INTO promotion_board (business_no, content, title)
+        VALUES (#{businessNo}, #{content}, #{title})
+    </insert>
 
     <select id="findOne" resultType="com.project.foodiefoodie.promotion.dto.PromotionReviewDTO">
         SELECT business_no AS businessNo, avg_star_rate AS avgStarRate, review_cnt AS reviewCnt

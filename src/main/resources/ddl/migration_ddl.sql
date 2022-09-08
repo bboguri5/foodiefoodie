@@ -57,7 +57,7 @@ CREATE TABLE auto_login (
 );
 
 -- 사업자
-CREATE TABLE MASTER (
+CREATE TABLE master (
     business_no VARCHAR(50) PRIMARY KEY
     , email VARCHAR(50) NOT NULL
     , master_name VARCHAR(15) NOT NULL
@@ -72,6 +72,8 @@ CREATE TABLE MASTER (
     FOREIGN KEY (email) REFERENCES member (email) ON DELETE CASCADE
 );
 
+
+
 -- 홍보글
 CREATE TABLE promotion_board (
     business_no VARCHAR(50) NOT NULL
@@ -84,7 +86,7 @@ CREATE TABLE promotion_board (
     , hashTag varchar(200) not null
     , report_cnt INT(2) default 0
     , CONSTRAINT fk_busi_no FOREIGN KEY (business_no)
-    REFERENCES MASTER (business_no) ON DELETE CASCADE
+    REFERENCES master (business_no) ON DELETE CASCADE
     , constraint pk_promo_bno primary key (promotion_bno)
 );
 
@@ -118,7 +120,7 @@ CREATE TABLE hot_deal (
     business_no VARCHAR(50) NOT NULL
     , discount_price INT(5) NOT NULL
     , CONSTRAINT fk_hotdeal_busi_no FOREIGN KEY (business_no)
-    REFERENCES MASTER (business_no) ON DELETE CASCADE
+    REFERENCES master (business_no) ON DELETE CASCADE
 );
 
 
@@ -228,7 +230,7 @@ create table report_master (
     business_no VARCHAR(50) NOT NULL
     , report_cnt INT (2) DEFAULT 1
     , CONSTRAINT fk_report_business_no FOREIGN KEY (business_no)
-    REFERENCES MASTER (business_no) ON DELETE CASCADE
+    REFERENCES master (business_no) ON DELETE CASCADE
 );
 
 
@@ -271,7 +273,7 @@ create table promotion_upload_title_img(
 
 
 -- 영업시간
- create table PROMOTION_STORE_TIME
+ create table promotion_store_time
     (
         promotion_bno INT(10) NOT NULL
         ,weekdayOpenTime varchar(10) NOT NULL
@@ -300,7 +302,7 @@ CREATE TABLE order_list (
     order_no INT(8) AUTO_INCREMENT
     , business_no VARCHAR(50) NOT NULL
     , CONSTRAINT fk_order_busi_no FOREIGN KEY (business_no)
-    REFERENCES MASTER (business_no) ON DELETE CASCADE
+    REFERENCES master (business_no) ON DELETE CASCADE
     , email VARCHAR(50) NOT NULL
     , CONSTRAINT fk_order_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
@@ -333,7 +335,7 @@ constraint pk_notice_no primary key (notice_no)
 
 
 
-create table PROMOTION_UPLOAD_MENU_IMG (
+create table promotion_upload_menu_img (
         promotion_bno INT(10)
         , menu_no INT(5)
         ,file_path TEXT
@@ -351,6 +353,7 @@ create table PROMOTION_UPLOAD_MENU_IMG (
 
 
 COMMIT;
+
 
 
 

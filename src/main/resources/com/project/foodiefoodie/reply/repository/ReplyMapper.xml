@@ -34,7 +34,7 @@
     </select>
 
     <select id="findAll" resultMap="replyMap">
-        SELECT *
+        <!--SELECT *
         FROM (
         SELECT ROWNUM rn, v_reply.*
         FROM (
@@ -44,14 +44,14 @@
         ORDER BY reply_no DESC
         ) v_reply
         )
-        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})
+        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})-->
 
 
-        <!--SELECT *
+        SELECT *
         FROM reply
         WHERE review_bno = #{reviewBno}
         ORDER BY reply_no DESC
-        LIMIT (#{page.pageNum} - 1) * #{page.amount}, #{page.amount}-->
+        LIMIT (#{page.pageNum} - 1) * #{page.amount}, #{page.amount}
 
     </select>
 
@@ -67,11 +67,11 @@
     </select>
 
     <insert id="save">
-        INSERT INTO reply
-        VALUES (#{reviewBno}, seq_reply.nextval, #{email}, #{content}, #{nickName}, SYSDATE)
+        <!--INSERT INTO reply
+        VALUES (#{reviewBno}, seq_reply.nextval, #{email}, #{content}, #{nickName}, SYSDATE)-->
 
-        <!--INSERT INTO reply (review_bno, email, content, nickName, last_updated)
-        VALUES (#{reviewBno}, #{email}, #{content}, #{nickName}, current_timestamp)-->
+        INSERT INTO reply (review_bno, email, content, nickName, last_updated)
+        VALUES (#{reviewBno}, #{email}, #{content}, #{nickName}, current_timestamp)
     </insert>
 
     <!--  댓글 수정  -->

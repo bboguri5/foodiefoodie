@@ -6,7 +6,7 @@
 
         <!--    mySQL  -->
     <insert id="saveProBoard">
-        insert into PROMOTION_BOARD (
+        insert into promotion_board (
         BUSINESS_NO ,CONTENT
         ,LAST_UPDATED ,TITLE ,HASHTAG
         )
@@ -17,7 +17,7 @@
     </insert>
 
     <insert id="saveStoreTime">
-        insert into PROMOTION_STORE_TIME VALUES (
+        insert into promotion_store_time VALUES (
         #{promotionBno}
         ,#{weekdayOpenTime}
         ,#{weekdayCloseTime}
@@ -43,7 +43,7 @@
     <!--  modify   -->
 
     <update id="modifyProBoard">
-        UPDATE PROMOTION_BOARD SET
+        UPDATE promotion_board SET
         CONTENT = #{content} , LAST_UPDATED = sysdate ,TITLE = #{title} ,HASHTAG = #{hashTag}
         where promotion_bno = #{promotionBno}
 
@@ -51,7 +51,7 @@
 
     <update id="modifyStoreTime">
 
-        UPDATE PROMOTION_STORE_TIME SET
+        UPDATE promotion_store_time SET
         WEEKDAYOPENTIME = #{weekdayOpenTime}
         ,WEEKDAYCLOSETIME = #{weekdayCloseTime}
         ,WEEKENDOPENTIME = #{weekendOpenTime}
@@ -123,7 +123,7 @@
     </select>
 
     <select id="selectPromotionBno" resultType="int">
-        select promotion_bno from PROMOTION_BOARD where business_no = #{businessNo}
+        select promotion_bno from promotion_board where business_no = #{businessNo}
     </select>
 
     <insert id="addFavoriteStore">
@@ -170,11 +170,11 @@
     </select>
 
     <insert id="saveMenuInfo">
-        insert into PROMOTION_FOOD_MENU
+        insert into promotion_food_menu
         (promotion_bno,menu_name,price)
         VALUES (
-        SEQ_PROMOTION_FOOD_MENU.nextval
-        ,#{promotionBno}
+<!--        여기 seq.~~~.nextval 그대로 있길래 지웠어요-->
+        #{promotionBno}
         ,#{menuName}
         ,#{menuPrice}
         )
@@ -216,17 +216,17 @@
             where promotion_bno = #{promotionBno}
         </selectKey>
         <if test="filePath.contains('title')">
-            insert into PROMOTION_UPLOAD_TITLE_IMG (
+            insert into promotion_upload_title_img (
             PROMOTION_BNO
         </if>
 
         <if test="filePath.contains('detail')">
-            insert into PROMOTION_UPLOAD_DETAIL_IMG (
+            insert into promotion_upload_detail-img (
             PROMOTION_BNO
         </if>
 
         <if test="filePath.contains('menu')">
-            insert into PROMOTION_UPLOAD_MENU_IMG (
+            insert into promotion_upload_menu_img (
             PROMOTION_BNO
             ,MENU_NO
         </if>
@@ -256,13 +256,13 @@
     <select id="selectFiles" resultMap="FileDTO">
         select * from
         <if test="type == 'title'">
-            PROMOTION_UPLOAD_TITLE_IMG
+            promotion_upload_title_img
         </if>
         <if test="type == 'detail'">
-            PROMOTION_UPLOAD_DETAIL_IMG
+            promotion_upload_detail_img
         </if>
         <if test="type == 'menu'">
-            PROMOTION_UPLOAD_MENU_IMG
+            promotion_upload_menu_img
         </if>
         where promotion_bno = #{promotionBno}
     </select>
@@ -270,10 +270,10 @@
     <delete id="deleteFileOneInfo">
         delete from
         <if test="type == 'title'">
-            PROMOTION_UPLOAD_TITLE_IMG
+            promotion_upload_title_img
         </if>
         <if test="type == 'detail'">
-            PROMOTION_UPLOAD_DETAIL_IMG
+            promotion_upload_detail_img
         </if>
         where promotion_bno = #{promotionBno}
         and file_name = #{fileName}
@@ -282,10 +282,10 @@
     <delete id="deleteFileAllInfo">
         delete from
         <if test="type == 'title'">
-            PROMOTION_UPLOAD_TITLE_IMG
+            promotion_upload_title_img
         </if>
         <if test="type == 'detail'">
-            PROMOTION_UPLOAD_DETAIL_IMG
+            promotion_upload_detail_img
         </if>
         where promotion_bno = #{promotionBno}
     </delete>

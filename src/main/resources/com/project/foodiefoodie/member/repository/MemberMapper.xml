@@ -12,6 +12,7 @@
         <result column="extra_address" property="extraAddress"/>
     </resultMap>
 
+
     <update id="authDownCommon">
         UPDATE member
         set auth = 'COMMON'

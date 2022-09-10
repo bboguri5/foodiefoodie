@@ -440,7 +440,9 @@
                 location.href = '/board/delete?boardNo=${b.boardNo}';
             };
         }
+        
 
+        // 가게 수정 
         if ($passwordBtn !== null) {
             $passwordBtn.onclick = e => {
                 console.log('click password');

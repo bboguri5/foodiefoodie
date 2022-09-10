@@ -34,13 +34,13 @@ public class MyPageController {
 //    private final MyReviewDTO reviewDTO;
 
 
-    @GetMapping("/passwordModal")
+    @GetMapping("/myPage/passwordModal")
     public String passwordModal() {
         log.info("passwordModal");
         return "/myPage/passwordModal";
     }
 
-    @GetMapping("/myReview")
+    @GetMapping("/myPage/myReview")
     public String myReviewList(HttpSession session, Model model) {
         // 여기에 리뷰의 제목, 내용 짧게 , 사진 의 주소를 리턴해야된다 !
         Member member = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);

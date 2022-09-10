@@ -25,7 +25,7 @@ public class FavoriteListController {
 
 
 
-    @GetMapping("/favoriteList")
+    @GetMapping("/myPage/favoriteList")
     public String favoriteInfoList(HttpSession session , Model model){
 
         Member loginUser = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);

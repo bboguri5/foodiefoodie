@@ -87,11 +87,13 @@ public class MasterController {
         return "redirect:/request-auth";
     }
 
+
     @GetMapping("/masterInfo/{masterNum}")
     public String masterInfo(@PathVariable int masterNum, HttpSession session, Model model) {
         Member loginUser = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = loginUser.getEmail();
         log.info("\n\n=====\n\n");
+
         log.info("welcome /masterInfo -loginUser-Auth :?? {}", loginUser.getAuth());
         List<Master> masters = masterService.allMaster(email);
         Master master = masters.get(masterNum);
@@ -113,21 +115,16 @@ public class MasterController {
     @GetMapping("/masterInfoModi/{masterNum}")
     public String masterInfoModi(@PathVariable int masterNum, HttpSession session, Model model) {
 
+
         Member loginUser = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = loginUser.getEmail();
 
-
         log.info("welcome /masterInfoModi -loginUser-Auth :?? {}", loginUser.getAuth());
 
-
         List<Master> masters = masterService.allMaster(email);
-        for (Master master : masters) {
-            log.info(master);
-
-        }
 
         Master master = masters.get(masterNum);
-        log.info(master);
+        // 아니 storeRegDate 가 없는데 왜 자꾸 없다그래 ...
 
         model.addAttribute("master", master);
         model.addAttribute("masterNum", masterNum);

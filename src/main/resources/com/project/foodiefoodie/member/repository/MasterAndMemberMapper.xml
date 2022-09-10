@@ -8,7 +8,6 @@
     <resultMap id="masterMap" type="com.project.foodiefoodie.member.domain.MasterAndMember">
         <result property="nickName" column="nick_name"/>
         <result property="phoneNumber" column="phone_number"/>
-        <result property="regDate" column="regist_date"/>
         <result property="businessNo" column="business_no"/>
         <result property="masterName" column="master_name"/>
         <result property="storeName" column="store_name"/>
@@ -26,7 +25,7 @@
     <select id="findMaster" resultMap="masterMap">
         SELECT
         a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date
+        , a.name, a.gender, a.auth
         , b.business_no, b.store_name, b.store_address, b.master_name
         , b.hot_deal, b.store_call_number, a.detail_address
         , a.extra_address, b.store_detail_address, b.store_extra_address, b.promotion_auth
@@ -40,7 +39,7 @@
     <select id="findOneMaster" resultMap="masterMap">
         SELECT
         a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date
+        , a.name, a.gender, a.auth
         , b.business_no, b.store_name, b.store_address, b.master_name
         , b.hot_deal, b.store_call_number, a.detail_address
         , a.extra_address, b.store_detail_address, b.store_extra_address, b.promotion_auth
@@ -54,7 +53,7 @@
     <select id="approveMaster" resultMap="masterMap">
         SELECT
         a.email, a.nick_name, a.phone_number, a.birth, a.address
-        , a.name, a.gender, a.auth, a.regist_date
+        , a.name, a.gender, a.auth
         , b.business_no, b.store_name, b.store_address, b.master_name
         , b.hot_deal, b.store_call_number, a.detail_address
         , a.extra_address, b.store_detail_address, b.store_extra_address, b.promotion_auth

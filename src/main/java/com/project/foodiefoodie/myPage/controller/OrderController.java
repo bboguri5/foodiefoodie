@@ -34,7 +34,7 @@ public class OrderController {
 
 
     // 마스터 계산
-    @GetMapping("/masterOrderList/{masterNum}")
+    @GetMapping("/myPage/masterOrderList/{masterNum}")
     public String masterOrderList(@PathVariable int masterNum, HttpSession session, Model model) {
         Member loginUser = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = loginUser.getEmail();
@@ -123,7 +123,7 @@ public class OrderController {
 
 
     // 유저 계산
-    @GetMapping("/userOrderList")
+    @GetMapping("/myPage/userOrderList")
     public String userOrderList(HttpSession session, Model model) {
         Member loginUser = (Member) session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = loginUser.getEmail();

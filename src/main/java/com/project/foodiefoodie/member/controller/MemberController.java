@@ -51,7 +51,7 @@ public class MemberController {
     }
 
 
-    // 아이디, 이메일 중복확인 비동기 요청 처리
+    // 이메일 or 닉네임 중복확인 비동기 요청 처리
     @GetMapping("/member/check")
     @ResponseBody
     public ResponseEntity<String> check(DuplicateDTO dto) {
@@ -65,11 +65,11 @@ public class MemberController {
         else { // 블랙 리스트가 아닌 경우
             boolean flag = memberService.checkDuplicate(dto);
 
-            if (flag) { // 중복된 이메일인 경우
+            if (flag) { // 중복된 이메일 or 닉네임인 경우
                 return new ResponseEntity<>("duplicate", HttpStatus.OK);
             }
 
-            // 사용 가능한 이메일인 경우
+            // 사용 가능한 이메일 or 닉네임인 경우
             return new ResponseEntity<>("possible", HttpStatus.OK);
         }
     }

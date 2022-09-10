@@ -41,7 +41,7 @@ CREATE TABLE member (
     , name VARCHAR(15) NOT NULL
     , gender VARCHAR(2) NOT NULL
     , auth VARCHAR(20) DEFAULT 'COMMON'
-    , regist_date DATE DEFAULT current_timestamp
+    , regist_date DATETIME DEFAULT current_timestamp
     , detail_address VARCHAR(50)
     , extra_address VARCHAR(50)
 );
@@ -51,7 +51,7 @@ CREATE TABLE member (
 CREATE TABLE auto_login (
     email VARCHAR(50) NOT NULL
     , session_id VARCHAR(50) NOT NULL
-    , logout_time DATE
+    , logout_time DATETIME
     , CONSTRAINT fk_auto_login_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
 );
@@ -79,7 +79,7 @@ CREATE TABLE promotion_board (
     business_no VARCHAR(50) NOT NULL
     , promotion_bno INT(10) AUTO_INCREMENT
     , content TEXT
-    , last_updated DATE DEFAULT CURRENT_TIMESTAMP
+    , last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
     , title VARCHAR(70)
     , avg_star_rate DECIMAL(3, 2) DEFAULT 0
     , review_cnt INT(10) DEFAULT 0
@@ -100,7 +100,7 @@ CREATE TABLE review_board (
     , content TEXT
     , review_bno INT(10) AUTO_INCREMENT
     , business_no VARCHAR(50) NULL
-    , last_updated DATE DEFAULT CURRENT_TIMESTAMP
+    , last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
     , like_cnt INT(8) DEFAULT 0
     , star_rate INT(2) DEFAULT 5
     , private VARCHAR(2) DEFAULT 'F'
@@ -141,7 +141,7 @@ CREATE TABLE reply (
     , email VARCHAR(50) NOT NULL
     , content TEXT
     , nick_name VARCHAR(30) NOT NULL
-    , last_updated DATE DEFAULT CURRENT_TIMESTAMP
+    , last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
     , CONSTRAINT fk_rep_rev_bno FOREIGN KEY (review_bno)
     REFERENCES review_board (review_bno) ON DELETE CASCADE
     , CONSTRAINT fk_rep_email FOREIGN KEY (email)
@@ -306,7 +306,7 @@ CREATE TABLE order_list (
     , email VARCHAR(50) NOT NULL
     , CONSTRAINT fk_order_email FOREIGN KEY (email)
     REFERENCES member (email) ON DELETE CASCADE
-    , order_date DATE DEFAULT CURRENT_TIMESTAMP -- 주문 날짜
+    , order_date DATETIME DEFAULT CURRENT_TIMESTAMP -- 주문 날짜
     , constraint pk_order_no primary key (order_no)
 );
 
@@ -327,7 +327,7 @@ create table promotion_notice
 promotion_bno INT(10),
 notice_no INT(10) AUTO_INCREMENT,
 content varchar(300) NOT NULL,
-update_date date DEFAULT CURRENT_TIMESTAMP NOT NULL,
+update_date DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
 CONSTRAINT fk_promotion_bno_notice FOREIGN KEY (promotion_bno)
 REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE,
 constraint pk_notice_no primary key (notice_no)

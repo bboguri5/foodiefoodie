@@ -211,13 +211,16 @@ public class ProBoardService {
         if (!menuList.get(0)[0].isEmpty()) {
             List<FileDTO> menuFileDTOs = uploadSaveFiles(proBoard, menuFileList, "menu");
 
+            int promotionBno = proBoard.getPromotionBno();
             for (int i = 0; i < menuList.get(0).length; i++) {
 
                 MenuDTO menuDTO = new MenuDTO();
-                menuDTO.setPromotionBno(proBoard.getPromotionBno());
+                menuDTO.setPromotionBno(promotionBno);
                 menuDTO.setMenuName(menuList.get(0)[i]);
                 menuDTO.setMenuPrice(Integer.parseInt(menuList.get(1)[i]));
                 proBoardMapper.saveMenuInfo(menuDTO);
+
+                menuFileDTOs.get(i).setMenuNo(proBoardMapper.selectMenuNo(promotionBno));//menu no set
 
                 proBoardMapper.saveFiles(menuFileDTOs.get(i));
             }

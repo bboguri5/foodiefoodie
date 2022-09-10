@@ -47,6 +47,8 @@ public interface ProBoardMapper {
     List<MenuDTO> selectMenuInfo(int promotionBno);
     boolean deleteMenuInfo(int promotionBno);
 
+    int selectMenuNo(int promotionBno);
+
     /* ============================= notice =============================== */
     boolean saveNotice(NoticeDTO noticeDTO);
 

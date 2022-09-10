@@ -28,21 +28,14 @@
     </insert>
 
 
-    <insert id="saveNotice">
-        insert into promotion_notice
-        (promotion_bno, content)
-        values(
-        ,#{promotionBno}
-        ,#{content}
-        )
-    </insert>
+
 
 
     <!--  modify   -->
 
     <update id="modifyProBoard">
         UPDATE promotion_board SET
-        CONTENT = #{content} , LAST_UPDATED = c ,TITLE = #{title} ,HASHTAG = #{hashTag}
+        CONTENT = #{content} ,TITLE = #{title} ,HASHTAG = #{hashTag}
         where promotion_bno = #{promotionBno}
 
     </update>
@@ -189,6 +182,16 @@
 
 
     <!--  ==================================  notice ==================================  -->
+
+    <insert id="saveNotice">
+        insert into promotion_notice
+        (promotion_bno, content)
+        values(
+        ,#{promotionBno}
+        ,#{content}
+        )
+    </insert>
+
     <resultMap id="noticeDTO" type="com.project.foodiefoodie.proBoard.dto.NoticeDTO">
         <result property="noticeNo" column="notice_no"/>
         <result property="updateDate" column="update_date"/>
@@ -207,29 +210,30 @@
 
     <!--  ==================================  files ==================================  -->
 
+    <select id="selectMenuNo" resultType="int">
+        select max(menu_no) from promotion_food_menu
+        where promotion_bno = #{promotionBno}
+    </select>
 
     <insert id="saveFiles">
-        <selectKey keyProperty="menuNo" order="BEFORE" resultType="long">
-            select max(menu_no) from promotion_food_menu
-            where promotion_bno = #{promotionBno}
-        </selectKey>
+
         <if test="filePath.contains('title')">
             insert into promotion_upload_title_img (
-            PROMOTION_BNO
+            promotion_bno
         </if>
 
         <if test="filePath.contains('detail')">
-            insert into promotion_upload_detail-img (
-            PROMOTION_BNO
+            insert into promotion_upload_detail_img (
+            promotion_bno
         </if>
 
         <if test="filePath.contains('menu')">
             insert into promotion_upload_menu_img (
-            PROMOTION_BNO
-            ,MENU_NO
+            promotion_bno
+            ,menu_no
         </if>
-        ,FILE_PATH ,FILE_NAME ,FILE_MEDIATYPE
-        ,FILE_SIZE ,FILE_BYTE ,FILE_DATA
+        ,file_path ,file_name ,file_mediatype
+        ,file_size ,file_byte ,file_data
         )
         VALUES (
         #{promotionBno}
@@ -411,7 +415,7 @@
     <select id="selectPromotionBno" resultType="int">
         select promotion_bno from PROMOTION_BOARD where business_no = #{businessNo}
     </select>
-    
+
     <insert id="addFavoriteStore">
         INSERT INTO favorite_store VALUES (#{email},#{promotionBno})
     </insert>

@@ -44,6 +44,6 @@ public class FileDTO  {
         this.fileSize = file.length();
         this.fileData = String.format("data:%s;base64,%s", fileMediaType, fileByte);
 
-        log.info(" object FileDTO : {} {}",this.filePath, this.fileName);
+        log.info(" object FileDTO : {} {} {}",this.filePath, this.fileName,this.fileSize);
     }
 }

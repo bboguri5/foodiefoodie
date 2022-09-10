@@ -23,7 +23,7 @@
 
 
     <select id="findCurrentOrderNo" resultType="int">
-        SELECT order_no
+        SELECT MAX(order_no)
         FROM order_list
         WHERE order_date = (SELECT MAX(order_date)
                             FROM order_list

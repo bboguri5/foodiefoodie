@@ -70,7 +70,7 @@
         <!--INSERT INTO reply
         VALUES (#{reviewBno}, seq_reply.nextval, #{email}, #{content}, #{nickName}, SYSDATE)-->
 
-        INSERT INTO reply (review_bno, email, content, nickName, last_updated)
+        INSERT INTO reply (review_bno, email, content, nick_name, last_updated)
         VALUES (#{reviewBno}, #{email}, #{content}, #{nickName}, current_timestamp)
     </insert>
 

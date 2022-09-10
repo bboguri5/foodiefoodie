@@ -10,6 +10,10 @@
 	<%@ include file="../include/static-head.jsp" %>
 
 	<style>
+		main {
+			height: 65vh;
+		}
+
 		.box_booking_2 {
 			margin-top: 50px;
 		}

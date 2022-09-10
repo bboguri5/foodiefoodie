@@ -20,7 +20,7 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">내가 주문한 내역</a>
+                    <a href="#">나의 주문 내역</a>
                 </li>
             
             </ol>
@@ -38,8 +38,8 @@
                                     <th>주문 내역</th>
                                     <th>할인 전 가격</th>
                                     <th>할인율</th>
-                                    <th>할인 된 가격</th>
-                                    <th>날 짜</th>
+                                    <th>총 결제 금액</th>
+                                    <th>주문 일자</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -49,8 +49,8 @@
                                     <th>주문 내역</th>
                                     <th>할인 전 가격</th>
                                     <th>할인율</th>
-                                    <th>할인 된 가격</th>
-                                    <th>날 짜</th>
+                                    <th>총 결제 금액</th>
+                                    <th>주문 일자</th>
                                 </tr>
                             </tfoot>
 
@@ -124,11 +124,11 @@
                             <input type="text" class="form-control modal-discount" name="discount" value="${userOrder.discount}" readonly>
                         </div>
                         <div class="form-group">
-                            <label>할인 후 가격</label>
+                            <label>총 결제 금액</label>
                             <input type="text" class="form-control modal-realMoney" name="realMoney" value="${userOrder.realMoney}" readonly>
                         </div>
                         <div class="form-group">
-                            <label>날짜</label>
+                            <label>주문 일자</label>
                             <input type="text" class="form-control modal-orderDate" name="orderDate" value="${userOrder.orderDate}" readonly>
                         </div>
 

@@ -121,10 +121,10 @@
         store_name, store_address
         FROM review_board
         WHERE private = 'F'
-        AND ROWNUM BETWEEN 1 AND 5
         AND BUSINESS_NO = #{search}
         <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
         <if test="sort == 'like'">ORDER BY like_cnt DESC</if>
+        limit 5
     </select>
 
     <insert id="reviewUpload">
@@ -168,9 +168,7 @@
     </select>
 
     <select id="findNewReviewNo" resultType="long">
-        select review_bno
-        from (select * from review_board order by review_bno desc)
-        where rownum = 1
+        select review_bno from review_board order by review_bno desc limit 1;
     </select>
 
     <select id="isLiked" resultType="int">
@@ -187,7 +185,7 @@
     </insert>
 
     <update id="modifyReview">
-        update review_board set title = #{title}, content = #{content}, private = #{isPrivate}, last_updated = sysdate, store_name = #{storeName}
+        update review_board set title = #{title}, content = #{content}, private = #{isPrivate}, store_name = #{storeName}
         , store_address = #{storeAddress}, store_detail_address = #{storeDetailAddress}, store_extra_address = #{storeExtraAddress}, star_rate = #{starRate}
         where review_bno = #{reviewBno}
     </update>

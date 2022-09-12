@@ -7,10 +7,10 @@
         <!--    mySQL  -->
     <insert id="saveProBoard">
         insert into promotion_board (
-        BUSINESS_NO ,CONTENT,TITLE ,HASHTAG
+        BUSINESS_NO ,CONTENT,TITLE ,HASHTAG,last_updated
         )
         VALUES (
-        #{businessNo} ,#{content} ,#{title} ,#{hashTag}
+        #{businessNo} ,#{content} ,#{title} ,#{hashTag},now()
         )
     </insert>
 
@@ -28,14 +28,11 @@
     </insert>
 
 
-
-
-
     <!--  modify   -->
 
     <update id="modifyProBoard">
         UPDATE promotion_board SET
-        CONTENT = #{content} ,TITLE = #{title} ,HASHTAG = #{hashTag}
+        CONTENT = #{content} ,TITLE = #{title} ,HASHTAG = #{hashTag} , last_updated = now()
         where promotion_bno = #{promotionBno}
 
     </update>
@@ -185,10 +182,11 @@
 
     <insert id="saveNotice">
         insert into promotion_notice
-        (promotion_bno, content)
+        (promotion_bno, content,update_date)
         values(
-        ,#{promotionBno}
+        #{promotionBno}
         ,#{content}
+        ,now()
         )
     </insert>
 

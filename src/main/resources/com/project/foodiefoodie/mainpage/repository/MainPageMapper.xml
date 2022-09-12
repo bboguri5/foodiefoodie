@@ -273,7 +273,7 @@
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
         WHERE hot_deal = 'on'
-        LIMIT #{page.start}, #{page.amount}
+        LIMIT #{start}, #{amount}
     </select>
 
     <!-- 기간 내 핫딜 개수 -->

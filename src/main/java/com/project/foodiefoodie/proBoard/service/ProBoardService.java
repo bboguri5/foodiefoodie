@@ -82,6 +82,10 @@ public class ProBoardService {
         return proBoardMapper.selectProBoard(promotionBno);
     }
 
+    public  ProBoard selectProBoardBusiness(String businessNo){
+        return proBoardMapper.selectProBoardBusiness(businessNo);
+    }
+
     public boolean deleteProBoard(int promotionBno)
     {
         return proBoardMapper.deleteProBoard(promotionBno);

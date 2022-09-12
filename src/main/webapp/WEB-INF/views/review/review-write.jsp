@@ -351,8 +351,8 @@
                 <!-- /box_general -->
 
                 <!-- /.container-wrapper-->
-                <p class="save-buttons"><button type="button" class="btn_1 medium save">저장</button> <a href="/review?sort=latest"
-                        class="btn_1 medium gray">취소</a>
+                <p class="save-buttons"><button type="button" class="btn_1 medium save">저장</button> <a
+                        href="/review?sort=latest" class="btn_1 medium gray">취소</a>
                 </p>
         </form>
 
@@ -484,6 +484,31 @@
     <!-- /주소 검증 -->
 
     <script>
+
+        function createBusinessValHiddenInput(result) {
+            const $newInput = document.createElement('input')
+            $newInput.type = 'hidden';
+            $newInput.name = 'businessNo';
+            $newInput.value = result;
+
+            $('.container-fluid').append($newInput);
+        }
+
+        function getProboardInfo(result) {
+            fetch('/review/write/master/' + result)
+                .then(res => res.json())
+                .then(infoMap => {
+                    const proBoard = infoMap.proBoard;
+                    console.log(proBoard);
+                    $('.store-address').val(proBoard.storeAddress);
+                    $('.store-detail-address').val(proBoard
+                        .storeDetailAddress);
+                    $('.store-extra-address').val(proBoard
+                        .storeExtraAddress);
+                    $('.store-name').val(proBoard.storeName);
+                })
+        }
+
         // -------------- fiel upload and file dropzone --------------
         Dropzone.autoDiscover = false;
         const receiptDropzone = new Dropzone("#receipt-dropzone.dropzone", {
@@ -499,6 +524,40 @@
             addRemoveLinks: true,
             dictRemoveFile: 'X',
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
+
+            init: function () {
+                let myDropzone = this;
+
+                this.on('addedfile', function (file) {
+                    if (`${businessNo}`.length === 0) { // 홍보글에서 작성하기 구분하기 위함 
+
+                        const formData = new FormData();
+                        formData.append('file', file)
+
+                        const obj = {
+                            method: "POST",
+                            body: formData
+                        };
+
+                        fetch('/review/write/receipt', obj)
+                            .then(res => res.text())
+                            .then(result => {
+                                if (result != "failed") {
+
+                                    createBusinessValHiddenInput(result);
+                                    alert("등록되어있는 식당입니다.");
+
+                                    if (confirm("식당 정보를 가져올까요?")) {
+                                        getProboardInfo(result);
+                                    }
+                                } else {
+                                    alert("등록되지않은 식당입니다.");
+                                }
+                            })
+                    }
+
+                });
+            }
         });
         let overlapSet = new Set();
         const reviewDropzone = new Dropzone("#review-dropzone.dropzone", {

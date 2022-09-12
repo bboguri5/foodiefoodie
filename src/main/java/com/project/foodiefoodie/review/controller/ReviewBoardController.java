@@ -3,6 +3,8 @@ package com.project.foodiefoodie.review.controller;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.service.MasterService;
+import com.project.foodiefoodie.proBoard.domain.ProBoard;
+import com.project.foodiefoodie.proBoard.service.ProBoardService;
 import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.replyFaq.domain.ReplyFaq;
@@ -13,21 +15,23 @@ import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
 import com.project.foodiefoodie.reviewFaq.domain.ReviewFaq;
 import com.project.foodiefoodie.reviewFaq.service.ReviewFaqService;
+import com.project.foodiefoodie.util.FoodieFileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Log4j2
@@ -39,6 +43,8 @@ public class ReviewBoardController {
     private final MasterService masterService;
     private final ReviewFaqService reviewFaqService;
     private final ReplyFaqService replyFaqService;
+
+    private final ProBoardService proBoardService;
 
     @GetMapping("/review")
     public String review(String sort, Model model,  HttpSession session) {
@@ -241,5 +247,33 @@ public class ReviewBoardController {
         replyFaqService.saveService(replyFaq);
 
         return "redirect:/review?sort=latest";
+    }
+
+    @PostMapping("/review/write/receipt")
+    @ResponseBody
+    public String checkReceipt(@RequestBody MultipartFile file)
+    {
+        if(file.getSize()==0)return null;
+
+        String path = "C:\\receipt";
+
+        String uploadFile = FoodieFileUtils.uploadFile(file, path);
+        String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile);
+
+        log.info("/review/write/receipt checkReceipt - {}",registeredBusiness);
+
+        return registeredBusiness != null ? registeredBusiness : "failed";
+    }
+
+    @GetMapping("review/write/master/{businessNo}")
+    @ResponseBody
+    public Map<String, ProBoard> getMaster(@PathVariable String businessNo){
+
+        log.info("review/write/master/{businessNo} getMaster - {}",businessNo);
+        Map<String, ProBoard> infoMap = new HashMap<>();
+        ProBoard proBoard = proBoardService.selectProBoardBusiness(businessNo);
+        infoMap.put("proBoard",proBoard);
+        log.info("{}",proBoard);
+        return infoMap;
     }
 }

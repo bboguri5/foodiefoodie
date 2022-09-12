@@ -1,12 +1,15 @@
 package com.project.foodiefoodie.review.service;
 
+import com.project.foodiefoodie.proBoard.domain.ProBoard;
 import com.project.foodiefoodie.proBoard.dto.MenuDTO;
+import com.project.foodiefoodie.proBoard.repository.ProBoardMapper;
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
 import com.project.foodiefoodie.review.domain.ReviewUpload;
 import com.project.foodiefoodie.review.dto.*;
 import com.project.foodiefoodie.review.repository.ReviewBoardMapper;
 import com.project.foodiefoodie.util.FoodieFileUtils;
+import com.project.foodiefoodie.util.OCRUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,8 @@ public class ReviewBoardService {
 
     private final ReviewBoardMapper rbMapper;
     private final PromotionBoardMapper pbMapper;
+
+    private  final ProBoardMapper proBoardMapper;
 
 //    public List<AvgStarDTO> avgStarRateService() {
 //        return mapper.avgStarRate();
@@ -443,10 +448,23 @@ public class ReviewBoardService {
 
 
 
+    public String getRegisteredBusiness(String filePath){
+        String approvalReceipt = OCRUtils.recognizeReceipt(filePath);
 
+        if(approvalReceipt!= null)
+        {
+            List<ProBoard> proBoards = proBoardMapper.selectProBoardAll();
 
+            for(ProBoard board: proBoards)
+            {
+                if(approvalReceipt.contains(board.getBusinessNo()))
+                {
+                    return board.getBusinessNo();
+                }
+            }
+        }
 
-
-
+        return approvalReceipt;
+    }
 
 }

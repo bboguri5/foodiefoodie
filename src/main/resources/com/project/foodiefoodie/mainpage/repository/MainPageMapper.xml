@@ -31,7 +31,7 @@
         ON PI.promotion_bno = P.promotion_bno
         ORDER BY avg_star_rate DESC
         ) sub
-        WHERE ROWNUM BETWEEN 1 AND 7
+        LIMIT 1, 7
     </select>
 
     <!-- 오늘의 맛집 평점 순으로 전체 불러오기 -->
@@ -61,7 +61,7 @@
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
         ORDER BY avg_star_rate DESC
-        LIMIT #{page.start}, #{page.amount}
+        LIMIT #{start}, #{amount}
     </select>
 
     <!-- 오늘의 맛집 개수 계산 -->

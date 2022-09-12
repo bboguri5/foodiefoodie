@@ -217,9 +217,6 @@
         }
     </style>
 
-
-
-
 </head>
 
 <body class="fixed-nav" id="page-top">
@@ -484,7 +481,6 @@
     <!-- /주소 검증 -->
 
     <script>
-
         function createBusinessValHiddenInput(result) {
             const $newInput = document.createElement('input')
             $newInput.type = 'hidden';
@@ -509,6 +505,33 @@
                 })
         }
 
+        function LoadingWithMask() {
+            var maskHeight = $(document).height();
+            var maskWidth = window.document.body.clientWidth;
+            var mask =
+                "<div id='mask' style='position:absolute; z-index:100000; background-color:#000000; display:none; left:0; top:0;'></div>";
+            var loadingImg = '';
+            loadingImg += "<div id='loadingImg'>";
+            loadingImg +=
+                "<img src='/img/loading.gif' style='position: absolute; width:30%; transform: translate(-50%, -50%);  left: 50%; top: 30%; '/>"
+            loadingImg += "</div>";
+            $('body#page-top').append(mask)
+            $('.container-fluid').append(loadingImg)
+            $('#mask').css({
+                'width': maskWidth,
+                'height': maskHeight,
+                'opacity': '0.3'
+            });
+
+            $('#mask').show();
+            $('#loadingImg').show();
+        }
+
+        function closeLoadingWithMask() {
+            $('#mask, #loadingImg').hide();
+            $('#mask, #loadingImg').remove();
+        }
+
         // -------------- fiel upload and file dropzone --------------
         Dropzone.autoDiscover = false;
         const receiptDropzone = new Dropzone("#receipt-dropzone.dropzone", {
@@ -531,6 +554,7 @@
                 this.on('addedfile', function (file) {
                     if (`${businessNo}`.length === 0) { // 홍보글에서 작성하기 구분하기 위함 
 
+                        LoadingWithMask();
                         const formData = new FormData();
                         formData.append('file', file)
 
@@ -543,7 +567,6 @@
                             .then(res => res.text())
                             .then(result => {
                                 if (result != "failed") {
-
                                     createBusinessValHiddenInput(result);
                                     alert("등록되어있는 식당입니다.");
 
@@ -553,6 +576,7 @@
                                 } else {
                                     alert("등록되지않은 식당입니다.");
                                 }
+                                // closeLoadingWithMask();
                             })
                     }
 

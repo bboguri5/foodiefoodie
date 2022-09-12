@@ -36,4 +36,8 @@ public class Page {
         }
         this.amount = amount;
     }
+
+    public int getStart() {
+        return (pageNum - 1) * amount;
+    }
 }

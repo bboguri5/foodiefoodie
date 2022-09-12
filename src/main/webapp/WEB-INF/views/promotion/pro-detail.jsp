@@ -975,7 +975,7 @@
                 `<p>` + notice.content + `</p>` +
                 `<ul class="buttons deleteNoticeWrite">` +
                 `<li>` +
-                `<c:if test="{masterFlag}">` +
+                `<c:if test="${masterFlag}">` +
                 `<a class="btn_1 gray delete">` +
                 `<i class="fa fa-fw fa-times-circle-o"></i>` +
                 `삭제 </a>` +

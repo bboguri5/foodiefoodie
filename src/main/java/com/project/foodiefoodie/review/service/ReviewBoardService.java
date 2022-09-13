@@ -457,14 +457,16 @@ public class ReviewBoardService {
 
             for(ProBoard board: proBoards)
             {
-                if(approvalReceipt.contains(board.getBusinessNo()))
+                String onlyNumber = board.getBusinessNo().replaceAll("[^0-9]", "");
+                log.info(" getRegisteredBusiness - onlyNumber : {}",onlyNumber);
+                if(approvalReceipt.contains(board.getBusinessNo()) || approvalReceipt.contains(onlyNumber))
                 {
                     return board.getBusinessNo();
                 }
             }
         }
 
-        return approvalReceipt;
+        return null;
     }
 
 }

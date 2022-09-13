@@ -576,7 +576,7 @@
                                 } else {
                                     alert("등록되지않은 식당입니다.");
                                 }
-                                // closeLoadingWithMask();
+                                closeLoadingWithMask();
                             })
                     }
 

@@ -28,10 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @Log4j2
@@ -135,9 +132,10 @@ public class ReviewBoardController {
 
 
     @GetMapping("/review/write")
-    public String reviewWrite(Model model) {
+    public String reviewWrite(HttpSession session, Model model) {
 //        log.info("review/write GET! - ");
-
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        model.addAttribute("email",loginUser.getEmail());
         return "review/review-write";
     }
 //
@@ -197,6 +195,14 @@ public class ReviewBoardController {
         log.info(" review/write/master/{businessNo}- {}", proBoard);
 
         return infoMap;
+    }
+
+    @PostMapping("review/write/is/master")
+    @ResponseBody
+    public String isMaster(HttpServletRequest request){
+
+        log.info("gg : {} ", request.getParameter("values"));
+        return "N";
     }
 
     // 수정 - 정보

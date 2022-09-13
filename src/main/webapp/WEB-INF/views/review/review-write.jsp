@@ -481,7 +481,6 @@
     <!-- /주소 검증 -->
 
     <script>
-
         function createBusinessValHiddenInput(result) {
             const $newInput = document.createElement('input')
             $newInput.type = 'hidden';
@@ -575,7 +574,8 @@
                             .then(res => res.text())
                             .then(result => {
                                 if (result != "failed") {
-                                    createBusinessValHiddenInput(result); // form에 전달할 input 창 생성 
+                                    createBusinessValHiddenInput(
+                                        result); // form에 전달할 input 창 생성 
                                     alert("등록되어있는 식당입니다.");
 
                                     if (confirm("식당 정보를 가져올까요?")) {
@@ -660,6 +660,28 @@
         $('.save').on('click', e => {
             e.preventDefault();
             console.log(e.target);
+
+            console.log($('.businessNo').length>0);
+            if ($('.businessNo').length>0) {
+
+                const email = {
+                    email: `${email}`,
+                    businessNo: $('.businessNo').val()
+                }
+
+                const values = [`${email}`,$('.businessNo').val()]
+                fetch('/review/write/is/master', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body : values
+                }).then(res=>res.text)
+                .then(result=>{
+                    console.log(result);
+                })
+                return;
+            }
+
+
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
             const $reviewHiddenTag = document.querySelector('.hidden-review-img');
             // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  

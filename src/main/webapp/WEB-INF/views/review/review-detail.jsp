@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -170,7 +171,12 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="singlepost">
-                        <h1 style="display: inline;">${review.title}</h1>
+                        <h1 style="display: inline;"> 
+                            <c:if test="${fn:length(review.businessNo)>0}">
+                                <img class="reviewReceipt"
+                                src="/img/receipt.png" alt="" style="width: 50px;">
+                            </c:if>
+                            ${review.title}</h1>
                         <div class="side-nav" style="float: right;">
                             <c:if test="${loginUser.email == review.email || loginUser.auth == 'ADMIN'}">
                                 <a class="nav-modifyBtn" style="margin-left: 550px;"
@@ -217,6 +223,10 @@
                             <p>식당 이름: <a href="#">${review.storeName}</a></p>
                             <span>식당 주소: ${review.storeAddress} --> </span>
                             <a class="openKaKaoMap" target="_blank">주소 지도로 보기</a>
+                            <c:if test="${fn:length(review.businessNo)>0}">
+                                <br>
+                                <a href="/proBoard/detail/${review.promotionBno}"> 식당 홍보글 보기 </a>
+                            </c:if>
                         </div>
                         <figure class="img-css">
                             <div class="owl-carousel owl-theme carousel_1 magnific-gallery owl-loaded owl-drag">

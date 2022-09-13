@@ -254,7 +254,7 @@
                                 <label class="store-name-label">가게이름</label>
                                 <input type="text" class="form-control store-name" placeholder="파리바게뜨"
                                     value="${master.storeName}" name="storeName">
-                                <input type="hidden" name="businessNo" value="${master.businessNo}">
+                                <!-- <input type="hidden" name="businessNo" value="${master.businessNo}"> -->
                             </div>
                         </div>
                     </div>
@@ -485,6 +485,7 @@
             const $newInput = document.createElement('input')
             $newInput.type = 'hidden';
             $newInput.name = 'businessNo';
+            $newInput.className = 'businessNo';
             $newInput.value = result;
 
             $('.container-fluid').append($newInput);
@@ -552,6 +553,9 @@
                 let myDropzone = this;
 
                 this.on('addedfile', function (file) {
+
+
+
                     if (`${businessNo}`.length === 0) { // 홍보글에서 작성하기 구분하기 위함 
 
                         LoadingWithMask();

@@ -47,7 +47,7 @@ public class ReviewBoardController {
     private final ProBoardService proBoardService;
 
     @GetMapping("/review")
-    public String review(String sort, Model model,  HttpSession session) {
+    public String review(String sort, Model model, HttpSession session) {
         log.info("review started - list");
 
         List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService(sort);
@@ -106,7 +106,6 @@ public class ReviewBoardController {
             email = loginUser.getEmail();
         }
 
-
         model.addAttribute("review", review);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyList", replyList);
@@ -129,7 +128,7 @@ public class ReviewBoardController {
         model.addAttribute("reviewList", searchList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
-        if(!beforeUrl.contains("/detail")) // 이전 페이지가 detail 일 경우 검색 문구 표시 X
+        if (!beforeUrl.contains("/detail")) // 이전 페이지가 detail 일 경우 검색 문구 표시 X
             model.addAttribute("search", search);
         return "review/review-gram";
     }
@@ -141,27 +140,27 @@ public class ReviewBoardController {
 
         return "review/review-write";
     }
-
-    @GetMapping("/review/write/{businessNo}")
-    public String reviewWriteForBusinessNo(Model model, @PathVariable String businessNo, HttpSession session) {
-//        log.info("review/write/{} GET! - ", businessNo);
-
-        Master master = masterService.findOneForBusinessNoService(businessNo);
-        Member loginUser = (Member) session.getAttribute("loginUser");
-
-        model.addAttribute("master", master);
-        model.addAttribute("loginUser", loginUser);
-//        log.info("loginUser - {}", loginUser);
-//        log.info(master);
-
-        return "review/review-write";
-    }
+//
+//    @GetMapping("/review/write/{businessNo}")
+//    public String reviewWriteForBusinessNo(Model model, @PathVariable String businessNo, HttpSession session) {
+////        log.info("review/write/{} GET! - ", businessNo);
+//
+//        Master master = masterService.findOneForBusinessNoService(businessNo);
+//        Member loginUser = (Member) session.getAttribute("loginUser");
+//
+//        model.addAttribute("master", master);
+//        model.addAttribute("loginUser", loginUser);
+////        log.info("loginUser - {}", loginUser);
+////        log.info(master);
+//
+//        return "review/review-write";
+//    }
 
 
     @PostMapping("/review/write")
     public String reviewWriteUpload(ReviewBoard review, List<MultipartFile> reviewImgFile, HttpSession session) {
 
-//        log.info("review - {}", review);
+        log.info("review - {}", review);
         boolean result = reviewBoardService.saveService(review, reviewImgFile);
 
 //        log.info("result - {}", result);
@@ -170,6 +169,34 @@ public class ReviewBoardController {
 
 
         return "redirect:/review?sort=latest";
+    }
+
+    @PostMapping("/review/write/receipt") // 영수증 검증 비동기
+    @ResponseBody
+    public String checkReceipt(@RequestBody MultipartFile file) {
+        if (file.getSize() == 0) return null;
+
+        String path = "C:\\receipt";
+
+        String uploadFile = FoodieFileUtils.uploadFile(file, path);
+        String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile);
+
+        log.info("/review/write/receipt checkReceipt - {}", registeredBusiness);
+
+        return registeredBusiness != null ? registeredBusiness : "failed";
+    }
+
+    @GetMapping("review/write/master/{businessNo}") // 연계된 식당일 경우 식당 정보 표시
+    @ResponseBody
+    public Map<String, ProBoard> getMaster(@PathVariable String businessNo) {
+
+        log.info("review/write/master/{businessNo} getMaster - {}", businessNo);
+        Map<String, ProBoard> infoMap = new HashMap<>();
+        ProBoard proBoard = proBoardService.selectProBoardBusiness(businessNo);
+        infoMap.put("proBoard", proBoard);
+        log.info(" review/write/master/{businessNo}- {}", proBoard);
+
+        return infoMap;
     }
 
     // 수정 - 정보
@@ -191,6 +218,7 @@ public class ReviewBoardController {
 
         return "review/review-modify";
     }
+
     // 수정 - 파일
     @GetMapping("/review/modify/page/fileImg/{reviewBno}")
     @ResponseBody
@@ -199,7 +227,6 @@ public class ReviewBoardController {
 //        log.info("/review/modify GET! - {}", reviewBno);
 
         List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUpload(reviewBno);
-
 
 
         return reviewUpload;
@@ -219,11 +246,11 @@ public class ReviewBoardController {
     }
 
     @PostMapping("/review/remove")
-    public String reviewRemove(Long reviewBno,String businessNo) {
+    public String reviewRemove(Long reviewBno, String businessNo) {
         log.info("/review/remove POST!!!!! - {}", reviewBno);
         log.info("/review/remove POST!!!!! - {}", businessNo);
 
-        reviewBoardService.removeReviewService(reviewBno,businessNo);
+        reviewBoardService.removeReviewService(reviewBno, businessNo);
 
         return "redirect:/review?sort=latest";
     }
@@ -249,31 +276,5 @@ public class ReviewBoardController {
         return "redirect:/review?sort=latest";
     }
 
-    @PostMapping("/review/write/receipt")
-    @ResponseBody
-    public String checkReceipt(@RequestBody MultipartFile file)
-    {
-        if(file.getSize()==0)return null;
 
-        String path = "C:\\receipt";
-
-        String uploadFile = FoodieFileUtils.uploadFile(file, path);
-        String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile);
-
-        log.info("/review/write/receipt checkReceipt - {}",registeredBusiness);
-
-        return registeredBusiness != null ? registeredBusiness : "failed";
-    }
-
-    @GetMapping("review/write/master/{businessNo}")
-    @ResponseBody
-    public Map<String, ProBoard> getMaster(@PathVariable String businessNo){
-
-        log.info("review/write/master/{businessNo} getMaster - {}",businessNo);
-        Map<String, ProBoard> infoMap = new HashMap<>();
-        ProBoard proBoard = proBoardService.selectProBoardBusiness(businessNo);
-        infoMap.put("proBoard",proBoard);
-        log.info("{}",proBoard);
-        return infoMap;
-    }
 }

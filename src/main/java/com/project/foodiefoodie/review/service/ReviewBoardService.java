@@ -53,7 +53,7 @@ public class ReviewBoardService {
             // 리뷰, 이미지 저장이 잘 되었으면 가게 평점 & 리뷰 개수 업데이트 해주기
             String businessNo = reviewBoard.getBusinessNo();
             log.info("save businessNo - {}", businessNo);
-            if (!Objects.equals(businessNo, "")) {
+            if (businessNo != null) {
 //                log.info("!!!!!!!!!!!");
                 double avgStarRate = rbMapper.getStarRate(businessNo);
                 Long reviewCnt = rbMapper.getReviewCnt(businessNo);

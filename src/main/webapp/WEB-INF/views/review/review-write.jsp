@@ -481,6 +481,7 @@
     <!-- /주소 검증 -->
 
     <script>
+
         function createBusinessValHiddenInput(result) {
             const $newInput = document.createElement('input')
             $newInput.type = 'hidden';
@@ -552,9 +553,12 @@
             init: function () {
                 let myDropzone = this;
 
+                // 파일 삭제 시 input 창 삭제 
+                this.on('removedfile', function (file) {
+                    $('.businessNo').remove();
+                });
+
                 this.on('addedfile', function (file) {
-
-
 
                     if (`${businessNo}`.length === 0) { // 홍보글에서 작성하기 구분하기 위함 
 
@@ -571,11 +575,11 @@
                             .then(res => res.text())
                             .then(result => {
                                 if (result != "failed") {
-                                    createBusinessValHiddenInput(result);
+                                    createBusinessValHiddenInput(result); // form에 전달할 input 창 생성 
                                     alert("등록되어있는 식당입니다.");
 
                                     if (confirm("식당 정보를 가져올까요?")) {
-                                        getProboardInfo(result);
+                                        getProboardInfo(result); // 식당 정보 
                                     }
                                 } else {
                                     alert("등록되지않은 식당입니다.");

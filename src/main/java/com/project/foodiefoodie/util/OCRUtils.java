@@ -16,7 +16,7 @@ public class OCRUtils {
     // Detects text in the specified image.
     private static String detectText(String filePath) {
         List<AnnotateImageRequest> requests = new ArrayList<>();
-        ByteString imgBytes = null;
+        ByteString imgBytes ;
 
         try {
             imgBytes = ByteString.readFrom(new FileInputStream(filePath));

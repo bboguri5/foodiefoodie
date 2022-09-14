@@ -113,6 +113,11 @@ public class ReviewBoardService {
     }
 
 
+    public boolean isMaster(String email, String businessNo){
+        return rbMapper.isMaster(email,businessNo) > 0 ;
+    }
+
+
     public boolean upLikeService(long reviewBno) {
         return rbMapper.upLike(reviewBno);
     }

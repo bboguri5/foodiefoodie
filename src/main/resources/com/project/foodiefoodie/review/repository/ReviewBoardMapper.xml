@@ -152,6 +152,11 @@
 <!--        <if test="sort == 'like'">ORDER BY like_cnt DESC</if>-->
     </select>
 
+
+    <select id="isMaster" resultType="int">
+        SELECT count(*) FROM promotion_board pb LEFT JOIN master m on pb.business_no = m.business_no where m.email = #{email} AND m.business_no = #{businessNo};
+    </select>
+
     <select id="searchTop5Review" resultMap="rbDTOMap">
         SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
         store_name, store_address

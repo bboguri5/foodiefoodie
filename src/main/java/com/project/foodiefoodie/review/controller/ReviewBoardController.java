@@ -199,10 +199,11 @@ public class ReviewBoardController {
 
     @PostMapping("review/write/is/master")
     @ResponseBody
-    public String isMaster(HttpServletRequest request){
+    public String isMaster(@RequestBody Map<String, Object> values){
+        boolean master = reviewBoardService.isMaster((String) values.get("email"), (String) values.get("businessNo"));
 
-        log.info("gg : {} ", request.getParameter("values"));
-        return "N";
+        log.info(" review/write/is/master isMaster {}",master);
+        return master ? "Y" : "N";
     }
 
     // 수정 - 정보

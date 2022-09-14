@@ -661,26 +661,27 @@
             e.preventDefault();
             console.log(e.target);
 
-            console.log($('.businessNo').length>0);
             if ($('.businessNo').length>0) {
 
-                const email = {
+                const obj = {
                     email: `${email}`,
                     businessNo: $('.businessNo').val()
                 }
 
-                const values = [`${email}`,$('.businessNo').val()]
+                // const values = [`${email}`,$('.businessNo').val()]
                 fetch('/review/write/is/master', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body : values
-                }).then(res=>res.text)
+                    body : JSON.stringify(obj)
+                }).then(res=>res.text())
                 .then(result=>{
-                    console.log(result);
+                    if(result === "Y")
+                    {
+                        alert(" 리뷰를 작성할 수 없습니다. \n 사유: 사업자 본인")
+                        return;
+                    }
                 })
-                return;
             }
-
 
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
             const $reviewHiddenTag = document.querySelector('.hidden-review-img');
@@ -706,8 +707,6 @@
                 alert('내용을 확인해 주세요!!');
                 return;
             }
-
-
 
 
             if (reviewDropzone.files.length == 0) {

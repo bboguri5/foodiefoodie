@@ -51,7 +51,7 @@
         FROM reply
         WHERE review_bno = #{reviewBno}
         ORDER BY reply_no DESC
-        LIMIT (#{page.pageNum} - 1) * #{page.amount}, #{page.amount}
+        LIMIT #{page.start}, #{page.amount}
 
     </select>
 

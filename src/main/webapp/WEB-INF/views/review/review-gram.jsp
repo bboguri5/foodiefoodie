@@ -131,10 +131,11 @@
 					<div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">
 						<nav class="main-menu">
 							<ul>
-								<li class="review-write-btn">
-									<a class="review-write-text" href="/review/write">리뷰 작성</a>
-								</li>
-
+								<c:if test="${loginUser != null}">
+									<li class="review-write-btn">
+										<a class="review-write-text" href="/review/write">리뷰 작성</a>
+									</li>
+								</c:if>
 								<li class="submenu">
 									<a href="#0" class="show-submenu">정렬<i class="arrow_carrot-down"></i></a>
 									<ul>
@@ -179,8 +180,8 @@
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
 									<h2>
 										<c:if test="${fn:length(rl.businessNo)>0}">
-											<img class="reviewReceipt"
-											src="/img/receipt.png" alt="" style="width: 50px;">
+											<img class="reviewReceipt" src="/img/receipt.png" alt=""
+												style="width: 50px;">
 										</c:if>
 										<a href="#">${rl.title}</a>
 									</h2>
@@ -189,8 +190,8 @@
 									<span class="star">
 										★★★★★
 										<span style="width: ${rl.starRate * 10}%;">★★★★★</span>
-										<input type="hidden" oninput="drawStar(this)" value="" step="1" min="0"
-											max="10" name="starRate">
+										<input type="hidden" oninput="drawStar(this)" value="" step="1" min="0" max="10"
+											name="starRate">
 									</span>
 									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
 									<c:if test="${fn:length(rl.businessNo)>0}">

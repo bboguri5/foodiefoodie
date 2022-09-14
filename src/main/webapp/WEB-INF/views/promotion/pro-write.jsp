@@ -1068,6 +1068,15 @@
                     return false;
                 }
 
+                const remainder = $menuPriceList[0].value % 100;
+                    console.log(remainder);
+                    if(remainder != 0)
+                    {
+                        alert("메뉴 가격 10원 단위는 입력이 불가합니다. ");
+                        return false;
+                    }
+
+
                 return true;
             }
 
@@ -1084,6 +1093,15 @@
                         alert("메뉴 입력란을 확인해주세요.");
                         return false;
                     }
+                
+                    const remainder = $menuPriceList[index].value % 100;
+                    
+                    if(remainder != 0)
+                    {
+                        alert("메뉴 가격 10원 단위는 입력이 불가합니다. ");
+                        return false;
+                    }
+                
                 }
                 return true;
             }

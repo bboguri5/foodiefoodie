@@ -30,12 +30,11 @@ class ReviewMapperTest {
     @Test
     @DisplayName("리뷰 번호 주면 , 좋아요 갯수 줌 ")
     void reviewLikeCountTest(){  // 성공
-        long Num = 1;
+        long Num = 80;
         int i = mapper.reviewLikeCount(Num);
         System.out.println("\n ========\n\n");
         System.out.println(i);
         System.out.println("\n ========\n\n");
-
 
     }
 

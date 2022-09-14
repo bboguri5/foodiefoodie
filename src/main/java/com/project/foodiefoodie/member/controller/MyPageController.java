@@ -55,9 +55,7 @@ public class MyPageController {
 
         // 그것들의 갯수를 구한다
         int size = reviewNumDTOS.size();
-        log.info("\n\n========\n\n");
-        log.info("size = {}" ,size);
-        log.info("\n\n========\n\n");
+
         // 내가 필요한 정보를 담을 리스트를 만든다
         ArrayList<ReviewLikeReplyPictureDTO> reviewLikeReplyPictureDTOS = new ArrayList<>();
 

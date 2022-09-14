@@ -20,7 +20,7 @@
 
 
     <select id="reviewLikeCount" resultType="int">
-        select count(*)
+        select like_cnt
         from review_board
         where review_bno = #{reviewBno}
     </select>

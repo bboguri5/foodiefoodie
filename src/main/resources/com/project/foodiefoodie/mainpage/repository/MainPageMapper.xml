@@ -421,9 +421,9 @@
         from dual
         ) = closedday THEN '오늘 휴무'
         WHEN breakstarttime <= (SELECT TIME_FORMAT(now(), '%H:%i')) AND breakendtime >= (SELECT TIME_FORMAT(now(), '%H:%i')) THEN '브레이크 타임'
-        WHEN weekdayclosetime >= (SELECT TIME_FORMAT(now(), '%H:%i')) AND weekdayopentime <= (SELECT TIME_FORMAT(now(), '%H:%i')) THEN '영업중'
-        WHEN (SELECT TIME_FORMAT(now(), '%H:%i')) <= weekdayopentime THEN '영업전'
-        ELSE '영업끝'
+        WHEN (SELECT TIME_FORMAT(DATE_SUB(NOW(), INTERVAL '3' HOUR), '%H:%i')) <= weekdayopentime AND (SELECT TIME_FORMAT(DATE_SUB(NOW(), INTERVAL '3' HOUR), '%H:%i')) >= weekdayclosetime THEN '영업전'
+        WHEN weekdayclosetime <= (SELECT TIME_FORMAT(now(), '%H:%i')) AND weekdayopentime >= (SELECT TIME_FORMAT(now(), '%H:%i')) THEN '영업마감'
+        ELSE '영업중'
         END AS StoreTimeText
         FROM promotion_store_time
         WHERE promotion_bno = #{promotionBno}

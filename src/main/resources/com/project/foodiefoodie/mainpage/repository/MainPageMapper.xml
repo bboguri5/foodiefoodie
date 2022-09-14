@@ -31,7 +31,7 @@
         ON PI.promotion_bno = P.promotion_bno
         ORDER BY avg_star_rate DESC
         ) sub
-        LIMIT 1, 7
+        LIMIT 0, 7
     </select>
 
     <!-- 오늘의 맛집 평점 순으로 전체 불러오기 -->
@@ -178,7 +178,7 @@
         ON PI.promotion_bno = P.promotion_bno
         WHERE store_address LIKE CONCAT('%', #{storeAddress}, '%')
         ) sub
-        LIMIT 1, 4
+        LIMIT 0, 4
     </select>
 
     <!-- 현재 위치에 있는 가게 전체 불러오기  -->
@@ -232,7 +232,6 @@
 
     <!-- hot deal 랜덤 6개 목록 요청-->
     <select id="findRandHotDeal" resultMap="mpMap">
-        SELECT * FROM (
         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag, file_data
         FROM promotion_board P JOIN hot_deal H
@@ -241,8 +240,8 @@
         ON H.business_no = M.business_no
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
-        WHERE LOWER(hot_deal) = 'on') sub
-        LIMIT 1, 6
+        WHERE hot_deal = 'ON'
+        LIMIT 0, 6
     </select>
 
     <!-- hot deal 목록 요청-->

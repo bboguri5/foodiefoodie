@@ -146,9 +146,9 @@ public class KakaoService {
             queryParam.append("&quantity=" + totalQuantity) // 총 주문 수량
                     .append("&total_amount=" + (int) resultPrice) // 총 결제금액
                     .append("&tax_free_amount=" + 0) // 면세액이 얼만지 적는 항목 같음..
-                    .append("&approval_url=" + "http://localhost:8186/success-order") // 결제 성공시 redirect_url 지정
-                    .append("&cancel_url=" + "http://localhost:8186/cancel-order") // 결제 취소시 redirect_url 지정
-                    .append("&fail_url=" + "http://localhost:8186/fail-order"); // 결제 실패시 redirect_url 지정
+                    .append("&approval_url=" + "http://foodiefoodie.co.kr/success-order") // 결제 성공시 redirect_url 지정
+                    .append("&cancel_url=" + "http://foodiefoodie.co.kr/cancel-order") // 결제 취소시 redirect_url 지정
+                    .append("&fail_url=" + "http://foodiefoodie.co.kr/fail-order"); // 결제 실패시 redirect_url 지정
 
 
             bw.write(queryParam.toString());

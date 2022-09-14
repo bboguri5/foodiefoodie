@@ -186,11 +186,8 @@
 										<input type="hidden" oninput="drawStar(this)" value="" step="1" min="0"
 											max="10" name="starRate">
 									</span>
-									<p>식당 이름: <a href="#">${review.storeName}</a></p>
-									<span>식당 주소: ${review.storeAddress} --> </span>
-									<a class="openKaKaoMap" target="_blank">주소 지도로 보기</a>
 									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
-									<p>식당 주소: ${rl.storeAddress}</p>
+									<p>식당 주소: ${rl.storeAddress}<a class="openKaKaoMap" target="_blank"> --> 주소 지도로 보기</a></p>
 									<p>${rl.content}
 										<ul>
 											<li>

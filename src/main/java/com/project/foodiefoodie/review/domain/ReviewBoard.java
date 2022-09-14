@@ -25,4 +25,5 @@ public class ReviewBoard {
     private String storeAddress;
     private String storeDetailAddress;
     private String storeExtraAddress;
+    private String promotionBno;
 }

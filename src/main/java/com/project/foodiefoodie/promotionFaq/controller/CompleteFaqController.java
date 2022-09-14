@@ -140,9 +140,9 @@ public class CompleteFaqController {
             // 해당 리뷰글이 있으면
             if (rbs.findOneReviewService(reviewFaq.getReviewBno()) != null) {
                 // 리뷰글에 카운트 - 1
-                int reportCnt = rs.checkReportCntService(reviewFaq.getReviewWriterEmail());
-                if (memberService.findMember(reviewFaq.getReviewWriterEmail()) != null) {
-                    rs.reportCntModifyService(reportCnt - 1, reviewFaq.getReviewWriterEmail());
+                int reportCnt = rs.checkReportCntService(reviewFaq.getReviewBno());
+                if (rbs.findOneReviewService(reviewFaq.getReviewBno()) != null) {
+                    rs.reportCntModifyService(reportCnt - 1, reviewFaq.getReviewBno());
                 }
             }
         }

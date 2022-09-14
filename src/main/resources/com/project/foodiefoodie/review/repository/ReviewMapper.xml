@@ -29,12 +29,12 @@
 
     <select id="checkReportCnt" resultType="int">
         SELECT report_cnt FROM review_board
-        WHERE email = #{email}
+        WHERE review_bno = #{reviewBno}
     </select>
 
     <update id="reportCntModify">
         UPDATE review_board SET report_cnt = #{reportCnt}
-        WHERE email = #{email}
+        WHERE review_bno = #{reviewBno}
     </update>
 
 

@@ -39,7 +39,7 @@ public class ReplyFaqController {
         log.info("/admin/replyFaq GET! - ");
         String F = "F";
         List<ReplyFaqDTO> replyFaqDTOList = rfs.findAllReplyService(F);
-
+        log.info("replyFaqDTOList - {}", replyFaqDTOList);
 
 
         model.addAttribute("replyFaqList", replyFaqDTOList);

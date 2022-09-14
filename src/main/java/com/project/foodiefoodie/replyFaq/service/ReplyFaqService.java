@@ -32,7 +32,7 @@ public class ReplyFaqService {
 
     public List<ReplyFaqDTO> findAllReplyService(String complete) {
         List<ReplyFaqDTO> replyFaqDTOList = mapper.findAllReply(complete);
-
+        log.info("findAllReplyService replyFaqDTOList - {}", replyFaqDTOList);
         for (ReplyFaqDTO r : replyFaqDTOList) {
             String replyContent = r.getReplyContent();
             if (replyContent.length() > 5) {

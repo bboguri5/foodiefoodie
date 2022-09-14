@@ -50,9 +50,9 @@
                                                 data-name="${ml.name}" data-nickname="${ml.nickName}"
                                                 data-phonenumber="${ml.phoneNumber}" data-birth="${ml.birth}"
                                                 data-address="${ml.address}" data-gender="${ml.gender}"
-                                                data-registDate="${ml.regDate}" data-loginTime="${ml.recentLoginTime}"
+                                                data-registDate="${ml.regDate}"
                                                 data-auth="${ml.auth}" data-businessNo="${ml.businessNo}" data-storeName="${ml.storeName}"
-                                                data-storeAddress="${ml.storeAddress}" data-storeRegDate="${ml.storeRegDate}"
+                                                data-storeAddress="${ml.storeAddress}"
                                                 data-hotDeal="${ml.hotDeal}" data-storeCallNumber="${ml.storeCallNumber}"
                                                 data-detailaddress="${ml.detailAddress}" data-storedetailaddress="${ml.storeDetailAddress}">${ml.email}</a>
                                         </th>

@@ -217,9 +217,6 @@
         }
     </style>
 
-
-
-
 </head>
 
 <body class="fixed-nav" id="page-top">
@@ -257,7 +254,7 @@
                                 <label class="store-name-label">가게이름</label>
                                 <input type="text" class="form-control store-name" placeholder="파리바게뜨"
                                     value="${master.storeName}" name="storeName">
-                                <input type="hidden" name="businessNo" value="${master.businessNo}">
+                                <!-- <input type="hidden" name="businessNo" value="${master.businessNo}"> -->
                             </div>
                         </div>
                     </div>
@@ -351,8 +348,8 @@
                 <!-- /box_general -->
 
                 <!-- /.container-wrapper-->
-                <p class="save-buttons"><button type="button" class="btn_1 medium save">저장</button> <a href="/review?sort=latest"
-                        class="btn_1 medium gray">취소</a>
+                <p class="save-buttons"><button type="button" class="btn_1 medium save">저장</button> <a
+                        href="/review?sort=latest" class="btn_1 medium gray">취소</a>
                 </p>
         </form>
 
@@ -484,6 +481,58 @@
     <!-- /주소 검증 -->
 
     <script>
+        function createBusinessValHiddenInput(result) {
+            const $newInput = document.createElement('input')
+            $newInput.type = 'hidden';
+            $newInput.name = 'businessNo';
+            $newInput.className = 'businessNo';
+            $newInput.value = result;
+
+            $('.container-fluid').append($newInput);
+        }
+
+        function getProboardInfo(result) {
+            fetch('/review/write/master/' + result)
+                .then(res => res.json())
+                .then(infoMap => {
+                    const proBoard = infoMap.proBoard;
+                    console.log(proBoard);
+                    $('.store-address').val(proBoard.storeAddress);
+                    $('.store-detail-address').val(proBoard
+                        .storeDetailAddress);
+                    $('.store-extra-address').val(proBoard
+                        .storeExtraAddress);
+                    $('.store-name').val(proBoard.storeName);
+                })
+        }
+
+        function LoadingWithMask() {
+            var maskHeight = $(document).height();
+            var maskWidth = window.document.body.clientWidth;
+            var mask =
+                "<div id='mask' style='position:absolute; z-index:100000; background-color:#000000; display:none; left:0; top:0;'></div>";
+            var loadingImg = '';
+            loadingImg += "<div id='loadingImg'>";
+            loadingImg +=
+                "<img src='/img/loading.gif' style='position: absolute; width:30%; transform: translate(-50%, -50%);  left: 50%; top: 30%; '/>"
+            loadingImg += "</div>";
+            $('body#page-top').append(mask)
+            $('.container-fluid').append(loadingImg)
+            $('#mask').css({
+                'width': maskWidth,
+                'height': maskHeight,
+                'opacity': '0.3'
+            });
+
+            $('#mask').show();
+            $('#loadingImg').show();
+        }
+
+        function closeLoadingWithMask() {
+            $('#mask, #loadingImg').hide();
+            $('#mask, #loadingImg').remove();
+        }
+
         // -------------- fiel upload and file dropzone --------------
         Dropzone.autoDiscover = false;
         const receiptDropzone = new Dropzone("#receipt-dropzone.dropzone", {
@@ -499,6 +548,48 @@
             addRemoveLinks: true,
             dictRemoveFile: 'X',
             acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
+
+            init: function () {
+                let myDropzone = this;
+
+                // 파일 삭제 시 input 창 삭제 
+                this.on('removedfile', function (file) {
+                    $('.businessNo').remove();
+                });
+
+                this.on('addedfile', function (file) {
+
+                    if (`${businessNo}`.length === 0) { // 홍보글에서 작성하기 구분하기 위함 
+
+                        LoadingWithMask();
+                        const formData = new FormData();
+                        formData.append('file', file)
+
+                        const obj = {
+                            method: "POST",
+                            body: formData
+                        };
+
+                        fetch('/review/write/receipt', obj)
+                            .then(res => res.text())
+                            .then(result => {
+                                if (result != "failed") {
+                                    createBusinessValHiddenInput(
+                                        result); // form에 전달할 input 창 생성 
+                                    alert("등록되어있는 식당입니다.");
+
+                                    if (confirm("식당 정보를 가져올까요?")) {
+                                        getProboardInfo(result); // 식당 정보 
+                                    }
+                                } else {
+                                    alert("등록되지않은 식당입니다.");
+                                }
+                                closeLoadingWithMask();
+                            })
+                    }
+
+                });
+            }
         });
         let overlapSet = new Set();
         const reviewDropzone = new Dropzone("#review-dropzone.dropzone", {
@@ -569,6 +660,29 @@
         $('.save').on('click', e => {
             e.preventDefault();
             console.log(e.target);
+
+            if ($('.businessNo').length>0) {
+
+                const obj = {
+                    email: `${email}`,
+                    businessNo: $('.businessNo').val()
+                }
+
+                // const values = [`${email}`,$('.businessNo').val()]
+                fetch('/review/write/is/master', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body : JSON.stringify(obj)
+                }).then(res=>res.text())
+                .then(result=>{
+                    if(result === "Y")
+                    {
+                        alert(" 리뷰를 작성할 수 없습니다. \n 사유: 사업자 본인")
+                        return;
+                    }
+                })
+            }
+
             // 이미지 file 변환 및 form 태그 내 input에 추가. 
             const $reviewHiddenTag = document.querySelector('.hidden-review-img');
             // form 내 input hidden files 속성에 file list를 넣으려면 dataTransfer 변환 필요  
@@ -593,8 +707,6 @@
                 alert('내용을 확인해 주세요!!');
                 return;
             }
-
-
 
 
             if (reviewDropzone.files.length == 0) {

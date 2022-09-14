@@ -82,6 +82,10 @@ public class ProBoardService {
         return proBoardMapper.selectProBoard(promotionBno);
     }
 
+    public  ProBoard selectProBoardBusiness(String businessNo){
+        return proBoardMapper.selectProBoardBusiness(businessNo);
+    }
+
     public boolean deleteProBoard(int promotionBno)
     {
         return proBoardMapper.deleteProBoard(promotionBno);
@@ -107,7 +111,7 @@ public class ProBoardService {
         return newUploadPath;
     }
 
-    private boolean deleteLocalFile(String businessNo, String folderName, List<MultipartFile> fileList) {
+    private void deleteLocalFile(String businessNo, String folderName, List<MultipartFile> fileList) {
         List<Boolean> result = new ArrayList<>();
         List<String> requestFileNames = new ArrayList<>();
         String newUploadPath = "C:\\foodiefoodie\\proBoard";
@@ -118,19 +122,17 @@ public class ProBoardService {
         File folder = new File(newUploadPath);
 
         for (MultipartFile file : fileList) {
-            if (file.getSize() == 0) return false;
+            if (file.getSize() == 0) return;
             requestFileNames.add(file.getOriginalFilename());
         }
         for (File localFile : folder.listFiles()) {
 
-            log.info(" 지우겠습니까? = {} >> {}", !requestFileNames.contains(localFile.getName()), localFile.getName());
+            log.info(" deleteLocalFile - {} >> {}", !requestFileNames.contains(localFile.getName()), localFile.getName());
             if (!requestFileNames.contains(localFile.getName())) {
                 log.info("{} , {}", requestFileNames, localFile);
                 result.add(localFile.delete());
             }
         }
-
-        return !result.contains(false);
     }
 
     private List<FileDTO> uploadSaveFiles(ProBoard proBoard, List<MultipartFile> fileList, String folderName) {

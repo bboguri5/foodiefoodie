@@ -66,6 +66,7 @@ public class ReviewFaqController {
             // 목록에 없을때
             if (reportMember == null) {
                 // 목록에 추가
+
                 rms.saveService(reviewFaq.getReviewWriterEmail());
             } else { // 목록에 있을 때
                 log.info("reportCnt - {}", reportMember.getReportCnt());
@@ -89,9 +90,10 @@ public class ReviewFaqController {
             // 해당 리뷰글이 있으면
             if (rbs.findOneReviewService(reviewFaq.getReviewBno()) != null) {
                 // 리뷰글에 카운트 추가
-                int reportCnt = rs.checkReportCntService(reviewFaq.getReviewWriterEmail());
-                if (ms.findMember(reviewFaq.getReviewWriterEmail()) != null) {
-                    rs.reportCntModifyService(reportCnt + 1, reviewFaq.getReviewWriterEmail());
+                log.info("reviewBno - {}", rbs.findOneReviewService(reviewFaq.getReviewBno()));
+                int reportCnt = rs.checkReportCntService(reviewFaq.getReviewBno());
+                if (rbs.findOneReviewService(reviewFaq.getReviewBno()) != null) {
+                    rs.reportCntModifyService(reportCnt + 1, reviewFaq.getReviewBno());
                 }
             }
 

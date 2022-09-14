@@ -391,6 +391,7 @@
                                 <input type="text" class="form-control modal-reply-report-no" name="replyWriterEmail"
                                     readonly>
                                 <input type="hidden" class="modal-reply-bno" name="replyNo" readonly>
+                                <input type="hidden" name="reviewBno" value="${review.reviewBno}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>신고 작성자</label>

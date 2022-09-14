@@ -13,19 +13,19 @@ class ReviewMapperTest {
     @Autowired
     ReviewMapper mapper;
 
-    @Test
-    @DisplayName("신고횟수를 가져와야 한다.")
-    void checkTest() {
-        int i = mapper.checkReportCnt("bbbb2222@naver.com");
-        System.out.println(i);
-    }
-
-    @Test
-    @DisplayName("신고 횟수가 2가 되어야 한다.")
-    void modifyTest() {
-        boolean flag = mapper.reportCntModify(2, "bbbb2222@naver.com");
-        assertTrue(flag);
-    }
+//    @Test
+//    @DisplayName("신고횟수를 가져와야 한다.")
+//    void checkTest() {
+//        int i = mapper.checkReportCnt("bbbb2222@naver.com");
+//        System.out.println(i);
+//    }
+//
+//    @Test
+//    @DisplayName("신고 횟수가 2가 되어야 한다.")
+//    void modifyTest() {
+//        boolean flag = mapper.reportCntModify(2, "bbbb2222@naver.com");
+//        assertTrue(flag);
+//    }
 
     @Test
     @DisplayName("리뷰 번호 주면 , 좋아요 갯수 줌 ")

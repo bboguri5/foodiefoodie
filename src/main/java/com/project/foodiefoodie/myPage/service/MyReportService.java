@@ -57,7 +57,7 @@ public class MyReportService {
 //        return replyReportDTOS;
 //    }
 
-    // 신규 !!! !
+    // 신규 !!! ! // 리뷰
     public List<ReviewReportDTO2> reviewReportDTOListService2(String email) {
 
         List<ReviewReportDTO2> reviewReportDTO2s = myPageMapper.reviewReportDTO2List(email);

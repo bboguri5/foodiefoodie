@@ -49,8 +49,8 @@
                                 <div class="dropdown-menu-content">
                                     <ul>
                                         <li><a href="/myPage/profile"><i class="icon_cog"></i>MyPage</a></li>
-                                        <li><a href="#0"><i class="icon_document"></i>Bookings</a></li>
-                                        <li><a href="#0"><i class="icon_heart"></i>Wish List</a></li>
+                                        <li><a href="/myPage/myReview"><i class="icon_document"></i>MyReview</a></li>
+                                        <li><a href="/myPage/favoriteList"><i class="icon_heart"></i>Favorite List</a></li>
                                         <li><a href="/sign-out"><i class="icon_key"></i>Log out</a></li>
                                     </ul>
                                 </div>

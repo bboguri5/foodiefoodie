@@ -79,7 +79,7 @@
         from promotion_faq a
         INNER JOIN promotion_board b
         ON a.promotion_bno = b.promotion_bno
-        JOIN MASTER c
+        JOIN master c
         ON b.business_no= c.business_no
         WHERE a.promotion_writer_email = #{email}
         and a.faq_complete = 'T'

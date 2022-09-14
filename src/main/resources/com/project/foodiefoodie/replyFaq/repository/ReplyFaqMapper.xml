@@ -53,6 +53,7 @@
         LEFT OUTER JOIN reply b
         ON a.reply_no = b.reply_no
         WHERE a.faq_complete = #{complete}
+        and b.reply_no is not null
     </select>
 
     <!--<insert id="save">

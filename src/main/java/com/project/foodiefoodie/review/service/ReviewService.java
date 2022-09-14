@@ -14,12 +14,12 @@ public class ReviewService {
 
     private final ReviewMapper mapper;
 
-    public int checkReportCntService(String email) {
-        return mapper.checkReportCnt(email);
+    public int checkReportCntService(long reviewBno) {
+        return mapper.checkReportCnt(reviewBno);
     }
 
-    public boolean reportCntModifyService(int reportCnt, String email) {
-        return mapper.reportCntModify(reportCnt, email);
+    public boolean reportCntModifyService(int reportCnt, long reviewBno) {
+        return mapper.reportCntModify(reportCnt, reviewBno);
     }
 
     // 리뷰글 좋아요 갯수

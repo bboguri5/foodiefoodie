@@ -6,10 +6,7 @@ import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.service.MasterService;
 import com.project.foodiefoodie.proBoard.domain.ProBoard;
-import com.project.foodiefoodie.proBoard.dto.FileDTO;
-import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.proBoard.dto.NoticeDTO;
-import com.project.foodiefoodie.proBoard.dto.StoreTimeDTO;
 import com.project.foodiefoodie.proBoard.service.ProBoardService;
 
 import com.project.foodiefoodie.reply.service.ReplyService;
@@ -44,7 +41,6 @@ public class ProBoardController {
     private final MainPageService mainPageService;
     private final PromotionFaqService promotionFaqService;
     private final MasterService masterService;
-
     private final ReviewBoardService reviewBoardService;
     private final ReplyService replyService;
 
@@ -152,12 +148,6 @@ public class ProBoardController {
     @GetMapping("/write/{businessNo}")
     public String write(HttpSession session, Model model, @PathVariable String businessNo) {
 
-//        로그인 X , 관리자 X 일 경우 접근 불가.
-//        if(!(LoginUtils.isLogin(session) && LoginUtils.getCurrentMemberAuth(session) == "MASTER"))
-//        {
-//            return "redirect:/login";
-//        }
-
         log.info("foodie/write Get - ! {} ", businessNo);
         model.addAttribute("master", proBoardService.selectMaster(businessNo));
         return "promotion/pro-write";
@@ -195,11 +185,6 @@ public class ProBoardController {
     @GetMapping("/modify/{promotionBno}")
     public String modify(HttpSession session, Model model, @PathVariable int promotionBno) {
 
-        //        로그인 X , 관리자 X 일 경우 접근 불가.
-//        if(!(LoginUtils.isLogin(session) && LoginUtils.getCurrentMemberAuth(session) == "MASTER"))
-//        {
-//            return "redirect:/login";
-//        }
         ProBoard proBoard = proBoardService.selectProBoard(promotionBno);
         Master master = masterService.findOneForBusinessNoService(proBoard.getBusinessNo());
 

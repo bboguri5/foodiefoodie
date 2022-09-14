@@ -1245,6 +1245,7 @@
             }
         });
 
+
         function submitMenu() {
             const $menuNameList = document.querySelectorAll(".menu-name");
             const $menuPriceList = document.querySelectorAll(".menu-price");
@@ -1369,11 +1370,27 @@
                     return false;
                 }
 
+                   const remainder = $menuPriceList[0].value % 100;
+                    console.log(remainder);
+                    if(remainder != 0)
+                    {
+                        alert("메뉴 가격 10원 단위는 입력이 불가합니다. ");
+                        return false;
+                    }
+
             } else {
                 for (let index = 0; index < $menuNameList.length; index++) {
 
                     if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.length === 0) {
                         alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
+                        return false;
+                    }
+
+                    const remainder = $menuPriceList[index].value % 100;
+                    console.log(remainder);
+                    if(remainder != 0)
+                    {
+                        alert(" 메뉴 가격 10원 단위 입력이 불가합니다. ");
                         return false;
                     }
                 }

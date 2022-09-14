@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
@@ -176,7 +177,12 @@
 								<div class="post_info">
 									<small>Last Updated -
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
-									<h2><a href="#">${rl.title}</a>
+									<h2>
+										<c:if test="${fn:length(rl.businessNo)>0}">
+											<img class="reviewReceipt"
+											src="/img/receipt.png" alt="" style="width: 50px;">
+										</c:if>
+										<a href="#">${rl.title}</a>
 									</h2>
 									<label>평점</label>
 									<div></div>
@@ -186,10 +192,11 @@
 										<input type="hidden" oninput="drawStar(this)" value="" step="1" min="0"
 											max="10" name="starRate">
 									</span>
-									<p>식당 이름: <a href="#">${review.storeName}</a></p>
-									<span>식당 주소: ${review.storeAddress} --> </span>
-									<a class="openKaKaoMap" target="_blank">주소 지도로 보기</a>
 									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
+									<c:if test="${fn:length(rl.businessNo)>0}">
+										식당 홍보글 :
+										<a href="/proBoard/detail/${rl.promotionBno}"> 홍보글 보기 </a>
+									</c:if>
 									<p>식당 주소: ${rl.storeAddress}</p>
 									<p>${rl.content}
 										<ul>

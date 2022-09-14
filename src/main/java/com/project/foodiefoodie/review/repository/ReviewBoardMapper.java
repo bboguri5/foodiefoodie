@@ -53,6 +53,8 @@ public interface ReviewBoardMapper {
     List<Long> getLikedList(String email);
     Long findNewReviewNo();
 
+    int isMaster(String email, String businessNo);
+
     boolean saveReviewFileList(ReviewFileDTO reviewFileDTO);
 
     boolean modifyReview(ReviewBoard reviewBoard);

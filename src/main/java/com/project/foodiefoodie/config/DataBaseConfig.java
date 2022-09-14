@@ -19,8 +19,13 @@ public class DataBaseConfig {
 
         config.setJdbcUrl("jdbc:mariadb://database-1.ce2n3tdihqpa.ap-northeast-2.rds.amazonaws.com:3306/TEAM_B");
         config.setDriverClassName("org.mariadb.jdbc.Driver");
-        config.setUsername("admin");
-        config.setPassword("Ehdwls12!");
+        // 동진 루트계정
+//        config.setUsername("admin");
+//        config.setPassword("Ehdwls12!");
+        // 기원계정
+        config.setUsername("ki-won");
+        config.setPassword("1234");
+
 //        config.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:xe");
 //        config.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 

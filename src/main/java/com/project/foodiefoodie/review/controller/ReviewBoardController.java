@@ -3,6 +3,8 @@ package com.project.foodiefoodie.review.controller;
 import com.project.foodiefoodie.member.domain.Master;
 import com.project.foodiefoodie.member.domain.Member;
 import com.project.foodiefoodie.member.service.MasterService;
+import com.project.foodiefoodie.proBoard.domain.ProBoard;
+import com.project.foodiefoodie.proBoard.service.ProBoardService;
 import com.project.foodiefoodie.reply.domain.Reply;
 import com.project.foodiefoodie.reply.service.ReplyService;
 import com.project.foodiefoodie.replyFaq.domain.ReplyFaq;
@@ -13,21 +15,20 @@ import com.project.foodiefoodie.review.dto.ReviewBoardDTO;
 import com.project.foodiefoodie.review.service.ReviewBoardService;
 import com.project.foodiefoodie.reviewFaq.domain.ReviewFaq;
 import com.project.foodiefoodie.reviewFaq.service.ReviewFaqService;
+import com.project.foodiefoodie.util.FoodieFileUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @Controller
 @Log4j2
@@ -40,8 +41,10 @@ public class ReviewBoardController {
     private final ReviewFaqService reviewFaqService;
     private final ReplyFaqService replyFaqService;
 
+    private final ProBoardService proBoardService;
+
     @GetMapping("/review")
-    public String review(String sort, Model model,  HttpSession session) {
+    public String review(String sort, Model model, HttpSession session) {
         log.info("review started - list");
 
         List<ReviewBoardDTO> reviewList = reviewBoardService.findAllReviewsService(sort);
@@ -109,7 +112,6 @@ public class ReviewBoardController {
             email = loginUser.getEmail();
         }
 
-
         model.addAttribute("review", review);
         model.addAttribute("uploads", reviewUpload);
         model.addAttribute("replyList", replyList);
@@ -132,39 +134,40 @@ public class ReviewBoardController {
         model.addAttribute("reviewList", searchList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
-        if(!beforeUrl.contains("/detail")) // 이전 페이지가 detail 일 경우 검색 문구 표시 X
+        if (!beforeUrl.contains("/detail")) // 이전 페이지가 detail 일 경우 검색 문구 표시 X
             model.addAttribute("search", search);
         return "review/review-gram";
     }
 
 
     @GetMapping("/review/write")
-    public String reviewWrite(Model model) {
+    public String reviewWrite(HttpSession session, Model model) {
 //        log.info("review/write GET! - ");
-
-        return "review/review-write";
-    }
-
-    @GetMapping("/review/write/{businessNo}")
-    public String reviewWriteForBusinessNo(Model model, @PathVariable String businessNo, HttpSession session) {
-//        log.info("review/write/{} GET! - ", businessNo);
-
-        Master master = masterService.findOneForBusinessNoService(businessNo);
         Member loginUser = (Member) session.getAttribute("loginUser");
-
-        model.addAttribute("master", master);
-        model.addAttribute("loginUser", loginUser);
-//        log.info("loginUser - {}", loginUser);
-//        log.info(master);
-
+        model.addAttribute("email",loginUser.getEmail());
         return "review/review-write";
     }
+//
+//    @GetMapping("/review/write/{businessNo}")
+//    public String reviewWriteForBusinessNo(Model model, @PathVariable String businessNo, HttpSession session) {
+////        log.info("review/write/{} GET! - ", businessNo);
+//
+//        Master master = masterService.findOneForBusinessNoService(businessNo);
+//        Member loginUser = (Member) session.getAttribute("loginUser");
+//
+//        model.addAttribute("master", master);
+//        model.addAttribute("loginUser", loginUser);
+////        log.info("loginUser - {}", loginUser);
+////        log.info(master);
+//
+//        return "review/review-write";
+//    }
 
 
     @PostMapping("/review/write")
     public String reviewWriteUpload(ReviewBoard review, List<MultipartFile> reviewImgFile, HttpSession session) {
 
-//        log.info("review - {}", review);
+        log.info("review - {}", review);
         boolean result = reviewBoardService.saveService(review, reviewImgFile);
 
 //        log.info("result - {}", result);
@@ -173,6 +176,43 @@ public class ReviewBoardController {
 
 
         return "redirect:/review?sort=latest";
+    }
+
+    @PostMapping("/review/write/receipt") // 영수증 검증 비동기
+    @ResponseBody
+    public String checkReceipt(@RequestBody MultipartFile file) {
+        if (file.getSize() == 0) return null;
+
+        String path = "C:\\receipt";
+
+        String uploadFile = FoodieFileUtils.uploadFile(file, path);
+        String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile);
+
+        log.info("/review/write/receipt checkReceipt - {}", registeredBusiness);
+
+        return registeredBusiness != null ? registeredBusiness : "failed";
+    }
+
+    @GetMapping("review/write/master/{businessNo}") // 연계된 식당일 경우 식당 정보 표시
+    @ResponseBody
+    public Map<String, ProBoard> getMaster(@PathVariable String businessNo) {
+
+        log.info("review/write/master/{businessNo} getMaster - {}", businessNo);
+        Map<String, ProBoard> infoMap = new HashMap<>();
+        ProBoard proBoard = proBoardService.selectProBoardBusiness(businessNo);
+        infoMap.put("proBoard", proBoard);
+        log.info(" review/write/master/{businessNo}- {}", proBoard);
+
+        return infoMap;
+    }
+
+    @PostMapping("review/write/is/master")
+    @ResponseBody
+    public String isMaster(@RequestBody Map<String, Object> values){
+        boolean master = reviewBoardService.isMaster((String) values.get("email"), (String) values.get("businessNo"));
+
+        log.info(" review/write/is/master isMaster {}",master);
+        return master ? "Y" : "N";
     }
 
     // 수정 - 정보
@@ -194,6 +234,7 @@ public class ReviewBoardController {
 
         return "review/review-modify";
     }
+
     // 수정 - 파일
     @GetMapping("/review/modify/page/fileImg/{reviewBno}")
     @ResponseBody
@@ -202,7 +243,6 @@ public class ReviewBoardController {
 //        log.info("/review/modify GET! - {}", reviewBno);
 
         List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUpload(reviewBno);
-
 
 
         return reviewUpload;
@@ -222,11 +262,11 @@ public class ReviewBoardController {
     }
 
     @PostMapping("/review/remove")
-    public String reviewRemove(Long reviewBno,String businessNo) {
+    public String reviewRemove(Long reviewBno, String businessNo) {
         log.info("/review/remove POST!!!!! - {}", reviewBno);
         log.info("/review/remove POST!!!!! - {}", businessNo);
 
-        reviewBoardService.removeReviewService(reviewBno,businessNo);
+        reviewBoardService.removeReviewService(reviewBno, businessNo);
 
         return "redirect:/review?sort=latest";
     }
@@ -252,4 +292,6 @@ public class ReviewBoardController {
 
         return "redirect:/review/detail?reviewBno=" + reviewBno;
     }
+
+
 }

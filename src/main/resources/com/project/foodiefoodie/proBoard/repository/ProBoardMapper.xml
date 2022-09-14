@@ -109,9 +109,24 @@
         and board.promotion_bno = time.promotion_bno
 
     </select>
+    <select id="selectProBoardAll" resultMap="proBoardMap">
+        select * from master master
+        RIGHT join promotion_board board
+        on master.business_no = board.business_no
+        LEFT join promotion_store_time time
+        on board.promotion_bno = time.promotion_bno
+        and board.promotion_bno = time.promotion_bno
+    </select>
 
     <select id="selectPromotionBno" resultType="int">
         select promotion_bno from promotion_board where business_no = #{businessNo}
+    </select>
+
+    <select id="selectProBoardBusiness" resultMap="proBoardMap">
+        select * from master master
+        RIGHT join promotion_board board
+        on master.business_no = board.business_no
+        where board.business_no = #{businessNo}
     </select>
 
     <insert id="addFavoriteStore">

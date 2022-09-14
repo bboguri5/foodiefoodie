@@ -17,6 +17,7 @@
         <result property="storeAddress" column="store_address"/>
         <result property="storeDetailAddress" column="store_detail_address"/>
         <result property="storeExtraAddress" column="store_extra_address"/>
+        <result property="promotionBno" column="promotion_bno"/>
     </resultMap>
 
     <resultMap id="rbDTOMap" type="com.project.foodiefoodie.review.dto.ReviewBoardDTO">
@@ -29,7 +30,8 @@
         <result property="storeDetailAddress" column="store_detail_address"/>
         <result property="storeExtraAddress" column="store_extra_address"/>
         <result property="businessNo" column="business_no"/>
-      </resultMap>
+        <result property="promotionBno" column="promotion_bno"/>
+    </resultMap>
 
     <resultMap id="ruMap" type="com.project.foodiefoodie.review.domain.ReviewUpload">
         <result property="reviewBno" column="review_bno"/>
@@ -73,20 +75,38 @@
     </select>
 
     <select id="findAllReviews" resultMap="rbDTOMap">
+
         SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
-        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address
+        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address ,pb.promotion_bno
         FROM review_board rb
+        LEFT OUTER JOIN promotion_board pb
+        ON rb.business_no = pb.business_no
         WHERE private = 'F'
         <if test="sort == 'latest'">ORDER BY rb.last_updated DESC</if>
         <if test="sort == 'like'">ORDER BY rb.like_cnt DESC</if>
+
+<!--        SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt-->
+<!--        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address-->
+<!--        FROM review_board rb-->
+<!--        WHERE private = 'F'-->
+<!--        <if test="sort == 'latest'">ORDER BY rb.last_updated DESC</if>-->
+<!--        <if test="sort == 'like'">ORDER BY rb.like_cnt DESC</if>-->
     </select>
 
 
     <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
+
         SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
-        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address
+        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address , pb.promotion_bno
         FROM review_board rb
-        WHERE rb.review_bno = #{reviewBno}
+        LEFT OUTER JOIN promotion_board pb
+        ON rb.business_no = pb.business_no
+        where rb.review_bno = #{reviewBno};
+
+<!--        SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt-->
+<!--        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address-->
+<!--        FROM review_board rb-->
+<!--        WHERE rb.review_bno = #{reviewBno}-->
     </select>
 
     <select id="searchAllReview" resultMap="rbDTOMap">
@@ -103,17 +123,38 @@
         <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
         <if test="sort == 'like'">ORDER BY like_cnt DESC</if>-->
 
-        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
-        store_name, store_address
-        FROM review_board
-        WHERE private = 'F'
-        AND email LIKE CONCAT('%', #{search}, '%')
-        OR title LIKE CONCAT('%', #{search}, '%')
-        OR content LIKE CONCAT('%', #{search}, '%')
-        OR store_name LIKE CONCAT('%', #{search}, '%')
-        OR store_address LIKE CONCAT('%', #{search}, '%')
+        SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
+        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address , pb.promotion_bno
+        FROM review_board rb
+        LEFT OUTER JOIN promotion_board pb
+        ON rb.business_no = pb.business_no
+        WHERE rb.private = 'F'
+        AND rb.email LIKE CONCAT('%', #{search}, '%')
+        OR rb.title LIKE CONCAT('%', #{search}, '%')
+        OR rb.content LIKE CONCAT('%', #{search}, '%')
+        OR rb.store_name LIKE CONCAT('%', #{search}, '%')
+        OR rb.store_address LIKE CONCAT('%', #{search}, '%')
+        OR rb.business_no = #{search}
         <if test="sort == 'latest'">ORDER BY last_updated DESC</if>
         <if test="sort == 'like'">ORDER BY like_cnt DESC</if>
+
+
+<!--        SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,-->
+<!--        store_name, store_address-->
+<!--        FROM review_board-->
+<!--        WHERE private = 'F'-->
+<!--        AND email LIKE CONCAT('%', #{search}, '%')-->
+<!--        OR title LIKE CONCAT('%', #{search}, '%')-->
+<!--        OR content LIKE CONCAT('%', #{search}, '%')-->
+<!--        OR store_name LIKE CONCAT('%', #{search}, '%')-->
+<!--        OR store_address LIKE CONCAT('%', #{search}, '%')-->
+<!--        <if test="sort == 'latest'">ORDER BY last_updated DESC</if>-->
+<!--        <if test="sort == 'like'">ORDER BY like_cnt DESC</if>-->
+    </select>
+
+
+    <select id="isMaster" resultType="int">
+        SELECT count(*) FROM promotion_board pb LEFT JOIN master m on pb.business_no = m.business_no where m.email = #{email} AND m.business_no = #{businessNo};
     </select>
 
     <select id="searchTop5Review" resultMap="rbDTOMap">

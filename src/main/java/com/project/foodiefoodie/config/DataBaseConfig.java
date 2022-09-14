@@ -19,8 +19,8 @@ public class DataBaseConfig {
 
         config.setJdbcUrl("jdbc:mariadb://database-1.ce2n3tdihqpa.ap-northeast-2.rds.amazonaws.com:3306/TEAM_B");
         config.setDriverClassName("org.mariadb.jdbc.Driver");
-        config.setUsername("seongryeol");
-        config.setPassword("1234");
+        config.setUsername("admin");
+        config.setPassword("Ehdwls12!");
 //        config.setJdbcUrl("jdbc:oracle:thin:@localhost:1521:xe");
 //        config.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 

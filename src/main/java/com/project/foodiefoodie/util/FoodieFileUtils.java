@@ -4,8 +4,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.MediaType;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Base64;
@@ -88,7 +87,7 @@ public class FoodieFileUtils {
         String responseFilePath = fileFullPath.substring(uploadPath.length());
 
 
-        return responseFilePath.replace("\\", "/");
+        return fileFullPath;
     }
 
 
@@ -171,4 +170,5 @@ public class FoodieFileUtils {
         }
         return null;
     }
+
 } // end class

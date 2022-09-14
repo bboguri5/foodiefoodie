@@ -29,7 +29,7 @@
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
         ORDER BY avg_star_rate DESC
-        LIMIT 0, 7
+            LIMIT 0, 7
     </select>
 
     <!-- 오늘의 맛집 평점 순으로 전체 불러오기 -->

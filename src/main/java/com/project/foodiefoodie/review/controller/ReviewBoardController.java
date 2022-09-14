@@ -243,12 +243,13 @@ public class ReviewBoardController {
     }
 
     @PostMapping("/review/reply-faq")
-    public String replyFaq(ReplyFaq replyFaq) {
+    public String replyFaq(ReplyFaq replyFaq, long reviewBno) {
 
         log.info("/review/reply-faq POST!!!!! - {}", replyFaq);
 
+
         replyFaqService.saveService(replyFaq);
 
-        return "redirect:/review?sort=latest";
+        return "redirect:/review/detail?reviewBno=" + reviewBno;
     }
 }

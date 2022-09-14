@@ -20,8 +20,7 @@
 
     <!-- 메인 페이지에 평점 높은 7개 가게 불러오기 -->
     <select id="findTopToday" resultMap="mpMap">
-        SELECT *
-        FROM ( SELECT P.promotion_bno, M.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
+        SELECT P.promotion_bno, M.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag, file_data
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
@@ -30,7 +29,6 @@
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
         ORDER BY avg_star_rate DESC
-        ) sub
         LIMIT 0, 7
     </select>
 

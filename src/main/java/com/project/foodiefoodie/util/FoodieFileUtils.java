@@ -56,15 +56,8 @@ public class FoodieFileUtils {
         String newFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename(); // 로그인시 너무 많이 틀리면 자동입력방지 문자열을 적으라고 할 때도 이런걸 잘라서 한다고 한다.
 
 
-        // 업로드 경로도 변경하고자 함
-        // E:sl_basic_upload 가 현재 업로드 경로인데
-        // 날짜별로 관리하고자 한다.
-        // E:sl_basic_upload/2022/08/01 이런 식으로!!
-        String newUploadPath = getNewUploadPath(uploadPath);
-
-
         // 파일 업로드 수행
-        File f = new File(newUploadPath, newFileName);
+        File f = new File(uploadPath, newFileName);
 
 
         try {
@@ -77,7 +70,7 @@ public class FoodieFileUtils {
         }
 
         // 파일의 풀 경로 ( 디렉토리 경로 + 파일명 )
-        String fileFullPath = newUploadPath + File.separator + newFileName;
+        String fileFullPath = uploadPath + File.separator + newFileName;
 
 
         // 풀 경로 - 루트 경로 문자열 생성
@@ -88,45 +81,6 @@ public class FoodieFileUtils {
 
 
         return fileFullPath;
-    }
-
-
-    /**
-     * 원본 업로드 경로를 받아서 일자별 폴더를 생성한 후 최종경로를 리턴
-     *
-     * @param uploadPath - 원본 업로드 경로
-     * @return - 일자별 폴더가 포함된 새로운 업로드 경로
-     */
-    private static String getNewUploadPath(String uploadPath) {
-
-        // 오늘의 년, 월, 일 정보를 가져오기
-        LocalDateTime now = LocalDateTime.now();
-        int y = now.getYear();
-        int m = now.getMonthValue();
-        int d = now.getDayOfMonth();
-
-        // 폴더 생성
-        String[] dateInfo = {
-                String.valueOf(y)
-                , len2(m)
-                , len2(d)
-        };
-
-        String newUploadPath = uploadPath;
-
-        // File.separator : 운영체제에 맞는 디렉토리 경로 구분 문자를 생성
-        // 리눅스 : / , 윈도우 : \
-
-        for (String date : dateInfo) {
-            newUploadPath += File.separator + date; // 업로딩 경로를 리눅스에 둘지, 윈도우에 둘지 모른다면??
-
-
-            // 해당 경로대로 폴더를 생성
-            File dirName = new File(newUploadPath);
-            if (!dirName.exists()) dirName.mkdirs();
-        }
-
-        return newUploadPath;
     }
 
 

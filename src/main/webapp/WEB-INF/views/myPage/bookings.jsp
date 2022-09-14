@@ -33,6 +33,16 @@
     
     <link href="/mypage/css/custom.css" rel="stylesheet"> -->
     <%@ include file="../include/admin-static-head.jsp" %>
+
+    <style>
+        .list_general ul li .pending {
+            font-size: large;
+    
+        }
+
+    </style>
+
+
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
@@ -54,7 +64,7 @@
                         <c:forEach var="info" items="${favoriteAllInfo}">
                             <li>
                                 <figure><img src="${info.fileData}" alt=""></figure>
-                                <h4>${info.storeName}<i class="pending">${info.hotDeal}</i></h4>
+                                <h4>${info.storeName} | HotDeal <i class="pending">${info.hotDeal}</i></h4>
                                 <ul class="booking_list">
                                     <li><strong>가게 번호</strong>${info.storeCallNumber}</li>
                                     <li><strong>가게 주소</strong>${info.storeAddress} ${info.storeDetailAddress}

@@ -183,10 +183,14 @@
                                     href="/review/modify/${review.reviewBno}">수정</a>
                                 <span style="margin-left: 10px">|</span>
                                 <a href="#" class="review-del-btn nav-removeBtn" style="margin-left: 10px;">삭제</a>
+                            </c:if>
+                            <c:if test="${loginUser.auth == 'ADMIN'}">
                                 <span style="margin-left: 10px">|</span>
                             </c:if>
-                            <a href="#" class="review-faq-btn nav-faq-btn" style="margin-left: 10px;"
-                                data-bs-toggle='modal' data-bs-target='.review-faq-modal'>신고</a>
+                            <c:if test="${loginUser.email != review.email}">
+                                <a href="#" class="review-faq-btn nav-faq-btn" style="margin-left: 10px;"
+                                    data-bs-toggle='modal' data-bs-target='.review-faq-modal'>신고</a>
+                            </c:if>
                         </div>
 
                         <form method="post" action="/review/remove" class="review-del-form">
@@ -236,11 +240,11 @@
                                         <c:forEach var="uploads" items="${uploads}" varStatus="status">
                                             <div class="owl-item active" style="width: 829.325px; height: 600px;">
                                                 <div class="item">
-                                                    <a href="data:image/png;base64, ${uploads}" title="Photo title"
+                                                    <a href="${uploads}" title="Photo title"
                                                         data-effect="mfp-zoom-in">
                                                         <div style="max-width: 100%; max-height: 100%;">
                                                             <img class="review-img-css"
-                                                                src="data:image/png;base64, ${uploads}" alt="">
+                                                                src="${uploads}" alt="">
                                                         </div>
                                                     </a>
                                                 </div>
@@ -397,6 +401,7 @@
                                 <input type="text" class="form-control modal-reply-report-no" name="replyWriterEmail"
                                     readonly>
                                 <input type="hidden" class="modal-reply-bno" name="replyNo" readonly>
+                                <input type="hidden" name="reviewBno" value="${review.reviewBno}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>신고 작성자</label>
@@ -519,7 +524,7 @@
                             `<span>|</span><a id='replyDelBtn' class='btn btn-sm btn-outline-secondary' href='#'>삭제</a>`
                             ;
                     }
-                    if(loginEmail != null) {
+                    if(loginEmail != null || loginEmail != `${review.email}`) {
                         tag +=
                         `<span>|</span><a id='replyFaqBtn' class='btn btn-sm btn-outline-secondary' data-bs-toggle='modal' data-bs-target='#replyFaqModal'
                                             data-replyWriterEmail=` + rep.email + ` data-replyNo=` + rep.replyNo +

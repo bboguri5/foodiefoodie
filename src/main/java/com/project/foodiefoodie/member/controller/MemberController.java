@@ -342,10 +342,10 @@ public class MemberController {
     }
 
 
-    // 회원탈퇴
-    @GetMapping("/secession")
-    public  String secessionMethod(HttpSession session, HttpServletRequest request , HttpServletResponse response){
 
+    // 회원탈퇴
+    @GetMapping("/myPage/secession")
+    public  String secessionMethod(HttpSession session, HttpServletRequest request , HttpServletResponse response){
 
         log.info("\n\n\n===========\n\n\n");
         log.info("secession success");

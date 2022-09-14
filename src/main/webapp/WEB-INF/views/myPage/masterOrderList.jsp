@@ -6,12 +6,14 @@
 
 
 <head>
+    <!-- <%@ include file="/WEB-INF/views/myPage/include/mypage-static-head.jsp" %> -->
     <%@ include file="../include/admin-static-head.jsp" %>
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
 
     <%@ include file="../include/myPage-nav.jsp" %>
+    
 
     <!-- 여기가 메인 ~~------------------------------------------------------------------------------------------ -->
     <!-- /Navigation-->
@@ -64,7 +66,6 @@
                                                 data-dateandtime="${masterOrder.dateAndTime}">
                                                 ${masterOrder.orderNo}</a>
                                         </th>
-                                        <td>${masterOrder.orderNo}</td>
                                         <td>${masterOrder.email}</td>
                                         <td>${masterOrder.orderMenuList}</td>
                                         <td>${masterOrder.totalNum}</td>

@@ -51,7 +51,6 @@ public class HotDealOnOffController {
         modiHotDealPercentDTO.setDiscountPrice(inputHotDealDTO.getDiscountPrice());
 
 
-
         // 마스터 핫딜 값 바꿔주는 DTO 값 넣기
         MasterHotDealOnOffDTO masterHotDealOnOffDTO = new MasterHotDealOnOffDTO();
         masterHotDealOnOffDTO.setBusinessNo(businessNo);
@@ -59,7 +58,6 @@ public class HotDealOnOffController {
 
         // 마스터정보에있는 마스터 핫딜 값 바꿔주는 메서드
         masterService.masterHotDealOnOffService(masterHotDealOnOffDTO);
-
 
         // 일단 ON 인지 OFF 인지 확인
         if(inputHotDealDTO.getHotDealRadio().equals("ON")){

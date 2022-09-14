@@ -89,13 +89,14 @@ public class ReviewBoardService {
     }
 
     public List<String> findReviewUploadsForByteService(long reviewBno) {
+        log.info("findReviewUploadsForByteService - {}", reviewBno);
         List<ReviewUpload> reviewUploads = rbMapper.findReviewUploads(reviewBno);
 
 
         List<String> reviewStrImg = new ArrayList<>();
 
         for (ReviewUpload reviewUpload : reviewUploads) {
-//            log.info("filepath - {}", reviewUpload.getFilePath());
+            log.info("filepath - {}", reviewUpload.getFilePath());
             reviewStrImg.add(FoodieFileUtils.getFileContent(reviewUpload.getFilePath()));
 //            + '\\' + reviewUpload.getFileName()
         }

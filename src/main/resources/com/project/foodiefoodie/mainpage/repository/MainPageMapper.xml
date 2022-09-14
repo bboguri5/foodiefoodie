@@ -20,8 +20,7 @@
 
     <!-- 메인 페이지에 평점 높은 7개 가게 불러오기 -->
     <select id="findTopToday" resultMap="mpMap">
-        SELECT *
-        FROM ( SELECT P.promotion_bno, M.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
+        SELECT P.promotion_bno, M.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag, file_data
         FROM promotion_board P JOIN master M
         ON P.business_no = M.business_no
@@ -30,26 +29,25 @@
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
         ORDER BY avg_star_rate DESC
-        ) sub
-        LIMIT 1, 7
+            LIMIT 0, 7
     </select>
 
     <!-- 오늘의 맛집 평점 순으로 전체 불러오기 -->
     <select id="findTopTodayAll" resultMap="mpMap">
         <!--        oracle version -->
-<!--        SELECT *-->
-<!--        FROM (SELECT ROWNUM rn, sub.*-->
-<!--        FROM ( SELECT P.promotion_bno, M.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,-->
-<!--        discount_price, hashTag, file_data-->
-<!--        FROM promotion_board P JOIN master M-->
-<!--        ON P.business_no = M.business_no-->
-<!--        LEFT OUTER JOIN hot_deal H-->
-<!--        ON H.business_no = P.business_no-->
-<!--        JOIN promotion_upload_title_img PI-->
-<!--        ON PI.promotion_bno = P.promotion_bno-->
-<!--        ORDER BY avg_star_rate DESC-->
-<!--        ) sub)-->
-<!--        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})-->
+        <!--        SELECT *-->
+        <!--        FROM (SELECT ROWNUM rn, sub.*-->
+        <!--        FROM ( SELECT P.promotion_bno, M.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,-->
+        <!--        discount_price, hashTag, file_data-->
+        <!--        FROM promotion_board P JOIN master M-->
+        <!--        ON P.business_no = M.business_no-->
+        <!--        LEFT OUTER JOIN hot_deal H-->
+        <!--        ON H.business_no = P.business_no-->
+        <!--        JOIN promotion_upload_title_img PI-->
+        <!--        ON PI.promotion_bno = P.promotion_bno-->
+        <!--        ORDER BY avg_star_rate DESC-->
+        <!--        ) sub)-->
+        <!--        WHERE rn BETWEEN (#{pageNum} - 1) * #{amount} + 1 AND (#{pageNum} * #{amount})-->
 
         <!--        mariaDB version -->
         SELECT P.promotion_bno, M.business_no, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
@@ -71,35 +69,35 @@
     </select>
 
     <!-- 기한이 지나지 않은 월정액 가게 랜덤으로 메인 페이지에 7개 불러오기 -->
-   <!-- <select id="findRandPremium" resultMap="mpMap">
+    <!-- <select id="findRandPremium" resultMap="mpMap">
 
-        &lt;!&ndash;SELECT * FROM (
-        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
-        discount_price, hashTag, file_data
-        FROM promotion_board P JOIN master M
-        ON P.business_no = M.business_no
-        LEFT OUTER JOIN hot_deal H
-        ON H.business_no = P.business_no
-        JOIN promotion_upload_title_img PI
-        ON PI.promotion_bno = P.promotion_bno
-        WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
-        (current_timestamp, 'YYYYMMDD') "NOW" FROM DUAL))
-        ORDER BY DBMS_RANDOM.RANDOM ) sub
-        WHERE ROWNUM BETWEEN 1 AND 7&ndash;&gt;
+         &lt;!&ndash;SELECT * FROM (
+         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
+         discount_price, hashTag, file_data
+         FROM promotion_board P JOIN master M
+         ON P.business_no = M.business_no
+         LEFT OUTER JOIN hot_deal H
+         ON H.business_no = P.business_no
+         JOIN promotion_upload_title_img PI
+         ON PI.promotion_bno = P.promotion_bno
+         WHERE promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
+         (current_timestamp, 'YYYYMMDD') "NOW" FROM DUAL))
+         ORDER BY DBMS_RANDOM.RANDOM ) sub
+         WHERE ROWNUM BETWEEN 1 AND 7&ndash;&gt;
 
-        SELECT * FROM (
-        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
-        discount_price, hashTag, file_data
-        FROM promotion_board P JOIN master M
-        ON P.business_no = M.business_no
-        LEFT OUTER JOIN hot_deal H
-        ON H.business_no = P.business_no
-        JOIN promotion_upload_title_img PI
-        ON PI.promotion_bno = P.promotion_bno
-        WHERE P.promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE LOWER(complete) = 't')
-        ORDER BY DBMS_RANDOM.RANDOM) sub
-        WHERE ROWNUM BETWEEN 1 AND 7
-    </select>-->
+         SELECT * FROM (
+         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
+         discount_price, hashTag, file_data
+         FROM promotion_board P JOIN master M
+         ON P.business_no = M.business_no
+         LEFT OUTER JOIN hot_deal H
+         ON H.business_no = P.business_no
+         JOIN promotion_upload_title_img PI
+         ON PI.promotion_bno = P.promotion_bno
+         WHERE P.promotion_bno IN ( SELECT promotion_bno FROM premiume_promotion_board WHERE LOWER(complete) = 't')
+         ORDER BY DBMS_RANDOM.RANDOM) sub
+         WHERE ROWNUM BETWEEN 1 AND 7
+     </select>-->
 
     <!-- 월정액 가게 전체 불러오기 -->
     <!--<select id="findAllPremium" resultMap="mpMap">
@@ -137,33 +135,33 @@
     </select>-->
 
     <!-- 프리미엄 가게 개수 계산 -->
-   <!-- <select id="getPremiumCnt" resultType="int">
-        SELECT COUNT(*)
-        FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
-        (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
+    <!-- <select id="getPremiumCnt" resultType="int">
+         SELECT COUNT(*)
+         FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
+         (SYSDATE, 'YYYYMMDD') "NOW" FROM DUAL)
 
-        &lt;!&ndash;SELECT COUNT(*)
-        FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
-        (current_timestamp, 'YYYYMMDD') "NOW" FROM DUAL)&ndash;&gt;
-    </select>-->
+         &lt;!&ndash;SELECT COUNT(*)
+         FROM premiume_promotion_board WHERE end_date >= (SELECT TO_CHAR
+         (current_timestamp, 'YYYYMMDD') "NOW" FROM DUAL)&ndash;&gt;
+     </select>-->
 
     <!-- 현재 위치에 있는 랜덤 6개 가게 불러오기  -->
     <select id="findLocationRand" resultMap="mpMap">
         <!--        oracle version -->
-<!--        SELECT *-->
-<!--        FROM (-->
-<!--        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,-->
-<!--        discount_price, hashTag, file_data-->
-<!--        FROM promotion_board P JOIN master M-->
-<!--        ON P.business_no = M.business_no-->
-<!--        LEFT OUTER JOIN hot_deal H-->
-<!--        ON H.business_no = P.business_no-->
-<!--        JOIN promotion_upload_title_img PI-->
-<!--        ON PI.promotion_bno = P.promotion_bno-->
-<!--        WHERE store_address LIKE '%' || #{storeAddress}|| '%'-->
-<!--        ORDER BY DBMS_RANDOM.RANDOM-->
-<!--        ) sub-->
-<!--        WHERE ROWNUM BETWEEN 1 AND 4-->
+        <!--        SELECT *-->
+        <!--        FROM (-->
+        <!--        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,-->
+        <!--        discount_price, hashTag, file_data-->
+        <!--        FROM promotion_board P JOIN master M-->
+        <!--        ON P.business_no = M.business_no-->
+        <!--        LEFT OUTER JOIN hot_deal H-->
+        <!--        ON H.business_no = P.business_no-->
+        <!--        JOIN promotion_upload_title_img PI-->
+        <!--        ON PI.promotion_bno = P.promotion_bno-->
+        <!--        WHERE store_address LIKE '%' || #{storeAddress}|| '%'-->
+        <!--        ORDER BY DBMS_RANDOM.RANDOM-->
+        <!--        ) sub-->
+        <!--        WHERE ROWNUM BETWEEN 1 AND 4-->
 
         <!--        mariaDB version -->
         SELECT *
@@ -177,29 +175,28 @@
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
         WHERE store_address LIKE CONCAT('%', #{storeAddress}, '%')
-        ORDER BY DBMS_RANDOM.RANDOM
         ) sub
-        LIMIT 1, 4
+        LIMIT 0, 4
     </select>
 
     <!-- 현재 위치에 있는 가게 전체 불러오기  -->
     <select id="findAllInLocation" resultMap="mpMap">
-<!--        oracle version -->
-<!--        SELECT *-->
-<!--        FROM (SELECT ROWNUM rn, sub.*-->
-<!--        FROM (-->
-<!--        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,-->
-<!--        discount_price, hashTag, file_data-->
-<!--        FROM promotion_board P JOIN master M-->
-<!--        ON P.business_no = M.business_no-->
-<!--        LEFT OUTER JOIN hot_deal H-->
-<!--        ON H.business_no = P.business_no-->
-<!--        JOIN promotion_upload_title_img PI-->
-<!--        ON PI.promotion_bno = P.promotion_bno-->
-<!--        WHERE store_address LIKE '%' || #{storeAddress}|| '%'-->
-<!--        ORDER BY avg_star_rate-->
-<!--        ) sub)-->
-<!--        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})-->
+        <!--        oracle version -->
+        <!--        SELECT *-->
+        <!--        FROM (SELECT ROWNUM rn, sub.*-->
+        <!--        FROM (-->
+        <!--        SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,-->
+        <!--        discount_price, hashTag, file_data-->
+        <!--        FROM promotion_board P JOIN master M-->
+        <!--        ON P.business_no = M.business_no-->
+        <!--        LEFT OUTER JOIN hot_deal H-->
+        <!--        ON H.business_no = P.business_no-->
+        <!--        JOIN promotion_upload_title_img PI-->
+        <!--        ON PI.promotion_bno = P.promotion_bno-->
+        <!--        WHERE store_address LIKE '%' || #{storeAddress}|| '%'-->
+        <!--        ORDER BY avg_star_rate-->
+        <!--        ) sub)-->
+        <!--        WHERE rn BETWEEN (#{page.pageNum} - 1) * #{page.amount} + 1 AND (#{page.pageNum} * #{page.amount})-->
 
         <!--        mariaDB version -->
 
@@ -233,7 +230,6 @@
 
     <!-- hot deal 랜덤 6개 목록 요청-->
     <select id="findRandHotDeal" resultMap="mpMap">
-        SELECT * FROM (
         SELECT P.business_no, P.promotion_bno, store_name, store_address, avg_star_rate, review_cnt, hot_deal,
         discount_price, hashTag, file_data
         FROM promotion_board P JOIN hot_deal H
@@ -242,8 +238,8 @@
         ON H.business_no = M.business_no
         JOIN promotion_upload_title_img PI
         ON PI.promotion_bno = P.promotion_bno
-        WHERE LOWER(hot_deal) = 'on') sub
-        LIMIT 1, 6
+        WHERE hot_deal = 'ON'
+        LIMIT 0, 6
     </select>
 
     <!-- hot deal 목록 요청-->
@@ -410,14 +406,22 @@
         <![CDATA[
         SELECT
         CASE
-        WHEN (SELECT TO_CHAR(current_timestamp,'DY') FROM dual) = closedday THEN '오늘 휴무'
-        WHEN breakstarttime <= (SELECT TO_CHAR
-        (current_timestamp, 'HH24:MI') "NOW" FROM DUAL) AND breakendtime >= (SELECT TO_CHAR
-        (current_timestamp, 'HH24:MI') "NOW" FROM DUAL) THEN '브레이크 타임'
-        WHEN weekdayclosetime >= (SELECT TO_CHAR
-        (current_timestamp, 'HH24:MI') "NOW" FROM DUAL) AND weekdayopentime <= (SELECT TO_CHAR
-        (current_timestamp, 'HH24:MI') "NOW" FROM DUAL) THEN '영업중'
-        ELSE '영업끝'
+        WHEN (
+        SELECT (case DAYOFWEEK(now())
+        when '1' then '일'
+        when '2' then '월'
+        when '3' then '화'
+        when '4' then '수'
+        when '5' then '목'
+        when '6' then '금'
+        when '7' then '토'
+        end) as DAY_OF_WEEK
+        from dual
+        ) = closedday THEN '오늘 휴무'
+        WHEN breakstarttime <= (SELECT TIME_FORMAT(now(), '%H:%i')) AND breakendtime >= (SELECT TIME_FORMAT(now(), '%H:%i')) THEN '브레이크 타임'
+        WHEN (SELECT TIME_FORMAT(DATE_SUB(NOW(), INTERVAL '3' HOUR), '%H:%i')) <= weekdayopentime AND (SELECT TIME_FORMAT(DATE_SUB(NOW(), INTERVAL '3' HOUR), '%H:%i')) >= weekdayclosetime THEN '영업전'
+        WHEN weekdayclosetime <= (SELECT TIME_FORMAT(now(), '%H:%i')) AND weekdayopentime >= (SELECT TIME_FORMAT(now(), '%H:%i')) THEN '영업마감'
+        ELSE '영업중'
         END AS StoreTimeText
         FROM promotion_store_time
         WHERE promotion_bno = #{promotionBno}

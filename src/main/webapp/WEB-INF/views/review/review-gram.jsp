@@ -170,7 +170,7 @@
 							<article class="blog">
 								<figure>
 									<a href="/review/detail?reviewBno=${rl.reviewBno}"><img
-											src="data:image/png;base64, ${uploads[status.index]}" alt="">
+											src="${uploads[status.index]}" alt="">
 										<div class="preview"><span>Read more</span></div>
 									</a>
 								</figure>
@@ -192,12 +192,9 @@
 										<input type="hidden" oninput="drawStar(this)" value="" step="1" min="0"
 											max="10" name="starRate">
 									</span>
-									<p>식당 이름: <a href="#">${review.storeName}</a></p>
-									<span>식당 주소: ${review.storeAddress} --> </span>
-									<a class="openKaKaoMap" target="_blank">주소 지도로 보기</a>
 									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
 									<c:if test="${fn:length(rl.businessNo)>0}">
-										식당 홍보글 : 
+										식당 홍보글 :
 										<a href="/proBoard/detail/${rl.promotionBno}"> 홍보글 보기 </a>
 									</c:if>
 									<p>식당 주소: ${rl.storeAddress}</p>

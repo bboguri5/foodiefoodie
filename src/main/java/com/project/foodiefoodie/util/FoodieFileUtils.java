@@ -145,8 +145,10 @@ public class FoodieFileUtils {
     // 로컬경로의 이미지는 보안문제로 적용되지 않기때문에 변환하여 전달
     public static String getFileContent (String filePath) {
         byte[] filebyte = getImgByte(filePath);
-//        log.info("filebyte - {}", filebyte);
-        return convertBlobToBase64(filebyte);
+        log.info("filebyte - {}", filebyte);
+        String base64 = convertBlobToBase64(filebyte);
+        log.info("base64 - {}", base64);
+        return base64;
     }
 
     private static String convertBlobToBase64 (byte[] blob) {

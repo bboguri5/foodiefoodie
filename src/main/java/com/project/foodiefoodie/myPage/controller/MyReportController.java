@@ -22,7 +22,7 @@ public class MyReportController {
 
     private final MyReportService reportService;
 
-    @GetMapping("/reviewReport")
+    @GetMapping("/myPage/reviewReport")
     public String reviewReportController(HttpSession session, Model model){
         Member member = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = member.getEmail();
@@ -33,7 +33,7 @@ public class MyReportController {
         return "/myPage/reviewReport";
 
     }
-    @GetMapping("/replyReport")
+    @GetMapping("/myPage/replyReport")
     public String replyReportController(HttpSession session, Model model){
         Member member = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = member.getEmail();
@@ -43,7 +43,8 @@ public class MyReportController {
         return "/myPage/replyReport";
     }
 
-    @GetMapping("/promotionReport/{masterNum}&{businessNo}")
+
+    @GetMapping("/master/promotionReport/{masterNum}&{businessNo}")
     public String PromotionReportList(@PathVariable int masterNum, @PathVariable String businessNo, HttpSession session, Model model){
         Member member = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);
         String email = member.getEmail();

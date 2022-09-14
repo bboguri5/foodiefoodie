@@ -90,6 +90,7 @@ public class ProBoardController {
             int count = replyService.findReplyCountService(reviewBno);
 
             if (!reviewUpload.isEmpty()) {
+                log.info("reviewUploadFileData - {}", reviewUpload.get(0).getFileData());
                 reviewUploads.add(reviewUpload.get(0).getFileData());
             } else {
                 reviewUploads.add(null);

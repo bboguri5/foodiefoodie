@@ -572,7 +572,7 @@
                     console.log('aanjseqpw oqwf[ojqwo[fn [qownf'); // 여기까지온다 
                     if (msg === 'password-success') {
                         alert("비밀번호 인증에 성공했습니다. 탈퇴하셨으므로 메인화면으로 이동합니다.");
-                        location.href = '/secession';
+                        location.href = '/myPage/secession';
                     } else if (msg === 'password-false') {
                         console.log(123123123123123123);
                         $falseh5.style.display = "block";

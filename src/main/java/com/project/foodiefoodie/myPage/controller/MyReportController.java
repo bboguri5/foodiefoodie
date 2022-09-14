@@ -43,6 +43,7 @@ public class MyReportController {
         return "/myPage/replyReport";
     }
 
+
     @GetMapping("/master/promotionReport/{masterNum}&{businessNo}")
     public String PromotionReportList(@PathVariable int masterNum, @PathVariable String businessNo, HttpSession session, Model model){
         Member member = (Member)session.getAttribute(LoginUtils.LOGIN_FLAG);

@@ -100,7 +100,7 @@ public class ProBoardService {
     // ex) C:\foodiefoodie\proBoard\1234-12-12345\detail
     private String getNewUploadPath(String businessNo, String newFolder) {
 
-        String newUploadPath = "C:\\foodiefoodie\\proBoard";
+        String newUploadPath = "/home/ec2-user/foodiefoodie/proBoard";
         newUploadPath += File.separator + businessNo;
         newUploadPath += File.separator + newFolder;
 
@@ -114,7 +114,7 @@ public class ProBoardService {
     private void deleteLocalFile(String businessNo, String folderName, List<MultipartFile> fileList) {
         List<Boolean> result = new ArrayList<>();
         List<String> requestFileNames = new ArrayList<>();
-        String newUploadPath = "C:\\foodiefoodie\\proBoard";
+        String newUploadPath = "/home/ec2-user/foodiefoodie/proBoard";
 
         newUploadPath += File.separator + businessNo;
         newUploadPath += File.separator + folderName;
@@ -147,7 +147,7 @@ public class ProBoardService {
             log.info(" service uploadSaveFile imgFile = {}", imgFile.getOriginalFilename());
 
             if (imgFile.getOriginalFilename().equals("default")) {
-                String defFilePath = "\\img\\menu";
+                String defFilePath = "/img/menu";
                 String defFileName = "foodie_default.PNG";
                 FileDTO fileDTO = new FileDTO(proBoard.getPromotionBno(),
                         0, defFilePath, defFileName, "default",

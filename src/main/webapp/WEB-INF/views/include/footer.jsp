@@ -8,9 +8,7 @@
                 <h3 data-bs-target="#collapse_1">Quick Links</h3>
                 <div class="collapse dont-collapse-sm links" id="collapse_1">
                     <ul>
-                        <li><a href="submit-rider.html">Become a Rider</a></li>
                         <li><a href="/master/register">Add your restaurant</a></li>
-                        <li><a href="help.html">Help</a></li>
                         <li><a href="/myPage/profile">My Page</a></li>
                     </ul>
                 </div>
@@ -19,10 +17,8 @@
                 <h3 data-bs-target="#collapse_2">Categories</h3>
                 <div class="collapse dont-collapse-sm links" id="collapse_2">
                     <ul>
-                        <li><a href="grid-listing-filterscol.html">Top Categories</a></li>
                         <li><a href="/foodlist">Best Rated</a></li>
                         <li><a href="/hotdeals">Best Price</a></li>
-                        <li><a href="grid-listing-filterscol-full-masonry.html">Latest Submissions</a></li>
                     </ul>
                 </div>
             </div>

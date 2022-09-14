@@ -169,7 +169,7 @@
 							<article class="blog">
 								<figure>
 									<a href="/review/detail?reviewBno=${rl.reviewBno}"><img
-											src="data:image/png;base64, ${uploads[status.index]}" alt="">
+											src="${uploads[status.index]}" alt="">
 										<div class="preview"><span>Read more</span></div>
 									</a>
 								</figure>

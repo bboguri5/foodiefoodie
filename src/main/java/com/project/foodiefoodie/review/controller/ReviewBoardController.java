@@ -59,9 +59,9 @@ public class ReviewBoardController {
         List<Long> isLikedList = reviewBoardService.getLikedListService(email);
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
-//        log.info("reviewUploads - {}", reviewUploads);
-//        log.info("replyCount - {}", replyCount);
-//        log.info("reviewList - {}", reviewList);
+        log.info("reviewUploads - {}", reviewUploads);
+        log.info("replyCount - {}", replyCount);
+        log.info("reviewList - {}", reviewList);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
@@ -71,13 +71,17 @@ public class ReviewBoardController {
     }
 
     private void getUploads(List<String> reviewUploads, List<Integer> replyCount, List<ReviewBoardDTO> reviewList) {
+        log.info("getUploads - {}, {}, {}", reviewUploads, replyCount, reviewList);
         for (int i = 0; i < reviewList.size(); i++) {
             long reviewBno = reviewList.get(i).getReviewBno();
-            List<String> reviewUpload = reviewBoardService.findReviewUploadsForByteService(reviewBno);
+            log.info("getUploads - reviewBno - {}", reviewBno);
+            List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUpload(reviewBno);
+//            log.info("reviewUploadBase64 - {}", reviewUpload);
             int count = replyService.findReplyCountService(reviewBno);
 
             if (!reviewUpload.isEmpty()) {
-                reviewUploads.add(reviewUpload.get(0));
+                reviewUploads.add(reviewUpload.get(0).getFileData());
+                log.info("reviewUpload.get(0).getFileData() - {}", reviewUpload.get(0).getFilePath());
             } else {
                 reviewUploads.add(null);
             }
@@ -88,10 +92,15 @@ public class ReviewBoardController {
 
     @GetMapping("/review/detail")
     public String reviewDetail(long reviewBno, Model model, HttpSession session) {
+        log.info("review/detail GET!!!");
         ReviewBoardDTO review = reviewBoardService.findOneReviewService(reviewBno);
-        List<String> reviewUploads = reviewBoardService.findReviewUploadsForByteService(reviewBno);
+        List<ReviewUpload> reviewUploads = reviewBoardService.findReviewUpload(reviewBno);
         List<Reply> replyList = replyService.findAllRepliesService(reviewBno);
 //        log.info("review - {}", review);
+        List<String> reviewUpload = new ArrayList<>();
+        for (ReviewUpload upload : reviewUploads) {
+            reviewUpload.add(upload.getFileData());
+        }
 
         Member loginUser = (Member) session.getAttribute("loginUser");
 
@@ -102,7 +111,7 @@ public class ReviewBoardController {
 
 
         model.addAttribute("review", review);
-        model.addAttribute("uploads", reviewUploads);
+        model.addAttribute("uploads", reviewUpload);
         model.addAttribute("replyList", replyList);
         model.addAttribute("replyCount", replyService.findReplyCountService(reviewBno));
         model.addAttribute("isLiked", reviewBoardService.isLikedService(reviewBno, email));

@@ -22,6 +22,5 @@ public class Master {
     private String storeExtraAddress;
     private String hotDeal;
     private String storeCallNumber;
-
     private String email;
 }

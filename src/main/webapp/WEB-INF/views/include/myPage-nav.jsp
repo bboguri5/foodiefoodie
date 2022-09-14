@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-default fixed-top" id="mainNav">
-    <a class="navbar-brand" href="/"><img src="../img/foodie_logo.png" alt="" width="142" height="36"></a>
+    <a class="navbar-brand" href="/"><img src="/img/foodie_logo.png" alt="" width="142" height="36"></a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
                     <ul class="sidenav-second-level collapse" id="f123123">
                             <c:forEach var="n" begin="0" end="${masterCount}" step="1">
                                 <li>
-                                    <a href="/promotionReport/${n}&${masterList[n].businessNo}">${masterList[n].storeName}<span class="badge badge-pill badge-primary"></span></a>
+                                    <a href="/master/promotionReport/${n}&${masterList[n].businessNo}">${masterList[n].storeName}<span class="badge badge-pill badge-primary"></span></a>
                                 </li>
                             </c:forEach>
                     </ul>
@@ -58,7 +58,7 @@
                     <ul class="sidenav-second-level collapse" id="masterOrderList">
                             <c:forEach var="n" begin="0" end="${masterCount}" step="1">
                                 <li>
-                                    <a href="/masterOrderList/${n}">${masterList[n].storeName}<span class="badge badge-pill badge-primary"></span></a>
+                                    <a href="/myPage/masterOrderList/${n}">${masterList[n].storeName}<span class="badge badge-pill badge-primary"></span></a>
                                 </li>
                             </c:forEach>
                     </ul>
@@ -68,20 +68,20 @@
 
 
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
-                <a class="nav-link" href="/myReview">
+                <a class="nav-link" href="/myPage/myReview">
                     <i class="fa fa-fw fa-star"></i>
                     <span class="nav-link-text">Reviews 내가쓴 리뷰 </span>
                 </a>
             </li>
 
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bookmarks">
-                <a class="nav-link" href="/favoriteList">
+                <a class="nav-link" href="/myPage/favoriteList">
                     <i class="fa fa-fw fa-heart"></i>
                     <span class="nav-link-text">Bookmarks 즐겨찾기 리스트 </span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Messages">
-                <a class="nav-link" href="/userOrderList">
+                <a class="nav-link" href="/myPage/userOrderList">
                     <i class="fa fa-fw fa-envelope-open"></i>
                     <span class="nav-link-text"> 주문 내역 </span>
                 </a>
@@ -93,10 +93,10 @@
                 </a>
                 <ul class="sidenav-second-level collapse" id="t123123">
                     <li>
-                        <a href="/replyReport">댓글 신고내역<span class="badge badge-pill badge-primary"></span></a>
+                        <a href="/myPage/replyReport">댓글 신고내역<span class="badge badge-pill badge-primary"></span></a>
                     </li>
                     <li>
-                        <a href="/reviewReport">리뷰글 신고내역<span class="badge badge-pill badge-success"></span></a>
+                        <a href="/myPage/reviewReport">리뷰글 신고내역<span class="badge badge-pill badge-success"></span></a>
                     </li>
                    
                 </ul>

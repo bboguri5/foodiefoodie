@@ -183,7 +183,7 @@ public class ReviewBoardController {
     public String checkReceipt(@RequestBody MultipartFile file) {
         if (file.getSize() == 0) return null;
 
-        String path = "C:\\receipt";
+        String path = "/home/ec2-user/foodiefoodie/receipt";
 
         String uploadFile = FoodieFileUtils.uploadFile(file, path);
         String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile);

@@ -199,12 +199,12 @@ CREATE TABLE reply_faq (
 -- 리뷰 파일 업로드
 CREATE TABLE review_upload(
     review_bno INT(10) NOT NULL
-    , file_path TEXT not null
+    , file_path mediumtext not null
     , file_name VARCHAR(100) NOT NULL
     , file_size INT(20)
     , file_type varchar(10)
-    , file_byte TEXT
-    , file_data TEXT
+    , file_byte mediumtext
+    , file_data mediumtext
     , CONSTRAINT fk_rev_upload FOREIGN KEY (review_bno)
     REFERENCES review_board (review_bno) ON DELETE CASCADE
 );
@@ -243,12 +243,12 @@ CREATE TABLE black_list_master (
 -- 홍보글 상세 이미지
 create table promotion_upload_detail_img(
       promotion_bno INT(10) NOT NULL
-    , file_path TEXT not null
+    , file_path mediumtext not null
     , file_name VARCHAR(100) NULL
     , file_mediatype varchar(10)
     , file_size INT(20)
-    , file_byte TEXT
-    , file_data TEXT
+    , file_byte mediumtext
+    , file_data mediumtext
     , CONSTRAINT fk_pro_upload_detail_img FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
@@ -258,12 +258,12 @@ create table promotion_upload_detail_img(
 -- 홍보글 메인이미지
 create table promotion_upload_title_img(
    promotion_bno INT(10) NOT NULL
-    , file_path TEXT not null
+    , file_path mediumtext not null
     , file_name VARCHAR(100) NULL
     , file_mediatype varchar(10)
     , file_size INT(20)
-    , file_byte TEXT
-    , file_data TEXT
+    , file_byte mediumtext
+    , file_data mediumtext
     , CONSTRAINT fk_pro_upload_title_img FOREIGN KEY (promotion_bno)
     REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
 );
@@ -338,12 +338,12 @@ constraint pk_notice_no primary key (notice_no)
 create table promotion_upload_menu_img (
         promotion_bno INT(10)
         , menu_no INT(5)
-        ,file_path TEXT
+        ,file_path mediumtext
         ,file_name varchar(100)
         ,file_mediatype varchar(20)
         ,file_size INT(20)
-        ,file_byte TEXT
-        ,file_data TEXT
+        ,file_byte mediumtext
+        ,file_data mediumtext
         ,CONSTRAINT fk_promotion_bno_menu_img FOREIGN KEY (promotion_bno)
               REFERENCES promotion_board (promotion_bno) ON DELETE CASCADE
         ,CONSTRAINT fk_menu_no_menu_img FOREIGN KEY (menu_no)

@@ -20,10 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FavoriteListController {
 
-
     private final FavoriteListService favoriteListService;
-
-
 
     @GetMapping("/myPage/favoriteList")
     public String favoriteInfoList(HttpSession session , Model model){
@@ -34,8 +31,6 @@ public class FavoriteListController {
         // 이메일로 내 즐겨찾기 번호 목록을 가져온다
         List<FavoriteStorePromotionBnoListDTO> favoriteStorePromotionBnoListDTOS = favoriteListService.favoriteStorePromotionBnoList(email);
         int size = favoriteStorePromotionBnoListDTOS.size();
-
-
 
         // 결과적으로 이걸 모델에 담아줘야 한다
         ArrayList<FavoriteAllInfoDTO> favoriteAllInfoDTOS = new ArrayList<>();
@@ -59,7 +54,6 @@ public class FavoriteListController {
             String fileData = favoriteFileDataDTO.getFileData();
             favoriteAllInfoDTO.setFileData(fileData);
 
-
             // 가게 정보 가지고있는 DTO
             FavoriteStoreInfoDTO favoriteStoreInfoDTO = favoriteListService.favoriteStoreInfo(promotionBno);
             // 가게이름 세팅
@@ -76,7 +70,6 @@ public class FavoriteListController {
             favoriteAllInfoDTO.setStoreExtraAddress(favoriteStoreInfoDTO.getStoreExtraAddress());
             // 가게 평점
             favoriteAllInfoDTO.setAvgStarRate(favoriteStoreInfoDTO.getAvgStarRate());
-
             //  세팅한걸 리스트에 넣어준다
             favoriteAllInfoDTOS.add(favoriteAllInfoDTO);
 

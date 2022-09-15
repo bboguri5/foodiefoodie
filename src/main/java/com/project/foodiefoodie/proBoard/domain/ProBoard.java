@@ -26,7 +26,7 @@ public class ProBoard extends StoreTimeDTO {
     private String content;
     private String title;
     private String hashTag;
-    private float avgStarRate;
+    private double avgStarRate;
     private int review_cnt;
     private int report_cnt;
 

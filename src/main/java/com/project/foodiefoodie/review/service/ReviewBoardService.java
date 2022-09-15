@@ -442,7 +442,8 @@ public class ReviewBoardService {
 
 
     public String getRegisteredBusiness(String filePath) {
-        String approvalReceipt = OCRUtils.recognizeReceipt(filePath);
+        OCRUtils ocrUtils = new OCRUtils();
+        String approvalReceipt = ocrUtils.recognizeReceipt(filePath);
 
         if (approvalReceipt != null) {
             List<String> proBoardsBusinessNo = proBoardMapper.selectProBoardBusinessNoAll();
@@ -461,7 +462,9 @@ public class ReviewBoardService {
     }
 
     public String getRegisteredMasterBusiness(String filePath,String businessNo) {
-        String approvalReceipt = OCRUtils.recognizeReceipt(filePath);
+
+        OCRUtils ocrUtils = new OCRUtils();
+        String approvalReceipt = ocrUtils.recognizeReceipt(filePath);
 
         if(approvalReceipt.contains(proBoardMapper.selectProBoardBusinessNo(businessNo)))
             return "Y";

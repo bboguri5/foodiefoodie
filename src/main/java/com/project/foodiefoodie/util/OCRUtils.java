@@ -14,25 +14,23 @@ import java.util.List;
 public class OCRUtils {
 
     // Detects text in the specified image.
-    private static String detectText(String filePath) {
+    private String detectText(String filePath) {
         List<AnnotateImageRequest> requests = new ArrayList<>();
-        ByteString imgBytes ;
 
-        try {
-            imgBytes = ByteString.readFrom(new FileInputStream(filePath));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        byte[] imgByte = FoodieFileUtils.getImgByte(filePath);
+        ByteString byteString = ByteString.copyFrom(imgByte);
 
-        Image img = Image.newBuilder().setContent(imgBytes).build();
+        Image img = Image.newBuilder().setContent(byteString).build();
         Feature feat = Feature.newBuilder().setType(Feature.Type.TEXT_DETECTION).build();
         AnnotateImageRequest request =
                 AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
         requests.add(request);
 
-        try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
+        try  {
+            ImageAnnotatorClient client = ImageAnnotatorClient.create();
             BatchAnnotateImagesResponse response = client.batchAnnotateImages(requests);
             List<AnnotateImageResponse> responses = response.getResponsesList();
+            client.close();
             return responses.get(0).getTextAnnotationsList().get(0).getDescription();
         } catch (Exception e) {
             log.info("detectText - {} ", e.getMessage());
@@ -40,7 +38,7 @@ public class OCRUtils {
         }
     }
 
-    public static String recognizeReceipt(String filePath) {
+    public String recognizeReceipt(String filePath) {
         String result = detectText(filePath);
         if (result != null) {
             if (result.contains("취소")) {

@@ -228,7 +228,8 @@
             <div class="container-fluid">
                 <div class="box_general padding_bottom mg-wrap">
                     <div class="header_box version_2">
-                        <h2><i class="fa fa-file"></i>리뷰 작성</h2>
+                        <h2><i class="fa fa-file"></i>리뷰 작성 <span style="margin-left: 5px; font-size: 8px;"><strong
+                                    style="color: red;">* </strong>표시는 필수값입니다!</span></h2>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -252,8 +253,14 @@
                             <div class="form-group">
                                 <span style="color: red;">*</span>
                                 <label class="store-name-label">가게이름</label>
-                                <input type="text" class="form-control store-name" placeholder="파리바게뜨"
-                                    value="${master.storeName}" name="storeName">
+                                <c:if test="${referer != null}">
+                                    <input type="text" class="form-control store-name" placeholder="파리바게뜨"
+                                        value="${master.storeName}" name="storeName" readonly>
+                                </c:if>
+                                <c:if test="${referer == null}">
+                                    <input type="text" class="form-control store-name" placeholder="파리바게뜨"
+                                        value="${master.storeName}" name="storeName" readonly>
+                                </c:if>
                                 <!-- <input type="hidden" name="businessNo" value="${master.businessNo}"> -->
                             </div>
                         </div>
@@ -268,19 +275,24 @@
                                         <span id="addrChk"></span>
                                     </div>
                                     <span style="color: red;">*</span>
-                                    <input class="form-group" type="text" id="sample4_postcode" placeholder="우편번호" readonly>
+                                    <input style="background-color: #e9ecef;" class="form-group" type="text"
+                                        id="sample4_postcode" placeholder="우편번호" readonly>
                                     <br>
                                     <span style="color: red;">*</span>
-                                    <input class="form-group addr-api store-address" type="text" id="sample4_roadAddress"
-                                        placeholder="도로명주소" name="storeAddress" value="${master.storeAddress}" readonly>
-                                    <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소" readonly>
+                                    <input style="background-color: #e9ecef;" class="form-group addr-api store-address"
+                                        type="text" id="sample4_roadAddress" placeholder="도로명주소" name="storeAddress"
+                                        value="${master.storeAddress}" readonly>
+                                    <input style="background-color: #e9ecef;" class="form-group" type="text"
+                                        id="sample4_jibunAddress" placeholder="지번주소" readonly>
                                     <span id=" guide" style="color:#999;display:none"></span><br>
                                     <span style="color: red;">*</span>
-                                    <input class="form-group addr-api store-detail-address" type="text"
+                                    <input style="background-color: #e9ecef;"
+                                        class="form-group addr-api store-detail-address" type="text"
                                         id="sample4_detailAddress" placeholder="상세주소" name="storeDetailAddress"
                                         value="${master.storeDetailAddress}" readonly>
-                                    <input class="form-group store-extra-address" type="text" id="sample4_extraAddress"
-                                        placeholder="참고항목" name="storeExtraAddress" value="${master.storeExtraAddress}" readonly>
+                                    <input style="background-color: #e9ecef;" class="form-group store-extra-address"
+                                        type="text" id="sample4_extraAddress" placeholder="참고항목"
+                                        name="storeExtraAddress" value="${master.storeExtraAddress}" readonly>
                                 </div>
                             </div>
                         </c:if>
@@ -296,8 +308,9 @@
                                     <input class="form-group" type="button" onclick="sample4_execDaumPostcode()"
                                         value="우편번호 찾기"><br>
                                     <span style="color: red;">*</span>
-                                    <input class="form-group addr-api store-address" type="text" id="sample4_roadAddress"
-                                        placeholder="도로명주소" name="storeAddress" value="${master.storeAddress}">
+                                    <input class="form-group addr-api store-address" type="text"
+                                        id="sample4_roadAddress" placeholder="도로명주소" name="storeAddress"
+                                        value="${master.storeAddress}">
                                     <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소">
                                     <span id=" guide" style="color:#999;display:none"></span><br>
                                     <span style="color: red;">*</span>
@@ -360,7 +373,7 @@
                                     multiple="multiple" accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
                                     style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
                             </div>
-                            
+
                             <div class="form-group receipt-group">
                                 <label class="receipt-img-label">영수증</label>
                                 <div class="dropzone" id="receipt-dropzone"></div>
@@ -368,6 +381,7 @@
                                     accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
                                     style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -687,7 +701,7 @@
             e.preventDefault();
             console.log(e.target);
 
-            if ($('.businessNo').length>0) {
+            if ($('.businessNo').length > 0) {
 
                 const obj = {
                     email: `${email}`,
@@ -696,17 +710,18 @@
 
                 // const values = [`${email}`,$('.businessNo').val()]
                 fetch('/review/write/is/master', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body : JSON.stringify(obj)
-                }).then(res=>res.text())
-                .then(result=>{
-                    if(result === "Y")
-                    {
-                        alert(" 리뷰를 작성할 수 없습니다. \n 사유: 사업자 본인")
-                        return;
-                    }
-                })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(obj)
+                    }).then(res => res.text())
+                    .then(result => {
+                        if (result === "Y") {
+                            alert(" 리뷰를 작성할 수 없습니다. \n 사유: 사업자 본인")
+                            return;
+                        }
+                    })
             }
 
             // 이미지 file 변환 및 form 태그 내 input에 추가. 

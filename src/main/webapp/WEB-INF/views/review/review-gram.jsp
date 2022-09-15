@@ -181,23 +181,27 @@
 									<h2>
 										<c:if test="${fn:length(rl.businessNo)>0}">
 											<img class="reviewReceipt" src="/img/receipt.png" alt=""
-												style="width: 50px;">
+												style="width: 30px;">
 										</c:if>
 										<a href="#">${rl.title}</a>
 									</h2>
-									<label>평점</label>
-									<div></div>
+									<label>평점: </label>
 									<span class="star">
 										★★★★★
 										<span style="width: ${rl.starRate * 10}%;">★★★★★</span>
 										<input type="hidden" oninput="drawStar(this)" value="" step="1" min="0" max="10"
 											name="starRate">
 									</span>
-									<p>식당 이름: <a href="#">${rl.storeName}</a></p>
+									<br>
+
+									<span>식당 이름: </span>
 									<c:if test="${fn:length(rl.businessNo)>0}">
-										식당 홍보글 :
-										<a href="/proBoard/detail/${rl.promotionBno}"> 홍보글 보기 </a>
+										<a href="/proBoard/detail/${rl.promotionBno}"> ${rl.storeName} </a>
 									</c:if>
+									<c:if test="${fn:length(rl.businessNo)==0}">
+										${rl.storeName}
+									</c:if>
+									<br>
 									<p>식당 주소: ${rl.storeAddress}</p>
 									<p>${rl.content}
 										<ul>

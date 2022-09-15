@@ -67,7 +67,7 @@
                 <a href="#0" class="open_close">
                     <i class="icon_close"></i><span>Menu</span>
                 </a>
-                <a href="/"><img src="/img/logo.svg" width="140" height="35" alt=""></a>
+                <a href="/"><img src="/img/foodie_logo.png"  width="150" height="100" alt=""></a>
             </div>
             <ul>
                 <li class="submenu">

@@ -254,7 +254,8 @@
                                 <label class="store-name-label">가게이름</label>
                                 <input type="text" class="form-control store-name" placeholder="파리바게뜨"
                                     value="${master.storeName}" name="storeName">
-                                <!-- <input type="hidden" name="businessNo" value="${master.businessNo}"> -->
+                                <input type="hidden" name="businessNo" value="${master.businessNo}">
+                                <input type="hidden" name="receipt" value="N">
                             </div>
                         </div>
                     </div>
@@ -481,15 +482,15 @@
     <!-- /주소 검증 -->
 
     <script>
-        function createBusinessValHiddenInput(result) {
-            const $newInput = document.createElement('input')
-            $newInput.type = 'hidden';
-            $newInput.name = 'businessNo';
-            $newInput.className = 'businessNo';
-            $newInput.value = result;
+        // function createReceiptValHiddenInput(result) {
+        //     const $newInput = document.createElement('input')
+        //     $newInput.type = 'hidden';
+        //     $newInput.name = 'receipt';
+        //     $newInput.className = 'receipt';
+        //     $newInput.value = result;
 
-            $('.container-fluid').append($newInput);
-        }
+        //     $('.container-fluid').append($newInput);
+        // }
 
         function getProboardInfo(result) {
             fetch('/review/write/master/' + result)
@@ -554,17 +555,51 @@
 
                 // 파일 삭제 시 input 창 삭제 
                 this.on('removedfile', function (file) {
-                    $('.businessNo').remove();
+
+                    if ('${master.businessNo}'.length === 0) // 리뷰글에서만 처리.
+                    {
+                        $('.businessNo').val('');
+                    }
+
+                    $('.receipt').val('N');
                 });
 
                 this.on('addedfile', function (file) {
 
-                    if (`${businessNo}`.length === 0) { // 홍보글에서 작성하기 구분하기 위함 
+                    LoadingWithMask();
+                    const formData = new FormData();
+                    formData.append('file', file)
 
-                        LoadingWithMask();
-                        const formData = new FormData();
-                        formData.append('file', file)
+                    if ('${master.businessNo}'.length > 0) { // 홍보글에서 넘어온 리뷰글 작성 (사업자번호 유)
 
+                        const obj = {
+                            businessNo: '${master.businessNo}',
+                            fileData: formData
+                        };
+
+                        const sendObj = {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(obj)
+                        }
+
+                        fetch('/review/write/master/receipt', sendObj)
+                            .then(res => res.text())
+                            .then(result => {
+                                console.log(result);
+                                if (result === 'Y') {
+                                    alert("일치하는 영수증입니다.")
+                                    $('.receipt').val('Y');
+                                } else {
+                                    alert("일치하지 않은 영수증입니다.")
+                                    myDropzone.remove();
+                                }
+                            })
+                        closeLoadingWithMask();
+
+                    } else { // 리뷰글에서 작성 (사업자번호 무)
                         const obj = {
                             method: "POST",
                             body: formData
@@ -573,20 +608,24 @@
                         fetch('/review/write/receipt', obj)
                             .then(res => res.text())
                             .then(result => {
-                                if (result != "failed") {
-                                    createBusinessValHiddenInput(
-                                        result); // form에 전달할 input 창 생성 
+                                if (result != "false") // 영수증 사업자 번호 
+                                {
+                                    $('.receipt').val('Y');
+                                    $('.businessNo').val(result);
                                     alert("등록되어있는 식당입니다.");
 
                                     if (confirm("식당 정보를 가져올까요?")) {
                                         getProboardInfo(result); // 식당 정보 
                                     }
+
                                 } else {
                                     alert("등록되지않은 식당입니다.");
+                                    myDropzone.remove();
                                 }
                                 closeLoadingWithMask();
                             })
                     }
+
 
                 });
             }
@@ -661,7 +700,7 @@
             e.preventDefault();
             console.log(e.target);
 
-            if ($('.businessNo').length>0) {
+            if ($('.businessNo').length > 0) {
 
                 const obj = {
                     email: `${email}`,
@@ -670,17 +709,18 @@
 
                 // const values = [`${email}`,$('.businessNo').val()]
                 fetch('/review/write/is/master', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body : JSON.stringify(obj)
-                }).then(res=>res.text())
-                .then(result=>{
-                    if(result === "Y")
-                    {
-                        alert(" 리뷰를 작성할 수 없습니다. \n 사유: 사업자 본인")
-                        return;
-                    }
-                })
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(obj)
+                    }).then(res => res.text())
+                    .then(result => {
+                        if (result === "Y") {
+                            alert(" 리뷰를 작성할 수 없습니다. \n 사유: 사업자 본인")
+                            return;
+                        }
+                    })
             }
 
             // 이미지 file 변환 및 form 태그 내 input에 추가. 

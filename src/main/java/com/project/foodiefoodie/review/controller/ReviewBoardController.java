@@ -147,21 +147,21 @@ public class ReviewBoardController {
         model.addAttribute("email",loginUser.getEmail());
         return "review/review-write";
     }
-//
-//    @GetMapping("/review/write/{businessNo}")
-//    public String reviewWriteForBusinessNo(Model model, @PathVariable String businessNo, HttpSession session) {
-////        log.info("review/write/{} GET! - ", businessNo);
-//
-//        Master master = masterService.findOneForBusinessNoService(businessNo);
-//        Member loginUser = (Member) session.getAttribute("loginUser");
-//
-//        model.addAttribute("master", master);
-//        model.addAttribute("loginUser", loginUser);
-////        log.info("loginUser - {}", loginUser);
-////        log.info(master);
-//
-//        return "review/review-write";
-//    }
+
+    @GetMapping("/review/write/{businessNo}")
+    public String reviewWriteForBusinessNo(Model model, @PathVariable String businessNo, HttpSession session) {
+//        log.info("review/write/{} GET! - ", businessNo);
+
+        Master master = masterService.findOneForBusinessNoService(businessNo);
+        Member loginUser = (Member) session.getAttribute("loginUser");
+
+        model.addAttribute("master", master);
+        model.addAttribute("loginUser", loginUser);
+//        log.info("loginUser - {}", loginUser);
+//        log.info(master);
+
+        return "review/review-write";
+    }
 
 
     @PostMapping("/review/write")
@@ -183,16 +183,32 @@ public class ReviewBoardController {
     public String checkReceipt(@RequestBody MultipartFile file) {
         if (file.getSize() == 0) return null;
 
-        String path = "/home/ec2-user/foodiefoodie/receipt";
-//        String path = "C:\\foodiefoodie\\receipt";
-
+//        String path = "/home/ec2-user/foodiefoodie/receipt";
+        String path = "C:\\receipt";
 
         String uploadFile = FoodieFileUtils.uploadFile(file, path);
         String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile);
 
         log.info("/review/write/receipt checkReceipt - {}", registeredBusiness);
 
-        return registeredBusiness != null ? registeredBusiness : "failed";
+        return registeredBusiness != null ? registeredBusiness : "false";
+    }
+
+    @PostMapping("/review/write/master/receipt") // 영수증 검증 비동기
+    @ResponseBody
+    public String checkMasterReceipt(@RequestBody Map<String,Object> sendObj) {
+
+        MultipartFile file = (MultipartFile) sendObj.get("fileData");
+        if (file.getSize() == 0) return null;
+//        String path = "/home/ec2-user/foodiefoodie/receipt";
+        String path = "C:\\receipt";
+
+        String uploadFile = FoodieFileUtils.uploadFile(file, path);
+        String IsRegisteredBusiness = reviewBoardService.getRegisteredMasterBusiness(uploadFile,(String)sendObj.get("businessNo"));
+
+        log.info("/review/write/master/receipt checkMasterReceipt - {}", IsRegisteredBusiness);
+
+        return IsRegisteredBusiness;
     }
 
     @GetMapping("review/write/master/{businessNo}") // 연계된 식당일 경우 식당 정보 표시

@@ -275,22 +275,22 @@
                                         <span id="addrChk"></span>
                                     </div>
                                     <span style="color: red;">*</span>
-                                    <input style="background-color: #e9ecef;" class="form-group" type="text"
+                                    <input style="background-color: #e9ecef; border: #999;" class="form-group" type="text"
                                         id="sample4_postcode" placeholder="우편번호" readonly>
                                     <br>
                                     <span style="color: red;">*</span>
-                                    <input style="background-color: #e9ecef;" class="form-group addr-api store-address"
+                                    <input style="background-color: #e9ecef; border: #999" class="form-group addr-api store-address"
                                         type="text" id="sample4_roadAddress" placeholder="도로명주소" name="storeAddress"
                                         value="${master.storeAddress}" readonly>
-                                    <input style="background-color: #e9ecef;" class="form-group" type="text"
+                                    <input style="background-color: #e9ecef; border: #999" class="form-group" type="text"
                                         id="sample4_jibunAddress" placeholder="지번주소" readonly>
                                     <span id=" guide" style="color:#999;display:none"></span><br>
                                     <span style="color: red;">*</span>
-                                    <input style="background-color: #e9ecef;"
+                                    <input style="background-color: #e9ecef; border: #999"
                                         class="form-group addr-api store-detail-address" type="text"
                                         id="sample4_detailAddress" placeholder="상세주소" name="storeDetailAddress"
                                         value="${master.storeDetailAddress}" readonly>
-                                    <input style="background-color: #e9ecef;" class="form-group store-extra-address"
+                                    <input style="background-color: #e9ecef; border: #999" class="form-group store-extra-address"
                                         type="text" id="sample4_extraAddress" placeholder="참고항목"
                                         name="storeExtraAddress" value="${master.storeExtraAddress}" readonly>
                                 </div>

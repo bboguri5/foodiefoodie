@@ -222,11 +222,12 @@
                             </span>
                             <br>
                             <span>식당 이름: </span>
-                            <c:if test="${review.receipt == 'N'}">
+                            <c:if test="${review.receipt == 'Y' || review.promotionBno > 0}">
                                 <a href="/proBoard/detail/${review.promotionBno}"> ${review.storeName} </a>
                             </c:if>
-                            <c:if test="${review.receipt == 'Y'}">
-                                <a href="/proBoard/detail/${review.promotionBno}"> ${review.storeName} </a>
+                            
+                            <c:if test="${review.receipt == 'N' && review.promotionBno == null}">
+                                ${review.storeName}
                             </c:if>
                             <br>
                             <span>식당 주소: ${review.storeAddress} --> </span>

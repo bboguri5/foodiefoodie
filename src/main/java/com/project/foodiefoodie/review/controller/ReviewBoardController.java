@@ -46,6 +46,8 @@ public class ReviewBoardController {
 
     private final ProBoardService proBoardService;
 
+    private static final String RECEIPT_UPLOAD_PATH = "/home/ec2-user/foodiefoodie/receipt";
+
     @GetMapping("/review")
     public String review(String sort, Model model, HttpSession session) {
         log.info("review started - list");
@@ -81,7 +83,6 @@ public class ReviewBoardController {
         for (int i = 0; i < reviewList.size(); i++) {
             long reviewBno = reviewList.get(i).getReviewBno();
             log.info("getUploads - reviewBno - {}", reviewBno);
-            log.info("영수증  : ", reviewList.get(i).getReceipt());
             List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUpload(reviewBno);
 //            log.info("reviewUploadBase64 - {}", reviewUpload);
             int count = replyService.findReplyCountService(reviewBno);
@@ -193,7 +194,8 @@ public class ReviewBoardController {
 
     private void deleteReceiptFiles()
     {
-        String path = "/home/ec2-user/foodiefoodie/receipt";
+        String path = RECEIPT_UPLOAD_PATH;
+//        String path = "C:\\foodiefoodie\\receipt";
 
         File folder = new File(path);
         try {
@@ -218,7 +220,7 @@ public class ReviewBoardController {
     public String checkReceipt(@RequestBody MultipartFile file) {
         if (file.getSize() == 0) return null;
 
-        String path = "/home/ec2-user/foodiefoodie/receipt";
+        String path = RECEIPT_UPLOAD_PATH;
 //        String path = "C:\\foodiefoodie\\receipt";
 
 
@@ -236,7 +238,7 @@ public class ReviewBoardController {
     public String checkUploadReceipt(@RequestBody MultipartFile file) {
 
         if (file.getSize() == 0) return null;
-        String path = "/home/ec2-user/foodiefoodie/receipt";
+        String path = RECEIPT_UPLOAD_PATH;
 //        String path = "C:\\foodiefoodie\\receipt";
 
         String uploadFile = FoodieFileUtils.uploadFile(file, path);
@@ -252,13 +254,11 @@ public class ReviewBoardController {
     @ResponseBody
     public String checkMasterReceipt(@RequestBody Map<String,Object> sendObj2) {
 
-        System.out.println("들어옴");
         String fileName = (String) sendObj2.get("fileName");
         String businessNo = (String) sendObj2.get("businessNo");
 
-        //        String path = "/home/ec2-user/foodiefoodie/receipt";
-
-        String path = "C:\\foodiefoodie\\receipt" + File.separator + fileName;
+        String path = RECEIPT_UPLOAD_PATH + File.separator + fileName;
+//        String path = "C:\\foodiefoodie\\receipt" + File.separator + fileName;
 
         String registeredBusiness = reviewBoardService.getRegisteredMasterBusiness(path,businessNo);
 

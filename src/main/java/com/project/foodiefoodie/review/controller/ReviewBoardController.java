@@ -147,21 +147,27 @@ public class ReviewBoardController {
         model.addAttribute("email",loginUser.getEmail());
         return "review/review-write";
     }
-//
-//    @GetMapping("/review/write/{businessNo}")
-//    public String reviewWriteForBusinessNo(Model model, @PathVariable String businessNo, HttpSession session) {
-////        log.info("review/write/{} GET! - ", businessNo);
-//
-//        Master master = masterService.findOneForBusinessNoService(businessNo);
-//        Member loginUser = (Member) session.getAttribute("loginUser");
-//
-//        model.addAttribute("master", master);
-//        model.addAttribute("loginUser", loginUser);
-////        log.info("loginUser - {}", loginUser);
-////        log.info(master);
-//
-//        return "review/review-write";
-//    }
+
+    @GetMapping("/review/write/{businessNo}")
+    public String reviewWriteForBusinessNo(Model model, @PathVariable String businessNo, HttpSession session, HttpServletRequest request) {
+//        log.info("review/write/{} GET! - ", businessNo);
+
+        Master master = masterService.findOneForBusinessNoService(businessNo);
+        Member loginUser = (Member) session.getAttribute("loginUser");
+        String referer = request.getHeader("Referer");
+        if (referer.contains("proBoard/detail")) {
+            model.addAttribute("referer", referer);
+        } else {
+            model.addAttribute("referer", null);
+        }
+        log.info("referer - {}", referer);
+        model.addAttribute("master", master);
+        model.addAttribute("loginUser", loginUser);
+//        log.info("loginUser - {}", loginUser);
+//        log.info(master);
+
+        return "review/review-write";
+    }
 
 
     @PostMapping("/review/write")

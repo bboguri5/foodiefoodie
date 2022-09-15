@@ -109,13 +109,8 @@
         and board.promotion_bno = time.promotion_bno
 
     </select>
-    <select id="selectProBoardAll" resultMap="proBoardMap">
-        select * from master master
-        RIGHT join promotion_board board
-        on master.business_no = board.business_no
-        LEFT join promotion_store_time time
-        on board.promotion_bno = time.promotion_bno
-        and board.promotion_bno = time.promotion_bno
+    <select id="selectProBoardBusinessNoAll" resultType="string">
+        select business_no from promotion_board
     </select>
 
     <select id="selectPromotionBno" resultType="int">

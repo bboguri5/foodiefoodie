@@ -31,7 +31,7 @@ public interface ProBoardMapper {
 
     ProBoard selectProBoardBusiness(String businessNo);
 
-    List<ProBoard> selectProBoardAll();
+    List<String> selectProBoardBusinessNoAll();
 
     boolean addFavoriteStore(String email ,int promotionBno);
     int isFavoriteStore(String email ,int promotionBno);

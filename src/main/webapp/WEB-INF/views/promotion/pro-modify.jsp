@@ -341,14 +341,14 @@
                                         readonly>
                                 </div>
                                 <div class="form-group detail-Info">
-                                    <label class="title-label">Title
+                                    <label class="title-label"><strong style="color:red">*</strong> Title
                                     </label>
                                     <input type="text" class="form-control title" name="title" value="${proBoard.title}"
                                         style="border-color:green">
                                 </div>
                                 <div class="form-group detail-Info">
                                     <div class="form-group">
-                                        <label class="hashTag-label">HASH TAG</label>
+                                        <label class="hashTag-label"><strong style="color:red">*</strong> HASH TAG</label>
                                         <input type="text" class="form-control hashTag" name="hashTag"
                                             value="${proBoard.hashTag}" placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다."
                                             style="border-color:green">
@@ -364,7 +364,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group ">
-                                    <label class="content-label">CONTENT</label>
+                                    <label class="content-label"><strong style="color:red">*</strong> CONTENT</label>
                                     <textarea style="border-color:green" name="content" class="form-control content"
                                         style="height: 150px;" placeholder="Message"
                                         id="content">${proBoard.content}</textarea>
@@ -381,7 +381,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group title-group">
-                                    <label>Title</label>
+                                    <label><strong style="color:red">*</strong>  Title</label>
                                     <div class="dropzone col-md-12" id="title-dropzone"></div>
                                     <input type="file" name="titleImgFile" class="dz-hidden-input hidden-title-img"
                                         accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
@@ -472,7 +472,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h6>Item</h6>
+                                <h6><strong style="color:red">*</strong> Time</h6>
                                 <table id="store-time" style="width:100%;">
                                     <tr class="store-time-colurm">
                                         <td>
@@ -1381,11 +1381,6 @@
             } else {
                 for (let index = 0; index < $menuNameList.length; index++) {
 
-                    if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.length === 0) {
-                        alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
-                        return false;
-                    }
-
                     const remainder = $menuPriceList[index].value % 100;
                     console.log(remainder);
                     if(remainder != 0)
@@ -1393,6 +1388,13 @@
                         alert(" 메뉴 가격 10원 단위 입력이 불가합니다. ");
                         return false;
                     }
+
+                    if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.length === 0) {
+                        alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
+                        return false;
+                    }
+
+                  
                 }
             }
         }

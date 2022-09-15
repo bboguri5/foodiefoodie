@@ -1,7 +1,5 @@
 package com.project.foodiefoodie.review.service;
 
-import com.project.foodiefoodie.proBoard.domain.ProBoard;
-import com.project.foodiefoodie.proBoard.dto.MenuDTO;
 import com.project.foodiefoodie.proBoard.repository.ProBoardMapper;
 import com.project.foodiefoodie.promotion.repository.PromotionBoardMapper;
 import com.project.foodiefoodie.review.domain.ReviewBoard;
@@ -459,15 +457,16 @@ public class ReviewBoardService {
 
         if(approvalReceipt!= null)
         {
-            List<ProBoard> proBoards = proBoardMapper.selectProBoardAll();
-
-            for(ProBoard board: proBoards)
+            List<String> proBoardsBusinessNo = proBoardMapper.selectProBoardBusinessNoAll();
+            System.out.println(proBoardsBusinessNo);
+            for(String businessNo: proBoardsBusinessNo)
             {
-                String onlyNumber = board.getBusinessNo().replaceAll("[^0-9]", "");
+                String onlyNumber = businessNo.replaceAll("[^0-9]", "");
                 log.info(" getRegisteredBusiness - onlyNumber : {}",onlyNumber);
-                if(approvalReceipt.contains(board.getBusinessNo()) || approvalReceipt.contains(onlyNumber))
+
+                if(approvalReceipt.contains(businessNo) || approvalReceipt.contains(onlyNumber))
                 {
-                    return board.getBusinessNo();
+                    return businessNo;
                 }
             }
         }

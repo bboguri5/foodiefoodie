@@ -300,14 +300,14 @@
                                         readonly>
                                 </div>
                                 <div class="form-group detail-Info">
-                                    <label class="title-label">Title
+                                    <label class="title-label"><strong style="color:red">*</strong> Title 
                                     </label>
                                     <input type="text" class="form-control title" name="title"
                                         value="${master.storeName}" style="border-color:green">
                                 </div>
                                 <div class="form-group detail-Info">
                                     <div class="form-group">
-                                        <label class="hashTag-label">HASH TAG</label>
+                                        <label class="hashTag-label"><strong style="color:red">*</strong> HASH TAG</label>
                                         <input type="text" class="form-control hashTag" name="hashTag"
                                             placeholder="예시 : 띄어쓰기 기준으로 단어 10개 이상 입력 불가합니다.">
                                     </div>
@@ -321,7 +321,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="content-label">CONTENT</label>
+                                    <label class="content-label"><strong style="color:red">*</strong> CONTENT</label>
                                     <textarea name="content" class="form-control content" style="height: 150px;"
                                         placeholder="Message" id="message_contact" name="message_contact"></textarea>
                                 </div>
@@ -337,7 +337,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group title-group">
-                                    <label>Title</label>
+                                    <label><strong style="color:red">*</strong> Title</label>
                                     <div class="dropzone col-md-12" id="title-dropzone"></div>
                                     <input type="file" name="titleImgFile" class="dz-hidden-input hidden-title-img"
                                         accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
@@ -387,7 +387,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <input type="text" class="form-control menu-price"
-                                                            name="menuPrice" placeholder="price">
+                                                            name="menuPrice" placeholder="price (10원단위는 입력불가합니다.) ">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-1">
@@ -427,7 +427,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h6>Item</h6>
+                                <h6><strong style="color:red">*</strong>  Time</h6>
                                 <table id="store-time" style="width:100%;">
                                     <tr class="store-time-colurm">
                                         <td>
@@ -962,13 +962,12 @@
 
         $('.saveBtn').on('click', e => {
 
-            // let checkSave = [false, false, false, false, false];
-            let checkSave = [false, false, false];
+            let checkSave = [false, false, false, false];
 
             checkSave[0] = checkValue(); // 입력란 검증 
             checkSave[1] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
             checkSave[2] = checkOverlapHashTag(); // 해시태그 중복 검증 
-            // checkSave[4] = checkInputTime(); // 시간 입력 검증 
+            checkSave[4] = checkInputTime(); // 시간 입력 검증 
 
             console.log("checkSave : ", checkSave);
             if (!checkSave.includes(false)) {
@@ -976,7 +975,7 @@
                 changeFormatTime(); // 시간 00:00으로 변환
                 changeFormatContent() // 내용 \n -> <br>으로 치환
 
-                $('#promotionWriteForm').submit();
+                // $('#promotionWriteForm').submit();
                 console.log($menuNameList);
             }
         });
@@ -1049,8 +1048,11 @@
                 - input값 없으면 = false
             */
 
-            const menuItem = document.querySelectorAll('.pricing-list-item')
+            const $menuNameList = document.querySelectorAll(".menu-name");
+            const $menuPriceList = document.querySelectorAll(".menu-price");
 
+            const menuItem = document.querySelectorAll('.pricing-list-item')
+            console.log(menuItem.length);
             if (menuItem.length === 1) {
 
                 if ($menuNameList[0].value.length === 0 && $menuPriceList[0].value.length === 0) {
@@ -1080,29 +1082,28 @@
                 return true;
             }
 
+            console.log($menuPriceList);
 
             if (menuItem.length > 1) {
-                for (let index = 0; index < $menuNameList.length; index++) {
-
-                    if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.leng === 0) {
-                        alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
-                        return false;
-                    }
-
-                    if ($menuNameList[0].value.length === 0 || $menuPriceList[0].value.length === 0) {
-                        alert("메뉴 입력란을 확인해주세요.");
-                        return false;
-                    }
-                
+                for (let index = 0; index < menuItem.length; index++) {
                     const remainder = $menuPriceList[index].value % 100;
+
+                    console.log("remainder : ", remainder);
                     
                     if(remainder != 0)
                     {
                         alert("메뉴 가격 10원 단위는 입력이 불가합니다. ");
                         return false;
                     }
-                
+
+                    if ($menuPriceList[index].value.length === 0 || $menuNameList[index].value.leng === 0) {
+                        alert("메뉴 입력란 추가시 메뉴 입력은 필수입니다.");
+                        return false;
+                    }
+
+                    console.log($menuPriceList[index].value);
                 }
+
                 return true;
             }
         }

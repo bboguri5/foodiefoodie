@@ -859,12 +859,11 @@
 
     function addFavoriteStore() {
         
-        if (`${isFavorite}` === 'true') {
+        if ('${isFavorite}' === 'true') {
             $('.wishlist').addClass('liked');
-            console.log("like");
         } 
         else{
-            console.log("zzzzzz");
+            console.log("false");
         }
 
         $('.btn_hero.wishlist').on('click', function (e) {
@@ -951,7 +950,6 @@
     }
 
     function showNotice() {
-        console.log("showNotice");
         fetch('/proBoard/detail/notice/show/' + `${promotionBno}`)
             .then(res => res.json())
             .then(noticeDTOS => {
@@ -965,7 +963,6 @@
         let tag = '';
         let newUpdateArr = [];
 
-        console.log("makeNoticeDom 진입");
         for (const notice of noticeDTOS) {
 
             tag += `<li>` +

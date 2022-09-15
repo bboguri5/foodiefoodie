@@ -66,11 +66,12 @@ public class ProBoardController {
         List<Integer> replyCount = new ArrayList<>();
 
         // 공지사항 마스터만 작성 및 삭제
-        if (member != null) {
+        if (member != null) { // 회원
             model.addAttribute("masterFlag", proBoard.getEmail().equals(member.getEmail()));
             model.addAttribute("isFavorite", proBoardService.isFavoriteStore(member.getEmail(), promotionBno));
+            System.out.println(proBoardService.isFavoriteStore(member.getEmail(), promotionBno));
             model.addAttribute("flag", true);
-        } else {
+        } else { // 비회원
             model.addAttribute("flag", false);
         }
 

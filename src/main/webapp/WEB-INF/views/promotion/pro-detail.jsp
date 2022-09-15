@@ -332,7 +332,7 @@
                                         <a href="#0" class="btn_hero wishlist"><i class="icon_heart"></i>favorite</a>
                                     </div>
                                     <div class="buttons clearfix writeBtn">
-                                        <a href="/review/write" class="btn_hero"><strong
+                                        <a href="/review/write/${proBoard.businessNo}" class="btn_hero"><strong
                                                 class="writeBtnHero"><i class="icon_pencil"></i> write review</strong>
                                         </a>
                                     </div>

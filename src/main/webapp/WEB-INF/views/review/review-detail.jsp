@@ -231,7 +231,7 @@
                             <br>
                             <span>식당 주소: ${review.storeAddress} --> </span>
                             <a class="openKaKaoMap" target="_blank">주소 지도로 보기</a>
-                        
+
                         </div>
                         <figure class="img-css">
                             <div class="owl-carousel owl-theme carousel_1 magnific-gallery owl-loaded owl-drag">

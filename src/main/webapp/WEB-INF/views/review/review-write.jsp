@@ -228,7 +228,8 @@
             <div class="container-fluid">
                 <div class="box_general padding_bottom mg-wrap">
                     <div class="header_box version_2">
-                        <h2><i class="fa fa-file"></i>리뷰 작성</h2>
+                        <h2><i class="fa fa-file"></i>리뷰 작성 <span style="margin-left: 5px; font-size: 8px;"><strong
+                                    style="color: red;">* </strong>표시는 필수값입니다!</span></h2>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
@@ -252,38 +253,76 @@
                             <div class="form-group">
                                 <span style="color: red;">*</span>
                                 <label class="store-name-label">가게이름</label>
-                                <input type="text" class="form-control store-name" placeholder="파리바게뜨"
-                                    value="${master.storeName}" name="storeName">
-                                <input type="hidden" name="businessNo" value="${master.businessNo}">
-                                <input type="hidden" name="receipt" value="N">
+                                <c:if test="${referer != null}">
+                                    <input type="text" class="form-control store-name" placeholder="파리바게뜨"
+                                        value="${master.storeName}" name="storeName" readonly>
+                                </c:if>
+                                <c:if test="${referer == null}">
+                                    <input type="text" class="form-control store-name" placeholder="파리바게뜨"
+                                        value="${master.storeName}" name="storeName" readonly>
+                                </c:if>
+                                 <input type="hidden" name="businessNo" value="${master.businessNo}">
+                                 <input type="hidden" name="receipt" value="N">
                             </div>
                         </div>
                     </div>
                     <!-- /row-->
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>주소</label>
-                                <div>
-                                    <span id="addrChk"></span>
+                        <c:if test="${referer != null}">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>주소</label>
+                                    <div>
+                                        <span id="addrChk"></span>
+                                    </div>
+                                    <span style="color: red;">*</span>
+                                    <input style="background-color: #e9ecef; border: #999;" class="form-group" type="text"
+                                        id="sample4_postcode" placeholder="우편번호" readonly>
+                                    <br>
+                                    <span style="color: red;">*</span>
+                                    <input style="background-color: #e9ecef; border: #999" class="form-group addr-api store-address"
+                                        type="text" id="sample4_roadAddress" placeholder="도로명주소" name="storeAddress"
+                                        value="${master.storeAddress}" readonly>
+                                    <input style="background-color: #e9ecef; border: #999" class="form-group" type="text"
+                                        id="sample4_jibunAddress" placeholder="지번주소" readonly>
+                                    <span id=" guide" style="color:#999;display:none"></span><br>
+                                    <span style="color: red;">*</span>
+                                    <input style="background-color: #e9ecef; border: #999"
+                                        class="form-group addr-api store-detail-address" type="text"
+                                        id="sample4_detailAddress" placeholder="상세주소" name="storeDetailAddress"
+                                        value="${master.storeDetailAddress}" readonly>
+                                    <input style="background-color: #e9ecef; border: #999" class="form-group store-extra-address"
+                                        type="text" id="sample4_extraAddress" placeholder="참고항목"
+                                        name="storeExtraAddress" value="${master.storeExtraAddress}" readonly>
                                 </div>
-                                <span style="color: red;">*</span>
-                                <input class="form-group" type="text" id="sample4_postcode" placeholder="우편번호">
-                                <input class="form-group" type="button" onclick="sample4_execDaumPostcode()"
-                                    value="우편번호 찾기"><br>
-                                <span style="color: red;">*</span>
-                                <input class="form-group addr-api store-address" type="text" id="sample4_roadAddress"
-                                    placeholder="도로명주소" name="storeAddress" value="${master.storeAddress}">
-                                <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소">
-                                <span id=" guide" style="color:#999;display:none"></span><br>
-                                <span style="color: red;">*</span>
-                                <input class="form-group addr-api store-detail-address" type="text"
-                                    id="sample4_detailAddress" placeholder="상세주소" name="storeDetailAddress"
-                                    value="${master.storeDetailAddress}">
-                                <input class="form-group store-extra-address" type="text" id="sample4_extraAddress"
-                                    placeholder="참고항목" name="storeExtraAddress" value="${master.storeExtraAddress}">
                             </div>
-                        </div>
+                        </c:if>
+                        <c:if test="${referer == null}">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>주소</label>
+                                    <div>
+                                        <span id="addrChk"></span>
+                                    </div>
+                                    <span style="color: red;">*</span>
+                                    <input class="form-group" type="text" id="sample4_postcode" placeholder="우편번호">
+                                    <input class="form-group" type="button" onclick="sample4_execDaumPostcode()"
+                                        value="우편번호 찾기"><br>
+                                    <span style="color: red;">*</span>
+                                    <input class="form-group addr-api store-address" type="text"
+                                        id="sample4_roadAddress" placeholder="도로명주소" name="storeAddress"
+                                        value="${master.storeAddress}">
+                                    <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+                                    <span id=" guide" style="color:#999;display:none"></span><br>
+                                    <span style="color: red;">*</span>
+                                    <input class="form-group addr-api store-detail-address" type="text"
+                                        id="sample4_detailAddress" placeholder="상세주소" name="storeDetailAddress"
+                                        value="${master.storeDetailAddress}">
+                                    <input class="form-group store-extra-address" type="text" id="sample4_extraAddress"
+                                        placeholder="참고항목" name="storeExtraAddress" value="${master.storeExtraAddress}">
+                                </div>
+                            </div>
+                        </c:if>
                         <div class="col-md-2">
                             <div class="form-group" style="margin-top: 30px;">
                                 <label>평점</label>
@@ -343,6 +382,7 @@
                                     accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
                                     style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -608,7 +648,7 @@
                         fetch('/review/write/receipt', obj)
                             .then(res => res.text())
                             .then(result => {
-                                if (result != "false") // 영수증 사업자 번호 
+                                if (result != "false") // 영수증 사업자 번호
                                 {
                                     $('.receipt').val('Y');
                                     $('.businessNo').val(result);

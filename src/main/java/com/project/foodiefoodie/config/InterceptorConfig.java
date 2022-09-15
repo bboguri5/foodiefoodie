@@ -68,7 +68,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
         // 리뷰 작성화면 인터셉터
         registry.addInterceptor(reviewWriteInterceptor)
-                .addPathPatterns("/review/write");
+                .addPathPatterns("/review/write", "/review/write/*");
 
         // 리뷰 수정화면 인터셉터
         registry.addInterceptor(reviewModifyInterceptor)

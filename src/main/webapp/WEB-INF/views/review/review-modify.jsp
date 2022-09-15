@@ -237,7 +237,8 @@
             <div class="container-fluid">
                 <div class="box_general padding_bottom mg-wrap">
                     <div class="header_box version_2">
-                        <h2><i class="fa fa-file"></i>리뷰 수정</h2>
+                        <h2><i class="fa fa-file"></i>리뷰 수정 <span style="margin-left: 5px; font-size: 8px;"><strong
+                            style="color: red;">* </strong>표시는 필수값입니다!</span></h2>
                     </div>
                     <div class="row">
                         <div class="col-md-4">

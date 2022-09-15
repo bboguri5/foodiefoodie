@@ -345,13 +345,13 @@
                                     style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
                             </div>
 
-                            <div class="form-group receipt-group">
+                            <!-- <div class="form-group receipt-group">
                                 <label class="receipt-img-label">영수증</label>
                                 <div class="dropzone" id="receipt-dropzone"></div>
                                 <input type="file" class="dz-hidden-input hidden-receipt-img"
                                     accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
                                     style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;">
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -548,22 +548,22 @@
 
         Dropzone.autoDiscover = false;
 
-        const receiptDropzone = new Dropzone("#receipt-dropzone.dropzone", {
-            url: "#",
-            method: 'post',
-            autoProcessQueue: false,
-            clickable: true,
-            createImageThumbnails: true,
-            thumbnailHeight: 120,
-            thumbnailWidth: 300,
-            maxFiles: 1,
-            maxFilesize: 10,
-            addRemoveLinks: true,
-            dictRemoveFile: 'X',
-            acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
-        });
+        // const receiptDropzone = new Dropzone("#receipt-dropzone.dropzone", {
+        //     url: "#",
+        //     method: 'post',
+        //     autoProcessQueue: false,
+        //     clickable: true,
+        //     createImageThumbnails: true,
+        //     thumbnailHeight: 120,
+        //     thumbnailWidth: 300,
+        //     maxFiles: 1,
+        //     maxFilesize: 10,
+        //     addRemoveLinks: true,
+        //     dictRemoveFile: 'X',
+        //     acceptedFiles: '.jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF',
+        // });
 
-        console.log("??2");
+        // console.log("??2");
 
         let overlapSet = new Set();
         const reviewDropzone = new Dropzone("#review-dropzone.dropzone", {

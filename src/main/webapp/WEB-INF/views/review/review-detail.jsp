@@ -174,7 +174,7 @@
                         <h1 style="display: inline;"> 
                             <c:if test="${fn:length(review.businessNo)>0}">
                                 <img class="reviewReceipt"
-                                src="/img/receipt.png" alt="" style="width: 50px;">
+                                src="/img/receipt.png" alt="" style="width: 30px;">
                             </c:if>
                             ${review.title}</h1>
                         <div class="side-nav" style="float: right;">
@@ -184,9 +184,6 @@
                                 <span style="margin-left: 10px">|</span>
                                 <a href="#" class="review-del-btn nav-removeBtn" style="margin-left: 10px;">삭제</a>
                             </c:if>
-                            <!-- <c:if test="${loginUser.auth == 'ADMIN'}">
-                                <span style="margin-left: 10px">|</span>
-                            </c:if> -->
                             <c:if test="${loginUser.email != review.email}">
                                 <a href="#" class="review-faq-btn nav-faq-btn" style="margin-left: 10px;"
                                     data-bs-toggle='modal' data-bs-target='.review-faq-modal'>신고</a>
@@ -216,21 +213,25 @@
                         </div>
                         <!-- /post meta -->
                         <div class="post-content">
-                            <label>평점</label>
-                            <div></div>
+                            <label>평점: </label>
                             <span class="star">
                                 ★★★★★
                                 <span>★★★★★</span>
                                 <input type="hidden" oninput="drawStar(this)" value="1" step="1" min="0" max="10"
                                     name="starRate">
                             </span>
-                            <p>식당 이름: <a href="#">${review.storeName}</a></p>
+                            <br>
+                            <span>식당 이름: </span>
+                            <c:if test="${fn:length(review.businessNo)>0}">
+                                <a href="/proBoard/detail/${review.promotionBno}"> ${review.storeName} </a>
+                            </c:if>
+                            <c:if test="${fn:length(review.businessNo)==0}">
+                                <a href="/proBoard/detail/${review.promotionBno}"> ${review.storeName} </a>
+                            </c:if>
+                            <br>
                             <span>식당 주소: ${review.storeAddress} --> </span>
                             <a class="openKaKaoMap" target="_blank">주소 지도로 보기</a>
-                            <c:if test="${fn:length(review.businessNo)>0}">
-                                <br>
-                                <a href="/proBoard/detail/${review.promotionBno}"> 식당 홍보글 보기 </a>
-                            </c:if>
+
                         </div>
                         <figure class="img-css">
                             <div class="owl-carousel owl-theme carousel_1 magnific-gallery owl-loaded owl-drag">

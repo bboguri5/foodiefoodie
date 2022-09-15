@@ -55,6 +55,9 @@ public class FoodieFileUtils {
 
         String newFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename(); // 로그인시 너무 많이 틀리면 자동입력방지 문자열을 적으라고 할 때도 이런걸 잘라서 한다고 한다.
 
+        File dirName = new File(uploadPath);
+
+        if (!dirName.exists()) dirName.mkdirs();
 
         // 파일 업로드 수행
         File f = new File(uploadPath, newFileName);

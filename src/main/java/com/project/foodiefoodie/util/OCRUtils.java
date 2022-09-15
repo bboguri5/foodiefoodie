@@ -43,7 +43,6 @@ public class OCRUtils {
     public static String recognizeReceipt(String filePath) {
         String result = detectText(filePath);
         if (result != null) {
-            List<String> splitResult = List.of(result.split("\n"));
             if (result.contains("취소")) {
                 return null;
             }

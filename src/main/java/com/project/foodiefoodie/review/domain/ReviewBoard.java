@@ -26,4 +26,5 @@ public class ReviewBoard {
     private String storeDetailAddress;
     private String storeExtraAddress;
     private String promotionBno;
+    private String receipt;
 }

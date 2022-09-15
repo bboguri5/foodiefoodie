@@ -179,7 +179,7 @@
 									<small>Last Updated -
 										<fmt:formatDate type="both" value="${rl.lastUpdated}" /></small>
 									<h2>
-										<c:if test="${fn:length(rl.businessNo)>0}">
+										<c:if test="${rl.receipt == 'Y'}">
 											<img class="reviewReceipt" src="/img/receipt.png" alt=""
 												style="width: 30px;">
 										</c:if>
@@ -195,10 +195,10 @@
 									<br>
 
 									<span>식당 이름: </span>
-									<c:if test="${fn:length(rl.businessNo)>0}">
+									<c:if test="${rl.receipt == 'Y'}">
 										<a href="/proBoard/detail/${rl.promotionBno}"> ${rl.storeName} </a>
 									</c:if>
-									<c:if test="${fn:length(rl.businessNo)==0}">
+									<c:if test="${rl.receipt == 'N'}">
 										${rl.storeName}
 									</c:if>
 									<br>
@@ -254,6 +254,7 @@
 	<%@ include file="../include/footer.jsp" %>
 
 	<script>
+
 		(function () {
 			likeUnlikeEvent();
 		})();

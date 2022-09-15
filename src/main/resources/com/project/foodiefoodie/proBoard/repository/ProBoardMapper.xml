@@ -113,6 +113,10 @@
         select business_no from promotion_board
     </select>
 
+    <select id="selectProBoardBusinessNo" resultType="string">
+        select business_no from promotion_board where business_no = #{businessNo}
+    </select>
+
     <select id="selectPromotionBno" resultType="int">
         select promotion_bno from promotion_board where business_no = #{businessNo}
     </select>

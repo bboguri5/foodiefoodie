@@ -462,7 +462,8 @@ public class ReviewBoardService {
 
     public String getRegisteredMasterBusiness(String filePath,String businessNo) {
         String approvalReceipt = OCRUtils.recognizeReceipt(filePath);
-        if(approvalReceipt.contains(proBoardMapper.selectProBoardBusinessNo()))
+
+        if(approvalReceipt.contains(proBoardMapper.selectProBoardBusinessNo(businessNo)))
             return "Y";
         return "N";
     }

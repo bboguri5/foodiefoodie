@@ -28,6 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Controller
@@ -62,9 +65,9 @@ public class ReviewBoardController {
         List<Long> isLikedList = reviewBoardService.getLikedListService(email);
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
-        log.info("reviewUploads - {}", reviewUploads);
-        log.info("replyCount - {}", replyCount);
-        log.info("reviewList - {}", reviewList);
+//        log.info("reviewUploads - {}", reviewUploads);
+//        log.info("replyCount - {}", replyCount);
+//        log.info("reviewList - {}", reviewList);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
@@ -78,6 +81,7 @@ public class ReviewBoardController {
         for (int i = 0; i < reviewList.size(); i++) {
             long reviewBno = reviewList.get(i).getReviewBno();
             log.info("getUploads - reviewBno - {}", reviewBno);
+            log.info("영수증  : ", reviewList.get(i).getReceipt());
             List<ReviewUpload> reviewUpload = reviewBoardService.findReviewUpload(reviewBno);
 //            log.info("reviewUploadBase64 - {}", reviewUpload);
             int count = replyService.findReplyCountService(reviewBno);
@@ -155,10 +159,12 @@ public class ReviewBoardController {
         Master master = masterService.findOneForBusinessNoService(businessNo);
         Member loginUser = (Member) session.getAttribute("loginUser");
         String referer = request.getHeader("Referer");
-        if (referer.contains("proBoard/detail")) {
-            model.addAttribute("referer", referer);
-        } else {
-            model.addAttribute("referer", null);
+        if(referer != null) {
+            if (referer.contains("proBoard/detail")) {
+                model.addAttribute("referer", referer);
+            } else {
+                model.addAttribute("referer", null);
+            }
         }
         log.info("referer - {}", referer);
         model.addAttribute("master", master);
@@ -173,15 +179,38 @@ public class ReviewBoardController {
     @PostMapping("/review/write")
     public String reviewWriteUpload(ReviewBoard review, List<MultipartFile> reviewImgFile, HttpSession session) {
 
-        log.info("review - {}", review);
+        log.info("review - {}", review.getEmail());
+        log.info("receipt- {}", review.getReceipt());
+
         boolean result = reviewBoardService.saveService(review, reviewImgFile);
 
 //        log.info("result - {}", result);
 
         Member loginUser = (Member) session.getAttribute("loginUser");
-
-
+        deleteReceiptFiles();
         return "redirect:/review?sort=latest";
+    }
+
+    private void deleteReceiptFiles()
+    {
+        String path = "/home/ec2-user/foodiefoodie/receipt";
+
+        File folder = new File(path);
+        try {
+            while(folder.exists()) {
+                File[] folder_list = folder.listFiles(); //파일리스트 얻어오기
+
+                for (int j = 0; j < folder_list.length; j++) {
+                    folder_list[j].delete(); //파일 삭제
+                }
+
+                if(folder_list.length == 0 && folder.isDirectory()){
+                    folder.delete(); //대상폴더 삭제
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 
     @PostMapping("/review/write/receipt") // 영수증 검증 비동기
@@ -194,29 +223,51 @@ public class ReviewBoardController {
 
 
         String uploadFile = FoodieFileUtils.uploadFile(file, path);
-        String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile);
+        String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile); //return 사업자 번호
 
         log.info("/review/write/receipt checkReceipt - {}", registeredBusiness);
+
 
         return registeredBusiness != null ? registeredBusiness : "false";
     }
 
-    @PostMapping("/review/write/master/receipt") // 영수증 검증 비동기
+    @PostMapping("/review/write/master/upload/receipt") // 영수증 검증 비동기
     @ResponseBody
-    public String checkMasterReceipt(@RequestBody Map<String,Object> sendObj) {
+    public String checkUploadReceipt(@RequestBody MultipartFile file) {
 
-        MultipartFile file = (MultipartFile) sendObj.get("fileData");
         if (file.getSize() == 0) return null;
-//        String path = "/home/ec2-user/foodiefoodie/receipt";
-        String path = "C:\\receipt";
+        String path = "/home/ec2-user/foodiefoodie/receipt";
+//        String path = "C:\\foodiefoodie\\receipt";
 
         String uploadFile = FoodieFileUtils.uploadFile(file, path);
-        String IsRegisteredBusiness = reviewBoardService.getRegisteredMasterBusiness(uploadFile,(String)sendObj.get("businessNo"));
 
-        log.info("/review/write/master/receipt checkMasterReceipt - {}", IsRegisteredBusiness);
+        File filePath = new File(uploadFile);
 
-        return IsRegisteredBusiness;
+        log.info("/review/write/master/receipt checkMasterReceipt - {}", filePath.getName());
+
+        return filePath.getName();
     }
+
+    @PostMapping("/review/write/master/receipt") // 영수증 검증 비동기
+    @ResponseBody
+    public String checkMasterReceipt(@RequestBody Map<String,Object> sendObj2) {
+
+        System.out.println("들어옴");
+        String fileName = (String) sendObj2.get("fileName");
+        String businessNo = (String) sendObj2.get("businessNo");
+
+        //        String path = "/home/ec2-user/foodiefoodie/receipt";
+
+        String path = "C:\\foodiefoodie\\receipt" + File.separator + fileName;
+
+        String registeredBusiness = reviewBoardService.getRegisteredMasterBusiness(path,businessNo);
+
+        log.info("/review/write/receipt checkReceipt - {}", registeredBusiness);
+
+
+        return registeredBusiness;
+    }
+
 
     @GetMapping("review/write/master/{businessNo}") // 연계된 식당일 경우 식당 정보 표시
     @ResponseBody

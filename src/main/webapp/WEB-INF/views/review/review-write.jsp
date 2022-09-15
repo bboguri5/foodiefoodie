@@ -259,10 +259,10 @@
                                 </c:if>
                                 <c:if test="${referer == null}">
                                     <input type="text" class="form-control store-name" placeholder="파리바게뜨"
-                                        value="${master.storeName}" name="storeName" readonly>
+                                        value="${master.storeName}" name="storeName" >
                                 </c:if>
-                                 <input type="hidden" name="businessNo" value="${master.businessNo}">
-                                 <input type="hidden" name="receipt" value="N">
+                                <input type="hidden" name="businessNo" class="businessNo" value="${master.businessNo}">
+                                <input type="hidden" name="receipt" class="receipt" value="N">
                             </div>
                         </div>
                     </div>
@@ -276,24 +276,25 @@
                                         <span id="addrChk"></span>
                                     </div>
                                     <span style="color: red;">*</span>
-                                    <input style="background-color: #e9ecef; border: #999;" class="form-group" type="text"
-                                        id="sample4_postcode" placeholder="우편번호" readonly>
+                                    <input style="background-color: #e9ecef; border: #999;" class="form-group"
+                                        type="text" id="sample4_postcode" placeholder="우편번호" readonly>
                                     <br>
                                     <span style="color: red;">*</span>
-                                    <input style="background-color: #e9ecef; border: #999" class="form-group addr-api store-address"
-                                        type="text" id="sample4_roadAddress" placeholder="도로명주소" name="storeAddress"
-                                        value="${master.storeAddress}" readonly>
-                                    <input style="background-color: #e9ecef; border: #999" class="form-group" type="text"
-                                        id="sample4_jibunAddress" placeholder="지번주소" readonly>
+                                    <input style="background-color: #e9ecef; border: #999"
+                                        class="form-group addr-api store-address" type="text" id="sample4_roadAddress"
+                                        placeholder="도로명주소" name="storeAddress" value="${master.storeAddress}" readonly>
+                                    <input style="background-color: #e9ecef; border: #999" class="form-group"
+                                        type="text" id="sample4_jibunAddress" placeholder="지번주소" readonly>
                                     <span id=" guide" style="color:#999;display:none"></span><br>
                                     <span style="color: red;">*</span>
                                     <input style="background-color: #e9ecef; border: #999"
                                         class="form-group addr-api store-detail-address" type="text"
                                         id="sample4_detailAddress" placeholder="상세주소" name="storeDetailAddress"
                                         value="${master.storeDetailAddress}" readonly>
-                                    <input style="background-color: #e9ecef; border: #999" class="form-group store-extra-address"
-                                        type="text" id="sample4_extraAddress" placeholder="참고항목"
-                                        name="storeExtraAddress" value="${master.storeExtraAddress}" readonly>
+                                    <input style="background-color: #e9ecef; border: #999"
+                                        class="form-group store-extra-address" type="text" id="sample4_extraAddress"
+                                        placeholder="참고항목" name="storeExtraAddress" value="${master.storeExtraAddress}"
+                                        readonly>
                                 </div>
                             </div>
                         </c:if>
@@ -376,7 +377,17 @@
                             </div>
 
                             <div class="form-group receipt-group">
-                                <label class="receipt-img-label">영수증</label>
+                                <label class="receipt-img-label">영수증 
+                                    <c:if test="${referer != null}">
+                                        <span style="color: red;">[홍보글 가게만 영수증 인증이 가능합니다. ]</span>
+                                    </c:if>
+                                    <c:if test="${referer == null}">
+                                        <span style="color: red;">[사이트 내 등록된 가게만 영수증 인증이 가능합니다. ]</span>
+
+                                    </c:if>
+                                    
+                                   
+                                </label>
                                 <div class="dropzone" id="receipt-dropzone"></div>
                                 <input type="file" class="dz-hidden-input hidden-receipt-img"
                                     accept=".jpeg,.jpg,.png,.gif,.JPEG,.JPG,.PNG,.GIF" tabindex="-1"
@@ -612,32 +623,54 @@
 
                     if ('${master.businessNo}'.length > 0) { // 홍보글에서 넘어온 리뷰글 작성 (사업자번호 유)
 
-                        const obj = {
-                            businessNo: '${master.businessNo}',
-                            fileData: formData
+                        const uploadFile = {
+                            method: "POST",
+                            body: formData
                         };
 
-                        const sendObj = {
-                            method: "POST",
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(obj)
-                        }
-
-                        fetch('/review/write/master/receipt', sendObj)
+                        fetch('/review/write/master/upload/receipt', uploadFile)
                             .then(res => res.text())
                             .then(result => {
+
                                 console.log(result);
-                                if (result === 'Y') {
-                                    alert("일치하는 영수증입니다.")
-                                    $('.receipt').val('Y');
+                                if (result != '') {
+
+                                    const obj = {
+                                        businessNo: '${master.businessNo}',
+                                        fileName: result
+                                    };
+
+                                    const confirmReceipt = {
+                                        method: "POST",
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify(obj)
+                                    }
+
+                                    fetch('/review/write/master/receipt', confirmReceipt)
+                                        .then(res => res.text())
+                                        .then(result => {
+                                            if (result === 'Y') {
+                                                alert("일치하는 영수증입니다.")
+                                                $('.receipt').val('Y');
+                                            } else {
+                                                alert("일치하지 않은 영수증입니다.")
+                                                myDropzone.removeFile(file);
+                                            }
+
+                                            closeLoadingWithMask();
+                                        })
+
+
+                                    
                                 } else {
-                                    alert("일치하지 않은 영수증입니다.")
-                                    myDropzone.remove();
+                                    alert("인증 실패 다시 시도 해주세요. ");
+                                    myDropzone.removeFile(file);
+
+                                    closeLoadingWithMask();
                                 }
                             })
-                        closeLoadingWithMask();
 
                     } else { // 리뷰글에서 작성 (사업자번호 무)
                         const obj = {
@@ -660,13 +693,11 @@
 
                                 } else {
                                     alert("등록되지않은 식당입니다.");
-                                    myDropzone.remove();
+                                    myDropzone.removeFile(file);
                                 }
                                 closeLoadingWithMask();
                             })
                     }
-
-
                 });
             }
         });

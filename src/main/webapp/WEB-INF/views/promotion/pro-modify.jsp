@@ -306,7 +306,8 @@
                     <div class="box_general padding_bottom">
                         <div class="header_box version_2">
                             <h2><i class="fa fa-list"></i>
-                                사장님 홍보글 수정 </h2>
+                                사장님 홍보글 수정 <span style="margin-left: 5px; font-size: 8px;"><strong
+                                    style="color: red;">* </strong>표시는 필수값입니다!</span></h2>
                         </div>
 
                         <!-- detail info -->

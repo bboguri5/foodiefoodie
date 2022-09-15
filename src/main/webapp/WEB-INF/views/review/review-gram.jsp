@@ -195,10 +195,11 @@
 									<br>
 
 									<span>식당 이름: </span>
-									<c:if test="${rl.receipt == 'Y'}">
+									<c:if test="${rl.receipt == 'Y' || rl.promotionBno > 0}">
 										<a href="/proBoard/detail/${rl.promotionBno}"> ${rl.storeName} </a>
 									</c:if>
-									<c:if test="${rl.receipt == 'N'}">
+									
+									<c:if test="${rl.receipt == 'N' && rl.promotionBno == null}">
 										${rl.storeName}
 									</c:if>
 									<br>

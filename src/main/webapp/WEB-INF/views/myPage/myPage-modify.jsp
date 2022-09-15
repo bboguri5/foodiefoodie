@@ -6,7 +6,7 @@
 
 <head>
 
-    <%@ include file="/WEB-INF/views/myPage/include/mypage-static-head.jsp" %>
+    <%@ include file="../include/admin-static-head.jsp" %>
 
     <style>
         .btnbox .btn {

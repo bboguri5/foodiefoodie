@@ -184,9 +184,9 @@
                                 <span style="margin-left: 10px">|</span>
                                 <a href="#" class="review-del-btn nav-removeBtn" style="margin-left: 10px;">삭제</a>
                             </c:if>
-                            <c:if test="${loginUser.auth == 'ADMIN'}">
+                            <!-- <c:if test="${loginUser.auth == 'ADMIN'}">
                                 <span style="margin-left: 10px">|</span>
-                            </c:if>
+                            </c:if> -->
                             <c:if test="${loginUser.email != review.email}">
                                 <a href="#" class="review-faq-btn nav-faq-btn" style="margin-left: 10px;"
                                     data-bs-toggle='modal' data-bs-target='.review-faq-modal'>신고</a>

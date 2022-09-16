@@ -534,8 +534,8 @@
                     }
                     tag +=
                         `           </div>` +
-                        `           <p>` + rep.content + `</p>` +
-                        `       </div>` +
+                        `           <pre>` + rep.content + `</pre>` +
+                        `       </div>` + 
                         `   </li> `;
 
                 }

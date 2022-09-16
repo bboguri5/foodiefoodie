@@ -215,6 +215,11 @@
         .dropzone .dz-message .dz-button {
             margin-top: 50px;
         }
+
+        .readOnly{
+            background-color: #e9ecef; 
+            border: #999;
+        }
     </style>
 
 </head>
@@ -259,7 +264,7 @@
                                 </c:if>
                                 <c:if test="${referer == null}">
                                     <input type="text" class="form-control store-name" placeholder="파리바게뜨"
-                                        value="${master.storeName}" name="storeName" >
+                                        value="${master.storeName}" name="storeName">
                                 </c:if>
                                 <input type="hidden" name="businessNo" class="businessNo" value="${master.businessNo}">
                                 <input type="hidden" name="receipt" class="receipt" value="N">
@@ -271,7 +276,7 @@
                         <c:if test="${referer != null}">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>주소</label>
+                                    <label>주소 <span style="color: red;">[주소 입력시 자세한 정보 전달 가능 (생략 가능)]</span></label>
                                     <div>
                                         <span id="addrChk"></span>
                                     </div>
@@ -283,7 +288,7 @@
                                     <input style="background-color: #e9ecef; border: #999"
                                         class="form-group addr-api store-address" type="text" id="sample4_roadAddress"
                                         placeholder="도로명주소" name="storeAddress" value="${master.storeAddress}" readonly>
-                                    <input style="background-color: #e9ecef; border: #999" class="form-group"
+                                    <input style="background-color: #e9ecef; border: #999" class="form-group store-"
                                         type="text" id="sample4_jibunAddress" placeholder="지번주소" readonly>
                                     <span id=" guide" style="color:#999;display:none"></span><br>
                                     <span style="color: red;">*</span>
@@ -301,19 +306,19 @@
                         <c:if test="${referer == null}">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>주소</label>
+                                    <label>주소 <span style="color: red;">[주소 입력시 자세한 정보 전달 가능 (생략 가능)]</span></label>
                                     <div>
                                         <span id="addrChk"></span>
                                     </div>
                                     <span style="color: red;">*</span>
-                                    <input class="form-group" type="text" id="sample4_postcode" placeholder="우편번호">
-                                    <input class="form-group" type="button" onclick="sample4_execDaumPostcode()"
+                                    <input class="form-group addressNum" type="text" id="sample4_postcode" placeholder="우편번호">
+                                    <input class="form-group addressBtn" type="button" onclick="sample4_execDaumPostcode()"
                                         value="우편번호 찾기"><br>
                                     <span style="color: red;">*</span>
                                     <input class="form-group addr-api store-address" type="text"
                                         id="sample4_roadAddress" placeholder="도로명주소" name="storeAddress"
                                         value="${master.storeAddress}">
-                                    <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+                                    <input class="form-group subAddress" type="text" id="sample4_jibunAddress" placeholder="지번주소">
                                     <span id=" guide" style="color:#999;display:none"></span><br>
                                     <span style="color: red;">*</span>
                                     <input class="form-group addr-api store-detail-address" type="text"
@@ -377,7 +382,7 @@
                             </div>
 
                             <div class="form-group receipt-group">
-                                <label class="receipt-img-label">영수증 
+                                <label class="receipt-img-label">영수증
                                     <c:if test="${referer != null}">
                                         <span style="color: red;">[홍보글 가게만 영수증 인증이 가능합니다. ]</span>
                                     </c:if>
@@ -385,8 +390,8 @@
                                         <span style="color: red;">[사이트 내 등록된 가게만 영수증 인증이 가능합니다. ]</span>
 
                                     </c:if>
-                                    
-                                   
+
+
                                 </label>
                                 <div class="dropzone" id="receipt-dropzone"></div>
                                 <input type="file" class="dz-hidden-input hidden-receipt-img"
@@ -548,13 +553,38 @@
                 .then(res => res.json())
                 .then(infoMap => {
                     const proBoard = infoMap.proBoard;
-                    console.log(proBoard);
-                    $('.store-address').val(proBoard.storeAddress);
-                    $('.store-detail-address').val(proBoard
-                        .storeDetailAddress);
-                    $('.store-extra-address').val(proBoard
-                        .storeExtraAddress);
-                    $('.store-name').val(proBoard.storeName);
+
+                    const $addressBtn = $('.addressBtn');
+
+                    const $storeAddress =$('.store-address');
+                    const $storeDetailAddress = $('.store-detail-address');
+                    const $storeExtraAddress = $('.store-extra-address');
+                    const $storeName = $('.store-name');
+                    const $addressNum = $('.addressNum');
+                    const $subAddress = $('.subAddress');
+
+                    $storeAddress.val(proBoard.storeAddress);
+                    $storeDetailAddress.val(proBoard.storeDetailAddress);
+                    $storeExtraAddress.val(proBoard.storeExtraAddress);
+                    $storeName.val(proBoard.storeName);
+                 
+
+                    $storeAddress.prop('readonly', true);
+                    $storeDetailAddress.prop('readonly', true);
+                    $storeExtraAddress.prop('readonly', true);
+                    $storeName.prop('readonly', true);
+                    $addressNum.prop('readonly', true);
+                    $subAddress.prop('readonly', true);
+
+                    $storeAddress.addClass('readOnly');
+                    $storeDetailAddress.addClass('readOnly');
+                    $storeExtraAddress.addClass('readOnly');
+                    $storeName.addClass('readOnly');
+                    $addressNum.addClass('readOnly');
+                    $subAddress.addClass('readOnly');
+
+                    $addressBtn.attr("disabled", true);
+
                 })
         }
 
@@ -613,6 +643,40 @@
                     }
 
                     $('.receipt').val('N');
+
+                    const $addressBtn = $('.addressBtn');
+
+                    const $storeAddress =$('.store-address');
+                    const $storeDetailAddress = $('.store-detail-address');
+                    const $storeExtraAddress = $('.store-extra-address');
+                    const $storeName = $('.store-name');
+                    const $addressNum = $('.addressNum');
+                    const $subAddress = $('.subAddress');
+
+                    $storeAddress.removeClass('readOnly');
+                    $storeDetailAddress.removeClass('readOnly');
+                    $storeExtraAddress.removeClass('readOnly');
+                    $storeName.removeClass('readOnly');
+                    $addressNum.removeClass('readOnly');
+                    $subAddress.removeClass('readOnly');
+
+                    $storeAddress.prop('readonly', false);
+                    $storeDetailAddress.prop('readonly', false);
+                    $storeExtraAddress.prop('readonly', false);
+                    $storeName.prop('readonly', false);
+                    $addressNum.prop('readonly', false);
+                    $subAddress.prop('readonly', false);
+
+                    $storeAddress.val('');
+                    $storeDetailAddress.val('');
+                    $storeExtraAddress.val('');
+                    $storeName.val('');
+                    $addressNum.val('');
+                    $subAddress.val('');
+
+                    $addressBtn.attr("disabled", false);
+
+
                 });
 
                 this.on('addedfile', function (file) {
@@ -663,7 +727,7 @@
                                         })
 
 
-                                    
+
                                 } else {
                                     alert("인증 실패 다시 시도 해주세요. ");
                                     myDropzone.removeFile(file);

@@ -172,7 +172,7 @@
                 <div class="col-lg-9">
                     <div class="singlepost">
                         <h1 style="display: inline;"> 
-                            <c:if test="${fn:length(review.businessNo)>0}">
+                            <c:if test="${review.receipt == 'Y' }">
                                 <img class="reviewReceipt"
                                 src="/img/receipt.png" alt="" style="width: 30px;">
                             </c:if>
@@ -222,11 +222,12 @@
                             </span>
                             <br>
                             <span>식당 이름: </span>
-                            <c:if test="${fn:length(review.businessNo)>0}">
+                            <c:if test="${review.receipt == 'Y' || review.promotionBno > 0}">
                                 <a href="/proBoard/detail/${review.promotionBno}"> ${review.storeName} </a>
                             </c:if>
-                            <c:if test="${fn:length(review.businessNo)==0}">
-                                <a href="/proBoard/detail/${review.promotionBno}"> ${review.storeName} </a>
+                            
+                            <c:if test="${review.receipt == 'N' && review.promotionBno == null}">
+                                ${review.storeName}
                             </c:if>
                             <br>
                             <span>식당 주소: ${review.storeAddress} --> </span>

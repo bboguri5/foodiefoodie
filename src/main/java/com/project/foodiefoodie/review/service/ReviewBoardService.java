@@ -27,7 +27,7 @@ public class ReviewBoardService {
     private final ReviewBoardMapper rbMapper;
     private final PromotionBoardMapper pbMapper;
 
-    private  final ProBoardMapper proBoardMapper;
+    private final ProBoardMapper proBoardMapper;
 
 //    public List<AvgStarDTO> avgStarRateService() {
 //        return mapper.avgStarRate();
@@ -75,11 +75,9 @@ public class ReviewBoardService {
         return rbMapper.searchAllReview(search, sort);
     }
 
-    public List<ReviewBoardDTO> searchTop5ReviewService(String search, String sort)
-    {
-        return rbMapper.searchTop5Review(search,sort);
+    public List<ReviewBoardDTO> searchTop5ReviewService(String search, String sort) {
+        return rbMapper.searchTop5Review(search, sort);
     }
-
 
 
     public ReviewBoardDTO findOneReviewService(long reviewBno) {
@@ -112,8 +110,8 @@ public class ReviewBoardService {
     }
 
 
-    public boolean isMaster(String email, String businessNo){
-        return rbMapper.isMaster(email,businessNo) > 0 ;
+    public boolean isMaster(String email, String businessNo) {
+        return rbMapper.isMaster(email, businessNo) > 0;
     }
 
 
@@ -144,7 +142,6 @@ public class ReviewBoardService {
             fileFullPath = newUploadPath + File.separator + newFileName;
 
 
-
             File f = new File(newUploadPath, newFileName); // 파일 객체 생성
 
             try {
@@ -172,7 +169,6 @@ public class ReviewBoardService {
                 reviewFileDTO.setFileData(fileData);
 
                 saveReviewImagePath(reviewFileDTO); // 서버 이미지 경로 DB 저장
-
 
 
             } catch (IOException e) {
@@ -206,7 +202,6 @@ public class ReviewBoardService {
     }
 
 
-
     public boolean isLikedService(long reviewBno, String email) {
         int liked = rbMapper.isLiked(reviewBno, email);
 //        log.info("liked returned int - {}", liked >= 1);
@@ -234,17 +229,17 @@ public class ReviewBoardService {
         if (flag) {
 
 //              리뷰, 이미지 저장이 잘 되었으면 가게 평점 & 리뷰 개수 업데이트 해주기
-                String businessNo = reviewBoard.getBusinessNo();
-                log.info("save businessNo - {}", businessNo);
-                if (!Objects.equals(businessNo, "")) {
-                    log.info("!!!!!!!!!!!");
-                    double avgStarRate = rbMapper.getStarRate(businessNo);
-                    Long reviewCnt = rbMapper.getReviewCnt(businessNo);
+            String businessNo = reviewBoard.getBusinessNo();
+            log.info("save businessNo - {}", businessNo);
+            if (!Objects.equals(businessNo, "")) {
+                log.info("!!!!!!!!!!!");
+                double avgStarRate = rbMapper.getStarRate(businessNo);
+                Long reviewCnt = rbMapper.getReviewCnt(businessNo);
 
-                    System.out.println("starRate & reviewCnt = " + avgStarRate + " & " + reviewCnt);
-                    pbMapper.updateRateAndCount(businessNo, avgStarRate, reviewCnt);
-                }
+                System.out.println("starRate & reviewCnt = " + avgStarRate + " & " + reviewCnt);
+                pbMapper.updateRateAndCount(businessNo, avgStarRate, reviewCnt);
             }
+        }
 
         return flag;
     }
@@ -256,7 +251,7 @@ public class ReviewBoardService {
         String path = "/home/ec2-user/foodiefoodie/reviewBoard/" + reviewBno;
         File folder = new File(path);
         try {
-            while(folder.exists()) {
+            while (folder.exists()) {
                 File[] folder_list = folder.listFiles(); //파일리스트 얻어오기
 
                 for (int j = 0; j < folder_list.length; j++) {
@@ -265,7 +260,7 @@ public class ReviewBoardService {
 
                 }
 
-                if(folder_list.length == 0 && folder.isDirectory()){
+                if (folder_list.length == 0 && folder.isDirectory()) {
                     folder.delete(); //대상폴더 삭제
                     System.out.println("폴더가 삭제되었습니다.");
                 }
@@ -372,16 +367,15 @@ public class ReviewBoardService {
     }
 
     // 서버에 있는 이미지 폴더 삭제 후 db 데이터 삭제 진행
-    public boolean removeReviewService(Long reviewBno,String businessNo) {
+    public boolean removeReviewService(Long reviewBno, String businessNo) {
         boolean flag = rbMapper.removeReview(reviewBno);
 
         if (flag) {
             deleteFile(reviewBno);
-            if(businessNo != null)
-            {
+            if (businessNo != null) {
                 Long reviewCnt = rbMapper.getReviewCnt(businessNo);
-                if(reviewCnt == 0){
-                    pbMapper.updateRateAndCount(businessNo,0,0L);
+                if (reviewCnt == 0) {
+                    pbMapper.updateRateAndCount(businessNo, 0, 0L);
                     return true;
                 }
                 double avgStarRate = rbMapper.getStarRate(businessNo);
@@ -395,19 +389,15 @@ public class ReviewBoardService {
     }
 
 
-
-
-
-
     // 마이페이지부분 =====================================
     // 리뷰 데이터 리스트 받아옴
-    public List<FileDataDTO> reviewDataList(Long reviewBno){
+    public List<FileDataDTO> reviewDataList(Long reviewBno) {
         List<FileDataDTO> fileDataDTOS = rbMapper.reviewDataList(reviewBno);
         return fileDataDTOS;
     }
 
     // 첫번째 값만 가져올꺼임
-    public ArrayList<String> firstDataList(String email){
+    public ArrayList<String> firstDataList(String email) {
         // 스트링 값을 가질 스트링 리스트를 생성한다
         ArrayList<String> firstDataList = new ArrayList<>();
         // 길이를 구하고
@@ -416,7 +406,7 @@ public class ReviewBoardService {
         // 리뷰번호들을 가져오고
         List<ReviewNumDTO> reviewNumDTOS = rbMapper.reviewNumList(email);
 
-        for (int j = 0; j <i ; j++) {
+        for (int j = 0; j < i; j++) {
             //리뷰번호를 순서대로 꺼내온다
             ReviewNumDTO reviewNumDTO = reviewNumDTOS.get(j);
             // 리뷰번호를 가져오고
@@ -437,35 +427,32 @@ public class ReviewBoardService {
         return firstDataList;
     }
 
-        //   리뷰 갯수 가져옴
-    public int MyReviewCount(String email){
+    //   리뷰 갯수 가져옴
+    public int MyReviewCount(String email) {
         int i = rbMapper.MyReviewCount(email);
         return i;
     }
 
     // 리뷰 번호들 가져옴
-    public List<ReviewNumDTO>reviewNumList(String email){
+    public List<ReviewNumDTO> reviewNumList(String email) {
         List<ReviewNumDTO> reviewNumDTOS = rbMapper.reviewNumList(email);
 
         return reviewNumDTOS;
     }
 
 
+    public String getRegisteredBusiness(String filePath) {
+        OCRUtils ocrUtils = new OCRUtils();
+        String approvalReceipt = ocrUtils.recognizeReceipt(filePath);
 
-    public String getRegisteredBusiness(String filePath){
-        String approvalReceipt = OCRUtils.recognizeReceipt(filePath);
-
-        if(approvalReceipt!= null)
-        {
+        if (approvalReceipt != null) {
             List<String> proBoardsBusinessNo = proBoardMapper.selectProBoardBusinessNoAll();
-            System.out.println(proBoardsBusinessNo);
-            for(String businessNo: proBoardsBusinessNo)
-            {
-                String onlyNumber = businessNo.replaceAll("[^0-9]", "");
-                log.info(" getRegisteredBusiness - onlyNumber : {}",onlyNumber);
 
-                if(approvalReceipt.contains(businessNo) || approvalReceipt.contains(onlyNumber))
-                {
+            for (String businessNo : proBoardsBusinessNo) {
+                String onlyNumber = businessNo.replaceAll("[^0-9]", "");
+                log.info(" getRegisteredBusiness - onlyNumber : {}", onlyNumber);
+
+                if (approvalReceipt.contains(businessNo) || approvalReceipt.contains(onlyNumber)) {
                     return businessNo;
                 }
             }
@@ -474,4 +461,13 @@ public class ReviewBoardService {
         return null;
     }
 
+    public String getRegisteredMasterBusiness(String filePath,String businessNo) {
+
+        OCRUtils ocrUtils = new OCRUtils();
+        String approvalReceipt = ocrUtils.recognizeReceipt(filePath);
+
+        if(approvalReceipt.contains(proBoardMapper.selectProBoardBusinessNo(businessNo)))
+            return "Y";
+        return "N";
+    }
 }

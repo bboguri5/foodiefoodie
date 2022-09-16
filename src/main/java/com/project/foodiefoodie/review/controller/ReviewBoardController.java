@@ -28,6 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Controller
@@ -42,6 +45,8 @@ public class ReviewBoardController {
     private final ReplyFaqService replyFaqService;
 
     private final ProBoardService proBoardService;
+
+    private static final String RECEIPT_UPLOAD_PATH = "/home/ec2-user/foodiefoodie/receipt";
 
     @GetMapping("/review")
     public String review(String sort, Model model, HttpSession session) {
@@ -62,9 +67,9 @@ public class ReviewBoardController {
         List<Long> isLikedList = reviewBoardService.getLikedListService(email);
         // 첫번째 리뷰 사진 리스트 모아오기
         getUploads(reviewUploads, replyCount, reviewList);
-        log.info("reviewUploads - {}", reviewUploads);
-        log.info("replyCount - {}", replyCount);
-        log.info("reviewList - {}", reviewList);
+//        log.info("reviewUploads - {}", reviewUploads);
+//        log.info("replyCount - {}", replyCount);
+//        log.info("reviewList - {}", reviewList);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
@@ -161,9 +166,8 @@ public class ReviewBoardController {
             } else {
                 model.addAttribute("referer", null);
             }
-            log.info("referer - {}", referer);
         }
-
+        log.info("referer - {}", referer);
         model.addAttribute("master", master);
         model.addAttribute("loginUser", loginUser);
 //        log.info("loginUser - {}", loginUser);
@@ -176,15 +180,39 @@ public class ReviewBoardController {
     @PostMapping("/review/write")
     public String reviewWriteUpload(ReviewBoard review, List<MultipartFile> reviewImgFile, HttpSession session) {
 
-        log.info("review - {}", review);
+        log.info("review - {}", review.getEmail());
+        log.info("receipt- {}", review.getReceipt());
+
         boolean result = reviewBoardService.saveService(review, reviewImgFile);
 
 //        log.info("result - {}", result);
 
         Member loginUser = (Member) session.getAttribute("loginUser");
-
-
+        deleteReceiptFiles();
         return "redirect:/review?sort=latest";
+    }
+
+    private void deleteReceiptFiles()
+    {
+        String path = RECEIPT_UPLOAD_PATH;
+//        String path = "C:\\foodiefoodie\\receipt";
+
+        File folder = new File(path);
+        try {
+            while(folder.exists()) {
+                File[] folder_list = folder.listFiles(); //파일리스트 얻어오기
+
+                for (int j = 0; j < folder_list.length; j++) {
+                    folder_list[j].delete(); //파일 삭제
+                }
+
+                if(folder_list.length == 0 && folder.isDirectory()){
+                    folder.delete(); //대상폴더 삭제
+                }
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
     }
 
     @PostMapping("/review/write/receipt") // 영수증 검증 비동기
@@ -192,15 +220,54 @@ public class ReviewBoardController {
     public String checkReceipt(@RequestBody MultipartFile file) {
         if (file.getSize() == 0) return null;
 
-        String path = "/home/ec2-user/foodiefoodie/receipt";
+        String path = RECEIPT_UPLOAD_PATH;
 //        String path = "C:\\foodiefoodie\\receipt";
+
+
         String uploadFile = FoodieFileUtils.uploadFile(file, path);
-        String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile);
+        String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile); //return 사업자 번호
 
         log.info("/review/write/receipt checkReceipt - {}", registeredBusiness);
 
-        return registeredBusiness != null ? registeredBusiness : "failed";
+
+        return registeredBusiness != null ? registeredBusiness : "false";
     }
+
+    @PostMapping("/review/write/master/upload/receipt") // 영수증 검증 비동기
+    @ResponseBody
+    public String checkUploadReceipt(@RequestBody MultipartFile file) {
+
+        if (file.getSize() == 0) return null;
+        String path = RECEIPT_UPLOAD_PATH;
+//        String path = "C:\\foodiefoodie\\receipt";
+
+        String uploadFile = FoodieFileUtils.uploadFile(file, path);
+
+        File filePath = new File(uploadFile);
+
+        log.info("/review/write/master/receipt checkMasterReceipt - {}", filePath.getName());
+
+        return filePath.getName();
+    }
+
+    @PostMapping("/review/write/master/receipt") // 영수증 검증 비동기
+    @ResponseBody
+    public String checkMasterReceipt(@RequestBody Map<String,Object> sendObj2) {
+
+        String fileName = (String) sendObj2.get("fileName");
+        String businessNo = (String) sendObj2.get("businessNo");
+
+        String path = RECEIPT_UPLOAD_PATH + File.separator + fileName;
+//        String path = "C:\\foodiefoodie\\receipt" + File.separator + fileName;
+
+        String registeredBusiness = reviewBoardService.getRegisteredMasterBusiness(path,businessNo);
+
+        log.info("/review/write/receipt checkReceipt - {}", registeredBusiness);
+
+
+        return registeredBusiness;
+    }
+
 
     @GetMapping("review/write/master/{businessNo}") // 연계된 식당일 경우 식당 정보 표시
     @ResponseBody

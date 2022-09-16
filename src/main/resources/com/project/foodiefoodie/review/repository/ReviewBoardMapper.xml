@@ -55,9 +55,9 @@
         , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress})-->
 
         INSERT INTO review_board (email, title, content, business_no, star_rate
-        , private, store_name, store_address, store_detail_address, store_extra_address)
+        , private, store_name, store_address, store_detail_address, store_extra_address, receipt)
         VALUES (#{email}, #{title}, #{content}, #{businessNo}, #{starRate}
-        , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress})
+        , #{isPrivate}, #{storeName}, #{storeAddress}, #{storeDetailAddress}, #{storeExtraAddress} , #{receipt})
     </insert>
 
     <!--  해당 가게 평균 평점 구하기  -->
@@ -77,7 +77,7 @@
     <select id="findAllReviews" resultMap="rbDTOMap">
 
         SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
-        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address ,pb.promotion_bno
+        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address ,pb.promotion_bno, rb.receipt
         FROM review_board rb
         LEFT OUTER JOIN promotion_board pb
         ON rb.business_no = pb.business_no
@@ -97,7 +97,7 @@
     <select id="findOneReview" resultMap="rbDTOMap" resultType="long">
 
         SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
-        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address , pb.promotion_bno
+        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address , pb.promotion_bno, rb.receipt
         FROM review_board rb
         LEFT OUTER JOIN promotion_board pb
         ON rb.business_no = pb.business_no
@@ -124,7 +124,7 @@
         <if test="sort == 'like'">ORDER BY like_cnt DESC</if>-->
 
         SELECT rb.review_bno, rb.business_no, rb.email, rb.title, rb.content, rb.last_updated, rb.star_rate, rb.like_cnt
-        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address , pb.promotion_bno
+        , rb.store_name, rb.store_address, rb.store_detail_address, rb.store_extra_address , pb.promotion_bno, rb.receipt
         FROM review_board rb
         LEFT OUTER JOIN promotion_board pb
         ON rb.business_no = pb.business_no
@@ -159,7 +159,7 @@
 
     <select id="searchTop5Review" resultMap="rbDTOMap">
         SELECT review_bno, email, title, content, last_updated, star_rate, like_cnt, business_no,
-        store_name, store_address
+        store_name, store_address, receipt
         FROM review_board
         WHERE private = 'F'
         AND BUSINESS_NO = #{search}

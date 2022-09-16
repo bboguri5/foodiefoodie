@@ -21,8 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProBoardService {
     private final ProBoardMapper proBoardMapper;
-//    private static final String IMG_UPLOAD_PATH = "C:\\foodiefoodie\\receipt";
-    private static final String IMG_UPLOAD_PATH = "C:\\foodiefoodie\\proBoard";
+    private static final String IMG_UPLOAD_PATH = "/home/ec2-user/foodiefoodie/proBoard";
+//    private static final String IMG_UPLOAD_PATH = "C:\\foodiefoodie\\proBoard";
 
     @Transactional
     public int saveProBoard(ProBoard proBoard, List<String[]> menuList, Map<String, List<MultipartFile>> fileMap) {
@@ -102,7 +102,6 @@ public class ProBoardService {
     // ex) C:\foodiefoodie\proBoard\1234-12-12345\detail
     private String getNewUploadPath(String businessNo, String newFolder) {
 
-//        String newUploadPath = "/home/ec2-user/foodiefoodie/proBoard";
         String newUploadPath = IMG_UPLOAD_PATH;
         newUploadPath += File.separator + businessNo;
         newUploadPath += File.separator + newFolder;
@@ -117,7 +116,6 @@ public class ProBoardService {
     private void deleteLocalFile(String businessNo, String folderName, List<MultipartFile> fileList) {
         List<Boolean> result = new ArrayList<>();
         List<String> requestFileNames = new ArrayList<>();
-//        String newUploadPath = "/home/ec2-user/foodiefoodie/proBoard";
         String newUploadPath = IMG_UPLOAD_PATH;
 
         newUploadPath += File.separator + businessNo;

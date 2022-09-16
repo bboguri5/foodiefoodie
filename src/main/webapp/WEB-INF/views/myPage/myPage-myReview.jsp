@@ -138,7 +138,7 @@
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox{
             width: 32%;
             height: 270px;
-            /* background: pink; */
+            background: pink;
             display: flex;
             flex-direction: column;
             margin-bottom: 10px;
@@ -153,11 +153,11 @@
             font-size: x-large;
             color: yellowgreen;
         }
-/* 
+
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .reviewPicture{
-            background: #e0e0e0;
+            background: blue;
             border: 1px solid #000;
-        } */
+        }
         .myReview-allWrap .reviewPictureWrapper .reviewPictureBox .reviewBox .likeAndReplyBox{
             background: green;
             width: 100%;

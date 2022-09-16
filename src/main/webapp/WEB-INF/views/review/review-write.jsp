@@ -259,7 +259,7 @@
                                 </c:if>
                                 <c:if test="${referer == null}">
                                     <input type="text" class="form-control store-name" placeholder="파리바게뜨"
-                                        value="${master.storeName}" name="storeName" readonly>
+                                        value="${master.storeName}" name="storeName">
                                 </c:if>
                                 <!-- <input type="hidden" name="businessNo" value="${master.businessNo}"> -->
                             </div>
@@ -604,7 +604,7 @@
                         LoadingWithMask();
                         const formData = new FormData();
                         formData.append('file', file)
-
+                        
                         const obj = {
                             method: "POST",
                             body: formData

@@ -155,12 +155,15 @@ public class ReviewBoardController {
         Master master = masterService.findOneForBusinessNoService(businessNo);
         Member loginUser = (Member) session.getAttribute("loginUser");
         String referer = request.getHeader("Referer");
-        if (referer.contains("proBoard/detail")) {
-            model.addAttribute("referer", referer);
-        } else {
-            model.addAttribute("referer", null);
+        if(referer != null) {
+            if (referer.contains("proBoard/detail")) {
+                model.addAttribute("referer", referer);
+            } else {
+                model.addAttribute("referer", null);
+            }
+            log.info("referer - {}", referer);
         }
-        log.info("referer - {}", referer);
+
         model.addAttribute("master", master);
         model.addAttribute("loginUser", loginUser);
 //        log.info("loginUser - {}", loginUser);
@@ -191,8 +194,6 @@ public class ReviewBoardController {
 
         String path = "/home/ec2-user/foodiefoodie/receipt";
 //        String path = "C:\\foodiefoodie\\receipt";
-
-
         String uploadFile = FoodieFileUtils.uploadFile(file, path);
         String registeredBusiness = reviewBoardService.getRegisteredBusiness(uploadFile);
 

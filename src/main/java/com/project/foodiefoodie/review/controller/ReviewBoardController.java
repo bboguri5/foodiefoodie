@@ -46,7 +46,8 @@ public class ReviewBoardController {
 
     private final ProBoardService proBoardService;
 
-    private static final String RECEIPT_UPLOAD_PATH = "/home/ec2-user/foodiefoodie/receipt";
+//    private static final String RECEIPT_UPLOAD_PATH = "/home/ec2-user/foodiefoodie/receipt";
+    private static final String RECEIPT_UPLOAD_PATH = "C:\\foodiefoodie\\receipt";
 
     @GetMapping("/review")
     public String review(String sort, Model model, HttpSession session) {

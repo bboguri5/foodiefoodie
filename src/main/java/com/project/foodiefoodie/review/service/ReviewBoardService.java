@@ -29,8 +29,8 @@ public class ReviewBoardService {
 
     private final ProBoardMapper proBoardMapper;
 
-//    private static final String RECEIPT_UPLOAD_PATH = "/home/ec2-user/foodiefoodie/reviewBoard\"";
-    private static final String RECEIPT_UPLOAD_PATH = "C:\\foodiefoodie\\reviewBoard";
+    private static final String RECEIPT_UPLOAD_PATH = "/home/ec2-user/foodiefoodie/reviewBoard";
+//    private static final String RECEIPT_UPLOAD_PATH = "C:\\foodiefoodie\\reviewBoard";
 
 
 //    public List<AvgStarDTO> avgStarRateService() {

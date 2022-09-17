@@ -29,8 +29,8 @@ public class ReviewBoardService {
 
     private final ProBoardMapper proBoardMapper;
 
-    private static final String RECEIPT_UPLOAD_PATH = "/home/ec2-user/foodiefoodie/reviewBoard";
-//    private static final String RECEIPT_UPLOAD_PATH = "C:\\foodiefoodie\\reviewBoard";
+    private static final String REVIEW_UPLOAD_PATH = "/home/ec2-user/foodiefoodie/reviewBoard";
+//    private static final String REVIEW_UPLOAD_PATH = "C:\\foodiefoodie\\reviewBoard";
 
 
 //    public List<AvgStarDTO> avgStarRateService() {
@@ -186,7 +186,7 @@ public class ReviewBoardService {
 
     private String getReviewNewUploadPath(long reviewBno) {
 
-        String newUploadPath = RECEIPT_UPLOAD_PATH;
+        String newUploadPath = REVIEW_UPLOAD_PATH;
         newUploadPath += File.separator + reviewBno;
 
         File dirName = new File(newUploadPath);
@@ -252,7 +252,7 @@ public class ReviewBoardService {
     // 서버 이미지 삭제
     public void deleteFile(Long reviewBno) {
 
-        String path = RECEIPT_UPLOAD_PATH + File.separator + reviewBno;
+        String path = REVIEW_UPLOAD_PATH + File.separator + reviewBno;
         File folder = new File(path);
         try {
             while (folder.exists()) {
@@ -285,7 +285,7 @@ public class ReviewBoardService {
         boolean flag = rbMapper.modifyReview(reviewBoard);
 
         if (flag) {
-            String originReviewImgPath = RECEIPT_UPLOAD_PATH +File.separator + reviewBno;
+            String originReviewImgPath = REVIEW_UPLOAD_PATH +File.separator + reviewBno;
             File folder = new File(originReviewImgPath);
             try {
                 if (folder.exists()) { // 해당 폴더가 존재 유무 확인

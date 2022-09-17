@@ -140,7 +140,7 @@ public class ReviewBoardController {
         model.addAttribute("reviewList", searchList);
         model.addAttribute("uploads", reviewUploads);
         model.addAttribute("replyCount", replyCount);
-        if (!beforeUrl.contains("/detail")) // 이전 페이지가 detail 일 경우 검색 문구 표시 X
+        if (!beforeUrl.contains("proBoard/detail")) // 이전 페이지가 detail 일 경우 검색 문구 표시 X
             model.addAttribute("search", search);
         return "review/review-gram";
     }

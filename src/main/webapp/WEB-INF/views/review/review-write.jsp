@@ -216,8 +216,8 @@
             margin-top: 50px;
         }
 
-        .readOnly{
-            background-color: #e9ecef; 
+        .readOnly {
+            background-color: #e9ecef;
             border: #999;
         }
     </style>
@@ -311,14 +311,16 @@
                                         <span id="addrChk"></span>
                                     </div>
                                     <span style="color: red;">*</span>
-                                    <input class="form-group addressNum" type="text" id="sample4_postcode" placeholder="우편번호">
-                                    <input class="form-group addressBtn" type="button" onclick="sample4_execDaumPostcode()"
-                                        value="우편번호 찾기"><br>
+                                    <input class="form-group addressNum" type="text" id="sample4_postcode"
+                                        placeholder="우편번호">
+                                    <input class="form-group addressBtn" type="button"
+                                        onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
                                     <span style="color: red;">*</span>
                                     <input class="form-group addr-api store-address" type="text"
                                         id="sample4_roadAddress" placeholder="도로명주소" name="storeAddress"
                                         value="${master.storeAddress}">
-                                    <input class="form-group subAddress" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+                                    <input class="form-group subAddress" type="text" id="sample4_jibunAddress"
+                                        placeholder="지번주소">
                                     <span id=" guide" style="color:#999;display:none"></span><br>
                                     <span style="color: red;">*</span>
                                     <input class="form-group addr-api store-detail-address" type="text"
@@ -556,7 +558,7 @@
 
                     const $addressBtn = $('.addressBtn');
 
-                    const $storeAddress =$('.store-address');
+                    const $storeAddress = $('.store-address');
                     const $storeDetailAddress = $('.store-detail-address');
                     const $storeExtraAddress = $('.store-extra-address');
                     const $storeName = $('.store-name');
@@ -567,7 +569,7 @@
                     $storeDetailAddress.val(proBoard.storeDetailAddress);
                     $storeExtraAddress.val(proBoard.storeExtraAddress);
                     $storeName.val(proBoard.storeName);
-                 
+
 
                     $storeAddress.prop('readonly', true);
                     $storeDetailAddress.prop('readonly', true);
@@ -615,6 +617,7 @@
             $('#mask, #loadingImg').remove();
         }
 
+
         // -------------- fiel upload and file dropzone --------------
         Dropzone.autoDiscover = false;
         const receiptDropzone = new Dropzone("#receipt-dropzone.dropzone", {
@@ -637,45 +640,44 @@
                 // 파일 삭제 시 input 창 삭제 
                 this.on('removedfile', function (file) {
 
-                    if ('${master.businessNo}'.length === 0) // 리뷰글에서만 처리.
+                    if ('${referer}'.length === 0) // 리뷰글에서만 처리.
                     {
                         $('.businessNo').val('');
+
+                        const $addressBtn = $('.addressBtn');
+
+                        const $storeAddress = $('.store-address');
+                        const $storeDetailAddress = $('.store-detail-address');
+                        const $storeExtraAddress = $('.store-extra-address');
+                        const $storeName = $('.store-name');
+                        const $addressNum = $('.addressNum');
+                        const $subAddress = $('.subAddress');
+
+                        $storeAddress.removeClass('readOnly');
+                        $storeDetailAddress.removeClass('readOnly');
+                        $storeExtraAddress.removeClass('readOnly');
+                        $storeName.removeClass('readOnly');
+                        $addressNum.removeClass('readOnly');
+                        $subAddress.removeClass('readOnly');
+
+                        $storeAddress.prop('readonly', false);
+                        $storeDetailAddress.prop('readonly', false);
+                        $storeExtraAddress.prop('readonly', false);
+                        $storeName.prop('readonly', false);
+                        $addressNum.prop('readonly', false);
+                        $subAddress.prop('readonly', false);
+
+                        $storeAddress.val('');
+                        $storeDetailAddress.val('');
+                        $storeExtraAddress.val('');
+                        $storeName.val('');
+                        $addressNum.val('');
+                        $subAddress.val('');
+
+                        $addressBtn.attr("disabled", false);
                     }
 
                     $('.receipt').val('N');
-
-                    const $addressBtn = $('.addressBtn');
-
-                    const $storeAddress =$('.store-address');
-                    const $storeDetailAddress = $('.store-detail-address');
-                    const $storeExtraAddress = $('.store-extra-address');
-                    const $storeName = $('.store-name');
-                    const $addressNum = $('.addressNum');
-                    const $subAddress = $('.subAddress');
-
-                    $storeAddress.removeClass('readOnly');
-                    $storeDetailAddress.removeClass('readOnly');
-                    $storeExtraAddress.removeClass('readOnly');
-                    $storeName.removeClass('readOnly');
-                    $addressNum.removeClass('readOnly');
-                    $subAddress.removeClass('readOnly');
-
-                    $storeAddress.prop('readonly', false);
-                    $storeDetailAddress.prop('readonly', false);
-                    $storeExtraAddress.prop('readonly', false);
-                    $storeName.prop('readonly', false);
-                    $addressNum.prop('readonly', false);
-                    $subAddress.prop('readonly', false);
-
-                    $storeAddress.val('');
-                    $storeDetailAddress.val('');
-                    $storeExtraAddress.val('');
-                    $storeName.val('');
-                    $addressNum.val('');
-                    $subAddress.val('');
-
-                    $addressBtn.attr("disabled", false);
-
 
                 });
 
@@ -685,7 +687,7 @@
                     const formData = new FormData();
                     formData.append('file', file)
 
-                    if ('${master.businessNo}'.length > 0) { // 홍보글에서 넘어온 리뷰글 작성 (사업자번호 유)
+                    if ('${referer}'.length > 0) { // 홍보글에서 넘어온 리뷰글 작성 (사업자번호 유)
 
                         const uploadFile = {
                             method: "POST",
@@ -737,6 +739,8 @@
                             })
 
                     } else { // 리뷰글에서 작성 (사업자번호 무)
+
+                        console.log("???");
                         const obj = {
                             method: "POST",
                             body: formData

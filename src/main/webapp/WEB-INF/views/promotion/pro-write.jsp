@@ -968,7 +968,7 @@
             checkSave[0] = checkValue(); // 입력란 검증 
             checkSave[1] = checkMenuInput(); // 메뉴명만 입력했을 경우 , 메뉴가격만 입력했을 경우 검증
             checkSave[2] = checkOverlapHashTag(); // 해시태그 중복 검증 
-            checkSave[4] = checkInputTime(); // 시간 입력 검증 
+            checkSave[3] = checkInputTime(); // 시간 입력 검증 
 
             console.log("checkSave : ", checkSave);
             if (!checkSave.includes(false)) {
@@ -976,7 +976,7 @@
                 changeFormatTime(); // 시간 00:00으로 변환
                 changeFormatContent() // 내용 \n -> <br>으로 치환
 
-                // $('#promotionWriteForm').submit();
+                $('#promotionWriteForm').submit();
                 console.log($menuNameList);
             }
         });

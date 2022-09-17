@@ -61,7 +61,7 @@
     <div class="content-wrapper">
         <div class="container-fluid">
          
-            <form action="/modifyMember" method="post" class="modiForm">
+            <form action="/myPage/modify" method="post" class="modiForm">
                 <div class="box_general padding_bottom">
                     <div class="header_box version_2">
                         <h2><i class="fa fa-user"></i>프로필 수정하는곳</h2>
@@ -116,22 +116,22 @@
                                         <input type="text" class="form-control" name="address" value="${loginUser.address}">
                                     </div>
                                 </div> -->
-                                <div class="addressBox">
+                                <!-- <div class="addressBox">
                                     <div class="addressDiv"></div>
-                                </div>
+                                </div> -->
                                 <div class="addressSum">
                                     <input class="form-group" type="text" id="sample4_postcode" placeholder="우편번호">
                                     <input class="form-group" type="button" onclick="sample4_execDaumPostcode()"
                                         value="우편번호 찾기"><br>
                                     <input class="form-group addr-api" type="text" id="sample4_roadAddress"
-                                        placeholder="도로명주소" name="address" required>
+                                        placeholder="도로명주소" name="address" required value="${loginUser.address}">
 
-                                    <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소">
+                                    <input class="form-group" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${loginUser.extraAddress}">
 
                                     <!-- <span id="guide" style="color:#999;display:none"></span> -->
 
                                     <input class="form-group addr-api" type="text" id="sample4_detailAddress"
-                                        placeholder="상세주소" name="detailAddress" required>
+                                        placeholder="상세주소" name="detailAddress" required value="${loginUser.detailAddress}">
 
                                     <input class="form-group" type="text" id="sample4_extraAddress" placeholder="참고항목"
                                         name="extraAddress" required>
@@ -156,7 +156,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>your Auth 권한</label>
+                                        <label>회원 등급</label>
                                         <input type="email" class="form-control" name="auth" value="${loginUser.auth}"
                                             readonly>
                                     </div>
@@ -172,7 +172,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>realName 진짜 이름 </label>
+                                        <label> 이름 </label>
                                         <input type="email" class="form-control" name="name" value="${loginUser.name}"
                                             readonly>
                                     </div>
@@ -387,7 +387,7 @@
             const $addressDiv = document.querySelector('.addressDiv')
 
 
-            const checkArr = [false, false, false];
+            let checkArr = [false, false, false];
 
 
             $nickInput.on('keyup', e => {
@@ -400,7 +400,7 @@
                     $nickChk.text('닉네임은 필수 입력사항입니다.');
                     $nickChk.css('color', 'red');
                     $nickLabel.css('display', 'none');
-                    checkArr[0] = false;
+                    checkArr[0]=false;
                 }
 
                 // 닉네임 정규표현식 검증 및 길이 검증
@@ -410,7 +410,6 @@
                     $nickChk.text('닉네임은 최소 2자 이상 12자 이하로 영문, 한글, 숫자만 가능합니다.');
                     $nickChk.css('color', 'red');
                     $nickLabel.css('display', 'none');
-                    checkArr[0] = false;
                 } else {
 
                     // 닉네임 중복확인. 비동기 요청!!
@@ -424,7 +423,6 @@
                                 $nickChk.text('중복된 닉네임입니다.');
                                 $nickChk.css('color', 'red');
                                 $nickLabel.css('display', 'none');
-                                checkArr[0] = false;
 
                             } else {
                                 // 정상적으로 입력한 경우
@@ -432,7 +430,6 @@
                                 $nickChk.text('사용 가능한 닉네임입니다');
                                 $nickChk.css('color', 'green');
                                 $nickLabel.css('display', 'block');
-                                checkArr[0] = true;
                             }
                         });
                 }
@@ -448,7 +445,6 @@
                     $phoneChk.text('핸드폰 번호는 필수 입력사항입니다.');
                     $phoneChk.css('color', 'red');
                     $phonLabel.css('display', 'none');
-                    checkArr[1] = false;
                 }
 
                 // 입력값이 전화번호 정규표현식에 위배될 경우
@@ -457,15 +453,12 @@
                     $phoneChk.text('올바른 전화번호 양식이 아닙니다. 입력을 확인해주세요. 예시: 010-1234-5678');
                     $phoneChk.css('color', 'red');
                     $phonLabel.css('display', 'none');
-                    checkArr[1] = false;
                 }
 
-                // 정상 입력인 경우
                 else {
                     $phonLabel.css('display', 'block');
                     $phoneNumInput.css('border-color', 'greenyellow');
                     $phoneChk.text('');
-                    checkArr[1] = true;
                 }
 
             }); // end 전화번호 검증 로직
@@ -498,18 +491,23 @@
                         }
 
                     }
-                    // 위에 과정을 거친거면
-                    $addressDiv.text('');
+
+                    checkArr[0] = $('.nickInput').val().length>0
+                    checkArr[1] = $('.phoneNumInput').val().length>0
                     checkArr[2] = true;
-                    for (let i of checkArr) {
-                        if (i === false) {
-                            return;
-                        }
+ 
+                    // 위에 과정을 거친거면
+                    // $addressDiv.text('');
+
+
+                    if(checkArr.includes(false))
+                    {
+                        alert('입력값을 다시 확인해주세요.');
+                        return ;
                     }
-                    console.log(checkArr[0], checkArr[1], checkArr[2]);
+
 
                     $modiForm.submit();
-
 
                 };
             }

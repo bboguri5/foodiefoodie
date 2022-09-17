@@ -310,7 +310,7 @@ public class MemberController {
         log.info("modifyDTO : {}", newModifyMemberDTO);
         memberService.modifyMemberService(newModifyMemberDTO);
         log.info("go service ");
-        return "redirect:/myPage-profile";
+        return "redirect:/myPage/profile";
     }
 
 //

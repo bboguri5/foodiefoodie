@@ -487,7 +487,7 @@
                                         <h5>
                                             <a class="collapsed" data-bs-toggle="collapse" href="#collapse-B"
                                                 aria-expanded="true" aria-controls="collapse-B">
-                                                Information
+                                                menu
                                             </a>
                                         </h5>
                                     </div>

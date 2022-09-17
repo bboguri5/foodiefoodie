@@ -35,7 +35,7 @@
                                     <span id="emailChk"></span>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" type="email" id="email-input" name="email"
+                                    <input class="form-control" type="email" id="email-input" name="email" autocomplete="off"
                                         placeholder="Email [실제 존재하는 Email 계정명을 입력하세요 계정명, 비밀번호 찾기에 활용됩니다.]">
                                     <!-- <i class="icon_mail"></i> -->
                                 </div>

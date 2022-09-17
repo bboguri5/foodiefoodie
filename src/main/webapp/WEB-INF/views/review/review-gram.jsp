@@ -292,10 +292,10 @@
 				.then(res => res.text())
 				.then(msg => {
 					if (msg === 'up-success') {
-						alert('upLike 성공!!');
+						// alert('upLike 성공!!');
 						showUpLike(e); // 좋아요 새로불러오기
 					} else {
-						alert('downLike 성공!!');
+						// alert('downLike 성공!!');
 						showDownLike(e);
 					}
 				});
@@ -317,7 +317,6 @@
 			fetch('/review/getLike?reviewBno=' + bno)
 				.then(res => res.text())
 				.then(likeCnt => {
-					document.getElementById(bno).
 					document.getElementById(bno).classList.remove('icon_heart');
 					document.getElementById(bno).classList.add('icon_heart_alt');
 					document.getElementById("heart" + bno).innerHTML = likeCnt;

@@ -184,7 +184,7 @@
                                 <span style="margin-left: 10px">|</span>
                                 <a href="#" class="review-del-btn nav-removeBtn" style="margin-left: 10px;">삭제</a>
                             </c:if>
-                            <c:if test="${loginUser.email != review.email && loginUser.auth != 'ADMIN'}">
+                            <c:if test="${(loginUser.email != null && loginUser.email != review.email) && loginUser.auth != 'ADMIN'}">
                                 <a href="#" class="review-faq-btn nav-faq-btn" style="margin-left: 10px;"
                                     data-bs-toggle='modal' data-bs-target='.review-faq-modal'>신고</a>
                             </c:if>
@@ -526,7 +526,7 @@
                             `<span>|</span><a id='replyDelBtn' class='btn btn-sm btn-outline-secondary' href='#'>삭제</a>`
                             ;
                     }
-                    if(loginEmail != null && loginEmail != `${review.email}`) {
+                    if(loginEmail != '' && loginEmail != `${review.email}`) {
                         tag +=
                         `<span>|</span><a id='replyFaqBtn' class='btn btn-sm btn-outline-secondary' data-bs-toggle='modal' data-bs-target='#replyFaqModal'
                                             data-replyWriterEmail=` + rep.email + ` data-replyNo=` + rep.replyNo +
@@ -785,10 +785,10 @@
                 .then(res => res.text())
                 .then(msg => {
                     if (msg === 'up-success') {
-                        alert('upLike 성공!!');
+                        // alert('upLike 성공!!');
                         showUpLike(); // 좋아요 새로불러오기
                     } else {
-                        alert('downLike 성공!!');
+                        // alert('downLike 성공!!');
                         showDownLike();
                     }
                 });

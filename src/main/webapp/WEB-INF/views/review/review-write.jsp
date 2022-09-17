@@ -640,7 +640,7 @@
                 // 파일 삭제 시 input 창 삭제 
                 this.on('removedfile', function (file) {
 
-                    if ('${referer}' === null) // 리뷰글에서만 처리.
+                    if ('${referer}'.length > 0) // 리뷰글에서만 처리.
                     {
                         $('.businessNo').val('');
 
@@ -687,7 +687,7 @@
                     const formData = new FormData();
                     formData.append('file', file)
 
-                    if ('${referer}' != null) { // 홍보글에서 넘어온 리뷰글 작성 (사업자번호 유)
+                    if ('${referer}'.length > 0) { // 홍보글에서 넘어온 리뷰글 작성 (사업자번호 유)
 
                         const uploadFile = {
                             method: "POST",
@@ -739,6 +739,8 @@
                             })
 
                     } else { // 리뷰글에서 작성 (사업자번호 무)
+
+                        console.log("???");
                         const obj = {
                             method: "POST",
                             body: formData

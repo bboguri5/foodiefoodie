@@ -640,7 +640,7 @@
                 // 파일 삭제 시 input 창 삭제 
                 this.on('removedfile', function (file) {
 
-                    if ('${referer}'.length > 0) // 리뷰글에서만 처리.
+                    if ('${referer}'.length === 0) // 리뷰글에서만 처리.
                     {
                         $('.businessNo').val('');
 

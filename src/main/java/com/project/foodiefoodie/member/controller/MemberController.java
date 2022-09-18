@@ -59,7 +59,7 @@ public class MemberController {
 
         BlackList findBlackUser = blackListService.findOneService(dto.getValue());
 
-        if (findBlackUser != null) { // 블랙리스트로 등록된 이메일인 경우
+        if (findBlackUser.getEmail() != null) { // 블랙리스트로 등록된 이메일인 경우
             return new ResponseEntity<>("blackList", HttpStatus.OK);
         } 
         else { // 블랙 리스트가 아닌 경우

@@ -54,7 +54,8 @@
 
     <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 
-	
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3628802857247133"
+     crossorigin="anonymous"></script>
 
 </body>
 </html>

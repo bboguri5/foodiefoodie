@@ -45,3 +45,5 @@
 <script src="/mypage/js/admin.js"></script>
 <!-- Custom scripts for this page-->
 <script src="/mypage/vendor/dropzone.min.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3628802857247133"
+     crossorigin="anonymous"></script>

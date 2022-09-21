@@ -126,6 +126,8 @@
 
     <%@ include file="/WEB-INF/views/include/footer.jsp" %>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3628802857247133"
+     crossorigin="anonymous"></script>
 
     <!-- 연락처 입력시 자동으로 하이픈 작성을 해주는 스크립트 영역 -->
     <script>

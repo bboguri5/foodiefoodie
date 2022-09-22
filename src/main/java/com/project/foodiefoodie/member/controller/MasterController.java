@@ -54,7 +54,7 @@ public class MasterController {
 
         BlackListMaster findBlackUser = blackListMasterService.findOneService(businessNo);
 
-        if (findBlackUser == null) { // 블랙 리스트에 등록된 사업자 번호가 아닌 경우 
+        if (findBlackUser.getBusinessNo() == null) { // 블랙 리스트에 등록된 사업자 번호가 아닌 경우
             boolean flag = masterService.duplicateBusinessNo(businessNo);
 
             if (flag) { // 중복된 사업자 번호인 경우

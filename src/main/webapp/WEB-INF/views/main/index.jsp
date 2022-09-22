@@ -57,6 +57,8 @@
 
 		<div class="bg_gray">
 			<div class="container margin_60_40">
+				<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3628802857247133"
+     crossorigin="anonymous"></script>
 				<div class="main_title center">
 					<span><em></em></span>
 					<h2>카테고리 모아보기</h2>
@@ -205,7 +207,8 @@
 
 			</div>
 			<!-- /carousel -->
-
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3628802857247133"
+     crossorigin="anonymous"></script>
 			<div class="banner lazy" data-bg="url(img/banner_bg_desktop.jpg)">
 				<div class="wrapper d-flex align-items-center opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.2)"
 					style="background: url('img/food_review.jpg') no-repeat 100% / 100%">
@@ -220,6 +223,8 @@
 			</div>
 			<!-- /banner -->
 
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3628802857247133"
+     crossorigin="anonymous"></script>
 			<div class="row">
 				<div class="col-12">
 					<div class="main_title version_2">
@@ -287,7 +292,8 @@
 		</div>
 		<!-- /container -->
 
-
+		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3628802857247133"
+     crossorigin="anonymous"></script>
 
 		<div class="call_section lazy" data-bg="url(img/owner.jpg)">
 			<div class="container clearfix">
@@ -307,6 +313,9 @@
 
 	</main>
 	<!-- /main -->
+
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3628802857247133"
+     crossorigin="anonymous"></script>
 
 	<%@ include file="../include/footer.jsp" %>
 
